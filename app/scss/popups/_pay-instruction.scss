@@ -1,0 +1,139 @@
+.instruction-steps-list {
+  margin: 0;
+  padding: 0 3% 0 3%;
+  list-style-type: none;
+  max-width: 60em;
+  box-sizing: border-box;
+  li {
+    margin: 0;
+    counter-increment: itemCounter;
+    padding: 0.9em 0;
+    &:before {
+      content: counter(itemCounter);
+      display: block;
+      float: left;
+      border-radius: 50%;
+      box-sizing: border-box;
+      text-align: center;
+      font-size: 1.35em;
+      width: 2em;
+      height: 2em;
+      line-height: 1.8em;
+      border: 1px solid;
+    }
+  }
+}
+
+.instruction-item-text {
+  font-size: 1.6em;
+  padding: 0.35em 0;
+  margin-left: 3em;
+}
+.instruction-title {
+  padding-bottom: 3em;
+}
+.instruction-title-steps {
+  float: left;
+  padding: 2em 2em 2em 4.8em;
+  background-color: #3c506b;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-top-right-radius: 3.1em;
+  border-bottom-right-radius: 3.1em;
+  margin-right: 2em;
+  span {
+    font-size: 1.8em;
+  }
+}
+.instruction-title-text {
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: 1em 0;
+  line-height: 1.7em;
+  margin-right: 2em;
+  margin-left: 8em;
+}
+.instruction-for-copy-button {
+  position: relative;
+  top: 0.5em;
+  vertical-align: middle;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #adcdda;
+  font-size: 1.2em;
+  outline: none;
+  cursor: pointer;
+  float: right;
+  left: 1.8em;
+  &.copied {
+    color: #ffa2a8;
+    &:before {
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 0.8em;
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      content: 'Copied';
+      font-size: 0.75em;
+      padding: 0.5em 1.2em;
+      right: -0.3em;
+      border-radius: 3px;
+    }
+    &:after {
+      content: '';
+      font-size: 0.75em;
+      position: absolute;
+      bottom: 100%;
+      width: 0.5em;
+      height: 0.5em;
+      background-color: rgba(0, 0, 0, 0.8);
+      transform: rotate(45deg);
+      right: 0.5em;
+      margin-bottom: 0.55em;
+    }
+  }
+}
+.instruction-for-copy {
+  box-sizing: border-box;
+  padding-right: 3em;
+  position: relative;
+}
+.instruction-for-copy-text {
+  color: #adcdda;
+  background-color: #3c506b;
+  padding: 0.65em 1em;
+  margin-top: 0.5em;
+  word-wrap: break-word;
+}
+.instruction-action-buttons {
+  padding: 2em 3%;
+  .btn {
+    font-size: 0.85em;
+  }
+}
+.instruction-checking {
+  margin-left: 1em;
+  display: inline-block;
+  .preloader-container {
+    margin-right: 1em;
+  }
+}
+.instruction-checking-text {
+  font-size: 1.7em;
+  vertical-align: middle;
+}
+.instruction-text-alert {
+  text-transform: uppercase;
+  background-color: #d64a4a;
+  padding: 0.5em;
+  margin: 0 0.2em;
+}
+
+@media screen and (max-width: 520px) {
+  .instruction-title-text {
+    clear: both;
+    margin: 0 3%;
+  }
+
+}

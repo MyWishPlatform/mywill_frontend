@@ -1,0 +1,88 @@
+.ng-ranger-line {
+  position: relative;
+  height: 0.5em;
+  background-color: #fff;
+  overflow: visible;
+}
+
+.ng-ranger-line-selected {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+.ng-ranger-line-point {
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: -1em;
+  margin-top: -1em;
+  top: 50%;
+  left: 50%;
+}
+.ng-ranger-container {
+  margin: 0.3em 1em 0;
+  padding: 1em 0 3em;
+  position: relative;
+  &:before {
+    position: absolute;
+    transform: rotate(45deg);
+    content: '';
+    width: 1em;
+    height: 1em;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: -0.5em;
+    margin-left: -0.5em;
+    display: none;
+    background-color: #0D111B;
+  }
+  &:after {
+    position: absolute;
+    content: attr(data-sum-percentage)'%';
+    bottom: 100%;
+    font-size: 1.4em;
+    line-height: 1.3em;
+    padding: 1em 0;
+    width: 5em;
+    text-align: center;
+    background-color: #0D111B;
+    left: 50%;
+    margin-left: -2.5em;
+    display: none;
+  }
+
+  &.in-active-status {
+    &:after, &:before {
+      display: block;
+    }
+  }
+
+  &.invalid {
+    .ng-ranger-line-selected, .ng-ranger-line-point {
+      background-color: #F90F46;
+    }
+  }
+  &.warning {
+    .ng-ranger-line-selected, .ng-ranger-line-point {
+      background-color: #f9e01c;
+    }
+  }
+  .ng-ranger-line-selected, .ng-ranger-line-point {
+    background-color: #22de54;
+  }
+}
+.ng-ranger-value {
+  position: absolute;
+  width: 7em;
+  text-align: center;
+  top: 100%;
+  margin-top: 1.5em;
+  margin-left: -3.5em;
+  span {
+    font-size: 1.5em;
+  }
+}

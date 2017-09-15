@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="authController">
+<head lang="en">
+    <title>MyWill</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1">
+    <meta charset="UTF-8">
+    <base href="/auth/"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <link href="/static/css/login.css" rel="stylesheet"/>
+    <script src="/static/vendors/vendors.js"></script>
+    <script src="/static/tpl/templates.tpl.js"></script>
+    <script src="/static/js/login.js"></script>
+    <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/favicon/android-chrome-192x192.png" sizes="192x192">
+    <meta name="msapplication-square70x70logo" content="/static/favicon/smalltile.png" />
+    <meta name="msapplication-square150x150logo" content="/static/favicon/mediumtile.png" />
+    <meta name="msapplication-wide310x150logo" content="/static/favicon/widetile.png" />
+
+    <meta name="msapplication-square310x310logo" content="/static/favicon/largetile.png" />
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#338f8d">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#338f8d">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#338f8d">
+
+</head>
+<body ng-class="{'visible': onCheck}">
+<header>
+    <img src="/static/images/logo.svg"/>
+</header>
+<div class="auth-form">
+    <ul class="auth-form-menu">
+        <li ng-class="{active: $state.current.name == 'main.login'}">
+            <a ui-sref="main.login">Sign in</a>
+        </li>
+        <li ng-class="{active: $state.current.name == 'main.registration'}">
+            <a ui-sref="main.registration">Sign up</a>
+        </li>
+    </ul>
+    <div ui-view></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<div class="ng-ranger-container"
+     ng-class="{'in-active-status': changeProgress, 'invalid': !ngRanger.sumStatus, 'warning': (ngRanger.sumStatus == 1)}">
+    <div class="ng-ranger-line">
+        <div class="ng-ranger-line-selected" style="width: {{percentage}}%"></div>
+        <div class="ng-ranger-line-point" style="left: {{percentage}}%"></div>
+        <div class="ng-ranger-value" style="left: {{percentage}}%">
+            <span>{{value}}%</span>
+        </div>
+    </div>
+</div>

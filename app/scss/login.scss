@@ -1,0 +1,197 @@
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-image: url(images/login-background.png);
+  background-size: cover;
+  background-position: center center;
+  font-size: 10px;
+  font-family: 'Ubuntu', sans-serif;
+  &:not(.visible) {
+    header, .auth-form {
+      display: none;
+    }
+  }
+}
+input, button {
+  font-family: inherit;
+}
+header {
+  padding: 2.7em 3.15em;
+  img {
+    width: 16.5em;
+    height: 3.675em;
+    display: block;
+  }
+}
+
+.auth-form {
+  width: 34.65em;
+  margin: 0 auto;
+  max-width: 90%;
+}
+.field-container {
+  position: relative;
+  padding-top: 2.775em;
+  margin-bottom: 2.775em;
+}
+.field-error, .field-success {
+  font-size: 1.3em;
+  position: absolute;
+  top: 100%;
+  margin-top: 0.5em;
+}
+.field-error {
+  display: none;
+  color: #ffa2a8;
+}
+.field-success {
+  display: block;
+  color: #06b01f;
+}
+
+.static-field-error {
+  display: block;
+  color: #ffa2a8;
+  font-size: 1em;
+  margin: -1.5em 0 2em;
+}
+.field-input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid rgba(226, 228, 239, 0.53);
+  background: none;
+  font-size: 1.8em;
+  line-height: 1.2em;
+  padding: 0.75em 1em;
+  color: rgba(226, 228, 239, 0.53);
+  form.ng-submitted &, &.ng-touched {
+    &.ng-invalid {
+      border-color: #ffa2a8;
+      ~ {
+        .field-label {
+          //color: #ffa2a8;
+        }
+      }
+
+      &.ng-invalid-required {
+        ~ .form-field_error-required {
+          display: block;
+          ~ .field-error {
+            display: none;
+          }
+        }
+      }
+      &.ng-invalid-email {
+        ~ {
+          .form-field_error-email {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+      &.ng-invalid-pattern {
+        ~ {
+          .form-field_error-pattern {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+      &.ng-invalid-minlength {
+        ~ {
+          .form-field_error-minlength {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+
+      &.ng-invalid-server {
+        ~ {
+          .form-field_error-server {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.field-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.8em;
+  color: #FFFFFF;
+  line-height: 1.25em;
+}
+.auth-form-menu {
+  list-style-type: none;
+  padding: 0 0 4.875em;
+  margin: 0;
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 0.225em;
+    &.active {
+      border-bottom: 2px solid #FF0024;
+      a {
+        color: #fff!important;
+      }
+    }
+    + li {
+      margin-left: 1.5em;
+    }
+    a {
+      font-size: 2em;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.25em;
+      &, &:hover, &:focus {
+        text-decoration: none;
+      }
+      &:hover, &:focus {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+}
+.field-submit-container {
+  margin-bottom: 2.775em;
+  button {
+    background-color: #F90E36;
+    color: #fff;
+    font-size: 1.8em;
+    line-height: 1.2em;
+    border: 0 none;
+    border-radius: 2px;
+    padding: 0.75em 2.5em;
+    cursor: pointer;
+  }
+}
+.restore-link {
+  font-size: 1.7em;
+  color: #FFFFFF;
+  line-height: 1.2em;
+}
+
+.email-confirm-title, .email-confirm-text {
+  color: #fff;
+}
+.email-confirm-title {
+  font-size: 2.5em;
+}
+.email-confirm-text {
+  font-size: 2em;
+  line-height: 1.35em;
+}

@@ -1,0 +1,29 @@
+<form class="login-form" ng-submit="sendLoginForm(loginForm)" name="loginForm" novalidate>
+    <div class="field-container">
+        <input type="email"
+               required
+               ng-model="request.username"
+               ng-class="{'ng-invalid ng-invalid-server': serverErrors.email}"
+               class="field-input">
+        <span class="field-label">E-mail</span>
+        <span class="field-error form-field_error-required">Field is required</span>
+        <span class="field-error form-field_error-email">Enter your e-mail</span>
+        <span class="field-error form-field_error-server">{{serverErrors.email.join(', ')}}</span>
+    </div>
+    <div class="field-container">
+        <input type="password"
+               required
+               ng-model="request.password"
+               ng-class="{'ng-invalid ng-invalid-server': serverErrors.password}"
+               class="field-input">
+        <span class="field-label">Password</span>
+        <span class="field-error form-field_error-required">Field is required</span>
+        <span class="field-error form-field_error-server">{{serverErrors.password.join(', ')}}</span>
+    </div>
+    <span class="static-field-error"
+          ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
+    <div class="field-submit-container">
+        <button type="submit">Log in</button>
+    </div>
+    <a ui-sref="main.forgot" class="restore-link">restore login and password</a>
+</form>

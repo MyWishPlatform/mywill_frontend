@@ -1,0 +1,26 @@
+<div class="main-menu-wrapper" ng-controller="mainMenuController">
+    <div class="menu-trigger-btn">
+        <button class="header-menu-trigger" ng-click="toggleMenu()">
+            <i class="icon-menu"></i>
+        </button>
+    </div>
+    <a ui-sref="main.base" class="main-menu-logo">
+        <img src="/static/images/logo.svg"/>
+    </a>
+    <nav class="main-menu-navigator">
+        <ul class="main-menu-global-menu">
+            <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow">
+                <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static" ng-class="{'active': $state.current.name == menuItem.route, 'no-active': menuItem.noactive}">
+                    <i ng-class="menuItem.icon"></i>
+                    <span ng-if="menuItem.title">{{menuItem.title}}</span>
+                    <span ng-if="menuItem.titleUserPar">{{currentUser[menuItem.titleUserPar]}}</span>
+                </a>
+                <a ng-attr-href="{{(menuItem.type === 'mail' ? 'mailto:' : '') + menuItem.url }}" ng-if="menuItem.static">
+                    <i ng-class="menuItem.icon"></i>
+                    <span ng-if="menuItem.title">{{menuItem.title}}</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+

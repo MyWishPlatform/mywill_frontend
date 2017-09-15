@@ -1,0 +1,104 @@
+$white-normal-color: rgba(255, 255, 255, 0.7);
+$white-hover-color: rgba(255, 255, 255, 1);
+$white-active-color: rgba(255, 255, 255, 0.5);
+
+
+$red-normal-color: rgba(249, 14, 54, 0.8);
+$red-hover-color: #f90e36;
+$red-active-color: #bb0d2b;
+
+.btn {
+  border: 0 none;
+  cursor: pointer;
+  padding: 0 3em;
+  outline: none;
+  font-size: 1em;
+  line-height: 4.9em;
+  border-radius: 2.5em;
+  display: inline-block;
+  vertical-align: middle;
+  &.with-icon {
+    padding-left: 1.1em;
+  }
+  i {
+    font-size: 3.1em;
+    margin-right: 0.25em;
+  }
+  span {
+    font-size: 1.8em;
+  }
+  span, i {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &.btn-submit {
+    background: $red-normal-color;
+    text-transform: uppercase;
+    color: #fff;
+    &:hover, &:focus {
+      background: $red-hover-color;
+    }
+    &:active {
+      background: $red-active-color;
+    }
+  }
+  &.radius-button {
+    border-radius: 1.35em;
+  }
+  &.btn-popup {
+    border-radius: 2.1em;
+    padding: 1em 2em;
+    font-size: 1em;
+    span {
+      font-size: 1.8em;
+      line-height: 1.25em;
+    }
+    &.float-right {
+      float: right;
+      margin-right: 1.333em;
+    }
+    + .btn-popup {
+      margin-left: 1.15em;
+    }
+  }
+  &.btn-white {
+    color: #333;
+    background: $white-normal-color;
+    &:hover, &:focus {
+      background: $white-hover-color;
+    }
+    &:active {
+      background: $white-active-color;
+    }
+  }
+  &.btn-transparent {
+    border: 2px solid;
+    color: $white-normal-color;
+    background: none;
+    line-height: 4.5em;
+    &:hover, &:focus {
+      color: $white-hover-color;
+    }
+    &:active {
+      color: $white-active-color;
+    }
+  }
+  &.btn-green {
+    color: #000;
+    background: #63FF26;
+  }
+  &.only-icon {
+    background: none;
+    color: $white-normal-color;
+    padding: 0 0 0 1.5em;
+    i {
+      font-size: 2.9em;
+    }
+    &:hover, &:focus {
+      color: $white-hover-color;
+    }
+    &:active {
+      color: $white-active-color;
+    }
+  }
+}

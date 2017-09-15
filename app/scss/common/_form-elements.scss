@@ -1,0 +1,218 @@
+.form-control-label {
+  display: block;
+  font-size: 1.5em;
+  line-height: 2em;
+}
+.form-control-buttons {
+  margin-top: 0.95em;
+}
+.form-control-input, .text-field {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #E2E4EF;
+  background: 0 none;
+  font-size: 1.5em;
+  line-height: 2em;
+  color: #ACB3BB;
+  padding: 0.5em 1em;
+  margin-top: 0.2em;
+
+  &::-webkit-input-placeholder {color:#999;}
+  &::-moz-placeholder          {color:#999;}/* Firefox 19+ */
+  &:-moz-placeholder           {color:#999;}/* Firefox 18- */
+  &:-ms-input-placeholder      {color:#999;}
+
+  form.ng-submitted &, &.ng-touched {
+    &.ng-invalid {
+      border-color: #ffa2a8;
+      ~ {
+        .field-label {
+          //color: #ffa2a8;
+        }
+      }
+
+      &.ng-invalid-required {
+        ~ .form-field_error-required {
+          display: block;
+          ~ .field-error {
+            display: none;
+          }
+        }
+      }
+      &.ng-invalid-email {
+        ~ {
+          .form-field_error-email {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+      &.ng-invalid-pattern {
+        ~ {
+          .form-field_error-pattern {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+      &.ng-invalid-minlength {
+        ~ {
+          .form-field_error-minlength {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+
+      &.ng-invalid-server {
+        ~ {
+          .form-field_error-server {
+            display: block;
+            ~ .field-error {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.form-control-little {
+  float: left;
+  width: 6em;
+  + .form-control {
+    margin-left: 8em;
+  }
+}
+
+.form-control {
+
+}
+.form-control-value {
+  margin-top: 0.33em;
+  font-size: 3em;
+  line-height: 1em;
+  padding: 0.58em 0;
+}
+.contract-form-row {
+  padding-bottom: 1em;
+}
+.contract-form-information-btns {
+  padding-top: 3.5em;
+  .btn {
+    + .btn {
+      margin-left: 3em;
+    }
+  }
+}
+.contact-add-btn {
+  border: 0 none;
+  color: #263E5E;
+  background: #fff;
+  cursor: pointer;
+  padding: 0 3em 0 1.1em;
+  outline: none;
+  font-size: 1em;
+  line-height: 4.9em;
+  border-radius: 2.5em;
+  .contract-form-information-btns & {
+    font-size: 1.3em;
+    + .contact-add-btn {
+      margin-left: 2em;
+    }
+    i {
+      font-size: 2.5em;
+      margin-right: 0;
+    }
+  }
+  i {
+    font-size: 3.1em;
+    margin-right: 0.25em;
+  }
+  span {
+    font-size: 1.5em;
+  }
+  span, i {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .contract-form-row + & {
+    margin-top: 2em;
+  }
+}
+.contact-remove-btn {
+  background: none;
+  border: 0 none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  font-size: 4.7em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -0.5em;
+  margin-right: -0.5em;
+}
+.contract-form-row {
+  + .contract-form-row {
+    margin-top: 3em;
+  }
+}
+.form-control-date {
+  position: relative;
+  @extend .icon-calendar;
+  &:before {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-family: 'icomoon' !important;
+    font-size: 2.2em;
+    margin-right: 0.65em;
+    margin-bottom: 0.65em;
+    z-index: 1;
+  }
+  input {
+    position: relative;
+    z-index: 2;
+  }
+}
+.costs-info {
+  .select {
+    margin-left: 2em;
+  }
+}
+.costs-info-title, .costs-info-value, .costs-info-currency {
+  vertical-align: middle;
+}
+.costs-info-title {
+  font-size: 1.7em;
+  line-height: 1.15em;
+}
+.costs-info-value {
+  font-size: 1.8em;
+  line-height: 1.15em;
+  font-weight: bold;
+}
+.costs-info-currency {
+  font-size: 2.1em;
+  line-height: 1.15em;
+}
+
+@media screen and (max-width: 480px) {
+  .contract-form-information-btns {
+    .btn {
+      width: 100%;
+      + .btn {
+        margin-left: 0;
+        margin-top: 2em;
+      }
+    }
+  }
+}

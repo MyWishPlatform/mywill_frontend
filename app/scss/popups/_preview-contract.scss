@@ -1,0 +1,366 @@
+.contract-balance-title {
+  font-size: 1.35em;
+}
+.contract-balance-value {
+  font-size: 1.575em;
+  font-weight: bold;
+}
+.contract-balance {
+  line-height: 5em;
+  display: block;
+}
+.contract-wallets-information {
+
+}
+.contract-output-wallet, .contract-input-wallets, .contract-information-dates-content {
+  margin-left: 0;
+}
+.contract-output-wallet {
+
+}
+.contract-input-wallets {
+
+}
+.contract-wallets-information-one-block {
+  padding: 0.75em 2.25%;
+  &:after {
+    content: '';
+    display: table;
+    width: 100%;
+  }
+}
+.contract-information-icon {
+  font-size: 2.5em;
+  color: #65A8F0;
+  float: left;
+}
+.contract-wallet-information {
+
+}
+.contract-wallet-information-table {
+  display: table;
+  border-spacing: 0 0.75em;
+  width: 100%;
+}
+.contract-wallet-information-row {
+  display: table-row;
+}
+.contract-wallet-information-cell {
+  display: table-cell;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.contract-wallet-information-title {
+  font-size: 1.35em;
+  margin-left: 2em;
+  &:not(.contract-wallet-information-cell) {
+    padding: 0.75em;
+  }
+}
+.contract-wallet-information-wallet {
+  font-size: 1.4em;
+  color: #B7B7B7;
+  padding: 0 1.65em 0 0;
+  &:not(.contract-wallet-information-float-cell) {
+    margin-top: 0.3125em;
+  }
+  .instruction-for-copy-button {
+    float: none;
+    vertical-align: middle;
+    top: initial;
+    left: initial;
+    margin-left: 0.75em;
+  }
+  a {
+    color: #fff;
+    &, &:hover {
+      text-decoration: none;
+    }
+    &:hover {
+      color: #f7ec45;
+    }
+  }
+}
+
+.contract-wallet-information-percentage {
+  font-size: 1.35em;
+  font-weight: bold;
+  border-left: 1px solid #272737;
+  border-right: 1px solid #272737;
+  padding: 0 1em;
+  width: 1px;
+}
+.contract-wallet-information-email {
+  font-size: 1.35em;
+  padding: 0 1em;
+}
+.contract-dates-information {
+  background: #3F536F;
+  box-shadow: 0 10px 14px 0 rgba(0,0,0,0.30), inset 0 10px 10px 0 rgba(0,0,0,0.10);
+  padding-top: 1.3875em;
+  padding-bottom: 1.3875em;
+  margin-top: 2em;
+  border-bottom-left-radius: 0.6em;
+  border-bottom-right-radius: 0.6em;
+  .contract-information-icon {
+    float: left;
+  }
+}
+.contract-information-dates-content {
+  padding: 0.6em 0 0.6em 1.35em;
+  margin-left: 4.05em;
+}
+.contract-wallet-information-date {
+  font-size: 1.35em;
+  color: #B7B7B7;
+  border-left: 1px solid #272737;
+  padding: 0 1em;
+  text-align: center;
+  span {
+    color: #fff;
+  }
+}
+.contract-preview-tabs {
+  position: absolute;
+  top: -3.6em;
+  line-height: 3.6em;
+  left: 4.5em;
+}
+.contract-preview-one-tab {
+  border-top-left-radius: 0.6em;
+  border-top-right-radius: 0.6em;
+  float: left;
+  width: 17.25em;
+  text-align: center;
+  background-color: #293c58;
+  cursor: pointer;
+  &:after, &:before {
+    display: table;
+    content: '';
+    width: 100%;
+  }
+  span {
+    font-size: 1.35em;
+    line-height: 1em;
+    vertical-align: middle;
+  }
+  &.active {
+    background-color: #4E6484;
+  }
+}
+.contract-popup-wrapper {
+  padding: 2.4em 0;
+}
+.contract-preview-information {
+}
+.contract-balance {
+  padding-left: 3%;
+  padding-right: 3%;
+}
+.contract-preview-form {
+  margin-left: 3%;
+  margin-right: 3%;
+  padding-top: 3.75em;
+  padding-bottom: 1.875em;
+}
+.contract-preview-form {
+  .btn {
+    min-width: 12.225em;
+  }
+  .costs-info-fieldset {
+    padding: 1.35em 2em;
+    white-space: nowrap;
+  }
+}
+.contract-preview-code {
+  position: relative;
+  margin: 0 3%;
+  .instruction-for-copy-button {
+    float: none;
+    left: 0.5em;
+    font-size: 1.6em;
+    top: 0;
+  }
+  .code {
+    white-space: pre;
+    font-size: 1.4em;
+    font-family: monospace;
+    padding: 1em;
+    background-color: #333;
+    overflow: auto;
+    box-sizing: border-box;
+    max-height: 400px;
+    cursor: text;
+  }
+  .code-copy-controls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    white-space: nowrap;
+    line-height: 5em;
+    .btn, .copied-code-notice {
+      vertical-align: middle;
+    }
+    .btn {
+      margin-left: 2em;
+    }
+    .copied-code-notice {
+      opacity: 0;
+      transition: opacity linear 0.3s;
+      i {
+        font-size: 2em;
+        margin-right: 1em;
+      }
+      span {
+        font-size: 1.8em;
+      }
+      &.visible {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.contract-wallet-information-float {
+  padding: 0.5em 0;
+  &:first-child {
+    padding-top: 1em;
+  }
+  &:last-child {
+    padding-bottom: 1em;
+  }
+  &:after, &:before {
+    display: table;
+    content: '';
+    width: 100%;
+  }
+}
+.contract-wallet-information-float-cell {
+  box-sizing: border-box;
+  &.contract-wallet-information-wallet {
+    float: left;
+    width: 26em;
+  }
+  &.contract-wallet-information-percentage {
+    float: left;
+    width: 4em;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  &.contract-wallet-information-email {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 27em;
+  }
+}
+.contract-wallets-information {
+  margin-bottom: -2.4em;
+}
+.github-link {
+  margin-bottom: 2em;
+  a {
+    font-size: 1.4em;
+  }
+}
+@media screen and (max-width: 960px) {
+  .contract-wallet-information {
+    padding: 1em 0;
+    + .contract-wallet-information {
+      border-top: 1px solid #8ea4c3;
+    }
+  }
+  .contract-wallet-information-wallet {
+    &.contract-wallet-information-float-cell, & {
+      float: none;
+      margin-bottom: 1em;
+      word-break: break-all;
+      white-space: normal;
+      width: auto;
+    }
+  }
+  .contract-wallet-information-float-cell {
+    &.contract-wallet-information-percentage {
+      width: 4em;
+      border: none;
+      text-align: left;
+    }
+    &.contract-wallet-information-email {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-left: 4.5em;
+      text-align: right;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .contract-wallet-information-cell,
+  .contract-wallet-information-row,
+  .contract-wallet-information-table {
+    display: block;
+  }
+  .contract-wallet-information-date {
+    text-align: left;
+    border: 0 none;
+  }
+  .contract-information-dates-content {
+    .contract-wallet-information-cell {
+      padding: 0.5em 0;
+    }
+    .contract-wallet-information-title {
+      margin-left: 0;
+    }
+  }
+}
+@media screen and (max-width: 680px) {
+  .grid-cell {
+    &.float-right {
+      float: left!important;
+    }
+  }
+  .contract-preview-form {
+    padding-top: 2em;
+  }
+  .costs-info-fieldset {
+    float: left!important;
+    margin-bottom: 2em;
+  }
+}
+@media screen and (max-width: 640px) {
+  .contract-balance {
+    &:after, &:before {
+      display: table;
+      width: 100%;
+      content: '';
+    }
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .grid-cell {
+    &.float-right {
+      float: left!important;
+    }
+  }
+  .costs-info-fieldset {
+    float: none!important;
+  }
+  .btn-submit {
+    width: 100%;
+  }
+  .contract-preview-tabs {
+    left: 3%;
+  }
+  .contract-preview-one-tab {
+    width: auto;
+    padding-left: 2em;
+    padding-right: 2em;
+    span {
+      font-size: 1.2em;
+    }
+  }
+}

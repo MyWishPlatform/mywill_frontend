@@ -1,0 +1,54 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  min-width: 320px;
+}
+body {
+  margin: 0;
+  color: #fff;
+  font-size: 10px;
+  background: url(images/bg.png) left center repeat #262a36;
+  position: relative;
+  font-family: 'Ubuntu', sans-serif;
+  &.popup-showed {
+    overflow: hidden;
+  }
+  &:not(.visible) {
+    .main-header-holder, .main-menu-holder, .pre-release-information, .main-content-holder {
+      display: none;
+    }
+  }
+
+}
+.text-center {
+  text-align: center!important;
+}
+.text-right {
+  text-align: right!important;
+}
+.float-right {
+  float: right!important;
+}
+.float-left {
+  float: left!important;
+}
+.clearfix {
+  &:after, &:before {
+    content: '';
+    display: table;
+    width: 100%;
+  }
+}
+.uppercase {
+  text-transform: uppercase;
+}
+button, input, textarea {
+  font-family: inherit;
+}
+a {
+  color: #fff;
+  &:hover, &:focus {
+    text-decoration: none;
+    color: #f7ec45;
+  }
+}

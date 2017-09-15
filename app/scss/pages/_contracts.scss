@@ -1,0 +1,93 @@
+.contract-preview-status-block {
+  padding: 0 0 1.5em 0;
+  margin-top: 0;
+  line-height: 4.9em;
+  &:after, &:before {
+    display: table;
+    content: '';
+    width: 100%;
+  }
+}
+
+.contracts-list-wrapper {
+  .contract-wallets-information {
+    display: none;
+  }
+  .main-section-chapter-fieldset {
+    padding: 1.5em 0;
+    margin-top: 0;
+    line-height: 4.9em;
+    margin-right: 0;
+    &:after, &:before {
+      display: table;
+      content: '';
+      width: 100%;
+    }
+    + .main-section-chapter-fieldset {
+      margin-top: 1.5em;
+    }
+  }
+  .contract-wallets-information-one-block {
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+  .contract-balance {
+    line-height: 2.85em;
+    padding: 1.05em 1.05em 1.05em 3.75em;
+  }
+}
+.contract-name-block {
+  float: left;
+  background-color: #3C506C;
+  line-height: 2.85em;
+  padding: 1.05em 1.05em 1.05em 1.875em;
+  border-top-right-radius: 2.475em;
+  border-bottom-right-radius: 2.475em;
+  white-space: nowrap;
+  color: #fff;
+  margin-right: 1.5em;
+  &, &:hover, &:focus {
+    text-decoration: none;
+  }
+}
+.contract-status-buttons-group {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -2.25em 0;
+  .btn {
+    display: block;
+  }
+}
+.contract-show-button {
+  display: inline-block;
+  text-decoration: none!important;
+  @extend .icon-eye;
+  margin-left: 1.5em;
+  font-size: 1em;
+  width: 2.845em;
+  height: 2.845em;
+  line-height: 2.845em;
+  text-align: center;
+  background: #fff;
+  border: 0 none;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  color: #3C506C;
+  &:before {
+    font-size: 1.5em;
+    font-family: 'icomoon' !important;
+  }
+}
+.contract-name-text {
+  font-size: 1.5em;
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 7em;
+}
+.contract-show-button, .contract-name-text {
+  vertical-align: middle;
+}

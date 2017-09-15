@@ -1,0 +1,68 @@
+<label
+    class="select {{ngSelectOptions.class}}"
+    ng-class="{focus: focusedSelect, active: ngSelectOptions.showed, 'with-autocomplete': ngSelectOptions.autocomplete}">
+    <span ng-mousedown="toggleList($event)"
+          ng-if="!ngSelectOptions.autocomplete"
+          class="select-active-area"
+          translate
+          ng-class="{ 'disabled-value': selectedOption.disabled }">
+        {{ !selectedOption.information ? ngSelectOptions.label ? getLabelModel(selectedOption, ngSelectOptions.label) : selectedOption : '' }}
+    </span>
+    <input class="select-active-area"
+           type="text"
+           ng-model="ngAutocompleteField"
+           ng-required="ngSelectOptions.required"
+           ng-show="ngSelectOptions.autocomplete"
+           ng-change="filterOptionsList(ngAutocompleteField)"
+           ng-keydown="inputKeyDown($event)"
+           ng-focus="inputFocus()"
+           autocomplete="off"
+           ng-blur="inputBlur()"
+    ><i ng-if="ngSelectOptions.autocomplete" class="select-arrow-icon"></i>
+    <span class="hidden-items">
+        <span
+                class="no-visibility block"
+                ng-repeat="option in showedList">{{ ngSelectOptions.label ? getLabelModel(option, ngSelectOptions.label) : option }}</span>
+    </span>
+    <select
+            ng-model="ngModel"
+            ng-focus="focusSelect()"
+            ng-blur="blurSelect()"
+            ng-keydown="selectKeyDown($event)"
+            tabindex="{{ngSelectOptions.autocomplete ? -1 : ngSelectOptions.tabindex}}"
+            data-test-element="{{dataTestElement}}"
+            ng-options="
+            (ngSelectOptions.value ? option[ngSelectOptions.value] : option) as (ngSelectOptions.label ? getLabelModel(option, ngSelectOptions.label) : option) disable when option.information for option in showedList | orderBy: (ngSelectOptions.groupBy || $index)">
+    </select>
+    <!--- Select list popUp --->
+    <div class="select-list-container"
+         ng-class="[ngSelectOptions.class + '-container', !showedList.length ? 'empty-list' : '', ngSelectOptions.autocomplete ? 'with-autocomplete' : false]"
+         ng-select-tooltip="{checker: ngSelectOptions.showed}"
+    >
+        <ul class="select-list"
+            ng-scrolled-block="{
+                watcher: showedList.length,
+                showed: ngSelectOptions.showed,
+                activeItemIndex: showedList.indexOf(selectedOption)
+            }">
+            <li class="select-option"
+                ng-repeat="option in showedList | orderBy: (ngSelectOptions.groupBy || $index)"
+                ng-mousedown="selectOption(option, $event)"
+                ng-class="{'information-item': option.information, 'disabled-value': option.disabled, 'selected': option == selectedOption}">
+                <span class="select-optiongroup" ng-if="ngSelectOptions.groupBy && (ngSelectOptions.prevGroup!=option[ngSelectOptions.groupBy])">
+                    {{ngSelectOptions.prevGroup=option[ngSelectOptions.groupBy]}}
+                </span>
+                <span class="select-option-text" translate>{{(ngSelectOptions.label ? getLabelModel(option, ngSelectOptions.label) : option) || 'n/a' }}</span>
+
+                <span class="select-list-container"
+                      ng-if="ngSelectOptions.advanced"
+                      ng-class="ngSelectOptions.class + '-container'"
+                      ng-select-tooltip="{checker: (option == selectedOption) && ngSelectOptions.showed, position: 'right', removeTooltip: deleteAdvanced}"
+                      ng-include="ngSelectOptions.advanced">
+                </span>
+
+            </li>
+        </ul>
+    </div>
+    <!--- / Select list popUp --->
+</label>

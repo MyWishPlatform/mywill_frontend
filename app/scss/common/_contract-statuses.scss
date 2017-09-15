@@ -1,0 +1,62 @@
+.contract-status-name {
+  line-height: 4.95em;
+  float: left;
+  &:before {
+    content: '';
+    display: block;
+    float: left;
+    vertical-align: middle;
+    width: 1.275em;
+    height: 1.275em;
+    border-radius: 50%;
+    margin-right: 0.75em;
+    margin-top: 1.6875em;
+    margin-left: 0.75em;
+  }
+  &.contract-status-1 {
+    &:before {
+      background-color: #fff;
+    }
+  }
+  &.contract-status-2 {
+    &:before {
+      background-color: #f7ec45;
+    }
+  }
+  &.contract-status-3 {
+    &:before {
+      background-color: #fd821a;
+    }
+  }
+  &.contract-status-4 {
+    &:before {
+      background-color: #4bff15;
+    }
+  }
+  &.contract-status-5 {
+    &:before {
+      background-color: #7c8580;
+    }
+  }
+  &.contract-status-6 {
+    &:before {
+      background-color: #fa0202;
+    }
+  }
+}
+.contract-status-text {
+  margin-left: 2.775em;
+  span {
+    display: inline-block;
+    font-size: 1.35em;
+    line-height: 1.25em;
+    vertical-align: middle;
+  }
+}
+.contract-status-buttons {
+  float: right;
+  padding: 0 0.75em;
+  .btn {
+    font-size: 0.75em;
+  }
+}

@@ -1,0 +1,49 @@
+<div class="contract-popup-wrapper">
+    <div class="instruction-title clearfix">
+        <div class="contract-name-block">
+            <div class="contract-name-text uppercase">Deposit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div class="instruction-title-text">To make a deposit on the contract, follow the instructions.</div>
+    </div>
+    <ul class="instruction-steps-list">
+        <li class="clearfix">
+            <div class="instruction-item-text">Open your wallet (Parity, <a ng-attr-href="{{ngPopUp.params.createdContract.depositUrl}}" target="_blank">MyEtherWallet</a>)</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Choose Send Ether & Tokens tab in your wallet</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">
+                Insert the following recipient's address:
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button"
+                            clipboard supported="supported"
+                            ng-class="{copied: ngPopUp.params.createdContract.copied['address']}"
+                            text="ngPopUp.params.createdContract.address"
+                            on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'address')" on-error="ngPopUp.params.failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text">{{ngPopUp.params.createdContract.address}}</div>
+                </div>
+            </div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Specify how much ETH you want to send (Amount to Send field)</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Specify Gas limit 30000</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Click generate Transaction</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Confirm the payment by pressing the button "DONE"</div>
+        </li>
+    </ul>
+
+    <div class="instruction-action-buttons">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>Done</span>
+        </button>
+    </div>
+</div>

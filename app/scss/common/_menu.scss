@@ -1,0 +1,161 @@
+.main-menu-holder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 22.5em;
+  background-color: #0D111B;
+}
+.main-menu-wrapper {
+  height: 100%;
+  position: relative;
+  float: left;
+  width: 100%;
+}
+.main-menu-logo {
+  display: block;
+  margin: 1.35em auto 1.35em 2.55em;
+  width: 16.5em;
+  &:after, &:before {
+    display: table;
+    content: '';
+    width: 100%;
+  }
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+.main-menu-navigator {
+  position: absolute;
+  top: 6.525em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+
+  a {
+    &.no-active {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+}
+.main-menu-settings-menu, .main-menu-global-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  li {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    color: #fff;
+    display: block;
+    padding-left: 5.925em;
+    padding-right: 1em;
+
+    &.active {
+      background: url(images/bg.png) left center repeat;
+    }
+    &, &:hover, &:focus {
+      text-decoration: none;
+    }
+    span {
+      display: block;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 1.35em;
+    }
+    i {
+      float: left;
+      margin-left: -3.375em;
+    }
+  }
+}
+.main-menu-settings-menu {
+  background-color: rgba(26, 40, 70, 0.27);
+  li {
+
+  }
+  a {
+    line-height: 1.725em;
+    padding-top: 1.6875em;
+    padding-bottom: 1.6875em;
+
+    &:not(.no-active) {
+      &:hover, &:focus {
+        background-color: rgba(26, 40, 70, 0.6);
+      }
+    }
+  }
+  i {
+    width: 2.625em;
+    text-align: center;
+    opacity: 0.5;
+    &:before {
+      font-size: 1.725em;
+    }
+  }
+}
+
+.main-menu-global-menu {
+  a {
+    line-height: 2.625em;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    &:not(.no-active) {
+      &:hover, &:focus {
+        background-color: #101e29;
+      }
+    }
+  }
+  i {
+    color: #8975F0;
+    &:before {
+      font-size: 2.625em;
+    }
+  }
+}
+.menu-trigger-btn {
+  padding: 1.6em;
+  display: none;
+}
+@media screen and (max-width: 1024px) {
+  .menu-trigger-btn {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .main-menu-logo {
+    display: inline-block;
+    width: 12em;
+    vertical-align: middle;
+    margin: 0;
+  }
+  //.main-menu-navigator {
+  //  top: 6.2em;
+  //}
+  body {
+    &.with-menu {
+      overflow: hidden;
+      &:after {
+        position: fixed;
+        z-index: 2;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        content: '';
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+      .main-menu-holder {
+        display: block;
+        z-index: 4;
+      }
+    }
+  }
+}
+

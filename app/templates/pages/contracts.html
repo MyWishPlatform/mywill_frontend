@@ -1,0 +1,100 @@
+<div ng-pop-up="{
+    template: '/templates/popups/preview-contract.html',
+    params: previewContractPopUp,
+    opened: true,
+    noClickShow: true,
+    actions: popupActions,
+    onClose: returnToList
+}" ng-if="openedContract && !(stateData.forPayment || stateData.forStopping || stateData.forDeposit)"></div>
+
+<div ng-pop-up="{
+    template: '/templates/popups/pay-instruction.html',
+    params: previewContractPopUp,
+    opened: true,
+    actions: popupActions,
+    noClickShow: true,
+    onClose: returnToList
+}" ng-if="stateData.forPayment && ((statuses[openedContract.state]['value'] == 1) || (statuses[openedContract.state]['value'] == 2))"></div>
+
+<div ng-pop-up="{
+    template: '/templates/popups/deposit-instruction.html',
+    params: previewContractPopUp,
+    opened: true,
+    actions: popupActions,
+    noClickShow: true,
+    onClose: returnToList
+}" ng-if="openedContract && stateData.forDeposit && (statuses[openedContract.state]['value'] == 4)"></div>
+
+<div ng-pop-up="{
+    template: '/templates/popups/stop-instruction.html',
+    params: previewContractPopUp,
+    opened: true,
+    actions: popupActions,
+    noClickShow: true,
+    onClose: returnToList
+}" ng-if="openedContract && stateData.forStopping && (statuses[openedContract.state]['value'] == 4)"></div>
+
+
+
+
+
+<div class="main-section-content">
+    <div class="contracts-list-wrapper">
+        <div class="main-section-chapter-fieldset" ng-repeat="contract in contractsList">
+            <a ui-sref="main.contracts.preview({id: contract.id})"  class="contract-name-block">
+                <div class="contract-name-text" ng-attr-title="{{contract.name}}">{{ contract.name || 'Not defined'}}</div>
+                <span class="contract-show-button"></span>
+            </a>
+            <div class="contract-status-block">
+                <div class="contract-status-buttons">
+
+                    <!-- Pay instruction button -->
+                    <div class="contract-status-buttons-group"
+                         ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)">
+                        <a ui-sref="main.contracts.preview.pay({id: contract.id})"
+                           class="btn btn-transparent">
+                            <span>Pay</span>
+                        </a>
+                    </div>&nbsp;
+
+                    <!-- Deposit instruction button -->
+                    <a ui-sref="main.contracts.preview.deposit({id: contract.id})"
+                       ng-if="statuses[contract.state]['value'] == 4"
+                       class="btn btn-transparent">
+                        <span>Deposit</span>
+                    </a>&nbsp;
+
+                    <!-- Cancel instruction button -->
+                    <a ui-sref="main.contracts.preview.stop({id: contract.id})"
+                       ng-if="statuses[contract.state]['value'] == 4"
+                       class="btn btn-transparent">
+                        <span>Cancel</span>
+                    </a>&nbsp;
+
+                    <button class="btn only-icon" ng-click="refreshContract(contract)">
+                        <i class="icon-refresh"></i>
+                    </button>
+
+                    <button class="btn only-icon" type="button"
+                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 5) || (statuses[contract.state]['value'] == 6)"
+                            ng-pop-up="{
+                                template: '/templates/popups/delete-contract.html',
+                                params: contract,
+                                class: 'deleting-contract',
+                                actions: popupActions,
+                                onClose: updateList
+                            }"
+                            ng-click="deleteContract(contract)">
+                        <i class="icon-trash"></i>
+                    </button>
+                </div>
+
+                <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
+                    <div class="contract-status-text">
+                        <span>{{statuses[contract.state]['title']}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

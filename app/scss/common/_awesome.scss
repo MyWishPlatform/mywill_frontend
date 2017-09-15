@@ -1,0 +1,131 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?ob6bsq');
+  src:  url('fonts/icomoon.eot?ob6bsq#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?ob6bsq') format('truetype'),
+  url('fonts/icomoon.woff?ob6bsq') format('woff'),
+  url('fonts/icomoon.svg?ob6bsq#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-lg .path1:before {
+  content: "\e918";
+  color: rgb(149, 148, 148);
+}
+.icon-lg .path2:before {
+  content: "\e919";
+  margin-left: -1em;
+  color: rgb(5, 89, 139);
+}
+.icon-mail:before {
+  content: "\e901";
+}
+.icon-settings:before {
+  content: "\e902";
+}
+.icon-in-wallet:before {
+  content: "\e903";
+}
+.icon-account:before {
+  content: "\e904";
+}
+.icon-conditions:before {
+  content: "\e905";
+}
+.icon-contracts:before {
+  content: "\e906";
+}
+.icon-create-contract:before {
+  content: "\e907";
+}
+.icon-but-tokens:before {
+  content: "\e908";
+}
+.icon-wallet:before {
+  content: "\e909";
+}
+.icon-phone-call:before {
+  content: "\e90a";
+}
+.icon-question:before {
+  content: "\e90b";
+}
+.icon-log-out:before {
+  content: "\e90c";
+}
+.icon-calendar:before {
+  content: "\e90d";
+}
+.icon-keyboard_arrow_up:before {
+  content: "\e90e";
+}
+.icon-keyboard_arrow_down:before {
+  content: "\e90f";
+}
+.icon-cancel:before {
+  content: "\e910";
+}
+.icon-cross:before {
+  content: "\e912";
+}
+.icon-menu:before {
+  content: "\e914";
+}
+.icon-content_copy:before {
+  content: "\e915";
+}
+.icon-checkmark:before {
+  content: "\ea10";
+}
+.icon-github:before {
+  content: "\e911";
+}
+.icon-spinner:before {
+  content: "\e900";
+}
+.icon-loading:before {
+  content: "\e900";
+}
+.icon-loading-wheel:before {
+  content: "\e900";
+}
+.icon-refresh:before {
+  content: "\e900";
+}
+.icon-repeat:before {
+  content: "\e900";
+}
+.icon-busy:before {
+  content: "\e900";
+}
+.icon-wait:before {
+  content: "\e900";
+}
+.icon-arrow:before {
+  content: "\e900";
+}
+.icon-keyboard_arrow_left:before {
+  content: "\e913";
+}
+.icon-eye:before {
+  content: "\e916";
+}
+.icon-trash:before {
+  content: "\e917";
+}

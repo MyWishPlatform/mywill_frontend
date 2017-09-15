@@ -1,0 +1,43 @@
+.main-header-holder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 1.6em;
+  background-color: #1C1C27;
+  &:after, &:before {
+    content: '';
+    display: table;
+    width: 100%;
+  }
+}
+.header-menu-trigger {
+  background: none;
+  border: 0 none;
+  font-size: 3em;
+  color: #fff;
+  padding: 0;
+  vertical-align: middle;
+  cursor: pointer;
+  float: left;
+  margin: 0 0.5em 0 0;
+  i {
+    display: block;
+  }
+}
+.header-title {
+  line-height: 1.5em;
+  font-size: 2em;
+  font-weight: 700;
+  display: block;
+  margin-right: 0.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media screen and (min-width: 1025px) {
+  .main-header-holder {
+    display: none;
+  }
+}

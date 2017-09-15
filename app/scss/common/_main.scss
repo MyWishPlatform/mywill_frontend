@@ -1,0 +1,112 @@
+.main-content-holder {
+  margin-left: 22.5em;
+  color: #fff;
+  padding-top: 3.4em;
+  max-width: 72em;
+  &:after, &:before {
+    display: table;
+    width: 100%;
+    content: '';
+  }
+}
+.main-wrapper-section {
+  float: left;
+  width: 100%;
+  &:after, &:before {
+    content: '';
+    clear: both;
+    display: block;
+  }
+}
+.main-section-content {
+  padding: 2em 4.3% 10em;
+}
+.content-section-title {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+  font-weight: normal;
+  i {
+    color: #8975F0;
+    display: inline-block;
+    vertical-align: bottom;
+    &:before {
+      font-size: 2em;
+      vertical-align: middle;
+      margin-right: 0.3em;
+    }
+  }
+}
+.main-section-chapter {
+  max-width: 64em;
+  &.no-active {
+    position: relative;
+    opacity: 0.3;
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 3;
+    }
+  }
+  + .main-section-chapter {
+    margin-top: 3em;
+  }
+}
+.main-section-chapter-fieldset {
+  background-color: #4E6484;
+  color: #fff;
+  border-radius: 0.9em;
+  padding: 2em 3.75%;
+  position: relative;
+  margin-right: 1em;
+  + .main-section-chapter-fieldset {
+    margin-top: 3em;
+  }
+  &.costs-info-fieldset {
+    background: rgba(79,177,225,0.67);
+    float: left;
+  }
+}
+.pre-release-information {
+  padding: 0.9em;
+  text-align: center;
+  display: block;
+  border-bottom: 1px solid #5D5D7D;
+  left: 22.5em;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: url(images/bg.png) left center repeat;
+  z-index: 2;
+  span {
+    font-size: 1.35em;
+    &.red {
+      color: #FF0707;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .main-content-holder {
+    margin-left: 0;
+    padding-top: 10.3em;
+  }
+  .pre-release-information {
+    left: 0;
+    top: 6.2em;
+  }
+  .main-menu-holder {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 640px) {}
+
+@media screen and (max-width: 480px) {
+  .costs-info-fieldset {
+    float: none!important;
+  }
+}

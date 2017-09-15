@@ -17,7 +17,7 @@ module.controller('authController', function($scope) {
         controller: function(authService, $rootScope) {
 
             authService.profile().then(function(response) {
-                window.location = '/';
+                window.location = '/dashboard/';
             }, function(response) {
                 $rootScope.onCheck = true;
                 console.log(response);
@@ -35,7 +35,7 @@ module.controller('authController', function($scope) {
                 authService.auth({
                     data: $scope.request
                 }).then(function (response) {
-                    window.location = '/';
+                    window.location = '/dashboard/';
                 }, function (response) {
                     switch (response.status) {
                         case 400:

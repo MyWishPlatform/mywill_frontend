@@ -17,7 +17,7 @@ var devServerApi = {
     path: [
         "/api", '/accounts', '/logout'
     ],
-    url: url.parse("https://demo.mywillplatform.io/")
+    url: url.parse("https://contracts.mywillplatform.io/")
 };
 var getBrowserSyncConfig = function () {
 
@@ -43,7 +43,8 @@ var getBrowserSyncConfig = function () {
             middleware: [
                 proxy,
                 modRewrite([
-                    '^.*/(auth)\/[a-z\-\/0-9A-Z]*$ /auth.html',
+                    '^.*/(auth)($|\/)[a-z\-\/0-9A-Z]*$ /auth.html',
+                    '^.*/(dashboard)($|\/)[a-z\-\/0-9A-Z]*$ /dashboard.html',
                     '!' + extensionsPattern + ' /index.html [L]'
                 ])
             ],

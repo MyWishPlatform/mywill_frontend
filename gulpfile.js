@@ -35,6 +35,12 @@ var folders = {
 };
 
 
+/* Landing */
+gulp.task('app:landing', function() {
+    return gulp.src(path.join(output, 'landing', '**/*'))
+        .pipe(gulp.dest(path.join(input, 'landing')));
+});
+
 /* Favicon */
 gulp.task('app:favicon', function() {
     return gulp.src(path.join(output, folders['favicon'], '**/*'))
@@ -218,7 +224,7 @@ gulp.task('watcher',function() {
 
 
 
-gulp.task('default', ['app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev'],
+gulp.task('default', ['app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing'],
     function() {
         if (!isProduction) {
             return gulp.start('serve');

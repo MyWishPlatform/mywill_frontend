@@ -1,53 +1,82 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="baseController">
-<head lang="en">
-    <title>MyWill</title>
-    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1">
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-    <link href="/static/css/style.css" rel="stylesheet"/>
-    <script src="/static/vendors/vendors.js"></script>
-    <script src="/static/tpl/templates.tpl.js"></script>
-    <script src="/static/js/main.js"></script>
+    <title>MyWill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-touch-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/static/favicon/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/static/favicon/apple-touch-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/static/favicon/apple-touch-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/static/favicon/apple-touch-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/static/favicon/apple-touch-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/static/favicon/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96">
-    <link rel="icon" type="image/png" href="/static/favicon/android-chrome-192x192.png" sizes="192x192">
-    <meta name="msapplication-square70x70logo" content="/static/favicon/smalltile.png" />
-    <meta name="msapplication-square150x150logo" content="/static/favicon/mediumtile.png" />
-    <meta name="msapplication-wide310x150logo" content="/static/favicon/widetile.png" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-    <meta name="msapplication-square310x310logo" content="/static/favicon/largetile.png" />
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta name="theme-color" content="#338f8d">
-    <!-- Windows Phone -->
-    <meta name="msapplication-navbutton-color" content="#338f8d">
-    <!-- iOS Safari -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="#338f8d">
-
-
-    <script>/*<![CDATA[*/window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="mywillplatform.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();/*]]>*/</script>
-
+    <link rel="stylesheet" type="text/css" href="/landing/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/landing/css/main.css">
 </head>
-<body ng-class="{'with-menu': showedMenu, 'visible': currentUser}">
-<header class="main-header-holder" ng-include="getTemplate('common/header')"></header>
-<div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
-<div class="pre-release-information">
-    <span class="red">Warning!</span> <span>You are using pre-release version!</span>
+<body>
+<div class="banner-wrapper invisible-content">
+    <div class="header">
+        <div class="wrapper">
+            <div class="logo float-left">
+                <a href="https://mywillplatform.io/"><img src="/landing/img/logo_mywill_svg.svg"/></a>
+            </div>
+            <div class="mobile-menu"><img src="/landing/img/menu.svg" /></div>
+            <div class="after-mobile-menu"></div>
+            <div class="menu float-right">
+                <div class="float-left menu-registry"><a href="https://contracts.mywillplatform.io/auth/registration" target="_blank">Sign up</a></div>
+                <div class="float-left"><a href="https://mywillplatform.io" target="_blank">ICO</a></div>
+                <div class="float-left"><a href="https://contracts.mywillplatform.io/auth/" target="_blank">Sign up</a></div>
+                <div class="float-left menu-support"><a href="mailto:support@mywillplatform.io" target="_blank">Support</a></div>
+                <div style="clear: both;"></div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <!--<div class="wrapper">
+        <hr>
+    </div>-->
+    <div class="banner">
+        <div class="wrapper">
+            <div class="title">
+                Decentralized platform for smart contracts creation on Ethereum
+            </div>
+            <div class="buttons">
+                <a href="https://contracts.mywillplatform.io/auth/registration" target="_blank">
+                    <div class="registry float-left">
+                        Sign up
+                    </div>
+                </a>
+                <a href="#" target="_blank">
+                    <div class="video float-left" style="display: none;">
+                        ICO
+                    </div>
+                </a>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
 </div>
-<main class="main-content-holder" ui-view></main>
+<footer class="invisible-content">
+    <div class="wrapper">
+        <hr>
+        <div class="copyright">
+            &copy; 2017 <a href="https://mywillplatform.io/">MyWill</a>
+        </div>
+    </div>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/landing/js/main.js"></script>
+    <script>
+        $.ajax({
+            action: 'get',
+            url: '/api/v1/profile/',
+            success : function(data) {
+                if (data.username) {
+                    location.href = '/dashboard/';
+                }
+            },
+            error: function() {
+                $('.invisible-content').removeClass('invisible-content');
+            }
+        });
+    </script>
+</footer>
 </body>
 </html>

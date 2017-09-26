@@ -123,11 +123,11 @@ gulp.task('all:templates-start', ['app:templates'], function() {
 });
 
 
-// gulp.task('app:ws', function() {
-//     return gulp.src(path.join(output, 'ws', 'socket-client.js'))
-//         .pipe(browserify())
-//         .pipe(gulp.dest(path.join(input, folders['js'])));
-// });
+gulp.task('app:web3', function() {
+    return gulp.src(path.join(output, 'web3.js'))
+        .pipe(browserify())
+        .pipe(gulp.dest(path.join(input, 'static', 'web3')));
+});
 
 /* Scripts collection */
 gulp.task('app:js'/*, ['app:ws']*/, function() {
@@ -224,7 +224,7 @@ gulp.task('watcher',function() {
 
 
 
-gulp.task('default', ['app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing'],
+gulp.task('default', ['app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing', 'app:web3'],
     function() {
         if (!isProduction) {
             return gulp.start('serve');

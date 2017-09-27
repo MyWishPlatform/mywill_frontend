@@ -71,12 +71,12 @@
                         <span>Cancel</span>
                     </a>&nbsp;
 
-                    <button class="btn only-icon" ng-click="refreshContract(contract)">
+                    <button class="btn only-icon" ng-click="refreshContract(contract)" ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7))">
                         <i class="icon-refresh"></i>
                     </button>
 
                     <button class="btn only-icon" type="button"
-                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2) || (statuses[contract.state]['value'] == 5) || (statuses[contract.state]['value'] == 6)"
+                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2) || (statuses[contract.state]['value'] == 5) || (statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7)"
                             ng-pop-up="{
                                 template: '/templates/popups/delete-contract.html',
                                 params: contract,

@@ -1,31 +1,32 @@
 .alert-window-title {
-  font-size: 2.5em;
+  font-size: 1.875em;
   text-align: center;
 }
 .alert-window-buttons {
-  padding: 3em 0;
+  padding: 2.25em 0;
   .btn {
     margin: 0 2%;
+    font-size: 0.75em;
   }
 }
 
 .popup-window.deleting-contract {
-  max-width: 64em;
-  margin-left: -32em;
+  max-width: 48em;
+  margin-left: -24em;
 }
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 532px) {
   .popup-window.deleting-contract {
     margin-left: -45%;
   }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 360px) {
   .alert-window-buttons {
     padding-bottom: 1em;
     .btn {
       width: 90%;
       margin-left: auto;
       margin-right: auto;
-      margin-bottom: 2em;
+      margin-bottom: 1.75em;
     }
   }
 }

@@ -81,12 +81,12 @@
                     </a>
 
                     <!-- Refresh status -->
-                    <button class="btn only-icon" ng-click="ngPopUp.actions.refreshContract(ngPopUp.params.createdContract)">
+                    <button class="btn only-icon" ng-click="ngPopUp.actions.refreshContract(ngPopUp.params.createdContract)" ng-if="!((ngPopUp.params.createdContract.stateValue == 6) || (ngPopUp.params.createdContract.stateValue == 7))">
                         <i class="icon-refresh"></i>
                     </button>
                     <!-- Delete contract button -->
                     <button class="btn only-icon" type="button"
-                            ng-if="(ngPopUp.params.createdContract.stateValue == 1) || (ngPopUp.params.createdContract.stateValue == 2) || (ngPopUp.params.createdContract.stateValue == 5) || (ngPopUp.params.createdContract.stateValue == 6)"
+                            ng-if="(ngPopUp.params.createdContract.stateValue == 1) || (ngPopUp.params.createdContract.stateValue == 2) || (ngPopUp.params.createdContract.stateValue == 5) || (ngPopUp.params.createdContract.stateValue == 6) || (ngPopUp.params.createdContract.stateValue == 7)"
                             ng-pop-up="{
                                 template: '/templates/popups/delete-contract.html',
                                 params: contract,

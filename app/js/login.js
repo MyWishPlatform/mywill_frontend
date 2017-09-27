@@ -20,7 +20,6 @@ module.controller('authController', function($scope) {
                 window.location = '/dashboard/';
             }, function(response) {
                 $rootScope.onCheck = true;
-                console.log(response);
             });
         }
     }).state('main.login', {

@@ -27,5 +27,9 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
     'CANCELLED': {
         title: 'Cancelled',
         value: 6
+    },
+    'KILLED': {
+        title: 'Cancelled',
+        value: 7
     }
 });

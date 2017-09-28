@@ -127,7 +127,9 @@
 
 
             <div class="contract-wallets-information-one-block" ng-if="ngPopUp.params.createdContract.stateValue == 4">
-                <i class="icon-lg contract-information-icon"><span class="path1"></span><span class="path2"></span></i>
+                <span class="identicon-container">
+                    <img src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
+                </span>
                 <div class="contract-wallet-information-title">Contract address:</div>
                 <div class="contract-wallet-information-wallet">
                     <a ng-attr-href="{{'https://etherscan.io/address/' + ngPopUp.params.createdContract.address}}"
@@ -147,6 +149,9 @@
             <div class="contract-wallets-information-one-block">
                 <i class="icon-wallet contract-information-icon"></i>
                 <div class="contract-wallet-information-title">From account</div>
+                <span class="identicon-container">
+                    <img class="identicon-image" src="{{$root.generateIdenticon(ngPopUp.params.createdContract.user_address)}}"/>
+                </span>
                 <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.user_address"></div>
             </div>
 
@@ -154,6 +159,9 @@
                 <i class="icon-in-wallet contract-information-icon"></i>
                 <div class="contract-wallet-information-title">Send to wallet</div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in ngPopUp.params.createdContract.heirs">
+                <span class="identicon-container relative-top">
+                        <img class="identicon-image" src="{{$root.generateIdenticon(ngPopUp.params.createdContract.user_address)}}"/>
+                    </span>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="heir.address"></div>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.percentage+'%'"></div>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="heir.email"></div>

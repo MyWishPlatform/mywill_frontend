@@ -161,6 +161,8 @@ angular.module('app').controller('createcontractController', function($scope, co
         };
         var nextCheckDate = moment.tz('UTC').add($scope.checkPeriod * $scope.checkPeriodSelect, 'day');
         nextCheckDate = nextCheckDate > $scope.dueDate ? $scope.dueDate : nextCheckDate;
+
+
         $scope.previewContractPopUp.createdContract = {
             user_address: $scope.walletAddress,
             heirs: $scope.hairsList,

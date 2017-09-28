@@ -13,6 +13,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.toggleMenu = function() {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
+
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService, MENU_CONSTANTS) {
     $rootScope.$state = $state;
@@ -115,6 +116,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             initedApp = true;
             stateHandlersActivate();
         }
+    };
+
+    $rootScope.generateIdenticon = function(address) {
+        return blockies.create({
+            seed: address,
+            size: 8, // width/height of the icon in blocks, default: 8
+            scale: 3
+        }).toDataURL();
     };
 }).config(function($httpProvider, $qProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';

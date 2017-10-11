@@ -89,6 +89,12 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="/landing/js/main.js"></script>
     <script>
+
+        var path = window.location.pathname.split('/');
+        if (path[1] == 'reset') {
+            window.location.href = '/auth/reset-password/' + path[2] + '/' + path[3];
+        }
+
         $.ajax({
             action: 'get',
             url: '/api/v1/profile/',

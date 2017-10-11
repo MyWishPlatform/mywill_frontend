@@ -114,7 +114,7 @@
                 <i class="icon-keyboard_arrow_left"></i>
                 <span>Edit</span>
             </button>
-            <div ng-if="ngPopUp.params.createdContract.stateValue == 4">
+            <div ng-if="ngPopUp.params.createdContract.balance">
                 <span class="contract-balance-title">Balance contract</span>&nbsp;&nbsp;
                 <span class="contract-balance-value">
                     <span ng-bind="(ngPopUp.params.createdContract.balance || 0 | number).replace($root.numberReplacer, ' ')"></span>&nbsp;ETH&nbsp;&nbsp;
@@ -126,7 +126,7 @@
 
 
 
-            <div class="contract-wallets-information-one-block" ng-if="ngPopUp.params.createdContract.stateValue == 4">
+            <div class="contract-wallets-information-one-block" ng-if="ngPopUp.params.createdContract.address">
                 <span class="identicon-container">
                     <img src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
                 </span>
@@ -160,7 +160,7 @@
                 <div class="contract-wallet-information-title">Send to wallet</div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in ngPopUp.params.createdContract.heirs">
                 <span class="identicon-container relative-top">
-                        <img class="identicon-image" src="{{$root.generateIdenticon(ngPopUp.params.createdContract.user_address)}}"/>
+                        <img class="identicon-image" src="{{$root.generateIdenticon(heir.address)}}"/>
                     </span>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="heir.address"></div>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.percentage+'%'"></div>

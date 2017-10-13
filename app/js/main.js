@@ -91,11 +91,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.$on("$stateChangeStart", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
         if (oldLocation && (newLocation === oldLocation)) return;
-        checkCurrentUser = true;
-        if (checkCurrentUser) {
+        if (newLocation.name !== 'anonymous') {
             createDefer();
+            getCurrentUser();
         }
-        getCurrentUser();
     });
 
 

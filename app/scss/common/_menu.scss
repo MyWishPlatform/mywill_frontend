@@ -50,7 +50,7 @@
     margin: 0;
     padding: 0;
   }
-  a {
+  a, .as_menu_link {
     color: #fff;
     display: block;
     padding-left: 5.925em;
@@ -103,7 +103,7 @@
 }
 
 .main-menu-global-menu {
-  a {
+  a, .as_menu_link {
     line-height: 2.625em;
     padding-top: 1.5em;
     padding-bottom: 1.5em;

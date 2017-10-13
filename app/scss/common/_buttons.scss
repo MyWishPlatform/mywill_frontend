@@ -83,6 +83,16 @@ $red-active-color: #bb0d2b;
       color: $white-active-color;
     }
   }
+  &.btn-as-link {
+    text-decoration: underline!important;
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    &:hover, &:focus {
+      color: #f7ec45;
+      text-decoration: none!important;
+    }
+  }
   &.btn-green {
     color: #000;
     background: #63FF26;

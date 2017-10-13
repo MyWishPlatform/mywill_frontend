@@ -8,8 +8,30 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         abstract: true,
         template: "<div ui-view class='main-wrapper-section'></div>",
         resolve: {
-            currentUser: function(usersService, $q, $state, $rootScope) {
+            currentUser: function(usersService, $rootScope) {
                 return $rootScope.currentUserDefer.promise;
+            }
+        }
+    }).state('anonymous', {
+        url: '/anonymous',
+        template: '',
+        title: '',
+        resolve: {
+            currentUser: function (authService) {
+                return authService.profile().then(function(data) {
+                    return data;
+                }, function() {
+                    return false;
+                });
+            }
+        },
+        controller: function(currentUser, $state, authService) {
+            if (!currentUser) {
+                authService.createGhost().then(function(response) {
+                    $state.go('main.createcontract');
+                });
+            } else {
+                currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract');
             }
         }
     }).state('reset', {

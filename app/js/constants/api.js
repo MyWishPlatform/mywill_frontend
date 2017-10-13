@@ -6,7 +6,8 @@ angular.module('Constants').constant('API', {
         "PATH": 'api/v1/',
         "AUTH_PATH": 'api/v1/rest-auth/',
         "REST_AUTH": 'rest-auth/',
-        "ACCOUNTS_PATH": 'accounts/'
+        "ACCOUNTS_PATH": 'accounts/',
+        "CREATE_GHOST": 'create_ghost/'
     },
     "REGISTRATION": "registration/",
     "PROFILE": "profile/",

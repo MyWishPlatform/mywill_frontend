@@ -63,7 +63,12 @@
                 Decentralized platform for smart contracts creation on Ethereum
             </div>
             <div class="buttons">
-                <a href="https://contracts.mywish.io/auth/registration" target="_blank">
+                <a href="https://contracts.mywish.io/dashboard/anonymous" target="_blank">
+                    <div class="registry float-left">
+                        Try it
+                    </div>
+                </a>&nbsp;
+                &nbsp;<a href="https://contracts.mywish.io/auth/registration" target="_blank">
                     <div class="registry float-left">
                         Sign up
                     </div>
@@ -89,7 +94,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="/landing/js/main.js"></script>
     <script>
-
         var path = window.location.pathname.split('/');
         if (path[1] == 'reset') {
             window.location.href = '/auth/reset-password/' + path[2] + '/' + path[3];

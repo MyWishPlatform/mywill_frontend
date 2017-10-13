@@ -14,22 +14,19 @@ module.service('authService', function(requestService, API) {
         },
         profile: function() {
             var params = {};
-            // params.API_PATH = API.HOSTS.ACCOUNTS_PATH;
             params.path = API.PROFILE;
             return requestService.get(params);
         },
         auth: function(params) {
             params.API_PATH = API.HOSTS.AUTH_PATH;
             params.path = API.LOGIN;
-            // params.headers = {
-            //     'Content-Type': 'application/x-www-form-urlencoded'
-            // };
-            // params.transformRequest = function(obj) {
-            //     var str = [];
-            //     for(var p in obj)
-            //         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            //     return str.join("&");
-            // };
+            return requestService.post(params);
+        },
+        createGhost: function() {
+            var params = {
+                API_PATH: API.HOSTS.PATH,
+                path: API.HOSTS.CREATE_GHOST
+            };
             return requestService.post(params);
         },
         adminAuth: function(params) {

@@ -9,7 +9,12 @@
     </a>
     <nav class="main-menu-navigator">
         <ul class="main-menu-global-menu">
-            <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow">
+            <li ng-if="currentUser.is_ghost">
+                <span class="as_menu_link">
+                    <span>Unknown user</span>
+                </span>
+            </li>
+            <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow && (!currentUser[menuItem.hideForUser])">
                 <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static" ng-class="{'active': $state.current.name == menuItem.route, 'no-active': menuItem.noactive}">
                     <i ng-class="menuItem.icon"></i>
                     <span ng-if="menuItem.title">{{menuItem.title}}</span>

@@ -166,7 +166,7 @@ angular.module('app').controller('createcontractController', function($scope, co
         $scope.previewContractPopUp.createdContract = {
             user_address: $scope.walletAddress,
             heirs: $scope.hairsList,
-            balance: $scope.checkedBalance,
+            // balance: $scope.checkedBalance,
             cost: $scope.checkedCost,
             active_to: $scope.dueDate.format('YYYY-MM-DD'),
             nextCheck: nextCheckDate.format('YYYY-MM-DD'),
@@ -182,7 +182,9 @@ angular.module('app').controller('createcontractController', function($scope, co
         });
     };
 
-    var createContract = function() {
+    var contractInProgress = false;
+    var createContract = function(callback) {
+        if (contractInProgress) return;
         var data = {
             user_address: $scope.walletAddress,
             heirs: $scope.hairsList,
@@ -190,8 +192,10 @@ angular.module('app').controller('createcontractController', function($scope, co
             active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
             name: $scope.previewContractPopUp.createdContract.name
         };
+        contractInProgress = true;
         contractService.createContract(data).then(function(response) {
-            $state.go('main.contracts.preview.pay', {id: response.data.id});
+            contractInProgress = false;
+            callback ? callback() : $state.go('main.contracts.preview.pay', {id: response.data.id});
         });
     };
 
@@ -207,8 +211,20 @@ angular.module('app').controller('createcontractController', function($scope, co
         console.log(arguments);
     };
 
+    var goToLogin = function() {
+        createContract(function() {
+            window.location.href = '/auth';
+        });
+    };
+    var goToRegistration = function() {
+        createContract(function() {
+            window.location = '/auth/registration';
+        });
+    };
     $scope.previewContractPopUp = {
         createContract: createContract,
+        goToLogin: goToLogin,
+        goToRegistration: goToRegistration,
         successCodeCopy: successCodeCopy,
         failCodeCopy: failCodeCopy
     };

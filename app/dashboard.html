@@ -47,7 +47,22 @@
 <header class="main-header-holder" ng-include="getTemplate('common/header')"></header>
 <div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
 <div class="pre-release-information">
-    <span class="red">Warning!</span> <span>You are using pre-release version!</span>
+    <div class="main-content-holder">
+        <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
+            <a href="/auth/registration" class="btn btn-transparent">
+                <span>Sign up</span>
+            </a>
+            <a href="/auth" class="btn btn-transparent">
+                <span>Sign in</span>
+            </a>
+        </div>
+        <div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
+            <a href="/auth" ui-sref="exit" class="btn btn-transparent">
+                <span>Log out</span>
+            </a>
+        </div>
+        <span class="red">Warning!</span> <span>You are using pre-release version!</span>
+    </div>
 </div>
 <main class="main-content-holder" ui-view></main>
 

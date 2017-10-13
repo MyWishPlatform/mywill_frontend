@@ -15,9 +15,13 @@ module.controller('authController', function($scope) {
         abstract: true,
         template: "<div ui-view class='main-wrapper-section'></div>",
         controller: function(authService, $rootScope) {
-
             authService.profile().then(function(response) {
-                window.location = '/dashboard/';
+                var profile = response.data;
+                if (!profile.is_ghost) {
+                    window.location = '/dashboard/';
+                } else {
+                    $rootScope.onCheck = true;
+                }
             }, function(response) {
                 $rootScope.onCheck = true;
             });

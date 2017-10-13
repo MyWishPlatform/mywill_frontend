@@ -1,7 +1,7 @@
 .main-content-holder {
   margin-left: 22.5em;
   color: #fff;
-  padding-top: 3.4em;
+  padding-top: 5.6em;
   max-width: 72em;
   &:after, &:before {
     display: table;
@@ -71,7 +71,7 @@
   }
 }
 .pre-release-information {
-  padding: 0.9em;
+  padding: 1.8em 0.9em;
   text-align: center;
   display: block;
   border-bottom: 1px solid #5D5D7D;
@@ -87,12 +87,26 @@
       color: #FF0707;
     }
   }
+  .main-content-holder {
+    padding: 0;
+    margin-left: 0;
+  }
+  .profile-buttons {
+    margin: -0.9em 0;
+    white-space: nowrap;
+    .btn {
+      font-size: 0.7em;
+      + .btn {
+        margin-left: 1em;
+      }
+    }
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .main-content-holder {
     margin-left: 0;
-    padding-top: 10.3em;
+    padding-top: 12.5em;
   }
   .pre-release-information {
     left: 0;

@@ -40,14 +40,14 @@
     <div class="header">
         <div class="wrapper">
             <div class="logo float-left">
-                <a href="https://mywish.io/"><img src="/static/images/mywish_logo.svg"/></a>
+                <a href="https://mywish.io/"><img src="/static/images/logo.png"/></a>
             </div>
             <div class="mobile-menu"><img src="/landing/img/menu.svg" /></div>
             <div class="after-mobile-menu"></div>
             <div class="menu float-right">
                 <div class="float-left"><a href="https://mywish.io" target="_blank">ICO</a></div>
-                <div class="float-left menu-registry"><a href="https://contracts.mywish.io/auth/registration" target="_blank">Sign up</a></div>
-                <div class="float-left menu-registry"><a href="https://contracts.mywish.io/auth/" target="_blank">Sign in</a></div>
+                <div class="float-left menu-registry"><a href="/auth/registration" target="_blank">Sign up</a></div>
+                <div class="float-left menu-registry"><a href="/auth/" target="_blank">Sign in</a></div>
                 <div class="float-left menu-support"><a href="mailto:support@mywish.io" target="_blank">Support</a></div>
                 <div style="clear: both;"></div>
             </div>
@@ -63,12 +63,12 @@
                 Decentralized platform for smart contracts creation on Ethereum
             </div>
             <div class="buttons">
-                <a href="https://contracts.mywish.io/dashboard/anonymous" target="_blank">
+                <a href="/dashboard/anonymous" target="_blank">
                     <div class="registry float-left">
                         Try it
                     </div>
                 </a>&nbsp;
-                &nbsp;<a href="https://contracts.mywish.io/auth/registration" target="_blank">
+                &nbsp;<a href="/auth/registration" target="_blank">
                     <div class="registry float-left">
                         Sign up
                     </div>
@@ -103,8 +103,10 @@
             action: 'get',
             url: '/api/v1/profile/',
             success : function(data) {
-                if (data.username) {
+                if (data.username && !data.is_ghost) {
                     location.href = '/dashboard/';
+                } else if (data.is_ghost) {
+                    $('.invisible-content').removeClass('invisible-content');
                 }
             },
             error: function() {

@@ -84,9 +84,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.$on("$stateChangeSuccess", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
         $rootScope.showedMenu = false;
 
-        $rootScope.headerTitle = $state.current.title || MENU_CONSTANTS.filter(function(menuItem) {
+        var itemFromMenuConst = MENU_CONSTANTS.filter(function(menuItem) {
             return menuItem.route === $state.current.name;
-        })[0]['title'];
+        })[0];
+        $rootScope.headerTitle = $state.current.title || (itemFromMenuConst ? itemFromMenuConst['title'] : '');
     });
 
     $rootScope.$on("$stateChangeStart", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {

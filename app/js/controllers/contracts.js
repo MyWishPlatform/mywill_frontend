@@ -51,7 +51,7 @@ angular.module('app').controller('contractsController', function(contractService
         $scope.openedContract.cost = Math.ceil($scope.openedContract.cost / $rootScope.weiDelta * 100000) / 100000;
         $scope.openedContract.stateValue = $scope.statuses[$scope.openedContract.state]['value'];
         $scope.openedContract.stateTitle = $scope.statuses[$scope.openedContract.state]['title'];
-        $scope.openedContract.myWillCode = JSON.stringify({abi: $scope.openedContract.abi, address: $scope.openedContract.address});
+        $scope.openedContract.myWillCode = JSON.stringify($scope.openedContract.abi);
         $scope.openedContract.copied = {};
         $scope.openedContract.balance = ($scope.openedContract.balance / Math.pow(10, 18)).toFixed(5);
 

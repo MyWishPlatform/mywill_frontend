@@ -1,10 +1,11 @@
-angular.module('app').controller('createcontractController', function($scope, contractService, $timeout, $state, $rootScope) {
+angular.module('app').controller('lostKeyCreateController', function($scope, contractService, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
-    $scope.request = {};
+    $scope.request = {
+    };
     $scope.listWalletActivity = [
         {
             value: 1,
-            name: 'Outcome'
+            name: 'Outcome transactions'
         }
     ];
     $scope.durationList = [
@@ -175,7 +176,9 @@ angular.module('app').controller('createcontractController', function($scope, co
                 periodUnit: $scope.durationList.filter(function(unit) {
                     return unit.value === $scope.checkPeriodSelect;
                 })[0]['name']
-            }
+            },
+            contract_type: CONTRACT_TYPES_CONSTANTS.LOST_KEY,
+            contractTpl: 'lostkey'
         };
         contractService.getCode(data).then(function(response) {
             $scope.previewContractPopUp.createdContract.source_code = response.data.result;
@@ -190,7 +193,8 @@ angular.module('app').controller('createcontractController', function($scope, co
             heirs: $scope.hairsList,
             check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
             active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-            name: $scope.previewContractPopUp.createdContract.name
+            name: $scope.previewContractPopUp.createdContract.name,
+            contract_type: CONTRACT_TYPES_CONSTANTS.LOST_KEY
         };
         contractInProgress = true;
         contractService.createContract(data).then(function(response) {

@@ -1,0 +1,197 @@
+<div class="contract-type-name">
+    <img src="/static/images/contract-types/key.svg" class="contract-type-name_icon"/>
+    <div class="contract-type-name_title">Lost key smart contract</div>
+</div>
+
+<div class="main-section-chapter">
+    <div class="main-section-chapter-fieldset">
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="form-control">
+                    <div class="form-control-label float-right"
+                         ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ETH' : balanceInProgress ? 'Please wait...' : ' '"></div>
+                    <label for="wallet-key" class="form-control-label">Management address</label>
+                    <input id="wallet-key" type="text"
+                           ng-model="walletAddress"
+                           placeholder="Enter your ETH wallet address"
+                           required
+                           ng-pattern="/^0x[0-9a-f]{40}$/i"
+                           ng-change="getBalance()"
+                           class="form-control-input"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="help-block">
+        <div class="help-block-content">
+            <i class="icon-info-with-circle"></i>
+            <button class="btn btn-hide-info">
+                <span>Hide</span>
+            </button>
+            <div class="help-block-content_text">
+                Enter the ETH address of the walet that will manage the contracts and where you want to add funds to the reverse contract
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form class="main-section-chapter"
+      ng-class="{'no-active': !checkedBalance}"
+      name="hairsForm">
+    <div class="main-section-chapter-fieldset" ng-repeat="hair in hairsList track by $index">
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="form-control">
+                    <label for="out-wallet-key" class="form-control-label">Reserve address</label>
+                    <input id="out-wallet-key" type="text"
+                           placeholder="Enter the address of the recipient's wallet"
+                           ng-pattern="/^0x[0-9a-f]{40}$/i"
+                           ng-model="hair.address"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div><br/>
+            <div class="clearfix"></div><br/>
+            <div class="grid-cell grid-cell-1-2 grid-cell-vs-1" ng-if="hairsList.length > 1">
+                <div class="form-control">
+                    <div class="form-control-label">Share</div>
+                    <div data-sum-percentage="{{ percentageSum }}"
+                         ng-ranger="{model: hair, onChange: hairPercentChange, sumStatus: percentageStatus}"></div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label class="form-control-label">E-mail for notification</label>
+                    <input ng-model="hair.email"
+                           placeholder="Enter the e-mail"
+                           type="email" class="form-control-input"/>
+                </div>
+            </div>
+        </div>
+        <button class="contact-remove-btn" type="button"
+                ng-click="removeHair(hair)"
+                ng-if="hairsList.length > 1">
+            <i class="icon-cancel"></i>
+        </button>
+    </div>
+
+    <div class="help-block">
+        <div class="help-block-content">
+            <i class="icon-info-with-circle"></i>
+            <button class="btn btn-hide-info">
+                <span>Hide</span>
+            </button>
+            <div class="help-block-content_text">
+                Specify the addresses to be sent with the contract. Enter the email address to which you would like to send a cryptocurrency transfer message.
+            </div>
+        </div>
+    </div><br/><br/>
+
+    <button class="btn btn-white with-icon" type="button" ng-click="addHair()">
+        <i class="icon-create-contract"></i>
+        <span>Add wallet</span>
+    </button>
+</form>
+
+<form class="main-section-chapter" name="conditionsForm" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid}">
+    <h2 class="content-section-title">
+        <i class="icon-conditions"></i>
+        <span>Conditions</span>
+    </h2>
+    <div class="main-section-chapter-fieldset">
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="form-control">
+                    <label class="form-control-label">Wallet’s activity</label>
+                    <div ng-select
+                         ng-model="request.activate"
+                         ng-model-list="listWalletActivity"
+                         ng-select-options="{class: 'select-1', label: 'name', value: 'value'}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label class="form-control-label">Check every</label>
+                    <div class="form-controls-group">
+                        <div class="form-control-little">
+                            <input type="text"
+                                   required
+                                   ng-change="changeCondition()"
+                                   ng-model="checkPeriod"
+                                   ng-pattern="/^[1-9]+[0-9]*?$/"
+                                   class="form-control-input text-center"/>
+                        </div>
+                        <div class="form-control">
+                            <div ng-select
+                                 ng-model="checkPeriodSelect"
+                                 ng-change="changeCondition()"
+                                 ng-model-list="durationList"
+                                 ng-select-options="{class: 'select-1', label: 'name', value: 'value'}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 grid-cell-vs-padding-top">
+                <div class="form-control form-control-date">
+                    <label class="form-control-label">Due date</label>
+                    <input type="datetime" required
+                           ng-model="dueDate"
+                           date-change="onChangeDate"
+                           auto-close="true"
+                           min-date="minDate"
+                           readonly
+                           date-time
+                           timezone="UTC"
+                           min-view="date"
+                           view="year"
+                           format="YYYY-MM-DD"
+                           position="fixed"
+                           class="form-control-input"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="help-block">
+        <div class="help-block-content">
+            <i class="icon-info-with-circle"></i>
+            <button class="btn btn-hide-info">
+                <span>Hide</span>
+            </button>
+            <div class="help-block-content_text">
+                Enter the conditions under which you want to execute and press preview
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div class="main-section-chapter" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid || !conditionsForm.$valid || (percentageSum !== 100)}">
+
+    <div class="main-section-chapter-fieldset costs-info-fieldset">
+        <div class="costs-info">
+            <span class="costs-info-title">Contract`s cost: </span>
+            <span class="costs-info-value" ng-bind="checkedCost"></span>
+            <span class="costs-info-currency">ETH</span>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="contract-form-row">
+        <div class="contract-form-information-btns">
+            <button class="btn btn-submit" type="button"
+                    ng-click="checkContract()"
+                    ng-pop-up="{
+                        template: '/templates/popups/preview-contract.html',
+                        params: previewContractPopUp
+                    }"><span>Preview</span></button>
+            <button class="btn btn-transparent with-icon" ng-click="resetForms()">
+                <i class="icon-cancel"></i>
+                <span>Clear</span>
+            </button>
+        </div>
+    </div>
+</div>

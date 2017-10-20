@@ -1,0 +1,53 @@
+.simple-form_title {
+  font-size: 2.4em;
+  font-weight: 700;
+}
+.simple-form_text {
+  font-size: 1.4em;
+  margin-top: 1em;
+}
+.simple-form {
+  border-bottom-left-radius: 0.9em;
+  border-bottom-right-radius: 0.9em;
+  padding: 3em 3.75% 2em;
+  background-color: #2c3d55;
+}
+.simple-form-chapter {
+  position: relative;
+  z-index: 2;
+  margin-bottom: -0.9em;
+  box-shadow: 0 1em 2em rgba(0, 0, 0, 0.2);
+}
+
+.simple-form-wrapper {
+  display: table;
+  width: 100%;
+}
+.simple-form-field-row {
+  display: table-row;
+}
+.simple-form-field-label, .simple-form-field-input {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px 0;
+}
+.simple-form-field-label {
+  width: 1px;
+  font-size: 1.6em;
+  padding-right: 1em;
+}
+.simple-form-field-input {
+  input, textarea {
+    width: 100%;
+    font-size: 1.6em;
+    border: 1px solid #8ea4c3;
+    background: none;
+    box-sizing: border-box;
+    padding: 1em;
+    color: #fff;
+  }
+  textarea {
+    resize: vertical;
+    height: 8em;
+  }
+}

@@ -75,6 +75,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'messages.html',
         resolve: {
         }
+    }).state('main.extdevs', {
+        url: '/ext-devs',
+        controller: 'extDevsController',
+        templateUrl: templatesPath + 'ext-devs.html'
     }).state('main.contacts', {
         url: '/contacts',
         controller: 'contactsController',
@@ -142,15 +146,25 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         title: 'Contract stopping'
 
     }).state('main.createcontract', {
-        url: '/create/:id?',
-        controller: 'createcontractController',
-        templateUrl: templatesPath + 'createcontract.html',
-        resolve: {
-            // currentContract: function($stateParams) {
-            //     if (!$stateParams.id) return;
-            //     contractService.getContract()
-            // }
-        }
+        abstract: true,
+        templateUrl: templatesPath + 'createcontract.html'
+    }).state('main.createcontract.types', {
+        url: '/create',
+        controller: function() {
+
+        },
+        templateUrl: templatesPath + 'createcontract/contract-types.html'
+
+    }).state('main.createcontract.form', {
+        url: '/create/:selectedType',
+        controllerProvider: function($stateParams) {
+            return $stateParams.selectedType + 'CreateController';
+        },
+        templateProvider: function ($templateCache, $stateParams) {
+            return $templateCache.get(templatesPath + 'createcontract/' + $stateParams.selectedType + '.html');
+        },
+        parent: 'main.createcontract'
+        // templateUrl: templatesPath + 'createcontract/contract-types.html'
     });
 
 

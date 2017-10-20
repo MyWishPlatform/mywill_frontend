@@ -1,0 +1,28 @@
+.help-block {
+  border-radius: 0.9em;
+  padding: 2em 3.75%;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  margin-top: 1em;
+  position: relative;
+  z-index: 4;
+  .help-block-content {
+    padding-left: 4.5em;
+    position: relative;
+  }
+  .icon-info-with-circle {
+    position: absolute;
+    left: 0;
+    font-size: 2.8em;
+    top: 50%;
+    margin-top: - 0.5em;
+    color: #f5a623;
+  }
+  .help-block-content_text {
+    font-size: 1.5em;
+    line-height: 1.4em;
+  }
+  .btn-hide-info {
+    float: right;
+  }
+}

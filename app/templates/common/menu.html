@@ -18,7 +18,7 @@
                 </span>
             </li>
             <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow && (!currentUser[menuItem.hideForUser])">
-                <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static" ng-class="{'active': $state.current.name == menuItem.route, 'no-active': menuItem.noactive}">
+                <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static" ng-class="{'active': ($state.current.name == menuItem.route) || (menuItem.parent && ($state.current.parent == menuItem.parent)), 'no-active': menuItem.noactive}">
                     <i ng-class="menuItem.icon"></i>
                     <span ng-if="menuItem.title">{{menuItem.title}}</span>
                     <span ng-if="menuItem.titleUserPar">{{currentUser[menuItem.titleUserPar]}}</span>

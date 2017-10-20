@@ -13,11 +13,16 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
     }, {
         title: 'Create contract',
         icon: 'icon-create-contract',
-        route: 'main.createcontract'
+        route: 'main.createcontract.types',
+        parent: 'main.createcontract'
     }, {
         title: 'My contracts',
         icon: 'icon-contracts',
         route: 'main.contracts.list'
+    }, {
+        title: 'External developers',
+        icon: 'icon-framew',
+        route: 'main.extdevs'
     }, {
         title: 'Messages',
         icon: 'icon-mail',

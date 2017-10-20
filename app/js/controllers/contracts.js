@@ -55,6 +55,15 @@ angular.module('app').controller('contractsController', function(contractService
         $scope.openedContract.copied = {};
         $scope.openedContract.balance = ($scope.openedContract.balance / Math.pow(10, 18)).toFixed(5);
 
+        var type;
+        switch($scope.openedContract.contract_type) {
+            case 0:
+                $scope.openedContract.contractTpl = 'lastwill';
+                break;
+            case 1:
+                $scope.openedContract.contractTpl = 'lostkey';
+                break;
+        }
 
         var url = 'https://www.myetherwallet.com/?';
         var params = [

@@ -71,6 +71,18 @@ $red-active-color: #bb0d2b;
       background: $white-active-color;
     }
   }
+  &.btn-hide-info {
+    color: #8b8d8f;
+    background: none;
+    border: 1px solid #32393c;
+    padding: 0 2em;
+    line-height: 3.6em;
+    marign-left: 1em;
+    span {
+      text-transform: uppercase;
+      font-size: 1.5em;
+    }
+  }
   &.btn-transparent {
     border: 2px solid;
     color: $white-normal-color;

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?ob6bsq');
-  src:  url('fonts/icomoon.eot?ob6bsq#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?ob6bsq') format('truetype'),
-  url('fonts/icomoon.woff?ob6bsq') format('woff'),
-  url('fonts/icomoon.svg?ob6bsq#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?5fwsn1');
+  src:  url('fonts/icomoon.eot?5fwsn1#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?5fwsn1') format('truetype'),
+  url('fonts/icomoon.woff?5fwsn1') format('woff'),
+  url('fonts/icomoon.svg?5fwsn1#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-info-with-circle:before {
+  content: "\e91b";
+}
+.icon-eye:before {
+  content: "\e916";
+}
+.icon-framew:before {
+  content: "\e91a";
+}
 .icon-lg .path1:before {
   content: "\e918";
   color: rgb(149, 148, 148);
@@ -93,6 +102,12 @@
 .icon-checkmark:before {
   content: "\ea10";
 }
+.icon-trash:before {
+  content: "\e917";
+}
+.icon-keyboard_arrow_left:before {
+  content: "\e913";
+}
 .icon-github:before {
   content: "\e911";
 }
@@ -119,13 +134,4 @@
 }
 .icon-arrow:before {
   content: "\e900";
-}
-.icon-keyboard_arrow_left:before {
-  content: "\e913";
-}
-.icon-eye:before {
-  content: "\e916";
-}
-.icon-trash:before {
-  content: "\e917";
 }

@@ -1,0 +1,49 @@
+.contract-type-icon {
+  float: left;
+  width: 5em;
+}
+.contract-type-description {
+  margin-left: 7em;
+}
+.contract-type-description_title {
+  font-size: 2.4em;
+  font-weight: 700;
+}
+.contract-type-description_text {
+  font-size: 1.4em;
+  margin-top: 1em;
+}
+.contract-type-link {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.06s linear;
+  box-shadow: 0 0 2em rgba(0, 0, 0, 0);
+  transform: scale(1);
+  &:hover, &:focus {
+    opacity: 1;
+    box-shadow: 0 1em 3em rgba(0, 0, 0, 0.3);
+    transform: scale(1.01);
+  }
+}
+.contract-type-name {
+  border-radius: 0.9em;
+  padding: 1.5em 3.75%;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  margin-bottom: 4em;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  .contract-type-name_icon {
+    float: left;
+    width: 4em;
+  }
+  .contract-type-name_title {
+    font-size: 2.8em;
+    font-weight: 500;
+    margin-left: 2em;
+    padding: 0.2em 0;
+  }
+}

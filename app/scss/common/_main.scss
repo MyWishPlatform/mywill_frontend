@@ -3,6 +3,8 @@
   color: #fff;
   padding-top: 5.6em;
   max-width: 72em;
+  position: relative;
+  z-index: 1;
   &:after, &:before {
     display: table;
     width: 100%;
@@ -36,11 +38,19 @@
     }
   }
 }
+a.main-section-chapter {
+  display: block;
+  &, &:hover, &:focus {
+    text-decoration: none;
+  }
+}
 .main-section-chapter {
-  max-width: 64em;
+
   &.no-active {
+    > *:not(.help-block) {
+      opacity: 0.3;
+    }
     position: relative;
-    opacity: 0.3;
     &:after {
       position: absolute;
       content: '';
@@ -61,7 +71,6 @@
   border-radius: 0.9em;
   padding: 2em 3.75%;
   position: relative;
-  margin-right: 1em;
   + .main-section-chapter-fieldset {
     margin-top: 3em;
   }

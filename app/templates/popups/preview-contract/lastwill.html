@@ -127,7 +127,7 @@
 
         <div class="contract-wallets-information-one-block" ng-if="ngPopUp.params.createdContract.address">
                 <span class="identicon-container">
-                    <img src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
+                    <img ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
                 </span>
             <div class="contract-wallet-information-title">Contract address:</div>
             <div class="contract-wallet-information-wallet">
@@ -149,17 +149,17 @@
             <i class="icon-wallet contract-information-icon"></i>
             <div class="contract-wallet-information-title">From account</div>
             <span class="identicon-container">
-                    <img class="identicon-image" src="{{$root.generateIdenticon(ngPopUp.params.createdContract.user_address)}}"/>
+                    <img class="identicon-image" ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.contract_details.user_address)}}"/>
                 </span>
-            <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.user_address"></div>
+            <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.contract_details.user_address"></div>
         </div>
 
         <div class="contract-wallets-information-one-block">
             <i class="icon-in-wallet contract-information-icon"></i>
             <div class="contract-wallet-information-title">Send to wallet</div>
-            <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in ngPopUp.params.createdContract.heirs">
+            <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in ngPopUp.params.createdContract.contract_details.heirs">
                 <span class="identicon-container relative-top">
-                        <img class="identicon-image" src="{{$root.generateIdenticon(heir.address)}}"/>
+                        <img class="identicon-image" ng-src="{{$root.generateIdenticon(heir.address)}}"/>
                     </span>
                 <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="heir.address"></div>
                 <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.percentage+'%'"></div>
@@ -174,15 +174,15 @@
                         <div class="contract-wallet-information-cell contract-wallet-information-title">Outcome</div>
                         <div class="contract-wallet-information-cell contract-wallet-information-date">
                             <span>Due date</span>
-                            {{ngPopUp.params.createdContract.active_to}}
+                            {{ngPopUp.params.createdContract.contract_details.active_to}}
                         </div>
                         <div class="contract-wallet-information-cell contract-wallet-information-date">
                             <span>Check every</span>
-                            {{ngPopUp.params.createdContract.check_interval.period}} {{ngPopUp.params.createdContract.check_interval.periodUnit}}
+                            {{ngPopUp.params.createdContract.contract_details.check_interval.period}} {{ngPopUp.params.createdContract.contract_details.check_interval.periodUnit}}
                         </div>
                         <div class="contract-wallet-information-cell contract-wallet-information-date">
                             <span>Next check</span>
-                            {{ngPopUp.params.createdContract.nextCheck}}
+                            {{ngPopUp.params.createdContract.contract_details.next_check}}
                         </div>
                     </div>
                 </div>

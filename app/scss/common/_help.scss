@@ -6,6 +6,15 @@
   margin-top: 1em;
   position: relative;
   z-index: 4;
+  //transition: all linear 0.3s;
+  opacity: 1;
+  box-sizing: border-box;
+  //max-height: 10em;
+  overflow: hidden;
+  //&.hidden {
+  //  max-height: 0;
+  //  opacity: 0;
+  //}
   .help-block-content {
     padding-left: 4.5em;
     position: relative;

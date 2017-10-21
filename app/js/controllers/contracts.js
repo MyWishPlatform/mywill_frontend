@@ -38,14 +38,19 @@ angular.module('app').controller('contractsController', function(contractService
     };
 
     var convertContract = function() {
-        $scope.openedContract.active_to = $filter('date')(new Date($scope.openedContract.active_to), 'yyyy-MM-dd');
+        if ($scope.openedContract.contract_details.active_to) {
+            $scope.openedContract.contract_details.active_to = $filter('date')(new Date($scope.openedContract.contract_details.active_to), 'yyyy-MM-dd');
+        }
+        if ($scope.openedContract.contract_details.date) {
+            $scope.openedContract.contract_details.date = $filter('date')(new Date($scope.openedContract.contract_details.date), 'yyyy-MM-dd');
+        }
 
         var checkInterval = durationList.filter(function(check) {
-            return !($scope.openedContract.check_interval % (check.value * 24 * 3600));
+            return !($scope.openedContract.contract_details.check_interval % (check.value * 24 * 3600));
         })[0];
 
-        $scope.openedContract.check_interval = {
-            period: $scope.openedContract.check_interval / (checkInterval.value * 24 * 3600),
+        $scope.openedContract.contract_details.check_interval = {
+            period: $scope.openedContract.contract_details.check_interval / (checkInterval.value * 24 * 3600),
             periodUnit: checkInterval.name
         };
         $scope.openedContract.cost = Math.ceil($scope.openedContract.cost / $rootScope.weiDelta * 100000) / 100000;
@@ -62,6 +67,9 @@ angular.module('app').controller('contractsController', function(contractService
                 break;
             case 1:
                 $scope.openedContract.contractTpl = 'lostkey';
+                break;
+            case 2:
+                $scope.openedContract.contractTpl = 'deffered';
                 break;
         }
 

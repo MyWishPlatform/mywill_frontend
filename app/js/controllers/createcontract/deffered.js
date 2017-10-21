@@ -1,20 +1,34 @@
 angular.module('app').controller('defferedCreateController', function($scope, contractService, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
-    $scope.request = {};
 
-    $scope.walletAddress = '';
+
+    var resetForm = function() {
+        $scope.request = {
+            contract_details: {
+                date: moment.tz('UTC').hour(12).startOf('h')
+            },
+            contract_type: CONTRACT_TYPES_CONSTANTS.DEFFERED
+        };
+        $scope.checkedBalance = undefined;
+    };
+
+    $scope.minDate = moment.tz('UTC').hour(12).startOf('h');
+    $scope.dueDate = moment.tz('UTC').hour(12).startOf('h');
+
+    resetForm();
+
     var balanceTimer;
 
     $scope.getBalance = function() {
         balanceTimer ? $timeout.cancel(balanceTimer) : false;
         balanceTimer = false;
         $scope.checkedBalance = false;
-        if (!$scope.walletAddress) {
+        if (!$scope.request.contract_details.user_address) {
             return;
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.walletAddress).then(function(response) {
+            contractService.getBalance($scope.request.contract_details.user_address).then(function(response) {
                 var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
@@ -23,21 +37,21 @@ angular.module('app').controller('defferedCreateController', function($scope, co
         }, 500);
     };
 
-    $scope.minDate = moment.tz('UTC').hour(12).startOf('h');
-    $scope.dueDate = moment.tz('UTC').hour(12).startOf('h');
-
     var oldParams = {};
 
     $scope.onChangeDate = function(modelName, currentDate) {
-        $scope.dueDate = currentDate;
+        $scope.request.contract_details.date = currentDate;
     };
 
     var getCostTimeout;
     $scope.changeCondition = function() {
         var params = {
-            active_to: $scope.dueDate.format('YYYY-MM-DD')
+            date: $scope.request.contract_details.date.format('YYYY-MM-DD'),
+            contract_type: $scope.request.contract_type
         };
+
         getCostTimeout ? $timeout.cancel(getCostTimeout) : false;
+
         var currentTimeout = getCostTimeout = $timeout(function() {
             oldParams = params;
             contractService.getCost(params).then(function(response) {
@@ -49,28 +63,25 @@ angular.module('app').controller('defferedCreateController', function($scope, co
     };
 
     $scope.changeCondition();
-    $scope.$watch('dueDate', function() {
+    $scope.$watch('request.contract_details.date', function() {
         $scope.changeCondition();
     });
 
     $scope.resetForms = function() {
-        $scope.walletAddress = undefined;
-        $scope.checkedBalance = undefined;
-        $scope.dueDate = moment.tz('UTC').hour(12).startOf('h');
+        resetForm();
     };
 
     $scope.checkContract = function() {
         var data = {
-            user_address: $scope.walletAddress,
-            active_to: $scope.dueDate.format('YYYY-MM-DD 00:00')
+            user_address: $scope.request.contract_details.user_address,
+            date: $scope.request.contract_details.date.format('YYYY-MM-DD 00:00'),
+            contract_type: $scope.request.contract_type
         };
-        $scope.previewContractPopUp.createdContract = {
-            user_address: $scope.walletAddress,
-            cost: $scope.checkedCost,
-            active_to: $scope.dueDate.format('YYYY-MM-DD'),
-            contract_type: CONTRACT_TYPES_CONSTANTS.DEFFERED,
-            contractTpl: 'deffered'
-        };
+        $scope.previewContractPopUp.createdContract = angular.copy($scope.request);
+        $scope.previewContractPopUp.createdContract.contract_details.date = $scope.request.contract_details.date.format('YYYY-MM-DD');
+        $scope.previewContractPopUp.createdContract.contractTpl = 'deffered';
+        $scope.previewContractPopUp.createdContract.cost = $scope.checkedCost;
+
         contractService.getCode(data).then(function(response) {
             $scope.previewContractPopUp.createdContract.source_code = response.data.result;
         });
@@ -79,12 +90,9 @@ angular.module('app').controller('defferedCreateController', function($scope, co
     var contractInProgress = false;
     var createContract = function(callback) {
         if (contractInProgress) return;
-        var data = {
-            user_address: $scope.walletAddress,
-            active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-            name: $scope.previewContractPopUp.createdContract.name,
-            contract_type: CONTRACT_TYPES_CONSTANTS.LOST_KEY
-        };
+        var data = angular.copy($scope.request);
+        data.name = $scope.previewContractPopUp.createdContract.name;
+
         contractInProgress = true;
         contractService.createContract(data).then(function(response) {
             contractInProgress = false;

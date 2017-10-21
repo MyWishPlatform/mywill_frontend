@@ -108,7 +108,8 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         var params = {
             heirs_num: $scope.hairsList.length,
             active_to: $scope.dueDate.format('YYYY-MM-DD'),
-            check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24
+            check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
+            contract_type: '0'
         };
         var changed = false;
         for (var k in params) {
@@ -158,25 +159,27 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
             user_address: $scope.walletAddress,
             heirs: $scope.hairsList,
             check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
-            active_to: $scope.dueDate.format('YYYY-MM-DD 00:00')
+            active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
+            contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL
         };
         var nextCheckDate = moment.tz('UTC').add($scope.checkPeriod * $scope.checkPeriodSelect, 'day');
         nextCheckDate = nextCheckDate > $scope.dueDate ? $scope.dueDate : nextCheckDate;
 
 
         $scope.previewContractPopUp.createdContract = {
-            user_address: $scope.walletAddress,
-            heirs: $scope.hairsList,
-            // balance: $scope.checkedBalance,
-            cost: $scope.checkedCost,
-            active_to: $scope.dueDate.format('YYYY-MM-DD'),
-            nextCheck: nextCheckDate.format('YYYY-MM-DD'),
-            check_interval: {
-                period: $scope.checkPeriod,
-                periodUnit: $scope.durationList.filter(function(unit) {
-                    return unit.value === $scope.checkPeriodSelect;
-                })[0]['name']
+            contract_details: {
+                user_address: $scope.walletAddress,
+                heirs: $scope.hairsList,
+                active_to: $scope.dueDate.format('YYYY-MM-DD'),
+                next_check: nextCheckDate.format('YYYY-MM-DD'),
+                check_interval: {
+                    period: $scope.checkPeriod,
+                    periodUnit: $scope.durationList.filter(function(unit) {
+                        return unit.value === $scope.checkPeriodSelect;
+                    })[0]['name']
+                },
             },
+            cost: $scope.checkedCost,
             contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
             contractTpl: 'lastwill'
         };
@@ -189,12 +192,14 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     var createContract = function(callback) {
         if (contractInProgress) return;
         var data = {
-            user_address: $scope.walletAddress,
-            heirs: $scope.hairsList,
-            check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
-            active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
             name: $scope.previewContractPopUp.createdContract.name,
-            contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL
+            contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
+            contract_details: {
+                user_address: $scope.walletAddress,
+                check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
+                active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
+                heirs: $scope.hairsList
+            }
         };
         contractInProgress = true;
         contractService.createContract(data).then(function(response) {

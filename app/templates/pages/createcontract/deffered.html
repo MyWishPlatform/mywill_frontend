@@ -16,7 +16,7 @@
                          ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ETH' : balanceInProgress ? 'Please wait...' : ' '"></div>
                     <label for="wallet-key" class="form-control-label">Your wallet</label>
                     <input id="wallet-key" type="text"
-                           ng-model="walletAddress"
+                           ng-model="request.contract_details.user_address"
                            placeholder="Enter your ETH wallet address"
                            required
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
@@ -27,17 +27,11 @@
         </div>
     </div>
 
-    <div class="help-block">
-        <div class="help-block-content">
-            <i class="icon-info-with-circle"></i>
-            <button class="btn btn-hide-info">
-                <span>Hide</span>
-            </button>
-            <div class="help-block-content_text">
-                Enter the ETH address of the walet that will manage the contracts and where you want to add funds to the reverse contract
-            </div>
-        </div>
-    </div>
+    <div ng-help="{
+        text: 'Enter the address to which you want to send funds.',
+        id: 'help7'
+    }"></div>
+
 </div>
 
 
@@ -56,16 +50,17 @@
                     <input id="out-wallet-key" type="text"
                            placeholder="Enter the address of the recipient's wallet"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
-                           ng-model="hair.address"
+                           ng-model="request.contract_details.recepient_address"
                            required
                            class="form-control-input"/>
                 </div>
-            </div><br/><br/>
+            </div>
 
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
+                <br/>
                 <div class="form-control">
                     <label class="form-control-label">E-mail for notification</label>
-                    <input ng-model="hair.email"
+                    <input ng-model="request.contract_details.recepient_email"
                            placeholder="Enter the e-mail"
                            type="email" class="form-control-input"/>
                 </div>
@@ -73,17 +68,11 @@
         </div>
     </div>
 
-    <div class="help-block">
-        <div class="help-block-content">
-            <i class="icon-info-with-circle"></i>
-            <button class="btn btn-hide-info">
-                <span>Hide</span>
-            </button>
-            <div class="help-block-content_text">
-                Specify the addresses to be sent with the contract. Enter the email address to which you would like to send a cryptocurrency transfer message.
-            </div>
-        </div>
-    </div>
+    <div ng-help="{
+        text: 'Enter the e-mail address to which you want to send the crypt currency transfer message.',
+        id: 'help8'
+    }"></div>
+
 </form>
 
 <form class="main-section-chapter" name="conditionsForm" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid}">
@@ -97,7 +86,7 @@
                 <div class="form-control form-control-date">
                     <label class="form-control-label">Key date</label>
                     <input type="datetime" required
-                           ng-model="dueDate"
+                           ng-model="request.contract_details.date"
                            date-change="onChangeDate"
                            auto-close="true"
                            min-date="minDate"
@@ -114,17 +103,10 @@
         </div>
     </div>
 
-    <div class="help-block">
-        <div class="help-block-content">
-            <i class="icon-info-with-circle"></i>
-            <button class="btn btn-hide-info">
-                <span>Hide</span>
-            </button>
-            <div class="help-block-content_text">
-                Enter the conditions under which you want to execute and press preview
-            </div>
-        </div>
-    </div>
+    <div ng-help="{
+        text: 'Enter the conditions under which you want to execute and press preview',
+        id: 'help9'
+    }"></div>
 </form>
 <div class="main-section-chapter" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid || !conditionsForm.$valid}">
 

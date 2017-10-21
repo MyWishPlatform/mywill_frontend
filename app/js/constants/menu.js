@@ -18,7 +18,8 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
     }, {
         title: 'My contracts',
         icon: 'icon-contracts',
-        route: 'main.contracts.list'
+        route: 'main.contracts.list',
+        parent: 'main.contracts'
     }, {
         title: 'External developers',
         icon: 'icon-framew',

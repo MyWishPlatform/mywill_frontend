@@ -1,7 +1,8 @@
-<div class="help-block">
+<div class="help-block" ng-show="helpsList.indexOf(ngHelp.id) == -1">
+
     <div class="help-block-content">
         <i class="icon-info-with-circle"></i>
-        <button class="btn btn-hide-info">
+        <button class="btn btn-hide-info" ng-click="hideHelp()" type="button">
             <span>Hide</span>
         </button>
         <div class="help-block-content_text">

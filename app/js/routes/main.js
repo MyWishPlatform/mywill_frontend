@@ -28,10 +28,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: function(currentUser, $state, authService) {
             if (!currentUser) {
                 authService.createGhost().then(function(response) {
-                    $state.go('main.createcontract');
+                    $state.go('main.createcontract.types');
                 });
             } else {
-                currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract');
+                currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
             }
         }
     }).state('reset', {
@@ -52,7 +52,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.base', {
         url: '/',
         controller: function(currentUser, $state) {
-            currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract');
+            currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
         },
         title: 'start'
     }).state('main.profile', {
@@ -120,7 +120,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getContract($stateParams.id);
             }
         },
-        title: 'Contract preview'
+        title: 'Contract preview',
+        parent: 'main.contracts'
     }).state('main.contracts.preview.pay', {
         url: '/pay/',
         data: {
@@ -128,7 +129,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         },
         title: 'Contract preview',
         controller: function($stateParams) {
-            console.log($stateParams);
+            // console.log($stateParams);
         }
 
     }).state('main.contracts.preview.deposit', {

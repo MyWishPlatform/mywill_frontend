@@ -27,17 +27,10 @@
         </div>
     </div>
 
-    <div class="help-block">
-        <div class="help-block-content">
-            <i class="icon-info-with-circle"></i>
-            <button class="btn btn-hide-info">
-                <span>Hide</span>
-            </button>
-            <div class="help-block-content_text">
-                Enter the ETH address of the walet that will manage the contracts and where you want to add funds to the reverse contract
-            </div>
-        </div>
-    </div>
+    <div ng-help="{
+        text: 'Enter the ETH address of the walet that will manage the contracts and where you want to add funds to the reverse contract',
+        id: 'help1'
+    }"></div>
 </div>
 
 
@@ -85,17 +78,11 @@
         </button>
     </div>
 
-    <div class="help-block">
-        <div class="help-block-content">
-            <i class="icon-info-with-circle"></i>
-            <button class="btn btn-hide-info">
-                <span>Hide</span>
-            </button>
-            <div class="help-block-content_text">
-                Specify the addresses to be sent with the contract. Enter the email address to which you would like to send a cryptocurrency transfer message.
-            </div>
-        </div>
-    </div>
+    <div ng-help="{
+        text: 'Specify the addresses to be sent with the contract. Enter the email address to which you would like to send a cryptocurrency transfer message.',
+        id: 'help2'
+    }"></div>
+
     <br/><br/>
     <button class="btn btn-white with-icon" type="button" ng-click="addHair()">
         <i class="icon-create-contract"></i>
@@ -165,17 +152,11 @@
         </div>
     </div>
 
-    <div class="help-block">
-        <div class="help-block-content">
-            <i class="icon-info-with-circle"></i>
-            <button class="btn btn-hide-info">
-                <span>Hide</span>
-            </button>
-            <div class="help-block-content_text">
-                Enter the conditions under which you want to execute and press preview
-            </div>
-        </div>
-    </div>
+    <div ng-help="{
+        text: 'Enter the conditions under which you want to execute and press preview',
+        id: 'help3'
+    }"></div>
+
 </form>
 <div class="main-section-chapter" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid || !conditionsForm.$valid || (percentageSum !== 100)}">
 

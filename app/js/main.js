@@ -16,6 +16,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService, MENU_CONSTANTS) {
+    $rootScope.gitHubLink = 'https://github.com/MyWishPlatform/contracts/tree/develop';
     $rootScope.$state = $state;
     $rootScope.numberReplacer = /,/g;
     $rootScope.weiDelta = Math.pow(10, 18);

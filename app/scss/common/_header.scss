@@ -5,7 +5,8 @@
   right: 0;
   z-index: 3;
   padding: 1.6em;
-  background-color: #1C1C27;
+  background-color: $main-blue-color;
+  color: #fff;
   &:after, &:before {
     content: '';
     display: table;
@@ -16,12 +17,12 @@
   background: none;
   border: 0 none;
   font-size: 3em;
-  color: #fff;
   padding: 0;
   vertical-align: middle;
   cursor: pointer;
   float: left;
   margin: 0 0.5em 0 0;
+  color: #fff;
   i {
     display: block;
   }

@@ -14,9 +14,7 @@
 
 <div ng-show="ngPopUp.params.createdContract.showedTab == 'code'" class="contract-preview-code">
     <div class="github-link">
-        <a href="https://github.com/Lastwill-project/lastwill/tree/develop/contracts" target="_blank">
-            https://github.com/Lastwill-project/lastwill/tree/develop/contracts
-        </a>
+        <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">{{$root.gitHubLink}}</a>
         <button class="instruction-for-copy-button"
                 ng-class="{copied: ngPopUp.params.copied || ngPopUp.params.createdContract.copied['code']}"
                 clipboard supported="supported"
@@ -202,11 +200,11 @@
             <div class="grid-cell grid-cell-1-3 grid-cell-sm-1-2 grid-cell-vs-1 grid-cell-ps-2-3 ">
                 <div class="form-control">
                     <label class="form-control-label">&nbsp;</label>
-                    <button class="btn btn-submit" ng-click="ngPopUp.params.createContract()" ng-if="!$root.currentUser.is_ghost">
+                    <button class="btn btn-submit mobile-width-100" ng-click="ngPopUp.params.createContract()" ng-if="!$root.currentUser.is_ghost">
                         <span>Create and pay</span>
                     </button>
 
-                    <button class="btn btn-submit" ng-pop-up="{
+                    <button class="btn btn-submit mobile-width-100" ng-pop-up="{
                                 class: 'deleting-contract',
                                 template: '/templates/popups/ghost-user-alarm.html',
                                 actions: {

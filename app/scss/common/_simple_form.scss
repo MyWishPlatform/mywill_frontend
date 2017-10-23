@@ -21,6 +21,12 @@
 .simple-form-wrapper {
   display: table;
   width: 100%;
+  .btn-submit {
+    float: right;
+  }
+}
+.simple-form-buttons-container {
+  margin-top: 1em;
 }
 .simple-form-field-row {
   display: table-row;
@@ -42,3 +48,38 @@
     height: 8em;
   }
 }
+
+@media screen and (max-width: 480px) {
+  .simple-form-wrapper, .simple-form-field-row, .simple-form-field-label, .simple-form-field-input {
+    display: block;
+  }
+  .simple-form-field-input {
+    padding: 0;
+  }
+  .simple-form-field-row {
+    + .simple-form-field-row {
+      margin-top: 1em;
+    }
+  }
+  .simple-form-field-label {
+    padding-bottom: 0;
+  }
+}
+@media screen and (max-width: 440px) {
+  .simple-form-mobile-hidden {
+    display: none;
+  }
+  .simple-form-wrapper {
+    .btn {
+      width: 44%;
+      display: block;
+      + .btn {
+        margin-top: 1em;
+      }
+    }
+  }
+  .simple-form-buttons-container {
+    margin-top: 0;
+  }
+}
+

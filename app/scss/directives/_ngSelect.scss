@@ -6,26 +6,28 @@
   &.select-1-container {
     margin: 0.5em 0;
     overflow: hidden;
+    border-radius: 9px;
+    box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
     .select-option {
-      color: #fff;
       span {
         box-sizing: border-box;
         width: 100%;
         background: 0 none;
         font-size: 1.5em;
         line-height: 1.45em;
-        color: #ACB3BB;
+        color: #000;
         padding: 0.95em;
       }
       &:hover, &.active {
         span {
-          background: #5b7699;
+          background: $dark-block-background;
         }
       }
       &.selected {
         &, &:hover {
           span {
-            background: #384861;
+            background: $main-blue-color;
+            color: #fff;
           }
         }
       }
@@ -44,8 +46,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
-    background-color: #4E6484;
-    border: 1px solid #fff;
+    background-color: $blocks-background;
   }
   .select-option {
     display: block;
@@ -57,7 +58,7 @@
   .readable-content {
     display: block;
     padding: 0.3em 1em;
-    color: #fff;
+    color: #000;
     max-width: 20em;
     white-space: normal;
     .one-section-content {

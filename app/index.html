@@ -35,14 +35,17 @@
 </head>
 
 <body>
-<header>
+<header class="invisible-content">
     <div class="content-holder">
         <a href="https://mywish.io/" class="logotype">
             <img src="/static/images/logotype.svg"/>
         </a>
+        <button class="mobile-menu-btn header-btn without-border" type="button" id="mobile-menu-btn">
+            <img src="/landing/img/menu.svg">
+        </button>
         <div class="header-buttons">
-            <a href="https://mywish.io" target="_blank" class="header-btn without-border">ICO</a>
-            <a href="/auth/registration" class="header-btn">Sign up</a>
+            <a href="https://mywish.io" target="_blank" class="header-btn without-border">Main</a>
+            <a href="/auth/registration" class="header-btn sign-up-btn">Sign up</a>
             <a href="/auth/" class="header-btn">Sign in</a>
             <a href="mailto:support@mywish.io" class="header-btn without-border">
                 <img src="/landing/img/support.svg" class="header-btn-icon"/>
@@ -51,7 +54,7 @@
         </div>
     </div>
 </header>
-<main>
+<main class="invisible-content">
     <div class="content-holder">
         <div class="main-wrapper">
             <div class="title">
@@ -69,7 +72,7 @@
         </div>
     </div>
 </main>
-<footer>
+<footer class="invisible-content">
     <div class="content-holder">
         <div class="copyright">
             &copy; 2017 <a href="https://mywish.io/">MyWish</a>
@@ -77,81 +80,8 @@
     </div>
 </footer>
 
-<!-- div class="banner-wrapper invisible-content">
-    <div class="header">
-        <div class="wrapper">
-            <div class="logo float-left">
-                <a href="https://mywish.io/"><img src="/static/images/logo.png"/></a>
-            </div>
-            <div class="mobile-menu"><img src="/landing/img/menu.svg" /></div>
-            <div class="after-mobile-menu"></div>
-            <div class="menu float-right">
-                <div class="float-left"><a href="https://mywish.io" target="_blank">ICO</a></div>
-                <div class="float-left menu-registry"><a href="/auth/registration" target="_blank">Sign up</a></div>
-                <div class="float-left menu-registry"><a href="/auth/" target="_blank">Sign in</a></div>
-                <div class="float-left menu-support"><a href="mailto:support@mywish.io" target="_blank">Support</a></div>
-                <div style="clear: both;"></div>
-            </div>
-            <div style="clear: both;"></div>
-        </div>
-    </div>
+<script src="/landing/js/jquery-3.2.1.min.js"></script>
+<script src="/landing/js/main.js"></script>
 
-    <div class="banner">
-        <div class="wrapper">
-            <div class="title">
-                Decentralized platform for smart contracts creation on Ethereum
-            </div>
-            <div class="buttons">
-                <a href="/dashboard/anonymous" target="_blank">
-                    <div class="registry float-left">
-                        Try it
-                    </div>
-                </a>&nbsp;
-                &nbsp;<a href="/auth/registration" target="_blank">
-                    <div class="registry float-left">
-                        Sign up
-                    </div>
-                </a>
-                <a href="#" target="_blank">
-                    <div class="video float-left" style="display: none;">
-                        ICO
-                    </div>
-                </a>
-                <div style="clear: both;"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<footer class="invisible-content">
-    <div class="wrapper">
-        <hr>
-        <div class="copyright">
-            &copy; 2017 <a href="https://mywish.io/">MyWish</a>
-        </div>
-    </div>
-</footer -->
-    <script src="/landing/js/jquery-3.2.1.min.js"></script>
-    <!--<script src="/landing/js/main.js"></script>-->
-    <script>
-        var path = window.location.pathname.split('/');
-        if (path[1] == 'reset') {
-            window.location.href = '/auth/reset-password/' + path[2] + '/' + path[3];
-        }
-
-        $.ajax({
-            action: 'get',
-            url: '/api/v1/profile/',
-            success : function(data) {
-                if (data.username && !data.is_ghost) {
-                    location.href = '/dashboard/';
-                } else if (data.is_ghost) {
-                    $('.invisible-content').removeClass('invisible-content');
-                }
-            },
-            error: function() {
-                $('.invisible-content').removeClass('invisible-content');
-            }
-        });
-    </script>
 </body>
 </html>

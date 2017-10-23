@@ -62,9 +62,12 @@
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  background-color: #4E6484;
-  border: 1px solid #fff;
+  background-color: $blocks-background;
+  color: $main-blue-color;
   font-size: 1.4em;
+  border-radius: 9px;
+  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+
   /* GENERAL */
   padding: 4px;
   /* SPECIFIC */
@@ -93,7 +96,8 @@
   cursor: pointer;
 }
 [date-picker] span:hover {
-  background: #3d4d68;
+  background: $main-blue-color;
+  color: #fff;
 }
 [date-picker] span.disabled,
 [date-picker] span.disabled:hover {
@@ -128,7 +132,7 @@
 }
 [date-picker] .now {
   color: #ffffff;
-  background-color: #ee735b;
+  background-color: $main-blue-color;
 }
 [date-picker] .now:hover,
 [date-picker] .now:active,
@@ -136,11 +140,11 @@
 [date-picker] .now.disabled,
 [date-picker] .now[disabled] {
   color: #ffffff;
-  background-color: #ee905b;
+  background-color: $main-blue-color;
 }
 [date-picker] .now:active,
 [date-picker] .now.active {
-  background-color: #e9712d \9;
+  background-color: $main-blue-color;
 }
 [date-picker] .disabled {
   background: none;
@@ -163,6 +167,7 @@
 }
 [date-picker] th:hover,
 [date-picker] [ng-switch-when="date"] td span:hover {
-  background: #3d4d68;
+  background: $main-blue-color;
+  color: #fff;
   cursor: pointer;
 }

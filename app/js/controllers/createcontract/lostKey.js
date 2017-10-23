@@ -157,7 +157,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
     $scope.checkContract = function() {
         var data = {
             user_address: $scope.walletAddress,
-            heirs: $scope.hairsList,
+            heirs: angular.copy($scope.hairsList),
             check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
             active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
             contract_type: CONTRACT_TYPES_CONSTANTS.LOST_KEY
@@ -169,7 +169,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         $scope.previewContractPopUp.createdContract = {
             contract_details: {
                 user_address: $scope.walletAddress,
-                heirs: $scope.hairsList,
+                heirs: angular.copy($scope.hairsList),
                 active_to: $scope.dueDate.format('YYYY-MM-DD'),
                 next_check: nextCheckDate.format('YYYY-MM-DD'),
                 check_interval: {
@@ -198,7 +198,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
                 user_address: $scope.walletAddress,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-                heirs: $scope.hairsList
+                heirs: angular.copy($scope.hairsList),
             }
         };
         contractInProgress = true;

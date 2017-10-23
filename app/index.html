@@ -30,13 +30,54 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#338f8d">
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
     <link rel="stylesheet" type="text/css" href="/landing/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/landing/css/main.css">
 </head>
+
 <body>
-<div class="banner-wrapper invisible-content">
+<header>
+    <div class="content-holder">
+        <a href="https://mywish.io/" class="logotype">
+            <img src="/static/images/logotype.svg"/>
+        </a>
+        <div class="header-buttons">
+            <a href="https://mywish.io" target="_blank" class="header-btn without-border">ICO</a>
+            <a href="/auth/registration" class="header-btn">Sign up</a>
+            <a href="/auth/" class="header-btn">Sign in</a>
+            <a href="mailto:support@mywish.io" class="header-btn without-border">
+                <img src="/landing/img/support.svg" class="header-btn-icon"/>
+                Support
+            </a>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="content-holder">
+        <div class="main-wrapper">
+            <div class="title">
+                Decentralized platform for smart contracts creation on Ethereum
+            </div>
+
+            <div class="buttons">
+                <a href="/dashboard/anonymous" class="main-btn yellow-btn" target="_blank">
+                    <span>Try it</span>
+                </a>
+                <a href="/auth/registration" class="main-btn white-btn" target="_blank">
+                    <span>Sign up</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="content-holder">
+        <div class="copyright">
+            &copy; 2017 <a href="https://mywish.io/">MyWish</a>
+        </div>
+    </div>
+</footer>
+
+<!-- div class="banner-wrapper invisible-content">
     <div class="header">
         <div class="wrapper">
             <div class="logo float-left">
@@ -54,9 +95,7 @@
             <div style="clear: both;"></div>
         </div>
     </div>
-    <!--<div class="wrapper">
-        <hr>
-    </div>-->
+
     <div class="banner">
         <div class="wrapper">
             <div class="title">
@@ -90,9 +129,9 @@
             &copy; 2017 <a href="https://mywish.io/">MyWish</a>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="/landing/js/main.js"></script>
+</footer -->
+    <script src="/landing/js/jquery-3.2.1.min.js"></script>
+    <!--<script src="/landing/js/main.js"></script>-->
     <script>
         var path = window.location.pathname.split('/');
         if (path[1] == 'reset') {
@@ -114,6 +153,5 @@
             }
         });
     </script>
-</footer>
 </body>
 </html>

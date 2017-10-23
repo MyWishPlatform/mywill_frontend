@@ -1,3 +1,12 @@
+$blocks-background: #F4F4F4;
+$dark-block-background: #F0F0F0;
+$main-blue-color: #206EFF;
+$white-color: #fff;
+$black-color: #000;
+$info-color: #f5a623;
+$cost-value-color: #EFEFEF;
+$dark-grey-color: #808080;
+
 html, body {
   height: 100%;
   width: 100%;
@@ -5,9 +14,10 @@ html, body {
 }
 body {
   margin: 0;
-  color: #fff;
+  color: $black-color;
   font-size: 10px;
-  background: url(images/bg.png) left center repeat #262a36;
+  //background: url(images/bg.png) left center repeat #262a36;
+  background-color: $white-color;
   position: relative;
   font-family: 'Ubuntu', sans-serif;
   &.popup-showed {
@@ -49,17 +59,17 @@ button, input, textarea {
   font-family: inherit;
 }
 a {
-  color: #fff;
+  color: $main-blue-color;
+  text-decoration: underline;
   &:hover, &:focus {
     text-decoration: none;
-    color: #f7ec45;
   }
 }
 strong {
   font-size: 1.15em;
 }
 .pay-count {
-  color: #ffa2a8;
+  color: $main-blue-color;
 }
 
 .identicon-container {

@@ -2,35 +2,35 @@
     <div class="main-section-chapter-fieldset ">
         <div class="simple-form_title">Wedding contract</div>
         <div class="simple-form_text">
-            The template of this contract is under construction to get a wedding contract fill out the feedback form and describe the conditions that you would like it to fulfill.
+            Please fill the form below and specify your wishes. We will ask contact of your parther before contract creation.
         </div>
     </div>
 </div>
-<form class="simple-form">
+<form class="simple-form" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
     <div class="simple-form-wrapper">
         <div class="simple-form-field-row">
             <label class="simple-form-field-label">User&nbsp;name</label>
             <div class="simple-form-field-input">
-                <input/>
+                <input class="form-control-input" ng-model="request.username" required/>
             </div>
         </div>
         <div class="simple-form-field-row">
             <label class="simple-form-field-label">Email</label>
             <div class="simple-form-field-input">
-                <input/>
+                <input class="form-control-input" type="email" ng-model="request.email" required/>
             </div>
         </div>
         <div class="simple-form-field-row">
             <label class="simple-form-field-label">&nbsp;</label>
             <div class="simple-form-field-input">
-                <textarea placeholder="Contract description"></textarea>
+                <textarea  class="form-control-input" placeholder="Contract description" ng-model="request.message" required></textarea>
             </div>
         </div>
         <div class="simple-form-field-row">
             <div class="simple-form-field-label">&nbsp;</div>
             <div class="simple-form-field-input">
                 <br/>
-                <button class="btn btn-white float-right">
+                <button class="btn btn-submit float-right">
                     <span>SEND</span>
                 </button>
                 <button class="btn btn-transparent" type="reset">
@@ -40,3 +40,12 @@
         </div>
     </div>
 </form>
+
+
+<div ng-pop-up="{
+    template: '/templates/popups/form-request-success.html',
+    opened: true,
+    class: 'deleting-contract',
+    noClickShow: true,
+    onClose: resetForm
+}" ng-if="formRequestSuccess"></div>

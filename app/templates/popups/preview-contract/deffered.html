@@ -88,12 +88,11 @@
                         ng-if="(ngPopUp.params.createdContract.stateValue == 1) || (ngPopUp.params.createdContract.stateValue == 2) || (ngPopUp.params.createdContract.stateValue == 5) || (ngPopUp.params.createdContract.stateValue == 6) || (ngPopUp.params.createdContract.stateValue == 7)"
                         ng-pop-up="{
                                 template: '/templates/popups/delete-contract.html',
-                                params: contract,
+                                params: ngPopUp.params.createdContract,
                                 class: 'deleting-contract',
-                                actions: popupActions,
+                                actions: ngPopUp.actions,
                                 onClose: updateList
-                            }"
-                        ng-click="ngPopUp.actions.deleteContract(ngPopUp.params.createdContract)">
+                            }">
                     <i class="icon-trash"></i>
                 </button>
             </div>
@@ -173,7 +172,7 @@
                         <!--<div class="contract-wallet-information-cell contract-wallet-information-title"></div>-->
 
                         <div class="contract-wallet-information-cell contract-wallet-information-date text-left">
-                            <span>Key date</span>
+                            <span>Date of transfer</span>
                             {{ngPopUp.params.createdContract.contract_details.date}}
                         </div>
                     </div>

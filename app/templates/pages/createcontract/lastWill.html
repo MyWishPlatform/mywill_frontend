@@ -1,5 +1,5 @@
 <div class="contract-type-name">
-    <img src="/static/images/contract-types/lastwill.svg" class="contract-type-name_icon"/>
+    <i class="icon-lastwill contract-type-name_icon"></i>
     <div class="contract-type-name_title">Will contract</div>
 </div>
 
@@ -28,7 +28,7 @@
     </div>
 
     <div ng-help="{
-        text: 'Enter the ETH address of the walet that will manage the contracts and where you want to add funds to the reverse contract',
+        text: 'Owner of this address will be able to manage the contract (it\'s the only one).',
         id: 'help1'
     }"></div>
 </div>
@@ -79,12 +79,12 @@
     </div>
 
     <div ng-help="{
-        text: 'Specify the addresses to be sent with the contract. Enter the email address to which you would like to send a cryptocurrency transfer message.',
+        text: 'Enter the recipient address. Enter e-mail address to which we send notification about transfer.',
         id: 'help2'
     }"></div>
 
     <br/><br/>
-    <button class="btn btn-white with-icon" type="button" ng-click="addHair()">
+    <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()">
         <i class="icon-create-contract"></i>
         <span>Add wallet</span>
     </button>
@@ -153,7 +153,7 @@
     </div>
 
     <div ng-help="{
-        text: 'Enter the conditions under which you want to execute and press preview',
+        text: 'Enter the contract\'s conditions - specify when it will make the transfer.',
         id: 'help3'
     }"></div>
 

@@ -1,6 +1,9 @@
+
+
+
 .main-content-holder {
   margin-left: 22.5em;
-  color: #fff;
+  color: $main-blue-color;
   padding-top: 5.6em;
   max-width: 72em;
   position: relative;
@@ -28,7 +31,6 @@
   margin-bottom: 1em;
   font-weight: normal;
   i {
-    color: #8975F0;
     display: inline-block;
     vertical-align: bottom;
     &:before {
@@ -65,9 +67,12 @@ a.main-section-chapter {
     margin-top: 3em;
   }
 }
+
+
 .main-section-chapter-fieldset {
-  background-color: #4E6484;
-  color: #fff;
+  background-color: $blocks-background;
+  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+  color: $black-color;
   border-radius: 0.9em;
   padding: 2em 3.75%;
   position: relative;
@@ -75,10 +80,12 @@ a.main-section-chapter {
     margin-top: 3em;
   }
   &.costs-info-fieldset {
-    background: rgba(79,177,225,0.67);
+    background: $cost-value-color;
+    color: $main-blue-color;
     float: left;
   }
 }
+
 .pre-release-information {
   padding: 1.8em 0.9em;
   text-align: center;
@@ -88,8 +95,9 @@ a.main-section-chapter {
   position: fixed;
   top: 0;
   right: 0;
-  background: url(images/bg.png) left center repeat;
   z-index: 2;
+  color: $black-color;
+  background-color: $white-color;
   span {
     font-size: 1.35em;
     &.red {

@@ -32,19 +32,7 @@
 .instruction-title {
   padding-bottom: 3em;
 }
-.instruction-title-steps {
-  float: left;
-  padding: 2em 2em 2em 4.8em;
-  background-color: #3c506b;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-top-right-radius: 3.1em;
-  border-bottom-right-radius: 3.1em;
-  margin-right: 2em;
-  span {
-    font-size: 1.8em;
-  }
-}
+
 .instruction-title-text {
   font-size: 1.4em;
   font-weight: bold;
@@ -60,7 +48,7 @@
   background: none;
   border: none;
   padding: 0;
-  color: #adcdda;
+  color: $main-blue-color;
   font-size: 1.2em;
   outline: none;
   cursor: pointer;
@@ -100,8 +88,8 @@
   position: relative;
 }
 .instruction-for-copy-text {
-  color: #adcdda;
-  background-color: #3c506b;
+  color: $white-color;
+  background-color: $dark-grey-color;
   padding: 0.65em 1em;
   margin-top: 0.5em;
   word-wrap: break-word;

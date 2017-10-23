@@ -9,11 +9,11 @@
 .form-control-input, .text-field {
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid #E2E4EF;
-  background: 0 none;
+  border: 1px solid #C2C2C2;
+  background: #fff;
   font-size: 1.5em;
   line-height: 2em;
-  color: #ACB3BB;
+  color: $black-color;
   padding: 0.5em 1em;
   margin-top: 0.2em;
 
@@ -24,7 +24,7 @@
 
   form.ng-submitted &, &.ng-touched {
     &.ng-invalid {
-      border-color: #ffa2a8;
+      border-color: #206EFF;
       ~ {
         .field-label {
           //color: #ffa2a8;
@@ -149,7 +149,7 @@
 .contact-remove-btn {
   background: none;
   border: 0 none;
-  color: #fff;
+  color: $main-blue-color;
   cursor: pointer;
   padding: 0;
   outline: none;

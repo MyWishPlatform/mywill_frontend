@@ -23,6 +23,13 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.post(params);
         },
+        sendSentences: function (data) {
+            var params = {
+                path: API.SENTENCES,
+                data: data
+            };
+            return requestService.post(params);
+        },
         getCode: function (data) {
             var params = {
                 path: API.GET_CODE,

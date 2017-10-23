@@ -21,7 +21,8 @@
   position: relative;
   margin-left: -45%;
   padding: 0;
-  background-color: #4E6484;
+  background-color: $blocks-background;
+  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   left: 50%;
   z-index: 3;
@@ -43,15 +44,15 @@
   @extend .icon-cancel;
   font-family: 'icomoon' !important;
   position: absolute;
-  /* width: 2.55em; */
-  /* height: 2.55em; */
   top: -0.5em;
   right: -0.5em;
-  color: #fff;
+  color: $main-blue-color;
   cursor: pointer;
-  font-size: 3em;
+  font-size: 4em;
+  transition: all linear 0.1s;
+  transform: scale(1);
   &:hover {
-    color: #e5e5e5;
+    transform: scale(1.1);
   }
 }
 .popup-window-content-text {
@@ -69,7 +70,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   &.with-popup {
     display: block;
   }

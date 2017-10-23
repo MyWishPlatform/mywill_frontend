@@ -20,5 +20,6 @@ angular.module('Constants').constant('API', {
     "BALANCE": "balance/",
     "GET_COST": "get_cost/",
     "CONTRACTS": "contracts/",
-    "GET_CODE": "get_code/"
+    "GET_CODE": "get_code/",
+    "SENTENCES": "sentences/"
 });

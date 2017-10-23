@@ -38,13 +38,13 @@
 }
 .contract-name-block {
   float: left;
-  background-color: #3C506C;
+  background-color: $main-blue-color;
   line-height: 2.85em;
   padding: 1.05em 1.05em 1.05em 1.875em;
   border-top-right-radius: 2.475em;
   border-bottom-right-radius: 2.475em;
   white-space: nowrap;
-  color: #fff;
+  color: $white-color;
   margin-right: 1.5em;
   &, &:hover, &:focus {
     text-decoration: none;

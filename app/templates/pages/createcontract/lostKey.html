@@ -1,6 +1,6 @@
 <div class="contract-type-name">
-    <img src="/static/images/contract-types/key.svg" class="contract-type-name_icon"/>
-    <div class="contract-type-name_title">Lost key smart contract</div>
+    <i class="icon-key contract-type-name_icon"></i>
+    <div class="contract-type-name_title">Lost key contract</div>
 </div>
 
 <div class="main-section-chapter">
@@ -24,7 +24,7 @@
     </div>
 
     <div ng-help="{
-        text: 'Specify the backup address to which you want to send funds in the event that a private key is lost from the management address.',
+        text: 'Owner of this address will be able to manage the contract (it\'s the only one).',
         id: 'help4'
     }"></div>
 </div>
@@ -71,12 +71,12 @@
     </div>
 
     <div ng-help="{
-        text: 'Enter the e-mail address to which you want to send a message about transferring the crypto currency.',
+        text: 'Specify the backup address to which you want to send funds in the event that a private key is lost from the management address. \n Enter the e-mail address to which you want to send a message about transferring the crypto currency.',
         id: 'help5'
     }"></div>
     <br/><br/>
 
-    <button class="btn btn-white with-icon" type="button" ng-click="addHair()">
+    <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()">
         <i class="icon-create-contract"></i>
         <span>Add wallet</span>
     </button>
@@ -145,7 +145,7 @@
     </div>
 
     <div ng-help="{
-        text: 'Enter the conditions under which you want to execute and press preview',
+        text: 'Enter the contract\'s conditions - specify when it will make the transfer.',
         id: 'help6'
     }"></div>
 </form>

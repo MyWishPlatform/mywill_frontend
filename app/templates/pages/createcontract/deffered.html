@@ -1,5 +1,5 @@
 <div class="contract-type-name">
-    <img src="/static/images/contract-types/deffered.svg" class="contract-type-name_icon"/>
+    <i class="icon-deffered contract-type-name_icon"></i>
     <div class="contract-type-name_title">Deffered payment</div>
 </div>
 
@@ -28,7 +28,7 @@
     </div>
 
     <div ng-help="{
-        text: 'Enter the address to which you want to send funds.',
+        text: 'Owner of this address will be able to manage the contract (it\'s the only one).',
         id: 'help7'
     }"></div>
 
@@ -69,7 +69,7 @@
     </div>
 
     <div ng-help="{
-        text: 'Enter the e-mail address to which you want to send the crypt currency transfer message.',
+        text: 'Enter e-mail address to which we send notification about transfer.',
         id: 'help8'
     }"></div>
 
@@ -84,7 +84,7 @@
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 grid-cell-vs-padding-top">
                 <div class="form-control form-control-date">
-                    <label class="form-control-label">Key date</label>
+                    <label class="form-control-label">Date of transfer</label>
                     <input type="datetime" required
                            ng-model="request.contract_details.date"
                            date-change="onChangeDate"
@@ -104,7 +104,7 @@
     </div>
 
     <div ng-help="{
-        text: 'Enter the conditions under which you want to execute and press preview',
+        text: 'Enter the contract\'s conditions - specify when it will make the transfer.',
         id: 'help9'
     }"></div>
 </form>

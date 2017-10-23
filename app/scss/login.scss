@@ -4,9 +4,7 @@ html, body {
 }
 body {
   margin: 0;
-  background-image: url(images/login-background.png);
-  background-size: cover;
-  background-position: center center;
+  background-color: #F5F3F3;
   font-size: 10px;
   font-family: 'Ubuntu', sans-serif;
   &:not(.visible) {
@@ -45,7 +43,7 @@ header {
 }
 .field-error {
   display: none;
-  color: #ffa2a8;
+  color: #206EFF;
 }
 .field-success {
   display: block;
@@ -54,22 +52,24 @@ header {
 
 .static-field-error {
   display: block;
-  color: #ffa2a8;
+  color: #0037FF;
   font-size: 1em;
   margin: -1.5em 0 2em;
 }
 .field-input {
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid rgba(226, 228, 239, 0.53);
-  background: none;
+  border: 1px solid #E4E4E4;
+  background: #fff;
   font-size: 1.8em;
   line-height: 1.2em;
   padding: 0.75em 1em;
-  color: rgba(226, 228, 239, 0.53);
+  color: #000;
+  border-radius: 0.65em;
+  outline: none;
   form.ng-submitted &, &.ng-touched {
     &.ng-invalid {
-      border-color: #ffa2a8;
+      border-color: #206EFF;
       ~ {
         .field-label {
           //color: #ffa2a8;
@@ -133,7 +133,7 @@ header {
   top: 0;
   left: 0;
   font-size: 1.8em;
-  color: #FFFFFF;
+  color: #000;
   line-height: 1.25em;
 }
 .auth-form-menu {
@@ -145,23 +145,17 @@ header {
     vertical-align: middle;
     padding-bottom: 0.225em;
     &.active {
-      border-bottom: 2px solid #FF0024;
-      a {
-        color: #fff!important;
-      }
+      border-bottom: 2px solid #206EFF;
     }
     + li {
       margin-left: 1.5em;
     }
     a {
       font-size: 2em;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(0, 0, 0, 1);
       line-height: 1.25em;
       &, &:hover, &:focus {
         text-decoration: none;
-      }
-      &:hover, &:focus {
-        color: rgba(255, 255, 255, 0.8);
       }
     }
   }
@@ -169,24 +163,25 @@ header {
 .field-submit-container {
   margin-bottom: 2.775em;
   button {
-    background-color: #F90E36;
+    background-color: #206EFF;
     color: #fff;
     font-size: 1.8em;
     line-height: 1.2em;
     border: 0 none;
-    border-radius: 2px;
     padding: 0.75em 2.5em;
     cursor: pointer;
+    border-radius: 1.5em;
+    outline: none;
   }
 }
 .restore-link {
   font-size: 1.7em;
-  color: #FFFFFF;
+  color: #206EFF;
   line-height: 1.2em;
 }
 
 .email-confirm-title, .email-confirm-text {
-  color: #fff;
+  color: #206EFF;
 }
 .email-confirm-title {
   font-size: 2.5em;

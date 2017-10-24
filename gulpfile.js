@@ -36,10 +36,45 @@ var folders = {
 
 
 /* Landing */
-gulp.task('app:landing', function() {
+gulp.task('app:landing-clean', function() {
+    return del([path.join(input, 'landing')]);
+});
+gulp.task('app:landing', ['app:landing-clean'], function() {
     return gulp.src(path.join(output, 'landing', '**/*'))
         .pipe(gulp.dest(path.join(input, 'landing')));
 });
+
+gulp.task('app:js-rev-landing', function() {
+    return gulp.src(path.join(input, 'landing', 'js', '*.js'))
+        .pipe(rev())
+        .pipe(gulp.dest(path.join(input, 'landing', 'js')))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest(path.join(input, 'landing', 'js')));
+});
+
+gulp.task('app:css-rev-landing', function() {
+    return gulp.src(path.join(input, 'landing', 'css', '*.css'))
+        .pipe(rev())
+        .pipe(gulp.dest(path.join(input, 'landing', 'css')))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest(path.join(input, 'landing', 'css')));
+});
+
+/* Landing manifests */
+gulp.task('app:landing-revision', ['app:js-rev-landing', 'app:css-rev-landing'], function() {
+    var manifestCSS = gulp.src(path.join(input, 'landing', 'css', 'rev-manifest.json'));
+    var manifestJS = gulp.src(path.join(input, 'landing', 'js', 'rev-manifest.json'));
+    return gulp.src(path.join(output, 'index.html'))
+        .pipe(revReplace({manifest: manifestCSS}))
+        .pipe(revReplace({manifest: manifestJS}))
+        .pipe(gulp.dest(input))
+});
+
+/* Landing manifests */
+gulp.task('app:landing-build', ['app:landing'], function() {
+    return gulp.start('app:landing-revision');
+});
+
 
 /* Favicon */
 gulp.task('app:favicon', function() {
@@ -59,9 +94,10 @@ gulp.task('app:fonts', function() {
         .pipe(gulp.dest(path.join(input, 'static', folders['css'], folders['fonts'])));
 });
 
-
-gulp.task('app:templates', function () {
-    del([path.join(input, 'static', 'tpl', 'templates*')]);
+gulp.task('app:templates-clean', function () {
+    return del([path.join(input, 'static', 'tpl', 'templates*')]);
+});
+gulp.task('app:templates', ['app:templates-clean'], function () {
     return gulp
         .src(path.join(output, folders['templates'], '**/*.html'))
         .pipe(angularTemplatecache('templates.tpl.js', {
@@ -75,9 +111,11 @@ gulp.task('app:templates', function () {
         .pipe(gulp.dest(path.join(input, 'static', 'tpl')));
 });
 
+gulp.task('app:css-clean', function () {
+    return del([path.join(input, 'static', folders['css'], '**/*.css')]);
+});
 /* Styles collection */
-gulp.task('app:css', function() {
-    del([path.join(input, 'static', folders['css'], '**/*.css')]);
+gulp.task('app:css', ['app:css-clean'], function() {
     return gulp.src(path.join(output, folders['scss'], '*.scss'))
         .pipe(sass())
         .pipe(gulp.dest(path.join(input, 'static', folders['css'])))
@@ -88,9 +126,12 @@ gulp.task('app:css', function() {
         .pipe(gulp.dest(path.join(input, 'static', folders['css'])));
 });
 
+gulp.task('app:vendors-clean', function () {
+    return del([path.join(input, 'static', 'vendors', '**/*')]);;
+});
 /* Vendors scripts collection */
-gulp.task('app:vendors', function() {
-    del([path.join(input, 'static', 'vendors', '**/*')]);
+gulp.task('app:vendors', ['app:vendors-clean'], function() {
+
     return gulp.src(
         [
             path.join(folders['npm'], 'jquery', 'dist', 'jquery.min.js'),
@@ -105,14 +146,12 @@ gulp.task('app:vendors', function() {
         ])
         .pipe(concat('vendors.js'))
         //.pipe(uglifyjs({mangle: false})).pipe(rev())
+        .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', 'vendors')))
         .pipe(rev.manifest())
         .pipe(gulp.dest(path.join(input, 'static', 'vendors')));
 });
 
-gulp.task('all:tpl-clean', function() {
-    del([path.join(input, 'static', 'tpl', '**/*')]);
-});
 
 gulp.task('all:js-start', ['app:js', 'login:js'], function() {
     return gulp.start('app:revision');
@@ -129,9 +168,12 @@ gulp.task('app:web3', function() {
         .pipe(gulp.dest(path.join(input, 'static', 'web3')));
 });
 
+
+gulp.task('app:js-clean', function () {
+    return del([path.join(input, 'static', 'js', 'main*')]);
+});
 /* Scripts collection */
-gulp.task('app:js'/*, ['app:ws']*/, function() {
-    del([path.join(input, 'static', 'js', 'main*')]);
+gulp.task('app:js', ['app:js-clean'], function() {
     return gulp.src([
         path.join(output, folders['js'], '**/*'),
         '!' + path.join(output, folders['js'], 'login.js')])
@@ -144,9 +186,11 @@ gulp.task('app:js'/*, ['app:ws']*/, function() {
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])));
 });
 
+gulp.task('login:js-clean', function () {
+    return del([path.join(input, 'static', 'js', 'login*')]);
+});
 /* Scripts collection */
 gulp.task('login:js', function() {
-    del([path.join(input, 'static', 'js', 'login*')]);
     return gulp.src(
         [
             path.join(folders['npm'], 'angular', 'angular.min.js'),
@@ -187,9 +231,10 @@ gulp.task('app:revision', function() {
     var manifestVendors = gulp.src(path.join(input, 'static', 'vendors', 'rev-manifest.json'));
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
 
-    return gulp.src(path.join(output, '*.html'))
-        .pipe(revReplace({manifest: manifestCSS, replaceInExtensions: ['.css']}))
-        .pipe(revReplace({manifest: manifestJS, replaceInExtensions: ['.js']}))
+    return gulp.src([path.join(output, '*.html'),
+        '!' + path.join(output, 'index.html')])
+        .pipe(revReplace({manifest: manifestCSS}))
+        .pipe(revReplace({manifest: manifestJS}))
         .pipe(revReplace({manifest: manifestLoginJS}))
         .pipe(revReplace({manifest: manifestVendors}))
         .pipe(revReplace({manifest: manifestTemplates}))
@@ -224,7 +269,7 @@ gulp.task('watcher',function() {
 
 
 
-gulp.task('default', ['app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing', 'app:web3'],
+gulp.task('default', ['app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing-build', 'app:web3'],
     function() {
         if (!isProduction) {
             return gulp.start('serve');

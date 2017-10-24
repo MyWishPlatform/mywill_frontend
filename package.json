@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy-test": "gulp production && rsync -rltzhP --delete dist/ socnet@socialdev.befree.ddgcorp.ru:~/dev/befree-web-frontend"
+    "deploy-test": "gulp production && rsync -rltzhP --delete dist/ dmitriy@contracts.mywish.io:~/lastwill-frontend"
   },
   "author": "",
   "license": "ISC",

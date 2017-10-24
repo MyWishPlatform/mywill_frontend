@@ -77,6 +77,7 @@
                     <span>Cancel</span>
                 </a>
 
+
                 <!-- Refresh status -->
                 <button class="btn only-icon" ng-click="ngPopUp.actions.refreshContract(ngPopUp.params.createdContract)" ng-if="!((ngPopUp.params.createdContract.stateValue == 6) || (ngPopUp.params.createdContract.stateValue == 7))">
                     <i class="icon-refresh"></i>
@@ -104,6 +105,8 @@
     </div>
 
     <div class="contract-balance">
+        <!-- Parity instruction button -->
+
         <button class="btn btn-transparent with-icon float-right"
                 ng-if="!ngPopUp.params.createdContract.state"
                 ng-click="closeCurrentPopup()">
@@ -111,7 +114,7 @@
             <span>Edit</span>
         </button>
         <div ng-if="ngPopUp.params.createdContract.balance">
-            <span class="contract-balance-title">Balance contract</span>&nbsp;&nbsp;
+            <span class="contract-balance-title">Contract balance</span>&nbsp;&nbsp;
             <span class="contract-balance-value">
                     <span ng-bind="(ngPopUp.params.createdContract.balance || 0 | number).replace($root.numberReplacer, ' ')"></span>&nbsp;ETH&nbsp;&nbsp;
                 </span>
@@ -123,9 +126,9 @@
 
 
         <div class="contract-wallets-information-one-block" ng-if="ngPopUp.params.createdContract.address">
-                <span class="identicon-container">
-                    <img ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
-                </span>
+            <span class="identicon-container">
+                <img ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
+            </span>
             <div class="contract-wallet-information-title">Lost key contract:</div>
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{'https://etherscan.io/address/' + ngPopUp.params.createdContract.address}}"
@@ -138,8 +141,17 @@
                         on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'address')" on-error="ngPopUp.params.failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
+                <button
+                        ng-if="ngPopUp.params.createdContract.stateValue == 4"
+                        ng-pop-up="{
+                        template: '/templates/popups/parity-instruction.html',
+                        onClose: ngPopUp.onClose
+                    }"
+                        ng-click="closeCurrentPopup(true)"
+                        class="as-link">
+                    <span>+ Add to parity</span>
+                </button>
             </div>
-
         </div>
 
         <div class="contract-wallets-information-one-block">
@@ -171,7 +183,7 @@
                         <div class="contract-wallet-information-cell contract-wallet-information-title">Outcome transactions</div>
                         <div class="contract-wallet-information-cell contract-wallet-information-date">
                             <span>Due date</span>
-                            {{ngPopUp.params.createdContract.contract_details.active_to}}
+                            {{ngPopUp.params.createdContract.contract_details.active_to|date:'yyyy-MM-dd'}}
                         </div>
                         <div class="contract-wallet-information-cell contract-wallet-information-date">
                             <span>Check every</span>
@@ -179,7 +191,7 @@
                         </div>
                         <div class="contract-wallet-information-cell contract-wallet-information-date">
                             <span>Next check</span>
-                            {{ngPopUp.params.createdContract.contract_details.next_check}}
+                            {{ngPopUp.params.createdContract.contract_details.next_check|date:'yyyy-MM-dd'}}
                         </div>
                     </div>
                 </div>

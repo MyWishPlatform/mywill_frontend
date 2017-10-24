@@ -38,13 +38,6 @@ angular.module('app').controller('contractsController', function(contractService
     };
 
     var convertContract = function() {
-        if ($scope.openedContract.contract_details.active_to) {
-            $scope.openedContract.contract_details.active_to = $filter('date')(new Date($scope.openedContract.contract_details.active_to), 'yyyy-MM-dd');
-        }
-        if ($scope.openedContract.contract_details.date) {
-            $scope.openedContract.contract_details.date = $filter('date')(new Date($scope.openedContract.contract_details.date), 'yyyy-MM-dd');
-        }
-
         var checkInterval = durationList.filter(function(check) {
             return !($scope.openedContract.contract_details.check_interval % (check.value * 24 * 3600));
         })[0];

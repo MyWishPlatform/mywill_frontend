@@ -18,7 +18,7 @@ var devServerApi = {
         "/api", '/accounts', '/logout'
     ],
     // url: url.parse("https://contracts.mywish.io/")
-    url: url.parse("http://lastwill.ddgcorp.ru")
+    url: url.parse("https://contracts.mywish.io")
 };
 var getBrowserSyncConfig = function () {
 

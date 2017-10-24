@@ -39,8 +39,12 @@
   padding: 1em 0;
   line-height: 1.7em;
   margin-right: 2em;
-  margin-left: 8em;
+  margin-left: 2em;
+  .contract-name-block + & {
+    margin-left: 8em;
+  }
 }
+
 .instruction-for-copy-button {
   position: relative;
   top: 0.5em;

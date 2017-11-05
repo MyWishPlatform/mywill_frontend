@@ -1,4 +1,4 @@
-angular.module('app').controller('defferedCreateController', function($scope, contractService, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+angular.module('app').controller('deferredCreateController', function($scope, contractService, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
 
 
@@ -7,7 +7,7 @@ angular.module('app').controller('defferedCreateController', function($scope, co
             contract_details: {
                 date: moment.tz('UTC').hour(12).startOf('h')
             },
-            contract_type: CONTRACT_TYPES_CONSTANTS.DEFFERED
+            contract_type: CONTRACT_TYPES_CONSTANTS.DEFERRED
         };
         $scope.checkedBalance = undefined;
     };
@@ -79,7 +79,7 @@ angular.module('app').controller('defferedCreateController', function($scope, co
         };
         $scope.previewContractPopUp.createdContract = angular.copy($scope.request);
         $scope.previewContractPopUp.createdContract.contract_details.date = $scope.request.contract_details.date.format('YYYY-MM-DD');
-        $scope.previewContractPopUp.createdContract.contractTpl = 'deffered';
+        $scope.previewContractPopUp.createdContract.contractTpl = 'deferred';
         $scope.previewContractPopUp.createdContract.cost = $scope.checkedCost;
 
         contractService.getCode(data).then(function(response) {

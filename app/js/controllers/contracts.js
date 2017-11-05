@@ -62,7 +62,7 @@ angular.module('app').controller('contractsController', function(contractService
                 $scope.openedContract.contractTpl = 'lostkey';
                 break;
             case 2:
-                $scope.openedContract.contractTpl = 'deffered';
+                $scope.openedContract.contractTpl = 'deferred';
                 break;
         }
 

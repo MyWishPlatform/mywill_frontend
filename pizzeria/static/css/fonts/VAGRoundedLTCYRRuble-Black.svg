@@ -1,0 +1,36 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>
+Created by FontForge 20120731 at Tue Sep  1 03:30:03 2015
+ By Vadym Borodean,,,
+Copyright (c) 2009 Linotype Corp., www.linotype.com. All rights reserved. This font software may not be reproduced, modified, disclosed or transferred without the express written approval of Linotype Corp. VAG Rounded is a trademark of Linotype Corp. and may be registered in certain jurisdictions in the name of Linotype Corp. or its licensee Linotype GmbH. This typeface is original artwork of Adrian Williams. The design may be protected in certain jurisdictions. 
+</metadata>
+<defs>
+<font id="VAGRoundedLTCYRRuble-Black" horiz-adv-x="612" >
+  <font-face 
+    font-family="VAG Rounded LT CYR Ruble Black"
+    font-weight="900"
+    font-stretch="normal"
+    units-per-em="1000"
+    panose-1="2 0 10 9 0 0 0 0 0 0"
+    ascent="770"
+    descent="-230"
+    bbox="-24 -6 601 712"
+    underline-thickness="50"
+    underline-position="-100"
+    unicode-range="U+20BD-20BD"
+  />
+<missing-glyph 
+d="M33 0v666h265v-666h-265zM66 33h199v600h-199v-600z" />
+    <glyph glyph-name=".notdef" 
+d="M33 0v666h265v-666h-265zM66 33h199v600h-199v-600z" />
+    <glyph glyph-name=".null" horiz-adv-x="0" 
+ />
+    <glyph glyph-name="nonmarkingreturn" 
+ />
+    <glyph glyph-name="uni20BD" unicode="&#x20bd;" 
+d="M362 296h-123v-53h199q31 0 49 -15.5t18 -44.5q0 -28 -18 -44t-49 -16h-199v-43q0 -42 -22.5 -64t-58.5 -22t-58.5 22t-22.5 64v43h-35q-31 0 -48.5 16t-17.5 44q0 29 17.5 44.5t48.5 15.5h35v52h-35q-31 0 -48.5 16t-17.5 46t17.5 46t48.5 16h35v212q0 37 24 59t57 22
+h199q49 0 91.5 -12t77.5 -36.5t55 -67t20 -98.5q0 -100 -61.5 -151t-177.5 -51zM239 572v-153h87q52 0 79.5 20.5t27.5 58.5q0 41 -27.5 57.5t-79.5 16.5h-87z" />
+  </font>
+</defs></svg>

@@ -1,0 +1,193 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+body {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.2;
+}
+.head {
+    z-index: 1;
+    width: 100%;
+    background: #F2F0ED;
+}
+.head__container {
+    position: relative;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+.logo {
+    width: 100px;
+    line-height: 90px;
+    vertical-align: top;
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+}
+.orders-list-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+h3 {
+    margin: 0;
+}
+.orders-list {
+    margin-top: 10px;
+}
+.orders-list-item {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+}
+.orders-list-item + .orders-list-item {
+    margin-top: 10px;
+}
+.orders-list-item__status {
+    padding: 8px 0;
+    font-weight: bold;
+}
+.orders-list-item__status:after {
+    display: table;
+    content: '';
+    width: 100%;
+}
+.orders-list-item__status.expired {
+    color: #a00;
+}
+.orders-list-item__status.success {
+    color: #0a0;
+}
+
+.orders-list-item__status_btn {
+    float: right;
+    border: 1px solid;
+    color: #00aa00;
+    border-radius: 4px;
+    padding: 8px 7px;
+    background-color: #fff;
+}
+.pay-confirm-popup-holder {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+}
+.pay-confirm-popup-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.pay-confirm-popup-window {
+    width: 98%;
+    max-width: 800px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    position: absolute;
+    left: 50%;
+    margin-left: -49%;
+    top: 50px;
+}
+.pay-confirm-popup-window h3 {
+    text-align: center;
+}
+.pay-confirm-code-field {
+    font-size: 32px;
+    padding: 8px 10px;
+    margin-top: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 200px;
+}
+.pay-confirm-code-field-container {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+.order-timer {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+
+.btn-primary {
+    -webkit-box-shadow: inset 0px -1px 0px 0px #D06809;
+    -moz-box-shadow: inset 0px -1px 0px 0px #D06809;
+    box-shadow: inset 0px -1px 0px 0px #D06809;
+    background: #f6912b;
+    background: -moz-linear-gradient(top, #f49020 0%, #f78200 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f49020), color-stop(100%, #f78200));
+    background: -webkit-linear-gradient(top, #f49020 0%, #f78200 100%);
+    background: -o-linear-gradient(top, #f49020 0%, #f78200 100%);
+    background: -ms-linear-gradient(top, #f49020 0%, #f78200 100%);
+    background: linear-gradient(to bottom, #f49020 0%, #f78200 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f49020', endColorstr='#f78200',GradientType=0 );
+}
+button.button, .button {
+    text-decoration: none;
+    vertical-align: top;
+    font-family: inherit;
+    display: inline-block;
+    padding: 9px 17px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    outline: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 0;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: 22px;
+    line-height: 22px;
+    margin: 0;
+    box-sizing: content-box;
+}
+button.button:not([disabled]), .button:not([disabled]) {
+    cursor: pointer;
+}
+
+.button[disabled] {
+    opacity: 0.6;
+}
+.btn-primary:not([disabled]):hover {
+    background: #f79e43;
+    background: -moz-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f79e43), color-stop(100%, #f48b3e));
+    background: -webkit-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
+    background: -o-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
+    background: -ms-linear-gradient(top, #f79e43 0%, #f48b3e 100%);
+    background: linear-gradient(to bottom, #f79e43 0%, #f48b3e 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f79e43', endColorstr='#f48b3e',GradientType=0 );
+}
+.btn-primary:not([disabled]):active {
+    box-shadow: 0 0 1px rgba(208, 98, 29, 0.9) inset, 0 1px 3px rgba(208, 98, 29, 0.9) inset, 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+.pay-confirm-code-confirm-btn {
+    text-align: center;
+    padding-top: 20px;
+    text-align: center;
+}
+
+@media screen and (min-width: 1200px) {
+    .pay-confirm-popup-window {
+        margin-left: -400px;
+    }
+}

@@ -1,0 +1,94 @@
+<html lang="ru">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+
+    <link href="static/css/courier.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="static/js/jquery.cookie.js"></script>
+    <script src="static/js/courier.js"></script>
+</head>
+<body>
+<header class="head">
+    <div class="head__container">
+        <div class="head__logo logo">
+            <a href="#">
+                <img src="static/images/logo.svg" alt="" />
+            </a>
+        </div>
+    </div>
+</header>
+<div class="orders-list-container">
+    <h3>Все заказы</h3>
+    <div class="orders-list">
+
+        <div class="orders-list-item" id="ethereum-order" style="display: none">
+            <div class="orders-list-item__address">
+                ул. Политехническая, д.2, кв. 1
+            </div>
+            <div class="orders-list-item__amount">
+                <b>К оплате</b> <span class="full-price"></span> р.
+            </div>
+            <div class="orders-list-item__status">
+                <button class="orders-list-item__status_btn enter-pay-code">Ввести код</button>
+                не оплачено (Ethereum)
+            </div>
+        </div>
+
+        <div class="orders-list-item">
+            <div class="orders-list-item__address">
+                ул. Московская, д.52, кв. 32
+            </div>
+            <div class="orders-list-item__amount">
+                <b>К оплате</b> 1400 р.
+            </div>
+            <div class="orders-list-item__status success">доставлено</div>
+        </div>
+
+        <div class="orders-list-item">
+            <div class="orders-list-item__address">
+                ул. Октябрьская, д.12, кв. 13
+            </div>
+            <div class="orders-list-item__amount">
+                <b>К оплате</b> 560 р.
+            </div>
+            <div class="orders-list-item__status">
+                <button class="orders-list-item__status_btn">подтвердить оплату</button>
+                не оплачено (НАЛИЧНЫЕ)
+            </div>
+        </div>
+
+        <div class="orders-list-item">
+            <div class="orders-list-item__address">
+                ул. Астраханская, д.5, кв. 123
+            </div>
+            <div class="orders-list-item__amount">
+                <b>К оплате</b> 800 р.
+            </div>
+            <div class="orders-list-item__status expired">просрочено</div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="pay-confirm-popup-holder" id="pay-confirm-popup" style="display: none;">
+    <div class="pay-confirm-popup-wrapper" id="pay-confirm-closer">
+        <div class="pay-confirm-popup-window">
+            <h3>Для завершения заказа <br/>введите код</h3>
+            <div id="order-timer" class="order-timer"></div>
+            <div class="pay-confirm-code-field-container">
+                <input type="text" class="pay-confirm-code-field" maxlength="4">
+            </div>
+            <div class="pay-confirm-code-confirm-btn">
+                <button class="button btn-primary">Завершить заказ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>

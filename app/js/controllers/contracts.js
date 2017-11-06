@@ -70,14 +70,6 @@ angular.module('app').controller('contractsController', function(contractService
                 break;
         }
 
-        console.log({
-            'order_id': $scope.openedContract.contract_details.order_id + 1,
-            'code': $scope.openedContract.contract_details.code
-        });
-
-
-
-
         var url = 'https://www.myetherwallet.com/?';
         var params = [
             'sendMode=ether'

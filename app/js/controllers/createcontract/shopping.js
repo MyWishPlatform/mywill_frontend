@@ -58,7 +58,7 @@ angular.module('app').controller('shoppingCreateController', function(contractSe
         contractService.createContract(data).then(function(response) {
             var contract = response.data;
             contractInProgress = false;
-            openedWindow.location.href = "https://www.myetherwallet.com/?sendMode=ether&to="+ contract['contract_details']['pizzeria_address'] +"&gaslimit=30000&value=" + contractCost;
+            openedWindow.location.href = "https://www.myetherwallet.com/?sendMode=ether&to="+ contract['owner_address'] +"&gaslimit=30000&value=" + contractCost;
             console.log(contract);
             $state.go('main.contracts.preview', {id: contract.id});
         }, function(response) {

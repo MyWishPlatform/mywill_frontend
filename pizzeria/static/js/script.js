@@ -140,7 +140,7 @@
             $.cookie('order', JSON.stringify(orderInformation));
 
             var options = JSON.stringify({"price": fullPriceValueForRequest, "order": lastOrderId});
-            window.location.href = 'http://localhost:9990/dashboard/anonymous?go=' + encodeURIComponent('/create/shopping?options=' + options);
+            window.location.href = 'https://contracts.mywish.io/dashboard/anonymous?go=' + encodeURIComponent('/create/shopping?options=' + options);
         });
 
     })

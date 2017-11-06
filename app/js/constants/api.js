@@ -21,5 +21,6 @@ angular.module('Constants').constant('API', {
     "GET_COST": "get_cost/",
     "CONTRACTS": "contracts/",
     "GET_CODE": "get_code/",
-    "SENTENCES": "sentences/"
+    "SENTENCES": "sentences/",
+    "ETH2RUB": "eth2rub/"
 });

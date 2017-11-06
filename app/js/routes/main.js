@@ -13,7 +13,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             }
         }
     }).state('anonymous', {
-        url: '/anonymous',
+        url: '/anonymous?:go?',
         template: '',
         title: '',
         resolve: {
@@ -25,15 +25,24 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 });
             }
         },
-        controller: function(currentUser, $state, authService) {
+        controller: function(currentUser, $state, authService, $stateParams, $location) {
             if (!currentUser) {
                 authService.createGhost().then(function(response) {
-                    $state.go('main.createcontract.types');
+                    if (!$stateParams.go) {
+                        $state.go('main.createcontract.types');
+                    } else {
+                        $location.url(decodeURIComponent($stateParams.go));
+                    }
                 });
             } else {
-                currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
+                if (!$stateParams.go) {
+                    currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
+                } else {
+                    $location.url(decodeURIComponent($stateParams.go));
+                }
             }
         }
+
     }).state('reset', {
         url: '/reset/:uid/:token/',
         template: '',
@@ -157,7 +166,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {
-        url: '/create/:selectedType',
+        url: '/create/:selectedType?:options?',
         controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },

@@ -64,6 +64,12 @@ angular.module('Services').service('contractService', function(requestService, A
                 method: 'delete'
             };
             return requestService.post(params);
+        },
+        getExchange: function() {
+            var params = {
+                path: API.ETH2RUB
+            };
+            return requestService.get(params);
         }
     }
 });

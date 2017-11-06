@@ -64,6 +64,10 @@ angular.module('app').controller('contractsController', function(contractService
             case 2:
                 $scope.openedContract.contractTpl = 'deferred';
                 break;
+            case 3:
+                $scope.openedContract.contractTpl = 'shopping';
+                $scope.openedContract.contract_details.dueDate = (new Date($scope.openedContract.created_date)).getTime() + $scope.openedContract.contract_details.timeout * 1000;
+                break;
         }
 
         var url = 'https://www.myetherwallet.com/?';

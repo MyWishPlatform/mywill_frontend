@@ -52,14 +52,14 @@ angular.module('app').controller('shoppingCreateController', function(contractSe
                 user_address: $scope.walletAddress,
                 pizza_cost: pizzaCost,
                 order_id: contractOptions.order
-            }
+            },
+            state: 'WAITING_FOR_PAYMENT'
         };
         contractInProgress = true;
         contractService.createContract(data).then(function(response) {
             var contract = response.data;
             contractInProgress = false;
             openedWindow.location.href = "https://www.myetherwallet.com/?sendMode=ether&to="+ contract['owner_address'] +"&gaslimit=30000&value=" + contractCost;
-            console.log(contract);
             $state.go('main.contracts.preview', {id: contract.id});
         }, function(response) {
             contractInProgress = false;

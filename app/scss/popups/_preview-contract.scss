@@ -369,3 +369,29 @@
     }
   }
 }
+.contract-shopping-info {
+  text-align: center;
+  width: 35%;
+  float: right;
+  margin-right: 3%;
+  padding-bottom: 2em;
+  + .contract-wallets-information {
+    margin-right: 40%;
+  }
+}
+.contract-shopping-timer {
+  font-size: 4em;
+  font-weight: bold;
+}
+.contract-shopping-code {
+  margin-top: 2em;
+}
+.contract-shopping-code-title {
+  font-size: 1.6em;
+  margin-bottom: 1em;
+}
+.contract-shopping-code-value {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  font-size: 5em;
+}

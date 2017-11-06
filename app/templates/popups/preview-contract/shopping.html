@@ -58,9 +58,9 @@
             <i class="icon-wallet contract-information-icon"></i>
             <div class="contract-wallet-information-title">Send fund to</div>
             <span class="identicon-container">
-                    <img class="identicon-image" ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.contract_details.user_address)}}"/>
+                    <img class="identicon-image" ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.owner_address)}}"/>
                 </span>
-            <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.contract_details.user_address"></div>
+            <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.owner_address"></div>
         </div>
 
         <div class="contract-wallets-information-one-block">

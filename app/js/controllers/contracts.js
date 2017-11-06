@@ -5,7 +5,7 @@ angular.module('app').controller('contractsController', function(contractService
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.openedContract = openedContract.data;
     $scope.contractsList = contractsList.data;
-
+    var serverDateTime = openedContract.headers ? openedContract.headers('date') : false;
     var durationList = [
         {
             value: 365,
@@ -38,6 +38,7 @@ angular.module('app').controller('contractsController', function(contractService
         });
     };
 
+    var contractTimer = false;
     var convertContract = function() {
         var checkInterval = durationList.filter(function(check) {
             return !($scope.openedContract.contract_details.check_interval % (check.value * 24 * 3600));
@@ -67,7 +68,7 @@ angular.module('app').controller('contractsController', function(contractService
                 break;
             case 3:
                 var startTimer = function() {
-
+                    contractTimer ? $timeout.cancel(contractTimer) : false;
                     var leftTime = Math.round((rightTime - ((new Date()).getTime() - startTime))/1000);
                     leftTime = Math.max(leftTime, 0);
                     var minutes = Math.floor(leftTime / 60);
@@ -76,17 +77,13 @@ angular.module('app').controller('contractsController', function(contractService
                     seconds = ((seconds < 10) ? '0' : '') + seconds;
                     $scope.openedContract.timer = minutes + ':' + seconds;
                     if (leftTime) {
-                        $timeout(startTimer, 300);
+                        contractTimer = $timeout(startTimer, 100);
                     }
                 };
                 $scope.openedContract.contractTpl = 'shopping';
                 $scope.openedContract.contract_details.dueDate = (new Date($scope.openedContract.created_date)).getTime() + $scope.openedContract.contract_details.timeout * 1000;
-
-                $scope.openedContract.fullCost = Math.ceil(($scope.openedContract.contract_details.pizza_cost + $scope.openedContract.cost) / Math.pow(10, 18) * 100000) / 100000;
-
-
-                var rightTime = $scope.openedContract.contract_details.timeout * 1000 - ((new Date(openedContract.headers('date')).getTime() - (new Date($scope.openedContract.created_date)).getTime()));
-
+                $scope.openedContract.fullCost = Math.ceil(($scope.openedContract.contract_details.pizza_cost * 1 + $scope.openedContract.cost * 1) / Math.pow(10, 18) * 100000) / 100000;
+                var rightTime = $scope.openedContract.contract_details.timeout * 1000 - ((new Date(serverDateTime).getTime() - (new Date($scope.openedContract.created_date)).getTime()));
 
                 var startTime = (new Date()).getTime();
 
@@ -141,6 +138,7 @@ angular.module('app').controller('contractsController', function(contractService
         if ($scope.refreshInProgress[contractId]) return;
         $scope.refreshInProgress[contractId] = true;
         contractService.getContract(contractId).then(function(response) {
+            serverDateTime = response.headers('date');
             angular.merge(contract, response.data);
             if (contract === $scope.openedContract) {
                 angular.merge(contract, response.data);

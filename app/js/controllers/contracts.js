@@ -82,7 +82,6 @@ angular.module('app').controller('contractsController', function(contractService
                 };
                 $scope.openedContract.contractTpl = 'shopping';
                 $scope.openedContract.contract_details.dueDate = (new Date($scope.openedContract.created_date)).getTime() + $scope.openedContract.contract_details.timeout * 1000;
-                $scope.openedContract.fullCost = Math.ceil(($scope.openedContract.contract_details.pizza_cost * 1 + $scope.openedContract.cost * 1) / Math.pow(10, 18) * 100000) / 100000;
                 var rightTime = $scope.openedContract.contract_details.timeout * 1000 - ((new Date(serverDateTime).getTime() - (new Date($scope.openedContract.created_date)).getTime()));
 
                 var startTime = (new Date()).getTime();

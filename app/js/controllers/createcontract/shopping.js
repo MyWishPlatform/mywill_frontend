@@ -15,7 +15,7 @@ angular.module('app').controller('shoppingCreateController', function(contractSe
                 pizza_cost: pizzaCost
             }).then(function(response) {
                 contractCost = response.data.result / $rootScope.weiDelta;
-                $scope.checkedAmount = Math.ceil((contractCost + checkedAmount) * 1000) / 1000;
+                $scope.checkedAmount = Math.ceil((contractCost) * 1000) / 1000;
             });
         })
     };

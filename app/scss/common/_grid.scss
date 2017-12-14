@@ -1,5 +1,5 @@
 .grid-row {
-  margin: 0 -1.5%;
+  margin: 0 -1em;
   &:after, &:before {
     display: table;
     width: 100%;
@@ -9,7 +9,7 @@
 .grid-cell {
   float: left;
   box-sizing: border-box;
-  padding: 0 1.5%;
+  padding: 0 1em;
   &.grid-cell-1 {
     width: 100%;
   }
@@ -24,6 +24,46 @@
   }
   &.grid-cell-1-4 {
     width: 25%;
+  }
+  &.grid-cell-3-4 {
+    width: 75%;
+  }
+  &.grid-cell-1-5 {
+    width: 20%;
+  }
+  &.grid-cell-2-5 {
+    width: 40%;
+  }
+  &.grid-cell-3-5 {
+    width: 60%;
+  }
+  &.grid-cell-4-5 {
+    width: 80%;
+  }
+  &.grid-cell-4-7 {
+    width: 57.142857%;
+  }
+  &.grid-cell-3-7 {
+    width: 42.857143%;
+  }
+  &.grid-cell-1-8 {
+    width: 12.5%;
+  }
+  &.grid-cell-3-8 {
+    width: 37.5%;
+  }
+  &.grid-cell-5-8 {
+    width: 62.5%;
+  }
+  &.grid-cell-7-8 {
+    width: 87.5%;
+  }
+
+  &.grid-cell-4-9 {
+    width: 44.4444%;
+  }
+  &.grid-cell-5-9 {
+    width: 55.5555%;
   }
 }
 

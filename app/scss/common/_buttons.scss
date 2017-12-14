@@ -10,15 +10,17 @@ $red-active-color: #bb0d2b;
 .btn {
   border: 0 none;
   cursor: pointer;
-  padding: 0 3em;
+  padding: 0 2em;
   outline: none;
   font-size: 1em;
-  line-height: 4.9em;
-  border-radius: 2.5em;
+  height: 4em;
+  line-height: 3.8em;
+  border-radius: 2em;
   display: inline-block;
   vertical-align: middle;
   transition: box-shadow 0.05s linear;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  box-sizing: border-box;
   &:hover, &:focus {
     box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
   }
@@ -26,14 +28,14 @@ $red-active-color: #bb0d2b;
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   }
   &.with-icon {
-    padding-left: 1.1em;
+    padding-left: 0.8em;
   }
   i {
-    font-size: 3.1em;
+    font-size: 2.58em;
     margin-right: 0.25em;
   }
   span {
-    font-size: 1.8em;
+    font-size: 1.5em;
   }
   span, i {
     display: inline-block;
@@ -41,8 +43,18 @@ $red-active-color: #bb0d2b;
   }
   &.btn-submit {
     background: $main-blue-color;
-    text-transform: uppercase;
     color: $white-color;
+  }
+
+  &.btn-red {
+    background: $red-normal-color;
+    color: $white-color;
+    &:hover {
+      background: $red-hover-color;
+    }
+    &:active {
+      background: $red-active-color;
+    }
   }
   &.radius-button {
     border-radius: 1.35em;
@@ -88,10 +100,10 @@ $red-active-color: #bb0d2b;
     }
   }
   &.btn-transparent {
-    border: 2px solid;
+    border: 0.2em solid;
+    line-height: 3.6em;
     color: $main-blue-color;
     background: none;
-    line-height: 4.5em;
   }
   &.btn-as-link {
     color: #000;

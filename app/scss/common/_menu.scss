@@ -83,6 +83,11 @@
     line-height: 2.625em;
     padding-top: 1.5em;
     padding-bottom: 1.5em;
+
+    margin-left: 1em;
+    padding-left: 5em;
+    border-top-left-radius: 2.8em;
+    border-bottom-left-radius: 2.8em;
   }
   a {
     &:not(.no-active) {

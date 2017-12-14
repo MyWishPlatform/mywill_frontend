@@ -70,6 +70,13 @@ angular.module('Services').service('contractService', function(requestService, A
                 path: API.ETH2RUB
             };
             return requestService.get(params);
+        },
+        getCurrencyRate: function(data) {
+            var params = {
+                path: API.CURRENCY_RATE,
+                query: data
+            };
+            return requestService.get(params);
         }
     }
 });

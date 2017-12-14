@@ -31,6 +31,7 @@
   position: relative !important;
   z-index: 10;
   display: block;
+  min-width: 30em;
 }
 [date-time-append] [date-picker] {
   position: relative;

@@ -142,6 +142,9 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(folders['npm'], 'angular-clipboard', 'angular-clipboard.js'),
             path.join(folders['npm'], 'moment', 'min', 'moment.min.js'),
             path.join(folders['npm'], 'moment-timezone', 'builds', 'moment-timezone-with-data.min.js'),
+            path.join(folders['npm'], 'amcharts3', 'amcharts', 'amcharts.js'),
+            path.join(folders['npm'], 'amcharts3', 'amcharts', 'pie.js'),
+            path.join(folders['npm'], 'amcharts3', 'amcharts', 'themes', 'light.js'),
             path.join(output, 'vendors', '**/*')
         ])
         .pipe(concat('vendors.js'))

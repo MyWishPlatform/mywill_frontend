@@ -28,6 +28,7 @@
     "url": "^0.11.0"
   },
   "dependencies": {
+    "amcharts3": "github:amcharts/amcharts3",
     "angular": "^1.5.8",
     "angular-clipboard": "^1.6.1",
     "angular-cookies": "^1.6.1",

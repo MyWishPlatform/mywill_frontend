@@ -173,6 +173,14 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateProvider: function ($templateCache, $stateParams) {
             return $templateCache.get(templatesPath + 'createcontract/' + $stateParams.selectedType + '.html');
         },
+        resolve: {
+            currencyRate: function(contractService, $stateParams) {
+                if ($stateParams.selectedType == 'crowdSale') {
+                    return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
+                }
+                return undefined;
+            }
+        },
         parent: 'main.createcontract'
         // templateUrl: templatesPath + 'createcontract/contract-types.html'
     });

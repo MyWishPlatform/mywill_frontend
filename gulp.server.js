@@ -17,8 +17,8 @@ var devServerApi = {
     path: [
         "/api", '/accounts', '/logout'
     ],
-    // url: url.parse("https://contracts.mywish.io/")
-    url: url.parse("https://contracts.mywish.io")
+    // url: url.parse("https://contracts.mywish.io")
+    url: url.parse("http://192.168.10.203:8000")
 };
 var getBrowserSyncConfig = function () {
 

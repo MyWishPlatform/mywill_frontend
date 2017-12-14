@@ -46,6 +46,9 @@
 <div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
 <div class="pre-release-information">
     <div class="main-content-holder">
+        <!-- div class="user-balance">
+            <span class="user-balance-title"></span>
+        </div -->
         <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
             <a href="/auth/registration" class="btn btn-submit">
                 <span>Sign up</span>
@@ -60,7 +63,7 @@
             </a>
         </div>
         <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
-        <span>Pre-Release version 1.0.5</span>
+        <span>version 1.0.5</span>
     </div>
 </div>
 <main class="main-content-holder" ui-view></main>
@@ -77,6 +80,14 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDHD74W"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<!-- script type='text/javascript'>
+    (function(){ var widget_id = 'w1wAvCimms';var d=document;var w=window;function l(){
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script -->
+<!-- {/literal} END JIVOSITE CODE -->
+
 
 </body>
 </html>

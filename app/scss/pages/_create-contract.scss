@@ -48,7 +48,10 @@
     padding: 0.2em 0;
   }
 }
+.chart-container {
+  margin: 3em 0;
 
+}
 @media screen and (max-width: 480px) {
   .contract-type-icon {
     font-size: 3em;
@@ -61,3 +64,4 @@
     margin-left: 2em;
   }
 }
+

@@ -1,0 +1,51 @@
+<div class="ng-time-picker-container" ng-class="{activated: activated}">
+    <input class="ng-time-picker-input"
+           readonly
+           ng-model="values.currentHour"
+           id="field_1_{{idFIeld}}"
+           ng-keyup="keyUp($event)"
+           ng-focus="activateTimePicker($event)"
+           ng-keydown="hourChange($event)"
+           ng-blur="closeTimePicker($event)">
+    <label for="field_1_{{idFIeld}}" class="ng-time-picker-value-group" ng-mousedown="$event.preventDefault()">
+        <span class="ng-time-picker-values-list">
+            <span class="ng-time-picker-control icon-keyboard_arrow_up ng-time-picker-control-up" ng-mousedown="hourChangeUp()"></span>
+            <span class="ng-time-picker-values-list-container">
+                <span class="ng-time-picker-values-list-items" ng-style="{'margin-top': -(values.currentHour * 2) + 'em'}">
+                    <span class="ng-time-picker-value" ng-repeat="hour in hours track by $index" ng-class="{'ng-time-picker-value-active': $index == values.currentHour}">
+                        {{ $index < 10 ? '0' + $index : $index }}
+                    </span>
+                </span>
+            </span>
+            <span class="ng-time-picker-control icon-keyboard_arrow_down ng-time-picker-control-down" ng-mousedown="hourChangeDown()"></span>
+        </span>
+        <span class="ng-time-picker-label">h</span>
+    </label>
+
+    <span class="ng-time-picker-delimiter">:</span>
+
+
+    <input id="field_2_{{idFIeld}}"
+           readonly
+           class="ng-time-picker-input"
+           ng-model="values.currentMinute"
+           ng-keyup="keyUp($event)"
+           ng-keydown="minuteChange($event)"
+           ng-focus="activateTimePicker($event)"
+           ng-blur="closeTimePicker($event)">
+    <label class="ng-time-picker-value-group" for="field_2_{{idFIeld}}" ng-mousedown="$event.preventDefault()">
+        <span class="ng-time-picker-values-list">
+            <span class="ng-time-picker-control icon-keyboard_arrow_up ng-time-picker-control-up" ng-mousedown="minuteChangeUp()"></span>
+            <span class="ng-time-picker-values-list-container">
+                <span class="ng-time-picker-values-list-items" ng-style="{'margin-top': -(values.currentMinute * 2) + 'em'}">
+                    <span class="ng-time-picker-value" ng-repeat="minute in minutes track by $index" ng-class="{'ng-time-picker-value-active': $index == values.currentMinute}">
+                        {{ $index < 10 ? '0' + $index : $index }}
+                    </span>
+                </span>
+            </span>
+            <span class="ng-time-picker-control icon-keyboard_arrow_down ng-time-picker-control-down" ng-mousedown="minuteChangeDown()"></span>
+        </span>
+        <span class="ng-time-picker-label">m</span>
+    </label>
+</div>
+

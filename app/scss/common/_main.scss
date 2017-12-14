@@ -1,4 +1,4 @@
-
+$fieldsets-padding: 2.5em;
 
 
 .main-content-holder {
@@ -74,8 +74,23 @@ a.main-section-chapter {
   box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
   color: $black-color;
   border-radius: 0.9em;
-  padding: 2em 3.75%;
+  padding: $fieldsets-padding;
   position: relative;
+  &-error-info {
+    background-color: #fff;
+    p {
+      color: #707070;
+      font-size: 1.1em;
+      margin: 0;
+      line-height: 1.4em;
+    }
+    .icon-attention {
+      font-size: 1.9em;
+      + p {
+        margin-top: 1em;
+      }
+    }
+  }
   + .main-section-chapter-fieldset {
     margin-top: 3em;
   }
@@ -83,6 +98,28 @@ a.main-section-chapter {
     background: $cost-value-color;
     color: $main-blue-color;
     float: left;
+  }
+}
+
+.main-section-chapter-title {
+  margin-left: -$fieldsets-padding;
+  display: inline-block;
+  background-color: $main-blue-color;
+  border-top-right-radius: 2.8em;
+  border-bottom-right-radius: 2.8em;
+  color: #fff;
+  padding: 1.35em 2.5em 1.35em 1.6em;
+  margin-bottom: 2em;
+  &_icon, &_text {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  &_text {
+    font-size: 2.3em;
+  }
+  &_icon {
+    font-size: 2.8em;
+    margin-right: 0.5em;
   }
 }
 
@@ -117,6 +154,27 @@ a.main-section-chapter {
         margin-left: 1em;
       }
     }
+  }
+}
+
+.costs-info-block {
+  color: $main-blue-color;
+  margin-bottom: 2em;
+  .costs-info-title, .costs-info-value, .costs-info-currency {
+    vertical-align: middle;
+  }
+  .costs-info-title {
+    font-size: 1.7em;
+    line-height: 1.15em;
+  }
+  .costs-info-value {
+    font-size: 1.8em;
+    line-height: 1.15em;
+    font-weight: bold;
+  }
+  .costs-info-currency {
+    font-size: 2.1em;
+    line-height: 1.15em;
   }
 }
 

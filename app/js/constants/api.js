@@ -22,5 +22,6 @@ angular.module('Constants').constant('API', {
     "CONTRACTS": "contracts/",
     "GET_CODE": "get_code/",
     "SENTENCES": "sentences/",
-    "ETH2RUB": "eth2rub/"
+    "ETH2RUB": "eth2rub/",
+    "CURRENCY_RATE": "exc_rate/"
 });

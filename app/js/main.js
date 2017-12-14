@@ -13,7 +13,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.toggleMenu = function() {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
-
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService, MENU_CONSTANTS) {
     $rootScope.gitHubLink = 'https://github.com/MyWishPlatform/contracts/tree/develop';
@@ -126,6 +125,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             scale: 3
         }).toDataURL();
     };
+
+    var offset = moment().utcOffset() / 60;
+    $rootScope.currentTimezone = (offset > 0 ? '+' : '') + offset;
+
 }).config(function($httpProvider, $qProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -137,12 +140,51 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         var cases = [2, 0, 1, 1, 1, 2];
         return words[float ? 1 : (value % 100 > 4 && value % 100 < 20) ? 2 : cases[(value % 10 < 5) ? value % 10 : 5]];
     }
+}).directive('commaseparator', function($filter) {
+    'use strict';
+    return {
+        require: 'ngModel',
+        scope: {
+            commaseparator: '='
+        },
+        link: function(scope, elem, attrs, ctrl) {
+            if (!ctrl) {
+                return;
+            }
+            ctrl.$formatters.unshift(function(value) {
+                return $filter('number')(ctrl.$modelValue);
+            });
+            ctrl.$parsers.unshift(function(viewValue) {
+                var plainNumber = viewValue.replace(/[\,\.\-\+]/g, '');
+                var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
+                if (!valid) return;
+                elem.val($filter('number')(plainNumber));
+                return plainNumber;
+            });
+
+            if (scope.commaseparator.checkWith) {
+                ctrl.$parsers.unshift(function(value) {
+                    if (!value) return;
+                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
+                    var checkModelValue = scope.commaseparator.fullModel[scope.commaseparator.checkWith];
+                    var valid = plainNumber < checkModelValue;
+                    ctrl.$setValidity('check-value', valid);
+                    return value;
+                });
+
+                ctrl.$formatters.unshift(function(value) {
+                    return $filter('number')(ctrl.$modelValue);
+                });
+
+                scope.$watch('commaseparator.fullModel.' + scope.commaseparator.checkWith, function() {
+                    ctrl.$$parseAndValidate();
+                });
+            }
+        }
+    };
 });
 angular.module("datePicker").run(["$templateCache", function($templateCache) {
     $templateCache.put("templates/datepicker.html",
     '<div ng-switch="view"> <div ng-switch-when="date"> <table> <thead> <tr> <th ng-click="prev()">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'month\')" ng-bind="date|mFormat:\'YYYY MMMM\':tz"></th> <th ng-click="next()">&rsaquo;</i></th> </tr> <tr> <th ng-repeat="day in weekdays" style="overflow: hidden" ng-bind="day|mFormat:\'ddd\':tz"></th> </tr> </thead> <tbody> <tr ng-repeat="week in weeks" ng-init="$index2 = $index"> <td ng-repeat="day in week"> <span ng-class="classes[$index2][$index]" ng-click="selectDate(day)" ng-bind="day|mFormat:\'DD\':tz"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="year"> <table> <thead> <tr> <th ng-click="prev(10)">&lsaquo;</th> <th colspan="5" class="switch"ng-bind="years[0].year()+\' - \'+years[years.length-1].year()"></th> <th ng-click="next(10)">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-class="classes[$index]" ng-repeat="year in years" ng-click="selectDate(year)" ng-bind="year.year()"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="month"> <table> <thead> <tr> <th ng-click="prev()">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'year\')" ng-bind="date|mFormat:\'YYYY\':tz"></th> <th ng-click="next()">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-repeat="month in months" ng-class="classes[$index]" ng-click="selectDate(month)" ng-bind="month|mFormat:\'MMM\':tz"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="hours"> <table> <thead> <tr> <th ng-click="prev(24)">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'date\')" ng-bind="date|mFormat:\'DD MMMM YYYY\':tz"></th> <th ng-click="next(24)">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-repeat="hour in hours" ng-class="classes[$index]" ng-click="selectDate(hour)" ng-bind="hour|mFormat:\'HH:mm\':tz"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="minutes"> <table> <thead> <tr> <th ng-click="prev()">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'hours\')" ng-bind="date|mFormat:\'DD MMMM YYYY\':tz"></th> <th ng-click="next()">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-repeat="minute in minutes" ng-class="classes[$index]" ng-click="selectDate(minute)" ng-bind="minute|mFormat:\'HH:mm\':tz"></span> </td> </tr> </tbody> </table> </div> </div>'
     );
 }]);
-
-window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(e){n=document.domain,r.src='javascript:var d=document.open();d.domain="'+n+'";void(0);',o=s}o.open()._l=function(){var e=this.createElement("script");n&&(this.domain=n),e.id="js-iframe-async",e.src="https://assets.zendesk.com/embeddable_framework/main.js",this.t=+new Date,this.zendeskHost="mywillplatform.zendesk.com",this.zEQueue=a,this.body.appendChild(e)},o.write('<body onload="document._l();">'),o.close()}();
-

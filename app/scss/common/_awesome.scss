@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?em6w4u');
-  src:  url('fonts/icomoon.eot?em6w4u#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?em6w4u') format('truetype'),
-  url('fonts/icomoon.woff?em6w4u') format('woff'),
-  url('fonts/icomoon.svg?em6w4u#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?59gtek');
+  src:  url('fonts/icomoon.eot?59gtek#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?59gtek') format('truetype'),
+  url('fonts/icomoon.woff?59gtek') format('woff'),
+  url('fonts/icomoon.svg?59gtek#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,8 +24,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-pizza:before {
+.icon-attention:before {
+  content: "\e92e";
+  color: #f00;
+}
+.icon-delete-button:before {
   content: "\e921";
+}
+.icon-preview:before {
+  content: "\e924";
+}
+.icon-snowflake:before {
+  content: "\e925";
+}
+.icon-settings2:before {
+  content: "\e926";
+}
+.icon-padlock:before {
+  content: "\e927";
+}
+.icon-clock:before {
+  content: "\e928";
+}
+.icon-waiting-1:before {
+  content: "\e929";
+}
+.icon-waiting-2:before {
+  content: "\e92a";
+}
+.icon-soft-cap:before {
+  content: "\e92b";
+}
+.icon-hard-cap:before {
+  content: "\e92c";
+}
+.icon-bitcoin-exchange-rate-symbol:before {
+  content: "\e92d";
+}
+.icon-agreement:before {
+  content: "\e922";
+}
+.icon-pizza:before {
+  content: "\e923";
 }
 .icon-key:before {
   content: "\e91c";
@@ -111,6 +151,18 @@
 .icon-checkmark:before {
   content: "\ea10";
 }
+.icon-trash:before {
+  content: "\e917";
+}
+.icon-keyboard_arrow_left:before {
+  content: "\e913";
+}
+.icon-info-with-circle:before {
+  content: "\e91b";
+}
+.icon-eye:before {
+  content: "\e916";
+}
 .icon-cart:before {
   content: "\e920";
 }
@@ -140,16 +192,4 @@
 }
 .icon-arrow:before {
   content: "\e900";
-}
-.icon-info-with-circle:before {
-  content: "\e91b";
-}
-.icon-eye:before {
-  content: "\e916";
-}
-.icon-trash:before {
-  content: "\e917";
-}
-.icon-keyboard_arrow_left:before {
-  content: "\e913";
 }

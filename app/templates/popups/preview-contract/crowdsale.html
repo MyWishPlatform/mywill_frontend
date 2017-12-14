@@ -1,0 +1,190 @@
+<div class="contract-preview-tabs" ng-init="ngPopUp.params.createdContract.showedTab = 'info'">
+    <div class="contract-preview-one-tab active">
+        <span>Preview contract</span>
+    </div>
+</div>
+
+<div class="contract-preview-information">
+    <div class="contract-status-information" ng-if="ngPopUp.params.createdContract.stateValue">
+        <div class="contract-preview-status-block">
+                <span class="contract-name-block">
+                    <div class="contract-name-text"
+                         ng-attr-title="{{ngPopUp.params.createdContract.name}}">{{ ngPopUp.params.createdContract.name || 'Not defined'}}</div>
+                </span>
+
+            <div class="contract-status-buttons">
+                <!-- Payment instruction button -->
+                <a ui-sref="main.contracts.preview.pay({id: ngPopUp.params.createdContract.id})"
+                   ng-pop-up="{
+                            template: '/templates/popups/pay-instruction.html',
+                            params: ngPopUp.params,
+                            actions: ngPopUp.actions,
+                            onClose: ngPopUp.onClose
+                        }"
+                   ng-click="closeCurrentPopup(true)"
+                   ng-if="(ngPopUp.params.createdContract.stateValue == 1) || (ngPopUp.params.createdContract.stateValue == 2)"
+                   class="btn btn-transparent">
+                    <span>Pay</span>
+                </a>
+
+                <!-- Deposit instruction button -->
+                <a ui-sref="main.contracts.preview.deposit({id: ngPopUp.params.createdContract.id})"
+                   ng-if="ngPopUp.params.createdContract.stateValue == 4"
+                   ng-pop-up="{
+                            template: '/templates/popups/deposit-instruction.html',
+                            params: ngPopUp.params,
+                            actions: ngPopUp.actions,
+                            onClose: ngPopUp.onClose
+                        }"
+                   ng-click="closeCurrentPopup(true)"
+                   class="btn btn-transparent">
+                    <span>Deposit</span>
+                </a>
+
+                <!-- Cancel instruction button -->
+                <a ui-sref="main.contracts.preview.stop({id: ngPopUp.params.createdContract.id})"
+                   ng-if="ngPopUp.params.createdContract.stateValue == 4"
+                   ng-pop-up="{
+                            template: '/templates/popups/stop-instruction.html',
+                            params: ngPopUp.params,
+                            actions: ngPopUp.actions,
+                            onClose: ngPopUp.onClose
+                        }"
+                   ng-click="closeCurrentPopup(true)"
+                   class="btn btn-transparent">
+                    <span>Cancel</span>
+                </a>
+
+                <!-- Refresh status -->
+                <button class="btn only-icon" ng-click="ngPopUp.actions.refreshContract(ngPopUp.params.createdContract)" ng-if="!((ngPopUp.params.createdContract.stateValue == 6) || (ngPopUp.params.createdContract.stateValue == 7))">
+                    <i class="icon-refresh"></i>
+                </button>
+                <!-- Delete contract button -->
+                <button class="btn only-icon" type="button"
+                        ng-if="(ngPopUp.params.createdContract.stateValue == 1) || (ngPopUp.params.createdContract.stateValue == 2) || (ngPopUp.params.createdContract.stateValue == 5) || (ngPopUp.params.createdContract.stateValue == 6) || (ngPopUp.params.createdContract.stateValue == 7)"
+                        ng-pop-up="{
+                                template: '/templates/popups/delete-contract.html',
+                                params: ngPopUp.params.createdContract,
+                                class: 'deleting-contract',
+                                actions: ngPopUp.actions,
+                                onClose: updateList
+                            }">
+                    <i class="icon-trash"></i>
+                </button>
+            </div>
+
+            <div class="contract-status-name" ng-class="'contract-status-' + ngPopUp.params.createdContract.stateValue">
+                <div class="contract-status-text">
+                    <span>{{ngPopUp.params.createdContract.stateTitle}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contract-wallets-information">
+        <div class="contract-wallets-information-one-block" ng-if="ngPopUp.params.createdContract.address">
+                <span class="identicon-container">
+                    <img ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
+                </span>
+            <div class="contract-wallet-information-title">Contract address:</div>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{'https://etherscan.io/address/' + ngPopUp.params.createdContract.address}}"
+                   target="_blank"
+                   ng-bind="ngPopUp.params.createdContract.address"></a>
+                <button class="instruction-for-copy-button"
+                        clipboard supported="supported"
+                        ng-class="{copied: ngPopUp.params.createdContract.copied['address']}"
+                        text="ngPopUp.params.createdContract.address"
+                        on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'address')" on-error="ngPopUp.params.failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="contract-wallets-information-one-block">
+            <i class="icon-wallet contract-information-icon"></i>
+            <div class="contract-wallet-information-title">Investment storage address</div>
+            <span class="identicon-container">
+                    <img class="identicon-image" ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.contract_details.admin_address)}}"/>
+                </span>
+            <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.contract_details.admin_address"></div>
+        </div>
+
+        <div class="contract-wallets-information-one-block">
+            <i class="icon-in-wallet contract-information-icon"></i>
+            <div class="contract-wallet-information-title">Token distribution</div>
+            <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="recipient in ngPopUp.params.createdContract.contract_details.recipients">
+                <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{$root.generateIdenticon(heir.address)}}"/>
+                    </span>
+                <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="heir.address"></div>
+                <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.tokens"></div>
+                <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="heir.frozenDate|date:'yyy-mm-dd'"></div>
+            </div>
+        </div>
+        <div class="contract-wallets-information-one-block contract-dates-information">
+            <i class="icon-conditions contract-information-icon"></i>
+            <div class="contract-information-dates-content">
+                <div class="contract-wallet-information-table">
+                    <div class="contract-wallet-information-row">
+                        <div class="contract-wallet-information-cell contract-wallet-information-title">Outcome</div>
+                        <div class="contract-wallet-information-cell contract-wallet-information-date">
+                            <span>Due date</span>
+                            {{ngPopUp.params.createdContract.contract_details.active_to|date:'yyyy-MM-dd'}}
+                        </div>
+                        <div class="contract-wallet-information-cell contract-wallet-information-date">
+                            <span>Check every</span>
+                            {{ngPopUp.params.createdContract.contract_details.check_interval.period}} {{ngPopUp.params.createdContract.contract_details.check_interval.periodUnit}}
+                        </div>
+                        <div class="contract-wallet-information-cell contract-wallet-information-date">
+                            <span>Next check</span>
+                            {{ngPopUp.params.createdContract.contract_details.next_check|date:'yyyy-MM-dd'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contract-preview-form" ng-if="!ngPopUp.params.createdContract.state">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-sm-1-2 grid-cell-ps-2-3 grid-cell-vs-1 float-right">
+                <label class="form-control-label">&nbsp;</label>
+                <div class="main-section-chapter-fieldset costs-info-fieldset float-right">
+                    <div class="costs-info">
+                        <span class="costs-info-title">Contract`s cost: </span>
+                        <span class="costs-info-value" ng-bind="ngPopUp.params.createdContract.cost"></span>
+                        <span class="costs-info-currency">ETH</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-sm-1-2 grid-cell-vs-1 grid-cell-ps-2-3 ">
+                <div class="form-control" ng-init="ngPopUp.params.createdContract.name = 'MyContract' + ($root.currentUser.contracts + 1)">
+                    <label class="form-control-label">Enter contact name:</label>
+                    <input type="text" class="form-control-input" ng-model="ngPopUp.params.createdContract.name"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-sm-1-2 grid-cell-vs-1 grid-cell-ps-2-3 ">
+                <div class="form-control">
+                    <label class="form-control-label">&nbsp;</label>
+                    <button class="btn btn-submit mobile-width-100" ng-click="ngPopUp.params.createContract()" ng-if="!$root.currentUser.is_ghost">
+                        <span>Create and pay</span>
+                    </button>
+
+                    <button class="btn btn-submit mobile-width-100" ng-pop-up="{
+                                class: 'deleting-contract',
+                                template: '/templates/popups/ghost-user-alarm.html',
+                                actions: {
+                                    createContract: ngPopUp.params.createContract,
+                                    goToRegistration: ngPopUp.params.goToRegistration,
+                                    goToLogin: ngPopUp.params.goToLogin
+                                }
+                            }" ng-if="$root.currentUser.is_ghost">
+                        <span>Create and pay</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

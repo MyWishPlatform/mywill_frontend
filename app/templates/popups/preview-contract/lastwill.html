@@ -29,10 +29,10 @@
 <div ng-show="ngPopUp.params.createdContract.showedTab == 'info'" class="contract-preview-information">
     <div class="contract-status-information" ng-if="ngPopUp.params.createdContract.stateValue">
         <div class="contract-preview-status-block">
-                <span class="contract-name-block">
-                    <div class="contract-name-text"
-                         ng-attr-title="{{ngPopUp.params.createdContract.name}}">{{ ngPopUp.params.createdContract.name || 'Not defined'}}</div>
-                </span>
+            <span class="contract-name-block">
+                <div class="contract-name-text"
+                     ng-attr-title="{{ngPopUp.params.createdContract.name}}">{{ ngPopUp.params.createdContract.name || 'Not defined'}}</div>
+            </span>
 
             <div class="contract-status-buttons">
                 <!-- Payment instruction button -->

@@ -807,7 +807,7 @@ Module.directive('dateTime', ['$compile', '$document', '$filter', 'dateTimeConfi
                     scope.$on('setDate', function (event, date, view) {
                         updateInput(event);
                         if (dateChange) {
-                            dateChange(attrs.ngModel, date, ng);
+                            dateChange(attrs.ngModel, date, ngModel);
                         }
                         if (dismiss && views[views.length - 1] === view) {
                             clear();

@@ -11,8 +11,8 @@
     display: inline-block;
     vertical-align: middle;
     font-size: 1.2em;
-    margin-right: 0.4em;
     margin-top: -0.1em;
+    width: 1.4em;
   }
   &-grey-text {
     color: #878787;
@@ -99,6 +99,12 @@
   margin-top: 0.2em;
   border-radius: 0.5em;
   outline: none;
+  &.small-input {
+    margin-top: 0;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    line-height: 1.95em;
+  }
   &:disabled {
     background-color: #f0f0f0;
   }

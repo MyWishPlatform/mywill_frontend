@@ -28,6 +28,8 @@ module.directive('ngChart', function($timeout) {
             var chart = AmCharts.makeChart(element.get(0), amChartOptions);
 
             $scope.ngChartOptions.updater = function() {
+                $scope.ngChartData = $scope.ngChartData || [];
+                console.log($scope.ngChartData);
                 $timeout(function() {
                     var newData = [];
                     $scope.ngChartData.map(function(newDataItem) {
@@ -41,6 +43,8 @@ module.directive('ngChart', function($timeout) {
                 });
             };
 
+            $scope.$watch('ngChartData', $scope.ngChartOptions.updater);
+            // $scope.ngChartOptions.auto ? $scope.ngChartOptions.updater() : false;
         }
     }
 });

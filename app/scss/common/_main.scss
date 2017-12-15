@@ -160,21 +160,20 @@ a.main-section-chapter {
 .costs-info-block {
   color: $main-blue-color;
   margin-bottom: 2em;
+  //line-height: 1.15em;
   .costs-info-title, .costs-info-value, .costs-info-currency {
     vertical-align: middle;
+    display: inline-block;
   }
   .costs-info-title {
     font-size: 1.7em;
-    line-height: 1.15em;
   }
   .costs-info-value {
     font-size: 1.8em;
-    line-height: 1.15em;
     font-weight: bold;
   }
   .costs-info-currency {
     font-size: 2.1em;
-    line-height: 1.15em;
   }
 }
 

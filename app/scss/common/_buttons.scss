@@ -21,6 +21,7 @@ $red-active-color: #bb0d2b;
   transition: box-shadow 0.05s linear;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   box-sizing: border-box;
+  text-decoration: none;
   &:hover, &:focus {
     box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
   }
@@ -37,10 +38,11 @@ $red-active-color: #bb0d2b;
   span {
     font-size: 1.5em;
   }
-  span, i {
+  i {
     display: inline-block;
     vertical-align: middle;
   }
+  span, i {}
   &.btn-submit {
     background: $main-blue-color;
     color: $white-color;

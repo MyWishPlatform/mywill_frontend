@@ -129,7 +129,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.checkTokensAmount = function() {
         var sum = $scope.request.soft_cap * 1 + $scope.request.token_holders.reduce(function (val, item) {
                 return val + item.amount * 1;
-            }, 0);
+            }, 0) || 0;
         $scope.tokensAmountError = isNaN(sum) || ($scope.request.hard_cap <= sum);
         if (!$scope.tokensAmountError) {
             $timeout(function() {

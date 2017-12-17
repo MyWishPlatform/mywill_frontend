@@ -9,7 +9,6 @@ $red-active-color: #bb0d2b;
 
 .btn {
   border: 0 none;
-  cursor: pointer;
   padding: 0 2em;
   outline: none;
   font-size: 1em;
@@ -22,11 +21,17 @@ $red-active-color: #bb0d2b;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   box-sizing: border-box;
   text-decoration: none;
-  &:hover, &:focus {
-    box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
+  &[disabled] {
+    opacity: 0.5;
   }
-  &:active {
-    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  &:not([disabled]) {
+    cursor: pointer;
+    &:hover, &:focus {
+      box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
+    }
+    &:active {
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
   }
   &.with-icon {
     padding-left: 0.8em;

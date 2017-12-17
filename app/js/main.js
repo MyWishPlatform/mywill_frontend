@@ -151,15 +151,35 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             if (!ctrl) {
                 return;
             }
+            var oldValue;
             ctrl.$formatters.unshift(function(value) {
+                oldValue = value;
                 return $filter('number')(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
                 var plainNumber = viewValue.replace(/[\,\.\-\+]/g, '');
                 var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
-                if (!valid) return;
-                elem.val($filter('number')(plainNumber));
-                return plainNumber;
+                if (!valid) {
+                    if (viewValue) {
+                        ctrl.$setViewValue(oldValue);
+                    }
+                }
+                if (valid || !plainNumber) {
+                    oldValue = plainNumber;
+                    if (valid) {
+                        elem.val($filter('number')(plainNumber));
+                    } else {
+                        elem.val('');
+                    }
+                    return plainNumber;
+                } else {
+                    if (oldValue) {
+                        elem.val($filter('number')(oldValue));
+                    } else {
+                        elem.val('');
+                    }
+                    return oldValue;
+                }
             });
 
             if (scope.commaseparator.checkWith) {
@@ -167,7 +187,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                     if (!value) return;
                     var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
                     var checkModelValue = scope.commaseparator.fullModel[scope.commaseparator.checkWith];
-                    var valid = plainNumber < checkModelValue;
+                    var valid = plainNumber <= checkModelValue;
                     ctrl.$setValidity('check-value', valid);
                     return value;
                 });

@@ -6,28 +6,28 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.currencyRate = currencyRate.data;
 
     var setStartTimestamp = function() {
-        var date = $scope.startDate.clone();
+        var date = $scope.dates.startDate.clone();
         date.hours($scope.startTime.hours).minutes($scope.startTime.minutes).second(0);
         $scope.request.start_date = date.format('X') * 1;
     };
     var setStopTimestamp = function() {
-        var date = $scope.endDate.clone();
+        var date = $scope.dates.endDate.clone();
         date.hours($scope.endTime.hours).minutes($scope.endTime.minutes).second(0);
         $scope.request.stop_date = date.format('X') * 1;
     };
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;
     $scope.onChangeStartDate = function(modelName, currentDate) {
-        $scope.startDate = currentDate.clone();
+        $scope.dates.startDate = currentDate.clone();
         setStartTimestamp();
     };
     $scope.onChangeEndDate = function(modelName, currentDate) {
-        $scope.endDate = currentDate.clone();
+        $scope.dates.endDate = currentDate.clone();
         setStopTimestamp();
     };
     $scope.addRecipient = function() {
         $scope.request.token_holders.push({
-            freeze_date: $scope.endDate.clone()
+            freeze_date: $scope.dates.endDate.clone()
         });
     };
     $scope.removeRecipient = function(recipient) {
@@ -40,6 +40,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         itemValue: 'amount',
         itemLabel: 'address'
     };
+
     $scope.chartData = [];
 
     $scope.dataChanged = function() {
@@ -139,21 +140,24 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     $scope.tokensAmountError = true;
 
-    $scope.resetForms = function() {
-        $scope.startDate = moment().add(startAddingTimeHours, 'hours');
-        $scope.endDate = $scope.startDate.clone().add(minSaleTimeHours, 'hours');
-        $scope.startTime = {
-            hours: $scope.startDate.hours(),
-            minutes: $scope.startDate.minutes()
-        };
-        $scope.endTime = {
-            hours: $scope.endDate.hours(),
-            minutes: $scope.endDate.minutes()
-        };
-        $scope.minStartDate = $scope.startDate.clone();
+    $scope.resetForms = function(event) {
         $scope.request = {
             token_holders: []
         };
+        $scope.dates = {
+            startDate: moment().add(startAddingTimeHours, 'hours'),
+            endDate: moment().add(startAddingTimeHours + minSaleTimeHours, 'hours')
+        };
+
+        $scope.startTime = {
+            hours: $scope.dates.startDate.hours(),
+            minutes: $scope.dates.startDate.minutes()
+        };
+        $scope.endTime = {
+            hours: $scope.dates.endDate.hours(),
+            minutes: $scope.dates.endDate.minutes()
+        };
+        $scope.minStartDate = $scope.dates.startDate.clone();
         $scope.checkTokensAmount();
     };
     $scope.resetForms();

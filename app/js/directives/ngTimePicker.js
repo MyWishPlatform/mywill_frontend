@@ -11,12 +11,6 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
             ngModel: '='
         },
         link: function($scope, element, attr, ngModel) {
-            $scope.values = {
-                currentHour: $scope.ngModel.hours || 0,
-                currentMinute: $scope.ngModel.minutes || 0
-            };
-
-
 
             $scope.hours = [];
             $scope.hours[23] = true;
@@ -40,9 +34,15 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
                     hours: $scope.values.currentHour,
                     minutes: $scope.values.currentMinute
                 });
-                $scope.ngChange ? $scope.ngChange() : false;
             };
-            setValue();
+
+            $scope.$watch('ngModel', function() {
+                $scope.values = {
+                    currentHour: $scope.ngModel.hours || 0,
+                    currentMinute: $scope.ngModel.minutes || 0
+                };
+                $scope.ngChange ? $scope.ngChange() : false;
+            });
 
             var upFunc = function() {
                 $timeout.cancel(timer);

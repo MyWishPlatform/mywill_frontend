@@ -91,7 +91,7 @@
                     </div>
                     <div class="contract-preview-base-font contract-preview-base-value">
                         {{details.rate|number}}
-                        {{details.token_short_name}}=1ETH
+                        {{details.token_short_name}} = 1ETH
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-2-7">
@@ -195,58 +195,49 @@
         </div>
 
         <div class="contract-preview-info-block" ng-if="details.token_holders.length">
-            <div class="contract-preview-holders-list">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-3">
+            <div class="contract-preview-holders-list adaptive-table">
+                <div class="adaptive-table-row">
+                    <div class="adaptive-table-cell">
                         <div class="form-control-label">
                             Address
                         </div>
                     </div>
-                    <div class="grid-cell grid-cell-2-3">
-                        <div class="grid-row">
-                            <div class="grid-cell grid-cell-1-3">
-                                <div class="form-control-label">
-                                    Name
-                                </div>
-                            </div>
-                            <div class="grid-cell grid-cell-1-3">
-                                <div class="form-control-label">
-                                    Token
-                                </div>
-                            </div>
-                            <div class="grid-cell grid-cell-1-3">
-                                <div class="form-control-label">
-                                    <i class="icon-snowflake form-control-label-icon"></i>
-                                    Frozen until date
-                                </div>
-                            </div>
+                    <div class="adaptive-table-cell">
+                        <div class="form-control-label">
+                            Name
                         </div>
                     </div>
-
+                    <div class="adaptive-table-cell">
+                        <div class="form-control-label">
+                            Token
+                        </div>
+                    </div>
+                    <div class="adaptive-table-cell">
+                        <div class="form-control-label nowrap">
+                            Frozen till
+                        </div>
+                    </div>
                 </div>
-                <div class="grid-row contract-preview-holders-item" ng-repeat="holder in details.token_holders">
-                    <div class="grid-cell grid-cell-1-3 contract-preview-holders-address-cell">
+                <div class="adaptive-table-row adaptive-table-body-row contract-preview-holders-item" ng-repeat="holder in details.token_holders">
+                    <div class="adaptive-table-cell">
                         <span class="identicon-container">
                             <img class="identicon-image" ng-src="{{$root.generateIdenticon(holder.address)}}"/>
                         </span>
                         <span class="contract-preview-holders-address" ng-bind="holder.address"></span>
                     </div>
-                    <div class="grid-cell grid-cell-2-3">
-                        <div class="grid-row">
-                            <div class="grid-cell grid-cell-1-3">
-                                <div class="form-control-label">{{holder.name}}&nbsp;</div>
-                            </div>
-                            <div class="grid-cell grid-cell-1-3">
-                                <div class="form-control-label" ng-bind="holder.amount|number"></div>
-                            </div>
-                            <div class="grid-cell grid-cell-1-3" ng-if="holder.freeze_date">
-                                <div class="form-control-label" ng-bind="holder.freeze_date * 1000 | date : 'yyyy-MM-dd'">&nbsp;</div>
-                            </div>
+                    <div class="adaptive-table-cell">
+                        <div class="form-control-label">{{holder.name || '-'}}</div>
+                    </div>
+                    <div class="adaptive-table-cell">
+                        <div class="form-control-label" ng-bind="holder.amount|number"></div>
+                    </div>
+                    <div class="adaptive-table-cell">
+                        <div class="form-control-label">
+                            {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="contract-preview-info-block">
@@ -254,11 +245,22 @@
                 <i class="icon-distribution form-control-label-icon"></i>
                 Token distribution
             </div>
-
-            <div class="chart-container" style="height: 250px"
-                 ng-chart
-                 ng-chart-data="ngPopUp.params.createdContract.chartData"
-                 ng-chart-options="ngPopUp.params.createdContract.chartOptions"></div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-4-7">
+                    <div class="chart-container" style="height: 240px"
+                         ng-chart
+                         ng-chart-data="ngPopUp.params.createdContract.chartData"
+                         ng-chart-options="ngPopUp.params.createdContract.chartOptions"></div>
+                </div>
+                <div class="grid-cell grid-cell-3-7">
+                    <div class="chart-legend">
+                        <div class="chart-legend-item" ng-repeat="chartDataItem in ngPopUp.params.createdContract.chartData">
+                            <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                            <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="contract-preview-fieldset contract-form-fieldset-grey" ng-if="!ngPopUp.params.createdContract.state">
@@ -273,15 +275,16 @@
 
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1-3 grid-cell-sm-1-2 grid-cell-vs-1 grid-cell-ps-2-3 ">
-                        <div class="form-control" ng-init="ngPopUp.params.createdContract.name = 'MyContract' + ($root.currentUser.contracts + 1)">
+                        <div class="form-control" ng-init="ngPopUp.params.createdContract.name = 'MyCrowdSale' + ($root.currentUser.contracts + 1)">
                             <label class="form-control-label">Enter contract name:</label>
                             <input type="text" class="form-control-input small-input" ng-model="ngPopUp.params.createdContract.name"/>
                         </div>
                     </div>
-                    <div class="grid-cell grid-cell-1-3 grid-cell-sm-1-2 grid-cell-vs-1 grid-cell-ps-2-3 ">
+                    <div class="grid-cell grid-cell-2-3 grid-cell-sm-1-2 grid-cell-vs-1 grid-cell-ps-2-3 ">
                         <div class="form-control">
                             <label class="form-control-label">&nbsp;</label>
-                            <button class="btn btn-submit mobile-width-100" ng-click="ngPopUp.params.createContract()" ng-if="!$root.currentUser.is_ghost">
+                            <button class="btn btn-submit mobile-width-100"
+                                    ng-click="ngPopUp.params.createContract()" ng-if="!$root.currentUser.is_ghost">
                                 <span>Create and pay</span>
                             </button>
 
@@ -295,6 +298,12 @@
                                 }
                             }" ng-if="$root.currentUser.is_ghost">
                                 <span>Create and pay</span>
+                            </button>
+
+                            <button class="btn btn-back mobile-width-100 with-icon initial-padding"
+                                    ng-click="closeCurrentPopup()">
+                                <i class="icon-edit"></i>
+                                <span>Edit</span>
                             </button>
                         </div>
                     </div>

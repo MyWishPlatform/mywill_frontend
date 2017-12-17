@@ -49,8 +49,30 @@
   }
 }
 .chart-container {
-  margin: 3em 0;
+}
+.chart-legend {
+}
+.chart-legend-item_color {
+  width: 1.9em;
+  height: 1.9em;
+  border-radius: 50%;
+  float: left;
+  margin: 0.4em 0;
+}
+.chart-legend-item_name {
+  font-size: 1.3em;
+  display: block;
+  margin-left: 2em;
+  padding: 0.4em 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.chart-legend-item {
+  padding: 1em 0;
+  + .chart-legend-item {
 
+  }
 }
 @media screen and (max-width: 480px) {
   .contract-type-icon {

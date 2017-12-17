@@ -21,19 +21,24 @@ $red-active-color: #bb0d2b;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   box-sizing: border-box;
   text-decoration: none;
+  + .btn {
+    margin-left: 1em;
+  }
   &[disabled] {
     opacity: 0.5;
   }
   &:not([disabled]) {
     cursor: pointer;
-    &:hover, &:focus {
-      box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
-    }
-    &:active {
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    &:not(.only-icon) {
+      &:hover, &:focus {
+        box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
+      }
+      &:active {
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      }
     }
   }
-  &.with-icon {
+  &.with-icon:not(.initial-padding) {
     padding-left: 0.8em;
   }
   i {
@@ -51,6 +56,10 @@ $red-active-color: #bb0d2b;
   &.btn-submit {
     background: $main-blue-color;
     color: $white-color;
+  }
+  &.btn-back {
+    background: #E3E3E3;
+    color: $main-blue-color;
   }
 
   &.btn-red {

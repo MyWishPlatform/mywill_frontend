@@ -16,12 +16,18 @@ module.directive('ngChart', function($timeout) {
                 "colors": colors,
                 "titleField": "title",
                 "valueField": "value",
+                "marginBottom": 35,
+                "marginTop": 35,
+                "marginLeft": 35,
+                "marginBottom": 35,
                 "labelRadius": 5,
-                "marginBottom": 25,
-                "marginTop": 25,
                 "radius": "38%",
                 "innerRadius": "60%",
-                "labelText": "[[title]]"
+                "labelText": "[[percents]]%",
+                "labelTickColor": 'transparent',
+                "fontSize": 13,
+                "fontFamily": 'inherit',
+                "balloonText": "[[value]]"
             };
 
 
@@ -30,11 +36,12 @@ module.directive('ngChart', function($timeout) {
             $scope.ngChartOptions.updater = function() {
                 $timeout(function() {
                     var newData = [];
-                    $scope.ngChartData.map(function(newDataItem) {
+                    $scope.ngChartData.map(function(newDataItem, $index) {
                         newData.push({
                             title: newDataItem[$scope.ngChartOptions.itemLabel],
                             value: newDataItem[$scope.ngChartOptions.itemValue]
                         });
+                        newDataItem.color = colors[$index];
                     });
                     chart.dataProvider = newData;
                     chart.validateData();

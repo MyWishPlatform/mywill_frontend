@@ -57,12 +57,12 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.checkContract = function() {
         var contractPreviewModel = angular.copy($scope.request);
 
-        contractPreviewModel.cost = 1;
         contractPreviewModel.token_holders.map(function(holder, index) {
             contractPreviewModel.token_holders[index] = {
                 freeze_date: holder.isFrozen ? holder.freeze_date.format('X') * 1 : null,
                 amount: holder.amount * 1,
-                address: holder.address
+                address: holder.address,
+                name: holder.name || null
             };
         });
 
@@ -70,7 +70,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             contractTpl: 'crowdsale',
             contract_details: contractPreviewModel,
             chartData: $scope.chartData,
-            chartOptions: $scope.chartOptions
+            chartOptions: $scope.chartOptions,
+            cost: 1
         };
     };
     var contractInProgress = false;
@@ -90,7 +91,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             contractDetails.token_holders[index] = {
                 freeze_date: holder.isFrozen ? holder.freeze_date.format('X') * 1 : null,
                 amount: holder.amount * 1,
-                address: holder.address
+                address: holder.address,
+                name: holder.name || null
             };
         });
 

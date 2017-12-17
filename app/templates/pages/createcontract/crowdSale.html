@@ -133,7 +133,7 @@
                         </label>
                         <input id="soft-cap" type="text"
                                ng-model="request.soft_cap"
-                               ng-click="checkTokensAmount()"
+                               ng-change="checkTokensAmount()"
                                required
                                commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', fullModel: request, checkWith: 'hard_cap'}"
                                class="form-control-input"/>

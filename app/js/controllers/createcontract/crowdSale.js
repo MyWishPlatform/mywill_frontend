@@ -55,12 +55,24 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
     $scope.checkContract = function() {
+        var contractPreviewModel = angular.copy($scope.request);
+
+        contractPreviewModel.cost = 1;
+        contractPreviewModel.token_holders.map(function(holder, index) {
+            contractPreviewModel.token_holders[index] = {
+                freeze_date: holder.isFrozen ? holder.freeze_date.format('X') * 1 : null,
+                amount: holder.amount * 1,
+                address: holder.address
+            };
+        });
+
         $scope.previewContractPopUp.createdContract = {
             contractTpl: 'crowdsale',
-            contract_details: $scope.request
+            contract_details: contractPreviewModel,
+            chartData: $scope.chartData,
+            chartOptions: $scope.chartOptions
         };
     };
-
     var contractInProgress = false;
     var createContract = function(callback) {
         if (contractInProgress) return;
@@ -94,7 +106,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             callback ? callback() : $state.go('main.contracts.preview.pay', {id: response.data.id});
         });
     };
-
     var copiedTimeout;
     var successCodeCopy = function() {
         copiedTimeout ? $timeout.cancel(copiedTimeout) : false;
@@ -106,7 +117,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     var failCodeCopy = function() {
         console.log(arguments);
     };
-
     var goToLogin = function() {
         createContract(function() {
             window.location.href = '/auth';
@@ -127,10 +137,11 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     };
 
     $scope.checkTokensAmount = function() {
-        var sum = $scope.request.soft_cap * 1 + $scope.request.token_holders.reduce(function (val, item) {
-                return val + item.amount * 1;
-            }, 0) || 0;
-        $scope.tokensAmountError = isNaN(sum) || ($scope.request.hard_cap <= sum);
+        var holdersSum = $scope.request.token_holders.reduce(function (val, item) {
+            return val + item.amount * 1;
+        }, 0);
+        var sum = $scope.request.soft_cap * 1 + (holdersSum || 0);
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN($scope.request.soft_cap) || (isNaN(holdersSum) && $scope.request.token_holders.length) || ($scope.request.hard_cap <= sum);
         if (!$scope.tokensAmountError) {
             $timeout(function() {
                 $scope.dataChanged();
@@ -140,7 +151,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     $scope.tokensAmountError = true;
 
-    $scope.resetForms = function(event) {
+    $scope.resetForms = function() {
         $scope.request = {
             token_holders: []
         };

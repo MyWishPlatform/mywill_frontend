@@ -1,0 +1,67 @@
+.btns-full-width {
+    display: flex;
+    justify-content: space-between;
+}
+.simple-text {
+    font-size: 1.4em;
+}
+.main-section-chapter-fieldset {
+    padding-bottom: 0;
+}
+.icon-wallet {
+    font-size: 2.8em;
+    margin-right: 0.5em;
+}
+.contract-form-row {
+    margin: 0;
+    &.dark-back {
+        background-color: #e8e8e8;
+        width: 100%;
+        position: relative;
+        margin-left: -2.5em;
+        height: calc(100% + 2.5em);
+        border-radius: 0 0 0.9em 0.9em;
+        padding: 24px 2.5em 34px;
+    }
+}
+.buy-tokens {
+    &__title {
+        font-weight: bold;
+        font-size: 24px;
+        color: #282828;
+        padding: 25px 0 0;
+    }
+}
+.form-control-input {
+    position: relative;
+    &--eth::after {
+        content: 'ETH';
+        position: absolute;
+        display: block;
+        right: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+    }
+}
+.form-control {
+    &--copy {
+        margin-top: 36px;
+    }
+    &--payment-title {
+        margin-bottom: 20px;
+    }
+}
+.attention-text {
+    margin-top: 30px;
+    font-size: 13px;
+    color: #616161;
+    padding-left: 25px;
+    text-align: center;
+    line-height: 15px;
+    &__title {
+        color: #E84848;
+        background: url(images/icons/warning.svg) no-repeat;
+        background-position-x: calc(50% - 50px);
+    }
+}

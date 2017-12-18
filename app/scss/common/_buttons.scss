@@ -136,6 +136,66 @@ $red-active-color: #bb0d2b;
       }
     }
   }
+  &.btn-blue {
+    border-radius: 40px;
+    background: #206EFF;
+    font-weight: bold;
+    color: #fff;
+    width: 120px;
+    padding: 0 20px;
+    margin: 20px 0;
+    span {
+      font-size: 1.7em;
+    }
+  }
+  &.btn-gray {
+    border: 2px solid #C7C7C7;
+    border-radius: 40px;
+    background: #e8e8e8;
+    color: #000;
+    width: 120px;
+    padding: 0 20px;
+    &.active {
+      border-color: #206EFF;
+    }
+  }
+  &.btn-dark {
+    background: #E3E3E3;
+    border-radius: 40px;
+    font-weight: bold;
+    color: #206EFF;
+    width: 100px;
+    padding: 0 20px;
+  }
+  &.btn-payment {
+    background: #E5E5E5;
+    border-radius: 40px;
+    font-weight: bold;
+    color: #206EFF;
+    padding: 0 20px;
+    width: 140px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-x: 15px;
+    span {
+      font-size: 1.2em; 
+    }
+    &.active {
+      border: 2px solid #206EFF;
+    }
+    &--wallet {
+      background-image: url('images/icons/myetherwallet.svg');
+      span {
+        padding-left: 20px;
+      }
+    }
+    &--parity {
+      background-image: url('images/icons/parity.svg');
+    }
+    &--metamask {
+      background-image: url('images/icons/metamask.svg');
+    }
+  }
   &.btn-green {
     color: #000;
     background: #63FF26;

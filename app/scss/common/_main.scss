@@ -71,10 +71,10 @@ a.main-section-chapter {
 
 .main-section-chapter-fieldset {
   background-color: $blocks-background;
-  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
   color: $black-color;
-  border-radius: 0.9em;
   padding: $fieldsets-padding;
+  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+  border-radius: 0.9em;
   position: relative;
   &-error-info {
     background-color: #fff;
@@ -190,7 +190,15 @@ a.main-section-chapter {
   }
 }
 
-@media screen and (max-width: 640px) {}
+@media screen and (max-width: 640px) {
+  .main-section-chapter-fieldset {
+    padding: 1.5em;
+  }
+  .main-section-chapter-title {
+    margin-left: -1.875em;
+    font-size: 0.8em;
+  }
+}
 
 @media screen and (max-width: 480px) {
   .costs-info-fieldset {

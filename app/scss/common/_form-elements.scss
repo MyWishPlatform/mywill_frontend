@@ -241,7 +241,6 @@
   padding: 0.58em 0;
 }
 .contract-form-row {
-  padding-bottom: 1em;
   + .contract-form-row {
     margin-top: 1em;
   }
@@ -436,6 +435,17 @@
         margin-left: 0;
         margin-top: 2em;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .contract-form-fieldset {
+    padding: 1.5em!important;
+    margin-left: -1.5em;
+    margin-right: -1.5em;
+    &:last-child {
+      margin-bottom: -1.5em;
     }
   }
 }

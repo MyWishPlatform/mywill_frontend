@@ -106,6 +106,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         contractService.createContract(data).then(function(response) {
             contractInProgress = false;
             callback ? callback() : $state.go('main.contracts.preview.pay', {id: response.data.id});
+        }, function() {
+            contractInProgress = false;
         });
     };
     var copiedTimeout;

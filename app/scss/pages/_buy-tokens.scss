@@ -72,4 +72,16 @@
         margin: 0 auto;
         text-align: center;
     }
+}.choose {
+    input {
+        display: none;
+        &:checked + .btn {
+            border: 2px solid #206EFF;
+        }
+    }
+    .btn span {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
 }

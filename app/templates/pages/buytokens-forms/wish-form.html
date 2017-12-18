@@ -1,0 +1,70 @@
+<div class="grid-row contract-form-row">
+    <div class="grid-cell buy-tokens__title">
+        WISH
+    </div>
+</div>
+<div class="grid-row contract-form-row">
+    <div class="grid-cell grid-cell-6-8">
+        <div class="form-control">
+            <label class="form-control-label">Send your Wish to:</label>
+            <input type="text" class="form-control-input form-control-input--wish">
+        </div>
+    </div>
+    <div class="grid-cell grid-cell-2-8">
+        <div class="form-control form-control--copy">
+            <button class="btn btn-dark  " type="button">
+                <span>Copy</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="grid-row contract-form-row">
+    <div class="form-control form-control--payment-title">
+        <label class="form-control-label">Select payment method:</label>
+    </div>
+    <div class="grid-cell grid-cell-1-4">
+        <div class="form-control form-control">
+            <button class="btn btn-payment btn-payment--wallet  " type="button">
+                <span>MyEtherwallet</span>
+            </button>
+        </div>
+    </div>
+    <div class="grid-cell grid-cell-1-4">
+        <div class="form-control form-control">
+            <button class="btn btn-payment btn-payment--parity  " type="button">
+                <span>Parity</span>
+            </button>
+        </div>
+    </div>
+    <div class="grid-cell grid-cell-1-4">
+        <div class="form-control form-control">
+            <button class="btn btn-payment btn-payment--metamask  " type="button">
+                <span>Metamask</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="grid-row contract-form-row dark-back">
+    <div class="grid-cell grid-cell-6-8">
+        <div class="form-control">
+            <label class="form-control-label">Choose your wallet:</label>
+            <div ng-select
+                 ng-model=""
+                 ng-model-list=""
+                 ng-select-options="{class: 'select-1', label: 'name', value: 'value'}"></div>
+        </div>
+    </div>
+    <div class="grid-cell grid-cell-2-8">
+        <div class="form-control">
+            <label class="form-control-label">Amount</label>
+            <input type="text" class="form-control-input">
+        </div>
+    </div>
+</div>
+<div class="grid-row contract-form-row">
+    <div class="form-control form-control">
+        <button class="btn btn-blue" type="button">
+            <span>Send</span>
+        </button>
+    </div>
+</div>

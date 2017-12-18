@@ -1,0 +1,30 @@
+<svg width="15" height="15" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>attention-sign-outline</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(768 -3641)">
+<g id="attention-sign-outline">
+<g id="Group">
+<g id="Group">
+<g id="Group">
+<g id="Group">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-768 3641)" fill="#E84848"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(-761.438 3643.81)" fill="#E84848"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(-761.438 3651.3)" fill="#E84848"/>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 7.5 0C 3.35813 0 0 3.35813 0 7.5C 0 11.6419 3.35813 15 7.5 15C 11.6419 15 15 11.6419 15 7.5C 15 3.35813 11.6419 0 7.5 0ZM 7.5 14.0625C 3.88126 14.0625 0.937515 11.1178 0.937515 7.5C 0.937515 3.88126 3.88126 0.937515 7.5 0.937515C 11.1178 0.937515 14.0625 3.88126 14.0625 7.5C 14.0625 11.1178 11.1178 14.0625 7.5 14.0625Z"/>
+<path id="path1_fill" d="M 0.937485 3.60075e-09C 0.419983 3.60075e-09 -9.36196e-08 0.420013 -9.36196e-08 0.937485L -9.36196e-08 5.62497C -9.36196e-08 6.14247 0.420013 6.56246 0.937485 6.56246C 1.45496 6.56246 1.87497 6.14244 1.87497 5.62497L 1.87497 0.937515C 1.87497 0.420013 1.45499 3.60075e-09 0.937485 3.60075e-09Z"/>
+<path id="path2_fill" d="M 0.937485 1.87497C 1.45524 1.87497 1.87497 1.45524 1.87497 0.937486C 1.87497 0.419727 1.45524 0 0.937485 0C 0.419726 0 0 0.419727 0 0.937486C 0 1.45524 0.419726 1.87497 0.937485 1.87497Z"/>
+</defs>
+</svg>

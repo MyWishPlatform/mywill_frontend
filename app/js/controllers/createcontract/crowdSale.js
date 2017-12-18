@@ -45,11 +45,9 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     $scope.dataChanged = function() {
         $scope.chartData = angular.copy($scope.request.token_holders);
-        var sum = $scope.request.token_holders.reduce(function(val, recipient) {
-            return val + recipient.amount * 1;
-        }, 0);
+
         $scope.chartData.unshift({
-            amount: $scope.request.hard_cap ? ($scope.request.hard_cap - sum) : false,
+            amount: $scope.request.hard_cap,
             address: 'For Sale'
         });
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
@@ -144,8 +142,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         var holdersSum = $scope.request.token_holders.reduce(function (val, item) {
             return val + item.amount * 1;
         }, 0);
-        var sum = $scope.request.soft_cap * 1 + (holdersSum || 0);
-        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN($scope.request.soft_cap) || (isNaN(holdersSum) && $scope.request.token_holders.length) || ($scope.request.hard_cap <= sum);
+
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || (isNaN(holdersSum) && $scope.request.token_holders.length);
         if (!$scope.tokensAmountError) {
             $timeout(function() {
                 $scope.dataChanged();

@@ -6,14 +6,12 @@
 
 <div class="contract-preview-wrapper" ng-init="details = ngPopUp.params.createdContract.contract_details">
 
-
     <div class="contract-status-information" ng-if="ngPopUp.params.createdContract.stateValue">
-        <br/><Br/>
+        <br/><br/>
         <div class="contract-preview-status-block">
             <span class="contract-name-block">
                 <div class="contract-name-text" ng-attr-title="{{ngPopUp.params.createdContract.name}}">{{ ngPopUp.params.createdContract.name || 'Not defined'}}</div>
             </span>
-
             <div class="contract-status-buttons">
                 <!-- Payment instruction button -->
                 <a ui-sref="main.contracts.preview.pay({id: ngPopUp.params.createdContract.id})"
@@ -46,7 +44,6 @@
                     <i class="icon-trash"></i>
                 </button>
             </div>
-
             <div class="contract-status-name" ng-class="'contract-status-' + ngPopUp.params.createdContract.stateValue">
                 <div class="contract-status-text">
                     <span>{{ngPopUp.params.createdContract.stateTitle}}</span>
@@ -54,26 +51,25 @@
             </div>
         </div>
     </div>
-
-
-
     <div class="contract-preview-content">
 
         <!--- Base token info --->
         <div class="grid-row contract-preview-info-block white-block">
-            <div class="grid-cell grid-cell-1-3">
+            <div class="grid-cell grid-cell-1-3 grid-cell-s-1-2 grid-cell-ls-1">
                 <div class="contract-preview-base-font">
                     <span class="contract-preview-grey-font-color">Token name:</span>
                     {{ ngPopUp.params.createdContract.contract_details.token_name }}
                 </div>
             </div>
-            <div class="grid-cell grid-cell-1-3">
+            <div class="clearfix show-ls"><br/></div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-s-1-2 grid-cell-ls-1">
                 <div class="contract-preview-base-font">
                     <span class="contract-preview-grey-font-color">Token symbol:</span>
                     {{ ngPopUp.params.createdContract.contract_details.token_short_name }}
                 </div>
             </div>
-            <div class="grid-cell grid-cell-1-3">
+            <div class="clearfix show-s"><br/></div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-s-1-2 grid-cell-ls-1">
                 <div class="contract-preview-base-font">
                     <span class="contract-preview-grey-font-color">Decimals:</span>
                     {{ ngPopUp.params.createdContract.contract_details.decimals }}
@@ -84,7 +80,7 @@
         <!-- ICO info -->
         <div class="contract-preview-fieldset contract-form-fieldset-grey">
             <div class="grid-row contract-preview-info-block">
-                <div class="grid-cell grid-cell-2-7">
+                <div class="grid-cell grid-cell-2-7 grid-cell-s-1">
                     <div class="form-control-label">
                         <i class="icon-bitcoin-exchange-rate-symbol form-control-label-icon"></i>
                         Token rate
@@ -94,7 +90,8 @@
                         {{details.token_short_name}} = 1ETH
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-2-7">
+                <div class="clearfix show-s"><br/></div>
+                <div class="grid-cell grid-cell-2-7 grid-cell-s-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-hard-cap form-control-label-icon"></i>
                         Hard cap tokens
@@ -109,7 +106,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-2-7">
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-2-7 grid-cell-s-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-soft-cap form-control-label-icon"></i>
                         Soft cap tokens
@@ -126,7 +124,7 @@
                 </div>
             </div>
             <div class="grid-row contract-preview-info-block">
-                <div class="grid-cell grid-cell-2-7">
+                <div class="grid-cell grid-cell-2-7 grid-cell-s-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-waiting-2 form-control-label-icon"></i>
                         Start date
@@ -137,7 +135,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-2-7">
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-2-7 grid-cell-s-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-waiting-1 form-control-label-icon"></i>
                         Finish date
@@ -148,7 +147,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-1-5">
+                <div class="clearfix show-s"><br/></div>
+                <div class="grid-cell grid-cell-1-5 grid-cell-s-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-padlock form-control-label-icon"></i>
                         Transferable
@@ -161,7 +161,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-1-5">
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-5 grid-cell-s-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-settings form-control-label-icon"></i>
                         Finalize auto
@@ -183,8 +184,8 @@
                 <i class="icon-wallet form-control-label-icon"></i>
                 Investments Storage Address
             </div>
-
-            <div class="contract-preview-base-value float-left contract-preview-base-font"></div>
+            <br class="show-ls"/>
+            <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
 
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.admin_address)}}"/>
@@ -195,44 +196,47 @@
         </div>
 
         <div class="contract-preview-info-block" ng-if="details.token_holders.length">
-            <div class="contract-preview-holders-list adaptive-table">
-                <div class="adaptive-table-row">
+            <div class="contract-preview-holders-list">
+
+                <!-- div class="adaptive-table-row">
                     <div class="adaptive-table-cell">
-                        <div class="form-control-label">
-                            Address
-                        </div>
+                        <div class="form-control-label">Address</div>
                     </div>
                     <div class="adaptive-table-cell">
-                        <div class="form-control-label">
-                            Name
-                        </div>
+                        <div class="form-control-label">Name</div>
                     </div>
                     <div class="adaptive-table-cell">
-                        <div class="form-control-label">
-                            Token
-                        </div>
+                        <div class="form-control-label">Token</div>
                     </div>
                     <div class="adaptive-table-cell">
-                        <div class="form-control-label nowrap">
-                            Frozen till
-                        </div>
+                        <div class="form-control-label nowrap">Frozen till</div>
                     </div>
-                </div>
-                <div class="adaptive-table-row adaptive-table-body-row contract-preview-holders-item" ng-repeat="holder in details.token_holders">
-                    <div class="adaptive-table-cell">
+                </div -->
+
+
+                <div class="contract-preview-holders-item grid-row"
+                     ng-repeat="holder in details.token_holders">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label bold">Address</div>
                         <span class="identicon-container">
                             <img class="identicon-image" ng-src="{{$root.generateIdenticon(holder.address)}}"/>
                         </span>
                         <span class="contract-preview-holders-address" ng-bind="holder.address"></span>
                     </div>
-                    <div class="adaptive-table-cell">
-                        <div class="form-control-label">{{holder.name || '-'}}</div>
+                    <div class="clearfix"><br/></div>
+                    <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
+                        <div class="form-control-label bold">Name</div>
+                        <div class="form-control-preview-value">{{holder.name || '-'}}</div>
                     </div>
-                    <div class="adaptive-table-cell">
-                        <div class="form-control-label" ng-bind="holder.amount|number"></div>
+                    <div class="clearfix show-vs"><br/></div>
+                    <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
+                        <div class="form-control-label bold">Token</div>
+                        <div class="form-control-preview-value" ng-bind="holder.amount|number"></div>
                     </div>
-                    <div class="adaptive-table-cell">
-                        <div class="form-control-label">
+                    <div class="clearfix show-ps"><br/></div>
+                    <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
+                        <div class="form-control-label bold">Frozen till</div>
+                        <div class="form-control-preview-value">
                             {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
                         </div>
                     </div>
@@ -246,13 +250,13 @@
                 Token distribution
             </div>
             <div class="grid-row">
-                <div class="grid-cell grid-cell-4-7">
+                <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
                     <div class="chart-container" style="height: 240px"
                          ng-chart
                          ng-chart-data="ngPopUp.params.createdContract.chartData"
                          ng-chart-options="ngPopUp.params.createdContract.chartOptions"></div>
                 </div>
-                <div class="grid-cell grid-cell-3-7">
+                <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
                     <div class="chart-legend">
                         <div class="chart-legend-item" ng-repeat="chartDataItem in ngPopUp.params.createdContract.chartData">
                             <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>

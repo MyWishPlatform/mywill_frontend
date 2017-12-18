@@ -50,7 +50,18 @@
     border-bottom-right-radius: 0.9em;
   }
 }
-.contract-preview-holders-item {}
+.contract-preview-holders-list {
+  margin-bottom: 1.5em;
+}
+.contract-preview-holders-item {
+  padding: 1em;
+  border-radius: 0.75em;
+  box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.15);
+  background-color: #fff;
+  + .contract-preview-holders-item {
+    margin-top: 1em;
+  }
+}
 
 .contract-preview-holders-address-cell {
   line-height: 2.4em;
@@ -63,7 +74,42 @@
   font-size: 1.4em;
   line-height: 1.71em;
   word-wrap: break-word;
+  white-space: pre-line;
   display: block;
   margin-left: 2.2em;
   color: #777;
+}
+.contract-preview-status-block {
+  padding: 0 0 1.5em 0;
+  margin-top: 0;
+  line-height: 4.9em;
+  &:after, &:before {
+    display: table;
+    content: '';
+    width: 100%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .contract-preview-content {
+    padding: 0 1.5em 1.5em;
+  }
+  .contract-preview-info-block {
+    padding: 1.5em 0 0;
+    + .contract-preview-info-block {
+      padding-top: 0;
+    }
+    &.grid-row {
+      margin-left: -1.5em;
+      margin-right: -1.5em;
+      padding: 1.5em 0;
+    }
+  }
+  .contract-preview-fieldset {
+    margin-left: -1.5em;
+    margin-right: -1.5em;
+    padding: 0 1.5em;
+    &:last-child {
+      margin-bottom: -1.5em;
+    }
+  }
 }

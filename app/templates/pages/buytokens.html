@@ -12,15 +12,24 @@
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-3-4 btns-full-width">
-                    <button class="btn btn-gray  " type="button">
-                        <span>WISH</span>
-                    </button>
-                    <button class="btn btn-gray  " type="button">
-                        <span>BTC</span>
-                    </button>
-                    <button class="btn btn-gray   active" type="button">
-                        <span>ETH</span>
-                    </button>
+                    <label class="choose">
+                        <input type="checkbox">
+                        <div class="btn btn-gray  " type="button">
+                            <span>WISH</span>
+                        </div>
+                    </label>
+                    <label class="choose">
+                        <input type="checkbox">
+                        <div class="btn btn-gray  " type="button">
+                            <span>BTC</span>
+                        </div>
+                    </label>
+                    <label class="choose">
+                        <input type="checkbox">
+                        <div class="btn btn-gray  " type="button">
+                            <span>ETH</span>
+                        </div>
+                    </label>
                 </div>
             </div>
             <div ng-if="true" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>

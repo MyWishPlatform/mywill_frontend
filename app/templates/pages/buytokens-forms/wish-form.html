@@ -4,13 +4,34 @@
     </div>
 </div>
 <div class="grid-row contract-form-row">
-    <div class="grid-cell grid-cell-3-4">
+    <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
         <div class="form-control">
             <label class="form-control-label">Send your Wish to:</label>
             <input type="text" class="form-control-input form-control-input--wish">
         </div>
     </div>
-    <div class="grid-cell grid-cell-1-4">
+    <div class="grid-row gas-info show-ps contract-form-row">
+        <div class="grid-cell grid-cell-ps-1-2">
+            <div class="grid-row show-ps contract-form-row">
+                <div class="form-control">
+                    <label class="form-control-label">Gas price 30 gwei</label>
+                </div>
+            </div>
+            <div class="grid-row show-ps contract-form-row">
+                <div class="form-control">
+                    <label class="form-control-label">Gas limit 30.000</label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-ps-1-2">
+            <div class="form-control form-control--copy">
+                <button class="btn btn-dark  " type="button">
+                    <span>Copy</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="grid-cell hide-ps grid-cell-1-4">
         <div class="form-control form-control--copy">
             <button class="btn btn-dark  " type="button">
                 <span>Copy</span>
@@ -18,7 +39,7 @@
         </div>
     </div>
 </div>
-<div class="grid-row contract-form-row">
+<div class="grid-row hide-ps contract-form-row">
     <div class="grid-cell grid-cell-1-4">
         <div class="form-control">
             <label class="form-control-label">Gas price 30 gwei</label>
@@ -31,40 +52,42 @@
     </div>
 </div>
 <div class="grid-row contract-form-row payment-row">
-    <div class="form-control form-control--payment-title">
-        <label class="form-control-label">Select payment method:</label>
+    <div class="grid-cell grid-cell-1">
+        <div class="form-control form-control--payment-title">
+            <label class="form-control-label">Select payment method:</label>
+        </div>
     </div>
-    <div class="grid-cell grid-cell-1-4">
+    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
         <div class="form-control form-control">
             <label class="choose">
                 <input type="checkbox">
-                <div class="btn btn-payment btn-payment--wallet active" type="button">
+                <div class="btn btn-payment btn-payment--wallet">
                     <span>MyEtherwallet</span>
                 </div>
             </label>
         </div>
     </div>
-    <div class="grid-cell grid-cell-1-4">
+    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
         <div class="form-control form-control">
             <label class="choose">
                 <input type="checkbox">
-                <div class="btn btn-payment btn-payment--parity  " type="button">
+                <div class="btn btn-payment btn-payment--parity">
                     <span>Parity</span>
                 </div>
             </label>
         </div>
     </div>
-    <div class="grid-cell grid-cell-1-4">
+    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
         <div class="form-control form-control">
             <label class="choose">
                 <input type="checkbox">
-                <div class="btn btn-payment btn-payment--metamask  " type="button">
+                <div class="btn btn-payment btn-payment--metamask">
                     <span>Metamask</span>
                 </div>
             </label>
         </div>
     </div>
-    <div class="grid-cell grid-cell-1-4">
+    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
         <div class="form-control form-control">
             <button class="btn btn-blue" type="button">
                 <span>Done</span>

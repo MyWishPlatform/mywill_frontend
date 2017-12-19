@@ -5,7 +5,8 @@
                 <i class="main-section-chapter-title_icon icon-wallet"></i>
                 <span class="main-section-chapter-title_text">Deposit</span>
             </div>
-            <div class="grid-row contract-form-row dark-back">
+            <div class="contract-form-fieldset contract-form-fieldset-grey with-padding">
+            <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
                     <div class="simple-text">
                         Choose how to recharge balance
@@ -31,6 +32,7 @@
                         </div>
                     </label>
                 </div>
+            </div>
             </div>
             <div ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>
             <div ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>

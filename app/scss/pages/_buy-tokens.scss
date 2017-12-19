@@ -24,15 +24,6 @@
             padding: 25px 0 0;
         }
     }
-    .dark-back {
-        background-color: #e8e8e8;
-        width: 100%;
-        position: relative;
-        margin-left: -2.5em;
-        height: calc(100% + 2.5em);
-        border-radius: 0 0 0.9em 0.9em;
-        padding: 24px 2.5em 34px;
-    }
     .form-control {
         position: relative;
         &--copy {
@@ -83,11 +74,7 @@
 
 @media (max-width: 680px) {
     .buy-tokens {
-        .dark-back {
-            padding-right: 0;
-            padding-left: 0;
-            margin-left: -1.5em;
-            width: calc(100% + 3em);
+        .contract-form-fieldset-grey {
             .btns-full-width {
                 padding: 0;
                 display: flex;

@@ -80,8 +80,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
         contractDetails.start_date = contractDetails.start_date * 1;
         contractDetails.stop_date = contractDetails.stop_date * 1;
-        contractDetails.hard_cap = contractDetails.hard_cap * 1;
-        contractDetails.soft_cap = contractDetails.soft_cap * 1;
+
         contractDetails.rate = contractDetails.rate * 1;
         contractDetails.decimals = contractDetails.decimals * 1;
 

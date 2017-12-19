@@ -45,7 +45,7 @@
         color: #616161;
         padding-left: 25px;
         text-align: center;
-        line-height: 1.2em;
+        line-height: 1.25em;
         &__title {
             color: #E84848;
             background: url(images/icons/warning.svg) no-repeat;
@@ -119,6 +119,19 @@
             & > .grid-cell {
                 margin-top: 5px
             }
+        }
+        .form-control {
+            &--copy {
+                &--mobile {
+                    margin-top: 5px;
+                    .btn {
+                        float: right;
+                    }
+                }
+            }
+        }
+        .attention-text {
+            padding-left: 0;
         }
     }
 }

@@ -140,15 +140,17 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         var cases = [2, 0, 1, 1, 1, 2];
         return words[float ? 1 : (value % 100 > 4 && value % 100 < 20) ? 2 : cases[(value % 10 < 5) ? value % 10 : 5]];
     }
-}).directive('commaseparator', function($filter) {
-    'use strict';
-    var commaSeparateNumber = function(val) {
+}).filter('separateNumber', function() {
+    return function(val) {
         val = val || '';
         while (/(\d+)(\d{3})/.test(val.toString())){
             val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
         }
         return val;
-    };
+    }
+}).directive('commaseparator', function($filter) {
+    'use strict';
+    var commaSeparateNumber = $filter('separateNumber');
     return {
         require: 'ngModel',
         scope: {

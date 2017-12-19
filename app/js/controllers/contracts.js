@@ -136,12 +136,14 @@ angular.module('app').controller('contractsController', function(contractService
         createdContract: $scope.openedContract
     };
 
-    var setContractState = function(contract, state) {
+    var setContractState = function(contract, state, callback) {
         contract.state = state;
-        contract.stateValue = contract.stateValue = $scope.statuses[contract.state]['value'];
-        contract.stateTitle = contract.stateValue = $scope.statuses[contract.state]['title'];
+        contract.stateValue = $scope.statuses[contract.state]['value'];
+        contract.stateTitle = $scope.statuses[contract.state]['title'];
         contractService.patchParams(contract.id, {
             state: state
+        }).then(function() {
+            callback ? callback() : false;
         });
     };
 
@@ -166,8 +168,9 @@ angular.module('app').controller('contractsController', function(contractService
 
     $scope.popupActions = {
         startChecking: function(contract) {
-            setContractState(contract, 'WAITING_FOR_PAYMENT');
-            $scope.returnToList();
+            setContractState(contract, 'WAITING_FOR_PAYMENT', function() {
+                $scope.returnToList();
+            });
         },
         deleteContract: function(contract) {
             contractService.deleteContract(contract.id).then(function() {

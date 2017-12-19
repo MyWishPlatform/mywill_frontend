@@ -12,8 +12,15 @@
 }
 .contract-preview-info-block {
   padding: 2.5em 0;
+  &.min-padding {
+    padding-top: 1em!important;
+    padding-bottom: 1em!important;
+  }
   + .contract-preview-info-block {
     padding-top: 0;
+  }
+  &.white-block + &.white-block {
+    border-top: 1px solid #CCCCCC;
   }
   &.grid-row {
     margin-left: -2.5em;

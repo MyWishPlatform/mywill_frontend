@@ -59,20 +59,27 @@
 
                     <!-- Deposit instruction button -->
                     <a ui-sref="main.contracts.preview.deposit({id: contract.id})"
-                       ng-if="statuses[contract.state]['value'] == 4"
+                       ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
                        class="btn btn-transparent">
                         <span>Deposit</span>
                     </a>&nbsp;
 
                     <!-- Cancel instruction button -->
                     <a ui-sref="main.contracts.preview.stop({id: contract.id})"
-                       ng-if="statuses[contract.state]['value'] == 4"
+                       ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
                        class="btn btn-transparent">
                         <span>Cancel</span>
                     </a>&nbsp;
 
+                    <!-- Finalize instruction button -->
+                    <!--//ui-sref="main.contracts.preview.stop({id: contract.id})"-->
+                    <a ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
+                       class="btn btn-transparent">
+                        <span>Finalize</span>
+                    </a>&nbsp;
+
                     <button class="btn only-icon" ng-click="refreshContract(contract)" ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7))">
-                        <i class="icon-refresh"></i>
+                        <i class="icon-refresh-new"></i>
                     </button>
 
                     <button class="btn only-icon" type="button"

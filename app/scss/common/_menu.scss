@@ -123,6 +123,11 @@
     display: inline-block;
     vertical-align: middle;
   }
+  .main-menu-global-menu a, .main-menu-global-menu .as_menu_link {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
   .main-menu-logo {
     display: inline-block;
     width: 12em;

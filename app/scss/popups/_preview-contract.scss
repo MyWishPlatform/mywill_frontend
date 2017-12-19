@@ -330,11 +330,11 @@
   }
 }
 @media screen and (max-width: 680px) {
-  .grid-cell {
-    &.float-right {
-      float: left!important;
-    }
-  }
+  //.grid-cell {
+  //  &.float-right {
+  //    float: left!important;
+  //  }
+  //}
   .contract-preview-form {
     padding-top: 2em;
   }

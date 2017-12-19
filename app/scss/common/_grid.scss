@@ -13,6 +13,9 @@
   float: left;
   box-sizing: border-box;
   padding: 0 1em;
+  &.float-right {
+    float: right!important;
+  }
   &.grid-cell-1 {
     width: 100%;
   }

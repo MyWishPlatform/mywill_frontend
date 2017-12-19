@@ -148,6 +148,16 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         },
         title: 'Contract deposit'
 
+    }).state('main.contracts.preview.finalize', {
+        url: '/finalize',
+        data: {
+            forFinalize: true
+        },
+        title: 'Contract finalize',
+        controller: function($stateParams) {
+            // console.log($stateParams);
+        }
+
     }).state('main.contracts.preview.stop', {
         url: '/stop',
         data: {

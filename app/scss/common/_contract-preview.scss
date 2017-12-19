@@ -19,7 +19,7 @@
   + .contract-preview-info-block {
     padding-top: 0;
   }
-  &.white-block + &.white-block {
+  &.with-border + &.with-border {
     border-top: 1px solid #CCCCCC;
   }
   &.grid-row {
@@ -64,7 +64,7 @@
   padding: 1em;
   border-radius: 0.75em;
   box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.15);
-  background-color: #fff;
+  background-color: #FAFAFA;
   + .contract-preview-holders-item {
     margin-top: 1em;
   }

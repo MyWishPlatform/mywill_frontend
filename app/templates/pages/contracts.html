@@ -5,7 +5,7 @@
     noClickShow: true,
     actions: popupActions,
     onClose: returnToList
-}" ng-if="openedContract && !(stateData.forPayment || stateData.forStopping || stateData.forDeposit)"></div>
+}" ng-if="openedContract && !(stateData.forPayment || stateData.forStopping || stateData.forDeposit || stateData.forFinalize)"></div>
 
 <div ng-pop-up="{
     template: '/templates/popups/pay-instruction.html',
@@ -33,6 +33,15 @@
     noClickShow: true,
     onClose: returnToList
 }" ng-if="openedContract && stateData.forStopping && (statuses[openedContract.state]['value'] == 4)"></div>
+
+<div ng-pop-up="{
+    template: '/templates/popups/finalize-instruction.html',
+    params: previewContractPopUp,
+    opened: true,
+    actions: popupActions,
+    noClickShow: true,
+    onClose: returnToList
+}" ng-if="openedContract && stateData.forFinalize && (statuses[openedContract.state]['value'] == 4)"></div>
 
 
 
@@ -71,9 +80,7 @@
                         <span>Cancel</span>
                     </a>&nbsp;
 
-                    <!-- Finalize instruction button -->
-                    <!--//ui-sref="main.contracts.preview.stop({id: contract.id})"-->
-                    <a ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
+                    <a ui-sref="main.contracts.preview.finalize({id: contract.id})" ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
                        class="btn btn-transparent">
                         <span>Finalize</span>
                     </a>&nbsp;

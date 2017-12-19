@@ -1,15 +1,15 @@
 <form class="main-section-chapter" name="tokenInfoForm">
     <div class="main-section-chapter-fieldset">
         <div class="main-section-chapter-title">
-            <i class="main-section-chapter-title_icon icon-contracts"></i>
-            <span class="main-section-chapter-title_text">Tokensale contract</span>
+            <i class="main-section-chapter-title_icon icon-agreement"></i>
+            <span class="main-section-chapter-title_text">Crowdsale contract</span>
         </div>
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
                     <label for="token-name" class="form-control-label">Token name</label>
                     <input id="token-name" type="text"
-                           placeholder="MyWishToken"
+                           placeholder="MyNewProjectToken"
                            ng-model="request.token_name"
                            required
                            maxlength="512"
@@ -26,7 +26,7 @@
                 <div class="form-control">
                     <label for="token-symbol" class="form-control-label">Token symbol</label>
                     <input id="token-symbol" type="text"
-                           placeholder="WISH"
+                           placeholder="NEW"
                            ng-model="request.token_short_name"
                            maxlength="64"
                            required
@@ -458,11 +458,9 @@
 <div class="main-section-chapter">
 
     <div class="costs-info-block">
-        <div class="costs-info">
-            <span class="costs-info-title">Contract`s cost: </span>
-            <span class="costs-info-value">1</span>
-            <span class="costs-info-currency">ETH</span>
-        </div>
+        <span class="costs-info-title">Contract`s cost: </span>
+        <span class="costs-info-value">1</span>
+        <span class="costs-info-currency">ETH</span>
     </div>
 
 

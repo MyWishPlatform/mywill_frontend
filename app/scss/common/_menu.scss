@@ -1,3 +1,13 @@
+.release-version {
+  position: absolute;
+  bottom: 0;
+  font-size: 1.2em;
+  padding: 1em;
+  text-align: center;
+  left: 0;
+  right: 0;
+  color: #fff;
+}
 .main-menu-holder {
   position: fixed;
   top: 0;
@@ -11,10 +21,12 @@
   position: relative;
   float: left;
   width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 3em;
 }
 .main-menu-logo {
   display: block;
-  margin: 1.35em auto 1.35em 2.55em;
+  margin: 1.35em auto 1.35em 2em;
   width: 16.5em;
   &:after, &:before {
     display: table;

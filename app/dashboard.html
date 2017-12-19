@@ -49,21 +49,22 @@
         <!-- div class="user-balance">
             <span class="user-balance-title"></span>
         </div -->
-        <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
-            <a href="/auth/registration" class="uppercase btn btn-submit">
-                <span>Sign up</span>
-            </a>
-            <a href="/auth/" class="btn btn-transparent">
-                <span>Sign in</span>
-            </a>
+        <div class="main-section-content">
+            <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
+                <a href="/auth/registration" class="uppercase btn btn-submit">
+                    <span>Sign up</span>
+                </a>
+                <a href="/auth/" class="btn btn-transparent uppercase">
+                    <span>Sign in</span>
+                </a>
+            </div>
+            <div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
+                <a href="/auth" ui-sref="exit" class="btn btn-transparent">
+                    <span>Log out</span>
+                </a>
+            </div>
+            <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
         </div>
-        <div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
-            <a href="/auth" ui-sref="exit" class="btn btn-transparent">
-                <span>Log out</span>
-            </a>
-        </div>
-        <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
-        <span>version 1.0.5</span>
     </div>
 </div>
 <main class="main-content-holder" ui-view></main>

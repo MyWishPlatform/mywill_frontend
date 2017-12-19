@@ -33,7 +33,8 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         title: 'Address book',
         icon: 'icon-phone-call',
         route: 'main.contacts',
-        noactive: true
+        noactive: true,
+        noshow: true
     }, {
         title: 'FAQ',
         icon: 'icon-question',

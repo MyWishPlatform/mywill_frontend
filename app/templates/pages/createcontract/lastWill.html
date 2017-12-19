@@ -160,12 +160,10 @@
 </form>
 <div class="main-section-chapter" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid || !conditionsForm.$valid || (percentageSum !== 100)}">
 
-    <div class="main-section-chapter-fieldset costs-info-fieldset">
-        <div class="costs-info">
-            <span class="costs-info-title">Contract`s cost: </span>
-            <span class="costs-info-value" ng-bind="checkedCost"></span>
-            <span class="costs-info-currency">ETH</span>
-        </div>
+    <div class="costs-info-block">
+        <span class="costs-info-title">Contract`s cost: </span>
+        <span class="costs-info-value" ng-bind="checkedCost"></span>
+        <span class="costs-info-currency">ETH</span>
     </div>
     <div class="clearfix"></div>
     <div class="contract-form-row">

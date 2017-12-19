@@ -175,14 +175,14 @@
   margin-right: 3%;
   padding-top: 3.75em;
   padding-bottom: 1.875em;
+  .costs-info-block {
+    line-height: 4em;
+    margin-bottom: 0;
+  }
 }
 .contract-preview-form {
   .btn {
     min-width: 12.225em;
-  }
-  .costs-info-fieldset {
-    padding: 1.35em 2em;
-    white-space: nowrap;
   }
 }
 .contract-preview-code {
@@ -338,10 +338,6 @@
   .contract-preview-form {
     padding-top: 2em;
   }
-  .costs-info-fieldset {
-    float: left!important;
-    margin-bottom: 2em;
-  }
 }
 @media screen and (max-width: 640px) {
   .contract-balance {
@@ -359,11 +355,12 @@
       float: left!important;
     }
   }
-  .costs-info-fieldset {
-    float: none!important;
-  }
   .mobile-width-100 {
     width: 100%;
+    + .btn {
+      margin-left: 0;
+      margin-top: 1em;
+    }
   }
   .contract-preview-tabs {
     left: 0;

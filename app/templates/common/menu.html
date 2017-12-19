@@ -14,9 +14,11 @@
         <ul class="main-menu-global-menu">
             <li ng-if="currentUser.is_ghost">
                 <span class="as_menu_link">
+                    <i class="icon-warning"></i>
                     <span>Unknown user</span>
                 </span>
             </li>
+
             <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow && (!currentUser[menuItem.hideForUser])">
                 <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static" ng-class="{'active': ($state.current.name == menuItem.route) || (menuItem.parent && ($state.current.parent == menuItem.parent)), 'no-active': menuItem.noactive}">
                     <i ng-class="menuItem.icon"></i>
@@ -30,5 +32,6 @@
             </li>
         </ul>
     </nav>
+    <span class="release-version">version 1.0.5</span>
 </div>
 

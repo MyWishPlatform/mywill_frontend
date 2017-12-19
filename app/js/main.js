@@ -142,6 +142,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     }
 }).directive('commaseparator', function($filter) {
     'use strict';
+    var commaSeparateNumber = function(val) {
+        val = val || '';
+        while (/(\d+)(\d{3})/.test(val.toString())){
+            val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+        }
+        return val;
+    };
     return {
         require: 'ngModel',
         scope: {
@@ -154,7 +161,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             var oldValue;
             ctrl.$formatters.unshift(function(value) {
                 oldValue = value;
-                return $filter('number')(ctrl.$modelValue);
+                return commaSeparateNumber(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
                 var plainNumber = viewValue.replace(/[\,\.\-\+]/g, '');
@@ -167,14 +174,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 if (valid || !plainNumber) {
                     oldValue = plainNumber;
                     if (valid) {
-                        elem.val($filter('number')(plainNumber));
+                        elem.val(commaSeparateNumber(plainNumber));
                     } else {
                         elem.val('');
                     }
                     return plainNumber;
                 } else {
                     if (oldValue) {
-                        elem.val($filter('number')(oldValue));
+                        elem.val(commaSeparateNumber(oldValue));
                     } else {
                         elem.val('');
                     }
@@ -193,7 +200,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 });
 
                 ctrl.$formatters.unshift(function(value) {
-                    return $filter('number')(ctrl.$modelValue);
+                    return commaSeparateNumber(ctrl.$modelValue);
                 });
 
                 scope.$watch('commaseparator.fullModel.' + scope.commaseparator.checkWith, function() {

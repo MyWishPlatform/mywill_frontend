@@ -74,16 +74,9 @@
             text-align: center;
         }
     }
-}.choose {
-    input {
-        display: none;
-        &:checked + .btn {
-            border: 2px solid #206EFF;
+    .payment-row {
+        .btn-blue {
+            margin: 0;
         }
-    }
-    .btn span {
-        display: block;
-        margin: 0 auto;
-        text-align: center;
     }
 }

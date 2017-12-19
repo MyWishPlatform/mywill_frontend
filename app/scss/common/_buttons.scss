@@ -150,27 +150,28 @@ $red-active-color: #bb0d2b;
   }
   &.btn-gray {
     border: 2px solid #C7C7C7;
-    border-radius: 40px;
+    border-radius: 4em;
     background: #e8e8e8;
     color: #000;
-    width: 120px;
-    padding: 0 20px;
+    width: 12em;
+    padding: 0 2em;
+    line-height: 3.6em;
   }
   &.btn-dark {
     background: #E3E3E3;
-    border-radius: 40px;
+    border-radius: 4em;
     font-weight: bold;
     color: #206EFF;
-    width: 100px;
-    padding: 0 20px;
+    width: 10em;
+    padding: 0 2em;
   }
   &.btn-payment {
     background: #E5E5E5;
-    border-radius: 40px;
+    border-radius: 4em;
     font-weight: bold;
     color: #206EFF;
-    padding: 0 20px;
-    width: 140px;
+    padding: 0 2em;
+    width: 14em;
     background-repeat: no-repeat;
     background-position: center;
     background-position-x: 15px;

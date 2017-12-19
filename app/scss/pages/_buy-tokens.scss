@@ -1,76 +1,78 @@
-.btns-full-width {
-    display: flex;
-    justify-content: space-between;
-}
-.simple-text {
-    font-size: 1.4em;
-}
-.main-section-chapter-fieldset {
-    padding-bottom: 0;
-}
-.icon-wallet {
-    font-size: 2.8em;
-    margin-right: 0.5em;
-}
-.contract-form-row {
-    margin: 0;
-    &.dark-back {
-        background-color: #e8e8e8;
-        width: 100%;
-        position: relative;
-        margin-left: -2.5em;
-        height: calc(100% + 2.5em);
-        border-radius: 0 0 0.9em 0.9em;
-        padding: 24px 2.5em 34px;
-    }
-}
 .buy-tokens {
-    &__title {
-        font-weight: bold;
-        font-size: 24px;
-        color: #282828;
-        padding: 25px 0 0;
+    .btns-full-width {
+        display: flex;
+        justify-content: space-between;
     }
-}
-.form-control {
-    position: relative;
-    &--copy {
-        margin-top: 36px;
+    .simple-text {
+        font-size: 1.4em;
     }
-    &--payment-title {
-        margin-bottom: 20px;
+    .main-section-chapter-fieldset {
+        padding-bottom: 0;
     }
-    .input-after {
-        position: absolute;
-        right: 10px;
-        font-size: 1.5em;
-        top: 60%;
+    .icon-wallet {
+        font-size: 2.8em;
+        margin-right: 0.5em;
     }
-}
-.attention-text {
-    margin-top: 30px;
-    font-size: 1.2em;
-    color: #616161;
-    padding-left: 25px;
-    text-align: center;
-    line-height: 1.2em;
-    &__title {
-        color: #E84848;
-        background: url(images/icons/warning.svg) no-repeat;
-        background-position-x: calc(50% - 50px);
-    }
-}
-.choose {
-    input {
-        display: none;
-        &:checked + .btn {
-            border: 2px solid #206EFF;
+    .contract-form-row {
+        margin: 0;
+        &.dark-back {
+            background-color: #e8e8e8;
+            width: 100%;
+            position: relative;
+            margin-left: -2.5em;
+            height: calc(100% + 2.5em);
+            border-radius: 0 0 0.9em 0.9em;
+            padding: 24px 2.5em 34px;
         }
     }
-    .btn span {
-        display: block;
-        margin: 0 auto;
+    .buy-tokens {
+        &__title {
+            font-weight: bold;
+            font-size: 24px;
+            color: #282828;
+            padding: 25px 0 0;
+        }
+    }
+    .form-control {
+        position: relative;
+        &--copy {
+            margin-top: 36px;
+        }
+        &--payment-title {
+            margin-bottom: 20px;
+        }
+        .input-after {
+            position: absolute;
+            right: 10px;
+            font-size: 1.5em;
+            top: 60%;
+        }
+    }
+    .attention-text {
+        margin-top: 30px;
+        font-size: 1.2em;
+        color: #616161;
+        padding-left: 25px;
         text-align: center;
+        line-height: 1.2em;
+        &__title {
+            color: #E84848;
+            background: url(images/icons/warning.svg) no-repeat;
+            background-position-x: calc(50% - 50px);
+        }
+    }
+    .choose {
+        input {
+            display: none;
+            &:checked + .btn {
+                border: 2px solid #206EFF;
+            }
+        }
+        .btn span {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
     }
 }.choose {
     input {

@@ -81,7 +81,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 680px) {
     .buy-tokens {
         .dark-back {
             padding-right: 0;
@@ -90,18 +90,46 @@
             width: calc(100% + 3em);
             .btns-full-width {
                 padding: 0;
-                width: 300px;
                 display: flex;
-                flex-wrap: wrap;
                 margin: 0 auto;
                 float: none;
                 justify-content: space-around;
                 .choose {
                     margin-top: 20px;
+                    .btn {
+                        width: 76px;
+                    }
                 }
             }
             .simple-text {
                 text-align: center;
+            }
+        }
+        .payment-row {
+            .btn {
+                width: 200px;
+                display: block;
+                background-position-x: 40px;
+            }
+        }
+        .btn-blue {
+            width: 100px !important;
+            margin: 10px 0 !important;
+            float: right;
+        }
+        .gas-info {
+            font-size: 1em;
+            .form-control {
+                &-label {
+                    font-size: 1em;
+                }
+                &--copy {
+                    margin-top: 0;
+                    float: right;
+                }
+            }
+            & > .grid-cell {
+                margin-top: 5px
             }
         }
     }

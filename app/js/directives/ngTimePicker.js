@@ -55,21 +55,23 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
                 angular.element($window).on('mouseup', upFunc)
             };
 
-            $scope.hourChangeUp = function(timeout) {
+            $scope.hourChangeUp = function(timeout, noRepeat) {
                 if (!timeout) iniWindowHandler();
                 $scope.values.currentHour++;
-                timeout = Math.max(100, (timeout || 900) / 2);
+                timeout = Math.max(70, (timeout || 900) / 2);
                 $scope.values.currentHour = $scope.values.currentHour > 23 ? 0 : $scope.values.currentHour;
+                if (noRepeat) return;
                 timer = $timeout(function() {
                     $scope.hourChangeUp(timeout);
                 }, timeout);
             };
 
-            $scope.hourChangeDown = function(timeout) {
+            $scope.hourChangeDown = function(timeout, noRepeat) {
                 if (!timeout) iniWindowHandler();
                 $scope.values.currentHour--;
-                timeout = Math.max(100, (timeout || 900) / 2);
+                timeout = Math.max(70, (timeout || 900) / 2);
                 $scope.values.currentHour = $scope.values.currentHour < 0 ? 23 : $scope.values.currentHour;
+                if (noRepeat) return;
                 timer = $timeout(function() {
                     $scope.hourChangeDown(timeout);
                 }, timeout);
@@ -78,7 +80,10 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
             $scope.minuteChangeUp = function(timeout) {
                 if (!timeout) iniWindowHandler();
                 $scope.values.currentMinute++;
-                timeout = Math.max(100, (timeout || 900) / 2);
+                timeout = Math.max(70, (timeout || 900) / 2);
+                if ($scope.values.currentMinute >= 60) {
+                    $scope.hourChangeUp(false, true);
+                }
                 $scope.values.currentMinute = $scope.values.currentMinute > 59 ? 0 : $scope.values.currentMinute;
                 timer = $timeout(function() {
                     $scope.minuteChangeUp(timeout);
@@ -88,7 +93,10 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
             $scope.minuteChangeDown = function(timeout) {
                 if (!timeout) iniWindowHandler();
                 $scope.values.currentMinute--;
-                timeout = Math.max(100, (timeout || 900) / 2);
+                if ($scope.values.currentMinute < 0) {
+                    $scope.hourChangeDown(false, true);
+                }
+                timeout = Math.max(70, (timeout || 900) / 2);
                 $scope.values.currentMinute = $scope.values.currentMinute < 0 ? 59 : $scope.values.currentMinute;
                 timer = $timeout(function() {
                     $scope.minuteChangeDown(timeout);

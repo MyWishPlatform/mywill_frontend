@@ -92,12 +92,9 @@ angular.module('app').controller('contractsController', function(contractService
                 $scope.openedContract.contractTpl = 'crowdsale';
 
                 $scope.openedContract.chartData = angular.copy($scope.openedContract.contract_details.token_holders);
-                var sum = $scope.openedContract.contract_details.token_holders.reduce(function(val, recipient) {
-                    return val + recipient.amount * 1;
-                }, 0);
 
                 $scope.openedContract.chartData.unshift({
-                    amount: $scope.openedContract.contract_details.hard_cap ? ($scope.openedContract.contract_details.hard_cap - sum) : false,
+                    amount: $scope.openedContract.contract_details.hard_cap,
                     address: 'For Sale'
                 });
 

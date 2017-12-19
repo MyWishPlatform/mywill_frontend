@@ -15,15 +15,6 @@
     }
     .contract-form-row {
         margin: 0;
-        &.dark-back {
-            background-color: #e8e8e8;
-            width: 100%;
-            position: relative;
-            margin-left: -2.5em;
-            height: calc(100% + 2.5em);
-            border-radius: 0 0 0.9em 0.9em;
-            padding: 24px 2.5em 34px;
-        }
     }
     .buy-tokens {
         &__title {
@@ -32,6 +23,15 @@
             color: #282828;
             padding: 25px 0 0;
         }
+    }
+    .dark-back {
+        background-color: #e8e8e8;
+        width: 100%;
+        position: relative;
+        margin-left: -2.5em;
+        height: calc(100% + 2.5em);
+        border-radius: 0 0 0.9em 0.9em;
+        padding: 24px 2.5em 34px;
     }
     .form-control {
         position: relative;
@@ -77,6 +77,32 @@
     .payment-row {
         .btn-blue {
             margin: 0;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .buy-tokens {
+        .dark-back {
+            padding-right: 0;
+            padding-left: 0;
+            margin-left: -1.5em;
+            width: calc(100% + 3em);
+            .btns-full-width {
+                padding: 0;
+                width: 300px;
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0 auto;
+                float: none;
+                justify-content: space-around;
+                .choose {
+                    margin-top: 20px;
+                }
+            }
+            .simple-text {
+                text-align: center;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ $red-active-color: #bb0d2b;
   outline: none;
   font-size: 1em;
   height: 4em;
-  line-height: 3.8em;
+  line-height: 4em;
   border-radius: 2em;
   display: inline-block;
   vertical-align: middle;
@@ -48,7 +48,7 @@ $red-active-color: #bb0d2b;
   span {
     font-size: 1.5em;
   }
-  i {
+  i, span {
     display: inline-block;
     vertical-align: middle;
   }

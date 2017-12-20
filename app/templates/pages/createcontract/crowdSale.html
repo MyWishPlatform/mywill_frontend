@@ -329,7 +329,10 @@
                 </div>
             </div>
         </div>
-        <div class="contract-form-fieldset with-padding relative" ng-repeat="recipient in request.token_holders">
+    </div>
+    <div class="main-section-chapter-fieldset">
+        <div class="contract-form-fieldset relative with-padding"
+             ng-repeat="recipient in request.token_holders">
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
@@ -418,14 +421,15 @@
                ng-click="removeRecipient(recipient); checkTokensAmount();"
                ng-if="request.token_holders.length"></i>
         </div>
-        <div class="contract-form-fieldset with-padding"
+        <div class="contract-form-fieldset"
+             ng-class="{'with-padding': request.token_holders.length}"
              ng-if="request.token_holders.length < 5">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
                     <span>You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion</span><br/>
                 </div>
-                <div class="grid-cell grid-cell-1-2">
-                    <button class="btn btn-submit with-icon" type="button" ng-click="addRecipient(); checkTokensAmount();">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <button class="btn btn-submit with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
                         <i class="icon-create-contract"></i>
                         <span>Add extra address</span>
                     </button>

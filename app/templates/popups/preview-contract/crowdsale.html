@@ -264,30 +264,21 @@
         <div class="contract-preview-info-block" ng-if="details.token_holders.length">
             <div class="contract-preview-holders-list">
 
-                <!-- div class="adaptive-table-row">
-                    <div class="adaptive-table-cell">
-                        <div class="form-control-label">Address</div>
-                    </div>
-                    <div class="adaptive-table-cell">
-                        <div class="form-control-label">Name</div>
-                    </div>
-                    <div class="adaptive-table-cell">
-                        <div class="form-control-label">Token</div>
-                    </div>
-                    <div class="adaptive-table-cell">
-                        <div class="form-control-label nowrap">Frozen till</div>
-                    </div>
-                </div -->
-
-
                 <div class="contract-preview-holders-item grid-row"
                      ng-repeat="holder in details.token_holders">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label bold">Address</div>
+
+                        <br class="show-ls"/>
+                        <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
+
                         <span class="identicon-container">
                             <img class="identicon-image" ng-src="{{$root.generateIdenticon(holder.address)}}"/>
                         </span>
-                        <span class="contract-preview-holders-address" ng-bind="holder.address"></span>
+                        <div class="contract-wallet-information-wallet">
+                            <span ng-bind="holder.address"></span>
+                        </div>
+
                     </div>
                     <div class="clearfix"><br/></div>
                     <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">

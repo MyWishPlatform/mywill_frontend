@@ -15,6 +15,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService, MENU_CONSTANTS) {
+
     $rootScope.gitHubLink = 'https://github.com/MyWishPlatform/contracts/tree/develop';
     $rootScope.$state = $state;
     $rootScope.numberReplacer = /,/g;
@@ -143,10 +144,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).filter('separateNumber', function() {
     return function(val) {
         val = val || '';
-        while (/(\d+)(\d{3})/.test(val.toString())){
-            val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+        var values = val.split('.');
+        while (/(\d+)(\d{3})/.test(values[0].toString())){
+            values[0] = values[0].toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
         }
-        return val;
+        return values.join('.');
     }
 }).directive('commaseparator', function($filter) {
     'use strict';
@@ -166,7 +168,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 return commaSeparateNumber(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
-                var plainNumber = viewValue.replace(/[\,\.\-\+]/g, '');
+
+                var plainNumber = viewValue.replace(/[\,\-\+]/g, '');
                 var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
                 if (!valid) {
                     if (viewValue) {
@@ -194,7 +197,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             if (scope.commaseparator.checkWith) {
                 ctrl.$parsers.unshift(function(value) {
                     if (!value) return;
-                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
+                    var plainNumber = value.replace(/[\,\.\-\+]/g, '');
                     var checkModelValue = scope.commaseparator.fullModel[scope.commaseparator.checkWith];
                     var valid = plainNumber <= checkModelValue;
                     ctrl.$setValidity('check-value', valid);

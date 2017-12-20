@@ -428,7 +428,23 @@
     opacity: 0;
   }
 }
-
+.form-fieldset-delimiter {
+  text-align: center;
+  border-top: 1px solid #ccc;
+  margin-top: 1.5em;
+  margin-left: -2.4em;
+  margin-right: -2.4em;
+  span {
+    font-size: 1.5em;
+    line-height: 1.2em;
+    position: relative;
+    top: -0.6em;
+    color: #777;
+    display: inline-block;
+    background-color: #F4F4F4;
+    padding: 0 0.5em;
+  }
+}
 @media screen and (max-width: 480px) {
   .contract-form-information-btns {
     .btn {

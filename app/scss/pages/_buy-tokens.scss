@@ -62,11 +62,6 @@
             text-align: center;
         }
     }
-    .payment-row {
-        .btn-blue {
-            margin: 0;
-        }
-    }
 }
 
 @media (max-width: 680px) {
@@ -96,11 +91,6 @@
                 background-position-x: 40px;
                 float: left;
             }
-        }
-        .btn.btn-blue {
-            width: 100px !important;
-            margin: 10px 0 !important;
-            float: right;
         }
         .gas-info {
             font-size: 1em;

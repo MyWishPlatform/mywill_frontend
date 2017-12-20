@@ -136,18 +136,6 @@ $red-active-color: #bb0d2b;
       }
     }
   }
-  &.btn-blue {
-    border-radius: 40px;
-    background: #206EFF;
-    font-weight: bold;
-    color: #fff;
-    width: 120px;
-    padding: 0 20px;
-    margin: 20px 0;
-    span {
-      font-size: 1.7em;
-    }
-  }
   &.btn-gray {
     border: 2px solid #C7C7C7;
     border-radius: 4em;
@@ -156,14 +144,6 @@ $red-active-color: #bb0d2b;
     width: 12em;
     padding: 0 2em;
     line-height: 3.6em;
-  }
-  &.btn-dark {
-    background: #E3E3E3;
-    border-radius: 4em;
-    font-weight: bold;
-    color: #206EFF;
-    width: 10em;
-    padding: 0 2em;
   }
   &.btn-payment {
     background: #E5E5E5;
@@ -214,5 +194,8 @@ $red-active-color: #bb0d2b;
     i {
       font-size: 2.9em;
     }
+  }
+  &.center-input-field {
+    margin-top: 0.5em;
   }
 }

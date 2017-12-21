@@ -91,7 +91,7 @@
         <div class="grid-row contract-preview-info-block min-padding with-border"
              ng-if="(contract.stateValue == 4) && (details.eth_contract_crowdsale.address)">
             <div class="grid-cell grid-cell-1">
-                <div class="form-control-label">Contract address</div>
+                <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
                 <br class="show-ls"/>
                 <span class="identicon-container">
                     <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.address)}}"/>

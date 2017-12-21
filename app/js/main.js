@@ -194,10 +194,18 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 }
             });
 
+            if (scope.commaseparator.notNull) {
+                ctrl.$parsers.unshift(function(value) {
+                    if (!value) return;
+                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
+                    ctrl.$setValidity('null-value', !!plainNumber);
+                    return value;
+                });
+            }
             if (scope.commaseparator.checkWith) {
                 ctrl.$parsers.unshift(function(value) {
                     if (!value) return;
-                    var plainNumber = value.replace(/[\,\.\-\+]/g, '');
+                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
                     var checkModelValue = scope.commaseparator.fullModel[scope.commaseparator.checkWith];
                     var valid = plainNumber <= checkModelValue;
                     ctrl.$setValidity('check-value', valid);

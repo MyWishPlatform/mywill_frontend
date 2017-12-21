@@ -8,9 +8,17 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     var metamask, parity;
     $scope.wallets = {metamask: [], parity: []};
 
-    metamask = new Web3(Web3.givenProvider || new Web3.providers.WebsocketProvider("ws://localhost:8546"));
+    try {
+        metamask = new Web3(Web3.givenProvider || new Web3.providers.WebsocketProvider("ws://localhost:8546"));
+    } catch(err) {
+        console.log(err);
+    }
 
-    parity = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    try {
+        parity = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    } catch(err) {
+        console.log(err);
+    }
 
     metamask.eth.getAccounts(function(err, addresses) {
         $scope.wallets.metamask = addresses;
@@ -79,8 +87,9 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.checkEthAmount = function() {
 
     };
-}).controller('buytokensWishController', function($scope) {
+}).controller('buytokensWishController', function($scope, $state, $rootScope) {
+    console.log();
     $scope.payDone = function() {
-        console.log(123);
+        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
     }
 });

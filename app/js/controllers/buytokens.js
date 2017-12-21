@@ -1,4 +1,4 @@
-angular.module('app').controller('buytokensController', function($scope) {
+angular.module('app').controller('buytokensController', function($scope, $timeout) {
 
     $scope.formData = {
         gaslimit: 30000,
@@ -45,6 +45,28 @@ angular.module('app').controller('buytokensController', function($scope) {
         });
     };
 
+    $scope.checkWishAddress = function() {
+        $scope.formData.addressChecked = true;
+    };
+
+
+    $scope.copied = {};
+    var copiedTimeouts = {};
+
+    $scope.successCodeCopy = function(obj, copiedField) {
+        obj = obj || $scope;
+        obj['copied'] = obj['copied'] || {};
+        copiedTimeouts[copiedField] ? $timeout.cancel(copiedTimeouts[copiedField]) : false;
+        obj['copied'][copiedField] = true;
+        copiedTimeouts[copiedField] = $timeout(function() {
+            obj['copied'][copiedField] = false;
+        }, 3000);
+    };
+    $scope.failCodeCopy = function() {
+        console.log(arguments);
+    };
+
+
 }).controller('buytokensEthController', function($scope) {
 
 
@@ -57,5 +79,8 @@ angular.module('app').controller('buytokensController', function($scope) {
     $scope.checkEthAmount = function() {
 
     };
-
+}).controller('buytokensWishController', function($scope) {
+    $scope.payDone = function() {
+        console.log(123);
+    }
 });

@@ -123,10 +123,12 @@ $red-active-color: #bb0d2b;
   }
   &.btn-as-link {
     color: #000;
-    cursor: pointer;
     background: none;
-    span {
-      text-decoration: underline !important;
+    &:not([disabled]) {
+      cursor: pointer;
+      span {
+        text-decoration: underline !important;
+      }
     }
     &:hover, &:focus {
       box-shadow: initial;

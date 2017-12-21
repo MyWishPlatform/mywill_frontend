@@ -102,6 +102,9 @@
   margin-top: 0.2em;
   border-radius: 0.5em;
   outline: none;
+  &.with-currency {
+    padding-right: 3.5em;
+  }
   &.small-input {
     margin-top: 0;
     padding-top: 0.3em;

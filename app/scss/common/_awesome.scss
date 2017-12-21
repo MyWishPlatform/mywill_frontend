@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?3oa5ci');
-  src:  url('fonts/icomoon.eot?3oa5ci#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?3oa5ci') format('truetype'),
-  url('fonts/icomoon.woff?3oa5ci') format('woff'),
-  url('fonts/icomoon.svg?3oa5ci#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?y5gwcr');
+  src:  url('fonts/icomoon.eot?y5gwcr#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?y5gwcr') format('truetype'),
+  url('fonts/icomoon.woff?y5gwcr') format('woff'),
+  url('fonts/icomoon.svg?y5gwcr#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-mywish .path1:before {
+  content: "\e934";
+  color: rgb(0, 114, 255);
+}
+.icon-mywish .path2:before {
+  content: "\e935";
+  margin-left: -1em;
+  color: rgb(148, 196, 255);
+}
 .icon-edit:before {
   content: "\e932";
 }
@@ -171,6 +180,9 @@
 }
 .icon-check_circle:before {
   content: "\e92f";
+}
+.icon-alert-circle:before {
+  content: "\e936";
 }
 .icon-info-with-circle:before {
   content: "\e91b";

@@ -34,9 +34,9 @@
                     </div>
                 </div>
             </div>
-            <div class="contract-form-fieldset" ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>
+            <div ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>
             <div ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
-            <div class="contract-form-fieldset" ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
+            <div ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
         </div>
     </div>
 </div>

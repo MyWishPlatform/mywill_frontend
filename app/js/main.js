@@ -55,19 +55,21 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var getCurrentUser = function() {
         return authService.profile().then(function(data) {
             if (data) {
+                var userBalance = new BigNumber(data.data.balance);
+                data.data.balance = userBalance.toFormat(2).toString(10);
                 $rootScope.setCurrentUser(data.data);
                 iniApplication();
                 $rootScope.currentUserDefer.resolve(data);
             } else {
-                return $state.go('exit');
+                // return $state.go('exit');
             }
         }, function() {
             $rootScope.currentUserDefer.resolve(false);
-            return $state.go('exit');
+            // return $state.go('exit');
         });
     };
 
-    createDefer();
+    // createDefer();
 
     $rootScope.$on("$locationChangeSuccess", function(event, newLocation, oldLocation) {
         $rootScope.currentState = $location.state() || {};
@@ -91,11 +93,40 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.headerTitle = $state.current.title || (itemFromMenuConst ? itemFromMenuConst['title'] : '');
     });
 
+    $rootScope.closeCommonPopup = function() {
+        $rootScope.openedPopup = false;
+    };
+
+    var checkLocation = function(newLocation, oldLocation, event) {
+        if (newLocation.data && newLocation.data.notAccess && $rootScope.currentUser[newLocation.data.notAccess]) {
+            event.preventDefault();
+            $rootScope.openedPopup = 'ghost-user-buy-tokens';
+            if (oldLocation.name) {
+                $state.go(oldLocation.name);
+            } else {
+                $state.go('main.createcontract.types');
+            }
+            return false;
+        }
+    };
+
+    createDefer();
+
     $rootScope.$on("$stateChangeStart", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
-        if (oldLocation && (newLocation === oldLocation)) return;
-        if (newLocation.name !== 'anonymous') {
-            createDefer();
-            getCurrentUser();
+        getCurrentUser();
+
+        if (newLocation.name === 'anonymous') {
+            return;
+        }
+
+        if (!$rootScope.currentUser) {
+            $rootScope.currentUserDefer.promise.then(function() {
+                checkLocation(newLocation, oldLocation);
+            }, function() {
+                console.error('Unknown profile');
+            });
+        } else {
+            checkLocation(newLocation, oldLocation, event);
         }
     });
 

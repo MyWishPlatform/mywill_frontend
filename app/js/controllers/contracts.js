@@ -90,13 +90,22 @@ angular.module('app').controller('contractsController', function(contractService
                 break;
             case 4:
                 $scope.openedContract.contractTpl = 'crowdsale';
-
                 $scope.openedContract.chartData = angular.copy($scope.openedContract.contract_details.token_holders);
-
                 $scope.openedContract.chartData.unshift({
                     amount: $scope.openedContract.contract_details.hard_cap,
                     address: 'For Sale'
                 });
+
+                var holdersSum = $scope.openedContract.contract_details.token_holders.reduce(function (val, item) {
+                    var value = new BigNumber(item.amount || 0);
+                    return value.plus(val);
+                }, new BigNumber(0));
+
+                var ethSum = holdersSum.plus($scope.openedContract.contract_details.hard_cap);
+                $scope.openedContract.totalSupply = {
+                    eth: ethSum.div($scope.openedContract.contract_details.rate).round(18).toString(10),
+                    tokens: ethSum.round(18).toString(10)
+                };
 
                 $scope.openedContract.chartOptions = {
                     itemValue: 'amount',

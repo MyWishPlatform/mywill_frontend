@@ -30,7 +30,14 @@
 }
 
 .form-control-description {
-  line-height: 4.7em;
+  &:not(.one-line) {
+    line-height: 4.7em;
+  }
+  &.one-line {
+    &:not(.without-padding) {
+      padding: 0.5em 0;
+    }
+  }
   &.form-control-description_two-row {
     line-height: 9.5em;
   }

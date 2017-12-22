@@ -1,6 +1,6 @@
-angular.module('app').controller('buytokensController', function($scope, $timeout) {
+angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate) {
 
-
+    $scope.exRate = exRate.data;
 
     var metamask, parity;
     $scope.wallets = {metamask: [], parity: []};
@@ -85,10 +85,9 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
 
 }).controller('buytokensEthController', function($scope) {
-    var rate = 0.0015;
-
+    var rate = $scope.exRate.ETH;
     $scope.checkWishesAmount = function() {
-        var wishesAmount = new BigNumber($scope.formData.ethAmount);
+        var wishesAmount = new BigNumber($scope.formData.ethAmount || 0);
         $scope.formData.wishesAmount  = wishesAmount.div(rate).round(18).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
@@ -102,8 +101,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
     }
 }).controller('buytokensBtcController', function($scope) {
-    var rate = 0.00002;
-
+    var rate = $scope.exRate.BTC;
     $scope.checkWishesAmount = function() {
         if (!$scope.formData.btcAmount) return;
         var wishesAmount = new BigNumber($scope.formData.btcAmount);

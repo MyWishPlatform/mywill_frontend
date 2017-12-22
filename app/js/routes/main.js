@@ -17,15 +17,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         template: '',
         title: '',
         resolve: {
-            currentUser: function (authService) {
-                return authService.profile().then(function(data) {
-                    return data;
-                }, function() {
-                    return false;
-                });
+            currentUser: function ($rootScope) {
+                return $rootScope.currentUserDefer.promise;
             }
         },
-        controller: function(currentUser, $state, authService, $stateParams, $location) {
+        controller: function(currentUser, $state, authService, $stateParams, $location, $rootScope) {
             if (!currentUser) {
                 authService.createGhost().then(function(response) {
                     if (!$stateParams.go) {
@@ -102,7 +98,16 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         url: '/buy',
         controller: 'buytokensController',
         templateUrl: templatesPath + 'buytokens.html',
+        data: {
+            notAccess: 'is_ghost'
+        },
         resolve: {
+            currentUser: function(usersService, $rootScope) {
+                return $rootScope.currentUserDefer.promise;
+            },
+            exRate: function(contractService) {
+                return contractService.getCurrencyRate({fsym: 'WISH', tsyms: 'ETH,BTC'});
+            }
         }
     }).state('main.contracts', {
         abstract: true,

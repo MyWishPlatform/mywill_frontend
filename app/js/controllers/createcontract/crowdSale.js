@@ -69,7 +69,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             contract_details: contractPreviewModel,
             chartData: $scope.chartData,
             chartOptions: $scope.chartOptions,
-            cost: 1
+            cost: 1,
+            totalSupply: $scope.totalSupply
         };
     };
     var contractInProgress = false;
@@ -139,13 +140,21 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     $scope.checkTokensAmount = function() {
         var holdersSum = $scope.request.token_holders.reduce(function (val, item) {
-            return val + item.amount * 1;
-        }, 0);
+            var value = new BigNumber(item.amount || 0);
+            return value.plus(val);
+        }, new BigNumber(0));
 
-        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || (isNaN(holdersSum) && $scope.request.token_holders.length);
+        var stringValue = holdersSum.toString(10);
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || (isNaN(stringValue) && $scope.request.token_holders.length);
         if (!$scope.tokensAmountError) {
+            var ethSum = holdersSum.plus($scope.request.hard_cap);
+            $scope.totalSupply = {
+                eth: ethSum.div($scope.request.rate).round(18).toString(10),
+                tokens: ethSum.round(18).toString(10)
+            };
             $timeout(function() {
                 $scope.dataChanged();
+                $scope.$apply();
             });
         }
     };

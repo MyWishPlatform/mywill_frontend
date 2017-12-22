@@ -438,6 +438,12 @@
         </div>
         <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="!tokensAmountError">
             <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}} ({{totalSupply.eth|separateNumber}} ETH)</div>
+                    <div class="form-control-description one-line without-padding">
+                        <span>Max possible emission of token, no more tokens can be minted.</span>
+                    </div>
+                </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
                     <div id="chartdiv" class="chart-container" style="height: 240px"
                          ng-chart

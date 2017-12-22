@@ -1,6 +1,6 @@
-<form ng-controller="buytokensWishController" name="buyTokensForm">
+<form ng-controller="buytokensWishController" name="buyTokensForm" ng-init="formData.addressChecked = true">
 
-    <div class="contract-form-fieldset">
+    <!-- div class="contract-form-fieldset">
         <br/>
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
@@ -15,7 +15,7 @@
                            ng-model="formData.wishAddress">
                 </div>
                 <div class="form-control">
-                    <div class="form-control-description">
+                    <div class="form-control-description one-line">
                         <span>You need to have WISH tokens on that address</span>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div -->
 
     <div class="contract-form-fieldset" ng-if="formData.addressChecked">
         <br/>
@@ -72,7 +72,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
                 <div class="form-control">
-                    <div class="form-control-description">
+                    <div class="form-control-description one-line">
                         <span>Gas price 30 gwei</span>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
 
                 <div class="form-control">
-                    <div class="form-control-description">
+                    <div class="form-control-description one-line">
                         <span>Gas limit 30.000</span>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
 
                 <div class="form-control text-right text-left-ps" ng-init="createdContract = {owner_address: formData.toAddress}">
-                    <div class="form-control-description">
+                    <div class="form-control-description one-line">
                         <span class="as-link" ng-pop-up="{
                             template: '/templates/popups/pay-instruction.html',
                             params: {
@@ -186,7 +186,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?sendMode=ether&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?tokenSymbol=WISH&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount + '#send-transaction' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;Pay&nbsp;&nbsp;&nbsp;</span>
                     </a>
 

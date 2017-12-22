@@ -306,7 +306,14 @@
                 <i class="icon-distribution form-control-label-icon"></i>
                 Token distribution
             </div>
+
             <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label">Total supply: {{contract.totalSupply.tokens|separateNumber}} {{details.token_short_name}} ({{contract.totalSupply.eth|separateNumber}} ETH)</div>
+                    <div class="form-control-description one-line without-padding">
+                        <span>Max possible emission of token, no more tokens can be minted.</span>
+                    </div>
+                </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
                     <div class="chart-container" style="height: 240px"
                          ng-chart
@@ -315,7 +322,7 @@
                 </div>
                 <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
                     <div class="chart-legend">
-                        <div class="chart-legend-item" ng-repeat="chartDataItem in ngPopUp.params.createdContract.chartData">
+                        <div class="chart-legend-item" ng-repeat="chartDataItem in contract.chartData">
                             <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
                             <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
                         </div>

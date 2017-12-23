@@ -1,11 +1,11 @@
-angular.module('app').controller('contractsController', function(contractService, CONTRACT_STATUSES_CONSTANTS, $rootScope,
-                                                                 contractsList, $scope, openedContract, $state, $filter, $timeout) {
+angular.module('app').controller('contractsController', function(contractService, CONTRACT_STATUSES_CONSTANTS, $rootScope, authService,
+                                                                 contractsList, $scope, $state, $filter, $timeout) {
 
     $scope.stateData  = $state.current.data;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
-    $scope.openedContract = openedContract.data;
+    $scope.openedContract = false; //openedContract.data;
     $scope.contractsList = contractsList.data;
-    var serverDateTime = openedContract.headers ? openedContract.headers('date') : false;
+    var serverDateTime = contractsList.headers ? contractsList.headers('date') : false;
     var durationList = [
         {
             value: 365,
@@ -38,6 +38,40 @@ angular.module('app').controller('contractsController', function(contractService
         });
     };
 
+
+    var payContract = function(contract) {
+        $rootScope.getCurrentUser().then(function() {
+            if ($rootScope.currentUser.is_ghost) {
+                $rootScope.commonOpenedPopup = 'ghost-user-alarm';
+                return;
+            }
+
+            if (new BigNumber($rootScope.currentUser.balance).minus(new BigNumber(contract.cost)) < 0) {
+                $rootScope.commonOpenedPopup = 'less-balance';
+                return;
+            }
+
+            $rootScope.commonOpenedPopupParams = {
+                confirmPayment: function() {
+                    if (contract.isDeployProgress) return;
+                    contract.isDeployProgress = true;
+                    contractService.deployContract(contract.id).then(function() {
+                        contract.isDeployProgress = false;
+                        $scope.returnToList();
+                    }, function() {
+                        contract.isDeployProgress = false;
+                    })
+                },
+                contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).toString(10)
+            };
+            $rootScope.commonOpenedPopup = 'contract-confirm-pay';
+            console.log($rootScope.commonOpenedPopupParams);
+        }, function() {
+            contract.isDeployProgress = false;
+        });
+    };
+
+
     var contractTimer = false;
     var convertContract = function() {
         var checkInterval = durationList.filter(function(check) {
@@ -48,12 +82,12 @@ angular.module('app').controller('contractsController', function(contractService
             period: $scope.openedContract.contract_details.check_interval / (checkInterval.value * 24 * 3600),
             periodUnit: checkInterval.name
         };
-        $scope.openedContract.cost = Math.ceil($scope.openedContract.cost / $rootScope.weiDelta * 100000) / 100000;
         $scope.openedContract.stateValue = $scope.statuses[$scope.openedContract.state]['value'];
         $scope.openedContract.stateTitle = $scope.statuses[$scope.openedContract.state]['title'];
         $scope.openedContract.myWillCode = JSON.stringify($scope.openedContract.abi);
         $scope.openedContract.copied = {};
         $scope.openedContract.balance = ($scope.openedContract.balance / Math.pow(10, 18)).toFixed(5);
+        $scope.openedContract.visibleCost = new BigNumber($scope.openedContract.cost).div(Math.pow(10, 18)).round(2).toString(10);
 
         var type;
         switch($scope.openedContract.contract_type) {
@@ -103,8 +137,8 @@ angular.module('app').controller('contractsController', function(contractService
 
                 var ethSum = holdersSum.plus($scope.openedContract.contract_details.hard_cap);
                 $scope.openedContract.totalSupply = {
-                    eth: ethSum.div($scope.openedContract.contract_details.rate).round(18).toString(10),
-                    tokens: ethSum.round(18).toString(10)
+                    eth: ethSum.div($scope.openedContract.contract_details.rate).round(2).toString(10),
+                    tokens: ethSum.round(2).toString(10)
                 };
 
                 $scope.openedContract.chartOptions = {
@@ -158,11 +192,24 @@ angular.module('app').controller('contractsController', function(contractService
 
 
     $scope.refreshInProgress = {};
+    $scope.timeoutsForProgress = {};
+
+    var setProgressTimeout = function(contract) {
+        var contractId = contract.id;
+        $scope.timeoutsForProgress[contractId] = $timeout(function() {
+            if ($scope.refreshInProgress[contractId]) {
+                setProgressTimeout(contract);
+            } else {
+                $scope.timeoutsForProgress[contractId] = false;
+            }
+        }, 1000);
+    };
 
     $scope.refreshContract = function(contract) {
         var contractId = contract.id;
         if ($scope.refreshInProgress[contractId]) return;
         $scope.refreshInProgress[contractId] = true;
+        setProgressTimeout(contract);
         contractService.getContract(contractId).then(function(response) {
             serverDateTime = response.headers('date');
             angular.merge(contract, response.data);
@@ -173,7 +220,6 @@ angular.module('app').controller('contractsController', function(contractService
             $scope.refreshInProgress[contractId] = false;
         });
     };
-
 
     $scope.popupActions = {
         startChecking: function(contract) {
@@ -186,7 +232,8 @@ angular.module('app').controller('contractsController', function(contractService
                 $scope.returnToList();
             });
         },
-        refreshContract: $scope.refreshContract
+        refreshContract: $scope.refreshContract,
+        payContract: payContract
     };
 
 });

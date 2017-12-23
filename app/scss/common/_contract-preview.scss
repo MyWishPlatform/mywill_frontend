@@ -27,6 +27,9 @@
     margin-right: -2.5em;
     padding: 2.5em 1.5em;
   }
+  &:last-child {
+    padding-bottom: 0;
+  }
 }
 .contract-preview-base-value {
   padding: 0.4em 0 0.4em 1.85em;

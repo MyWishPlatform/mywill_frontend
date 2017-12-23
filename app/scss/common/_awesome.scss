@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?y5gwcr');
-  src:  url('fonts/icomoon.eot?y5gwcr#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?y5gwcr') format('truetype'),
-  url('fonts/icomoon.woff?y5gwcr') format('woff'),
-  url('fonts/icomoon.svg?y5gwcr#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?c560j9');
+  src:  url('fonts/icomoon.eot?c560j9#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?c560j9') format('truetype'),
+  url('fonts/icomoon.woff?c560j9') format('woff'),
+  url('fonts/icomoon.svg?c560j9#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-crowdsale:before {
+  content: "\e937";
+}
 .icon-mywish .path1:before {
   content: "\e934";
   color: rgb(0, 114, 255);

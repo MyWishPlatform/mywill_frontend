@@ -3,18 +3,17 @@
     params: previewContractPopUp,
     opened: true,
     noClickShow: true,
-    actions: popupActions,
-    onClose: returnToList
+    actions: popupActions
 }" ng-if="openedContract && !(stateData.forPayment || stateData.forStopping || stateData.forDeposit || stateData.forFinalize)"></div>
 
-<div ng-pop-up="{
+<!-- div ng-pop-up="{
     template: '/templates/popups/pay-instruction.html',
     params: previewContractPopUp,
     opened: true,
     actions: popupActions,
     noClickShow: true,
     onClose: returnToList
-}" ng-if="stateData.forPayment && ((statuses[openedContract.state]['value'] == 1) || (statuses[openedContract.state]['value'] == 2))"></div>
+}" ng-if="stateData.forPayment && ((statuses[openedContract.state]['value'] == 1) || (statuses[openedContract.state]['value'] == 2))"></div -->
 
 <div ng-pop-up="{
     template: '/templates/popups/deposit-instruction.html',
@@ -50,7 +49,7 @@
 <div class="main-section-content">
     <div class="contracts-list-wrapper">
         <div class="main-section-chapter-fieldset" ng-repeat="contract in contractsList">
-            <a ui-sref="main.contracts.preview({id: contract.id})"  class="contract-name-block">
+            <a ui-sref="main.contracts.preview.byId({id: contract.id})"  class="contract-name-block">
                 <div class="contract-name-text" ng-attr-title="{{contract.name}}">{{ contract.name || 'Not defined'}}</div>
                 <span class="contract-show-button"></span>
             </a>
@@ -60,10 +59,10 @@
                     <!-- Pay instruction button -->
                     <div class="contract-status-buttons-group"
                          ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)">
-                        <a ui-sref="main.contracts.preview.pay({id: contract.id})"
-                           class="btn btn-transparent">
-                            <span>Pay</span>
-                        </a>
+                        <button ng-click="popupActions.payContract(contract)"
+                                class="btn btn-transparent">
+                            <span>Launch</span>
+                        </button>
                     </div>&nbsp;
 
                     <!-- Deposit instruction button -->
@@ -85,7 +84,9 @@
                         <span>Finalize</span>
                     </a>&nbsp;
 
-                    <button class="btn only-icon" ng-click="refreshContract(contract)" ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7))">
+                    <button class="btn only-icon"
+                            ng-class="{'in-progress': timeoutsForProgress[contract.id]}"
+                            ng-click="refreshContract(contract)" ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7))">
                         <i class="icon-refresh-new"></i>
                     </button>
 

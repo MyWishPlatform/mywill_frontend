@@ -4,7 +4,7 @@
     <title>MyWish</title>
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet"/>
     <base href="/dashboard/"/>
@@ -42,43 +42,50 @@
 
 </head>
 <body ng-class="{'with-menu': showedMenu, 'visible': currentUser}">
-<header class="main-header-holder" ng-include="getTemplate('common/header')"></header>
+<header class="main-header-holder"
+        ng-include="getTemplate('common/header')"></header>
+
 <div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
-<div class="pre-release-information">
-    <div class="main-content-holder">
-        <div class="main-section-content">
+<div class="pre-release-information"
+     ng-class="{'start-loading': globalProgress, 'finish-loading': finishGlobalProgress}">
+    <div class="pre-release-information-container">
+        <div class="main-content-holder">
+            <div class="main-section-content">
 
-            <div class="user-balance">
-                <span class="user-balance-title">Balance</span>
-                <div class="user-balance-value">
-                    <div ng-bind="currentUser.balance" class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
-                    <i class="user-balance-icon icon-mywish">
-                        <span class="path1"></span><span class="path2"></span>
-                    </i>
-                    <button class="btn only-icon user-balance-refresh">
-                        <i class="icon-refresh-new"></i>
-                    </button>
+                <div class="user-balance">
+                    <span class="user-balance-title">Balance</span>
+                    <div class="user-balance-value">
+                        <div ng-bind="currentUser.visibleBalance" class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
+                        <i class="user-balance-icon icon-mywish">
+                            <span class="path1"></span><span class="path2"></span>
+                        </i>
+                        <button class="btn only-icon user-balance-refresh"
+                                ng-class="{'in-progress': currentUser.balanceInRefresh}"
+                                ng-click="getCurrentBalance()">
+                            <i class="icon-refresh-new"></i>
+                        </button>
+                    </div>
+                    <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon">
+                        <i class="icon-create-contract"></i>
+                        <span>Buy</span>
+                    </a>
                 </div>
-                <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon">
-                    <i class="icon-create-contract"></i>
-                    <span>Buy</span>
-                </a>
-            </div>
 
-            <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
-                <a href="/auth/registration" class="uppercase btn btn-submit">
-                    <span>Sign up</span>
-                </a>
-                <a href="/auth/" class="btn btn-transparent uppercase">
-                    <span>Sign in</span>
-                </a>
+                <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
+                    <a href="/auth/registration" class="uppercase btn btn-submit">
+                        <span>Sign up</span>
+                    </a>
+                    <a href="/auth/" class="btn btn-transparent uppercase">
+                        <span>Sign in</span>
+                    </a>
+                </div>
+                <div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
+                    <a href="/auth" ui-sref="exit" class="btn btn-transparent">
+                        <span>Log out</span>
+                    </a>
+                </div>
+                <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
             </div>
-            <div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
-                <a href="/auth" ui-sref="exit" class="btn btn-transparent">
-                    <span>Log out</span>
-                </a>
-            </div>
-            <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
         </div>
     </div>
 </div>
@@ -105,12 +112,13 @@
 <!-- {/literal} END JIVOSITE CODE -->
 
 <div ng-pop-up="{
-    template: '/templates/popups/' + openedPopup + '.html',
+    template: '/templates/popups/' + commonOpenedPopup + '.html',
     class: 'deleting-contract',
+    params: commonOpenedPopupParams || {},
     opened: true,
     noClickShow: true,
     onClose: closeCommonPopup
-}" ng-if="openedPopup"></div>
+}" ng-if="commonOpenedPopup"></div>
 
 
 </body>

@@ -1,7 +1,6 @@
 angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate) {
 
     $scope.exRate = exRate.data;
-
     var metamask, parity;
     $scope.wallets = {metamask: [], parity: []};
 
@@ -25,7 +24,6 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $scope.wallets.parity = addresses;
     });
 
-
     $scope.sendTransaction = function() {
         var web3;
         switch ($scope.formData.activeService) {
@@ -43,8 +41,6 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             to: $scope.formData.toAddress,
             gas: $scope.formData.gaslimit,
             gasPrice: 25 * Math.pow(10, 9)
-            // data: '603d80600c6000396000f3007c01000000000000000000000000000000000000000000000000000000006000350463c6888fa18114602d57005b6007600435028060005260206000f3'
-            // nonce: ''
         }, function() {
             console.log(arguments);
         });
@@ -74,7 +70,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     var resetForm = function() {
         $scope.formData = {
             gaslimit: 30000,
-            toAddress: '0xce85a63f5093b28f15aa7c2c1f1b4b0037011cbe'
+            toAddress: $rootScope.currentUser.internal_address
         };
     };
     resetForm();
@@ -82,7 +78,10 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         resetForm();
     });
 
-
+    $scope.payDone = function() {
+        console.log(123);
+        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
+    }
 
 }).controller('buytokensEthController', function($scope) {
     var rate = $scope.exRate.ETH;
@@ -97,9 +96,6 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $scope.formData.ethAmount = ethAmount.times(rate).round(18).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
-    $scope.payDone = function() {
-        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
-    }
 }).controller('buytokensBtcController', function($scope) {
     var rate = $scope.exRate.BTC;
     $scope.checkWishesAmount = function() {
@@ -113,7 +109,5 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $scope.formData.btcAmount = btcAmount.times(rate).round(18).toString(10);
     };
 }).controller('buytokensWishController', function($scope, $state, $rootScope) {
-    $scope.payDone = function() {
-        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
-    }
+
 });

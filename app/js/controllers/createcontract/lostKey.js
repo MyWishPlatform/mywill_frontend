@@ -204,7 +204,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         contractInProgress = true;
         contractService.createContract(data).then(function(response) {
             contractInProgress = false;
-            callback ? callback() : $state.go('main.contracts.preview.pay', {id: response.data.id});
+            callback ? callback() : $state.go('main.contracts.preview', {id: response.data.id});
         });
     };
 

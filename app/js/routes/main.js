@@ -111,31 +111,44 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.contracts', {
         abstract: true,
-        template: '<div ui-view></div>',
-        resolve: {
-            contractsList: function(contractService) {
-                return contractService.getContractsList();
-            },
-            openedContract: function() {
-                return false;
-            }
-        }
+        template: '<div ui-view></div>'
     }).state('main.contracts.list', {
         url: '/contracts',
         controller: 'contractsController',
-        templateUrl: templatesPath + 'contracts.html'
-    }).state('main.contracts.preview', {
-        url: '/contracts/:id',
-        controller: 'contractsController',
         templateUrl: templatesPath + 'contracts.html',
+        resolve: {
+            contractsList: function(contractService) {
+                return contractService.getContractsList();
+            }
+        }
+    }).state('main.contracts.preview', {
+        abstract: true,
+        controller: 'contractsPreviewController',
+        templateUrl: templatesPath + 'contracts/preview.html',
+        title: 'Contract preview',
+        parent: 'main.contracts'
+    }).state('main.contracts.preview.byId', {
+        controllerProvider: function(openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
+            var contractTpl = CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type];
+            return contractTpl + 'PreviewController';
+        },
+        templateProvider: function ($templateCache, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
+            var contractTpl = CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type];
+            return $templateCache.get(templatesPath + 'contracts/preview/' + contractTpl + '.html');
+        },
+        url: '/contracts/:id',
         resolve: {
             openedContract: function(contractService, $stateParams) {
                 if (!$stateParams.id) return false;
                 return contractService.getContract($stateParams.id);
+            },
+            exRate: function(contractService) {
+                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
             }
         },
-        title: 'Contract preview',
-        parent: 'main.contracts'
+        data: {
+            top: 'main.contracts.list'
+        }
     }).state('main.contracts.preview.pay', {
         url: '/pay/',
         data: {
@@ -189,6 +202,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             return $templateCache.get(templatesPath + 'createcontract/' + $stateParams.selectedType + '.html');
         },
         resolve: {
+            exRate: function(contractService) {
+                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
+            },
             currencyRate: function(contractService, $stateParams) {
                 if ($stateParams.selectedType == 'crowdSale') {
                     return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});

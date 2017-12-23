@@ -77,6 +77,15 @@ angular.module('Services').service('contractService', function(requestService, A
                 query: data
             };
             return requestService.get(params);
+        },
+        deployContract: function(id) {
+            var params = {
+                path: API.DEPLOY,
+                data: {
+                    id: id
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

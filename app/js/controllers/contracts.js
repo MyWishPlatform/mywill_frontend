@@ -85,7 +85,7 @@ angular.module('app').controller('contractsController', function(contractService
 
     $scope.refreshContract = function(contract) {
         var contractId = contract.id;
-        if ($scope.refreshInProgress[contractId]) return;
+        if ($scope.timeoutsForProgress[contractId]) return;
         $scope.refreshInProgress[contractId] = true;
         $scope.timeoutsForProgress[contractId] = $interval(function() {
             if (!$scope.refreshInProgress[contractId]) {

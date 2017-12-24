@@ -188,9 +188,9 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
             }];
 
 
-        var checkInterval = $scope.durationList.filter(function(check) {
-                return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
-            }) || false;
+        var checkInterval = contract.contract_details.check_interval ? $scope.durationList.filter(function(check) {
+            return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
+        }) : false;
 
         var lastCheckInterval = checkInterval ? checkInterval[checkInterval.length - 1] : false;
 

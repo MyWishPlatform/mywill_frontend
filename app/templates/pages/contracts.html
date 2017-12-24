@@ -3,8 +3,10 @@
     <div class="contracts-list-wrapper">
         <div class="main-section-chapter-fieldset" ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
             <a ui-sref="main.contracts.preview.byId({id: contract.id})"  class="contract-name-block">
+                <span class="contract-show-button">
+                    <i ng-class="contractTypesIcons[contract.contract_type]"></i>
+                </span>
                 <div class="contract-name-text" ng-attr-title="{{contract.name}}">{{ contract.name || 'Not defined'}}</div>
-                <span class="contract-show-button"></span>
             </a>
             <div class="contract-status-block">
                 <div class="contract-status-buttons">

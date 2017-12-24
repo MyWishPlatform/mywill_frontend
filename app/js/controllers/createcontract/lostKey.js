@@ -186,13 +186,13 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         $scope.walletAddress ? $scope.getBalance() : false;
         $scope.checkedBalance = undefined;
         $scope.hairsList = contract.contract_details.heirs || [{
-                percentage: 100
-            }];
+            percentage: 100
+        }];
 
 
-        var checkInterval = $scope.durationList.filter(function(check) {
-                return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
-            }) || false;
+        var checkInterval = contract.contract_details.check_interval ? $scope.durationList.filter(function(check) {
+            return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
+        }) : false;
 
         var lastCheckInterval = checkInterval ? checkInterval[checkInterval.length - 1] : false;
         $scope.checkPeriod = lastCheckInterval ? contract.contract_details.check_interval / (lastCheckInterval.value * 24 * 3600) : 1;

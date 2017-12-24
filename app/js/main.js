@@ -17,6 +17,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS) {
 
+    $rootScope.contractTypesIcons = {
+        0: 'icon-lastwill',
+        1: 'icon-key',
+        2: 'icon-deferred',
+        3: '',
+        4: 'icon-crowdsale'
+    };
+
     $rootScope.globalProgress = false;
     $rootScope.finishGlobalProgress = false;
 

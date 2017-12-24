@@ -1,5 +1,5 @@
 angular.module('app').controller('contractsController', function(contractService, CONTRACT_STATUSES_CONSTANTS, $rootScope, authService,
-                                                                 contractsList, $scope, $state, $interval) {
+                                                                 contractsList, $scope, $state, $interval, $timeout) {
 
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
@@ -17,7 +17,6 @@ angular.module('app').controller('contractsController', function(contractService
             launchProgress = false;
         });
     };
-
     $scope.payContract = function(contract) {
         if (contract.isDeployProgress) return;
         $rootScope.getCurrentUser().then(function() {
@@ -40,7 +39,6 @@ angular.module('app').controller('contractsController', function(contractService
             contract.isDeployProgress = false;
         });
     };
-
     var deletingProgress;
     var updateList = function() {
         $rootScope.commonOpenedPopupParams = false;
@@ -63,38 +61,23 @@ angular.module('app').controller('contractsController', function(contractService
         });
     };
 
-    // var convertContract = function() {
-    //     var checkInterval = durationList.filter(function(check) {
-    //         return !($scope.openedContract.contract_details.check_interval % (check.value * 24 * 3600));
-    //     })[0];
-    //     $scope.openedContract.contract_details.check_interval = {
-    //         period: $scope.openedContract.contract_details.check_interval / (checkInterval.value * 24 * 3600),
-    //         periodUnit: checkInterval.name
-    //     };
-    //     $scope.openedContract.stateValue = $scope.statuses[$scope.openedContract.state]['value'];
-    //     $scope.openedContract.stateTitle = $scope.statuses[$scope.openedContract.state]['title'];
-    //     $scope.openedContract.myWillCode = JSON.stringify($scope.openedContract.abi);
-    //     $scope.openedContract.copied = {};
-    //     $scope.openedContract.balance = ($scope.openedContract.balance / Math.pow(10, 18)).toFixed(5);
-    //     $scope.openedContract.visibleCost = new BigNumber($scope.openedContract.cost).div(Math.pow(10, 18)).round(2).toString(10);
-    //
-    //     var url = 'https://www.myetherwallet.com/?';
-    //     var params = [
-    //         'sendMode=ether'
-    //     ];
-    //
-    //     var payUrl = url + params.join('&');
-    //     var depositUrl = url + params.join('&');
-    //     var killUrl = url + params.join('&');
-    //
-    //     var payParams = ['to='+$scope.openedContract.owner_address, 'gaslimit=30000', 'value=' + $scope.openedContract.cost];
-    //     var depositParams = ['to='+$scope.openedContract.address, 'gaslimit=30000', 'value=0'];
-    //     var killParams = ['to='+$scope.openedContract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
-    //
-    //     $scope.openedContract.payUrl = payUrl + '&' + payParams.join('&');
-    //     $scope.openedContract.depositUrl = payUrl + '&' + depositParams.join('&');
-    //     $scope.openedContract.killUrl = killUrl + '&' + killParams.join('&');
-    // };
+
+    var url = 'https://www.myetherwallet.com/?';
+    var params = [
+        'sendMode=ether'
+    ];
+    var depositUrl = url + params.join('&');
+    var killUrl = url + params.join('&');
+
+    $scope.iniContract = function(contract) {
+        if (!contract.contract_details.eth_contract) return;
+        var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];
+        var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
+        contract.depositUrl = depositUrl + '&' + depositParams.join('&');
+        contract.killUrl = killUrl + '&' + killParams.join('&');
+        contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
+    };
+
 
     $scope.refreshInProgress = {};
     $scope.timeoutsForProgress = {};
@@ -114,6 +97,14 @@ angular.module('app').controller('contractsController', function(contractService
             angular.merge(contract, response.data);
             $scope.refreshInProgress[contractId] = false;
         });
+    };
+
+    $scope.successCodeCopy = function(contract, field) {
+        contract.copied = contract.copied || {};
+        contract.copied[field] = true;
+        $timeout(function() {
+            contract.copied[field] = false;
+        }, 1000);
     };
 
 });

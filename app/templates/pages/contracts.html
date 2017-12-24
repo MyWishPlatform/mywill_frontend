@@ -1,54 +1,7 @@
-<div ng-pop-up="{
-    template: '/templates/popups/preview-contract.html',
-    params: previewContractPopUp,
-    opened: true,
-    noClickShow: true,
-    actions: popupActions
-}" ng-if="openedContract && !(stateData.forPayment || stateData.forStopping || stateData.forDeposit || stateData.forFinalize)"></div>
-
-<!-- div ng-pop-up="{
-    template: '/templates/popups/pay-instruction.html',
-    params: previewContractPopUp,
-    opened: true,
-    actions: popupActions,
-    noClickShow: true,
-    onClose: returnToList
-}" ng-if="stateData.forPayment && ((statuses[openedContract.state]['value'] == 1) || (statuses[openedContract.state]['value'] == 2))"></div -->
-
-<div ng-pop-up="{
-    template: '/templates/popups/deposit-instruction.html',
-    params: previewContractPopUp,
-    opened: true,
-    actions: popupActions,
-    noClickShow: true,
-    onClose: returnToList
-}" ng-if="openedContract && stateData.forDeposit && (statuses[openedContract.state]['value'] == 4)"></div>
-
-<div ng-pop-up="{
-    template: '/templates/popups/stop-instruction.html',
-    params: previewContractPopUp,
-    opened: true,
-    actions: popupActions,
-    noClickShow: true,
-    onClose: returnToList
-}" ng-if="openedContract && stateData.forStopping && (statuses[openedContract.state]['value'] == 4)"></div>
-
-<div ng-pop-up="{
-    template: '/templates/popups/finalize-instruction.html',
-    params: previewContractPopUp,
-    opened: true,
-    actions: popupActions,
-    noClickShow: true,
-    onClose: returnToList
-}" ng-if="openedContract && stateData.forFinalize && (statuses[openedContract.state]['value'] == 4)"></div>
-
-
-
-
 
 <div class="main-section-content">
     <div class="contracts-list-wrapper">
-        <div class="main-section-chapter-fieldset" ng-repeat="contract in contractsList">
+        <div class="main-section-chapter-fieldset" ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
             <a ui-sref="main.contracts.preview.byId({id: contract.id})"  class="contract-name-block">
                 <div class="contract-name-text" ng-attr-title="{{contract.name}}">{{ contract.name || 'Not defined'}}</div>
                 <span class="contract-show-button"></span>
@@ -66,23 +19,52 @@
                     </div>&nbsp;
 
                     <!-- Deposit instruction button -->
-                    <a ui-sref="main.contracts.preview.deposit({id: contract.id})"
-                       ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
+                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
+                            ng-pop-up="{
+                                template: '/templates/popups/deposit-instruction.html',
+                                params: {
+                                    contract: contract
+                                },
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }"
                        class="btn btn-transparent">
                         <span>Deposit</span>
-                    </a>&nbsp;
+                    </button>&nbsp;
 
                     <!-- Cancel instruction button -->
-                    <a ui-sref="main.contracts.preview.stop({id: contract.id})"
-                       ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
-                       class="btn btn-transparent">
+                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
+                            ng-pop-up="{
+                                template: '/templates/popups/stop-instruction.html',
+                                params: {
+                                    contract: contract
+                                },
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }"
+                            class="btn btn-transparent">
                         <span>Cancel</span>
-                    </a>&nbsp;
+                    </button>&nbsp;
 
-                    <a ui-sref="main.contracts.preview.finalize({id: contract.id})" ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
-                       class="btn btn-transparent">
+                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
+                            ng-pop-up="{
+                                template: '/templates/popups/finalize-instruction.html',
+                                params: {
+                                    contract: contract
+                                },
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }"
+                            class="btn btn-transparent">
                         <span>Finalize</span>
-                    </a>&nbsp;
+                    </button>&nbsp;
+
 
                     <button class="btn only-icon"
                             ng-class="{'in-progress': timeoutsForProgress[contract.id]}"

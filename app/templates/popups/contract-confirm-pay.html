@@ -1,0 +1,15 @@
+<div class="contract-popup-wrapper">
+    <div class="alert-window-title">
+        С вашего баланса будет списано {{ngPopUp.params.contractCost}} WISH
+    </div>
+    <div class="alert-window-buttons text-center">
+        <button type="button"
+                ng-click="ngPopUp.params.confirmPayment(ngPopUp.params.contract); $root.closeCommonPopup();"
+                class="btn btn-submit">
+            <span>Ok</span>
+        </button>
+        <button ng-click="$root.closeCommonPopup()" class="btn btn-transparent">
+            <span>Cancel</span>
+        </button>
+    </div>
+</div>

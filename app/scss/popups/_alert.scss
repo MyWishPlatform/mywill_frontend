@@ -12,12 +12,13 @@
 }
 
 .popup-window.deleting-contract {
+  width: 98%;
   max-width: 48em;
   margin-left: -24em;
 }
 @media screen and (max-width: 532px) {
   .popup-window.deleting-contract {
-    margin-left: -45%;
+    margin-left: -49%;
   }
 }
 @media screen and (max-width: 360px) {

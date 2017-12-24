@@ -25,6 +25,11 @@ $fieldsets-padding: 2.5em;
 }
 .main-section-content {
   padding: 2em 4.3% 10em;
+  &.with-tabs {
+    .main-section-chapter-fieldset {
+      border-top-left-radius: 0;
+    }
+  }
 }
 .content-section-title {
   font-size: 1.8em;
@@ -119,8 +124,6 @@ a.main-section-chapter {
 }
 
 .pre-release-information {
-  padding: 1.8em 00;
-  text-align: center;
   display: block;
   border-bottom: 1px solid #5D5D7D;
   left: 22.5em;
@@ -129,7 +132,44 @@ a.main-section-chapter {
   right: 0;
   z-index: 2;
   color: $black-color;
-  background-color: $white-color;
+  &-container {
+    position: relative;
+    padding: 1.8em 0;
+    text-align: center;
+    background-color: $white-color;
+    z-index:3;
+  }
+  &:after {
+    display: block;
+    background-color: #206EFF;
+    box-shadow: 0 0 1px #206EFF;
+    height: 2px;
+    margin-bottom: -3px;
+    border-radius: 2px;
+    position: relative;
+    float: left;
+    content: '';
+    opacity: 0;
+    width: 0;
+    transition-property: opacity;
+    transition-delay: 0.5s;
+  }
+  &.start-loading {
+    &:after {
+      transition: width linear 3s;
+      opacity: 0.8;
+      width: 99%;
+    }
+  }
+  &.finish-loading {
+    &:after {
+      opacity: 0.8;
+      transition: all linear 0.1s;
+      transition-delay: 0s;
+      width: 100%;
+    }
+  }
+
   span {
     font-size: 1.35em;
     &.red {
@@ -145,14 +185,17 @@ a.main-section-chapter {
     padding-bottom: 0;
   }
   .profile-buttons {
-    margin: -0.9em 0;
+    margin: -0.7em 0;
+    font-size: 0.84em;
     white-space: nowrap;
     .btn {
-      font-size: 0.8em;
       + .btn {
         margin-left: 1em;
       }
     }
+  }
+  &:after {
+
   }
 }
 

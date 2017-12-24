@@ -44,7 +44,7 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         title: 'Buy tokens',
         icon: 'icon-but-tokens',
         route: 'main.buytokens',
-        noactive: true
+        noactive: false
     }, {
         title: 'Support',
         icon: 'icon-phone-call',

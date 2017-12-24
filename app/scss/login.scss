@@ -33,12 +33,13 @@ header {
 .field-container {
   position: relative;
   padding-top: 2.775em;
-  margin-bottom: 2.775em;
+  margin-bottom: 2em;
 }
+
 .field-error, .field-success {
   font-size: 1.3em;
-  position: absolute;
-  top: 100%;
+  line-height: 1.2em;
+  min-height: 1.2em;
   margin-top: 0.5em;
 }
 .field-error {

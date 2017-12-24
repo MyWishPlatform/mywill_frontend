@@ -20,12 +20,12 @@ module.directive('ngChart', function($timeout) {
                 "marginTop": 35,
                 "marginLeft": 20,
                 "marginRight": 20,
-                "labelRadius": 2,
+                "labelRadius": 4,
                 "radius": "38%",
                 "innerRadius": "60%",
                 "labelText": "[[percents]]%",
                 "labelTickColor": 'transparent',
-                "fontSize": 13,
+                "fontSize": 12,
                 "fontFamily": 'inherit',
                 "balloonText": "[[value]]"
             };

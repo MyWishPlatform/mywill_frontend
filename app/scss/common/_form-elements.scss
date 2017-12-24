@@ -30,7 +30,14 @@
 }
 
 .form-control-description {
-  line-height: 4.7em;
+  &:not(.one-line) {
+    line-height: 4.7em;
+  }
+  &.one-line {
+    &:not(.without-padding) {
+      padding: 0.5em 0;
+    }
+  }
   &.form-control-description_two-row {
     line-height: 9.5em;
   }
@@ -102,6 +109,9 @@
   margin-top: 0.2em;
   border-radius: 0.5em;
   outline: none;
+  &.with-currency {
+    padding-right: 3.5em;
+  }
   &.small-input {
     margin-top: 0;
     padding-top: 0.3em;
@@ -255,11 +265,15 @@
   padding-top: 3em;
   border-top: 1px solid #A6A6A6;
   .btn {
-    + .btn {
+    &:not(.float-right) + .btn {
       margin-left: 2em;
+    }
+    &.float-right + .btn {
+      margin-left: 0;
     }
   }
 }
+
 .contact-add-btn {
   border: 0 none;
   color: #263E5E;
@@ -428,7 +442,23 @@
     opacity: 0;
   }
 }
-
+.form-fieldset-delimiter {
+  text-align: center;
+  border-top: 1px solid #ccc;
+  margin-top: 1.5em;
+  margin-left: -2.4em;
+  margin-right: -2.4em;
+  span {
+    font-size: 1.5em;
+    line-height: 1.2em;
+    position: relative;
+    top: -0.6em;
+    color: #777;
+    display: inline-block;
+    background-color: #F4F4F4;
+    padding: 0 0.5em;
+  }
+}
 @media screen and (max-width: 480px) {
   .contract-form-information-btns {
     .btn {

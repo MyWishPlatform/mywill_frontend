@@ -14,7 +14,12 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
 }).controller('headerController', function($rootScope, $scope) {
-}).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService, MENU_CONSTANTS) {
+}).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
+                MENU_CONSTANTS) {
+
+    $rootScope.globalProgress = false;
+    $rootScope.finishGlobalProgress = false;
+
     $rootScope.gitHubLink = 'https://github.com/MyWishPlatform/contracts/tree/develop';
     $rootScope.$state = $state;
     $rootScope.numberReplacer = /,/g;
@@ -51,22 +56,38 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var createDefer = function() {
         $rootScope.currentUserDefer = $q.defer();
     };
-    var getCurrentUser = function() {
-        return authService.profile().then(function(data) {
+    var getCurrentUser = function(isGhost) {
+        authService.profile().then(function(data) {
             if (data) {
+                var userBalance = new BigNumber(data.data.balance);
+                data.data.visibleBalance = userBalance.div(Math.pow(10, 18)).toFormat(2);
+                data.data.balanceInRefresh = $rootScope.currentUser ? $rootScope.currentUser.balanceInRefresh : false;
                 $rootScope.setCurrentUser(data.data);
                 iniApplication();
                 $rootScope.currentUserDefer.resolve(data);
             } else {
-                return $state.go('exit');
+                if (!isGhost) {
+                    return $state.go('exit');
+                }
             }
         }, function() {
             $rootScope.currentUserDefer.resolve(false);
-            return $state.go('exit');
+            if (!isGhost) {
+                return $state.go('exit');
+            }
         });
+        return $rootScope.currentUserDefer.promise;
     };
+    $rootScope.getCurrentUser = getCurrentUser;
 
-    createDefer();
+
+    $rootScope.getCurrentBalance = function() {
+        $rootScope.currentUser.balanceInRefresh = true;
+        $timeout(function() {
+            $rootScope.currentUser.balanceInRefresh = false;
+        }, 1000);
+        getCurrentUser();
+    };
 
     $rootScope.$on("$locationChangeSuccess", function(event, newLocation, oldLocation) {
         $rootScope.currentState = $location.state() || {};
@@ -79,22 +100,66 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         history.replaceState($rootScope.currentState, null);
     });
 
-    var checkCurrentUser = false;
-
+    var progressTimer;
     $rootScope.$on("$stateChangeSuccess", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
         $rootScope.showedMenu = false;
-
+        angular.element($window).scrollTop(0);
+        if (progressTimer) {
+            $timeout.cancel(progressTimer);
+        }
         var itemFromMenuConst = MENU_CONSTANTS.filter(function(menuItem) {
             return menuItem.route === $state.current.name;
         })[0];
         $rootScope.headerTitle = $state.current.title || (itemFromMenuConst ? itemFromMenuConst['title'] : '');
+        if (!newLocation.resolve) return;
+        progressTimer = $timeout(function() {
+            $rootScope.globalProgress = false;
+            $rootScope.finishGlobalProgress = true;
+            progressTimer = $timeout(function() {
+                $rootScope.finishGlobalProgress = false;
+            }, 400);
+        }, 350);
     });
 
+    $rootScope.closeCommonPopup = function() {
+        $rootScope.commonOpenedPopup = false;
+        $rootScope.commonOpenedPopupParams = false;
+    };
+
+    var checkLocation = function(newLocation, oldLocation, event) {
+        if (newLocation.data && newLocation.data.notAccess && $rootScope.currentUser[newLocation.data.notAccess]) {
+            event.preventDefault();
+            $rootScope.commonOpenedPopup = 'ghost-user-buy-tokens';
+            if (oldLocation.name) {
+                $state.go(oldLocation.name);
+            } else {
+                $state.go('main.createcontract.types');
+            }
+            return false;
+        }
+    };
+
+    createDefer();
+
     $rootScope.$on("$stateChangeStart", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
-        if (oldLocation && (newLocation === oldLocation)) return;
-        if (newLocation.name !== 'anonymous') {
-            createDefer();
-            getCurrentUser();
+        getCurrentUser(newLocation.name === 'anonymous');
+
+        if (newLocation.name === 'anonymous') {
+            return;
+        }
+
+        if (newLocation.resolve) {
+            $rootScope.globalProgress = true;
+            $rootScope.finishGlobalProgress = false;
+        }
+        if (!$rootScope.currentUser) {
+            $rootScope.currentUserDefer.promise.then(function() {
+                checkLocation(newLocation, oldLocation);
+            }, function() {
+                console.error('Unknown profile');
+            });
+        } else {
+            checkLocation(newLocation, oldLocation, event);
         }
     });
 
@@ -142,11 +207,12 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     }
 }).filter('separateNumber', function() {
     return function(val) {
-        val = val || '';
-        while (/(\d+)(\d{3})/.test(val.toString())){
-            val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+        val = (val || '') + '';
+        var values = val.split('.');
+        while (/(\d+)(\d{3})/.test(values[0].toString())){
+            values[0] = values[0].toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
         }
-        return val;
+        return values.join('.');
     }
 }).directive('commaseparator', function($filter) {
     'use strict';
@@ -166,7 +232,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 return commaSeparateNumber(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
-                var plainNumber = viewValue.replace(/[\,\.\-\+]/g, '');
+
+                var plainNumber = viewValue.replace(/[\,\-\+]/g, '');
                 var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
                 if (!valid) {
                     if (viewValue) {
@@ -191,6 +258,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 }
             });
 
+            if (scope.commaseparator.notNull) {
+                ctrl.$parsers.unshift(function(value) {
+                    if (!value) return;
+                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
+                    ctrl.$setValidity('null-value', !!plainNumber);
+                    return value;
+                });
+            }
             if (scope.commaseparator.checkWith) {
                 ctrl.$parsers.unshift(function(value) {
                     if (!value) return;

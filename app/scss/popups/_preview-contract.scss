@@ -1,8 +1,8 @@
 .contract-balance-title {
-  font-size: 1.35em;
+  font-size: 1em;
 }
 .contract-balance-value {
-  font-size: 1.575em;
+  font-size: 1.1em;
   font-weight: bold;
 }
 .contract-balance {
@@ -22,7 +22,7 @@
 
 }
 .contract-wallets-information-one-block {
-  padding: 0.75em 2.25%;
+  padding: 0.75em 0;
   &:after {
     content: '';
     display: table;
@@ -64,13 +64,6 @@
   &:not(.contract-wallet-information-float-cell) {
     margin-top: 0.3125em;
   }
-  .instruction-for-copy-button {
-    float: none;
-    vertical-align: middle;
-    top: initial;
-    left: initial;
-    margin-left: 0.75em;
-  }
   a {
     color: $main-blue-color;
     &, &:hover {
@@ -92,13 +85,6 @@
   padding: 0 1em;
 }
 .contract-dates-information {
-  background-color: $dark-block-background;
-  box-shadow: inset 0 0.4em 2em 0 rgba(0,0,0,0.05);
-  padding-top: 1.3875em;
-  padding-bottom: 1.3875em;
-  margin-top: 2em;
-  border-bottom-left-radius: 0.6em;
-  border-bottom-right-radius: 0.6em;
   .contract-information-icon {
     float: left;
     margin-top: 0.3em;
@@ -122,10 +108,8 @@
   }
 }
 .contract-preview-tabs {
-  position: absolute;
-  top: -4.1em;
+  margin-bottom: 4.1em;
   line-height: 3.6em;
-  left: 4.5em;
 }
 .contract-preview-one-tab {
   border-top-left-radius: 1.3em;
@@ -185,52 +169,60 @@
     min-width: 12.225em;
   }
 }
-.contract-preview-code {
+.contract-preview-code-content {
   position: relative;
-  margin: 0 3%;
-  .instruction-for-copy-button {
-    float: none;
-    left: 0.5em;
-    font-size: 1.6em;
-    top: 0;
-  }
-  .code {
-    white-space: pre;
-    font-size: 1.4em;
-    font-family: monospace;
-    padding: 1em;
-    background-color: #333;
-    color: #fff;
-    overflow: auto;
-    box-sizing: border-box;
-    max-height: 400px;
-    cursor: text;
-  }
-  .code-copy-controls {
-    position: absolute;
-    top: 0;
-    right: 0;
-    white-space: nowrap;
-    line-height: 5em;
-    .btn, .copied-code-notice {
-      vertical-align: middle;
+}
+.contract-preview-code-text {
+  white-space: pre;
+  font-size: 1.4em;
+  font-family: monospace;
+  padding: 1em;
+  background-color: #333;
+  color: #fff;
+  overflow: auto;
+  box-sizing: border-box;
+  max-height: 400px;
+  cursor: text;
+}
+
+.for-copy-button {
+  position: absolute;
+  top: 0.5em;
+  background: none;
+  border: none;
+  padding: 0.5em;
+  color: #fff;
+  font-size: 2.2em;
+  outline: none;
+  cursor: pointer;
+  right: 1em;
+  &.copied {
+    //color: #ffa2a8;
+    &:before {
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 0.8em;
+      background-color: #444;
+      color: #fff;
+      content: 'Copied';
+      line-height: 1em;
+      font-size: 0.75em;
+      padding: 0.5em 1.2em;
+      right: -0.3em;
+      border-radius: 3px;
+      white-space: nowrap;
     }
-    .btn {
-      margin-left: 2em;
-    }
-    .copied-code-notice {
-      opacity: 0;
-      transition: opacity linear 0.3s;
-      i {
-        font-size: 2em;
-        margin-right: 1em;
-      }
-      span {
-        font-size: 1.8em;
-      }
-      &.visible {
-        opacity: 1;
-      }
+    &:after {
+      content: '';
+      font-size: 0.75em;
+      position: absolute;
+      border-width: 0.3em;
+      border-style: solid;
+      border-color: #444 #444 transparent transparent;
+      transform: rotate(135deg);
+      right: 1em;
+      margin-top: 1.6em;
+      top: -2.8em;
     }
   }
 }
@@ -310,7 +302,7 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
+//@media screen and (max-width: 1024px) {
   .contract-wallet-information-cell,
   .contract-wallet-information-row,
   .contract-wallet-information-table {
@@ -328,7 +320,8 @@
       margin-left: 0;
     }
   }
-}
+//}
+
 @media screen and (max-width: 680px) {
   //.grid-cell {
   //  &.float-right {

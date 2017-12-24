@@ -1,0 +1,205 @@
+<div class="contract-preview-tabs" ng-init="contract.showedTab = 'info'">
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'info'}"
+         ng-click="contract.showedTab = 'info'">
+        <span>Preview contract</span>
+    </div>
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'code'}"
+         ng-click="contract.showedTab = 'code'"
+         ng-show="contract.source_code">
+        <span>Source code</span>
+    </div>
+</div>
+
+
+<div ng-show="contract.showedTab == 'code'">
+    <div class="main-section-chapter">
+        <div class="main-section-chapter-fieldset">
+            <div class="github-link">
+                <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">{{$root.gitHubLink}}</a>
+            </div>
+            <div class="clearfix"><br/></div>
+            <div class="contract-preview-code-content" ng-if="contract.source_code">
+                <div class="contract-preview-code-text">
+                    {{contract.source_code}}
+                </div>
+                <button class="for-copy-button"
+                        ng-class="{copied: copied['code']}"
+                        clipboard supported="supported"
+                        text="contract.source_code"
+                        on-copied="successCodeCopy()"
+                        on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div ng-show="contract.showedTab == 'info'">
+
+    <div class="main-section-chapter">
+        <div class="main-section-chapter-fieldset">
+            <div class="main-section-chapter-title">
+                <i class="main-section-chapter-title_icon icon-deferred"></i>
+                <span class="main-section-chapter-title_text">{{contract.name}}</span>
+            </div>
+
+            <div class="contract-status-name float-right" ng-class="'contract-status-' + stateValue">
+                <div class="contract-status-text">
+                    <span>{{stateTitle}}</span>
+                </div>
+            </div>
+
+            <div class="contract-form-fieldset with-border" ng-if="contract.balance">
+                <div class="contract-preview-info-block">
+                    <div class="contract-preview-base-font">
+                        <span class="contract-balance-title">Contract balance</span>&nbsp;&nbsp;
+                        <span class="contract-balance-value">
+                            <span ng-bind="(contract.balance || 0 | number).replace($root.numberReplacer, ' ')"></span>&nbsp;ETH&nbsp;&nbsp;
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contract-form-fieldset with-border">
+                <div class="contract-wallets-information-one-block" ng-if="contract.address">
+                    <span class="identicon-container">
+                        <img ng-src="{{$root.generateIdenticon(contract.address)}}"/>
+                    </span>
+                    <div class="contract-wallet-information-title">Contract address:</div>
+                    <div class="contract-wallet-information-wallet">
+                        <a ng-attr-href="{{'https://etherscan.io/address/' + contract.address}}"
+                           target="_blank"
+                           ng-bind="contract.address"></a>
+                        <button class="instruction-for-copy-button"
+                                clipboard supported="supported"
+                                ng-class="{copied: contract.copied['address']}"
+                                text="contract.address"
+                                on-copied="ngPopUp.params.successCodeCopy(contract, 'address')" on-error="ngPopUp.params.failCodeCopy(err)">
+                            <i class="icon-content_copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="contract-wallets-information-one-block">
+                    <i class="icon-wallet contract-information-icon"></i>
+                    <div class="contract-wallet-information-title">From account</div>
+                    <span class="identicon-container">
+                    <img class="identicon-image" ng-src="{{$root.generateIdenticon(contract.contract_details.user_address)}}"/>
+                </span>
+                    <div class="contract-wallet-information-wallet" ng-bind="contract.contract_details.user_address"></div>
+                </div>
+
+                <div class="contract-wallets-information-one-block">
+                    <i class="icon-in-wallet contract-information-icon"></i>
+                    <div class="contract-wallet-information-title">Send to wallet</div>
+                    <div class="contract-wallet-information-float contract-wallet-information">
+                <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{$root.generateIdenticon(contract.contract_details.recepient_address)}}"/>
+                    </span>
+                        <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.recepient_address"></div>
+                        <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="contract.contract_details.recepient_email"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contract-form-fieldset contract-form-fieldset-grey with-border">
+                <div class="contract-wallets-information-one-block contract-dates-information">
+                    <i class="icon-conditions contract-information-icon"></i>
+                    <div class="contract-information-dates-content">
+                        <div class="contract-wallet-information-table">
+                            <div class="contract-wallet-information-row">
+                                <!--<div class="contract-wallet-information-cell contract-wallet-information-title"></div>-->
+
+                                <div class="contract-wallet-information-cell contract-wallet-information-date text-left">
+                                    <span>Date of transfer</span>
+                                    {{contract.contract_details.date|date:'yyyy-MM-dd'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="main-section-chapter">
+        <div class="costs-info-block">
+            <span class="costs-info-title">Contract`s cost: </span>
+            <span class="costs-info-value">{{wishCost}}</span>
+            <span class="costs-info-currency">WISH</span>
+        </div>
+        <div class="contract-form-row">
+            <div class="contract-form-information-btns">
+                <button class="btn btn-red with-icon float-right mobile-width-100 with-icon initial-padding"
+                        ng-if="(stateValue == 1) || (stateValue == 2) || (stateValue == 5) || (stateValue == 6) || (stateValue == 7)"
+                        ng-pop-up="{
+                        template: '/templates/popups/delete-contract.html',
+                        params: contract,
+                        class: 'deleting-contract',
+                        actions: {
+                            deleteContract: deleteContract
+                        }
+                    }">
+                    <i class="icon-trash"></i>
+                    <span>Delete</span>
+                </button>
+
+                <!-- Back instruction button -->
+                <a ui-sref="main.contracts.list" class="btn btn-back mobile-width-100 with-icon">
+                    <i class="icon-keyboard_arrow_left"></i>
+                    <span>My contracts</span>
+                </a>
+
+                <button class="btn btn-submit mobile-width-100"
+                        ng-if="(stateValue == 1) || (stateValue == 2)"
+                        ng-click="payContract()">
+                    <span>Launch</span>
+                </button>
+
+                <!-- Edit instruction button -->
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="btn btn-back mobile-width-100 with-icon initial-padding"
+                   ng-if="stateValue == 1"
+                   ng-click="closeCurrentPopup()">
+                    <i class="icon-edit"></i>
+                    <span>Edit</span>
+                </a>
+
+                <!-- Deposit instruction button -->
+                <a ui-sref="main.contracts.preview.deposit({id: contract.id})"
+                   ng-if="contract.stateValue == 4"
+                   ng-pop-up="{
+                            template: '/templates/popups/deposit-instruction.html',
+                            params: ngPopUp.params,
+                            actions: ngPopUp.actions,
+                            onClose: ngPopUp.onClose
+                        }"
+                   ng-click="closeCurrentPopup(true)"
+                   class="btn btn-transparent">
+                    <span>Deposit</span>
+                </a>
+
+                <!-- Cancel instruction button -->
+                <a ui-sref="main.contracts.preview.stop({id: contract.id})"
+                   ng-if="stateValue == 4"
+                   ng-pop-up="{
+                            template: '/templates/popups/stop-instruction.html',
+                            params: ngPopUp.params,
+                            actions: ngPopUp.actions,
+                            onClose: ngPopUp.onClose
+                        }"
+                   class="btn btn-transparent">
+                    <span>Cancel</span>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>

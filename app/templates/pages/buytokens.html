@@ -1,1 +1,42 @@
-<h1>&nbsp;&nbsp;&nbsp;Section "Buy tokens" in development</h1>
+<div class="main-section-content buy-tokens">
+    <div class="main-section-chapter" name="tokenInfoForm">
+        <div class="main-section-chapter-fieldset">
+            <div class="main-section-chapter-title">
+                <i class="main-section-chapter-title_icon icon-wallet"></i>
+                <span class="main-section-chapter-title_text">Buy Tokens</span>
+            </div>
+            <div class="contract-form-fieldset contract-form-fieldset-grey with-padding">
+                <div class="grid-row contract-form-row">
+                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
+                        <div class="simple-text">
+                            Choose replenish method
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-3-4 grid-cell-ps-1 btns-full-width">
+                        <label class="choose">
+                            <input type="radio" ng-model="visibleForm" value="wish">
+                            <div class="btn btn-gray">
+                                <span>WISH</span>
+                            </div>
+                        </label>
+                        <label class="choose">
+                            <input type="radio" ng-model="visibleForm" value="eth">
+                            <div class="btn btn-gray">
+                                <span>ETH</span>
+                            </div>
+                        </label>
+                        <label class="choose">
+                            <input type="radio" ng-model="visibleForm" value="btc">
+                            <div class="btn btn-gray">
+                                <span>BTC</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>
+            <div ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
+            <div ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
+        </div>
+    </div>
+</div>

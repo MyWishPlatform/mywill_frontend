@@ -1,7 +1,7 @@
-angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope,
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract) {
 
-    $scope.request = {
-    };
+    $scope.request = {};
     $scope.listWalletActivity = [
         {
             value: 1,
@@ -60,7 +60,6 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         });
         $scope.hairsList.push({percentage: Math.max(0, 100 - sum)});
     };
-
 
     $scope.removeHair = function(hair) {
         var currentList = $scope.hairsList.filter(function(h) {
@@ -140,103 +139,32 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     });
     $scope.$watch('hairsList', $scope.changeCondition);
 
-    // $scope.walletAddress = "0x58b8c421a288a1adf92d94735c99b8c6a7d97e8f";
-
-    $scope.resetForms = function() {
-        $scope.walletAddress = undefined;
-        $scope.checkedBalance = undefined;
-        $scope.hairsList = [{
-            percentage: 100
-        }];
-        $scope.costCurrency = 2;
-        $scope.checkPeriod = 1;
-        $scope.checkPeriodSelect = 1;
-        $scope.dueDate = moment.tz('UTC').hour(12).startOf('h');
+    var contract = openedContract && openedContract.data ? openedContract.data : {
+        name:  'MyContract' + ($rootScope.currentUser.contracts + 1),
+        contract_details: {}
     };
 
-    $scope.checkContract = function() {
-        var data = {
-            user_address: $scope.walletAddress,
-            heirs: angular.copy($scope.hairsList),
-            check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
-            active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-            contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL
-        };
-        var nextCheckDate = moment.tz('UTC').add($scope.checkPeriod * $scope.checkPeriodSelect, 'day');
-        nextCheckDate = nextCheckDate > $scope.dueDate ? $scope.dueDate : nextCheckDate;
-
-
-        $scope.previewContractPopUp.createdContract = {
-            contract_details: {
-                user_address: $scope.walletAddress,
-                heirs: angular.copy($scope.hairsList),
-                active_to: $scope.dueDate.format('YYYY-MM-DD'),
-                next_check: nextCheckDate.format('YYYY-MM-DD'),
-                check_interval: {
-                    period: $scope.checkPeriod,
-                    periodUnit: $scope.durationList.filter(function(unit) {
-                        return unit.value === $scope.checkPeriodSelect;
-                    })[0]['name']
-                },
-            },
-            cost: $scope.checkedCost,
-            contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
-            contractTpl: 'lastwill'
-        };
-        contractService.getCode(data).then(function(response) {
-            $scope.previewContractPopUp.createdContract.source_code = response.data.result;
-        });
-    };
-
+    $scope.editContractMode = !!contract.id;
 
     var contractInProgress = false;
-    var createContract = function(callback) {
+    $scope.createContract = function(callback) {
         if (contractInProgress) return;
         var data = {
-            name: $scope.previewContractPopUp.createdContract.name,
+            name: $scope.contractName,
+            id: contract.id,
             contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
             contract_details: {
                 user_address: $scope.walletAddress,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-                heirs: angular.copy($scope.hairsList),
+                heirs: angular.copy($scope.hairsList)
             }
         };
         contractInProgress = true;
-        contractService.createContract(data).then(function(response) {
+        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
             contractInProgress = false;
-            callback ? callback() : $state.go('main.contracts.preview.pay', {id: response.data.id});
+            callback ? callback() : $state.go('main.contracts.preview.byId', {id: response.data.id});
         });
-    };
-
-    var copiedTimeout;
-    var successCodeCopy = function() {
-        copiedTimeout ? $timeout.cancel(copiedTimeout) : false;
-        $scope.previewContractPopUp.copied = true;
-        copiedTimeout = $timeout(function() {
-            $scope.previewContractPopUp.copied = false;
-        }, 3000);
-    };
-    var failCodeCopy = function() {
-        console.log(arguments);
-    };
-
-    var goToLogin = function() {
-        createContract(function() {
-            window.location.href = '/auth';
-        });
-    };
-    var goToRegistration = function() {
-        createContract(function() {
-            window.location = '/auth/registration';
-        });
-    };
-    $scope.previewContractPopUp = {
-        createContract: createContract,
-        goToLogin: goToLogin,
-        goToRegistration: goToRegistration,
-        successCodeCopy: successCodeCopy,
-        failCodeCopy: failCodeCopy
     };
 
     $scope.hairPercentChange = function() {
@@ -247,6 +175,32 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.percentageSum = sum;
         $scope.percentageStatus = sum > 100 ? 0 : (sum < 100 ? 1 : 2);
     };
-    $scope.hairPercentChange();
+
+
+    $scope.resetForms = function() {
+        $scope.contractName = contract.name;
+
+        $scope.walletAddress = contract.contract_details.user_address;
+        $scope.walletAddress ? $scope.getBalance() : false;
+        $scope.checkedBalance = undefined;
+        $scope.hairsList = contract.contract_details.heirs || [{
+                percentage: 100
+            }];
+
+
+        var checkInterval = $scope.durationList.filter(function(check) {
+                return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
+            }) || false;
+
+        var lastCheckInterval = checkInterval ? checkInterval[checkInterval.length - 1] : false;
+
+        $scope.checkPeriod = lastCheckInterval ? contract.contract_details.check_interval / (lastCheckInterval.value * 24 * 3600) : 1;
+        $scope.checkPeriodSelect = lastCheckInterval ? lastCheckInterval.value : 1;
+
+        $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : moment.tz('UTC').hour(12).startOf('h');
+
+        $scope.hairPercentChange();
+    };
+    $scope.resetForms();
 
 });

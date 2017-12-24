@@ -1,9 +1,25 @@
-<form class="main-section-chapter" name="tokenInfoForm">
-    <div class="main-section-chapter-fieldset">
+
+<div class="main-section-chapter">
+    <form class="main-section-chapter-fieldset" name="contractNameForm">
         <div class="main-section-chapter-title">
-            <i class="main-section-chapter-title_icon icon-agreement"></i>
+            <i class="main-section-chapter-title_icon icon-crowdsale"></i>
             <span class="main-section-chapter-title_text">Crowdsale contract</span>
         </div>
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="contract-name" class="form-control-label">Enter contract name:</label>
+                    <input id="contract-name" type="text"
+                           ng-model="contractName"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="main-section-chapter" ng-class="{'no-active': !contractNameForm.$valid}">
+    <form name="tokenInfoForm" class="main-section-chapter-fieldset">
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
@@ -55,8 +71,8 @@
                 <span>Defines the number of decimals for your token. 1-18 numerals are accepted. 18 as common practice</span>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
@@ -306,8 +322,6 @@
     </div>
 </form>
 
-
-
 <form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="distributionForm">
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset">
@@ -325,7 +339,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span>ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it</span>
+                    <span>ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Use the same address for manual Finalize</span>
                 </div>
             </div>
         </div>
@@ -438,6 +452,15 @@
         </div>
         <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="!tokensAmountError">
             <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label">
+                        <!--({{totalSupply.eth|separateNumber}} ETH)-->
+                        Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
+                    </div>
+                    <div class="form-control-description one-line without-padding">
+                        <span>Max possible emission of token, no more tokens can be minted.</span>
+                    </div>
+                </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
                     <div id="chartdiv" class="chart-container" style="height: 240px"
                          ng-chart
@@ -467,29 +490,23 @@
 
 
 <div class="main-section-chapter">
-
     <div class="costs-info-block">
         <span class="costs-info-title">Contract`s cost: </span>
-        <span class="costs-info-value">1</span>
-        <span class="costs-info-currency">ETH</span>
+        <span class="costs-info-value">{{wishCost}}</span>
+        <span class="costs-info-currency">WISH</span>
+        <span class="costs-info-value">(1 ETH)</span>
     </div>
-
-
     <div class="contract-form-row">
         <div class="contract-form-information-btns">
-            <button class="uppercase btn btn-submit with-icon mobile-width-100" type="button"
-                    ng-disabled="!distributionForm.$valid || tokensAmountError"
-                    ng-click="checkContract()"
-                    ng-pop-up="{
-                        template: '/templates/popups/preview-contract.html',
-                        params: previewContractPopUp
-                    }">
-                &nbsp;&nbsp;&nbsp;<i class="icon-preview"></i>
-                <span>Preview</span>
+            <button class="uppercase btn btn-submit mobile-width-100"
+                    type="button" ng-disabled="!distributionForm.$valid || tokensAmountError" ng-click="createContract()">
+                <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
+                <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
             </button>
             <button class="btn btn-red with-icon" ng-click="resetForms($event)">
                 <i class="icon-delete-button"></i>
-                <span>Clear</span>
+                <span ng-if="!editContractMode">Clear</span>
+                <span ng-if="editContractMode">Reset</span>
             </button>
         </div>
     </div>

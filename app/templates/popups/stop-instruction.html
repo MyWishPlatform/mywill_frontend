@@ -8,7 +8,7 @@
     </div>
     <ul class="instruction-steps-list">
         <li class="clearfix">
-            <div class="instruction-item-text">Open your wallet (Parity, <a ng-attr-href="{{ngPopUp.params.createdContract.killUrl}}" target="_blank">MyEtherWallet</a>)</div>
+            <div class="instruction-item-text">Open your wallet (Parity, <a ng-attr-href="{{ngPopUp.params.contract.killUrl}}" target="_blank">MyEtherWallet</a>)</div>
         </li>
         <li class="clearfix">
             <div class="instruction-item-text">Click the contracts tab in your wallet</div>
@@ -19,12 +19,13 @@
                 <div class="instruction-for-copy">
                     <button class="instruction-for-copy-button"
                             clipboard supported="supported"
-                            text="ngPopUp.params.createdContract.address"
-                            ng-class="{copied: ngPopUp.params.createdContract.copied['address']}"
-                            on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'address')" on-error="ngPopUp.params.failCodeCopy(err)">
+                            text="ngPopUp.params.contract.contract_details.eth_contract.address"
+                            ng-class="{copied: ngPopUp.params.contract.copied['address']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">
                         <i class="icon-content_copy"></i>
                     </button>
-                    <div class="instruction-for-copy-text">{{ngPopUp.params.createdContract.address}}</div>
+                    <div class="instruction-for-copy-text">{{ngPopUp.params.contract.contract_details.eth_contract.address}}</div>
                 </div>
             </div>
         </li>
@@ -34,12 +35,13 @@
                 <div class="instruction-for-copy">
                     <button class="instruction-for-copy-button"
                             clipboard supported="supported"
-                            text="ngPopUp.params.createdContract.myWillCode"
-                            ng-class="{copied: ngPopUp.params.createdContract.copied['myWillCode']}"
-                            on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'myWillCode')" on-error="ngPopUp.params.failCodeCopy(err)">
+                            text="ngPopUp.params.contract.willCode"
+                            ng-class="{copied: ngPopUp.params.contract.copied['willCode']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'willCode')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">
                         <i class="icon-content_copy"></i>
                     </button>
-                    <div class="instruction-for-copy-text">{{ngPopUp.params.createdContract.myWillCode}}</div>
+                    <div class="instruction-for-copy-text">{{ngPopUp.params.contract.willCode}}</div>
                 </div>
             </div>
         </li>

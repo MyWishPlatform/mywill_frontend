@@ -65,7 +65,8 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             }
             $rootScope.commonOpenedPopupParams = {
                 confirmPayment: launchContract,
-                contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).toString(10)
+                contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
+                withoutCloser: true
             };
             $rootScope.commonOpenedPopup = 'contract-confirm-pay';
             contract.isDeployProgress = false;

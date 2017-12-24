@@ -3,7 +3,7 @@ angular.module('app').controller('deferredCreateController', function($scope, co
 
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
-        name:  'MyContract' + ($rootScope.currentUser.contracts + 1),
+        name:  'MyDeferred' + ($rootScope.currentUser.contracts + 1),
         contract_type: CONTRACT_TYPES_CONSTANTS.DEFERRED,
         contract_details: {
             date: moment.tz('UTC').hour(12).startOf('h')
@@ -65,7 +65,7 @@ angular.module('app').controller('deferredCreateController', function($scope, co
             oldParams = params;
             contractService.getCost(params).then(function(response) {
                 if (currentTimeout === getCostTimeout) {
-                    $scope.checkedCost = Math.ceil(response.data.result / $rootScope.weiDelta * 1000) / 1000;
+                    $scope.checkedCost = new BigNumber(response.data.result).div(Math.pow(10, 18)).round(2).toString(10);
                 }
             });
         }, 1000);

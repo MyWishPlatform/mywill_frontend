@@ -5,9 +5,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     var startAddingTimeHours = 2;
     var minSaleTimeHours = 1;
 
-    var wishEthRate = exRate.data.WISH;
-
-    $scope.wishCost = wishEthRate;
+    $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
     $scope.currencyRate = currencyRate.data;
 
     var setStartTimestamp = function() {

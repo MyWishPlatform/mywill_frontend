@@ -5,7 +5,7 @@
             <i class="main-section-chapter-title_icon icon-crowdsale"></i>
             <span class="main-section-chapter-title_text">Crowdsale contract</span>
         </div>
-        <div class="grid-row contract-form-row" ng-init="contractName = 'MyCrowdSale' + (currentUser.contracts + 1)">
+        <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
                     <label for="contract-name" class="form-control-label">Enter contract name:</label>
@@ -452,11 +452,11 @@
         </div>
         <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="!tokensAmountError">
             <div class="grid-row">
-                <!--({{totalSupply.eth|separateNumber}} ETH-->
-                <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
-                <div class="form-control-description one-line without-padding">
-                    <span>Max possible emission of token, no more tokens can be minted.</span>
-                </div>
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label">
+                        <!--({{totalSupply.eth|separateNumber}} ETH)-->
+                        Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
+                    </div>
                     <div class="form-control-description one-line without-padding">
                         <span>Max possible emission of token, no more tokens can be minted.</span>
                     </div>
@@ -500,11 +500,13 @@
         <div class="contract-form-information-btns">
             <button class="uppercase btn btn-submit mobile-width-100"
                     type="button" ng-disabled="!distributionForm.$valid || tokensAmountError" ng-click="createContract()">
-                <span>&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
+                <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
+                <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
             </button>
             <button class="btn btn-red with-icon" ng-click="resetForms($event)">
                 <i class="icon-delete-button"></i>
-                <span>Clear</span>
+                <span ng-if="!editContractMode">Clear</span>
+                <span ng-if="editContractMode">Reset</span>
             </button>
         </div>
     </div>

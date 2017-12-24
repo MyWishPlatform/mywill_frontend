@@ -330,13 +330,13 @@
                     <span>Launch</span>
                 </button>
 
-                <!-- Edit instruction button -->
-                <button class="btn btn-back mobile-width-100 with-icon initial-padding"
-                        ng-if="statuses[contract.state]['value'] == 1"
-                        ng-click="closeCurrentPopup()">
+                <!-- Edit button -->
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="btn btn-back mobile-width-100 with-icon initial-padding"
+                   ng-if="stateValue == 1"
+                   ng-click="closeCurrentPopup()">
                     <i class="icon-edit"></i>
                     <span>Edit</span>
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -359,7 +359,7 @@
                           ng-click="contract.codeTab = 'token'"
                        disabled
                        ng-if="details.sources.token && (contract.codeTab != 'token')"
-                       class="as-link contract-preview-base-font">{{contract.name}} Contract</span>
+                       class="as-link contract-preview-base-font">{{contract.name}} Token</span>
                     <span class="contract-preview-base-font"
                           ng-class="{'grey-text-color': !details.sources.token}"
                           ng-if="!details.sources.token || (contract.codeTab == 'token')">
@@ -370,7 +370,7 @@
                     <a href="#"
                        ng-click="contract.codeTab = 'crowdsale'"
                        ng-if="details.sources.crowdsale && (contract.codeTab != 'crowdsale')"
-                       class="contract-preview-base-font">{{contract.name}} Token</a>
+                       class="contract-preview-base-font">{{contract.name}} Contract</a>
                     <span class="contract-preview-base-font"
                           ng-class="{'grey-text-color': !details.sources.crowdsale}"
                           ng-if="!details.sources.crowdsale || (contract.codeTab == 'crowdsale')">

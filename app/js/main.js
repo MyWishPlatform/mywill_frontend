@@ -14,7 +14,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
 }).controller('headerController', function($rootScope, $scope) {
-}).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService, MENU_CONSTANTS) {
+}).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
+                MENU_CONSTANTS) {
 
     $rootScope.globalProgress = false;
     $rootScope.finishGlobalProgress = false;
@@ -102,7 +103,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var progressTimer;
     $rootScope.$on("$stateChangeSuccess", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
         $rootScope.showedMenu = false;
-
+        angular.element($window).scrollTop(0);
         if (progressTimer) {
             $timeout.cancel(progressTimer);
         }

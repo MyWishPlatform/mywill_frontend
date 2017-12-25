@@ -6,7 +6,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
     $stateProvider.state('main', {
         abstract: true,
-        template: "<div ui-view class='main-wrapper-section'></div>",
+        templateUrl: '/templates/common/main.html',
         resolve: {
             currentUser: function(usersService, $rootScope) {
                 return $rootScope.currentUserDefer.promise;
@@ -149,40 +149,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         data: {
             top: 'main.contracts.list'
         }
-    }).state('main.contracts.preview.pay', {
-        url: '/pay/',
-        data: {
-            forPayment: true
-        },
-        title: 'Contract preview',
-        controller: function($stateParams) {
-            // console.log($stateParams);
-        }
-
-    }).state('main.contracts.preview.deposit', {
-        url: '/deposit',
-        data: {
-            forDeposit: true
-        },
-        title: 'Contract deposit'
-
-    }).state('main.contracts.preview.finalize', {
-        url: '/finalize',
-        data: {
-            forFinalize: true
-        },
-        title: 'Contract finalize',
-        controller: function($stateParams) {
-            // console.log($stateParams);
-        }
-
-    }).state('main.contracts.preview.stop', {
-        url: '/stop',
-        data: {
-            forStopping: true
-        },
-        title: 'Contract stopping'
-
     }).state('main.createcontract', {
         abstract: true,
         templateUrl: templatesPath + 'createcontract.html'

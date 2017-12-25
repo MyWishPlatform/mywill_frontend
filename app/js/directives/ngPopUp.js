@@ -33,7 +33,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 currentWindow = popupWindow.clone().appendTo(currentWindowWrapper).addClass($scope.ngPopUp.class);
                 var currentCloser = popupCloser.clone().appendTo(currentWindowWrapper);
 
-                if (!$scope.ngPopUp.params.withoutCloser) {
+                if (!($scope.ngPopUp.params && $scope.ngPopUp.params.withoutCloser)) {
                     var currentPopupWindowCloser = popupWindowCloser.clone().appendTo(currentWindow).on('click', function() {
                         $scope.closeCurrentPopup();
                         $scope.$apply();

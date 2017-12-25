@@ -47,6 +47,23 @@
     display: block;
   }
 }
+.contract-status-block {
+  &:after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}
+.contracts-list-item {
+  cursor: pointer;
+  transition: all 0.06s linear;
+  box-shadow: 0 0.4em 2em rgba(0, 0, 0, 0.15);
+  transform: scale(1);
+  &:hover {
+    box-shadow: 0 0.6em 3em rgba(0, 0, 0, 0.15);
+    transform: scale(1.01);
+  }
+}
 .contract-show-button {
   float: left;
   text-decoration: none!important;

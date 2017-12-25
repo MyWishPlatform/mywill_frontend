@@ -31,5 +31,9 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
     'KILLED': {
         title: 'Cancelled',
         value: 7
+    },
+    'POSTPONED': {
+        title: 'Postponed',
+        value: 8
     }
 });

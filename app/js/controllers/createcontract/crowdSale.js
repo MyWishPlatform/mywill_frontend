@@ -57,10 +57,12 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
 
     var contractInProgress = false;
 
-    $scope.createContract = function(callback) {
 
+    $scope.createContract = function(callback) {
         if (contractInProgress) return;
         var contractDetails = angular.copy($scope.request);
+
+        var powerNumber = new BigNumber(10).toPower(contractDetails.decimals);
 
         contractDetails.rate = contractDetails.rate * 1;
         contractDetails.decimals = contractDetails.decimals * 1;
@@ -70,10 +72,11 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(Math.pow(10,18)).toString(10);
         contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(Math.pow(10,18)).toString(10);
 
+
         contractDetails.token_holders.map(function(holder, index) {
             contractDetails.token_holders[index] = {
                 freeze_date: holder.isFrozen ? holder.freeze_date.format('X') * 1 : null,
-                amount: holder.amount,
+                amount: new BigNumber(holder.amount).times(powerNumber).toString(10),
                 address: holder.address,
                 name: holder.name || null
             };
@@ -106,12 +109,15 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     $scope.editContractMode = !!contract.id;
 
     $scope.resetForms = function() {
+        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         $scope.request = angular.copy(contract.contract_details);
         $scope.contractName = contract.name;
+
 
         $scope.request.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : null;
+            holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
         });
 
         $scope.dates = {

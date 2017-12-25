@@ -24,7 +24,7 @@ $fieldsets-padding: 2.5em;
   }
 }
 .main-section-content {
-  padding: 2em 4.3% 10em;
+  padding: 2em 4.3%;
   &.with-tabs {
     .main-section-chapter-fieldset {
       border-top-left-radius: 0;
@@ -75,10 +75,12 @@ a.main-section-chapter {
 
 
 .main-section-chapter-fieldset {
-  background-color: $blocks-background;
+  &:not(.custom-fieldset) {
+    background-color: $blocks-background;
+    box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+  }
   color: $black-color;
   padding: $fieldsets-padding;
-  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
   border-radius: 0.9em;
   position: relative;
   &-error-info {

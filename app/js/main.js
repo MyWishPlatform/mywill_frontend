@@ -15,7 +15,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
-                MENU_CONSTANTS) {
+                MENU_CONSTANTS, $interval) {
 
     $rootScope.contractTypesIcons = {
         0: 'icon-lastwill',
@@ -88,13 +88,21 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
     $rootScope.getCurrentUser = getCurrentUser;
 
-
+    var balanceLoaded = false;
     $rootScope.getCurrentBalance = function() {
-        $rootScope.currentUser.balanceInRefresh = true;
-        $timeout(function() {
-            $rootScope.currentUser.balanceInRefresh = false;
+        if ($rootScope.currentUser.balanceInRefresh) return;
+        balanceLoaded = false;
+        $rootScope.currentUser.balanceInRefresh = $interval(function() {
+            if (balanceLoaded) {
+                $interval.cancel($rootScope.currentUser.balanceInRefresh);
+                $rootScope.currentUser.balanceInRefresh = false;
+            }
         }, 1000);
-        getCurrentUser();
+        getCurrentUser().then(function() {
+            balanceLoaded = true;
+        }, function() {
+            balanceLoaded = true;
+        });
     };
 
     $rootScope.$on("$locationChangeSuccess", function(event, newLocation, oldLocation) {

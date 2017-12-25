@@ -247,9 +247,13 @@ $red-active-color: #bb0d2b;
   }
 }
 
+.btn-icon {
+  width: 3em;
+  vertical-align: middle;
+}
 .btn {
   &.in-progress {
-  .icon-refresh-new {
+  .btn-icon {
     animation-name: refreshProgressElement;
     -o-animation-name: refreshProgressElement;
     -ms-animation-name: refreshProgressElement;

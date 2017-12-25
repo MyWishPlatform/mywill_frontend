@@ -40,6 +40,7 @@ angular.module('app').controller('contractsController', function(contractService
             contract.isDeployProgress = false;
         });
     };
+
     var deletingProgress;
     var updateList = function() {
         $rootScope.commonOpenedPopupParams = false;
@@ -61,7 +62,6 @@ angular.module('app').controller('contractsController', function(contractService
             updateList();
         });
     };
-
 
     var url = 'https://www.myetherwallet.com/?';
     var params = [
@@ -108,5 +108,10 @@ angular.module('app').controller('contractsController', function(contractService
         }, 1000);
     };
 
+    $scope.goToContract = function(contract, $event) {
+        var target = angular.element($event.target);
+        if (target.is('.btn') || target.parents('.btn').length) return;
+        $state.go('main.contracts.preview.byId', {id: contract.id});
+    };
 });
 

@@ -1,24 +1,25 @@
 
 <div class="main-section-content">
     <div class="contracts-list-wrapper">
-        <div class="main-section-chapter-fieldset" ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
-            <a ui-sref="main.contracts.preview.byId({id: contract.id})"  class="contract-name-block">
+        <div class="main-section-chapter-fieldset contracts-list-item"
+             ng-click="goToContract(contract, $event)"
+             ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
+            <div class="contract-name-block">
                 <span class="contract-show-button">
                     <i ng-class="contractTypesIcons[contract.contract_type]"></i>
                 </span>
                 <div class="contract-name-text" ng-attr-title="{{contract.name}}">{{ contract.name || 'Not defined'}}</div>
-            </a>
+            </div>
+            <div class="clearfix show-ps"></div>
             <div class="contract-status-block">
                 <div class="contract-status-buttons">
 
-                    <!-- Pay instruction button -->
-                    <div class="contract-status-buttons-group"
-                         ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)">
-                        <button ng-click="payContract(contract)"
-                                class="btn btn-transparent">
-                            <span>Launch</span>
-                        </button>
-                    </div>&nbsp;
+                <!-- Pay instruction button -->
+                    <button ng-click="payContract(contract)"
+                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
+                            class="btn btn-transparent hide-ps">
+                        <span>Launch</span>
+                    </button>
 
                     <!-- Deposit instruction button -->
                     <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
@@ -32,9 +33,9 @@
                                 },
                                 onClose: returnToList
                             }"
-                       class="btn btn-transparent">
+                       class="btn btn-transparent hide-ps">
                         <span>Deposit</span>
-                    </button>&nbsp;
+                    </button>
 
                     <!-- Cancel instruction button -->
                     <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
@@ -48,9 +49,9 @@
                                 },
                                 onClose: returnToList
                             }"
-                            class="btn btn-transparent">
+                            class="btn btn-transparent hide-ps">
                         <span>Cancel</span>
-                    </button>&nbsp;
+                    </button>
 
                     <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
                             ng-pop-up="{
@@ -63,15 +64,14 @@
                                 },
                                 onClose: returnToList
                             }"
-                            class="btn btn-transparent">
+                            class="btn btn-transparent hide-ps">
                         <span>Finalize</span>
-                    </button>&nbsp;
-
+                    </button>
 
                     <button class="btn only-icon"
                             ng-class="{'in-progress': timeoutsForProgress[contract.id]}"
                             ng-click="refreshContract(contract)" ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7))">
-                        <i class="icon-refresh-new"></i>
+                        <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
                     </button>
 
                     <button class="btn only-icon" type="button"
@@ -86,6 +86,9 @@
                             }">
                         <i class="icon-trash"></i>
                     </button>
+
+
+
                 </div>
 
                 <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">

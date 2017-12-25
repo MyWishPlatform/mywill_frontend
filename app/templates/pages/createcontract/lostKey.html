@@ -176,18 +176,24 @@
     </div>
     <div class="contract-form-row">
         <div class="contract-form-information-btns">
-            <button class="uppercase btn btn-submit mobile-width-100"
-                    type="button"
-                    ng-disabled="!checkedBalance || !hairsForm.$valid || !conditionsForm.$valid || (percentageSum !== 100)"
-                    ng-click="createContract()">
-                <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
-                <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
-            </button>
-            <button class="btn btn-red with-icon" ng-click="resetForms($event)">
-                <i class="icon-delete-button"></i>
-                <span ng-if="!editContractMode">Clear</span>
-                <span ng-if="editContractMode">Reset</span>
-            </button>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-vs-1-2">
+                    <button class="uppercase btn btn-submit mobile-width-100"
+                            type="button"
+                            ng-disabled="!checkedBalance || !hairsForm.$valid || !conditionsForm.$valid || (percentageSum !== 100)"
+                            ng-click="createContract()">
+                        <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
+                        <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+                <div class="grid-cell grid-cell-vs-1-2">
+                    <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+                        <i class="icon-delete-button"></i>
+                        <span ng-if="!editContractMode">Clear</span>
+                        <span ng-if="editContractMode">Reset</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
     </div>

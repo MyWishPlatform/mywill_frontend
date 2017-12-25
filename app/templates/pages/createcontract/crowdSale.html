@@ -34,7 +34,7 @@
             </div>
             <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span>Name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used</span>
+                <span>Enter name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used</span>
             </div>
         </div>
         <div class="grid-row contract-form-row">
@@ -51,7 +51,9 @@
             </div>
             <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span>Usually 3-4 symbols. Please check that it’s unique before submission (<a href="https://etherscan.io/tokens" target="_blank">https://etherscan.io/tokens</a>)</span>
+                <span>
+                    Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href="https://etherscan.io/tokens" target="_blank">https://etherscan.io/tokens</a>)
+                </span>
             </div>
         </div>
         <div class="grid-row contract-form-row">
@@ -68,7 +70,7 @@
             </div>
             <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
                 <div class="form-control-label hide-vs">&nbsp;</div>
-                <span>Defines the number of decimals for your token. 1-18 numerals are accepted. 18 as common practice</span>
+                <span>Defines the number of decimals for the token. 1-18 numerals are accepted. 18 as common practice</span>
             </div>
         </div>
     </form>
@@ -137,7 +139,9 @@
                 </div>
                 <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span>Defines how many tokens can be sold. After reaching this number sale will be stopped automatically. 1-100,000,000,000,000 Numerals are accepted</span>
+                    <span>
+                        Defines how many tokens can be sold. After reaching this number sale will be stopped automatically. 1-100,000,000,000,000 Numerals are accepted.
+                    </span>
                 </div>
             </div>
             <div class="grid-row contract-form-row">
@@ -168,7 +172,9 @@
                 </div>
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span>Defines minimum tokens needs to be sold for the project continuation. If soft cap is not reached - contributors get investments back, project gets nothing. You can set it to 0 (no soft cap)</span>
+                    <span>
+                        Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their vestments back, project gets nothing. You can set it to 0 (no soft cap)
+                    </span>
                 </div>
             </div>
         </div>
@@ -263,7 +269,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-3 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                     <label for="start-date" class="form-control-label hide-ps">&nbsp;</label>
-                    <span>Finish date/time. No contributions will be accepted after. Can be finished before if hard cap reached</span>
+                    <span>Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached</span>
                 </div>
             </div><br/><br/>
             <div class="grid-row">
@@ -289,7 +295,7 @@
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                    <span>You can limit transfer of tokens from user to each other until token completion to reduce the speculations. Off is recommended</span>
+                    <span>User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended</span>
                 </div>
             </div>
             <div class="grid-row">
@@ -339,7 +345,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span>ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Use the same address for manual Finalize</span>
+                    <span> ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it</span>
                 </div>
             </div>
         </div>
@@ -498,16 +504,22 @@
     </div>
     <div class="contract-form-row">
         <div class="contract-form-information-btns">
-            <button class="uppercase btn btn-submit mobile-width-100"
-                    type="button" ng-disabled="!distributionForm.$valid || tokensAmountError" ng-click="createContract()">
-                <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
-                <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
-            </button>
-            <button class="btn btn-red with-icon" ng-click="resetForms($event)">
-                <i class="icon-delete-button"></i>
-                <span ng-if="!editContractMode">Clear</span>
-                <span ng-if="editContractMode">Reset</span>
-            </button>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-vs-1-2">
+                    <button class="uppercase btn btn-submit mobile-width-100"
+                            type="button" ng-disabled="!distributionForm.$valid || tokensAmountError" ng-click="createContract()">
+                        <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
+                        <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+                <div class="grid-cell grid-cell-vs-1-2">
+                    <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+                        <i class="icon-delete-button"></i>
+                        <span ng-if="!editContractMode">Clear</span>
+                        <span ng-if="editContractMode">Reset</span>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

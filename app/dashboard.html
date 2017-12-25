@@ -62,17 +62,17 @@
                         <button class="btn only-icon user-balance-refresh"
                                 ng-class="{'in-progress': currentUser.balanceInRefresh}"
                                 ng-click="getCurrentBalance()">
-                            <i class="icon-refresh-new"></i>
+                            <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
                         </button>
                     </div>
-                    <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon">
+                    <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon hide-ls">
                         <i class="icon-create-contract"></i>
                         <span>Buy</span>
                     </a>
                 </div>
 
                 <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
-                    <a href="/auth/registration" class="uppercase btn btn-submit">
+                    <a href="/auth/registration" class="uppercase btn btn-submit hide-ls">
                         <span>Sign up</span>
                     </a>
                     <a href="/auth/" class="btn btn-transparent uppercase">

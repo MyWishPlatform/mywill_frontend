@@ -87,12 +87,12 @@
             </div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
 
-                <div class="form-control text-right text-left-ps" ng-init="createdContract = {owner_address: formData.toAddress}">
+                <div class="form-control text-right text-left-ps">
                     <div class="form-control-description one-line">
                         <span class="as-link" ng-pop-up="{
-                            template: '/templates/popups/pay-instruction.html',
+                            template: '/templates/popups/how-to-pay-instruction.html',
                             params: {
-                                createdContract: createdContract,
+                                createdContract: formData,
                                 successCodeCopy: successCodeCopy,
                                 failCodeCopy: failCodeCopy
                             }

@@ -8,6 +8,7 @@ angular.module('app').controller('contractsController', function(contractService
 
 
     var launchProgress = false;
+
     var launchContract = function(contract) {
         launchProgress = true;
         contractService.deployContract(contract.id).then(function() {
@@ -17,8 +18,11 @@ angular.module('app').controller('contractsController', function(contractService
             launchProgress = false;
         });
     };
+
     $scope.payContract = function(contract) {
         if (contract.isDeployProgress) return;
+
+
         $rootScope.getCurrentUser().then(function() {
             if ($rootScope.currentUser.is_ghost) {
                 $rootScope.commonOpenedPopup = 'ghost-user-alarm';
@@ -28,13 +32,19 @@ angular.module('app').controller('contractsController', function(contractService
                 $rootScope.commonOpenedPopup = 'less-balance';
                 return;
             }
+
             $rootScope.commonOpenedPopupParams = {
                 contract: contract,
-                confirmPayment: launchContract,
-                contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
-                withoutCloser: true
+                withoutCloser: true,
+                class: 'conditions',
+                endPay: {
+                    contract: contract,
+                    confirmPayment: launchContract,
+                    contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
+                    withoutCloser: true
+                }
             };
-            $rootScope.commonOpenedPopup = 'contract-confirm-pay';
+            $rootScope.commonOpenedPopup = 'conditions';
             contract.isDeployProgress = false;
         }, function() {
             contract.isDeployProgress = false;

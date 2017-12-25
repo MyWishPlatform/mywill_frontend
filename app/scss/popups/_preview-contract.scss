@@ -108,8 +108,12 @@
   }
 }
 .contract-preview-tabs {
-  margin-bottom: 4.1em;
   line-height: 3.6em;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
 }
 .contract-preview-one-tab {
   border-top-left-radius: 1.3em;

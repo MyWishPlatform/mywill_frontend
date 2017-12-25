@@ -308,12 +308,6 @@
                     <span>Delete</span>
                 </button>
 
-                <!-- Back instruction button -->
-                <a ui-sref="main.contracts.list" class="btn btn-back mobile-width-100 with-icon">
-                    <i class="icon-keyboard_arrow_left"></i>
-                    <span>My contracts</span>
-                </a>
-
                 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
                         ng-pop-up="{
                         template: '/templates/popups/finalize-instruction.html',

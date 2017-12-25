@@ -250,7 +250,11 @@ $red-active-color: #bb0d2b;
 .btn-icon {
   width: 3em;
   vertical-align: middle;
+  -webkit-user-drag: none;
+  user-select: none;
+  display: block;
 }
+
 .btn {
   &.in-progress {
   .btn-icon {

@@ -69,8 +69,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         contractDetails.start_date = contractDetails.start_date * 1;
         contractDetails.stop_date = contractDetails.stop_date * 1;
 
-        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(Math.pow(10,18)).toString(10);
-        contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(Math.pow(10,18)).toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
+        contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
 
 
         contractDetails.token_holders.map(function(holder, index) {
@@ -135,10 +135,10 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         };
 
         if ($scope.request.hard_cap) {
-            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).div(Math.pow(10,18)).toString(10);
+            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
         }
         if ($scope.request.soft_cap) {
-            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).div(Math.pow(10,18)).toString(10);
+            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
         }
 
         $scope.minStartDate = $scope.dates.startDate.clone();

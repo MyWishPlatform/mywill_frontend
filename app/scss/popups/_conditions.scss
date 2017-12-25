@@ -1,0 +1,27 @@
+.popup-window {
+  &.conditions {
+    .contract-popup-wrapper {
+      padding: 0;
+    }
+  }
+}
+.condition-text-wrapper {
+  .main-section-chapter-title {
+    margin-bottom: 0;
+  }
+}
+.condition-title, .condition-text, .condition-buttons {
+}
+.condition-text {
+  font-size: 1.4em;
+  padding: 2em 0 2em 1em;
+  line-height: 1.25em;
+  list-style-type: initial;
+  &-item {
+    padding: 0.5em 0;
+    display: list-item;
+  }
+}
+.condition-buttons {
+  border-top: 1px solid #aaa;
+}

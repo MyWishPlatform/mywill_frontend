@@ -1,0 +1,67 @@
+<div class="contract-popup-wrapper">
+    <div class="instruction-title clearfix">
+
+        <div class="contract-name-block">
+            <div class="contract-name-text uppercase">How To Pay</div>
+        </div>
+    </div>
+    <ul class="instruction-steps-list">
+        <li class="clearfix">
+            <div class="instruction-item-text">Open your wallet (Parity, <a href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>)</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Choose Send Ether & Tokens tab in your wallet</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">
+                Insert the following recipient`s address:
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button"
+                            ng-class="{copied: ngPopUp.params.createdContract.copied['toAddress']}"
+                            clipboard supported="supported"
+                            text="ngPopUp.params.createdContract.toAddress"
+                            on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'toAddress')"
+                            on-error="ngPopUp.params.failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text">{{ngPopUp.params.createdContract.toAddress}}</div>
+                </div>
+            </div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Enter Amount to Send and choose ETH or WISH</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Specify Gas limit 30000</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Click Generate Transaction</div>
+        </li>
+
+        <li class="clearfix">
+            <div class="instruction-item-text">
+                Confirm the payment by pressing the button "DONE"
+            </div>
+        </li>
+    </ul>
+
+    <div class="instruction-action-buttons">
+        <button class="btn btn-submit mobile-width-100" ng-click="ngPopUp.actions.startChecking(ngPopUp.params.createdContract)"
+                ng-if="ngPopUp.params.createdContract.stateValue === 1">
+            <span>Done</span>
+        </button>
+        <!-- button class="btn btn-transparent with-icon" ng-click="ngPopUp.actions.cancelChecking(ngPopUp.params)"
+                ng-if="ngPopUp.params.stateValue === 2">
+            <i class="icon-cancel"></i>
+            <span>Cancel</span>
+        </button -->
+        <div class="instruction-checking" ng-if="ngPopUp.params.createdContract.stateValue === 2">
+            <div class="preloader-container">
+                <div class="preloader-circle preloader-circle-1"></div>
+                <div class="preloader-circle preloader-circle-2"></div>
+                <div class="preloader-circle preloader-circle-3"></div>
+            </div>
+            <span class="instruction-checking-text">Checking</span>
+        </div>
+    </div>
+</div>

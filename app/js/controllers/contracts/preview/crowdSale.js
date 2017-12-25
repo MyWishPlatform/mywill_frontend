@@ -7,12 +7,11 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var contractDetails = $scope.contract.contract_details;
 
+    contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,18)).round(Math.min(2, contractDetails.decimals)).toString(10);
+    contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,18)).round(Math.min(2, contractDetails.decimals)).toString(10);
 
-    contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,18)).toString(10);
-    contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,18)).toString(10);
-
-    contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).round(2).toString(10);
-    contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).round(2).toString(10);
+    contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
+    contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
 
 
 

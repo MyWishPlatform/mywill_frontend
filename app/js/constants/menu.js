@@ -28,7 +28,8 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         title: 'Messages',
         icon: 'icon-mail',
         route: 'main.messages',
-        noactive: true
+        noactive: true,
+        noshow: true
     }, {
         title: 'Address book',
         icon: 'icon-phone-call',
@@ -39,7 +40,8 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         title: 'FAQ',
         icon: 'icon-question',
         route: 'main.faq',
-        noactive: true
+        noactive: true,
+        noshow: true
     }, {
         title: 'Buy tokens',
         icon: 'icon-but-tokens',

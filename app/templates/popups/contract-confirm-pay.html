@@ -4,11 +4,11 @@
     </div>
     <div class="alert-window-buttons text-center">
         <button type="button"
-                ng-click="ngPopUp.params.confirmPayment(ngPopUp.params.contract); $root.closeCommonPopup();"
+                ng-click="ngPopUp.params.confirmPayment(ngPopUp.params.contract); closeCurrentPopup()"
                 class="btn btn-submit">
             <span>Confirm</span>
         </button>
-        <button ng-click="$root.closeCommonPopup()" class="btn btn-transparent">
+        <button ng-click="closeCurrentPopup()" class="btn btn-transparent">
             <span>Cancel</span>
         </button>
     </div>

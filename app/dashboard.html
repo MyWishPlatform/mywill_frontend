@@ -113,7 +113,7 @@
 
 <div ng-pop-up="{
     template: '/templates/popups/' + commonOpenedPopup + '.html',
-    class: 'deleting-contract',
+    class: commonOpenedPopupParams.class || 'deleting-contract',
     params: commonOpenedPopupParams || {},
     opened: true,
     noClickShow: true,

@@ -1,9 +1,19 @@
+.release-version {
+  position: absolute;
+  bottom: 0;
+  font-size: 1.2em;
+  padding: 1em;
+  text-align: center;
+  left: 0;
+  right: 0;
+  color: #fff;
+}
 .main-menu-holder {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 22.5em;
+  width: 25.5em;
   background-color: #206EFF;
 }
 .main-menu-wrapper {
@@ -11,10 +21,12 @@
   position: relative;
   float: left;
   width: 100%;
+  box-sizing: border-box;
+  padding-bottom: 3em;
 }
 .main-menu-logo {
   display: block;
-  margin: 1.35em auto 1.35em 2.55em;
+  margin: 1.35em auto 1.35em 2em;
   width: 16.5em;
   &:after, &:before {
     display: table;
@@ -29,7 +41,7 @@
 .main-menu-navigator {
   position: absolute;
   top: 6.525em;
-  bottom: 0;
+  bottom: 3.75em;
   left: 0;
   right: 0;
   overflow: auto;
@@ -69,7 +81,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: 1.35em;
+      font-size: 1.5em;
     }
     i {
       float: left;
@@ -110,6 +122,11 @@
   .menu-trigger-btn {
     display: inline-block;
     vertical-align: middle;
+  }
+  .main-menu-global-menu a, .main-menu-global-menu .as_menu_link {
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
   .main-menu-logo {
     display: inline-block;

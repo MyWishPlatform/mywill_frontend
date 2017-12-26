@@ -46,10 +46,11 @@ body {
   float: left!important;
 }
 .clearfix {
-  &:after, &:before {
+  clear: both;
+  &:after {
     content: '';
-    display: table;
-    width: 100%;
+    display: block;
+    clear: both;
   }
 }
 .uppercase {
@@ -66,6 +67,7 @@ a, .as-link {
   }
 }
 .as-link {
+  color: $main-blue-color!important;
   background: none;
   border: 0;
   text-decoration: underline;
@@ -96,4 +98,16 @@ strong {
 }
 .relative {
   position: relative;
+}
+.white-block {
+  background-color: #fff;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.bold {
+  font-weight: bold;
+}
+.grey-text-color {
+  color: #bbb;
 }

@@ -2,7 +2,7 @@ $fieldsets-padding: 2.5em;
 
 
 .main-content-holder {
-  margin-left: 22.5em;
+  margin-left: 25.5em;
   color: $main-blue-color;
   padding-top: 5.6em;
   max-width: 72em;
@@ -24,7 +24,12 @@ $fieldsets-padding: 2.5em;
   }
 }
 .main-section-content {
-  padding: 2em 4.3% 10em;
+  padding: 2em 4.3%;
+  &.with-tabs {
+    .main-section-chapter-fieldset {
+      border-top-left-radius: 0;
+    }
+  }
 }
 .content-section-title {
   font-size: 1.8em;
@@ -70,11 +75,13 @@ a.main-section-chapter {
 
 
 .main-section-chapter-fieldset {
-  background-color: $blocks-background;
-  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+  &:not(.custom-fieldset) {
+    background-color: $blocks-background;
+    box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+  }
   color: $black-color;
-  border-radius: 0.9em;
   padding: $fieldsets-padding;
+  border-radius: 0.9em;
   position: relative;
   &-error-info {
     background-color: #fff;
@@ -93,11 +100,6 @@ a.main-section-chapter {
   }
   + .main-section-chapter-fieldset {
     margin-top: 3em;
-  }
-  &.costs-info-fieldset {
-    background: $cost-value-color;
-    color: $main-blue-color;
-    float: left;
   }
 }
 
@@ -124,17 +126,52 @@ a.main-section-chapter {
 }
 
 .pre-release-information {
-  padding: 1.8em 0.9em;
-  text-align: center;
   display: block;
   border-bottom: 1px solid #5D5D7D;
-  left: 22.5em;
+  left: 25.5em;
   position: fixed;
   top: 0;
   right: 0;
   z-index: 2;
   color: $black-color;
-  background-color: $white-color;
+  &-container {
+    position: relative;
+    padding: 1.8em 0;
+    text-align: center;
+    background-color: $white-color;
+    z-index:3;
+  }
+  &:after {
+    display: block;
+    background-color: #206EFF;
+    box-shadow: 0 0 1px #206EFF;
+    height: 2px;
+    margin-bottom: -3px;
+    border-radius: 2px;
+    position: relative;
+    float: left;
+    content: '';
+    opacity: 0;
+    width: 0;
+    transition-property: opacity;
+    transition-delay: 0.5s;
+  }
+  &.start-loading {
+    &:after {
+      transition: width linear 3s;
+      opacity: 0.8;
+      width: 99%;
+    }
+  }
+  &.finish-loading {
+    &:after {
+      opacity: 0.8;
+      transition: all linear 0.1s;
+      transition-delay: 0s;
+      width: 100%;
+    }
+  }
+
   span {
     font-size: 1.35em;
     &.red {
@@ -145,15 +182,22 @@ a.main-section-chapter {
     padding: 0;
     margin-left: 0;
   }
+  .main-section-content {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
   .profile-buttons {
-    margin: -0.9em 0;
+    margin: -0.7em 0;
+    font-size: 0.84em;
     white-space: nowrap;
     .btn {
-      font-size: 0.7em;
       + .btn {
         margin-left: 1em;
       }
     }
+  }
+  &:after {
+
   }
 }
 
@@ -162,18 +206,15 @@ a.main-section-chapter {
   margin-bottom: 2em;
   //line-height: 1.15em;
   .costs-info-title, .costs-info-value, .costs-info-currency {
-    vertical-align: middle;
     display: inline-block;
+    vertical-align: middle;
   }
   .costs-info-title {
     font-size: 1.7em;
   }
-  .costs-info-value {
+  .costs-info-value, .costs-info-currency {
     font-size: 1.8em;
     font-weight: bold;
-  }
-  .costs-info-currency {
-    font-size: 2.1em;
   }
 }
 
@@ -191,10 +232,12 @@ a.main-section-chapter {
   }
 }
 
-@media screen and (max-width: 640px) {}
-
-@media screen and (max-width: 480px) {
-  .costs-info-fieldset {
-    float: none!important;
+@media screen and (max-width: 640px) {
+  .main-section-chapter-fieldset {
+    padding: 1.5em;
+  }
+  .main-section-chapter-title {
+    margin-left: -1.875em;
+    font-size: 0.8em;
   }
 }

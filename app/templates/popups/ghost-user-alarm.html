@@ -4,14 +4,15 @@
         to your personal account
     </div>
     <div class="alert-window-buttons text-center">
-        <button class="btn btn-transparent"  ng-click="ngPopUp.actions.goToLogin()" type="button">
-            <span>Sign in</span>
-        </button>
-        <button class="btn btn-submit" type="button" ng-click="ngPopUp.actions.goToRegistration()">
+        <a href="/auth/registration" class="btn btn-submit uppercase"
+           target="_blank">
             <span>Sign Up</span>
-        </button>
-        <button ng-click="ngPopUp.actions.createContract()" class="btn btn-as-link" type="button">
+        </a>
+        <a href="/auth/" target="_blank" class="btn btn-transparent uppercase">
+            <span>Sign in</span>
+        </a>
+        <!-- button ng-click="ngPopUp.actions.createContract()" class="btn btn-as-link" type="button">
             <span>Skip</span>
-        </button>
+        </button -->
     </div>
 </div>

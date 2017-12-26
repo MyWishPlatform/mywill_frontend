@@ -1,0 +1,38 @@
+.warning-block {
+  border: 1px solid #f2646a;
+  background-color: #fff;
+  margin-bottom: -2em;
+  &-content {
+    line-height: 2.4em;
+    &_icon, &_text {
+      //display: inline-block;
+      //vertical-align: middle;
+    }
+    &_icon {
+      font-size: 2.4em;
+      color: #f2646a;
+      float: left;
+    }
+    &_text {
+      display: block;
+      margin-left: 3.5em;
+      span {
+        font-size: 1.5em;
+        display: inline-block;
+        line-height: 1.2em;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .warning-block {
+    &-content {
+      &_text {
+        span {
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+}

@@ -14,7 +14,20 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
 }).controller('headerController', function($rootScope, $scope) {
-}).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService, MENU_CONSTANTS) {
+}).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
+                MENU_CONSTANTS, $interval) {
+
+    $rootScope.contractTypesIcons = {
+        0: 'icon-lastwill',
+        1: 'icon-key',
+        2: 'icon-deferred',
+        3: '',
+        4: 'icon-crowdsale'
+    };
+
+    $rootScope.globalProgress = false;
+    $rootScope.finishGlobalProgress = false;
+
     $rootScope.gitHubLink = 'https://github.com/MyWishPlatform/contracts/tree/develop';
     $rootScope.$state = $state;
     $rootScope.numberReplacer = /,/g;
@@ -51,22 +64,49 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var createDefer = function() {
         $rootScope.currentUserDefer = $q.defer();
     };
-    var getCurrentUser = function() {
-        return authService.profile().then(function(data) {
+    var getCurrentUser = function(isGhost) {
+        authService.profile().then(function(data) {
             if (data) {
+                var userBalance = new BigNumber(data.data.balance);
+                data.data.visibleBalance = userBalance.div(Math.pow(10, 18)).toFormat(2);
+                data.data.balanceInRefresh = $rootScope.currentUser ? $rootScope.currentUser.balanceInRefresh : false;
                 $rootScope.setCurrentUser(data.data);
                 iniApplication();
                 $rootScope.currentUserDefer.resolve(data);
             } else {
-                return $state.go('exit');
+                if (!isGhost) {
+                    return $state.go('exit');
+                }
             }
         }, function() {
             $rootScope.currentUserDefer.resolve(false);
-            return $state.go('exit');
+            if (!isGhost) {
+                return $state.go('exit');
+            }
+        });
+        return $rootScope.currentUserDefer.promise;
+    };
+    $rootScope.getCurrentUser = getCurrentUser;
+
+    var balanceLoaded = false;
+    $rootScope.getCurrentBalance = function() {
+
+        if ($rootScope.currentUser.balanceInRefresh) return;
+        balanceLoaded = false;
+
+        $rootScope.currentUser.balanceInRefresh = $interval(function() {
+            if (balanceLoaded) {
+                $interval.cancel($rootScope.currentUser.balanceInRefresh);
+                $rootScope.currentUser.balanceInRefresh = false;
+            }
+        }, 1000);
+
+        getCurrentUser().then(function() {
+            balanceLoaded = true;
+        }, function() {
+            balanceLoaded = true;
         });
     };
-
-    createDefer();
 
     $rootScope.$on("$locationChangeSuccess", function(event, newLocation, oldLocation) {
         $rootScope.currentState = $location.state() || {};
@@ -79,22 +119,67 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         history.replaceState($rootScope.currentState, null);
     });
 
-    var checkCurrentUser = false;
-
+    var progressTimer;
     $rootScope.$on("$stateChangeSuccess", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
+        $rootScope.closeCommonPopup();
         $rootScope.showedMenu = false;
-
+        angular.element($window).scrollTop(0);
+        if (progressTimer) {
+            $timeout.cancel(progressTimer);
+        }
         var itemFromMenuConst = MENU_CONSTANTS.filter(function(menuItem) {
             return menuItem.route === $state.current.name;
         })[0];
         $rootScope.headerTitle = $state.current.title || (itemFromMenuConst ? itemFromMenuConst['title'] : '');
+        if (!newLocation.resolve) return;
+        progressTimer = $timeout(function() {
+            $rootScope.globalProgress = false;
+            $rootScope.finishGlobalProgress = true;
+            progressTimer = $timeout(function() {
+                $rootScope.finishGlobalProgress = false;
+            }, 400);
+        }, 350);
     });
 
+    $rootScope.closeCommonPopup = function() {
+        $rootScope.commonOpenedPopup = false;
+        $rootScope.commonOpenedPopupParams = false;
+    };
+
+    var checkLocation = function(newLocation, oldLocation, event) {
+        if (newLocation.data && newLocation.data.notAccess && $rootScope.currentUser[newLocation.data.notAccess]) {
+            event.preventDefault();
+            $rootScope.commonOpenedPopup = 'ghost-user-buy-tokens';
+            if (oldLocation.name) {
+                $state.go(oldLocation.name);
+            } else {
+                $state.go('main.createcontract.types');
+            }
+            return false;
+        }
+    };
+
+    createDefer();
+
     $rootScope.$on("$stateChangeStart", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
-        if (oldLocation && (newLocation === oldLocation)) return;
-        if (newLocation.name !== 'anonymous') {
-            createDefer();
-            getCurrentUser();
+        getCurrentUser(newLocation.name === 'anonymous');
+
+        if (newLocation.name === 'anonymous') {
+            return;
+        }
+
+        if (newLocation.resolve) {
+            $rootScope.globalProgress = true;
+            $rootScope.finishGlobalProgress = false;
+        }
+        if (!$rootScope.currentUser) {
+            $rootScope.currentUserDefer.promise.then(function() {
+                checkLocation(newLocation, oldLocation);
+            }, function() {
+                console.error('Unknown profile');
+            });
+        } else {
+            checkLocation(newLocation, oldLocation, event);
         }
     });
 
@@ -140,8 +225,18 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         var cases = [2, 0, 1, 1, 1, 2];
         return words[float ? 1 : (value % 100 > 4 && value % 100 < 20) ? 2 : cases[(value % 10 < 5) ? value % 10 : 5]];
     }
+}).filter('separateNumber', function() {
+    return function(val) {
+        val = (val || '') + '';
+        var values = val.split('.');
+        while (/(\d+)(\d{3})/.test(values[0].toString())){
+            values[0] = values[0].toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+        }
+        return values.join('.');
+    }
 }).directive('commaseparator', function($filter) {
     'use strict';
+    var commaSeparateNumber = $filter('separateNumber');
     return {
         require: 'ngModel',
         scope: {
@@ -151,29 +246,58 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             if (!ctrl) {
                 return;
             }
+            var oldValue;
             ctrl.$formatters.unshift(function(value) {
-                return $filter('number')(ctrl.$modelValue);
+                oldValue = value;
+                return commaSeparateNumber(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
-                var plainNumber = viewValue.replace(/[\,\.\-\+]/g, '');
+
+                var plainNumber = viewValue.replace(/[\,\-\+]/g, '');
                 var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
-                if (!valid) return;
-                elem.val($filter('number')(plainNumber));
-                return plainNumber;
+                if (!valid) {
+                    if (viewValue) {
+                        ctrl.$setViewValue(oldValue);
+                    }
+                }
+                if (valid || !plainNumber) {
+                    oldValue = plainNumber;
+                    if (valid) {
+                        elem.val(commaSeparateNumber(plainNumber));
+                    } else {
+                        elem.val('');
+                    }
+                    return plainNumber;
+                } else {
+                    if (oldValue) {
+                        elem.val(commaSeparateNumber(oldValue));
+                    } else {
+                        elem.val('');
+                    }
+                    return oldValue;
+                }
             });
 
+            if (scope.commaseparator.notNull) {
+                ctrl.$parsers.unshift(function(value) {
+                    if (!value) return;
+                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
+                    ctrl.$setValidity('null-value', !!plainNumber);
+                    return value;
+                });
+            }
             if (scope.commaseparator.checkWith) {
                 ctrl.$parsers.unshift(function(value) {
                     if (!value) return;
                     var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
                     var checkModelValue = scope.commaseparator.fullModel[scope.commaseparator.checkWith];
-                    var valid = plainNumber < checkModelValue;
+                    var valid = plainNumber <= checkModelValue;
                     ctrl.$setValidity('check-value', valid);
                     return value;
                 });
 
                 ctrl.$formatters.unshift(function(value) {
-                    return $filter('number')(ctrl.$modelValue);
+                    return commaSeparateNumber(ctrl.$modelValue);
                 });
 
                 scope.$watch('commaseparator.fullModel.' + scope.commaseparator.checkWith, function() {

@@ -1,33 +1,36 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService,
+                                                                       openedContract,
+                                                                       $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
     var startAddingTimeHours = 2;
     var minSaleTimeHours = 1;
 
+    $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
     $scope.currencyRate = currencyRate.data;
 
     var setStartTimestamp = function() {
-        var date = $scope.startDate.clone();
+        var date = $scope.dates.startDate.clone();
         date.hours($scope.startTime.hours).minutes($scope.startTime.minutes).second(0);
-        $scope.request.start_date = date.format('X') * 1;
+        $scope.request.start_date = date.format('X');
     };
     var setStopTimestamp = function() {
-        var date = $scope.endDate.clone();
+        var date = $scope.dates.endDate.clone();
         date.hours($scope.endTime.hours).minutes($scope.endTime.minutes).second(0);
-        $scope.request.stop_date = date.format('X') * 1;
+        $scope.request.stop_date = date.format('X');
     };
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;
     $scope.onChangeStartDate = function(modelName, currentDate) {
-        $scope.startDate = currentDate.clone();
+        $scope.dates.startDate = currentDate.clone();
         setStartTimestamp();
     };
     $scope.onChangeEndDate = function(modelName, currentDate) {
-        $scope.endDate = currentDate.clone();
+        $scope.dates.endDate = currentDate.clone();
         setStopTimestamp();
     };
     $scope.addRecipient = function() {
         $scope.request.token_holders.push({
-            freeze_date: $scope.endDate.clone()
+            freeze_date: $scope.dates.endDate.clone()
         });
     };
     $scope.removeRecipient = function(recipient) {
@@ -40,121 +43,126 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         itemValue: 'amount',
         itemLabel: 'address'
     };
+
     $scope.chartData = [];
 
     $scope.dataChanged = function() {
         $scope.chartData = angular.copy($scope.request.token_holders);
-        var sum = $scope.request.token_holders.reduce(function(val, recipient) {
-            return val + recipient.amount * 1;
-        }, 0);
         $scope.chartData.unshift({
-            amount: $scope.request.hard_cap ? ($scope.request.hard_cap - sum) : false,
+            amount: $scope.request.hard_cap,
             address: 'For Sale'
         });
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
-    $scope.checkContract = function() {
-        $scope.previewContractPopUp.createdContract = {
-            contractTpl: 'crowdsale',
-            contract_details: $scope.request
-        };
-    };
 
     var contractInProgress = false;
-    var createContract = function(callback) {
-        if (contractInProgress) return;
 
+
+    $scope.createContract = function(callback) {
+        if (contractInProgress) return;
         var contractDetails = angular.copy($scope.request);
 
-        contractDetails.start_date = contractDetails.start_date * 1;
-        contractDetails.stop_date = contractDetails.stop_date * 1;
-        contractDetails.hard_cap = contractDetails.hard_cap * 1;
-        contractDetails.soft_cap = contractDetails.soft_cap * 1;
+        var powerNumber = new BigNumber(10).toPower(contractDetails.decimals);
+
         contractDetails.rate = contractDetails.rate * 1;
         contractDetails.decimals = contractDetails.decimals * 1;
+        contractDetails.start_date = contractDetails.start_date * 1;
+        contractDetails.stop_date = contractDetails.stop_date * 1;
+
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
+        contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
+
 
         contractDetails.token_holders.map(function(holder, index) {
             contractDetails.token_holders[index] = {
                 freeze_date: holder.isFrozen ? holder.freeze_date.format('X') * 1 : null,
-                amount: holder.amount * 1,
-                address: holder.address
+                amount: new BigNumber(holder.amount).times(powerNumber).toString(10),
+                address: holder.address,
+                name: holder.name || null
             };
         });
 
         var data = {
-            name: $scope.previewContractPopUp.createdContract.name,
+            name: $scope.contractName,
             contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
-            contract_details: contractDetails
+            contract_details: contractDetails,
+            id: contract.id
         };
 
         contractInProgress = true;
-        contractService.createContract(data).then(function(response) {
+
+        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
             contractInProgress = false;
-            callback ? callback() : $state.go('main.contracts.preview.pay', {id: response.data.id});
+            $state.go('main.contracts.preview.byId', {id: response.data.id});
+        }, function() {
+            contractInProgress = false;
         });
     };
 
-    var copiedTimeout;
-    var successCodeCopy = function() {
-        copiedTimeout ? $timeout.cancel(copiedTimeout) : false;
-        $scope.previewContractPopUp.copied = true;
-        copiedTimeout = $timeout(function() {
-            $scope.previewContractPopUp.copied = false;
-        }, 3000);
-    };
-    var failCodeCopy = function() {
-        console.log(arguments);
-    };
-
-    var goToLogin = function() {
-        createContract(function() {
-            window.location.href = '/auth';
-        });
-    };
-    var goToRegistration = function() {
-        createContract(function() {
-            window.location = '/auth/registration';
-        });
-    };
-
-    $scope.previewContractPopUp = {
-        createContract: createContract,
-        goToLogin: goToLogin,
-        goToRegistration: goToRegistration,
-        successCodeCopy: successCodeCopy,
-        failCodeCopy: failCodeCopy
-    };
-
-    $scope.checkTokensAmount = function() {
-        var sum = $scope.request.soft_cap * 1 + $scope.request.token_holders.reduce(function (val, item) {
-                return val + item.amount * 1;
-            }, 0);
-        $scope.tokensAmountError = isNaN(sum) || ($scope.request.hard_cap <= sum);
-        if (!$scope.tokensAmountError) {
-            $timeout(function() {
-                $scope.dataChanged();
-            });
+    var contract = openedContract && openedContract.data ? openedContract.data : {
+        name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
+        contract_details: {
+            token_holders: []
         }
     };
 
-    $scope.tokensAmountError = true;
+    $scope.editContractMode = !!contract.id;
 
     $scope.resetForms = function() {
-        $scope.startDate = moment().add(startAddingTimeHours, 'hours');
-        $scope.endDate = $scope.startDate.clone().add(minSaleTimeHours, 'hours');
+        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
+        $scope.request = angular.copy(contract.contract_details);
+        $scope.contractName = contract.name;
+
+
+        $scope.request.token_holders.map(function(holder) {
+            holder.isFrozen = !!holder.freeze_date;
+            holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : null;
+            holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+        });
+
+        $scope.dates = {
+            startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : moment().add(startAddingTimeHours, 'hours'),
+            endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : moment().add(startAddingTimeHours + minSaleTimeHours, 'hours')
+        };
+
         $scope.startTime = {
-            hours: $scope.startDate.hours(),
-            minutes: $scope.startDate.minutes()
+            hours: $scope.dates.startDate.hours(),
+            minutes: $scope.dates.startDate.minutes()
         };
         $scope.endTime = {
-            hours: $scope.endDate.hours(),
-            minutes: $scope.endDate.minutes()
+            hours: $scope.dates.endDate.hours(),
+            minutes: $scope.dates.endDate.minutes()
         };
-        $scope.minStartDate = $scope.startDate.clone();
-        $scope.request = {
-            token_holders: []
-        };
+
+        if ($scope.request.hard_cap) {
+            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
+        }
+        if ($scope.request.soft_cap) {
+            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
+        }
+
+        $scope.minStartDate = $scope.dates.startDate.clone();
         $scope.checkTokensAmount();
+    };
+    $scope.checkTokensAmount = function() {
+        var holdersSum = $scope.request.token_holders.reduce(function (val, item) {
+            var value = new BigNumber(item.amount || 0);
+            return value.plus(val);
+        }, new BigNumber(0));
+
+        var stringValue = holdersSum.toString(10);
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || (isNaN(stringValue) && $scope.request.token_holders.length);
+        if (!$scope.tokensAmountError) {
+            var ethSum = holdersSum.plus($scope.request.hard_cap);
+            $scope.totalSupply = {
+                eth: ethSum.div($scope.request.rate).round(2).toString(10),
+                tokens: ethSum.round(2).toString(10)
+            };
+            $timeout(function() {
+                $scope.dataChanged();
+                $scope.$apply();
+            });
+        }
     };
     $scope.resetForms();
 

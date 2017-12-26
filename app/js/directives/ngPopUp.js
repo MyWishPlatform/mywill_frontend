@@ -32,7 +32,13 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 var currentWindowWrapper = popupWindowWrapper.clone().appendTo(currentHolder).addClass($scope.ngPopUp.class + '-wrapper');
                 currentWindow = popupWindow.clone().appendTo(currentWindowWrapper).addClass($scope.ngPopUp.class);
                 var currentCloser = popupCloser.clone().appendTo(currentWindowWrapper);
-                var currentPopupWindowCloser = popupWindowCloser.clone().appendTo(currentWindow);
+
+                if (!($scope.ngPopUp.params && $scope.ngPopUp.params.withoutCloser)) {
+                    var currentPopupWindowCloser = popupWindowCloser.clone().appendTo(currentWindow).on('click', function() {
+                        $scope.closeCurrentPopup();
+                        $scope.$apply();
+                    });
+                }
 
                 if ($scope.ngPopUp.noShadow) {
                     currentCloser.removeClass('ng-popup-closer');
@@ -50,10 +56,6 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                     appendTo(currentHolder);
                 } else {
                     currentCloser.on('click', function() {
-                        $scope.closeCurrentPopup();
-                        $scope.$apply();
-                    });
-                    currentPopupWindowCloser.on('click', function() {
                         $scope.closeCurrentPopup();
                         $scope.$apply();
                     });

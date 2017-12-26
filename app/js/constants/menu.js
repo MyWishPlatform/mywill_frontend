@@ -28,22 +28,25 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         title: 'Messages',
         icon: 'icon-mail',
         route: 'main.messages',
-        noactive: true
+        noactive: true,
+        noshow: true
     }, {
         title: 'Address book',
         icon: 'icon-phone-call',
         route: 'main.contacts',
-        noactive: true
+        noactive: true,
+        noshow: true
     }, {
         title: 'FAQ',
         icon: 'icon-question',
         route: 'main.faq',
-        noactive: true
+        noactive: true,
+        noshow: true
     }, {
         title: 'Buy tokens',
         icon: 'icon-but-tokens',
         route: 'main.buytokens',
-        noactive: true
+        noactive: false
     }, {
         title: 'Support',
         icon: 'icon-phone-call',

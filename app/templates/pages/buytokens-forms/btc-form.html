@@ -1,0 +1,84 @@
+<form ng-controller="buytokensBtcController" name="buyTokensForm">
+
+    <div class="contract-form-fieldset">
+        <br/>
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
+                <div class="form-control">
+                    <label class="form-control-label">Send&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
+                    <input type="text" placeholder="0"
+                           class="form-control-input with-currency" ng-model="formData.btcAmount"
+                           required
+                           commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
+                           pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
+                           ng-change="checkWishesAmount()">
+                    <div class="input-after">BTC</div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
+                <div class="form-control">
+                    <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;Get</label>
+                    <input type="text" placeholder="0"
+                           class="form-control-input with-currency"
+                           required
+                           commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
+                           pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
+                           ng-model="formData.wishesAmount" ng-change="checkBtcAmount()">
+                    <div class="input-after">WISH</div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
+                <div class="form-control">
+                    <label class="form-control-label">Send your BTC to:</label>
+                    <input type="text" class="form-control-input form-control-input--wish"
+                           disabled ng-model="formData.toAddress">
+                </div>
+            </div>
+
+            <div class="grid-cell hide-ps grid-cell-1-4">
+                <div class="form-control text-right">
+                    <span class="form-control-label">&nbsp;</span>
+                    <button class="btn btn-back center-input-field"
+                            clipboard supported="supported"
+                            text="formData.toAddress"
+                            on-copied="successCodeCopy(false, 'to_address')"
+                            on-error="failCodeCopy(err)"
+                            ng-show="!copied['to_address']"
+                            type="button">
+                        <span>&nbsp;&nbsp;&nbsp;Copy&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+
+                    <button class="btn btn-as-link center-input-field"
+                            disabled
+                            ng-if="copied['to_address']"
+                            type="button">
+                        <span>&nbsp;&nbsp;Copied&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="attention-text">
+            <div class="attention-text__title">
+                <i class="icon-alert-circle"></i>ATTENTION!
+            </div>
+            You will receive tokens after 5 BTC blocks confirmation. The approximate time of the transaction is 1 hour.
+        </div><br/>
+    </div>
+
+
+    <div class="contract-form-fieldset with-padding contract-form-fieldset-grey">
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="form-control float-right">
+                    <button class="btn btn-submit"
+                            type="button"
+                            ng-click="payDone()">
+                        <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

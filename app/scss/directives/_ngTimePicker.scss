@@ -17,7 +17,7 @@
     cursor: pointer;
     &:last-child {
       margin-left: -0.7em;
-      padding-left: 0.3em;
+      padding-left: 0.6em;
       margin-right: -1.5em;
       padding-right: 1.3em;
     }
@@ -90,6 +90,7 @@
     opacity: 0;
     outline: none;
     margin-top: -30px;
+    float: left;
   }
   &-input:focus + &-value-group {
     //background-color: #f0f0f0;

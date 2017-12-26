@@ -1,18 +1,19 @@
 .contract-status-name {
   line-height: 4.95em;
   float: left;
+  position: relative;
   &:before {
     content: '';
-    display: block;
-    float: left;
-    vertical-align: middle;
+    position: absolute;
     width: 1.275em;
     height: 1.275em;
     border-radius: 50%;
     margin-right: 0.75em;
-    margin-top: 1.6875em;
     margin-left: 0.75em;
     box-shadow: inset 0 0.1em 0.6em rgba(255, 255, 255, 0.5), inset 0 -0.1em 0.6em rgba(0, 0, 0, 0.2);
+    left: 0;
+    top: 50%;
+    margin-top: -0.56em;
   }
   &.contract-status-1 {
     &:before {
@@ -49,12 +50,17 @@
       background-color: #fa0202;
     }
   }
+  &.contract-status-8 {
+    &:before {
+      background-color: #a90202;
+    }
+  }
 }
 .contract-status-text {
   margin-left: 2.775em;
   span {
     display: inline-block;
-    font-size: 1.35em;
+    font-size: 1.5em;
     line-height: 1.25em;
     vertical-align: middle;
   }
@@ -63,6 +69,6 @@
   float: right;
   padding: 0 0.75em;
   .btn {
-    font-size: 0.75em;
+    //font-size: 0.8em;
   }
 }

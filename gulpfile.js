@@ -145,6 +145,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'amcharts.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'pie.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'themes', 'light.js'),
+            path.join(folders['npm'], 'bignumber.js', 'bignumber.min.js'),
             path.join(output, 'vendors', '**/*')
         ])
         .pipe(concat('vendors.js'))

@@ -23,6 +23,15 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.post(params);
         },
+        updateContract: function (data) {
+            var params = {
+                path: API.CONTRACTS + data.id + '/',
+                data: data,
+                method: 'patch'
+            };
+            return requestService.post(params);
+        },
+
         sendSentences: function (data) {
             var params = {
                 path: API.SENTENCES,
@@ -77,6 +86,15 @@ angular.module('Services').service('contractService', function(requestService, A
                 query: data
             };
             return requestService.get(params);
+        },
+        deployContract: function(id) {
+            var params = {
+                path: API.DEPLOY,
+                data: {
+                    id: id
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

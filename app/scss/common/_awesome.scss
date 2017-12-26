@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?nbmuc1');
-  src:  url('fonts/icomoon.eot?nbmuc1#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?nbmuc1') format('truetype'),
-  url('fonts/icomoon.woff?nbmuc1') format('woff'),
-  url('fonts/icomoon.svg?nbmuc1#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?6mphm2');
+  src:  url('fonts/icomoon.eot?6mphm2#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?6mphm2') format('truetype'),
+  url('fonts/icomoon.woff?6mphm2') format('woff'),
+  url('fonts/icomoon.svg?6mphm2#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-crowdsale:before {
+  content: "\e937";
+}
+.icon-mywish .path1:before {
+  content: "\e934";
+  color: rgb(0, 114, 255);
+}
+.icon-mywish .path2:before {
+  content: "\e935";
+  margin-left: -1em;
+  color: rgb(148, 196, 255);
+}
+.icon-edit:before {
+  content: "\e932";
+}
 .icon-distribution:before {
   content: "\e930";
 }
@@ -154,14 +169,26 @@
 .icon-checkmark:before {
   content: "\ea10";
 }
-.icon-trash:before {
-  content: "\e917";
+.icon-refresh-new:before {
+  content: "\e931";
 }
 .icon-keyboard_arrow_left:before {
   content: "\e913";
 }
 .icon-check_circle:before {
   content: "\e92f";
+}
+.icon-alert-circle:before {
+  content: "\e936";
+}
+.icon-trash:before {
+  content: "\e917";
+}
+.icon-warning:before {
+  content: "\e933";
+}
+.icon-alert-circle:before {
+  content: "\e936";
 }
 .icon-info-with-circle:before {
   content: "\e91b";

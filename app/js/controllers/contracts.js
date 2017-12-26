@@ -8,21 +8,18 @@ angular.module('app').controller('contractsController', function(contractService
 
 
     var launchProgress = false;
-
     var launchContract = function(contract) {
         launchProgress = true;
         contractService.deployContract(contract.id).then(function() {
             launchProgress = false;
             $scope.refreshContract(contract);
+            $rootScope.closeCommonPopup();
         }, function() {
             launchProgress = false;
         });
     };
-
     $scope.payContract = function(contract) {
         if (contract.isDeployProgress) return;
-
-
         $rootScope.getCurrentUser().then(function() {
             if ($rootScope.currentUser.is_ghost) {
                 $rootScope.commonOpenedPopup = 'ghost-user-alarm';

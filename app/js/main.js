@@ -90,14 +90,17 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     var balanceLoaded = false;
     $rootScope.getCurrentBalance = function() {
+
         if ($rootScope.currentUser.balanceInRefresh) return;
         balanceLoaded = false;
+
         $rootScope.currentUser.balanceInRefresh = $interval(function() {
             if (balanceLoaded) {
                 $interval.cancel($rootScope.currentUser.balanceInRefresh);
                 $rootScope.currentUser.balanceInRefresh = false;
             }
         }, 1000);
+
         getCurrentUser().then(function() {
             balanceLoaded = true;
         }, function() {
@@ -118,6 +121,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     var progressTimer;
     $rootScope.$on("$stateChangeSuccess", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
+        $rootScope.closeCommonPopup();
         $rootScope.showedMenu = false;
         angular.element($window).scrollTop(0);
         if (progressTimer) {

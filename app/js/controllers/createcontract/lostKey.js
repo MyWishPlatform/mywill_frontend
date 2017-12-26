@@ -124,7 +124,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
                 oldParams = params;
                 contractService.getCost(params).then(function(response) {
                     if (currentTimeout === getCostTimeout) {
-                        $scope.checkedCost = new BigNumber(response.data.result).div(Math.pow(10, 18)).round(2).toString(10);
+                        $scope.checkedCost = new BigNumber(response.data.result + '').div(Math.pow(10, 18)).round(2).toString(10);
                     }
                 });
             }, 1000);

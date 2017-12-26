@@ -97,6 +97,11 @@
   padding: 0.65em 1em;
   margin-top: 0.5em;
   word-wrap: break-word;
+  &.json-text {
+    white-space: pre;
+    overflow: auto;
+    max-height: 20em;
+  }
 }
 .instruction-action-buttons {
   padding: 2em 3%;

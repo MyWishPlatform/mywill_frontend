@@ -5,25 +5,26 @@
             <div class="contract-name-text uppercase">Finalize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         </div>
         <div class="instruction-title-text">
-            To Deploy the contract, please send <strong class="pay-count">{{ngPopUp.params.createdContract.cost}}</strong> ETH to address specified below:
+            To Finalize the contract and make tokens transferable do the following steps (under investment address)
         </div>
     </div>
     <ul class="instruction-steps-list">
         <li class="clearfix">
-            <div class="instruction-item-text">Open your wallet (Parity, <a ng-attr-href="{{ngPopUp.params.createdContract.payUrl}}" target="_blank">MyEtherWallet</a>)</div>
+            <div class="instruction-item-text">Open your wallet (Parity, <a href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>)</div>
         </li>
         <li class="clearfix">
-            <div class="instruction-item-text">Choose Send Ether & Tokens tab in your wallet</div>
+            <div class="instruction-item-text">Click the contracts tab in your wallet</div>
         </li>
         <li class="clearfix">
             <div class="instruction-item-text">
-                Insert the following recipient`s address:
+                Copy the contract address to the Contract Address
                 <div class="instruction-for-copy">
                     <button class="instruction-for-copy-button"
-                            ng-class="{copied: ngPopUp.params.copied['owner_adress']}"
                             clipboard supported="supported"
-                            text="ngPopUp.params.createdContract.owner_address"
-                            on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'owner_adress')" on-error="ngPopUp.params.failCodeCopy(err)">
+                            text="ngPopUp.params.contract.contract_details.eth_contract_crowdsale.address"
+                            ng-class="{copied: ngPopUp.params.contract.copied['address']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">
                         <i class="icon-content_copy"></i>
                     </button>
                     <div class="instruction-for-copy-text">{{ngPopUp.params.contract.contract_details.eth_contract_crowdsale.address}}</div>
@@ -31,19 +32,29 @@
             </div>
         </li>
         <li class="clearfix">
-            <div class="instruction-item-text">Put <strong class="pay-count">{{ngPopUp.params.contract.visibleCost}}</strong> WISH to Amount to Send</div>
-        </li>
-        <li class="clearfix">
-            <div class="instruction-item-text">Specify Gas limit 30000</div>
-        </li>
-        <li class="clearfix">
-            <div class="instruction-item-text">Click Generate Transaction</div>
-        </li>
-
-        <li class="clearfix">
             <div class="instruction-item-text">
-                Confirm the payment by pressing the button "DONE"
+                Copy MyWill data to ABI/JSON interface
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button"
+                            clipboard supported="supported"
+                            text="ngPopUp.params.contract.contract_details.eth_contract_crowdsale.abi|json"
+                            ng-class="{copied: ngPopUp.params.contract.copied['abi']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'abi')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text json-text">{{ngPopUp.params.contract.contract_details.eth_contract_crowdsale.abi|json}}</div>
+                </div>
             </div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Select the FINALIZE function</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Click send transaction</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Confirm the steps and press Done button</div>
         </li>
     </ul>
 

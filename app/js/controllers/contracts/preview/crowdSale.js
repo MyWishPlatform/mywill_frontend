@@ -51,12 +51,4 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.stateTitle = $scope.statuses[$scope.contract.state]['title'];
 
     $scope.wishCost = exRate.data.WISH;
-
-    $scope.successCodeCopy = function() {
-        if ($scope.copiedCode) return;
-        $scope.copiedCode = true;
-        $timeout(function() {
-            $scope.copiedCode = false;
-        }, 2000);
-    };
 });

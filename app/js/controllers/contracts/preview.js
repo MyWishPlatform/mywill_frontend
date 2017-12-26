@@ -30,16 +30,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         });
     };
 
-    var launchProgress = false;
-    var launchContract = function() {
-        launchProgress = true;
-        contractService.deployContract($scope.contract.id).then(function() {
-            launchProgress = false;
-            $state.go('main.contracts.list');
-        }, function() {
-            launchProgress = false;
-        });
-    };
 
     $scope.successCodeCopy = function(contract, field) {
         contract.copied = contract.copied || {};
@@ -49,12 +39,21 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         }, 1000);
     };
 
-
+    var launchProgress = false;
+    var launchContract = function(contract) {
+        launchProgress = true;
+        contractService.deployContract(contract.id).then(function() {
+            launchProgress = false;
+            $state.go('main.contracts.list');
+        }, function() {
+            launchProgress = false;
+        });
+    };
 
     $scope.payContract = function() {
         var contract = $scope.contract;
-        if (contract.isDeployProgress) return;
         $rootScope.getCurrentUser().then(function() {
+
             if ($rootScope.currentUser.is_ghost) {
                 $rootScope.commonOpenedPopup = 'ghost-user-alarm';
                 return;
@@ -63,16 +62,20 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                 $rootScope.commonOpenedPopup = 'less-balance';
                 return;
             }
+
             $rootScope.commonOpenedPopupParams = {
-                confirmPayment: launchContract,
-                contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
-                withoutCloser: true
+                contract: contract,
+                withoutCloser: true,
+                class: 'conditions',
+                endPay: {
+                    contract: contract,
+                    confirmPayment: launchContract,
+                    contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
+                    withoutCloser: true
+                }
             };
-            $rootScope.commonOpenedPopup = 'contract-confirm-pay';
-            contract.isDeployProgress = false;
+            $rootScope.commonOpenedPopup = 'conditions';
         }, function() {
-            contract.isDeployProgress = false;
         });
     };
-
 });

@@ -1,4 +1,4 @@
-angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate) {
+angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate, APP_CONSTANTS) {
 
     $scope.exRate = exRate.data;
     var metamask, parity;
@@ -70,7 +70,8 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     var resetForm = function() {
         $scope.formData = {
             gaslimit: 30000,
-            toAddress: $rootScope.currentUser.internal_address
+            toAddress: $rootScope.currentUser.internal_address,
+            wishAddress: APP_CONSTANTS.WISH.ADDRESS
         };
     };
     resetForm();
@@ -79,7 +80,6 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     });
 
     $scope.payDone = function() {
-        console.log(123);
         $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
     }
 
@@ -109,5 +109,20 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $scope.formData.btcAmount = btcAmount.times(rate).round(18).toString(10);
     };
 }).controller('buytokensWishController', function($scope, $state, $rootScope) {
+    $scope.$watch('formData.amount', function() {
+        if (!$scope.formData.amount) return;
+
+        $scope.checkedTransferData = (new Web3).eth.abi.encodeFunctionCall({
+            name: 'transfer',
+            type: 'function',
+            inputs: [{
+                type: 'address',
+                name: 'to'
+            }, {
+                type: 'uint256',
+                name: 'value'
+            }]
+        }, [$scope.formData.toAddress, new BigNumber($scope.formData.amount).times(Math.pow(10, 18)).toString(10)]);
+    });
 
 });

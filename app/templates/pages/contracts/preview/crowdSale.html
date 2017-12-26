@@ -9,11 +9,11 @@
          ng-class="{'active': contract.showedTab == 'code'}">
         <span>Source</span>
     </div>
-    <div class="contract-preview-one-tab"
+    <!-- div class="contract-preview-one-tab"
          ng-click="contract.showedTab = 'description'"
          ng-class="{'active': contract.showedTab == 'description'}">
         <span>Description</span>
-    </div>
+    </div -->
 </div>
 
 <div ng-if="contract.showedTab == 'info'">
@@ -310,12 +310,15 @@
 
                 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
                         ng-pop-up="{
-                        template: '/templates/popups/finalize-instruction.html',
-                        params: {
-                            contract: contract
-                        }
-                    }"
-                        class="btn btn-transparent">
+                                template: '/templates/popups/finalize-instruction.html',
+                                params: {
+                                    contract: contract
+                                },
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                }
+                            }"
+                        class="btn btn-submit">
                     <span>Finalize</span>
                 </button>&nbsp;
                 <button class="btn btn-submit mobile-width-100"

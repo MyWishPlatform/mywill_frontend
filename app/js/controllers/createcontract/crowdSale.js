@@ -2,8 +2,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
                                                                        openedContract,
                                                                        $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
-    var startAddingTimeHours = 2;
-    var minSaleTimeHours = 1;
 
     $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
     $scope.currencyRate = currencyRate.data;
@@ -121,8 +119,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         });
 
         $scope.dates = {
-            startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : moment().add(startAddingTimeHours, 'hours'),
-            endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : moment().add(startAddingTimeHours + minSaleTimeHours, 'hours')
+            startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : moment().add(1, 'days'),
+            endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : moment().add(1, 'days').add(1, 'months')
         };
 
         $scope.startTime = {
@@ -173,9 +171,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             ngStartEndDateValidate: '='
         },
         link: function(scope, elem, attr, ngModel) {
-            var startAddingTimeHours = 2,
-                minSaleTimeHours = 3600,
-                startFormFill = moment().add(startAddingTimeHours, 'hours').seconds(0).add(-1, 'seconds');
+            var startFormFill = moment().add(1, 'days').seconds(0).add(-1, 'seconds'),
+                endFormFill = moment().add(1, 'days').add(1, 'months').seconds(0).add(-1, 'seconds');
             var validator = function(value) {
                 if (scope.ngStartEndDateValidate.watch_date === 'stop_date') {
                     if (moment(scope.ngStartEndDateValidate.dates.start_date * 1000) < startFormFill) {
@@ -183,7 +180,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
                         return value;
                     }
                 }
-                var valid = scope.ngStartEndDateValidate.dates.stop_date * 1 - scope.ngStartEndDateValidate.dates.start_date * 1 >= minSaleTimeHours;
+                var valid = moment(scope.ngStartEndDateValidate.dates.stop_date * 1000) > endFormFill;
                 ngModel.$setValidity('sale-dates', valid);
                 return value;
             };

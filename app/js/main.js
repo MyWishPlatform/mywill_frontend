@@ -4,15 +4,23 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch']);
 
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
 }).controller('baseController', function($scope, $rootScope) {
+    $rootScope.showedMenu = false;
     $rootScope.toggleMenu = function() {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
+    $scope.showMenu(function(e) {
+        e.preventDefault();
+        alert('show');
+    });
+    $scope.hideMenu(function() {
+        alert('hide');
+    })
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval) {
@@ -58,7 +66,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         history.go(-1);
         return true;
     };
-
 
     // var currentUserDefer = $q.defer();
     var createDefer = function() {
@@ -140,12 +147,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             }, 400);
         }, 350);
     });
-
     $rootScope.closeCommonPopup = function() {
         $rootScope.commonOpenedPopup = false;
         $rootScope.commonOpenedPopupParams = false;
     };
-
     var checkLocation = function(newLocation, oldLocation, event) {
         if (newLocation.data && newLocation.data.notAccess && $rootScope.currentUser[newLocation.data.notAccess]) {
             event.preventDefault();
@@ -158,9 +163,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             return false;
         }
     };
-
     createDefer();
-
     $rootScope.$on("$stateChangeStart", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
         getCurrentUser(newLocation.name === 'anonymous');
 
@@ -182,8 +185,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             checkLocation(newLocation, oldLocation, event);
         }
     });
-
-
     var stateHandlersActivate = function() {
         var locationState = $location.state() || {};
 
@@ -193,16 +194,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         history.replaceState(locationState, null);
     };
-
     var initedApp = false;
-
     var iniApplication = function() {
         if (!initedApp) {
             initedApp = true;
             stateHandlersActivate();
         }
     };
-
     $rootScope.generateIdenticon = function(address) {
         return blockies.create({
             seed: address,
@@ -210,7 +208,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             scale: 3
         }).toDataURL();
     };
-
     var offset = moment().utcOffset() / 60;
     $rootScope.currentTimezone = (offset > 0 ? '+' : '') + offset;
 

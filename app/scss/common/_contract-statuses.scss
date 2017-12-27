@@ -9,6 +9,7 @@
     height: 1.275em;
     border-radius: 50%;
     margin-right: 0.75em;
+    margin-left: 0.5em;
     box-shadow: inset 0 0.1em 0.6em rgba(255, 255, 255, 0.5), inset 0 -0.1em 0.6em rgba(0, 0, 0, 0.2);
     left: 0;
     top: 50%;
@@ -62,6 +63,7 @@
 }
 .contract-status-text {
   margin-left: 2.775em;
+  text-shadow: 0 1px 1px #fff;
   span {
     display: inline-block;
     font-size: 1.5em;

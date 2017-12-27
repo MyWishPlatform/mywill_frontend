@@ -184,21 +184,25 @@
             </div>
             <!-- Holders info -->
             <div class="contract-form-fieldset with-padding">
-                <div class="form-control-label">
-                    <i class="icon-wallet form-control-label-icon"></i>
-                    Investments Storage Address
-                </div>
-                <br class="show-ls"/>
-                <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <i class="icon-wallet form-control-label-icon"></i>
+                            Investments Storage Address
+                        </div>
+                        <br class="show-ls"/>
+                        <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
 
-                <span class="identicon-container">
-                    <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
-                </span>
-                <div class="contract-wallet-information-wallet">
-                    <b ng-bind="details.admin_address"></b>
+                        <span class="identicon-container">
+                            <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
+                        </span>
+                        <div class="contract-wallet-information-wallet">
+                            <b ng-bind="details.admin_address"></b>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="contract-preview-holders-list ng-if="details.token_holders.length"">
+                <div class="contract-preview-holders-list" ng-if="details.token_holders.length">
                     <div class="contract-preview-holders-item grid-row"
                          ng-repeat="holder in details.token_holders">
                         <div class="grid-cell grid-cell-1">
@@ -264,7 +268,7 @@
             </div>
         </div>
     </div>
-    <div class="main-section-chapter" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
+    <div class="main-section-chapter-fieldset custom-fieldset" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
 </div>
 
 

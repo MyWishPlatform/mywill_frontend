@@ -347,11 +347,6 @@
 }
 
 @media screen and (max-width: 440px) {
-  .grid-cell {
-    &.float-right {
-      float: left!important;
-    }
-  }
   .mobile-width-100 {
     width: 100%;
     + .btn {

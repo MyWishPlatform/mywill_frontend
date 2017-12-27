@@ -8,6 +8,7 @@ $fieldsets-padding: 2.5em;
   max-width: 72em;
   position: relative;
   z-index: 1;
+  padding-bottom: 2em;
   &:after, &:before {
     display: table;
     width: 100%;
@@ -78,8 +79,8 @@ a.main-section-chapter {
   &:not(.custom-fieldset) {
     background-color: $blocks-background;
     box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+    color: $black-color;
   }
-  color: $black-color;
   padding: $fieldsets-padding;
   border-radius: 0.9em;
   position: relative;
@@ -204,7 +205,6 @@ a.main-section-chapter {
 
 .costs-info-block {
   color: $main-blue-color;
-  margin-bottom: 2em;
   //line-height: 1.15em;
   .costs-info-title, .costs-info-value, .costs-info-currency {
     display: inline-block;
@@ -253,8 +253,5 @@ a.main-section-chapter {
   }
   .main-section-content {
     padding: 0.4em 1.5% 1em;
-  }
-  .costs-info-block {
-    margin-top: 2em;
   }
 }

@@ -17,7 +17,8 @@
                 <!-- Pay instruction button -->
                     <button ng-click="payContract(contract)"
                             ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
-                            class="btn btn-transparent hide-ps">
+                            class="btn btn-submit hide-ps">
+                        <i class="icon-rocket-ship"></i>
                         <span>Launch</span>
                     </button>
 

@@ -33,6 +33,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         4: 'icon-crowdsale'
     };
 
+
     $rootScope.globalProgress = false;
     $rootScope.finishGlobalProgress = false;
 
@@ -130,6 +131,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.$on("$stateChangeSuccess", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
         $rootScope.closeCommonPopup();
         $rootScope.showedMenu = false;
+
         angular.element($window).scrollTop(0);
         if (progressTimer) {
             $timeout.cancel(progressTimer);

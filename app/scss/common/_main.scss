@@ -134,6 +134,7 @@ a.main-section-chapter {
   right: 0;
   z-index: 2;
   color: $black-color;
+  min-width: 320px;
   &-container {
     position: relative;
     padding: 1.8em 0;
@@ -221,20 +222,39 @@ a.main-section-chapter {
 @media screen and (max-width: 1024px) {
   .main-content-holder {
     margin-left: 0;
-    padding-top: 12.5em;
+    padding-top: 10em;
   }
   .pre-release-information {
     left: 0;
-    top: 6.2em;
+    top: 4.6em;
+  }
+  .pre-release-information-container {
+    padding: 1.4em 0;
   }
 }
 
 @media screen and (max-width: 640px) {
   .main-section-chapter-fieldset {
-    padding: 1.5em;
+    padding: 1em 1.5%;
   }
   .main-section-chapter-title {
-    margin-left: -1.875em;
+    margin-left: -1.5%;
     font-size: 0.8em;
+  }
+  .main-section-chapter {
+    + .main-section-chapter {
+      margin-top: 1em;
+    }
+  }
+  .main-section-chapter-fieldset {
+    + .main-section-chapter-fieldset {
+      margin-top: 1em;
+    }
+  }
+  .main-section-content {
+    padding: 0.4em 1.5% 1em;
+  }
+  .costs-info-block {
+    margin-top: 2em;
   }
 }

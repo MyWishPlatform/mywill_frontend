@@ -89,9 +89,12 @@
                     </a>
                 </div>
                 <div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
-                    <a href="/auth" ui-sref="exit" class="btn btn-transparent">
+                    <button class="btn btn-transparent" ng-pop-up="{
+                        template: '/templates/popups/logout-confirm.html',
+                        class: 'deleting-contract'
+                    }">
                         <span>Log out</span>
-                    </a>
+                    </button>
                 </div>
                 <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
             </div>

@@ -22,11 +22,6 @@
   &.with-border + &.with-border {
     border-top: 1px solid #CCCCCC;
   }
-  &.grid-row {
-    margin-left: -2.5em;
-    margin-right: -2.5em;
-    padding: 2.5em 1.5em;
-  }
   &:last-child {
     padding-bottom: 0;
   }
@@ -107,11 +102,6 @@
     padding: 1.5em 0;
     + .contract-preview-info-block {
       padding-top: 0;
-    }
-    &.grid-row {
-      margin-left: -1.5em;
-      margin-right: -1.5em;
-      padding: 1.5em 0;
     }
   }
   .contract-preview-fieldset {

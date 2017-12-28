@@ -238,30 +238,36 @@
             </div>
 
             <!-- Token distribution -->
-            <div class="form-control-label">
-                <i class="icon-distribution form-control-label-icon"></i>
-                Token distribution
-            </div>
-
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <!--({{totalSupply.eth|separateNumber}} ETH-->
-                    <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
-                    <div class="form-control-description one-line without-padding">
-                        <span>Max possible emission of tokens, no more tokens can be minted.</span>
+            <div class="contract-form-fieldset with-padding">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <i class="icon-distribution form-control-label-icon"></i>
+                            Token distribution
+                        </div>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
-                    <div class="chart-container" style="height: 240px"
-                         ng-chart
-                         ng-chart-data="chartData"
-                         ng-chart-options="chartOptions"></div>
-                </div>
-                <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
-                    <div class="chart-legend">
-                        <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
-                            <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
-                            <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <!--({{totalSupply.eth|separateNumber}} ETH-->
+                        <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
+                        <div class="form-control-description one-line without-padding">
+                            <span>Max possible emission of tokens, no more tokens can be minted.</span>
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
+                        <div class="chart-container" style="height: 240px"
+                             ng-chart
+                             ng-chart-data="chartData"
+                             ng-chart-options="chartOptions"></div>
+                    </div>
+                    <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
+                        <div class="chart-legend">
+                            <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
+                                <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                                <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

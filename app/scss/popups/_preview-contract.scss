@@ -61,6 +61,7 @@
 .contract-wallet-information-wallet {
   font-size: 1.4em;
   padding: 0 1.65em 0 0;
+  margin-bottom: 1em;
   &:not(.contract-wallet-information-float-cell) {
     margin-top: 0.3125em;
   }
@@ -284,7 +285,6 @@
   .contract-wallet-information-wallet {
     &.contract-wallet-information-float-cell, & {
       float: none;
-      margin-bottom: 1em;
       word-break: break-all;
       white-space: normal;
       width: auto;

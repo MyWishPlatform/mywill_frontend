@@ -32,7 +32,7 @@ angular.module('Directives').directive('ngRanger', function($rootScope) {
             };
             var onUpWindow = function(event) {
                 event.preventDefault();
-                // $scope.changeProgress = false;
+                $scope.changeProgress = false;
                 $scope.$apply();
                 win.off('mouseup touchend', onUpWindow);
                 win.off('mousemove touchmove', onMoveWindow);

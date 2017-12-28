@@ -8,6 +8,7 @@ $fieldsets-padding: 2.5em;
   max-width: 72em;
   position: relative;
   z-index: 1;
+  padding-bottom: 2em;
   &:after, &:before {
     display: table;
     width: 100%;
@@ -78,8 +79,8 @@ a.main-section-chapter {
   &:not(.custom-fieldset) {
     background-color: $blocks-background;
     box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+    color: $black-color;
   }
-  color: $black-color;
   padding: $fieldsets-padding;
   border-radius: 0.9em;
   position: relative;
@@ -134,6 +135,7 @@ a.main-section-chapter {
   right: 0;
   z-index: 2;
   color: $black-color;
+  min-width: 320px;
   &-container {
     position: relative;
     padding: 1.8em 0;
@@ -203,8 +205,7 @@ a.main-section-chapter {
 
 .costs-info-block {
   color: $main-blue-color;
-  margin-bottom: 2em;
-  //line-height: 1.15em;
+  line-height: 2.5em;
   .costs-info-title, .costs-info-value, .costs-info-currency {
     display: inline-block;
     vertical-align: middle;
@@ -221,23 +222,36 @@ a.main-section-chapter {
 @media screen and (max-width: 1024px) {
   .main-content-holder {
     margin-left: 0;
-    padding-top: 12.5em;
+    padding-top: 10em;
   }
   .pre-release-information {
     left: 0;
-    top: 6.2em;
+    top: 4.6em;
   }
-  .main-menu-holder {
-    display: none;
+  .pre-release-information-container {
+    padding: 1.4em 0;
   }
 }
 
 @media screen and (max-width: 640px) {
   .main-section-chapter-fieldset {
-    padding: 1.5em;
+    padding: 1em 1.5%;
   }
   .main-section-chapter-title {
-    margin-left: -1.875em;
+    margin-left: -1.5%;
     font-size: 0.8em;
+  }
+  .main-section-chapter {
+    + .main-section-chapter {
+      margin-top: 1em;
+    }
+  }
+  .main-section-chapter-fieldset {
+    + .main-section-chapter-fieldset {
+      margin-top: 1em;
+    }
+  }
+  .main-section-content {
+    padding: 0.4em 1.5% 1em;
   }
 }

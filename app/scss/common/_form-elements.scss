@@ -1,7 +1,9 @@
 .form-control-label {
   display: block;
   font-size: 1.5em;
-  line-height: 2em;
+  line-height: 1.2em;
+  padding: 0.4em 0;
+  text-shadow: 0 1px 0 #fff;
   &.inline-label {
     display: inline-block;
     vertical-align: middle;
@@ -30,6 +32,9 @@
 }
 
 .form-control-description {
+  text-shadow: 0 1px 0 #fff;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
   &:not(.one-line) {
     line-height: 4.7em;
   }
@@ -262,8 +267,6 @@
   }
 }
 .contract-form-information-btns {
-  padding-top: 3em;
-  border-top: 1px solid #A6A6A6;
   .btn {
     &:not(.float-right) + .btn {
       margin-left: 2em;
@@ -446,8 +449,6 @@
   text-align: center;
   border-top: 1px solid #ccc;
   margin-top: 1.5em;
-  margin-left: -2.4em;
-  margin-right: -2.4em;
   span {
     font-size: 1.5em;
     line-height: 1.2em;
@@ -471,17 +472,18 @@
   }
 }
 
+
 @media screen and (max-width: 640px) {
   .contract-form-fieldset {
-    padding: 1.5em!important;
-    margin-left: -1.5em;
-    margin-right: -1.5em;
+    padding: 1em 1.5%!important;
+    margin-left: -1.5%;
+    margin-right: -1.5%;
     &:last-child {
-      margin-bottom: -1.5em;
+      margin-bottom: -1em;
     }
     &.with-padding {
       &:first-child {
-        margin-top: -1.5em;
+        margin-top: -1em;
       }
     }
   }

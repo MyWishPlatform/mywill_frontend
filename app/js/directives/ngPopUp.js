@@ -70,10 +70,10 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                         });
                         $timeout(function() {
                             var margin = (angular.element(window).height() - currentWindow.outerHeight()) / 2;
-                            margin = Math.max(margin, 60);
+                            margin = Math.max(margin, 10);
                             currentWindow.css({
                                 'margin-top': margin,
-                                'margin-bottom': 100,
+                                'margin-bottom': margin,
                                 'visibility': ''
                             });
                         });

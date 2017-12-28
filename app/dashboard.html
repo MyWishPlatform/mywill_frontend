@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet"/>
     <base href="/dashboard/"/>
-
     <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-touch-icon-60x60.png">
@@ -35,13 +34,22 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#206EFF">
 
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+    <link rel="apple-touch-icon" href="/static/favicon/android-chrome-192x192.png">
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="196x196" href="/static/favicon/android-chrome-192x192.png">
+
     <script src="/static/vendors/vendors.js"></script>
     <script src="/static/tpl/templates.tpl.js"></script>
     <script src="/static/web3/web3.js"></script>
     <script src="/static/js/main.js"></script>
 
 </head>
-<body ng-class="{'with-menu': showedMenu, 'visible': currentUser}">
+<body ng-class="{'with-menu': $root.showedMenu, 'visible': currentUser}"
+      ng-swipe-left="$root.showedMenu = false;" ng-swipe-right="$root.showedMenu = true;">
 <header class="main-header-holder"
         ng-include="getTemplate('common/header')"></header>
 
@@ -54,10 +62,12 @@
 
                 <div class="user-balance">
                     <div class="user-balance-value">
-                        <div ng-bind="currentUser.visibleBalance" class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
                         <i class="user-balance-icon icon-mywish">
                             <span class="path1"></span><span class="path2"></span>
                         </i>
+                        <div ng-bind="currentUser.visibleBalance" ui-sref="main.buytokens"
+                             class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
+
                         <button class="btn only-icon user-balance-refresh"
                                 ng-class="{'in-progress': currentUser.balanceInRefresh}"
                                 ng-click="getCurrentBalance()">
@@ -79,9 +89,12 @@
                     </a>
                 </div>
                 <div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
-                    <a href="/auth" ui-sref="exit" class="btn btn-transparent">
+                    <button class="btn btn-transparent" ng-pop-up="{
+                        template: '/templates/popups/logout-confirm.html',
+                        class: 'deleting-contract'
+                    }">
                         <span>Log out</span>
-                    </a>
+                    </button>
                 </div>
                 <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
             </div>
@@ -118,7 +131,6 @@
     noClickShow: true,
     onClose: closeCommonPopup
 }" ng-if="commonOpenedPopup"></div>
-
 
 </body>
 </html>

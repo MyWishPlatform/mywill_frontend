@@ -43,6 +43,7 @@
   &:after {
     position: absolute;
     content: attr(data-sum-percentage)'%';
+    color: #fff;
     bottom: 100%;
     font-size: 1.4em;
     line-height: 1.3em;

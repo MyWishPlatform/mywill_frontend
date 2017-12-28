@@ -27,6 +27,7 @@
                     <input id="token-name" type="text"
                            placeholder="MyNewProjectToken"
                            ng-model="request.token_name"
+                           pattern='^[^"]+$'
                            required
                            maxlength="512"
                            class="form-control-input"/>
@@ -43,6 +44,7 @@
                     <label for="token-symbol" class="form-control-label">Token symbol</label>
                     <input id="token-symbol" type="text"
                            placeholder="NEW"
+                           pattern='^[^"]+$'
                            ng-model="request.token_short_name"
                            maxlength="64"
                            required
@@ -70,7 +72,7 @@
             </div>
             <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
                 <div class="form-control-label hide-vs">&nbsp;</div>
-                <span>Defines the number of decimals for the token. 1-18 numerals are accepted. 18 as common practice</span>
+                <span>Defines the number of decimals for the token. 0-50 numerals are accepted. 18 as common practice</span>
             </div>
         </div>
     </form>
@@ -79,7 +81,7 @@
 
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
     <div class="main-section-chapter-fieldset">
-        <div class="contract-form-fieldset">
+        <div class="contract-form-fieldset with-padding">
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control">
@@ -330,7 +332,7 @@
 
 <form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="distributionForm">
     <div class="main-section-chapter-fieldset">
-        <div class="contract-form-fieldset">
+        <div class="contract-form-fieldset with-padding">
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
@@ -464,7 +466,7 @@
                         Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
                     </div>
                     <div class="form-control-description one-line without-padding">
-                        <span>Max possible emission of token, no more tokens can be minted.</span>
+                        <span>Max possible emission of tokens, no more tokens can be minted.</span>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
@@ -495,14 +497,21 @@
 </form>
 
 
-<div class="main-section-chapter">
-    <div class="costs-info-block">
-        <span class="costs-info-title">Contract`s cost: </span>
-        <span class="costs-info-value">{{wishCost}}</span>
-        <span class="costs-info-currency">WISH</span>
-        <span class="costs-info-value">(1 ETH)</span>
+<div class="main-section-chapter-fieldset custom-fieldset">
+    <div class="contract-form-fieldset"><br/>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="costs-info-block">
+                    <span class="costs-info-title">Contract`s cost: </span>
+                    <div class="show-vs"></div>
+                    <span class="costs-info-value">{{wishCost}}</span>
+                    <span class="costs-info-currency">WISH</span>
+                    <span class="costs-info-value">(1 ETH)</span>
+                </div>
+            </div>
+        </div><br/>
     </div>
-    <div class="contract-form-row">
+    <div class="contract-form-fieldset"><br/>
         <div class="contract-form-information-btns">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-vs-1-2">

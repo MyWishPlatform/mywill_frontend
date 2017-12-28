@@ -19,230 +19,218 @@
 <div ng-if="contract.showedTab == 'info'">
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
-            <div class="main-section-chapter-title">
-                <i class="main-section-chapter-title_icon icon-crowdsale"></i>
-                <span class="main-section-chapter-title_text">{{contract.name}}</span>
-            </div>
 
-            <div class="contract-status-name float-right" ng-class="'contract-status-' + stateValue">
-                <div class="contract-status-text">
-                    <span>{{stateTitle}}</span>
-                </div>
-            </div>
+            <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
 
-            <div class="contract-form-fieldset">
-                <div class="contract-preview-info-block min-padding with-border"
-                     ng-if="(stateValue == 4) && (details.eth_contract_crowdsale.address)">
-                    <div class="grid-row">
-                        <div class="grid-cell grid-cell-1">
-                            <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
-                            <br class="show-ls"/>
-                            <span class="identicon-container">
-                                <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.address)}}"/>
-                            </span>
-                            <div class="contract-wallet-information-wallet">
-                                <a href="https://etherscan.io/address/{{details.eth_contract_crowdsale.address}}"
-                                   target="_blank"
-                                   ng-bind="details.eth_contract_crowdsale.address"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="contract-preview-info-block min-padding with-border"
-                     ng-if="(stateValue == 4) && details.eth_contract_token.address">
-                    <div class="grid-row">
-                        <div class="grid-cell grid-cell-1">
-                            <div class="form-control-label">Token address</div>
-                            <br class="show-ls"/>
-                            <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_token.address)}}"/>
+            <div class="contract-form-fieldset with-border" ng-if="(stateValue == 4) && details.eth_contract_crowdsale.address">
+
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
+                        <br class="show-ls"/>
+                        <span class="identicon-container">
+                            <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.address)}}"/>
                         </span>
-                            <div class="contract-wallet-information-wallet">
-                                <a href="https://etherscan.io/address/{{details.eth_contract_token.address}}"
-                                   target="_blank"
-                                   ng-bind="details.eth_contract_token.address"></a>
-                            </div>
+                        <div class="contract-wallet-information-wallet">
+                            <a href="https://etherscan.io/address/{{details.eth_contract_crowdsale.address}}"
+                               target="_blank"
+                               ng-bind="details.eth_contract_crowdsale.address"></a>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="contract-form-fieldset with-border" ng-if="(stateValue == 4) && details.eth_contract_token.address">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">Token address</div>
+                        <br class="show-ls"/>
+                        <span class="identicon-container">
+                        <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_token.address)}}"/>
+                    </span>
+                        <div class="contract-wallet-information-wallet">
+                            <a href="https://etherscan.io/address/{{details.eth_contract_token.address}}"
+                               target="_blank"
+                               ng-bind="details.eth_contract_token.address"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--- Base token info --->
-            <div class="contract-form-fieldset with-border">
-                <div class="contract-preview-info-block">
-                    <div class="grid-row">
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="contract-preview-base-font">
-                                <span class="contract-preview-grey-font-color">Token name:</span><br/>
-                                {{ contract.contract_details.token_name }}
-                            </div>
+            <div class="contract-form-fieldset with-border clearfix with-padding">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="contract-preview-base-font">
+                            <span class="contract-preview-grey-font-color">Token name:</span><br/>
+                            {{ contract.contract_details.token_name }}
                         </div>
-                        <div class="clearfix show-ls"><br/></div>
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="contract-preview-base-font">
-                                <span class="contract-preview-grey-font-color">Token symbol:</span><br/>
-                                {{ contract.contract_details.token_short_name }}
-                            </div>
+                    </div>
+                    <div class="clearfix show-ls"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="contract-preview-base-font">
+                            <span class="contract-preview-grey-font-color">Token symbol:</span><br/>
+                            {{ contract.contract_details.token_short_name }}
                         </div>
-                        <div class="clearfix"><br/></div>
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="contract-preview-base-font">
-                                <span class="contract-preview-grey-font-color">Decimals:</span><br/>
-                                {{ contract.contract_details.decimals }}
-                            </div>
+                    </div>
+                    <div class="clearfix"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="contract-preview-base-font">
+                            <span class="contract-preview-grey-font-color">Decimals:</span><br/>
+                            {{ contract.contract_details.decimals }}
                         </div>
                     </div>
                 </div>
             </div>
             <!-- ICO info -->
-            <div class="contract-form-fieldset contract-form-fieldset-grey">
-                <div class="contract-preview-info-block">
-                    <div class="grid-row">
-                        <div class="grid-cell grid-cell-1">
-                            <div class="form-control-label">
-                                <i class="icon-bitcoin-exchange-rate-symbol form-control-label-icon"></i>
-                                Token rate
-                            </div>
-                            <div class="contract-preview-base-font contract-preview-base-value">
-                                {{details.rate|separateNumber}}
-                                {{details.token_short_name}} = 1ETH
-                            </div>
+            <div class="contract-form-fieldset contract-form-fieldset-grey with-padding">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <i class="icon-bitcoin-exchange-rate-symbol form-control-label-icon"></i>
+                            Token rate
                         </div>
-                        <div class="clearfix"><br/></div>
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="form-control-label">
-                                <i class="icon-hard-cap form-control-label-icon"></i>
-                                Hard cap tokens
-                            </div>
-                            <div class="contract-preview-base-font contract-preview-base-value">
-                                <div class="contract-preview-base-value-string">
-                                    {{details.hard_cap|separateNumber}}
-                                    {{details.token_short_name}}
-                                </div>
-                                <div class="contract-preview-grey-font-color contract-preview-base-value-string">
-                                    {{details.hard_cap_eth|separateNumber}} ETH
-                                </div>
-                            </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            {{details.rate|separateNumber}}
+                            {{details.token_short_name}} = 1ETH
                         </div>
-                        <div class="clearfix show-ls"><br/></div>
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="form-control-label">
-                                <i class="icon-soft-cap form-control-label-icon"></i>
-                                Soft cap tokens
+                    </div>
+                    <div class="clearfix"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="form-control-label">
+                            <i class="icon-hard-cap form-control-label-icon"></i>
+                            Hard cap tokens
+                        </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            <div class="contract-preview-base-value-string">
+                                {{details.hard_cap|separateNumber}}
+                                {{details.token_short_name}}
                             </div>
-                            <div class="contract-preview-base-font contract-preview-base-value">
-                                <div class="contract-preview-base-value-string">
-                                    {{details.soft_cap|separateNumber}}
-                                    {{details.token_short_name}}
-                                </div>
-                                <div class="contract-preview-grey-font-color contract-preview-base-value-string">
-                                    {{details.soft_cap_eth|separateNumber}} ETH
-                                </div>
+                            <div class="contract-preview-grey-font-color contract-preview-base-value-string">
+                                {{details.hard_cap_eth|separateNumber}} ETH
                             </div>
                         </div>
                     </div>
-                    <div class="grid-row contract-preview-info-block">
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="form-control-label">
-                                <i class="icon-waiting-2 form-control-label-icon"></i>
-                                Start date
+                    <div class="clearfix show-ls"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="form-control-label">
+                            <i class="icon-soft-cap form-control-label-icon"></i>
+                            Soft cap tokens
+                        </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            <div class="contract-preview-base-value-string">
+                                {{details.soft_cap|separateNumber}}
+                                {{details.token_short_name}}
                             </div>
-                            <div class="contract-preview-base-font contract-preview-base-value">
-                                <div class="contract-preview-base-value-string">
-                                    {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
-                                </div>
+                            <div class="contract-preview-grey-font-color contract-preview-base-value-string">
+                                {{details.soft_cap_eth|separateNumber}} ETH
                             </div>
                         </div>
-                        <div class="clearfix show-ls"><br/></div>
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="form-control-label">
-                                <i class="icon-waiting-1 form-control-label-icon"></i>
-                                Finish date
-                            </div>
-                            <div class="contract-preview-base-font contract-preview-base-value">
-                                <div class="contract-preview-base-value-string">
-                                    {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
-                                </div>
+                    </div>
+                </div>
+                <div class="clearfix"><br></div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="form-control-label">
+                            <i class="icon-waiting-2 form-control-label-icon"></i>
+                            Start date
+                        </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            <div class="contract-preview-base-value-string">
+                                {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
                             </div>
                         </div>
-                        <div class="clearfix"><br/></div>
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="form-control-label">
-                                <i class="icon-padlock form-control-label-icon"></i>
-                                Transferable
-                            </div>
-                            <div class="contract-preview-base-font contract-preview-base-value">
-                                <div class="contract-preview-base-value-string te">
-                                    <i ng-class="{'icon-check_circle': details.is_transferable_at_once, 'icon-cancel': !details.is_transferable_at_once}"></i>
-                                    <span ng-if="details.is_transferable_at_once">YES</span>
-                                    <span ng-if="!details.is_transferable_at_once">NO</span>
-                                </div>
+                    </div>
+                    <div class="clearfix show-ls"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="form-control-label">
+                            <i class="icon-waiting-1 form-control-label-icon"></i>
+                            Finish date
+                        </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            <div class="contract-preview-base-value-string">
+                                {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
                             </div>
                         </div>
-                        <div class="clearfix show-ls"><br/></div>
-                        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                            <div class="form-control-label">
-                                <i class="icon-settings form-control-label-icon"></i>
-                                Finalize auto
+                    </div>
+                    <div class="clearfix"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="form-control-label">
+                            <i class="icon-padlock form-control-label-icon"></i>
+                            Transferable
+                        </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            <div class="contract-preview-base-value-string te">
+                                <i ng-class="{'icon-check_circle': details.is_transferable_at_once, 'icon-cancel': !details.is_transferable_at_once}"></i>
+                                <span ng-if="details.is_transferable_at_once">YES</span>
+                                <span ng-if="!details.is_transferable_at_once">NO</span>
                             </div>
-                            <div class="contract-preview-base-font contract-preview-base-value">
-                                <div class="contract-preview-base-value-string">
-                                    <i ng-class="{'icon-check_circle': details.platform_as_admin, 'icon-cancel': !details.platform_as_admin}"></i>
-                                    <span ng-if="details.platform_as_admin">YES</span>
-                                    <span ng-if="!details.platform_as_admin">NO</span>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="clearfix show-ls"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="form-control-label">
+                            <i class="icon-settings form-control-label-icon"></i>
+                            Finalize auto
+                        </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            <div class="contract-preview-base-value-string">
+                                <i ng-class="{'icon-check_circle': details.platform_as_admin, 'icon-cancel': !details.platform_as_admin}"></i>
+                                <span ng-if="details.platform_as_admin">YES</span>
+                                <span ng-if="!details.platform_as_admin">NO</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- Holders info -->
-            <div class="contract-form-fieldset">
-                <div class="contract-preview-info-block">
-                    <div class="form-control-label">
-                        <i class="icon-wallet form-control-label-icon"></i>
-                        Investments Storage Address
-                    </div>
-                    <br class="show-ls"/>
-                    <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
+            <div class="contract-form-fieldset with-padding">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <i class="icon-wallet form-control-label-icon"></i>
+                            Investments Storage Address
+                        </div>
+                        <br class="show-ls"/>
+                        <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
 
-                    <span class="identicon-container">
-                        <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
-                    </span>
-                    <div class="contract-wallet-information-wallet">
-                        <b ng-bind="details.admin_address"></b>
+                        <span class="identicon-container">
+                            <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
+                        </span>
+                        <div class="contract-wallet-information-wallet">
+                            <b ng-bind="details.admin_address"></b>
+                        </div>
                     </div>
                 </div>
-                <div class="contract-preview-info-block " ng-if="details.token_holders.length">
-                    <div class="contract-preview-holders-list">
-                        <div class="contract-preview-holders-item grid-row"
-                             ng-repeat="holder in details.token_holders">
-                            <div class="grid-cell grid-cell-1">
-                                <div class="form-control-label bold">Address</div>
-                                <br class="show-ls"/>
-                                <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
-                                <span class="identicon-container">
-                                    <img class="identicon-image" ng-src="{{generateIdenticon(holder.address)}}"/>
-                                </span>
-                                <div class="contract-wallet-information-wallet">
-                                    <span ng-bind="holder.address"></span>
-                                </div>
+
+                <div class="contract-preview-holders-list" ng-if="details.token_holders.length">
+                    <div class="contract-preview-holders-item grid-row"
+                         ng-repeat="holder in details.token_holders">
+                        <div class="grid-cell grid-cell-1">
+                            <div class="form-control-label bold">Address</div>
+                            <br class="show-ls"/>
+                            <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
+                            <span class="identicon-container">
+                                <img class="identicon-image" ng-src="{{generateIdenticon(holder.address)}}"/>
+                            </span>
+                            <div class="contract-wallet-information-wallet">
+                                <span ng-bind="holder.address"></span>
                             </div>
-                            <div class="clearfix"><br/></div>
-                            <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                                <div class="form-control-label bold">Name</div>
-                                <div class="form-control-preview-value">{{holder.name || '-'}}</div>
-                            </div>
-                            <div class="clearfix show-vs"><br/></div>
-                            <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                                <div class="form-control-label bold">Token</div>
-                                <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
-                            </div>
-                            <div class="clearfix show-ps"><br/></div>
-                            <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
-                                <div class="form-control-label bold">Frozen till</div>
-                                <div class="form-control-preview-value">
-                                    {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
-                                </div>
+                        </div>
+                        <div class="clearfix"><br/></div>
+                        <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
+                            <div class="form-control-label bold">Name</div>
+                            <div class="form-control-preview-value">{{holder.name || '-'}}</div>
+                        </div>
+                        <div class="clearfix show-vs"><br/></div>
+                        <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
+                            <div class="form-control-label bold">Token</div>
+                            <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
+                        </div>
+                        <div class="clearfix show-ps"><br/></div>
+                        <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
+                            <div class="form-control-label bold">Frozen till</div>
+                            <div class="form-control-preview-value">
+                                {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
                             </div>
                         </div>
                     </div>
@@ -250,10 +238,14 @@
             </div>
 
             <!-- Token distribution -->
-            <div class="contract-preview-info-block">
-                <div class="form-control-label">
-                    <i class="icon-distribution form-control-label-icon"></i>
-                    Token distribution
+            <div class="contract-form-fieldset with-padding">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <i class="icon-distribution form-control-label-icon"></i>
+                            Token distribution
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid-row">
@@ -261,7 +253,7 @@
                         <!--({{totalSupply.eth|separateNumber}} ETH-->
                         <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
                         <div class="form-control-description one-line without-padding">
-                            <span>Max possible emission of token, no more tokens can be minted.</span>
+                            <span>Max possible emission of tokens, no more tokens can be minted.</span>
                         </div>
                     </div>
                     <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
@@ -280,63 +272,9 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
-    <div class="main-section-chapter">
-        <div class="costs-info-block" ng-if="stateValue < 3">
-            <span class="costs-info-title">Contract`s cost: </span>
-            <span class="costs-info-value">{{wishCost}}</span>
-            <span class="costs-info-currency">WISH</span>
-            <span class="costs-info-value">(1 ETH)</span>
-        </div>
-        <div class="contract-form-row">
-            <div class="contract-form-information-btns">
-                <button class="btn btn-red with-icon float-right mobile-width-100 with-icon initial-padding"
-                        ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2) || (statuses[contract.state]['value'] == 5) || (statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7)"
-                        ng-pop-up="{
-                        template: '/templates/popups/delete-contract.html',
-                        params: contract,
-                        class: 'deleting-contract',
-                        actions: {
-                            deleteContract: deleteContract
-                        }
-                    }">
-                    <i class="icon-trash"></i>
-                    <span>Delete</span>
-                </button>
-
-                <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
-                        ng-pop-up="{
-                                template: '/templates/popups/finalize-instruction.html',
-                                params: {
-                                    contract: contract
-                                },
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                }
-                            }"
-                        class="btn btn-submit">
-                    <span>Finalize</span>
-                </button>&nbsp;
-                <button class="btn btn-submit mobile-width-100"
-                        ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
-                        ng-click="payContract()">
-                    <span>Launch</span>
-                </button>
-
-                <!-- Edit button -->
-                <a ui-sref="main.createcontract.edit({id: contract.id})" class="btn btn-back mobile-width-100 with-icon initial-padding"
-                   ng-if="stateValue == 1"
-                   ng-click="closeCurrentPopup()">
-                    <i class="icon-edit"></i>
-                    <span>Edit</span>
-                </a>
-            </div>
-        </div>
-    </div>
+    <div class="main-section-chapter-fieldset custom-fieldset" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
 </div>
 
 

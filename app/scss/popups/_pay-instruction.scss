@@ -34,21 +34,23 @@
 }
 
 .instruction-title-text {
-  font-size: 1.4em;
   font-weight: bold;
-  padding: 1em 0;
-  line-height: 1.7em;
   margin-right: 2em;
   margin-left: 2em;
+  line-height: 4.9em;
+  &__content {
+    font-size: 1.4em;
+    line-height: 1.7em;
+    display: inline-block;
+    vertical-align: middle;
+  }
   .contract-name-block + & {
-    margin-left: 8em;
+    margin-left: 15em;
   }
 }
 
 .instruction-for-copy-button {
-  position: relative;
-  top: 0.5em;
-  vertical-align: middle;
+  margin-top: 0.5em;
   background: none;
   border: none;
   padding: 0;
@@ -57,7 +59,7 @@
   outline: none;
   cursor: pointer;
   float: right;
-  left: 1.8em;
+  margin-right: -1.8em;
   &.copied {
     color: #ffa2a8;
     &:before {
@@ -81,7 +83,7 @@
       height: 0.5em;
       background-color: rgba(0, 0, 0, 0.8);
       transform: rotate(45deg);
-      right: 0.5em;
+      right: 1.5em;
       margin-bottom: 0.55em;
     }
   }
@@ -94,13 +96,17 @@
 .instruction-for-copy-text {
   color: $white-color;
   background-color: $dark-grey-color;
-  padding: 0.65em 1em;
   margin-top: 0.5em;
   word-wrap: break-word;
+  &:not(.json-text) {
+    padding: 0.65em 1em;
+  }
   &.json-text {
-    white-space: pre;
     overflow: auto;
-    max-height: 20em;
+    height: 20em;
+    white-space: pre;
+    padding: 0.65em 1em;
+    box-sizing: border-box;
   }
 }
 .instruction-action-buttons {
@@ -128,6 +134,19 @@
   .instruction-title-text {
     clear: both;
     margin: 0 3%;
+    .contract-name-block + & {
+      margin-left: 3%;
+      margin-top: 1em;
+      float: left;
+      width: 94%;
+    }
   }
-
+  .instruction-steps-list {
+    li {
+      font-size: 0.9em;
+    }
+  }
+  .instruction-for-copy {
+    margn-left: -3em;
+  }
 }

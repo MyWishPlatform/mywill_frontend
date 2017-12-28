@@ -22,11 +22,6 @@
   &.with-border + &.with-border {
     border-top: 1px solid #CCCCCC;
   }
-  &.grid-row {
-    margin-left: -2.5em;
-    margin-right: -2.5em;
-    padding: 2.5em 1.5em;
-  }
   &:last-child {
     padding-bottom: 0;
   }
@@ -64,7 +59,7 @@
   margin-bottom: 1.5em;
 }
 .contract-preview-holders-item {
-  padding: 1em;
+  padding: 1em 0;
   border-radius: 0.75em;
   box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.15);
   background-color: #FAFAFA;
@@ -107,11 +102,6 @@
     padding: 1.5em 0;
     + .contract-preview-info-block {
       padding-top: 0;
-    }
-    &.grid-row {
-      margin-left: -1.5em;
-      margin-right: -1.5em;
-      padding: 1.5em 0;
     }
   }
   .contract-preview-fieldset {

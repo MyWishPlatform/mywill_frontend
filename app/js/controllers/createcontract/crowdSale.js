@@ -100,8 +100,31 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
         contract_details: {
-            token_holders: []
+            token_holders: [],
+            amount_bonuses: [],
+            tokens_bonuses: []
         }
+    };
+
+    $scope.addAmountBonus = function() {
+        $scope.request.amount_bonuses.push({});
+    };
+
+    $scope.deleteAmountBonus = function(bonus) {
+        $scope.request.amount_bonuses = $scope.request.amount_bonuses.filter(function(bns) {
+            return bns != bonus;
+        });
+    };
+
+
+    $scope.addTokenBonus = function() {
+        $scope.request.tokens_bonuses.push({});
+    };
+
+    $scope.deleteTokenBonus = function(bonus) {
+        $scope.request.tokens_bonuses = $scope.request.tokens_bonuses.filter(function(bns) {
+            return bns != bonus;
+        });
     };
 
     $scope.editContractMode = !!contract.id;

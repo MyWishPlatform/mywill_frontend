@@ -35,7 +35,7 @@
             </div>
             <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span>Enter name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used</span>
+                <span class="form-control-description__text">Enter name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used</span>
             </div>
         </div>
         <div class="grid-row contract-form-row">
@@ -53,7 +53,7 @@
             </div>
             <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span>
+                <span class="form-control-description__text">
                     Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href="https://etherscan.io/tokens" target="_blank">https://etherscan.io/tokens</a>)
                 </span>
             </div>
@@ -72,13 +72,11 @@
             </div>
             <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
                 <div class="form-control-label hide-vs">&nbsp;</div>
-                <span>Defines the number of decimals for the token. 0-50 numerals are accepted. 18 as common practice</span>
+                <span class="form-control-description__text">Defines the number of decimals for the token. 0-50 numerals are accepted. 18 as common practice</span>
             </div>
         </div>
     </form>
 </div>
-
-
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset with-padding">
@@ -108,7 +106,7 @@
                 </div>
                 <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span>Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 ETH</span>
+                    <span class="form-control-description__text">Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 ETH</span>
                 </div>
             </div>
             <div class="grid-row contract-form-row">
@@ -141,7 +139,7 @@
                 </div>
                 <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span>
+                    <span class="form-control-description__text">
                         Defines how many tokens can be sold. After reaching this number sale will be stopped automatically. 1-100,000,000,000,000 Numerals are accepted.
                     </span>
                 </div>
@@ -174,7 +172,7 @@
                 </div>
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span>
+                    <span class="form-control-description__text">
                         Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their vestments back, project gets nothing. You can set it to 0 (no soft cap)
                     </span>
                 </div>
@@ -224,7 +222,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-3 form-control-description grid-cell-ps-4-5 grid-cell-ls-1">
                     <label for="start-date" class="form-control-label hide-ps">&nbsp;</label>
-                    <span>Start date/time for sale. No contributions will be accepted before that time</span>
+                    <span class="form-control-description__text">Start date/time for sale. No contributions will be accepted before that time</span>
                 </div>
             </div>
             <div class="grid-row contract-form-row">
@@ -271,7 +269,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-3 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                     <label for="start-date" class="form-control-label hide-ps">&nbsp;</label>
-                    <span>Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached</span>
+                    <span class="form-control-description__text">Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached</span>
                 </div>
             </div><br/><br/>
             <div class="grid-row">
@@ -297,7 +295,7 @@
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                    <span>User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended</span>
+                    <span class="form-control-description__text">User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended</span>
                 </div>
             </div>
             <div class="grid-row">
@@ -323,7 +321,255 @@
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                    <span>Our system can finalize the contract (to make tokens transferable) automatically or you can do it manually</span>
+                    <span class="form-control-description__text">Our system can finalize the contract (to make tokens transferable) automatically or you can do it manually</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="main-section-chapter" name="timeBonusForm" ng-class="{'no-active': !saleTokensParamsForm.$valid}">
+    <div class="main-section-chapter-fieldset">
+        <div class="relative contract-form-fieldset with-padding" ng-repeat="bonus in request.tokens_bonuses">
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-6 grid-cell-ps-1-4 grid-cell-vs-1-3">
+                    <div class="form-control">
+                        <label class="form-control-label">Bonus</label>
+                        <input placeholder="1"
+                               commaseparator="{notNull: true, regexp: '^(([0]{1})|([1-9]{1}([0-9]{1})?))([.]([0-9]{1})?)?$'}"
+                               pattern="^([0]|([1-9]{1}([0-9]{1})?))([.][0-9])?$"
+                               class="form-control-input" required ng-model="bonus.percentage"/>
+                        <div class="input-after">%</div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
+                    <div class="form-control-label hide-vs">&nbsp;</div>
+                    <span class="form-control-description__text">Usually 0.1-100%.  How many extra tokens will be sent to contributor.</span>
+                </div>
+            </div><br/><br/>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label for="is_transferable_at_once" class="form-control-label inline-label">
+                                <i class="icon-padlock form-control-label-icon"></i>
+                                Sold tokens bonus:
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                    <div class="form-control">
+                        <label class="checkbox-decoration">
+                            <input type="checkbox" ng-model="bonus.isTokensAmount"/>
+                            <span class="checkbox-decoration-displaying">
+                                <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                    <span class="form-control-description__text">Specify how many tokens shall be sold before bonus activation and when bonus deactivated</span>
+                </div>
+            </div>
+
+
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label class="form-control-label">
+                            Tokens from&nbsp;&nbsp;
+                            <img src="/static/images/right-arrow.svg" alt="">
+                        </label>
+                        <input type="text"
+                               ng-model="bonus.amount_from"
+                               required
+                               ng-disabled="!bonus.isTokensAmount"
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               class="form-control-input"/>
+                        <div class="input-after">{{request.token_short_name}}</div>
+                    </div>
+                </div>
+
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label class="form-control-label">
+                            <img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;
+                            Tokens to
+                        </label>
+                        <input type="text"
+                               ng-disabled="!bonus.isTokensAmount"
+                               ng-model="bonus.amount_to"
+                               required
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               class="form-control-input"/>
+                        <div class="input-after">{{request.token_short_name}}</div>
+                    </div>
+                </div>
+            </div><br/><br/>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label for="is_transferable_at_once" class="form-control-label inline-label">
+                                <i class="icon-padlock form-control-label-icon"></i>
+                                Time bonus:
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                    <div class="form-control">
+                        <label class="checkbox-decoration">
+                            <input type="checkbox" ng-model="bonus.isTimesAmount"/>
+                            <span class="checkbox-decoration-displaying">
+                                <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                    <span class="form-control-description__text">Specify the time frame when bonus is active for everyone</span>
+                </div>
+            </div>
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label class="form-control-label">
+                            Time from&nbsp;&nbsp;
+                            <img src="/static/images/right-arrow.svg" alt="">
+                        </label>
+                        <input ng-model="bonus.timestamp_from"
+                               ng-attr-name="{{'bonus_date_from_' + $index}}"
+                               class="input-for-group-fields"
+                               ng-check-dates="{
+                                minDate: 'start_date',
+                                allData: request
+                               }">
+                        <input type="text"
+                               ng-model="bonus.time_from"
+                               required
+                               ng-disabled="!bonus.isTimesAmount"
+                               class="form-control-input form-control-input-date"/>
+                    </div>
+                </div>
+
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label class="form-control-label">
+                            <img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;
+                            Time to
+                        </label>
+                        <input type="text"
+                               ng-disabled="!bonus.isTimesAmount"
+                               ng-model="bonus.time_to"
+                               required
+                               class="form-control-input form-control-input-date"/>
+                    </div>
+                </div>
+
+            </div>
+
+            <i class="icon-cancel float-right form-fieldset-info-button"
+               ng-click="deleteTokenBonus(bonus)"
+               ng-if="request.tokens_bonuses.length"></i>
+        </div>
+        <div class="contract-form-fieldset with-padding" ng-if="request.tokens_bonuses.length < 10">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-3-5 grid-cell-ls-1 float-right form-control-description" ng-if="!request.tokens_bonuses.length">
+                    <span class="form-control-description__text"> You can define bonus depending on amount of sold tokens and time. For example, give extra 10% to the first week contributors</span><br/>
+                </div>
+                <div class="grid-cell grid-cell-ls-1 form-control-description" ng-class="{'grid-cell-2-5':!request.tokens_bonuses.length, 'grid-cell-1': request.tokens_bonuses.length}">
+                    <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addTokenBonus();">
+                        <i class="icon-create-contract"></i>
+                        <span ng-if="!request.tokens_bonuses.length">Add Time Bonus</span>
+                        <span ng-if="request.tokens_bonuses.length">Add Other Time Bonus</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<form class="main-section-chapter" name="amountBonusForm" ng-class="{'no-active': !saleTokensParamsForm.$valid}">
+    <div class="main-section-chapter-fieldset">
+        <div class="relative contract-form-fieldset with-padding" ng-repeat="bonus in request.amount_bonuses">
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-6 grid-cell-ps-1-4 grid-cell-vs-1-3">
+                    <div class="form-control">
+                        <label class="form-control-label">Bonus</label>
+                        <input class="form-control-input" required ng-model="bonus.percentage"/>
+                        <div class="input-after">%</div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
+                    <div class="form-control-label hide-vs">&nbsp;</div>
+                    <span class="form-control-description__text">Usually 0.1-100%.  How many extra tokens will be sent to contributor.</span>
+                </div>
+            </div>
+
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-2-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label class="form-control-label">
+                            Min Amount&nbsp;&nbsp;
+                            <img src="/static/images/right-arrow.svg" alt="">
+                        </label>
+                        <input type="text"
+                               ng-model="bonus.amount"
+                               required
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               class="form-control-input"/>
+                        <div class="input-after">ETH</div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
+                    <div class="form-control-label hide-ps">&nbsp;</div>
+                    <span class="form-control-description__text">
+                        Minimum contribution for getting specified bonus
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-2-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label class="form-control-label">
+                            <img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;
+                            Max Amount
+                        </label>
+                        <input type="text"
+                               ng-model="bonus.amount"
+                               required
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               class="form-control-input"/>
+                        <div class="input-after">ETH</div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
+                    <div class="form-control-label hide-ps">&nbsp;</div>
+                    <span class="form-control-description__text">
+                        Maximum contribution for getting specified bonus (you can left it empty if there is no limit)
+                    </span>
+                </div>
+            </div>
+            <i class="icon-cancel float-right form-fieldset-info-button"
+               ng-click="deleteAmountBonus(bonus)"
+               ng-if="request.amount_bonuses.length"></i>
+        </div>
+        <div class="contract-form-fieldset with-padding" ng-if="request.amount_bonuses.length < 10">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-3-5 grid-cell-ls-1 float-right form-control-description" ng-if="!request.amount_bonuses.length">
+                    <span class="form-control-description__text">You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions</span><br/>
+                </div>
+                <div class="grid-cell grid-cell-ls-1 form-control-description" ng-class="{'grid-cell-2-5':!request.amount_bonuses.length, 'grid-cell-1': request.amount_bonuses.length}">
+                    <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addAmountBonus();">
+                        <i class="icon-create-contract"></i>
+                        <span ng-if="!request.amount_bonuses.length">Add Amount Bonus</span>
+                        <span ng-if="request.amount_bonuses.length">Add Other Amount Bonus</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -347,11 +593,14 @@
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span> ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it</span>
+                    <span class="form-control-description__text"> ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it</span>
                 </div>
             </div>
         </div>
     </div>
+
+
+
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset relative with-padding"
              ng-repeat="recipient in request.token_holders">
@@ -404,9 +653,9 @@
                                 <label class="checkbox-decoration">
                                     <input type="checkbox" ng-model="recipient.isFrozen"/>
                                     <span class="checkbox-decoration-displaying">
-                                    <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                                    <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
-                                </span>
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                                    </span>
                                 </label>
                             </div>
                             <div class="grid-cell grid-cell-3-5">
@@ -443,15 +692,13 @@
                ng-click="removeRecipient(recipient); checkTokensAmount();"
                ng-if="request.token_holders.length"></i>
         </div>
-        <div class="contract-form-fieldset"
-             ng-class="{'with-padding': request.token_holders.length}"
-             ng-if="request.token_holders.length < 5">
+        <div class="contract-form-fieldset with-padding" ng-if="request.token_holders.length < 5">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
-                    <span>You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion</span><br/>
+                    <span class="form-control-description__text">You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion</span><br/>
                 </div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <button class="btn btn-submit with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
+                    <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
                         <i class="icon-create-contract"></i>
                         <span>Add extra address</span>
                     </button>
@@ -466,7 +713,7 @@
                         Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
                     </div>
                     <div class="form-control-description one-line without-padding">
-                        <span>Max possible emission of tokens, no more tokens can be minted.</span>
+                        <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">

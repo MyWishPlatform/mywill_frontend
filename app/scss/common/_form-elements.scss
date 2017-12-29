@@ -46,7 +46,7 @@
   &.form-control-description_two-row {
     line-height: 9.5em;
   }
-  span {
+  &__text {
     font-size: 1.1em;
     color: #878787;
     display: inline-block;
@@ -242,6 +242,13 @@
 }
 
 .form-control {
+  position: relative;
+  .input-after {
+    position: absolute;
+    right: 10px;
+    font-size: 1.5em;
+    top: 60%;
+  }
   &_label {
     line-height: 4.9em;
     .form-control-label {
@@ -386,6 +393,7 @@
     text-align: center;
     transition: opacity 0.1s linear;
     z-index: 2;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.1);
     &_on {
       right: 0.2em;
       left: 2em;

@@ -70,6 +70,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $scope.formData = {
             gaslimit: 50000,
             toAddress: $rootScope.currentUser.internal_address,
+            toBtcAddress: $rootScope.currentUser.internal_btc_address,
             wishAddress: APP_CONSTANTS.WISH.ADDRESS
         };
     };

@@ -1,9 +1,11 @@
 angular.module('Constants').constant('MENU_CONSTANTS', [
+
     {
         titleUserPar: 'email',
         icon: 'icon-account',
         route: 'main.profile',
-        hideForUser: 'is_ghost'
+        hideForUser: 'is_ghost',
+        noshow: true
     },{
         title: 'Settings',
         icon: 'icon-settings',
@@ -53,11 +55,10 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         static: true,
         url: 'support@mywillplatform.io',
         type: 'mail'
+    }, {
+        title: 'Log out',
+        icon: 'icon-exit',
+        route: 'exit',
+        hideForUser: 'is_ghost'
     }
-    // , {
-    //     title: 'Log out',
-    //     icon: 'icon-log-out',
-    //     route: 'exit',
-    //     hideForUser: 'is_ghost'
-    // }
 ]);

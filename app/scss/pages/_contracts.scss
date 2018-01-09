@@ -4,16 +4,10 @@
   }
   .main-section-chapter-fieldset {
     padding: 1.5em 0;
-    margin-top: 0;
-    line-height: 4.9em;
-    margin-right: 0;
     &:after, &:before {
       display: table;
       content: '';
       width: 100%;
-    }
-    + .main-section-chapter-fieldset {
-      margin-top: 1.5em;
     }
   }
   .contract-wallets-information-one-block {
@@ -85,4 +79,26 @@
 }
 .contract-show-button, .contract-name-text {
   vertical-align: middle;
+}
+
+@media screen and (max-width: 640px) {
+  .contracts-list-wrapper {
+    .main-section-chapter-fieldset {
+      padding-bottom: 0;
+    }
+  }
+  .contract-name-block {
+    margin-right: 0;
+    box-sizing: border-box;
+    max-width: 96%;
+  }
+  .contract-show-button {
+    float: left;
+  }
+  .contract-name-text {
+    display: block;
+    width: auto;
+    padding-right: 2em;
+    margin-right: 0;
+  }
 }

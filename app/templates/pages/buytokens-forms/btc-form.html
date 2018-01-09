@@ -33,7 +33,7 @@
                 <div class="form-control">
                     <label class="form-control-label">Send your BTC to:</label>
                     <input type="text" class="form-control-input form-control-input--wish"
-                           disabled ng-model="formData.toAddress">
+                           disabled ng-model="formData.toBtcAddress">
                 </div>
             </div>
 
@@ -42,17 +42,17 @@
                     <span class="form-control-label">&nbsp;</span>
                     <button class="btn btn-back center-input-field"
                             clipboard supported="supported"
-                            text="formData.toAddress"
-                            on-copied="successCodeCopy(false, 'to_address')"
+                            text="formData.toBtcAddress"
+                            on-copied="successCodeCopy(false, 'to_btc_address')"
                             on-error="failCodeCopy(err)"
-                            ng-show="!copied['to_address']"
+                            ng-show="!copied['to_btc_address']"
                             type="button">
                         <span>&nbsp;&nbsp;&nbsp;Copy&nbsp;&nbsp;&nbsp;</span>
                     </button>
 
                     <button class="btn btn-as-link center-input-field"
                             disabled
-                            ng-if="copied['to_address']"
+                            ng-if="copied['to_btc_address']"
                             type="button">
                         <span>&nbsp;&nbsp;Copied&nbsp;&nbsp;</span>
                     </button>

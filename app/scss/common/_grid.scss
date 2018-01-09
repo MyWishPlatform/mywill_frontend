@@ -229,6 +229,12 @@
   }
 }
 
+@media screen and (max-width: 640px) {
+  .grid-row {
+    margin-left: -1.5%;
+    margin-right: -1.5%;
+  }
+}
 
 @media screen and (min-width: 581px) {
   .show-ls {

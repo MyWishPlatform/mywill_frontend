@@ -1,0 +1,18 @@
+<div class="main-section-chapter-title">
+    <i class="main-section-chapter-title_icon icon-crowdsale" ng-class="contractTypesIcons[contract.contract_type]"></i>
+    <span class="main-section-chapter-title_text">{{contract.name}}</span>
+</div>
+<div class="contract-status-name float-right mobile-width-100" ng-class="'contract-status-' + stateValue">
+    <div class="contract-status-text">
+        <span>{{stateTitle}}</span>
+    </div>
+</div>
+<div class="clearfix contract-form-fieldset with-border" ng-if="contract.balance">
+    <div class="contract-preview-base-font">
+        <span class="contract-balance-title">Contract balance</span>&nbsp;&nbsp;
+        <span class="contract-balance-value">
+            <span ng-bind="(contract.balance || 0 | number).replace($root.numberReplacer, ' ')"></span>&nbsp;ETH&nbsp;&nbsp;
+        </span>
+    </div>
+</div>
+<div class="clearfix"></div>

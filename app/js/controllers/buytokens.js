@@ -39,8 +39,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(16),
             from: $scope.formData.address,
             to: $scope.formData.toAddress,
-            gas: $scope.formData.gaslimit,
-            gasPrice: 25 * Math.pow(10, 9)
+            gas: $scope.formData.gaslimit
         }, function() {
             console.log(arguments);
         });
@@ -69,8 +68,9 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
     var resetForm = function() {
         $scope.formData = {
-            gaslimit: 30000,
+            gaslimit: 100000,
             toAddress: $rootScope.currentUser.internal_address,
+            toBtcAddress: $rootScope.currentUser.internal_btc_address,
             wishAddress: APP_CONSTANTS.WISH.ADDRESS
         };
     };

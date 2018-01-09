@@ -187,6 +187,23 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     };
     $scope.resetForms();
 
+    $scope.amountBonusChartData = [];
+
+    $scope.createAmountBonusChartData = function() {
+        var firstBonus = $scope.request.amount_bonuses[0];
+        var lastBonus = $scope.request.amount_bonuses[$scope.request.amount_bonuses.length - 1];
+        var prevItem = false;
+
+        $scope.request.amount_bonuses.map(function(item) {
+            $scope.amountBonusChartData.push({
+                left: prevItem ? prevItem.max_amount : 0,
+                width: item.max_value - item.min_value,
+                height: item.percentage
+            });
+            prevItem = item;
+        });
+    };
+
 }).directive('ngStartEndDateValidate', function () {
     return {
         require: 'ngModel',

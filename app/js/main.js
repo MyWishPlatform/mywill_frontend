@@ -251,7 +251,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 return commaSeparateNumber(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
-
                 var plainNumber = viewValue.replace(/[\,\-\+]/g, '');
                 var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
                 if (!valid) {
@@ -259,6 +258,21 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                         ctrl.$setViewValue(oldValue);
                     }
                 }
+
+                if (!isNaN(plainNumber) && ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined))) {
+                    var val = new BigNumber(plainNumber);
+
+                    var rate = scope.commaseparator.rate || {};
+                    rate.min = rate.min || 1;
+                    rate.max = rate.max || 1;
+
+                    var minValue = scope.commaseparator.min ? new BigNumber(scope.commaseparator.min).div(rate.min) : false;
+                    var maxValue = scope.commaseparator.max ? new BigNumber(scope.commaseparator.max).div(rate.max) : false;
+                    console.log(minValue, maxValue, val);
+                    var minMaxValidation = (minValue ? val.minus(minValue) >= 0 : true) && (maxValue ? val.minus(maxValue) <= 0 : true);
+                    ctrl.$setValidity('min-max', minMaxValidation);
+                }
+
                 if (valid || !plainNumber) {
                     oldValue = plainNumber;
                     if (valid) {
@@ -275,7 +289,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                     }
                     return oldValue;
                 }
+
             });
+
+
 
             if (scope.commaseparator.notNull) {
                 ctrl.$parsers.unshift(function(value) {
@@ -288,9 +305,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             if (scope.commaseparator.checkWith) {
                 ctrl.$parsers.unshift(function(value) {
                     if (!value) return;
-                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
-                    var checkModelValue = scope.commaseparator.fullModel[scope.commaseparator.checkWith];
-                    var valid = plainNumber <= checkModelValue;
+                    var plainNumber = new BigNumber(value.replace(/[\,\.\-\+]/g, ''));
+                    var checkModelValue = new BigNumber(scope.commaseparator.fullModel[scope.commaseparator.checkWith] || 0);
+                    var rangeValues = plainNumber.minus(checkModelValue);
+                    var valid = !scope.commaseparator.notEqual ? rangeValues <= 0 : rangeValues < 0;
                     ctrl.$setValidity('check-value', valid);
                     return value;
                 });

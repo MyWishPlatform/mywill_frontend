@@ -491,16 +491,22 @@
             </div>
         </div>
     </div>
-
 </form>
+
 <form class="main-section-chapter" name="amountBonusForm" ng-class="{'no-active': !saleTokensParamsForm.$valid}">
     <div class="main-section-chapter-fieldset">
-        <div class="relative contract-form-fieldset with-padding" ng-repeat="bonus in request.amount_bonuses">
+        <div class="relative contract-form-fieldset with-padding"
+             ng-repeat="bonus in request.amount_bonuses"
+             ng-init="$index ? bonus.min_amount = request.amount_bonuses[$index-1].max_amount : false">
+
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-1-6 grid-cell-ps-1-4 grid-cell-vs-1-3">
                     <div class="form-control">
                         <label class="form-control-label">Bonus</label>
-                        <input class="form-control-input" required ng-model="bonus.percentage"/>
+                        <input class="form-control-input" type="number"
+                               placeholder="50"
+                               ng-change="createAmountBonusChartData()"
+                               step="0.1" max="100" min="0.1" required ng-model="bonus.percentage"/>
                         <div class="input-after">%</div>
                     </div>
                 </div>
@@ -509,7 +515,6 @@
                     <span class="form-control-description__text">Usually 0.1-100%.  How many extra tokens will be sent to contributor.</span>
                 </div>
             </div>
-
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control">
@@ -518,9 +523,11 @@
                             <img src="/static/images/right-arrow.svg" alt="">
                         </label>
                         <input type="text"
-                               ng-model="bonus.amount"
+                               placeholder="10"
+                               ng-model="bonus.min_amount"
+                               ng-change="createAmountBonusChartData()"
                                required
-                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               commaseparator="{min: !$index ? '0.1' : request.amount_bonuses[$index-1].max_amount}"
                                class="form-control-input"/>
                         <div class="input-after">ETH</div>
                     </div>
@@ -532,7 +539,6 @@
                     </span>
                 </div>
             </div>
-
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control">
@@ -541,9 +547,11 @@
                             Max Amount
                         </label>
                         <input type="text"
-                               ng-model="bonus.amount"
+                               ng-model="bonus.max_amount"
                                required
-                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               ng-change="createAmountBonusChartData()"
+                               placeholder="1000"
+                               commaseparator="{min: bonus.min_amount}"
                                class="form-control-input"/>
                         <div class="input-after">ETH</div>
                     </div>
@@ -555,6 +563,7 @@
                     </span>
                 </div>
             </div>
+
             <i class="icon-cancel float-right form-fieldset-info-button"
                ng-click="deleteAmountBonus(bonus)"
                ng-if="request.amount_bonuses.length"></i>
@@ -565,7 +574,9 @@
                     <span class="form-control-description__text">You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions</span><br/>
                 </div>
                 <div class="grid-cell grid-cell-ls-1 form-control-description" ng-class="{'grid-cell-2-5':!request.amount_bonuses.length, 'grid-cell-1': request.amount_bonuses.length}">
-                    <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addAmountBonus();">
+                    <button class="btn btn-transparent with-icon mobile-width-100"
+                            ng-disabled="!amountBonusForm.$valid"
+                            type="button" ng-click="addAmountBonus();">
                         <i class="icon-create-contract"></i>
                         <span ng-if="!request.amount_bonuses.length">Add Amount Bonus</span>
                         <span ng-if="request.amount_bonuses.length">Add Other Amount Bonus</span>
@@ -573,6 +584,28 @@
                 </div>
             </div>
         </div>
+
+        <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="amountBonusForm.$valid">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label">
+                        Тут можно воткнуть какой-то заголовок
+                    </div>
+                    <div class="form-control-description one-line without-padding">
+                        <span class="form-control-description__text">А тут можно вставить описание этой визуализации</span>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1">
+                    <svg style="width: 100%;" width="1000px" height="200px">
+                        <polygon ng-repeat="bonus in request.amount_bonuses"
+                                ng-attr-points="{{'0,0 0,150 150,150 150,0'}}"
+                                fill="rgb(234,134,34)" stroke-width="1" stroke="rgb(0,0,0)"/>
+
+                    </svg>
+                </div>
+            </div>
+        </div>
+
     </div>
 </form>
 

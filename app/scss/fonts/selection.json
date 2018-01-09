@@ -122,7 +122,7 @@
       "properties": {
         "order": 72,
         "id": 1,
-        "name": "rocket-ship-(1)",
+        "name": "rocket-ship",
         "prevSize": 32,
         "code": 59704
       },
@@ -1722,6 +1722,39 @@
       "setIdx": 10,
       "setId": 13,
       "iconIdx": 2
+    },
+    {
+      "icon": {
+        "paths": [
+          "M768 640v-128h-320v-128h320v-128l192 192zM704 576v256h-320v192l-384-192v-832h704v320h-64v-256h-512l256 128v576h256v-192z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "exit",
+          "signout",
+          "logout",
+          "quit",
+          "close"
+        ],
+        "grid": 16
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 1,
+        "id": 2,
+        "prevSize": 32,
+        "code": 59705,
+        "name": "exit"
+      },
+      "setIdx": 12,
+      "setId": 11,
+      "iconIdx": 0
     }
   ],
   "height": 1024,

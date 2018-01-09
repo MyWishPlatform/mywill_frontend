@@ -71,7 +71,7 @@
 
                 <div class="form-control">
                     <div class="form-control-description one-line">
-                        <span>Gas limit 30.000</span>
+                        <span>Gas limit 100.000</span>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?sendMode=ether&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?sendMode=ether&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount + '#send-transaction' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;Pay&nbsp;&nbsp;&nbsp;</span>
                     </a>
 

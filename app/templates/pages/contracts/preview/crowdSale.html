@@ -197,7 +197,9 @@
                             <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <b ng-bind="details.admin_address"></b>
+                            <a href="https://etherscan.io/address/{{details.admin_address}}"
+                               target="_blank"
+                               ng-bind="details.admin_address"></a>
                         </div>
                     </div>
                 </div>
@@ -213,7 +215,9 @@
                                 <img class="identicon-image" ng-src="{{generateIdenticon(holder.address)}}"/>
                             </span>
                             <div class="contract-wallet-information-wallet">
-                                <span ng-bind="holder.address"></span>
+                                <a href="https://etherscan.io/address/{{holder.address}}"
+                                   target="_blank"
+                                   ng-bind="holder.address"></a>
                             </div>
                         </div>
                         <div class="clearfix"><br/></div>

@@ -37,15 +37,28 @@
         }
     }
     .attention-text {
-        margin-top: 30px;
         font-size: 1.2em;
         color: #616161;
         line-height: 1.25em;
+        &:not(.without-top) {
+            margin-top: 30px;
+        }
+        &.after-form-title {
+
+        }
         &__title {
             color: #E84848;
             i {
                 margin-right: 0.5em;
             }
+        }
+    }
+    .attention-text-container {
+        line-height: 5.5em;
+        padding-bottom: 2em;
+        .attention-text {
+            vertical-align: middle;
+            display: inline-block;
         }
     }
     .choose {

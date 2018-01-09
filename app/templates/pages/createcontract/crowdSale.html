@@ -596,12 +596,7 @@
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1">
-                    <svg style="width: 100%;" width="1000px" height="200px">
-                        <polygon ng-repeat="bonus in request.amount_bonuses"
-                                ng-attr-points="{{'0,0 0,150 150,150 150,0'}}"
-                                fill="rgb(234,134,34)" stroke-width="1" stroke="rgb(0,0,0)"/>
-
-                    </svg>
+                    <div ng-bar-chart="{data: amountBonusChartData}"></div>
                 </div>
             </div>
         </div>

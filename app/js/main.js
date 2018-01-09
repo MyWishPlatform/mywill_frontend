@@ -268,7 +268,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
                     var minValue = scope.commaseparator.min ? new BigNumber(scope.commaseparator.min).div(rate.min) : false;
                     var maxValue = scope.commaseparator.max ? new BigNumber(scope.commaseparator.max).div(rate.max) : false;
-                    console.log(minValue, maxValue, val);
+
                     var minMaxValidation = (minValue ? val.minus(minValue) >= 0 : true) && (maxValue ? val.minus(maxValue) <= 0 : true);
                     ctrl.$setValidity('min-max', minMaxValidation);
                 }

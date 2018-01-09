@@ -187,21 +187,24 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     };
     $scope.resetForms();
 
-    $scope.amountBonusChartData = [];
-
     $scope.createAmountBonusChartData = function() {
+
+        $scope.amountBonusChartData = [];
+
         var firstBonus = $scope.request.amount_bonuses[0];
         var lastBonus = $scope.request.amount_bonuses[$scope.request.amount_bonuses.length - 1];
-        var prevItem = false;
+
+        if (isNaN(lastBonus.max_amount) || isNaN(firstBonus.min_amount)) return;
 
         $scope.request.amount_bonuses.map(function(item) {
-            $scope.amountBonusChartData.push({
-                left: prevItem ? prevItem.max_amount : 0,
-                width: item.max_value - item.min_value,
-                height: item.percentage
-            });
-            prevItem = item;
+            var chartItem = {
+                valueY: item.percentage,
+                maxValueX: item.max_amount,
+                minValueX: item.min_amount
+            };
+            $scope.amountBonusChartData.push(chartItem);
         });
+
     };
 
 }).directive('ngStartEndDateValidate', function () {

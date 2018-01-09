@@ -53,7 +53,7 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         title: 'Support',
         icon: 'icon-phone-call',
         static: true,
-        url: 'support@mywillplatform.io',
+        url: 'support@mywish.io',
         type: 'mail'
     }, {
         title: 'Log out',

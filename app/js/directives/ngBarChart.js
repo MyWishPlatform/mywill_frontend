@@ -22,19 +22,26 @@ module.directive('ngBarChart', function($rootScope) {
 
                 var onePercentForPixel = new BigNumber(element.width()).div(100);
 
-                var leftOffset = new BigNumber('0');
+                $scope.originalSvgHeight = 400;
+                $scope.svgHeight = $scope.originalSvgHeight * (element.width() / 1000);
+                element.height($scope.svgHeight);
+
                 data.map(function(dataItem) {
+                    var leftOffset = new BigNumber(dataItem.minValueX).minus(firstElement.minValueX).div(onePercent).times(onePercentForPixel);
+
+                    var redColor = 225 - Math.round(4.5 * Math.max(0, dataItem.valueY - 50));
+                    var greenColor = 225 - Math.round(4.5 * Math.max(0, 50 - dataItem.valueY));
+
+
+                    var blueColor = 0;
+
                     var currentChartItem = {
                         width: new BigNumber(dataItem.maxValueX).minus(dataItem.minValueX).div(onePercent).times(onePercentForPixel).plus(leftOffset).round(2).toString(10),
-                        left: leftOffset.round(2).toString(10),
-                        height: 200 * (dataItem.valueY / 100),
-                        color: [
-                            127 + Math.round(128 * (100 - dataItem.valueY) / 100) - Math.round(128 * dataItem.valueY / 100), 127 + Math.round(128 * dataItem.valueY / 100) - Math.round(128 * (100 - dataItem.valueY) / 100),
-                            255 - Math.max(Math.round(127 * (100 - dataItem.valueY) / 100), Math.round(127 * dataItem.valueY / 100))
-                        ]
+                        left: leftOffset.plus(1).round(2).toString(10),
+                        height: $scope.svgHeight * (dataItem.valueY / 100),
+                        color: [redColor, greenColor, blueColor]
                     };
                     $scope.amountBonusChartData.push(currentChartItem);
-                    leftOffset = new BigNumber(currentChartItem.width);
                 });
             };
 

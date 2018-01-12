@@ -1,4 +1,3 @@
-
 <div class="main-section-chapter">
     <form class="main-section-chapter-fieldset" name="contractNameForm">
         <div class="main-section-chapter-title">
@@ -77,6 +76,7 @@
         </div>
     </form>
 </div>
+
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset with-padding">
@@ -191,10 +191,10 @@
                                name="checkStartDate"
                                ng-model="request.start_date"
                                tabindex="-1"
-                               ng-start-end-date-validate="{
-                                dates: request,
-                                watch_date: 'stop_date'
-                            }"/>
+                               type="number"
+                               ng-attr-min="{{minStartDate.format('X')}}"
+                               ng-attr-max="{{dates.endDate.clone().add(-1, 'months').format('X')}}"/>
+
                         <input type="datetime" required
                                id="start-date"
                                ng-model="dates.startDate"
@@ -228,19 +228,20 @@
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
                     <div class="form-control">
-                        <label for="start-date" class="form-control-label">
+                        <label for="end-date" class="form-control-label">
                             <i class="icon-waiting-1 form-control-label-icon"></i>
                             Finish date&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
                         </label>
+
                         <input class="input-for-group-fields"
                                tabindex="-1"
                                readonly
                                name="checkStopDate"
                                ng-model="request.stop_date"
-                               ng-start-end-date-validate="{
-                                dates: request,
-                                watch_date: 'start_date'
-                            }"/>
+                               type="number"
+                               step="1"
+                               ng-attr-min="{{dates.startDate.clone().add(1, 'months').seconds(0).format('X')}}"/>
+
                         <input type="datetime" required
                                id="end-date"
                                ng-model="dates.endDate"
@@ -330,15 +331,17 @@
 
 <form class="main-section-chapter" name="timeBonusForm" ng-class="{'no-active': !saleTokensParamsForm.$valid}">
     <div class="main-section-chapter-fieldset">
-        <div class="relative contract-form-fieldset with-padding" ng-repeat="bonus in request.tokens_bonuses">
+        <div class="relative contract-form-fieldset with-padding"
+             ng-repeat="bonus in request.tokens_bonuses"
+             ng-init="prevBonus = $index ? request.tokens_bonuses[$index-1] : false">
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-1-6 grid-cell-ps-1-4 grid-cell-vs-1-3">
                     <div class="form-control">
                         <label class="form-control-label">Bonus</label>
-                        <input placeholder="1"
-                               commaseparator="{notNull: true, regexp: '^(([0]{1})|([1-9]{1}([0-9]{1})?))([.]([0-9]{1})?)?$'}"
-                               pattern="^([0]|([1-9]{1}([0-9]{1})?))([.][0-9])?$"
-                               class="form-control-input" required ng-model="bonus.percentage"/>
+                        <input class="form-control-input" type="number"
+                               placeholder="50"
+                               ng-change="createTokensBonusChartData()"
+                               step="0.1" max="100" min="0.1" required ng-model="bonus.percentage"/>
                         <div class="input-after">%</div>
                     </div>
                 </div>
@@ -347,11 +350,12 @@
                     <span class="form-control-description__text">Usually 0.1-100%.  How many extra tokens will be sent to contributor.</span>
                 </div>
             </div><br/><br/>
+
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
                     <div class="form-control">
                         <div class="checkbox-decoration">
-                            <label for="is_transferable_at_once" class="form-control-label inline-label">
+                            <label class="form-control-label inline-label">
                                 <i class="icon-padlock form-control-label-icon"></i>
                                 Sold tokens bonus:
                             </label>
@@ -361,7 +365,8 @@
                 <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
                     <div class="form-control">
                         <label class="checkbox-decoration">
-                            <input type="checkbox" ng-model="bonus.isTokensAmount"/>
+                            <input type="checkbox"
+                                   ng-required="!bonus.isTimesAmount" ng-model="bonus.isTokensAmount"/>
                             <span class="checkbox-decoration-displaying">
                                 <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                                 <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
@@ -373,8 +378,6 @@
                     <span class="form-control-description__text">Specify how many tokens shall be sold before bonus activation and when bonus deactivated</span>
                 </div>
             </div>
-
-
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
                     <div class="form-control">
@@ -382,11 +385,12 @@
                             Tokens from&nbsp;&nbsp;
                             <img src="/static/images/right-arrow.svg" alt="">
                         </label>
+
                         <input type="text"
                                ng-model="bonus.amount_from"
-                               required
+                               ng-required="bonus.isTokensAmount"
                                ng-disabled="!bonus.isTokensAmount"
-                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               commaseparator="{min: !$index ? '0.1' : request.tokens_bonuses[$index-1].amount_to}"
                                class="form-control-input"/>
                         <div class="input-after">{{request.token_short_name}}</div>
                     </div>
@@ -401,18 +405,19 @@
                         <input type="text"
                                ng-disabled="!bonus.isTokensAmount"
                                ng-model="bonus.amount_to"
-                               required
-                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               ng-required="bonus.isTokensAmount"
+                               commaseparator="{min: bonus.amount_from}"
                                class="form-control-input"/>
                         <div class="input-after">{{request.token_short_name}}</div>
                     </div>
                 </div>
             </div><br/><br/>
+
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
                     <div class="form-control">
                         <div class="checkbox-decoration">
-                            <label for="is_transferable_at_once" class="form-control-label inline-label">
+                            <label class="form-control-label inline-label">
                                 <i class="icon-padlock form-control-label-icon"></i>
                                 Time bonus:
                             </label>
@@ -422,7 +427,7 @@
                 <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
                     <div class="form-control">
                         <label class="checkbox-decoration">
-                            <input type="checkbox" ng-model="bonus.isTimesAmount"/>
+                            <input type="checkbox" ng-model="bonus.isTimesAmount" ng-required="!bonus.isTokensAmount"/>
                             <span class="checkbox-decoration-displaying">
                                 <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                                 <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
@@ -434,42 +439,102 @@
                     <span class="form-control-description__text">Specify the time frame when bonus is active for everyone</span>
                 </div>
             </div>
-            <div class="grid-row contract-form-row">
-                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control">
-                        <label class="form-control-label">
-                            Time from&nbsp;&nbsp;
-                            <img src="/static/images/right-arrow.svg" alt="">
-                        </label>
-                        <input ng-model="bonus.timestamp_from"
-                               ng-attr-name="{{'bonus_date_from_' + $index}}"
-                               class="input-for-group-fields"
-                               ng-check-dates="{
-                                minDate: 'start_date',
-                                allData: request
-                               }">
-                        <input type="text"
-                               ng-model="bonus.time_from"
-                               required
-                               ng-disabled="!bonus.isTimesAmount"
-                               class="form-control-input form-control-input-date"/>
+            <div ng-if="bonus.isTimesAmount">
+                <div class="grid-row contract-form-row">
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
+                        <div class="form-control" ng-init="">
+                            <label class="form-control-label">
+                                Time from
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
+                            </label>
+
+                            <input class="input-for-group-fields"
+                                   tabindex="-1"
+                                   readonly
+                                   ng-attr-name="{{'bonus-time-from-' + $index}}"
+                                   type="number"
+                                   ng-attr-min="{{prevBonus ? prevBonus.date_to.format('X') * 1 : dates.startDate.format('X') }}"
+                                   ng-attr-max="{{dates.endDate.format('X')}}"
+                                   ng-if="bonus.isTimesAmount"
+                                   ng-model="bonus.check_from"/>
+
+                            <input type="text"
+                                   ng-model="bonus.date_from"
+                                   date-change="onChangeBonusDate"
+                                   auto-close="true"
+                                   ng-required="bonus.isTimesAmount"
+                                   readonly
+                                   date-time
+                                   min-view="date"
+                                   view="year"
+                                   format="YYYY-MM-DD"
+                                   position="fixed"
+                                   ng-disabled="!bonus.isTimesAmount"
+                                   ng-attr-invalid="{{!timeBonusForm['bonus-time-from-' + $index].$valid}}"
+                                   class="form-control-input form-control-input-date"/>
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                        <div class="form-control">
+                            <label for="start-date" class="form-control-label hide-vs">&nbsp;</label>
+                            <div class="form-control-input"
+                                 ng-model="bonus.time_from" ng-time-picker
+                                 ng-disabled="!bonus.isTimesAmount"
+                                 ng-change-data="{model: bonus, field: 'time_from'}"
+                                 ng-attr-invalid="{{bonus.isTimesAmount && !timeBonusForm['bonus-time-from-' + $index].$valid}}"
+                                 ng-change="onChangeBonusTime">&nbsp;</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control">
-                        <label class="form-control-label">
-                            <img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;
-                            Time to
-                        </label>
-                        <input type="text"
-                               ng-disabled="!bonus.isTimesAmount"
-                               ng-model="bonus.time_to"
-                               required
-                               class="form-control-input form-control-input-date"/>
+                <div class="grid-row contract-form-row">
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
+                        <div class="form-control">
+                            <label class="form-control-label">
+                                Time to
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
+                            </label>
+
+                            <input class="input-for-group-fields"
+                                   tabindex="-1"
+                                   readonly
+                                   ng-if="bonus.isTimesAmount"
+                                   ng-attr-name="{{'bonus-time-to-' + $index}}"
+                                   type="number"
+                                   ng-attr-min="{{bonus.date_from.format('X') * 1}}"
+                                   ng-attr-max="{{dates.endDate.format('X') * 1}}"
+                                   ng-model="bonus.check_to"/>
+
+
+                            <input type="text"
+                                   ng-model="bonus.date_to"
+                                   date-change="onChangeBonusDate"
+                                   auto-close="true"
+                                   readonly
+                                   date-time
+                                   min-view="date"
+                                   view="year"
+                                   format="YYYY-MM-DD"
+                                   position="fixed"
+                                   ng-required="bonus.isTimesAmount"
+                                   ng-attr-invalid="{{!timeBonusForm['bonus-time-to-' + $index].$valid}}"
+                                   ng-disabled="!bonus.isTimesAmount"
+                                   class="form-control-input form-control-input-date"/>
+                        </div>
+                    </div>
+
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                        <div class="form-control">
+                            <label class="form-control-label hide-vs">&nbsp;</label>
+                            <div class="form-control-input"
+                                 ng-disabled="!bonus.isTimesAmount"
+                                 ng-model="bonus.time_to" ng-time-picker
+                                 ng-change-data="{model: bonus, field: 'time_to'}"
+                                 ng-attr-invalid="{{bonus.isTimesAmount && !timeBonusForm['bonus-time-to-' + $index].$valid}}"
+                                 ng-change="onChangeBonusTime">&nbsp;</div>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
             <i class="icon-cancel float-right form-fieldset-info-button"
@@ -482,7 +547,9 @@
                     <span class="form-control-description__text"> You can define bonus depending on amount of sold tokens and time. For example, give extra 10% to the first week contributors</span><br/>
                 </div>
                 <div class="grid-cell grid-cell-ls-1 form-control-description" ng-class="{'grid-cell-2-5':!request.tokens_bonuses.length, 'grid-cell-1': request.tokens_bonuses.length}">
-                    <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addTokenBonus();">
+                    <button class="btn btn-transparent with-icon mobile-width-100"
+                            ng-disabled="!timeBonusForm.$valid"
+                            type="button" ng-click="addTokenBonus();">
                         <i class="icon-create-contract"></i>
                         <span ng-if="!request.tokens_bonuses.length">Add Time Bonus</span>
                         <span ng-if="request.tokens_bonuses.length">Add Other Time Bonus</span>
@@ -492,7 +559,6 @@
         </div>
     </div>
 </form>
-
 <form class="main-section-chapter" name="amountBonusForm" ng-class="{'no-active': !saleTokensParamsForm.$valid}">
     <div class="main-section-chapter-fieldset">
         <div class="relative contract-form-fieldset with-padding"
@@ -585,7 +651,7 @@
             </div>
         </div>
 
-        <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="amountBonusForm.$valid">
+        <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="amountBonusChartData.length && amountBonusForm.$valid">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
@@ -626,9 +692,6 @@
             </div>
         </div>
     </div>
-
-
-
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset relative with-padding"
              ng-repeat="recipient in request.token_holders">
@@ -687,24 +750,22 @@
                                 </label>
                             </div>
                             <div class="grid-cell grid-cell-3-5">
-
-                                <input ng-model="recipient.freeze_date"
+                                <input ng-model="recipient.parsed_freeze_date"
                                        ng-attr-name="{{'recipient_freeze_date_' + $index}}"
                                        class="input-for-group-fields"
+                                       type="number"
                                        ng-if="recipient.isFrozen"
-                                       ng-check-dates="{
-                                        minDate: 'stop_date',
-                                        allData: request
-                                       }">
+                                       ng-attr-min="{{request.stop_date}}">
 
                                 <input type="datetime"
                                        ng-required="{{recipient.isFrozen}}"
                                        ng-disabled="!recipient.isFrozen"
                                        ng-model="recipient.freeze_date"
+                                       date-change="onChangeDateOfRecipient"
                                        auto-close="true"
                                        readonly
                                        date-time
-                                       min-date="endDate"
+                                       min-date="minStartDate"
                                        min-view="date"
                                        view="year"
                                        format="YYYY-MM-DD"
@@ -761,16 +822,7 @@
             </div>
         </div>
     </div>
-    <!-- div class="main-section-chapter-fieldset main-section-chapter-fieldset-error-info" ng-if="tokensAmountError">
-        <i class="icon-attention"></i>
-        <p>
-            Owner, Attention!<br/>
-            The value you set out in the Soft Cap and Token distribution in total higher than Hard Cap/ Please decrease
-            the values set in Soft Cap and Token distribution or increase the Hard Cap
-        </p>
-    </div -->
 </form>
-
 
 <div class="main-section-chapter-fieldset custom-fieldset">
     <div class="contract-form-fieldset"><br/>
@@ -807,3 +859,13 @@
         </div>
     </div>
 </div>
+
+
+<!-- div class="main-section-chapter-fieldset main-section-chapter-fieldset-error-info" ng-if="tokensAmountError">
+    <i class="icon-attention"></i>
+    <p>
+        Owner, Attention!<br/>
+        The value you set out in the Soft Cap and Token distribution in total higher than Hard Cap/ Please decrease
+        the values set in Soft Cap and Token distribution or increase the Hard Cap
+    </p>
+</div -->

@@ -8,6 +8,7 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
         scope: {
             ngTimePicker: '=',
             ngChange: '=',
+            ngChangeData: '=',
             ngModel: '='
         },
         link: function($scope, element, attr, ngModel) {
@@ -41,7 +42,7 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
                     currentHour: $scope.ngModel.hours || 0,
                     currentMinute: $scope.ngModel.minutes || 0
                 };
-                $scope.ngChange ? $scope.ngChange() : false;
+                $scope.ngChange ? $scope.ngChange($scope.ngChangeData || undefined) : false;
             });
 
             var upFunc = function() {

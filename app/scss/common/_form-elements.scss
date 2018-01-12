@@ -123,7 +123,7 @@
     padding-bottom: 0.3em;
     line-height: 1.95em;
   }
-  &:disabled {
+  &:disabled, &[disabled] {
     background-color: #f0f0f0;
   }
   &:not(&_short) {
@@ -155,7 +155,7 @@
   &:-ms-input-placeholder      {color:#999;}
 
   form.ng-submitted &.ng-invalid, &.ng-invalid:focus, &.ng-touched.ng-invalid, &[invalid="true"] {
-    &:not(:disabled) {
+    &:not(:disabled), &:not([disabled]) {
       border-color: #f91c1c;
     }
     &:focus {

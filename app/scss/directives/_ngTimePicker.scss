@@ -117,5 +117,20 @@
         text-align: center;
       }
     }
+    &[disabled] {
+      cursor: default;
+      .ng-time-picker-input {
+        visibility: hidden;
+      }
+
+      .ng-time-picker-value-group {
+        cursor: default;
+      }
+      .ng-time-picker-values-list-container {
+        &:before, &:after {
+          content: none;
+        }
+      }
+    }
   }
 }

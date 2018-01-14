@@ -213,6 +213,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var offset = moment().utcOffset() / 60;
     $rootScope.currentTimezone = (offset > 0 ? '+' : '') + offset;
 
+    $rootScope.bigNumber = function(value) {
+        if (!value || isNaN(value)) return;
+        return new BigNumber(value);
+    };
+
 }).config(function($httpProvider, $qProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -233,7 +238,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         return values.join('.');
     }
-}).directive('commaseparator', function($filter) {
+}).directive('commaseparator', function($filter, $timeout) {
     'use strict';
     var commaSeparateNumber = $filter('separateNumber');
     return {
@@ -259,7 +264,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                     }
                 }
 
-                if (!isNaN(plainNumber) && ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined))) {
+                if (plainNumber && !isNaN(plainNumber) && ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined))) {
                     var val = new BigNumber(plainNumber);
 
                     var rate = scope.commaseparator.rate || {};
@@ -270,6 +275,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                     var maxValue = scope.commaseparator.max ? new BigNumber(scope.commaseparator.max).div(rate.max) : false;
 
                     var minMaxValidation = (minValue ? val.minus(minValue) >= 0 : true) && (maxValue ? val.minus(maxValue) <= 0 : true);
+
                     ctrl.$setValidity('min-max', minMaxValidation);
                 }
 
@@ -289,10 +295,16 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                     }
                     return oldValue;
                 }
-
             });
 
-
+            if ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined)) {
+                scope.$watchGroup(['commaseparator.max', 'commaseparator.min', 'commaseparator.rate'], function(newValue, oldValue) {
+                    if (newValue === oldValue) return;
+                    $timeout(function() {
+                        ctrl.$$parseAndValidate();
+                    });
+                });
+            }
 
             if (scope.commaseparator.notNull) {
                 ctrl.$parsers.unshift(function(value) {
@@ -303,7 +315,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 });
             }
             if (scope.commaseparator.checkWith) {
-                ctrl.$parsers.unshift(function(value) {
+                ctrl.$parsers.push(function(value) {
                     if (!value) return;
                     var plainNumber = new BigNumber(value.replace(/[\,\.\-\+]/g, ''));
                     var checkModelValue = new BigNumber(scope.commaseparator.fullModel[scope.commaseparator.checkWith] || 0);
@@ -319,6 +331,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
                 scope.$watch('commaseparator.fullModel.' + scope.commaseparator.checkWith, function() {
                     ctrl.$$parseAndValidate();
+                });
+            }
+
+            if (scope.commaseparator.autoCheck) {
+                $timeout(function() {
+                    ctrl.$$parseAndValidate();
+                    ctrl.$setTouched();
                 });
             }
         }

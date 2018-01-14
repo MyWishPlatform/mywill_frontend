@@ -356,7 +356,6 @@
                     <div class="form-control">
                         <div class="checkbox-decoration">
                             <label class="form-control-label inline-label">
-                                <i class="icon-padlock form-control-label-icon"></i>
                                 Sold tokens bonus:
                             </label>
                         </div>
@@ -366,7 +365,9 @@
                     <div class="form-control">
                         <label class="checkbox-decoration">
                             <input type="checkbox"
-                                   ng-required="!bonus.isTimesAmount" ng-model="bonus.isTokensAmount"/>
+                                   ng-required="!bonus.isTimesAmount"
+                                   ng-change="changeBonusTokensTrigger(bonus)"
+                                   ng-model="bonus.isTokensAmount"/>
                             <span class="checkbox-decoration-displaying">
                                 <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                                 <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
@@ -378,7 +379,7 @@
                     <span class="form-control-description__text">Specify how many tokens shall be sold before bonus activation and when bonus deactivated</span>
                 </div>
             </div>
-            <div class="grid-row contract-form-row">
+            <div ng-if="bonus.isTokensAmount" class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
                     <div class="form-control">
                         <label class="form-control-label">
@@ -388,9 +389,9 @@
 
                         <input type="text"
                                ng-model="bonus.amount_from"
-                               ng-required="bonus.isTokensAmount"
-                               ng-disabled="!bonus.isTokensAmount"
-                               commaseparator="{min: !$index ? '0.1' : request.tokens_bonuses[$index-1].amount_to}"
+                               required
+                               ng-change="changeBonusTokensTrigger(bonus)"
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: bonus.forCheckTokens.prev, max: bigNumber(bonus.amount_to).minus('1'), autoCheck: true}"
                                class="form-control-input"/>
                         <div class="input-after">{{request.token_short_name}}</div>
                     </div>
@@ -403,10 +404,10 @@
                             Tokens to
                         </label>
                         <input type="text"
-                               ng-disabled="!bonus.isTokensAmount"
                                ng-model="bonus.amount_to"
-                               ng-required="bonus.isTokensAmount"
-                               commaseparator="{min: bonus.amount_from}"
+                               required
+                               ng-change="changeBonusTokensTrigger(bonus)"
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: bigNumber(bonus.amount_from).plus('1'), max: bonus.forCheckTokens.next || request.hard_cap, autoCheck: true}"
                                class="form-control-input"/>
                         <div class="input-after">{{request.token_short_name}}</div>
                     </div>
@@ -418,7 +419,6 @@
                     <div class="form-control">
                         <div class="checkbox-decoration">
                             <label class="form-control-label inline-label">
-                                <i class="icon-padlock form-control-label-icon"></i>
                                 Time bonus:
                             </label>
                         </div>
@@ -427,7 +427,9 @@
                 <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
                     <div class="form-control">
                         <label class="checkbox-decoration">
-                            <input type="checkbox" ng-model="bonus.isTimesAmount" ng-required="!bonus.isTokensAmount"/>
+                            <input type="checkbox" ng-model="bonus.isTimesAmount"
+                                   ng-change="changeBonusTimeTrigger(bonus)"
+                                   ng-required="!bonus.isTokensAmount"/>
                             <span class="checkbox-decoration-displaying">
                                 <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                                 <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
@@ -447,15 +449,14 @@
                                 Time from
                                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
                             </label>
-
                             <input class="input-for-group-fields"
                                    tabindex="-1"
                                    readonly
                                    ng-attr-name="{{'bonus-time-from-' + $index}}"
                                    type="number"
-                                   ng-attr-min="{{prevBonus ? prevBonus.date_to.format('X') * 1 : dates.startDate.format('X') }}"
-                                   ng-attr-max="{{dates.endDate.format('X')}}"
-                                   ng-if="bonus.isTimesAmount"
+                                   ng-change="changeBonusTimeTrigger(bonus)"
+                                   ng-attr-min="{{(bonus.forCheckDates.prev || dates.startDate).format('X') * 1}}"
+                                   ng-attr-max="{{bonus.date_to.format('X') * 1 - 60}}"
                                    ng-model="bonus.check_from"/>
 
                             <input type="text"
@@ -469,7 +470,6 @@
                                    view="year"
                                    format="YYYY-MM-DD"
                                    position="fixed"
-                                   ng-disabled="!bonus.isTimesAmount"
                                    ng-attr-invalid="{{!timeBonusForm['bonus-time-from-' + $index].$valid}}"
                                    class="form-control-input form-control-input-date"/>
                         </div>
@@ -479,9 +479,8 @@
                             <label for="start-date" class="form-control-label hide-vs">&nbsp;</label>
                             <div class="form-control-input"
                                  ng-model="bonus.time_from" ng-time-picker
-                                 ng-disabled="!bonus.isTimesAmount"
                                  ng-change-data="{model: bonus, field: 'time_from'}"
-                                 ng-attr-invalid="{{bonus.isTimesAmount && !timeBonusForm['bonus-time-from-' + $index].$valid}}"
+                                 ng-attr-invalid="{{!timeBonusForm['bonus-time-from-' + $index].$valid}}"
                                  ng-change="onChangeBonusTime">&nbsp;</div>
                         </div>
                     </div>
@@ -498,13 +497,12 @@
                             <input class="input-for-group-fields"
                                    tabindex="-1"
                                    readonly
-                                   ng-if="bonus.isTimesAmount"
+                                   ng-change="changeBonusTimeTrigger(bonus)"
                                    ng-attr-name="{{'bonus-time-to-' + $index}}"
                                    type="number"
-                                   ng-attr-min="{{bonus.date_from.format('X') * 1}}"
-                                   ng-attr-max="{{dates.endDate.format('X') * 1}}"
+                                   ng-attr-min="{{bonus.date_from.format('X') * 1 + 60}}"
+                                   ng-attr-max="{{(bonus.forCheckDates.next || dates.endDate).format('X') * 1}}"
                                    ng-model="bonus.check_to"/>
-
 
                             <input type="text"
                                    ng-model="bonus.date_to"
@@ -518,7 +516,6 @@
                                    position="fixed"
                                    ng-required="bonus.isTimesAmount"
                                    ng-attr-invalid="{{!timeBonusForm['bonus-time-to-' + $index].$valid}}"
-                                   ng-disabled="!bonus.isTimesAmount"
                                    class="form-control-input form-control-input-date"/>
                         </div>
                     </div>
@@ -527,10 +524,9 @@
                         <div class="form-control">
                             <label class="form-control-label hide-vs">&nbsp;</label>
                             <div class="form-control-input"
-                                 ng-disabled="!bonus.isTimesAmount"
                                  ng-model="bonus.time_to" ng-time-picker
                                  ng-change-data="{model: bonus, field: 'time_to'}"
-                                 ng-attr-invalid="{{bonus.isTimesAmount && !timeBonusForm['bonus-time-to-' + $index].$valid}}"
+                                 ng-attr-invalid="{{!timeBonusForm['bonus-time-to-' + $index].$valid}}"
                                  ng-change="onChangeBonusTime">&nbsp;</div>
                         </div>
                     </div>
@@ -593,7 +589,7 @@
                                ng-model="bonus.min_amount"
                                ng-change="createAmountBonusChartData()"
                                required
-                               commaseparator="{min: !$index ? '0.1' : request.amount_bonuses[$index-1].max_amount}"
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: !$index ? '1' : request.amount_bonuses[$index-1].max_amount}"
                                class="form-control-input"/>
                         <div class="input-after">ETH</div>
                     </div>
@@ -617,7 +613,7 @@
                                required
                                ng-change="createAmountBonusChartData()"
                                placeholder="1000"
-                               commaseparator="{min: bonus.min_amount}"
+                               commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: bigNumber(bonus.min_amount).plus('1')}"
                                class="form-control-input"/>
                         <div class="input-after">ETH</div>
                     </div>

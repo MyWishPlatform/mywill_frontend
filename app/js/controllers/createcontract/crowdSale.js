@@ -10,7 +10,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         contract_details: {
             token_holders: [],
             amount_bonuses: [],
-            tokens_bonuses: []
+            time_bonuses: []
         }
     };
 
@@ -105,11 +105,11 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
 
     $scope.addTokenBonus = function() {
         var newBonus = {};
-        $scope.request.tokens_bonuses.push(newBonus);
+        $scope.request.time_bonuses.push(newBonus);
     };
 
     $scope.deleteTokenBonus = function(bonus) {
-        $scope.request.tokens_bonuses = $scope.request.tokens_bonuses.filter(function(bns) {
+        $scope.request.time_bonuses = $scope.request.time_bonuses.filter(function(bns) {
             return bns != bonus;
         });
     };
@@ -121,7 +121,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         if (isNaN(lastBonus.max_amount) || isNaN(firstBonus.min_amount)) return;
         $scope.request.amount_bonuses.map(function(item) {
             var chartItem = {
-                valueY: item.percentage,
+                valueY: item.bonus,
                 maxValueX: item.max_amount,
                 minValueX: item.min_amount
             };
@@ -129,11 +129,9 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         });
     };
 
-
-
     // Tokens of time bonuses
     var checkAmountBonuses = function(bonus) {
-        var bonuses = $scope.request.tokens_bonuses;
+        var bonuses = $scope.request.time_bonuses;
         var indexOfBonus = bonuses.indexOf(bonus);
         var nextTimeBonus = bonuses.filter(function(currBonus, index) {
             return (index > indexOfBonus) && (currBonus.isTokensAmount);
@@ -164,7 +162,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             checkOneTokenBonus(bonus, true);
         }
         bonus.tokenBonusState = bonus.isTokensAmount;
-        $scope.request.tokens_bonuses.map(function(currentBonus) {
+        $scope.request.time_bonuses.map(function(currentBonus) {
             if (currentBonus !== bonus) {
                 checkAmountBonuses(currentBonus);
             }
@@ -175,7 +173,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     // Dates of time bonuses
     $scope.onChangeBonusDate = function(path, value, model) {
         if (path === 'bonus.date_from') {
-            var bonus = $scope.request.tokens_bonuses.filter(function(bonus) {
+            var bonus = $scope.request.time_bonuses.filter(function(bonus) {
                 return bonus.date_from === value;
             })[0];
 
@@ -183,7 +181,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         }
 
         if (path === 'bonus.date_to') {
-            var bonus = $scope.request.tokens_bonuses.filter(function(bonus) {
+            var bonus = $scope.request.time_bonuses.filter(function(bonus) {
                 return bonus.date_to === value;
             })[0];
 
@@ -205,9 +203,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         }
     };
 
-
     var checkTimeBonuses = function(bonus) {
-        var bonuses = $scope.request.tokens_bonuses;
+        var bonuses = $scope.request.time_bonuses;
         var indexOfBonus = bonuses.indexOf(bonus);
 
         var nextTimeBonus = bonuses.filter(function(currBonus, index) {
@@ -225,7 +222,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             next: nextTimeBonus ? nextTimeBonus.date_from : false
         };
     };
-    var checkOneTimeBonus = function(bonus, thisBonus) {
+    var checkOneTimeBonus = function(bonus) {
         if (bonus.isTimesAmount) {
             checkTimeBonuses(bonus);
             bonus.date_from = (bonus.forCheckDates.prev || $scope.dates.startDate).clone();
@@ -250,17 +247,22 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         }
         bonus.timeBonusState = bonus.isTimesAmount;
 
-        $scope.request.tokens_bonuses.map(function(currentBonus) {
+        $scope.request.time_bonuses.map(function(currentBonus) {
             if (currentBonus !== bonus) {
                 checkTimeBonuses(currentBonus);
             }
         });
     };
+
+
+
+
     /* Управление бонусами (end) */
 
     var contractInProgress = false;
     $scope.createContract = function() {
         if (contractInProgress) return;
+
         var contractDetails = angular.copy($scope.request);
 
         var powerNumber = new BigNumber(10).toPower(contractDetails.decimals);
@@ -272,6 +274,17 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
 
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
         contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
+
+        contractDetails.time_bonuses = [];
+        $scope.request.time_bonuses.map(function(bonus) {
+            contractDetails.time_bonuses.push({
+                bonus: bonus.percentage,
+                max_amount: bonus.amount_to,
+                min_amount: bonus.amount_from,
+                max_time: bonus.check_to,
+                min_date: bonus.check_from
+            });
+        });
 
         contractDetails.token_holders.map(function(holder, index) {
             contractDetails.token_holders[index] = {

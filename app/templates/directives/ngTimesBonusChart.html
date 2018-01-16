@@ -1,0 +1,10 @@
+<svg style="max-width: 100%; min-width: 100%;"
+     ng-attr-width="{{originalSvgWidth}}px"
+     ng-attr-height="{{originalSvgHeight}}px"
+     ng-attr-viewBox="0 0 {{originalSvgWidth}} {{originalSvgHeight}}"
+     version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <polygon ng-repeat="bonus in timesBonusChartData"
+             ng-attr-points="{{bonus.amount_left + ',' + svgHeight + ' ' + bonus.amount_right + ',' + svgHeight + ' ' + bonus.date_right + ', 0 ' + bonus.date_left + ',0'}}"
+             ng-attr-fill="{{'rgba('+bonus.color[0]+','+bonus.color[1]+','+bonus.color[2]+', 0.8)'}}" stroke-width="1" ng-attr-stroke="{{'rgba('+bonus.color[0]+','+bonus.color[1]+','+bonus.color[2]+', 1)'}}"/>
+
+</svg>

@@ -31,8 +31,6 @@ module.directive('ngBarChart', function($rootScope) {
 
                     var redColor = 225 - Math.round(4.5 * Math.max(0, dataItem.valueY - 50));
                     var greenColor = 225 - Math.round(4.5 * Math.max(0, 50 - dataItem.valueY));
-
-
                     var blueColor = 0;
 
                     var currentChartItem = {

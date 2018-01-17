@@ -1,6 +1,6 @@
 <svg style="width: 100%;" width="1000px" ng-attr-height="{{originalSvgHeight}}">
     <polygon ng-repeat="bonus in amountBonusChartData"
              ng-attr-points="{{bonus.left + ',' + svgHeight + ' ' + bonus.left + ',' + (svgHeight - bonus.height) + ' ' + bonus.width + ',' + (svgHeight - bonus.height) + ' ' + bonus.width + ',' + svgHeight}}"
-             ng-attr-fill="{{'rgba('+bonus.color[0]+','+bonus.color[1]+','+bonus.color[2]+', 0.6)'}}" stroke-width="1" ng-attr-stroke="{{'rgba('+bonus.color[0]+','+bonus.color[1]+','+bonus.color[2]+', 0.8)'}}"/>
+             ng-attr-fill="{{'rgba('+bonus.color[0]+','+bonus.color[1]+','+bonus.color[2]+', 0.8)'}}" stroke-width="1" ng-attr-stroke="{{'rgba('+bonus.color[0]+','+bonus.color[1]+','+bonus.color[2]+', 1)'}}"/>
 
 </svg>

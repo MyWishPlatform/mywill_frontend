@@ -137,13 +137,13 @@
                             Date from&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
                         </label>
 
-
                         <input class="input-for-group-fields"
                                tabindex="-1"
                                readonly
                                ng-attr-name="{{'bonus-time-from-' + $index}}"
                                type="number"
-                               ng-attr-min="{{ (bonus.forCheckDates.prev || dates.startDate).format('X') * 1 }}"
+                               ng-if="!bonus.forCheckDates.prev"
+                               ng-attr-min="{{ dates.startDate.format('X') * 1 }}"
                                ng-attr-max="{{ bonus.date_to.format('X') * 1 - 60 }}"
                                ng-model="bonus.min_time"/>
 
@@ -200,10 +200,9 @@
                         <input class="input-for-group-fields"
                                tabindex="-1"
                                readonly
-                               ng-change="changeBonusTimeTrigger(bonus)"
                                ng-attr-name="{{'bonus-time-to-' + $index}}"
                                type="number"
-                               ng-attr-min="{{(bonus.date_from || bonus.forCheckDates.prev.date).format('X') * 1 + 60}}"
+                               ng-attr-min="{{(bonus.forCheckDates.prev.date || bonus.date_from).format('X') * 1 + 60}}"
                                ng-attr-max="{{dates.endDate.format('X') * 1}}"
                                ng-model="bonus.max_time"/>
 
@@ -260,7 +259,7 @@
     </div>
 
 
-    <!-- div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="bonuses.length && timeBonusForm.$valid">
+    <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="bonuses.length && timeBonusForm.$valid">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1">
                 <div class="form-control-label">
@@ -274,5 +273,5 @@
                 <div ng-times-bonus-chart="{data: timeBonusChartData}"></div>
             </div>
         </div>
-    </div -->
+    </div>
 </div>

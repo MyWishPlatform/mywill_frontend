@@ -12,8 +12,18 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
     contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
-
-
+    contractDetails.time_bonuses = contractDetails.time_bonuses || [];
+    contractDetails.time_bonuses.map(function(bonus) {
+        bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
+        bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
+        bonus.min_time = bonus.min_time ? bonus.min_time * 1000 : undefined;
+        bonus.max_time = bonus.max_time ? bonus.max_time * 1000 : undefined;
+    });
+    contractDetails.amount_bonuses = contractDetails.amount_bonuses || [];
+    contractDetails.amount_bonuses.map(function(bonus) {
+        bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,18)).round().toString(10);
+        bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,18)).round().toString(10);
+    });
 
     contractDetails.sources = {
         crowdsale: contractDetails.eth_contract_crowdsale.source_code || false,

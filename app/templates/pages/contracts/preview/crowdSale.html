@@ -19,11 +19,8 @@
 <div ng-if="contract.showedTab == 'info'">
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
-
             <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
-
             <div class="contract-form-fieldset with-border" ng-if="(stateValue == 4) && details.eth_contract_crowdsale.address">
-
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
@@ -182,6 +179,62 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Time bonuses -->
+            <div class="contract-form-fieldset with-padding with-border contract-form-fieldset-light"
+                 ng-repeat="bonus in details.time_bonuses">
+                <div class="main-section-chapter-title" ng-if="!$index">
+                    <i class="main-section-chapter-title_icon icon-percentage"></i>
+                    <span class="main-section-chapter-title_text">Time bonuses</span>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <span class="bold">Bonus:&nbsp;</span>{{bonus.bonus}}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span ng-if="bonus.min_amount && bonus.max_amount">Sold&nbsp;token&nbsp;bonus&nbsp;&nbsp;<i class="small icon-tick pay-count"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span ng-if="bonus.min_time && bonus.max_time">Time&nbsp;bonus&nbsp;&nbsp;<i class="small icon-tick main-blue-color"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1" ng-if="bonus.min_amount && bonus.max_amount">
+                        <div class="form-control-label">
+                            <span class="bold">Tokens from&nbsp;</span>{{bonus.min_amount|separateNumber}}&nbsp;{{details.token_short_name}}&nbsp;
+                            <img src="/static/images/right-arrow.svg" alt="">
+                            &nbsp;<span class="bold">Tokens to&nbsp;</span>{{bonus.max_amount|separateNumber}}&nbsp;{{details.token_short_name}}
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1" ng-if="bonus.min_time && bonus.max_time">
+                        <div class="form-control-label">
+                            <span class="bold">Date&nbsp;from&nbsp;</span>{{bonus.min_time|date:'yyyy-MM-dd&nbsp;HH:mm'}}&nbsp;
+                            <img src="/static/images/right-arrow.svg" alt="">
+                            &nbsp;<span class="bold">Date&nbsp;to&nbsp;</span>{{bonus.max_time|date:'yyyy-MM-dd HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+            </div><br/><br/>
+            <!-- Amount bonuses -->
+            <div class="contract-form-fieldset with-padding with-border contract-form-fieldset-light"
+                 ng-repeat="bonus in details.amount_bonuses">
+
+                <div class="main-section-chapter-title" ng-if="!$index">
+                    <i class="main-section-chapter-title_icon icon-percentage"></i>
+                    <span class="main-section-chapter-title_text">Amount bonuses</span>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <span class="bold">Bonus:&nbsp;</span>{{bonus.bonus}}%
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            <span class="bold">Min amount&nbsp;</span>{{bonus.min_amount|separateNumber}}&nbsp;ETH&nbsp;
+                            <img src="/static/images/right-arrow.svg" alt="">
+                            &nbsp;<span class="bold">Max amount&nbsp;</span>{{bonus.max_amount|separateNumber}}&nbsp;ETH
+                        </div>
+                    </div>
+                </div>
+            </div><br/><br/>
+
             <!-- Holders info -->
             <div class="contract-form-fieldset with-padding">
                 <div class="grid-row">
@@ -191,8 +244,6 @@
                             Investments Storage Address
                         </div>
                         <br class="show-ls"/>
-                        <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
-
                         <span class="identicon-container">
                             <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
                         </span>
@@ -203,39 +254,34 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="contract-form-fieldset with-padding contract-form-fieldset-light" ng-repeat="holder in details.token_holders">
 
-                <div class="contract-preview-holders-list" ng-if="details.token_holders.length">
-                    <div class="contract-preview-holders-item grid-row"
-                         ng-repeat="holder in details.token_holders">
-                        <div class="grid-cell grid-cell-1">
-                            <div class="form-control-label bold">Address</div>
-                            <br class="show-ls"/>
-                            <div class="contract-preview-base-value float-left contract-preview-base-font hide-ls"></div>
-                            <span class="identicon-container">
-                                <img class="identicon-image" ng-src="{{generateIdenticon(holder.address)}}"/>
-                            </span>
-                            <div class="contract-wallet-information-wallet">
-                                <a href="https://etherscan.io/address/{{holder.address}}"
-                                   target="_blank"
-                                   ng-bind="holder.address"></a>
-                            </div>
-                        </div>
-                        <div class="clearfix"><br/></div>
-                        <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                            <div class="form-control-label bold">Name</div>
-                            <div class="form-control-preview-value">{{holder.name || '-'}}</div>
-                        </div>
-                        <div class="clearfix show-vs"><br/></div>
-                        <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                            <div class="form-control-label bold">Token</div>
-                            <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
-                        </div>
-                        <div class="clearfix show-ps"><br/></div>
-                        <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
-                            <div class="form-control-label bold">Frozen till</div>
-                            <div class="form-control-preview-value">
-                                {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
-                            </div>
+                <div class="form-control-label bold">Address</div>
+                <br class="show-ls"/>
+                <span class="identicon-container">
+                    <img class="identicon-image" ng-src="{{generateIdenticon(holder.address)}}"/>
+                </span>
+                <div class="contract-wallet-information-wallet">
+                    <a href="https://etherscan.io/address/{{holder.address}}"
+                       target="_blank"
+                       ng-bind="holder.address"></a>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
+                        <div class="form-control-label bold">Name</div>
+                        <div class="form-control-preview-value">{{holder.name || '-'}}</div>
+                    </div>
+                    <div class="clearfix show-vs"><br/></div>
+                    <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
+                        <div class="form-control-label bold">Token</div>
+                        <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
+                    </div>
+                    <div class="clearfix show-ps"><br/></div>
+                    <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
+                        <div class="form-control-label bold">Frozen till</div>
+                        <div class="form-control-preview-value">
+                            {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
                         </div>
                     </div>
                 </div>
@@ -276,6 +322,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
     <div class="main-section-chapter-fieldset custom-fieldset" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>

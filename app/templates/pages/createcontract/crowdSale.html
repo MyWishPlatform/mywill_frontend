@@ -23,7 +23,7 @@
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/crowdsale_params')"></div>
 </form>
-<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" ng-init="bonuses = request.time_bonuses" name="timeBonusForm">
+<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="timeBonusForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/time_bonuses')"></div>
 </form>
 <form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="amountBonusForm">

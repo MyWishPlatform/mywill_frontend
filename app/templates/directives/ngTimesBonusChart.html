@@ -1,14 +1,35 @@
-<svg style="max-width: 100%; min-width: 100%;"
-     class="ng-times-bonus-chart"
-     ng-attr-width="{{originalSvgWidth}}px"
-     ng-attr-height="{{originalSvgHeight}}px"
-     ng-attr-viewBox="0 0 {{originalSvgWidth}} {{originalSvgHeight}}"
-     version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div>
+    <svg class="ng-times-bonus-chart"
+         ng-attr-width="{{originalSvgWidth}}px"
+         ng-attr-height="{{originalSvgHeight}}px"
+         ng-attr-viewBox="0 0 {{originalSvgWidth}} {{originalSvgHeight}}"
+         version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
-    <polygon ng-repeat="bonus in timesBonusChartData"
-             ng-attr-points="{{'0,' + bonus.amount_top + ' ' + bonus.date_right + ',' + bonus.amount_top + ' ' + bonus.date_right + ', ' + svgHeight + ' ' + bonus.date_left + ', ' + svgHeight + ' ' + bonus.date_left + ', ' + bonus.amount_bottom + ' 0, ' + bonus.amount_bottom }}"
-             ng-attr-fill="{{'rgba('+bonus.color[0]+','+bonus.color[1]+','+bonus.color[2]+', 0.65)'}}"
-             stroke-width="1" ng-attr-stroke="{{'rgba(255, 255, 255, 1)'}}">
-    </polygon>
+        <polygon ng-repeat="bonus in timesBonusChartData"
+                 ng-attr-points="{{ bonus.point }}"
+                 ng-attr-fill="{{'rgba('+ bonus.color +', 1)'}}"
+                 stroke-width="1" stroke="rgba(255, 255, 255, 1)">
+        </polygon>
 
-</svg>
+        <text y="0" x="0"
+              fill="#000000" font-family="Verdana" font-size="12px" opacity="1"
+              font-weight="bold" text-anchor="middle"
+              transform="translate(20,90) rotate(-90)">
+            <tspan>Amount of sold tokens</tspan>
+        </text>
+
+        <text y="0" x="0"
+              fill="#000000" font-family="Verdana" font-size="12px" opacity="1"
+              font-weight="bold" text-anchor="middle"
+              ng-attr-transform="translate(304,{{svgHeight - bottomOffset + 14}})">
+            <tspan>Date/Time of sold tokens</tspan>
+        </text>
+
+    </svg>
+    <div class="ng-times-bonus-chart-bonus_legend"></div>
+    <div class="clearfix text-center">
+        <strong class="float-left">0%</strong>
+        <strong class="float-right">100%</strong>
+        <strong>50%</strong>
+    </div>
+</div>

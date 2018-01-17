@@ -299,8 +299,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
                         return (index < indexOfBonus) && currBonus.isTokensAmount;
                     });
                     var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
-                    bonus.max_amount = nextTokensBonus ? nextTokensBonus.min_amount : $scope.request.hard_cap;
-                    bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : bonus.max_amount;
+                    bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : (bonus.max_amount || 0);
+                    bonus.max_amount = nextTokensBonus ? nextTokensBonus.min_amount : bonus.min_amount;
                 }
                 $scope.timeBonusChartData.push(bonus);
             });

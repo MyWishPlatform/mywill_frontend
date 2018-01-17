@@ -14,11 +14,14 @@ module.directive('ngTimesBonusChart', function($rootScope) {
 
             var checkChartData = function() {
                 $scope.timesBonusChartData = [];
+                var svg = element.find('svg');
+                $scope.svgHeight = $scope.originalSvgHeight * (svg.width() / 1000);
+                $scope.leftOffset = 30;
+                $scope.bottomOffset = 20;
 
-                $scope.svgHeight = $scope.originalSvgHeight * (element.width() / 1000);
-                element.height($scope.svgHeight);
-                var onePercentOfWidth = element.width() / 100;
-                var onePercentOfHeight = element.height() / 100;
+                svg.height($scope.svgHeight);
+                var onePercentOfWidth = (svg.width() - $scope.leftOffset) / 100;
+                var onePercentOfHeight = (svg.height() - $scope.bottomOffset) / 100;
 
                 var chartData = $scope.ngTimesBonusChart.data;
                 var lastChartDataItem = chartData[chartData.length - 1];
@@ -38,17 +41,14 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                     var greenColor = 225 - Math.round(4.5 * Math.max(0, 50 - item.bonus));
                     var blueColor = 0;
 
-                    var bottomAmountPosition = element.height() - new BigNumber(item['min_amount']).minus(minAmountValue).times(amountOnePercentLength).toString(10) * 1;
-                    var topAmountPosition = element.height() - new BigNumber(item['max_amount']).minus(minAmountValue).times(amountOnePercentLength).toString(10) * 1;
+                    var bottomAmountPosition = (svg.height() - $scope.bottomOffset) - new BigNumber(item['min_amount']).minus(minAmountValue).times(amountOnePercentLength).toString(10) * 1;
+                    var topAmountPosition = (svg.height() - $scope.bottomOffset) - new BigNumber(item['max_amount']).minus(minAmountValue).times(amountOnePercentLength).toString(10) * 1;
                     var leftDatePosition = (item['min_time'] - minDateValue) * dateTimeOnePercentLength;
                     var rightDatePosition = (item['max_time'] - minDateValue) * dateTimeOnePercentLength;
 
                     $scope.timesBonusChartData.push({
-                        color: [redColor, greenColor, blueColor],
-                        amount_bottom: bottomAmountPosition,
-                        amount_top: topAmountPosition,
-                        date_left: leftDatePosition,
-                        date_right: rightDatePosition
+                        point: $scope.leftOffset + ',' + topAmountPosition + ' ' + (rightDatePosition + $scope.leftOffset) + ',' + topAmountPosition + ' ' + (rightDatePosition + $scope.leftOffset) + ', ' + ($scope.svgHeight - $scope.bottomOffset) + ' ' + (leftDatePosition + $scope.leftOffset) + ', ' + ($scope.svgHeight - $scope.bottomOffset) + ' ' + (leftDatePosition + $scope.leftOffset) + ', ' + bottomAmountPosition + ' ' + $scope.leftOffset + ', ' + bottomAmountPosition,
+                        color: redColor+','+greenColor+','+blueColor
                     });
 
                 });

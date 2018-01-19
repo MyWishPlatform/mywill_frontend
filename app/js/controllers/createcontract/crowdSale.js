@@ -1,149 +1,437 @@
 angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService,
-                                                                       openedContract,
-                                                                       $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
-
+                                                                       openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
     $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
     $scope.currencyRate = currencyRate.data;
 
+    var contract = openedContract && openedContract.data ? openedContract.data : {
+        name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
+        contract_details: {
+            token_holders: [],
+            amount_bonuses: [],
+            time_bonuses: []
+        }
+    };
+
+    /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
-        var date = $scope.dates.startDate.clone();
-        date.hours($scope.startTime.hours).minutes($scope.startTime.minutes).second(0);
-        $scope.request.start_date = date.format('X');
+        if (!$scope.dates.startDate) {
+            $scope.dates.startDate = moment($scope.request.start_date * 1000);
+        }
+        $scope.dates.startDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes);
+        if ($scope.dates.startDate < $scope.minStartDate) {
+            $scope.dates.startDate = $scope.minStartDate.clone();
+        }
+        $timeout(function() {
+            $scope.request.start_date = $scope.dates.startDate.clone().hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).format('X') * 1;
+            $scope.$broadcast('pickerUpdate', ['start-date'], {});
+        });
+        $scope.$broadcast('icoTimesChanged');
     };
     var setStopTimestamp = function() {
-        var date = $scope.dates.endDate.clone();
-        date.hours($scope.endTime.hours).minutes($scope.endTime.minutes).second(0);
-        $scope.request.stop_date = date.format('X');
+        if (!$scope.dates.endDate) {
+            $scope.dates.endDate = moment($scope.request.stop_date * 1000);
+        }
+        $scope.dates.endDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes);
+        if ($scope.dates.endDate < $scope.minStartDate) {
+            $scope.dates.endDate = $scope.minStartDate.clone();
+        }
+        $timeout(function() {
+            $scope.request.stop_date = $scope.dates.endDate.clone().hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).format('X') * 1;
+            $scope.$broadcast('pickerUpdate', ['end-date'], {});
+        });
+        $scope.$broadcast('icoTimesChanged');
     };
+
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;
-    $scope.onChangeStartDate = function(modelName, currentDate) {
-        $scope.dates.startDate = currentDate.clone();
-        setStartTimestamp();
-    };
-    $scope.onChangeEndDate = function(modelName, currentDate) {
-        $scope.dates.endDate = currentDate.clone();
-        setStopTimestamp();
-    };
-    $scope.addRecipient = function() {
-        $scope.request.token_holders.push({
-            freeze_date: $scope.dates.endDate.clone()
-        });
-    };
-    $scope.removeRecipient = function(recipient) {
-        $scope.request.token_holders = $scope.request.token_holders.filter(function(rec) {
-            return rec !== recipient;
-        });
+    $scope.onChangeStartDate = setStartTimestamp;
+    $scope.onChangeEndDate = setStopTimestamp;
+
+    $scope.checkTokensAmount = function() {
+        $scope.$broadcast('tokensCapChanged');
     };
 
-    $scope.chartOptions = {
-        itemValue: 'amount',
-        itemLabel: 'address'
-    };
-
-    $scope.chartData = [];
-
-    $scope.dataChanged = function() {
-        $scope.chartData = angular.copy($scope.request.token_holders);
-        $scope.chartData.unshift({
-            amount: $scope.request.hard_cap,
-            address: 'For Sale'
-        });
-        $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
-    };
-
+    /* Управление датой и временем начала/окончания ICO (end) */
     var contractInProgress = false;
-
-
-    $scope.createContract = function(callback) {
+    $scope.createContract = function() {
         if (contractInProgress) return;
+        $scope.$broadcast('createContract');
         var contractDetails = angular.copy($scope.request);
-
-        var powerNumber = new BigNumber(10).toPower(contractDetails.decimals);
-
         contractDetails.rate = contractDetails.rate * 1;
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.start_date = contractDetails.start_date * 1;
         contractDetails.stop_date = contractDetails.stop_date * 1;
-
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
         contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
-
-
-        contractDetails.token_holders.map(function(holder, index) {
-            contractDetails.token_holders[index] = {
-                freeze_date: holder.isFrozen ? holder.freeze_date.format('X') * 1 : null,
-                amount: new BigNumber(holder.amount).times(powerNumber).toString(10),
-                address: holder.address,
-                name: holder.name || null
-            };
-        });
-
         var data = {
             name: $scope.contractName,
             contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
             contract_details: contractDetails,
             id: contract.id
         };
-
         contractInProgress = true;
-
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
             contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
-        }, function() {
+        }, function(data) {
+            switch(data.status) {
+                case 400:
+                    switch(data.data.result) {
+                        case '1':
+                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
+                    }
+                    break;
+            }
             contractInProgress = false;
         });
     };
-
-    var contract = openedContract && openedContract.data ? openedContract.data : {
-        name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
-        contract_details: {
-            token_holders: []
-        }
-    };
-
     $scope.editContractMode = !!contract.id;
-
     $scope.resetForms = function() {
-        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         $scope.request = angular.copy(contract.contract_details);
         $scope.contractName = contract.name;
-
-
-        $scope.request.token_holders.map(function(holder) {
-            holder.isFrozen = !!holder.freeze_date;
-            holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : null;
-            holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
-        });
-
+        $scope.minStartDate = moment();
         $scope.dates = {
-            startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : moment().add(1, 'days'),
-            endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : moment().add(1, 'days').add(1, 'months')
+            startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : $scope.minStartDate.clone().add(1, 'days'),
+            endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : $scope.minStartDate.clone().add(1, 'days').add(1, 'months')
         };
-
-        $scope.startTime = {
-            hours: $scope.dates.startDate.hours(),
-            minutes: $scope.dates.startDate.minutes()
+        $scope.minStartDate.add(5, 'minutes').second(0);
+        $scope.timesForStarting = {
+            start: {
+                hours: $scope.dates.startDate.hours(),
+                minutes: $scope.dates.startDate.minutes()
+            },
+            stop: {
+                hours: $scope.dates.endDate.hours(),
+                minutes: $scope.dates.endDate.minutes()
+            }
         };
-        $scope.endTime = {
-            hours: $scope.dates.endDate.hours(),
-            minutes: $scope.dates.endDate.minutes()
-        };
-
         if ($scope.request.hard_cap) {
             $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
         }
         if ($scope.request.soft_cap) {
             $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
         }
+        setStartTimestamp();
+        setStopTimestamp();
+        $scope.$broadcast('resetForm');
+    };
+    $scope.resetForms();
 
-        $scope.minStartDate = $scope.dates.startDate.clone();
-        $scope.checkTokensAmount();
+}).controller('crowdSaleTimeBonusesController', function($scope, $timeout) {
+    $scope.addTokenBonus = function() {
+        var newBonus = {};
+        $scope.bonuses.push(newBonus);
+        $scope.createTimeBonusChartData();
+    };
+    $scope.deleteTokenBonus = function(bonus) {
+        $scope.bonuses = $scope.bonuses.filter(function(bns) {
+            return bns !== bonus;
+        });
+        $scope.createTimeBonusChartData();
+    };
+    $scope.changeTokensBonusData = function() {
+        $scope.bonuses.map(function(bonus, index) {
+            var prevTokenBonuses = $scope.bonuses.filter(function(currBonus, currIndex) {
+                return (currIndex < index) && (currBonus.isTokensAmount);
+            });
+            var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
+            bonus.forCheckTokens = {
+                prev: prevTokenBonus ? new BigNumber(prevTokenBonus.max_amount) : false
+            };
+            if (prevTokenBonus) {
+                bonus.min_amount = bonus.max_amount ? prevTokenBonus.max_amount : undefined;
+            }
+        });
+        $scope.createTimeBonusChartData();
+    };
+    $scope.changeBonusTokensTrigger = function(bonus) {
+        if (!bonus.tokenBonusState && !bonus.isTokensAmount) {
+            return;
+        }
+        bonus.tokenBonusState = bonus.isTokensAmount;
+        if (bonus.isTokensAmount) {
+            var indexOfBonus = $scope.bonuses.indexOf(bonus);
+            var nextTokensBonus = $scope.bonuses.filter(function(currBonus, index) {
+                return (index > indexOfBonus) && currBonus.isTokensAmount;
+            })[0];
+            var prevTokenBonuses = $scope.bonuses.filter(function(currBonus, index) {
+                return (index < indexOfBonus) && currBonus.isTokensAmount;
+            });
+            var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
+            bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : '0';
+            bonus.max_amount = bonus.max_amount || (nextTokensBonus ? nextTokensBonus.min_amount : $scope.request.hard_cap);
+        } else {
+            bonus.min_amount = bonus.max_amount = undefined;
+        }
+        $scope.changeTokensBonusData();
+    };
+    $scope.changeTimesBonusData = function() {
+        $scope.bonuses.map(function(bonus, index) {
+            var prevTokenBonuses = $scope.bonuses.filter(function(currBonus, currIndex) {
+                return (currIndex < index) && (currBonus.isTimesAmount);
+            });
+            var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
+            if (prevTokenBonus) {
+                bonus.forCheckDates = {
+                    prev: {
+                        date: prevTokenBonus ? moment(prevTokenBonus.max_time * 1000) : false
+                    }
+                };
+                bonus.forCheckDates.prev.time = {
+                    hours: bonus.forCheckDates.prev.date.hours(),
+                    minutes: bonus.forCheckDates.prev.date.minutes()
+                };
+                bonus.min_time = bonus.max_time ? prevTokenBonus.max_time : undefined;
+            } else {
+                bonus.forCheckDates = false;
+            }
+        });
+        $scope.createTimeBonusChartData();
+    };
+    $scope.changeBonusTimesTrigger = function(bonus) {
+        if (!bonus.timeBonusState && !bonus.isTimesAmount) {
+            return;
+        }
+        bonus.timeBonusState = bonus.isTimesAmount;
+        if (bonus.isTimesAmount) {
+            var indexOfBonus = $scope.bonuses.indexOf(bonus);
+            var nextTokensBonus = $scope.bonuses.filter(function(currBonus, index) {
+                return (index > indexOfBonus) && currBonus.isTimesAmount;
+            })[0];
+            var prevTokenBonuses = $scope.bonuses.filter(function(currBonus, index) {
+                return (index < indexOfBonus) && currBonus.isTimesAmount;
+            });
+            var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
+            bonus.date_from = prevTokenBonus ? prevTokenBonus.date_to.clone() : $scope.dates.startDate.clone();
+            bonus.date_to = nextTokensBonus ? nextTokensBonus.date_from.clone() : $scope.dates.endDate.clone();
+            bonus.min_time = bonus.date_from.format('X') * 1;
+            bonus.max_time = bonus.date_to.format('X') * 1;
+            bonus.time_from = {
+                hours: bonus.date_from.hours(),
+                minutes: bonus.date_from.minutes()
+            };
+            bonus.time_to = {
+                hours: bonus.date_to.hours(),
+                minutes: bonus.date_to.minutes()
+            };
+        } else {
+            bonus.time_to = bonus.time_from =
+                bonus.date_to = bonus.date_from =
+                    bonus.min_time = bonus.max_time = undefined;
+        }
+        $scope.changeTimesBonusData();
+    };
+    $scope.onChangeBonusDate = function(path, value, model) {
+        if (path === 'bonus.date_from') {
+            var prevBonus = $scope.bonuses.filter(function(bonus) {
+                return bonus.date_from === value;
+            })[0];
+            $scope.onChangeBonusTime({field: 'time_from', model: prevBonus});
+        }
+        if (path === 'bonus.date_to') {
+            var nextBonus = $scope.bonuses.filter(function(bonus) {
+                return bonus.date_to === value;
+            })[0];
+            $scope.onChangeBonusTime({field: 'time_to', model: nextBonus});
+        }
+    };
+    $scope.onChangeBonusTime = function(data) {
+        var bonus = data.model;
+        if (data.field === 'time_from') {
+            if (!bonus.date_from) return;
+            bonus.date_from.hours(bonus.time_from.hours).minutes(bonus.time_from.minutes);
+            bonus.min_time = bonus.date_from.format('X') * 1;
+        }
+        if (data.field === 'time_to') {
+            if (!bonus.date_to) return;
+            bonus.date_to.hours(bonus.time_to.hours).minutes(bonus.time_to.minutes);
+            bonus.max_time = bonus.date_to.format('X') * 1;
+        }
+        $scope.changeTimesBonusData();
+    };
+    var resetFormData = function() {
+        $scope.bonuses = angular.copy($scope.request.time_bonuses);
+        $scope.bonuses.map(function(bonus) {
+            bonus.min_amount+= '';
+            bonus.tokenBonusState = bonus.isTokensAmount = !!(bonus.max_amount && bonus.min_amount);
+            bonus.timeBonusState = bonus.isTimesAmount = !!(bonus.max_time && bonus.min_time);
+
+            if (bonus.isTimesAmount) {
+                bonus.date_from = moment(bonus.min_time * 1000);
+                bonus.date_to = moment(bonus.max_time * 1000);
+                bonus.time_from = {
+                    hours: bonus.date_from.hours(),
+                    minutes: bonus.date_from.minutes()
+                };
+                bonus.time_to = {
+                    hours: bonus.date_to.hours(),
+                    minutes: bonus.date_to.minutes()
+                };
+            }
+            if (bonus.isTokensAmount) {
+                bonus.min_amount = new BigNumber(bonus.min_amount).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
+                bonus.max_amount = new BigNumber(bonus.max_amount).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
+            }
+        });
+        $scope.changeTokensBonusData();
+        $scope.changeTimesBonusData();
+    };
+    var createdContractData = function() {
+        $scope.request.time_bonuses = [];
+        $scope.bonuses.map(function(bonus) {
+            $scope.request.time_bonuses.push({
+                bonus: bonus.bonus,
+                max_amount: bonus.max_amount ? new BigNumber(bonus.max_amount).div($scope.request.rate).times(Math.pow(10,18)).round().toString(10) : undefined,
+                min_amount: (bonus.max_amount && (bonus.forCheckTokens.prev || bonus.min_amount)) ? new BigNumber(bonus.forCheckTokens.prev || bonus.min_amount).div($scope.request.rate).times(Math.pow(10,18)).round().toString(10) : undefined,
+                max_time: bonus.max_time,
+                min_time: bonus.min_time
+            });
+        });
+    };
+
+    $scope.$on('resetForm', resetFormData);
+    $scope.$on('createContract', createdContractData);
+
+    var timeBonusChartDataTimeout;
+    $scope.createTimeBonusChartData = function() {
+        timeBonusChartDataTimeout ? $timeout.cancel(timeBonusChartDataTimeout) : false;
+        timeBonusChartDataTimeout = $timeout(function() {
+            $scope.timeBonusChartData = [];
+            var bonuses = angular.copy($scope.bonuses);
+            bonuses.map(function(currBonus, index) {
+                var bonus = {
+                    bonus: currBonus.bonus,
+                    min_amount: currBonus.min_amount,
+                    max_amount: currBonus.max_amount,
+                    min_time: currBonus.min_time,
+                    max_time: currBonus.max_time
+                };
+                var indexOfTimeBonus = bonuses.indexOf(currBonus);
+                var prevTimeBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTimesAmount;
+                });
+                var prevTimeBonus = prevTimeBonuses[prevTimeBonuses.length - 1];
+                var prevTokenBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTokensAmount;
+                });
+                var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
+                var prevOnlyTimeBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTimesAmount && !bon.isTokensAmount;
+                });
+                var prevOnlyTimeBonus = prevOnlyTimeBonuses[prevOnlyTimeBonuses.length - 1];
+
+                var prevOnlyTokenBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTokensAmount && !bon.isTimesAmount;
+                });
+                var prevOnlyTokenBonus = prevOnlyTokenBonuses[prevOnlyTokenBonuses.length - 1];
+                if (!currBonus.isTimesAmount) {
+                    bonus.min_time = prevTimeBonus ? prevTimeBonus.max_time : false;
+                    bonus.max_time = false;
+                }
+                if (prevOnlyTimeBonus !== prevTimeBonus) {
+                    bonus.prev_min_time = prevOnlyTimeBonus ? prevOnlyTimeBonus.max_time : false;
+                } else {
+                    bonus.prev_min_time = bonus.min_time;
+                }
+                if (!currBonus.isTokensAmount) {
+                    bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : false;
+                    bonus.max_amount = false;
+                }
+                if (prevOnlyTokenBonus !== prevTokenBonus) {
+                    bonus.prev_min_amount = prevOnlyTokenBonus ? prevOnlyTokenBonus.max_amount : false;
+                } else {
+                    bonus.prev_min_amount = bonus.min_amount;
+                }
+                $scope.timeBonusChartData.push(bonus);
+            });
+
+            $scope.timeBonusChartParams = {
+                max_time: $scope.request.stop_date,
+                min_time: $scope.request.start_date,
+                max_amount: $scope.request.hard_cap,
+                min_amount: 0
+            };
+
+            timeBonusChartDataTimeout = false;
+        }, 200);
+    };
+    $scope.$on('icoTimesChanged', $scope.createTimeBonusChartData);
+    $scope.$on('tokensCapChanged', $scope.createTimeBonusChartData);
+
+    resetFormData();
+}).controller('crowdSaleAmountBonusesController', function($scope) {
+    $scope.addAmountBonus = function() {
+
+        $scope.bonuses.push({
+            min_amount: !$scope.bonuses.length ? 1 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],
+            max_amount: $scope.request.hard_cap
+        });
+    };
+    $scope.deleteAmountBonus = function(bonus) {
+        $scope.bonuses = $scope.bonuses.filter(function(bns) {
+            return bns !== bonus;
+        });
+        $scope.createAmountBonusChartData();
+    };
+    $scope.createAmountBonusChartData = function() {
+        $scope.amountBonusChartData = [];
+        if (!$scope.bonuses.length) return;
+        var firstBonus = $scope.bonuses[0];
+        var lastBonus = $scope.bonuses[$scope.bonuses.length - 1];
+        if (isNaN(lastBonus.max_amount) || isNaN(firstBonus.min_amount)) return;
+        $scope.bonuses.map(function(item) {
+            var chartItem = {
+                valueY: item.bonus,
+                maxValueX: item.max_amount,
+                minValueX: item.min_amount
+            };
+            $scope.amountBonusChartData.push(chartItem);
+        });
+    };
+    $scope.$on('tokensCapChanged', $scope.createAmountBonusChartData);
+
+    var resetFormData = function() {
+        $scope.bonuses = angular.copy($scope.request.amount_bonuses);
+        $scope.bonuses.map(function(bonus) {
+            bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,18)).round().toString(10);
+            bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,18)).round().toString(10);
+        });
+    };
+    var createdContractData = function() {
+        $scope.request.amount_bonuses = [];
+        $scope.bonuses.map(function(bonus) {
+            $scope.request.amount_bonuses.push({
+                bonus: bonus.bonus,
+                max_amount: new BigNumber(bonus.max_amount).times(Math.pow(10,18)).round().toString(10),
+                min_amount: new BigNumber(bonus.min_amount).times(Math.pow(10,18)).round().toString(10)
+            });
+        });
+    };
+
+    resetFormData();
+
+    $scope.$on('resetForm', resetFormData);
+    $scope.$on('createContract', createdContractData);
+
+    $scope.createAmountBonusChartData();
+}).controller('crowdSaleHoldersController', function($scope, $timeout) {
+    var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+    $scope.addRecipient = function() {
+        var holder = {
+            freeze_date: $scope.dates.endDate.clone().add(1, 'minutes')
+        };
+        $scope.token_holders.push(holder);
+        $scope.onChangeDateOfRecipient('', holder.freeze_date);
+    };
+    $scope.removeRecipient = function(recipient) {
+        $scope.token_holders = $scope.token_holders.filter(function(rec) {
+            return rec !== recipient;
+        });
     };
     $scope.checkTokensAmount = function() {
-        var holdersSum = $scope.request.token_holders.reduce(function (val, item) {
+        var holdersSum = $scope.token_holders.reduce(function (val, item) {
             var value = new BigNumber(item.amount || 0);
             return value.plus(val);
         }, new BigNumber(0));
@@ -162,56 +450,51 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             });
         }
     };
-    $scope.resetForms();
-
-}).directive('ngStartEndDateValidate', function () {
-    return {
-        require: 'ngModel',
-        scope: {
-            ngStartEndDateValidate: '='
-        },
-        link: function(scope, elem, attr, ngModel) {
-            var startFormFill = moment().add(1, 'days').seconds(0).add(-1, 'seconds'),
-                endFormFill = moment().add(1, 'days').add(1, 'months').seconds(0).add(-1, 'seconds');
-            var validator = function(value) {
-                if (scope.ngStartEndDateValidate.watch_date === 'stop_date') {
-                    if (moment(scope.ngStartEndDateValidate.dates.start_date * 1000) < startFormFill) {
-                        ngModel.$setValidity('sale-dates', false);
-                        return value;
-                    }
-                }
-                var valid = moment(scope.ngStartEndDateValidate.dates.stop_date * 1000) > endFormFill;
-                ngModel.$setValidity('sale-dates', valid);
-                return value;
-            };
-            ngModel.$parsers.unshift(validator);
-            ngModel.$formatters.unshift(validator);
-            scope.$watch('ngStartEndDateValidate.dates.' + scope.ngStartEndDateValidate.watch_date, function() {
-                ngModel.$$parseAndValidate();
-            });
-        }
+    $scope.chartOptions = {
+        itemValue: 'amount',
+        itemLabel: 'address'
     };
-}).directive('ngCheckDates', function() {
-    return {
-        require: 'ngModel',
-        scope: {
-            ngCheckDates: '='
-        },
-        link: function (scope, elem, attr, ngModel) {
-            ngModel.$parsers.unshift(function(value) {
-                var valid = scope.ngCheckDates.allData[scope.ngCheckDates.minDate] * 1 <= ngModel.$modelValue.format('X') * 1;
-                ngModel.$setValidity('check-dates', valid);
-                return ngModel.$modelValue;
-            });
+    $scope.chartData = [];
+    $scope.dataChanged = function() {
+        $scope.chartData = angular.copy($scope.token_holders);
+        $scope.chartData.unshift({
+            amount: $scope.request.hard_cap,
+            address: 'For Sale'
+        });
+        $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
+    };
+    $scope.onChangeDateOfRecipient = function(path, value) {
+        $scope.token_holders.filter(function(holder) {
+            return holder.freeze_date === value;
+        })[0]['parsed_freeze_date'] = value.format('X') * 1;
+    };
 
-            ngModel.$formatters.unshift(function(value) {
-                var valid = scope.ngCheckDates.allData[scope.ngCheckDates.minDate] * 1 <= ngModel.$modelValue.format('X') * 1;
-                ngModel.$setValidity('check-dates', valid);
-                return value;
-            });
-            scope.$watch('ngCheckDates.allData.' + scope.ngCheckDates.minDate, function() {
-                ngModel.$$parseAndValidate();
-            });
-        }
-    }
+    var resetFormData = function() {
+        $scope.token_holders = angular.copy($scope.request.token_holders);
+        $scope.token_holders.map(function(holder) {
+            holder.isFrozen = !!holder.freeze_date;
+            holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.dates.endDate;
+            holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+            holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
+        });
+    };
+    var createdContractData = function() {
+        $scope.request.token_holders = [];
+        $scope.token_holders.map(function(holder, index) {
+            $scope.request.token_holders[index] = {
+                freeze_date: holder.isFrozen ? holder.freeze_date.add(1, 'seconds').format('X') * 1 : null,
+                amount: new BigNumber(holder.amount).times(powerNumber).toString(10),
+                address: holder.address,
+                name: holder.name || null
+            };
+        });
+
+    };
+
+    resetFormData();
+
+    $scope.$on('resetForm', resetFormData);
+    $scope.$on('createContract', createdContractData);
+
+    $scope.checkTokensAmount();
 });

@@ -82,7 +82,11 @@ a, .as-link {
 strong {
   font-size: 1.15em;
 }
-.pay-count {
+
+.small {
+  font-size: 0.9em;
+}
+.main-blue-color, .pay-count {
   color: $main-blue-color;
 }
 
@@ -117,3 +121,15 @@ strong {
 .grey-text-color {
   color: #bbb;
 }
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+

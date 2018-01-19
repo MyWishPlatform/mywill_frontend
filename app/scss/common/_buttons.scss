@@ -39,7 +39,7 @@ $red-active-color: #bb0d2b;
     }
   }
   &.with-icon:not(.initial-padding) {
-    padding-left: 0.8em;
+    padding-left: 1em;
   }
   i {
     font-size: 2em;
@@ -117,7 +117,7 @@ $red-active-color: #bb0d2b;
   }
   &.btn-transparent {
     border: 0.2em solid;
-    line-height: 3.8em;
+    line-height: 3.5em;
     color: $main-blue-color;
     background: none;
   }

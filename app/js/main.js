@@ -213,6 +213,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var offset = moment().utcOffset() / 60;
     $rootScope.currentTimezone = (offset > 0 ? '+' : '') + offset;
 
+    $rootScope.bigNumber = function(value) {
+        if (!value || isNaN(value)) return;
+        return new BigNumber(value);
+    };
+
 }).config(function($httpProvider, $qProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -233,7 +238,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         return values.join('.');
     }
-}).directive('commaseparator', function($filter) {
+}).directive('commaseparator', function($filter, $timeout) {
     'use strict';
     var commaSeparateNumber = $filter('separateNumber');
     return {
@@ -251,7 +256,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 return commaSeparateNumber(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
-
                 var plainNumber = viewValue.replace(/[\,\-\+]/g, '');
                 var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
                 if (!valid) {
@@ -259,6 +263,22 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                         ctrl.$setViewValue(oldValue);
                     }
                 }
+
+                if (plainNumber && !isNaN(plainNumber) && ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined))) {
+                    var val = new BigNumber(plainNumber);
+
+                    var rate = scope.commaseparator.rate || {};
+                    rate.min = rate.min || 1;
+                    rate.max = rate.max || 1;
+
+                    var minValue = scope.commaseparator.min ? new BigNumber(scope.commaseparator.min).div(rate.min) : false;
+                    var maxValue = scope.commaseparator.max ? new BigNumber(scope.commaseparator.max).div(rate.max) : false;
+
+                    var minMaxValidation = (minValue ? val.minus(minValue) >= 0 : true) && (maxValue ? val.minus(maxValue) <= 0 : true);
+
+                    ctrl.$setValidity('min-max', minMaxValidation);
+                }
+
                 if (valid || !plainNumber) {
                     oldValue = plainNumber;
                     if (valid) {
@@ -277,6 +297,15 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 }
             });
 
+            if ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined)) {
+                scope.$watchGroup(['commaseparator.max', 'commaseparator.min', 'commaseparator.rate'], function(newValue, oldValue) {
+                    if (newValue === oldValue) return;
+                    $timeout(function() {
+                        ctrl.$$parseAndValidate();
+                    });
+                });
+            }
+
             if (scope.commaseparator.notNull) {
                 ctrl.$parsers.unshift(function(value) {
                     if (!value) return;
@@ -286,11 +315,12 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 });
             }
             if (scope.commaseparator.checkWith) {
-                ctrl.$parsers.unshift(function(value) {
+                ctrl.$parsers.push(function(value) {
                     if (!value) return;
-                    var plainNumber = value.replace(/[\,\.\-\+]/g, '') * 1;
-                    var checkModelValue = scope.commaseparator.fullModel[scope.commaseparator.checkWith];
-                    var valid = plainNumber <= checkModelValue;
+                    var plainNumber = new BigNumber(value.replace(/[\,\.\-\+]/g, ''));
+                    var checkModelValue = new BigNumber(scope.commaseparator.fullModel[scope.commaseparator.checkWith] || 0);
+                    var rangeValues = plainNumber.minus(checkModelValue);
+                    var valid = !scope.commaseparator.notEqual ? rangeValues <= 0 : rangeValues < 0;
                     ctrl.$setValidity('check-value', valid);
                     return value;
                 });
@@ -301,6 +331,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
                 scope.$watch('commaseparator.fullModel.' + scope.commaseparator.checkWith, function() {
                     ctrl.$$parseAndValidate();
+                });
+            }
+
+            if (scope.commaseparator.autoCheck) {
+                $timeout(function() {
+                    ctrl.$$parseAndValidate();
+                    ctrl.$setTouched();
                 });
             }
         }

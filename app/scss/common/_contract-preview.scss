@@ -55,19 +55,6 @@
     border-bottom-right-radius: 0.9em;
   }
 }
-.contract-preview-holders-list {
-  margin-bottom: 1.5em;
-}
-.contract-preview-holders-item {
-  padding: 1em 0;
-  border-radius: 0.75em;
-  box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.15);
-  background-color: #FAFAFA;
-  + .contract-preview-holders-item {
-    margin-top: 1em;
-  }
-}
-
 .contract-preview-holders-address-cell {
   line-height: 2.4em;
   .identicon-container {

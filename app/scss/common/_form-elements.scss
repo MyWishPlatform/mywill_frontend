@@ -46,7 +46,7 @@
   &.form-control-description_two-row {
     line-height: 9.5em;
   }
-  span {
+  &__text {
     font-size: 1.1em;
     color: #878787;
     display: inline-block;
@@ -59,13 +59,28 @@
   margin-left: -$fieldsets-padding;
   margin-right: -$fieldsets-padding;
   padding:  0 $fieldsets-padding 1em;
-  + .contract-form-fieldset:not(.contract-form-fieldset-grey) {
+  &:not(&-light) + .contract-form-fieldset:not(.contract-form-fieldset-grey) {
     border-top: 1px solid #D8D8D8;
   }
   &-grey {
     box-shadow: inset 0 0 2em rgba(0, 0, 0, 0.05);
     background-color: #F0F0F0;
   }
+
+  &-light {
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.15);
+    background-color: #FAFAFA;
+    + .contract-form-fieldset-light {
+      border-top: 1px solid #D8D8D8;
+    }
+    &:not(.with-border) {
+      border: 0 none!important;
+      + .contract-form-fieldset-light {
+        margin-top: 1em;
+      }
+    }
+  }
+
   &:last-child {
     margin-bottom: -$fieldsets-padding;
     border-bottom-left-radius: 0.9em;
@@ -123,7 +138,7 @@
     padding-bottom: 0.3em;
     line-height: 1.95em;
   }
-  &:disabled {
+  &:disabled, &[disabled] {
     background-color: #f0f0f0;
   }
   &:not(&_short) {
@@ -155,7 +170,7 @@
   &:-ms-input-placeholder      {color:#999;}
 
   form.ng-submitted &.ng-invalid, &.ng-invalid:focus, &.ng-touched.ng-invalid, &[invalid="true"] {
-    &:not(:disabled) {
+    &:not(:disabled), &:not([disabled]) {
       border-color: #f91c1c;
     }
     &:focus {
@@ -242,6 +257,13 @@
 }
 
 .form-control {
+  position: relative;
+  .input-after {
+    position: absolute;
+    right: 10px;
+    font-size: 1.5em;
+    top: 60%;
+  }
   &_label {
     line-height: 4.9em;
     .form-control-label {
@@ -386,6 +408,7 @@
     text-align: center;
     transition: opacity 0.1s linear;
     z-index: 2;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.1);
     &_on {
       right: 0.2em;
       left: 2em;

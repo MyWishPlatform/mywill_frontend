@@ -22,18 +22,11 @@
         }
     }
     .form-control {
-        position: relative;
         &--copy {
             margin-top: 36px;
         }
         &--payment-title {
             margin-bottom: 20px;
-        }
-        .input-after {
-            position: absolute;
-            right: 10px;
-            font-size: 1.5em;
-            top: 60%;
         }
     }
     .attention-text {

@@ -781,13 +781,13 @@ Module.directive('dateTime', ['$compile', '$document', '$filter', 'dateTimeConfi
                             }
                             attrs.view = data.view || attrs.view;
 
-                            if (validateRequired) {
-                                ngModel.$validate();
-                            }
+                            ngModel.$validate();
+
                             if (angular.isDefined(data.format)) {
                                 format = attrs.format = data.format || dateTimeConfig.format;
                                 ngModel.$modelValue = -1; //Triggers formatters. This value will be discarded.
                             }
+
                             getTemplate();
                         }
                     }

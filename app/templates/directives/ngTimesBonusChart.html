@@ -7,21 +7,54 @@
 
         <polygon ng-repeat="bonus in timesBonusChartData"
                  ng-attr-points="{{ bonus.point }}"
-                 ng-attr-fill="{{'rgba('+ bonus.color +', 1)'}}"
-                 stroke-width="1" stroke="rgba(255, 255, 255, 1)">
+                 ng-attr-fill="{{'rgba(32, 110, 255, ' + bonus.bonus + ')'}}"
+                 stroke-dasharray="2,4"
+                 stroke-width="1" stroke="rgba(255, 255, 255, 0.5)">
+        </polygon>
+
+        <polygon ng-attr-points="{{
+                    leftOffset + ',0 ' +
+                    svgWidth + ', 0 ' +
+                    svgWidth + ',' + (svgHeight - bottomOffset) + ' ' +
+                    (svgWidth - maxPosition) + ',' + (svgHeight - bottomOffset) + ' ' +
+                    (svgWidth - maxPosition) + ',' + maxPosition + ' ' +
+                    leftOffset + ', ' + maxPosition
+                }}"
+                 ng-if="svgWidth"
+                 stroke-width="1" stroke="rgba(255, 255, 255, 1)"
+                 stroke-dasharray="5,5"
+                 fill="rgba(255, 255, 255, 0.1)">
         </polygon>
 
         <text y="0" x="0"
               fill="#000000" font-family="Verdana" font-size="12px" opacity="1"
               font-weight="bold" text-anchor="middle"
-              transform="translate(20,90) rotate(-90)">
+              ng-attr-transform="{{'translate(20,' + (svgHeight / 2) + ') rotate(-90)'}}">
             <tspan>Amount of sold tokens</tspan>
         </text>
 
         <text y="0" x="0"
               fill="#000000" font-family="Verdana" font-size="12px" opacity="1"
+              text-anchor="middle"
+              ng-if="svgWidth"
+              ng-attr-transform="{{'translate('+ (svgWidth - 15) +',' + (svgHeight / 2) + ') rotate(90)'}}">
+            <tspan>Finish date</tspan>
+        </text>
+
+
+        <text y="0" x="0"
+              fill="#000000" font-family="Verdana" font-size="12px" opacity="1"
+              text-anchor="middle"
+              ng-if="svgWidth"
+              ng-attr-transform="{{'translate('+ (svgWidth/2) +', 16)'}}">
+            <tspan>Hard cap</tspan>
+        </text>
+
+        <text y="0" x="0"
+              fill="#000000" font-family="Verdana" font-size="12px" opacity="1"
               font-weight="bold" text-anchor="middle"
-              ng-attr-transform="translate(304,{{svgHeight - bottomOffset + 14}})">
+              ng-if="svgWidth"
+              ng-attr-transform="{{'translate(' + svgWidth/2+','+(svgHeight - bottomOffset + 14) + ')'}}">
             <tspan>Date/Time of sold tokens</tspan>
         </text>
 

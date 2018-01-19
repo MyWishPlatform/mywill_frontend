@@ -3,12 +3,15 @@
   margin-top: 1em;
   width: 100%;
   &-bonus_legend {
-    background: rgb(225,0,0);
-    background: -moz-linear-gradient(left,  rgba(225,0,0,1) 0%, rgba(225,225,0,1) 50%, rgba(0,225,0,1) 100%);
-    background: -webkit-linear-gradient(left,  rgba(225,0,0,1) 0%,rgba(225,225,0,1) 50%,rgba(0,225,0,1) 100%);
-    background: linear-gradient(to right,  rgba(225,0,0,1) 0%,rgba(225,225,0,1) 50%,rgba(0,225,0,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e10000', endColorstr='#00e100',GradientType=1 );
+    background: -moz-linear-gradient(left,  rgba(32,110,255,0) 0%, rgba(32,110,255,1) 100%);
+    background: -webkit-linear-gradient(left,  rgba(32,110,255,0) 0%,rgba(32,110,255,1) 100%);
+    background: linear-gradient(to right,  rgba(32,110,255,0) 0%,rgba(32,110,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00206eff', endColorstr='#206eff',GradientType=1 );
+    border: 1px solid #d0d0d0;
     height: 15px;
     margin-top: 20px;
+  }
+  polygon {
+    vector-effect: non-scaling-stroke;
   }
 }

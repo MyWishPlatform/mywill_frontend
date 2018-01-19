@@ -15,25 +15,38 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
-        var date = $scope.dates.startDate.clone();
-        date.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).second(0);
-        $scope.request.start_date = date.format('X') * 1;
-        $scope.dates.startDate = date;
+        if (!$scope.dates.startDate) {
+            $scope.dates.startDate = moment($scope.request.start_date * 1000);
+        }
+        $scope.dates.startDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes);
+        if ($scope.dates.startDate < $scope.minStartDate) {
+            $scope.dates.startDate = $scope.minStartDate.clone();
+        }
+        $timeout(function() {
+            $scope.request.start_date = $scope.dates.startDate.clone().hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).format('X') * 1;
+            $scope.$broadcast('pickerUpdate', ['start-date'], {});
+        });
     };
     var setStopTimestamp = function() {
-        var date = $scope.dates.endDate.clone();
-        date.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).second(0);
-        $scope.request.stop_date = date.format('X') * 1;
-        $scope.dates.endDate = date;
+        if (!$scope.dates.endDate) {
+            $scope.dates.endDate = moment($scope.request.stop_date * 1000);
+        }
+        $scope.dates.endDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes);
+        if ($scope.dates.endDate < $scope.minStartDate) {
+            $scope.dates.endDate = $scope.minStartDate.clone();
+        }
+        $timeout(function() {
+            $scope.request.stop_date = $scope.dates.endDate.clone().hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).format('X') * 1;
+            $scope.$broadcast('pickerUpdate', ['end-date'], {});
+        });
     };
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;
+
     $scope.onChangeStartDate = function(modelName, currentDate) {
-        $scope.dates.startDate = currentDate.clone();
         setStartTimestamp();
     };
     $scope.onChangeEndDate = function(modelName, currentDate) {
-        $scope.dates.endDate = currentDate.clone();
         setStopTimestamp();
     };
     /* Управление датой и временем начала/окончания ICO (end) */
@@ -66,11 +79,12 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     $scope.resetForms = function() {
         $scope.request = angular.copy(contract.contract_details);
         $scope.contractName = contract.name;
-        $scope.minStartDate = moment().add(1, 'hours').seconds(0);
+        $scope.minStartDate = moment();
         $scope.dates = {
-            startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : $scope.minStartDate.clone().add(23, 'hours'),
-            endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : $scope.minStartDate.clone().add(23, 'hours').add(1, 'months')
+            startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : $scope.minStartDate.clone().add(1, 'days'),
+            endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : $scope.minStartDate.clone().add(1, 'days').add(1, 'months')
         };
+        $scope.minStartDate.add(5, 'minutes').second(0);
         $scope.timesForStarting = {
             start: {
                 hours: $scope.dates.startDate.hours(),
@@ -275,35 +289,60 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         timeBonusChartDataTimeout = $timeout(function() {
             $scope.timeBonusChartData = [];
             var bonuses = angular.copy($scope.bonuses);
+            bonuses.map(function(currBonus, index) {
+                var bonus = {
+                    bonus: currBonus.bonus,
+                    min_amount: currBonus.min_amount,
+                    max_amount: currBonus.max_amount,
+                    min_time: currBonus.min_time,
+                    max_time: currBonus.max_time
+                };
+                var indexOfTimeBonus = bonuses.indexOf(currBonus);
+                var prevTimeBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTimesAmount;
+                });
+                var prevTimeBonus = prevTimeBonuses[prevTimeBonuses.length - 1];
+                var prevTokenBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTokensAmount;
+                });
+                var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
+                var prevOnlyTimeBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTimesAmount && !bon.isTokensAmount;
+                });
+                var prevOnlyTimeBonus = prevOnlyTimeBonuses[prevOnlyTimeBonuses.length - 1];
 
-            bonuses.map(function(bonus) {
-                if (!bonus.isTimesAmount) {
-                    var indexOfTimeBonus = bonuses.indexOf(bonus);
-                    var nextTimeBonus = bonuses.filter(function(currBonus, index) {
-                        return (index > indexOfTimeBonus) && currBonus.isTimesAmount;
-                    })[0];
-                    var prevTimeBonuses = bonuses.filter(function(currBonus, index) {
-                        return (index < indexOfTimeBonus) && currBonus.isTimesAmount;
-                    });
-                    var prevTimeBonus = prevTimeBonuses[prevTimeBonuses.length - 1];
-                    bonus.min_time = prevTimeBonus ? prevTimeBonus.max_time : $scope.request.start_date;
-                    bonus.max_time = nextTimeBonus ? nextTimeBonus.min_time : bonus.min_time;
+                var prevOnlyTokenBonuses = bonuses.filter(function(bon, index) {
+                    return (index < indexOfTimeBonus) && bon.isTokensAmount && !bon.isTimesAmount;
+                });
+                var prevOnlyTokenBonus = prevOnlyTokenBonuses[prevOnlyTokenBonuses.length - 1];
+                if (!currBonus.isTimesAmount) {
+                    bonus.min_time = prevTimeBonus ? prevTimeBonus.max_time : false;
+                    bonus.max_time = false;
                 }
-
-                if (!bonus.isTokensAmount) {
-                    var indexOfBonus = bonuses.indexOf(bonus);
-                    var nextTokensBonus = bonuses.filter(function(currBonus, index) {
-                        return (index > indexOfBonus) && currBonus.isTokensAmount;
-                    })[0];
-                    var prevTokenBonuses = bonuses.filter(function(currBonus, index) {
-                        return (index < indexOfBonus) && currBonus.isTokensAmount;
-                    });
-                    var prevTokenBonus = prevTokenBonuses[prevTokenBonuses.length - 1];
-                    bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : (bonus.max_amount || 0);
-                    bonus.max_amount = nextTokensBonus ? nextTokensBonus.min_amount : bonus.min_amount;
+                if (prevOnlyTimeBonus !== prevTimeBonus) {
+                    bonus.prev_min_time = prevOnlyTimeBonus ? prevOnlyTimeBonus.max_time : false;
+                } else {
+                    bonus.prev_min_time = bonus.min_time;
+                }
+                if (!currBonus.isTokensAmount) {
+                    bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : false;
+                    bonus.max_amount = false;
+                }
+                if (prevOnlyTokenBonus !== prevTokenBonus) {
+                    bonus.prev_min_amount = prevOnlyTokenBonus ? prevOnlyTokenBonus.max_amount : false;
+                } else {
+                    bonus.prev_min_amount = bonus.min_amount;
                 }
                 $scope.timeBonusChartData.push(bonus);
             });
+
+            $scope.timeBonusChartParams = {
+                max_time: $scope.request.stop_date,
+                min_time: $scope.request.start_date,
+                max_amount: $scope.request.hard_cap,
+                min_amount: 0
+            };
+
             timeBonusChartDataTimeout = false;
         }, 200);
     };
@@ -369,7 +408,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         $scope.onChangeDateOfRecipient('', holder.freeze_date);
     };
     $scope.removeRecipient = function(recipient) {
-        $scope.token_holders = $scope.request.token_holders.filter(function(rec) {
+        $scope.token_holders = $scope.token_holders.filter(function(rec) {
             return rec !== recipient;
         });
     };

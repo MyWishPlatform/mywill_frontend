@@ -211,6 +211,9 @@
                     </div>
                 </div>
             </div><br/><br/>
+            <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="timeBonusChartData.length">
+                <div ng-times-bonus-chart="{data: timeBonusChartData, params: timeBonusChartParams}"></div>
+            </div>
             <!-- Amount bonuses -->
             <div class="contract-form-fieldset with-padding with-border contract-form-fieldset-light"
                  ng-repeat="bonus in details.amount_bonuses">
@@ -234,6 +237,9 @@
                     </div>
                 </div>
             </div><br/><br/>
+            <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="amountBonusChartData.length">
+                <div ng-bar-chart="{data: amountBonusChartData}"></div>
+            </div>
 
             <!-- Holders info -->
             <div class="contract-form-fieldset with-padding">

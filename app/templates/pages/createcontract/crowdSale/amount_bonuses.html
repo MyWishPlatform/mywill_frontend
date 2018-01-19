@@ -91,18 +91,6 @@
     </div>
 
     <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="amountBonusChartData.length && amountBonusForm.$valid">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="form-control-label">
-                    Тут можно воткнуть какой-то заголовок
-                </div>
-                <div class="form-control-description one-line without-padding">
-                    <span class="form-control-description__text">А тут можно вставить описание этой визуализации</span>
-                </div>
-            </div>
-            <div class="grid-cell grid-cell-1">
-                <div ng-bar-chart="{data: amountBonusChartData}"></div>
-            </div>
-        </div>
+        <div ng-bar-chart="{data: amountBonusChartData}"></div>
     </div>
 </div>

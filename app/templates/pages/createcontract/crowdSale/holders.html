@@ -86,9 +86,9 @@
         </div>
         <i class="icon-cancel float-right form-fieldset-info-button"
            ng-click="removeRecipient(recipient); checkTokensAmount();"
-           ng-if="request.token_holders.length"></i>
+           ng-if="token_holders.length"></i>
     </div>
-    <div class="contract-form-fieldset with-padding" ng-if="request.token_holders.length < 5">
+    <div class="contract-form-fieldset with-padding" ng-if="token_holders.length < 5">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
                 <span class="form-control-description__text">You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion</span><br/>

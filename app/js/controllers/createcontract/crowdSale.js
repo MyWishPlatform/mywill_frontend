@@ -74,7 +74,16 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
             contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
-        }, function() {
+        }, function(data) {
+            switch(data.status) {
+                case 400:
+                    switch(data.data.result) {
+                        case '1':
+                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
+                    }
+                    break;
+            }
             contractInProgress = false;
         });
     };

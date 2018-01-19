@@ -37,8 +37,8 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                 });
 
                 var lastAmountsBonus = lastAmountsBonuses[lastAmountsBonuses.length - 1];
-                var minAmountBonus = firstAmountsBonus ? firstAmountsBonus.min_amount : $scope.ngTimesBonusChart.params.min_amount;
-                var maxAmountBonus = new BigNumber(lastAmountsBonus ? lastAmountsBonus.max_amount : $scope.ngTimesBonusChart.params.min_amount);
+                var minAmountBonus = new BigNumber(firstAmountsBonus ? firstAmountsBonus.min_amount : $scope.ngTimesBonusChart.params.min_amount);
+                var maxAmountBonus = new BigNumber(lastAmountsBonus ? lastAmountsBonus.max_amount : $scope.ngTimesBonusChart.params.max_amount);
                 var rangeAmounts = new BigNumber(maxAmountBonus).minus(minAmountBonus).div('100').times($scope.maxPosition / onePercentOfHeight + '');
 
                 var firstDateBonus = chartData.filter(function(bonus) {
@@ -50,7 +50,7 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                 var lastDateBonus = lastDateBonuses[lastDateBonuses.length - 1];
 
                 var minDateBonus = firstDateBonus ? firstDateBonus.min_time : $scope.ngTimesBonusChart.params.min_time;
-                var maxDateBonus = lastDateBonus ? lastDateBonus.max_time : $scope.ngTimesBonusChart.params.min_time;
+                var maxDateBonus = lastDateBonus ? lastDateBonus.max_time : $scope.ngTimesBonusChart.params.max_time;
 
 
                 var rangeDates = (maxDateBonus - minDateBonus) / 100 * ($scope.maxPosition / onePercentOfWidth);
@@ -70,10 +70,10 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                 var dateTimeOnePercentLength = onePercentOfWidth / datesLength * 100;
 
                 chartData.map(function(bonus) {
-                    bonus.min_amount = bonus.min_amount || minAmountBonus;
+                    bonus.min_amount = bonus.min_amount || minAmountBonus.toString(10);
                     bonus.max_amount = bonus.max_amount || maxAmountBonus.toString(10);
-                    bonus.prev_min_amount = bonus.prev_min_amount || minAmountBonus;
-                    bonus.min_time = bonus.min_time || (firstDateBonus ? firstDateBonus.min_time : 0);
+                    bonus.prev_min_amount = bonus.prev_min_amount || minAmountBonus.toString(10);
+                    bonus.min_time = bonus.min_time || minDateBonus;
                     bonus.max_time = bonus.max_time || maxDateBonus;
                     bonus.prev_min_time = bonus.prev_min_time || minDateBonus;
                 });

@@ -42,18 +42,27 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     var launchProgress = false;
     var launchContract = function(contract) {
         launchProgress = true;
+        $rootScope.commonOpenedPopup = false;
         contractService.deployContract(contract.id).then(function() {
             launchProgress = false;
             $state.go('main.contracts.list');
-        }, function() {
+        }, function(data) {
+            switch(data.status) {
+                case 400:
+                    switch(data.data.result) {
+                        case 1:
+                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
+                    }
+                    break;
+            }
             launchProgress = false;
         });
     };
 
     $scope.payContract = function() {
         var contract = $scope.contract;
-        $rootScope.getCurrentUser().then(function() {
-
+        $rootScope.getCurrentUser().then(function(data) {
             if ($rootScope.currentUser.is_ghost) {
                 $rootScope.commonOpenedPopup = 'ghost-user-alarm';
                 return;

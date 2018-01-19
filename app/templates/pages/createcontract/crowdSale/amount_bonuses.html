@@ -1,7 +1,6 @@
 <div ng-controller="crowdSaleAmountBonusesController">
     <div class="relative contract-form-fieldset with-padding"
-         ng-repeat="bonus in bonuses"
-         ng-init="bonus.min_amount = bonus.min_amount || (!$first ? bonuses[$index - 1].max_amount : 1); bonus.max_amount = bonus.max_amount || (!$last ? bonuses[$index + 1].min_amount : bigNumber(request.hard_cap).div(request.rate))">
+         ng-repeat="bonus in bonuses">
 
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-1-6 grid-cell-ps-1-4 grid-cell-vs-1-3">

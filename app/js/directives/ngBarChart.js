@@ -31,7 +31,7 @@ module.directive('ngBarChart', function($rootScope) {
                     var leftOffset = new BigNumber(dataItem.minValueX).minus(firstElement.minValueX).div(onePercent).times(onePercentForPixel);
                     var currentChartItem = {
                         width: new BigNumber(dataItem.maxValueX).minus(dataItem.minValueX).div(onePercent).times(onePercentForPixel).plus(leftOffset).round(2).toString(10),
-                        left: leftOffset.plus(1).round(2).toString(10),
+                        left: leftOffset.round(2).toString(10),
                         height: $scope.svgHeight * (dataItem.valueY / 100),
                         bonus: dataItem.valueY / 100
                     };

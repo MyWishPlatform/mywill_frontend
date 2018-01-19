@@ -26,6 +26,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             $scope.request.start_date = $scope.dates.startDate.clone().hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).format('X') * 1;
             $scope.$broadcast('pickerUpdate', ['start-date'], {});
         });
+        $scope.$broadcast('icoTimesChanged');
     };
     var setStopTimestamp = function() {
         if (!$scope.dates.endDate) {
@@ -39,16 +40,18 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             $scope.request.stop_date = $scope.dates.endDate.clone().hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).format('X') * 1;
             $scope.$broadcast('pickerUpdate', ['end-date'], {});
         });
+        $scope.$broadcast('icoTimesChanged');
     };
+
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;
+    $scope.onChangeStartDate = setStartTimestamp;
+    $scope.onChangeEndDate = setStopTimestamp;
 
-    $scope.onChangeStartDate = function(modelName, currentDate) {
-        setStartTimestamp();
+    $scope.checkTokensAmount = function() {
+        $scope.$broadcast('tokensCapChanged');
     };
-    $scope.onChangeEndDate = function(modelName, currentDate) {
-        setStopTimestamp();
-    };
+
     /* Управление датой и временем начала/окончания ICO (end) */
     var contractInProgress = false;
     $scope.createContract = function() {
@@ -282,7 +285,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
 
-
     var timeBonusChartDataTimeout;
     $scope.createTimeBonusChartData = function() {
         timeBonusChartDataTimeout ? $timeout.cancel(timeBonusChartDataTimeout) : false;
@@ -346,11 +348,17 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             timeBonusChartDataTimeout = false;
         }, 200);
     };
+    $scope.$on('icoTimesChanged', $scope.createTimeBonusChartData);
+    $scope.$on('tokensCapChanged', $scope.createTimeBonusChartData);
 
     resetFormData();
 }).controller('crowdSaleAmountBonusesController', function($scope) {
     $scope.addAmountBonus = function() {
-        $scope.bonuses.push({});
+
+        $scope.bonuses.push({
+            min_amount: !$scope.bonuses.length ? 1 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],
+            max_amount: $scope.request.hard_cap
+        });
     };
     $scope.deleteAmountBonus = function(bonus) {
         $scope.bonuses = $scope.bonuses.filter(function(bns) {
@@ -373,6 +381,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             $scope.amountBonusChartData.push(chartItem);
         });
     };
+    $scope.$on('tokensCapChanged', $scope.createAmountBonusChartData);
 
     var resetFormData = function() {
         $scope.bonuses = angular.copy($scope.request.amount_bonuses);

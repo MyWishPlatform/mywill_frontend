@@ -9,7 +9,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
 
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];
-    var bonuses = angular.copy(contractDetails.time_bonuses);
+    var bonuses = angular.copy(contractDetails.time_bonuses || []);
     $scope.timeBonusChartData = [];
     bonuses.map(function(currBonus, index) {
         currBonus.isTimesAmount = currBonus.min_time && currBonus.min_time;
@@ -66,7 +66,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         max_amount: contractDetails.hard_cap,
         min_amount: 0
     };
-    var amountBonuses = angular.copy(contractDetails.amount_bonuses);
+    var amountBonuses = angular.copy(contractDetails.amount_bonuses || []);
     $scope.amountBonusChartData = [];
     amountBonuses.map(function(item) {
         var chartItem = {

@@ -54,7 +54,7 @@
                            required
                            ng-change="createAmountBonusChartData()"
                            placeholder="1000"
-                           commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: bigNumber(bonus.min_amount).plus('1')}"
+                           commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: bigNumber(bonus.min_amount).plus('1'), max: bigNumber(request.hard_cap).div(request.rate).floor()}"
                            class="form-control-input"/>
                     <div class="input-after">ETH</div>
                 </div>

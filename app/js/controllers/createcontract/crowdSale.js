@@ -1,6 +1,5 @@
 angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService,
                                                                        openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
-
     $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
     $scope.currencyRate = currencyRate.data;
 
@@ -42,12 +41,10 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         });
         $scope.$broadcast('icoTimesChanged');
     };
-
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;
     $scope.onChangeStartDate = setStartTimestamp;
     $scope.onChangeEndDate = setStopTimestamp;
-
     $scope.checkTokensAmount = function() {
         $scope.$broadcast('tokensCapChanged');
     };
@@ -290,10 +287,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             });
         });
     };
-
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
-
     var timeBonusChartDataTimeout;
     $scope.createTimeBonusChartData = function() {
         timeBonusChartDataTimeout ? $timeout.cancel(timeBonusChartDataTimeout) : false;
@@ -359,14 +354,12 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     };
     $scope.$on('icoTimesChanged', $scope.createTimeBonusChartData);
     $scope.$on('tokensCapChanged', $scope.createTimeBonusChartData);
-
     resetFormData();
 }).controller('crowdSaleAmountBonusesController', function($scope) {
     $scope.addAmountBonus = function() {
-
         $scope.bonuses.push({
             min_amount: !$scope.bonuses.length ? 1 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],
-            max_amount: $scope.request.hard_cap
+            max_amount: new BigNumber($scope.request.hard_cap).div($scope.request.rate).floor()
         });
     };
     $scope.deleteAmountBonus = function(bonus) {
@@ -391,7 +384,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         });
     };
     $scope.$on('tokensCapChanged', $scope.createAmountBonusChartData);
-
     var resetFormData = function() {
         $scope.bonuses = angular.copy($scope.request.amount_bonuses);
         $scope.bonuses.map(function(bonus) {
@@ -409,15 +401,11 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             });
         });
     };
-
     resetFormData();
-
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
-
     $scope.createAmountBonusChartData();
 }).controller('crowdSaleHoldersController', function($scope, $timeout) {
-    var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
     $scope.addRecipient = function() {
         var holder = {
             freeze_date: $scope.dates.endDate.clone().add(1, 'minutes')
@@ -468,9 +456,9 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             return holder.freeze_date === value;
         })[0]['parsed_freeze_date'] = value.format('X') * 1;
     };
-
     var resetFormData = function() {
         $scope.token_holders = angular.copy($scope.request.token_holders);
+        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.dates.endDate;
@@ -480,21 +468,18 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     };
     var createdContractData = function() {
         $scope.request.token_holders = [];
+        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
-            $scope.request.token_holders[index] = {
+            $scope.request.token_holders.push({
                 freeze_date: holder.isFrozen ? holder.freeze_date.add(1, 'seconds').format('X') * 1 : null,
                 amount: new BigNumber(holder.amount).times(powerNumber).toString(10),
                 address: holder.address,
                 name: holder.name || null
-            };
+            });
         });
-
     };
-
     resetFormData();
-
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
-
     $scope.checkTokensAmount();
 });

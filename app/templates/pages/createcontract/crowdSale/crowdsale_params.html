@@ -113,7 +113,7 @@
                        tabindex="-1"
                        type="number"
                        ng-attr-min="{{minStartDate.format('X')}}"
-                       ng-attr-max="{{dates.endDate.clone().add(-1, 'hours').format('X')}}"/>
+                       ng-attr-max="{{dates.endDate.clone().add(-30, 'minutes').format('X')}}"/>
 
                 <input type="datetime" required
                        id="start-date"
@@ -160,7 +160,7 @@
                        ng-model="request.stop_date"
                        type="number"
                        step="1"
-                       ng-attr-min="{{dates.startDate.clone().add(1, 'hours').format('X')}}"/>
+                       ng-attr-min="{{dates.startDate.clone().add(30, 'minutes').format('X')}}"/>
 
                 <input type="datetime" required
                        id="end-date"

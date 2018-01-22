@@ -45,7 +45,7 @@
                         <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_token.address)}}"/>
                     </span>
                         <div class="contract-wallet-information-wallet">
-                            <a href="https://etherscan.io/address/{{details.eth_contract_token.address}}"
+                            <a href="https://etherscan.io/token/{{details.eth_contract_token.address}}"
                                target="_blank"
                                ng-bind="details.eth_contract_token.address"></a>
                         </div>
@@ -133,7 +133,7 @@
                         </div>
                         <div class="contract-preview-base-font contract-preview-base-value">
                             <div class="contract-preview-base-value-string">
-                                {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
+                                {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="contract-preview-base-font contract-preview-base-value">
                             <div class="contract-preview-base-value-string">
-                                {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
+                                {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                             </div>
                         </div>
                     </div>
@@ -377,11 +377,12 @@
                         <div class="contract-preview-code-text" ng-if="details.sources[contract.codeTab]">
                             {{details.sources[contract.codeTab]}}
                         </div>
+
                         <button class="for-copy-button" ng-if="details.sources[contract.codeTab]"
-                                ng-class="{copied: copiedCode}"
+                                ng-class="{copied: contract.copied[contract.codeTab]}"
                                 clipboard supported="supported"
-                                text="details.sources[codeTab]"
-                                on-copied="successCodeCopy()"
+                                text="details.sources[contract.codeTab]"
+                                on-copied="successCodeCopy(contract, contract.codeTab)"
                                 on-error="failCodeCopy(err)">
                             <i class="icon-content_copy"></i>
                         </button>

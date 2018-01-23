@@ -40,8 +40,8 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         });
         var prevOnlyTokenBonus = prevOnlyTokenBonuses[prevOnlyTokenBonuses.length - 1];
         if (!currBonus.isTimesAmount) {
-            bonus.min_time = prevTimeBonus ? prevTimeBonus.max_time : false;
-            bonus.max_time = false;
+            // bonus.min_time = prevTimeBonus ? prevTimeBonus.max_time : false;
+            // bonus.max_time = false;
         }
         if (prevOnlyTimeBonus !== prevTimeBonus) {
             bonus.prev_min_time = prevOnlyTimeBonus ? prevOnlyTimeBonus.max_time : false;
@@ -49,8 +49,8 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             bonus.prev_min_time = bonus.min_time;
         }
         if (!currBonus.isTokensAmount) {
-            bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : false;
-            bonus.max_amount = false;
+            // bonus.min_amount = prevTokenBonus ? prevTokenBonus.max_amount : false;
+            // bonus.max_amount = false;
         }
         if (prevOnlyTokenBonus !== prevTokenBonus) {
             bonus.prev_min_amount = prevOnlyTokenBonus ? prevOnlyTokenBonus.max_amount : false;

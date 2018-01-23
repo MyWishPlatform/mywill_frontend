@@ -7,7 +7,7 @@
 
         <polygon ng-repeat="bonus in timesBonusChartData"
                  ng-attr-points="{{ bonus.point }}"
-                 ng-attr-fill="{{'rgba(32, 110, 255, ' + bonus.bonus + ')'}}"
+                 ng-attr-fill="{{'rgba(32, 110, 255, ' + bonus.opacity + ')'}}"
                  stroke-dasharray="2,4"
                  stroke-width="1" stroke="rgba(255, 255, 255, 0.5)">
         </polygon>
@@ -16,9 +16,9 @@
                     leftOffset + ',0 ' +
                     svgWidth + ', 0 ' +
                     svgWidth + ',' + (svgHeight - bottomOffset) + ' ' +
-                    (svgWidth - maxPosition) + ',' + (svgHeight - bottomOffset) + ' ' +
-                    (svgWidth - maxPosition) + ',' + maxPosition + ' ' +
-                    leftOffset + ', ' + maxPosition
+                    (svgWidth - maxPosition + 1) + ',' + (svgHeight - bottomOffset) + ' ' +
+                    (svgWidth - maxPosition + 1) + ',' + (maxPosition - 2) + ' ' +
+                    leftOffset + ', ' + (maxPosition - 2)
                 }}"
                  ng-if="svgWidth"
                  stroke-width="1" stroke="rgba(255, 255, 255, 1)"
@@ -59,10 +59,10 @@
         </text>
 
     </svg>
-    <div class="ng-times-bonus-chart-bonus_legend"></div>
+    <!-- div class="ng-times-bonus-chart-bonus_legend"></div>
     <div class="clearfix text-center">
         <strong class="float-left">0%</strong>
         <strong class="float-right">100%</strong>
         <strong>50%</strong>
-    </div>
+    </div -->
 </div>

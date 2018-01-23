@@ -2,15 +2,14 @@
     <svg style="width: 100%;" ng-attr-height="{{svgHeight}}">
         <polygon ng-repeat="bonus in amountBonusChartData"
                  ng-attr-points="{{bonus.left + ',' + svgHeight + ' ' + bonus.left + ',' + (svgHeight - bonus.height) + ' ' + bonus.width + ',' + (svgHeight - bonus.height) + ' ' + bonus.width + ',' + svgHeight}}"
-                 ng-attr-fill="{{'rgba(32, 110, 255, ' + bonus.bonus + ')'}}"
+                 ng-attr-fill="{{'rgba(32, 110, 255, ' + bonus.opacity + ')'}}"
                  stroke-dasharray="2,4"
                  stroke-width="1" stroke="rgba(255, 255, 255, 0.5)"/>
-
     </svg>
-    <div class="ng-times-bonus-chart-bonus_legend"></div>
+    <!-- div class="ng-times-bonus-chart-bonus_legend"></div>
     <div class="clearfix text-center">
         <strong class="float-left">0%</strong>
         <strong class="float-right">100%</strong>
         <strong>50%</strong>
-    </div>
+    </div -->
 </div>

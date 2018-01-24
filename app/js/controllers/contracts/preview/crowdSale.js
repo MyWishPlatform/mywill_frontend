@@ -8,9 +8,17 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     var contractDetails = $scope.contract.contract_details;
 
 
+    contractDetails.time_bonuses.map(function(bonus) {
+        bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
+        bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
+        bonus.min_time = bonus.min_time ? bonus.min_time * 1000 : undefined;
+        bonus.max_time = bonus.max_time ? bonus.max_time * 1000 : undefined;
+    });
+
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];
     var bonuses = angular.copy(contractDetails.time_bonuses || []);
     $scope.timeBonusChartData = [];
+
     bonuses.map(function(currBonus, index) {
         currBonus.isTimesAmount = currBonus.min_time && currBonus.min_time;
         currBonus.isTokensAmount = currBonus.min_amount && currBonus.max_amount;
@@ -60,12 +68,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         $scope.timeBonusChartData.push(bonus);
     });
 
-    $scope.timeBonusChartParams = {
-        max_time: contractDetails.stop_date,
-        min_time: contractDetails.start_date,
-        max_amount: contractDetails.hard_cap,
-        min_amount: 0
-    };
     var amountBonuses = angular.copy(contractDetails.amount_bonuses || []);
     $scope.amountBonusChartData = [];
     amountBonuses.map(function(item) {
@@ -84,13 +86,13 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
     contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
 
+    $scope.timeBonusChartParams = {
+        max_time: contractDetails.stop_date,
+        min_time: contractDetails.start_date,
+        max_amount: contractDetails.hard_cap,
+        min_amount: 0
+    };
 
-    contractDetails.time_bonuses.map(function(bonus) {
-        bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
-        bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
-        bonus.min_time = bonus.min_time ? bonus.min_time * 1000 : undefined;
-        bonus.max_time = bonus.max_time ? bonus.max_time * 1000 : undefined;
-    });
     contractDetails.amount_bonuses = contractDetails.amount_bonuses || [];
     contractDetails.amount_bonuses.map(function(bonus) {
         bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,18)).round().toString(10);

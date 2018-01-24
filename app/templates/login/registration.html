@@ -10,9 +10,10 @@
         <span class="field-error form-field_error-email">Enter your e-mail</span>
         <span class="field-error form-field_error-server">{{serverErrors.email.join(', ')}}</span>
     </div>
+    <!--pattern="[\da-zA-Z!#@$%&'*+—/=?^_`{|}~]+"-->
     <div class="field-container">
         <input class="field-input"
-               pattern="[\da-zA-Z!#$%&'*+—/=?^_`{|}~]+"
+               pattern=".+"
                type="password"
                minlength="8"
                ng-model="request.password1"
@@ -28,7 +29,7 @@
     <div class="field-container">
         <input class="field-input"
                type="password"
-               ng-pattern="{{request.password1}}"
+               ng-match="request.password1"
                autocomplete="new-password"
                ng-class="{'ng-invalid ng-invalid-server': serverErrors.password2}"
                ng-model="request.password2" required>

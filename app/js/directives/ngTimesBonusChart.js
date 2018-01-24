@@ -135,10 +135,14 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                         pointX2 + ',' + pointY2,
                         pointX1 + ',' + pointY2
                     ];
+
+                    var opacity = $scope.bonusesParams.rangeBonuses ?
+                        $scope.bonusesParams.minOpacity + (item.bonus - $scope.bonusesParams.min) / $scope.bonusesParams.rangeBonuses * 0.7 : 1;
+
                     $scope.timesBonusChartData.push({
                         point:  points.join(' '),
                         bonus: item.bonus / 100,
-                        opacity: Math.round(($scope.bonusesParams.minOpacity + (item.bonus - $scope.bonusesParams.min) / $scope.bonusesParams.rangeBonuses * 0.7) * 1000) / 1000
+                        opacity: Math.round(opacity * 1000) / 1000
                     });
                 });
             };

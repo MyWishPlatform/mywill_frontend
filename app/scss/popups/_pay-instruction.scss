@@ -50,7 +50,6 @@
 }
 
 .instruction-for-copy-button {
-  margin-top: 0.5em;
   background: none;
   border: none;
   padding: 0;
@@ -59,7 +58,7 @@
   outline: none;
   cursor: pointer;
   float: right;
-  margin-right: -1.8em;
+  margin-right: -1em;
   &.copied {
     color: #ffa2a8;
     &:before {
@@ -83,7 +82,7 @@
       height: 0.5em;
       background-color: rgba(0, 0, 0, 0.8);
       transform: rotate(45deg);
-      right: 1.5em;
+      right: 0.6em;
       margin-bottom: 0.55em;
     }
   }

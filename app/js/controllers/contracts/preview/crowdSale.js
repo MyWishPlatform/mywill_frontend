@@ -1,13 +1,11 @@
-angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, exRate, CONTRACT_STATUSES_CONSTANTS, $state) {
+angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, exRate, $state) {
     $scope.contract = openedContract.data;
     $scope.setContract($scope.contract);
-
-
-    $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
 
     var contractDetails = $scope.contract.contract_details;
 
 
+    contractDetails.time_bonuses = contractDetails.time_bonuses || [];
     contractDetails.time_bonuses.map(function(bonus) {
         bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
         bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
@@ -15,7 +13,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         bonus.max_time = bonus.max_time ? bonus.max_time * 1000 : undefined;
     });
 
-    contractDetails.time_bonuses = contractDetails.time_bonuses || [];
     var bonuses = angular.copy(contractDetails.time_bonuses || []);
     $scope.timeBonusChartData = [];
 
@@ -130,9 +127,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         amount: contractDetails.hard_cap,
         address: 'For Sale'
     });
-
-    $scope.stateValue = $scope.statuses[$scope.contract.state]['value'];
-    $scope.stateTitle = $scope.statuses[$scope.contract.state]['title'];
 
     $scope.wishCost = exRate.data.WISH;
 });

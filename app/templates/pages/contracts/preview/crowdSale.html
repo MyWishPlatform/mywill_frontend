@@ -20,7 +20,7 @@
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
-            <div class="contract-form-fieldset with-border" ng-if="(stateValue == 4) && details.eth_contract_crowdsale.address">
+            <div class="contract-form-fieldset with-border" ng-if="(contract.stateValue == 4) && details.eth_contract_crowdsale.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contract-form-fieldset with-border" ng-if="(stateValue == 4) && details.eth_contract_token.address">
+            <div class="contract-form-fieldset with-border" ng-if="(contract.stateValue == 4) && details.eth_contract_token.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Token address</div>
@@ -174,6 +174,20 @@
                                 <i ng-class="{'icon-check_circle': details.platform_as_admin, 'icon-cancel': !details.platform_as_admin}"></i>
                                 <span ng-if="details.platform_as_admin">YES</span>
                                 <span ng-if="!details.platform_as_admin">NO</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix" ng-if="details.continue_minting"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="details.continue_minting">
+                        <div class="form-control-label">
+                            <i class="form-control-label-icon"></i>
+                            Pre-Sale
+                        </div>
+                        <div class="contract-preview-base-font contract-preview-base-value">
+                            <div class="contract-preview-base-value-string">
+                                <i class="icon-check_circle"></i>
+                                <span>YES</span>
                             </div>
                         </div>
                     </div>

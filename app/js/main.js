@@ -25,6 +25,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval) {
 
+    $rootScope.$location = $location;
+
     $rootScope.contractTypesIcons = {
         0: 'icon-lastwill',
         1: 'icon-key',
@@ -217,6 +219,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         if (!value || isNaN(value)) return;
         return new BigNumber(value);
     };
+
+    $rootScope.web3Utils = Web3.utils;
 
 }).config(function($httpProvider, $qProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';

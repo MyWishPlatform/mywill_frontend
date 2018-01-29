@@ -118,6 +118,12 @@
   display: block;
   padding: 0.5em 1em;
 }
+input {
+  &.form-control-input {
+    line-height: 1em!important;
+    padding: 1em!important;
+  }
+}
 .form-control-input, .text-field {
   box-sizing: border-box;
   border: 1px solid #C2C2C2;

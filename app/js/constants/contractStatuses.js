@@ -35,5 +35,9 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
     'POSTPONED': {
         title: 'Postponed',
         value: 8
+    },
+    'TRIGGERED': {
+        title: 'Triggered',
+        value: 9
     }
 });

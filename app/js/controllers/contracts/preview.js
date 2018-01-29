@@ -1,6 +1,6 @@
-angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, $timeout) {
+angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, $timeout, CONTRACT_STATUSES_CONSTANTS) {
     var deletingProgress = false;
-
+    $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
 
     var url = 'https://www.myetherwallet.com/?';
@@ -12,6 +12,8 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
     $scope.setContract = function(contract) {
         $scope.contract = contract;
+        $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
+        $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
         if (!contract.contract_details.eth_contract) return;
         var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];
         var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];

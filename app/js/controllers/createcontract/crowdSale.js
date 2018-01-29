@@ -1,5 +1,6 @@
-angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService,
+angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService, $location,
                                                                        openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+
     $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
     $scope.currencyRate = currencyRate.data;
 
@@ -11,6 +12,10 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             time_bonuses: []
         }
     };
+
+    if (contract.continue_minting) {
+        $location.hash('pre-sale');
+    }
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {

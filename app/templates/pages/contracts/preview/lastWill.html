@@ -1,4 +1,4 @@
-<div class="contract-preview-tabs" ng-init="contract = contract; contract.showedTab = 'info'">
+<div class="contract-preview-tabs" ng-init="contract.showedTab = 'info'">
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'info'}"
          ng-click="contract.showedTab = 'info'">
@@ -7,7 +7,7 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
-         ng-show="contract.source_code">
+         ng-show="contract.contract_details.eth_contract.source_code">
         <span>Source code</span>
     </div>
 </div>
@@ -21,15 +21,15 @@
 
             <div class="clearfix"><br/></div>
 
-            <div class="contract-preview-code-content" ng-if="contract.source_code">
+            <div class="contract-preview-code-content" ng-if="contract.contract_details.eth_contract.source_code">
                 <div class="contract-preview-code-text">
-                    {{contract.source_code}}
+                    {{contract.contract_details.eth_contract.source_code}}
                 </div>
                 <button class="for-copy-button"
-                        ng-class="{copied: copied['code']}"
+                        ng-class="{copied: contract.copied['code']}"
                         clipboard supported="supported"
-                        text="contract.source_code"
-                        on-copied="successCodeCopy()"
+                        text="contract.contract_details.eth_contract.source_code"
+                        on-copied="successCodeCopy(contract, 'code')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
@@ -49,20 +49,20 @@
             <div class="contract-form-fieldset with-border">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
-                        <div class="contract-wallets-information-one-block" ng-if="contract.address">
+                        <div class="contract-wallets-information-one-block" ng-if="contract.contract_details.eth_contract.address">
                             <span class="identicon-container">
-                                <img ng-src="{{$root.generateIdenticon(contract.address)}}"/>
+                                <img ng-src="{{$root.generateIdenticon(contract.contract_details.eth_contract.address)}}"/>
                             </span>
                             <div class="contract-wallet-information-title">Contract address:</div>
                             <div class="contract-wallet-information-wallet">
-                                <a ng-attr-href="{{'https://etherscan.io/address/' + contract.address}}"
+                                <a ng-attr-href="{{'https://etherscan.io/address/' + contract.contract_details.eth_contract.address}}"
                                    target="_blank"
-                                   ng-bind="contract.address"></a>
-                                <button class="instruction-for-copy-button"
+                                   ng-bind="contract.contract_details.eth_contract.address"></a>
+                                <button class="instruction-for-copy-button relative"
                                         clipboard supported="supported"
                                         ng-class="{copied: contract.copied['address']}"
                                         text="contract.address"
-                                        on-copied="contract.successCodeCopy(contract, 'address')" on-error="contract.failCodeCopy(err)">
+                                        on-copied="successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
                                     <i class="icon-content_copy"></i>
                                 </button>
                             </div>

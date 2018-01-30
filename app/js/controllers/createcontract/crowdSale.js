@@ -13,7 +13,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         }
     };
 
-    if (contract.continue_minting) {
+
+    if (contract.contract_details.continue_minting) {
         $location.hash('pre-sale');
     }
 

@@ -364,7 +364,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
 }).controller('crowdSaleAmountBonusesController', function($scope) {
     $scope.addAmountBonus = function() {
         $scope.bonuses.push({
-            min_amount: !$scope.bonuses.length ? 1 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],
+            min_amount: !$scope.bonuses.length ? 0 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],
             max_amount: new BigNumber($scope.request.hard_cap).div($scope.request.rate).floor()
         });
     };

@@ -30,7 +30,7 @@
                            ng-model="bonus.min_amount"
                            ng-change="createAmountBonusChartData()"
                            required
-                           commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: !$index ? '1' : bonuses[$index-1].max_amount, max: bigNumber(bonus.max_amount).minus('1')}"
+                           commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', min: !$index ? '0' : bonuses[$index-1].max_amount, max: bigNumber(bonus.max_amount).minus('1')}"
                            class="form-control-input"/>
                     <div class="input-after">ETH</div>
                 </div>
@@ -38,8 +38,8 @@
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text">
-                            Minimum contribution for getting specified bonus
-                        </span>
+                    Minimum contribution for getting specified bonus
+                </span>
             </div>
         </div>
         <div class="grid-row contract-form-row">

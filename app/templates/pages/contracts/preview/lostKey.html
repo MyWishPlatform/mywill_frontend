@@ -71,7 +71,13 @@
                                         ng-if="contract.stateValue == 4"
                                         ng-pop-up="{
                                             template: '/templates/popups/parity-instruction.html',
-                                            onClose: ngPopUp.onClose
+                                            onClose: ngPopUp.onClose,
+                                            actions: {
+                                                successCodeCopy: successCodeCopy
+                                            },
+                                            params: {
+                                              contract: contract
+                                            }
                                         }"
                                         ng-click="closeCurrentPopup(true)"
                                         class="as-link">

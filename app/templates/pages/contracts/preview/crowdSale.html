@@ -32,6 +32,14 @@
                             <a href="https://etherscan.io/address/{{details.eth_contract_crowdsale.address}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.address"></a>
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['crowdsale_address']}"
+                                    text="details.eth_contract_crowdsale.address"
+                                    on-copied="successCodeCopy(contract, 'crowdsale_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -48,6 +56,14 @@
                             <a href="https://etherscan.io/token/{{details.eth_contract_token.address}}"
                                target="_blank"
                                ng-bind="details.eth_contract_token.address"></a>
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['token_address']}"
+                                    text="details.eth_contract_token.address"
+                                    on-copied="successCodeCopy(contract, 'token_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -273,6 +289,15 @@
                             <a href="https://etherscan.io/address/{{details.admin_address}}"
                                target="_blank"
                                ng-bind="details.admin_address"></a>
+
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['admin_address']}"
+                                    text="details.admin_address"
+                                    on-copied="successCodeCopy(contract, 'admin_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -288,6 +313,14 @@
                     <a href="https://etherscan.io/address/{{holder.address}}"
                        target="_blank"
                        ng-bind="holder.address"></a>
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            ng-class="{copied: contract.copied['holder_address_' + $index]}"
+                            text="holder.address"
+                            on-copied="successCodeCopy(contract, 'holder_address_' + $index)"
+                            on-error="failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
                 </div>
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">

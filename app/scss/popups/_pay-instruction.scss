@@ -4,7 +4,7 @@
   list-style-type: none;
   max-width: 60em;
   box-sizing: border-box;
-  li {
+  > li {
     margin: 0;
     counter-increment: itemCounter;
     padding: 0.9em 0;
@@ -22,6 +22,11 @@
       border: 1px solid;
     }
   }
+}
+.instruction-second-steps-list {
+  margin-top: 1em;
+  list-style-type: disc;
+  padding-left: 2em;
 }
 
 .instruction-item-text {
@@ -96,7 +101,11 @@
   color: $white-color;
   background-color: $dark-grey-color;
   margin-top: 0.5em;
+  margin-bottom: 0.5em;
   word-wrap: break-word;
+  box-sizing: border-box;
+  max-height: 10em;
+  overflow: auto;
   &:not(.json-text) {
     padding: 0.65em 1em;
   }

@@ -21,12 +21,12 @@
             <div class="instruction-item-text">
                 Copy the contract address to the Contract Address
                 <div class="instruction-for-copy">
-                    <button class="instruction-for-copy-button"
+                    <button class="instruction-for-copy-button relative"
                             clipboard supported="supported"
                             text="ngPopUp.params.contract.contract_details.eth_contract.address"
                             ng-class="{copied: ngPopUp.params.contract.copied['address']}"
                             on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')"
-                            on-error="ngPopUp.actions.failCodeCopy(err)">
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
                         <i class="icon-content_copy"></i>
                     </button>
                     <div class="instruction-for-copy-text">{{ngPopUp.params.contract.contract_details.eth_contract.address}}</div>
@@ -37,12 +37,12 @@
             <div class="instruction-item-text">
                 Copy MyWill data to ABI/JSON interface
                 <div class="instruction-for-copy">
-                    <button class="instruction-for-copy-button"
+                    <button class="instruction-for-copy-button relative"
                             clipboard supported="supported"
                             text="ngPopUp.params.contract.willCode"
                             ng-class="{copied: ngPopUp.params.contract.copied['willCode']}"
                             on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'willCode')"
-                            on-error="ngPopUp.actions.failCodeCopy(err)">
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
                         <i class="icon-content_copy"></i>
                     </button>
                     <div class="instruction-for-copy-text">{{ngPopUp.params.contract.willCode}}</div>

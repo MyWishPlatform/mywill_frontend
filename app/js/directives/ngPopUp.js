@@ -8,6 +8,8 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
     var popupWindowCloser = angular.element('<div>').addClass('popup-window-closer');
     var popupCloser = angular.element('<div>').addClass('popup-window-closer-global with-popup ng-popup-closer');
 
+    var popupContent = angular.element('<div>').addClass('popup-content');
+
     var showedPopups = 0;
 
 
@@ -32,9 +34,11 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 var currentWindowWrapper = popupWindowWrapper.clone().appendTo(currentHolder).addClass($scope.ngPopUp.class + '-wrapper');
                 currentWindow = popupWindow.clone().appendTo(currentWindowWrapper).addClass($scope.ngPopUp.class);
                 var currentCloser = popupCloser.clone().appendTo(currentWindowWrapper);
+                var currentPopupContent = popupContent.clone();
+                currentPopupContent.appendTo(currentWindow);
 
                 if (!($scope.ngPopUp.params && $scope.ngPopUp.params.withoutCloser)) {
-                    var currentPopupWindowCloser = popupWindowCloser.clone().appendTo(currentWindow).on('click', function() {
+                    var currentPopupWindowCloser = popupWindowCloser.clone().appendTo(currentPopupContent).on('click', function() {
                         $scope.closeCurrentPopup();
                         $scope.$apply();
                     });
@@ -64,7 +68,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 var templateUrl = $sce.getTrustedResourceUrl($scope.ngPopUp.template);
                 $templateRequest(templateUrl).then(function(template) {
                     $compile(template)($scope, function(cloned, scope) {
-                        cloned.appendTo(currentWindow);
+                        cloned.appendTo(currentPopupContent);
                         currentWindow.css({
                             visibility: 'hidden'
                         });
@@ -75,6 +79,9 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                                 'margin-top': margin,
                                 'margin-bottom': margin,
                                 'visibility': ''
+                            });
+                            $timeout(function() {
+                                currentPopupContent.addClass('popup-normalize');
                             });
                         });
                     });

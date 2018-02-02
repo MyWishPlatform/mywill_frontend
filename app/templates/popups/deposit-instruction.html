@@ -20,14 +20,15 @@
             <div class="instruction-item-text">
                 Insert the following recipient's address:
                 <div class="instruction-for-copy">
-                    <button class="instruction-for-copy-button"
+                    <button class="instruction-for-copy-button relative"
                             clipboard supported="supported"
                             ng-class="{copied: ngPopUp.params.contract.copied['address']}"
                             text="ngPopUp.params.contract.contract_details.eth_contract.address"
                             on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')"
-                            on-error="ngPopUp.actions.failCodeCopy(err)">
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
                         <i class="icon-content_copy"></i>
                     </button>
+                    
                     <div class="instruction-for-copy-text">{{ngPopUp.params.contract.contract_details.eth_contract.address}}</div>
                 </div>
             </div>

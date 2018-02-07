@@ -14,13 +14,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.toggleMenu = function() {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
-    $scope.showMenu(function(e) {
-        e.preventDefault();
-        alert('show');
-    });
-    $scope.hideMenu(function() {
-        alert('hide');
-    })
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval) {

@@ -1,5 +1,35 @@
-angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService, $location,
+angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService, $location, tokensList,
                                                                        openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+
+
+    var web3 = new Web3();
+
+    try {
+        // web3.setProvider(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
+        web3.setProvider(new Web3.providers.HttpProvider("https://ropsten.infura.io/MEDIUMTUTORIAL"));
+    } catch(err) {
+        console.log('Infura not found');
+    }
+
+    $scope.tokensList = tokensList.data;
+    $scope.tokensList.map(function(token) {
+        token.name = token.token_name + ' (' + token.token_short_name + ')'
+    });
+
+    $scope.tokensList.unshift({
+        name: 'Create new token'
+    });
+
+    $scope.changeToken = function() {
+        if (!$scope.request.selectedToken.id) return;
+        var contract = new web3.eth.Contract(abi);
+        contract.options.address = $scope.request.selectedToken.address;
+        contract.methods.totalSupply().call(function(error, result) {
+            if (error) return;
+            $scope.request.selectedToken.totalSupply = result;
+            $scope.$apply();
+        });
+    };
 
     $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
     $scope.currencyRate = currencyRate.data;

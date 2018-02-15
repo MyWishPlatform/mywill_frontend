@@ -396,7 +396,27 @@ input {
   margin-top: 0.4em;
   color: #979797;
 }
-
+.radio-button-decoration {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5em;
+  overflow: hidden;
+  cursor: pointer;
+  span {
+    font-size: 2em;
+    color: $main-blue-color;
+  }
+  input {
+    position: absolute;
+    right: 100%;
+    bottom: 100%;
+    outline: none;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+}
 .checkbox-decoration {
   cursor: pointer;
   margin: 1.03em 0 0.9em;

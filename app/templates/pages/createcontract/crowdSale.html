@@ -20,16 +20,73 @@
 <form class="main-section-chapter" ng-class="{'no-active': !contractNameForm.$valid}" name="tokenInfoForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/token_info')"></div>
 </form>
+
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
-    <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/crowdsale_params')"></div>
-</form>
-<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="timeBonusForm">
-    <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/time_bonuses')"></div>
-</form>
-<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="amountBonusForm">
-    <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/amount_bonuses')"></div>
-</form>
-<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid)}" name="distributionForm">
+    <div class="main-section-chapter-fieldset">
+        <div class="contract-form-fieldset with-padding">
+            <div class="form-control-label">Choose Type of Crowdsale</div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="pre-sale-mode-radio" name="sale-mode" ng-model="request.continue_minting" ng-value="true">
+                                <span ng-class="{'icon-radio-checked': request.continue_minting, 'icon-radio-unchecked': !request.continue_minting}"></span>
+                            </label>
+                            <label class="form-control-label inline-label" for="pre-sale-mode-radio">Pre-Sale</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                    <span class="form-control-description__text">You can make as many pre-sale rounds as you want</span>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="sale-mode-radio" name="sale-mode" ng-model="request.continue_minting" ng-value="false">
+                                <span ng-class="{'icon-radio-checked': !request.continue_minting, 'icon-radio-unchecked': request.continue_minting}"></span>
+                            </label>
+                            <label class="form-control-label inline-label" for="sale-mode-radio">Final sale</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                    <span class="form-control-description__text">No sale is possible after final sale. No more tokens can be created after end date</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-section-chapter-fieldset">
+        <div class="contract-form-fieldset with-padding">
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <label for="owner-address" class="form-control-label">
+                            Token Owner
+                            <span ng-if="request.continue_minting">Pre-Sale</span>
+                            <span ng-if="!request.continue_minting">Sale</span>
+                        </label>
+                        <input id="owner-address" type="text"
+                               placeholder="0x1234567890adfbced543567acbedf34565437e8f"
+                               ng-model="request.admin_address"
+                               ng-pattern="/^0x[0-9a-f]{40}$/i"
+                               required
+                               class="form-control-input"/>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                    <div class="form-control-label hide-ps">&nbsp;</div>
+                    <span class="form-control-description__text">ETH address (not exchange address). This address will be owner of the token (after sale end date). Double check the address (and access to it) before submission</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset with-padding">
             <div class="grid-row contract-form-row">
@@ -38,7 +95,7 @@
                         <label for="admin-address" class="form-control-label">Investments Storage Address</label>
                         <input id="admin-address" type="text"
                                placeholder="0x1234567890adfbced543567acbedf34565437e8f"
-                               ng-model="request.admin_address"
+                               ng-model="request.cold_wallet"
                                ng-pattern="/^0x[0-9a-f]{40}$/i"
                                required
                                class="form-control-input"/>
@@ -51,8 +108,22 @@
             </div>
         </div>
     </div>
+</form>
+
+<form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
+    <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/crowdsale_params')"></div>
+</form>
+<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="timeBonusForm">
+    <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/time_bonuses')"></div>
+</form>
+<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="amountBonusForm">
+    <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/amount_bonuses')"></div>
+</form>
+<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid)}" name="distributionForm">
+
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/holders')"></div>
 </form>
+
 
 <div class="main-section-chapter-fieldset custom-fieldset">
     <div class="contract-form-fieldset"><br/>

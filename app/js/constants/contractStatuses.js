@@ -39,5 +39,9 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
     'TRIGGERED': {
         title: 'Triggered',
         value: 9
+    },
+    'WAITING_FOR_ACTIVATION': {
+        title: 'Not Activated',
+        value: 10
     }
 });

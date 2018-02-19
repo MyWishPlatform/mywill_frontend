@@ -30,7 +30,7 @@
       background-color: #f7ec45;
     }
   }
-  &.contract-status-3 {
+  &.contract-status-3, &.contract-status-10 {
     &:before {
       background-color: #fd821a;
     }
@@ -62,7 +62,7 @@
   }
   &.contract-status-9 {
     &:before {
-      background-color: #a90202;
+      background-color: #28870d;
     }
   }
 }

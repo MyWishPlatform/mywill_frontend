@@ -19,14 +19,14 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     $scope.tokensList.unshift({
         name: 'Create new token'
     });
-
+    $scope.token = {};
     $scope.changeToken = function() {
-        if (!$scope.request.selectedToken.id) return;
+        if (!$scope.token.selectedToken.id) return;
         var contract = new web3.eth.Contract(abi);
-        contract.options.address = $scope.request.selectedToken.address;
+        contract.options.address = $scope.token.selectedToken.address;
         contract.methods.totalSupply().call(function(error, result) {
             if (error) return;
-            $scope.request.selectedToken.totalSupply = result;
+            $scope.token.selectedToken.totalSupply = result;
             $scope.$apply();
         });
     };
@@ -85,12 +85,24 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         $scope.$broadcast('tokensCapChanged');
     };
 
+
     /* Управление датой и временем начала/окончания ICO (end) */
     var contractInProgress = false;
     $scope.createContract = function() {
         if (contractInProgress) return;
         $scope.$broadcast('createContract');
+
         var contractDetails = angular.copy($scope.request);
+
+        if ($scope.token.selectedToken.id) {
+            contractDetails.eth_contract_token = {
+                id: $scope.token.selectedToken.id
+            };
+            contractDetails.token_name =
+                contractDetails.token_short_name =
+                    contractDetails.decimals = undefined;
+        }
+
         contractDetails.rate = contractDetails.rate * 1;
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.start_date = contractDetails.start_date * 1;
@@ -123,6 +135,14 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     $scope.editContractMode = !!contract.id;
     $scope.resetForms = function() {
         $scope.request = angular.copy(contract.contract_details);
+        if ($scope.request.reused_token) {
+            $scope.token.selectedToken = $scope.tokensList.filter(function(token) {
+                return token.id === $scope.request.eth_contract_token.id;
+            })[0];
+            if ($scope.token.selectedToken) {
+                $scope.changeToken();
+            }
+        }
         $scope.contractName = contract.name;
         $scope.minStartDate = moment();
         $scope.dates = {

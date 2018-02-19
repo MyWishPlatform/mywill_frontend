@@ -1,12 +1,23 @@
-<div class="grid-row contract-form-row">
+<div class="grid-row contract-form-row" ng-if="tokensList.length">
     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
         <div class="form-control">
             <label class="form-control-label">Choose token</label>
             <div ng-select
                  ng-select-change="changeToken"
-                 ng-model="request.selectedToken"
+                 ng-model="token.selectedToken"
                  ng-model-list="tokensList"
                  ng-select-options="{class: 'select-1', label: 'name'}"></div>
+
+            <div ng-show="token.selectedToken.id">
+                <input class="input-for-group-fields"
+                       ng-model="token.selectedToken.state"
+                       pattern="^ok$" ng-required="token.selectedToken.id" readonly tabindex="-1">
+
+                <span class="field-error" style="display: block" ng-if="token.selectedToken.state !== 'ok'">
+                <span ng-if="token.selectedToken.state === 'closed'">You can't use this token. Final sale is already completed</span>
+                <span ng-if="token.selectedToken.state === 'running'">You can't use this token until the previous sale is not completed</span>
+            </span>
+            </div>
         </div>
     </div>
     <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
@@ -14,14 +25,15 @@
         <span class="form-control-description__text">Create New Token or Choose existing one if you've already competed presale on MyWish platform</span>
     </div>
 </div>
-<div class="grid-row contract-form-row" ng-if="request.selectedToken.totalSupply">
+
+<div class="grid-row contract-form-row" ng-if="token.selectedToken.id">
     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
         <div class="form-control">
-            <label class="form-control-label">Tokens distributed ({{request.selectedToken.token_short_name}})</label>
+            <label class="form-control-label">Tokens distributed ({{token.selectedToken.token_short_name}})</label>
             <input type="text" disabled
                    commaseparator="{}"
                    class="form-control-input"
-                   ng-model="request.selectedToken.totalSupply">
+                   ng-model="token.selectedToken.totalSupply">
         </div>
     </div>
     <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
@@ -30,7 +42,7 @@
     </div>
 </div>
 
-<div ng-if="!request.selectedToken.id" class="contract-form-row">
+<div ng-if="!token.selectedToken.id" class="contract-form-row">
     <div class="grid-row contract-form-row">
         <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control">
@@ -65,8 +77,8 @@
         <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control-label hide-ps">&nbsp;</div>
             <span class="form-control-description__text">
-                        Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href="https://etherscan.io/tokens" target="_blank">https://etherscan.io/tokens</a>)
-                    </span>
+                Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href="https://etherscan.io/tokens" target="_blank">https://etherscan.io/tokens</a>)
+            </span>
         </div>
     </div>
     <div class="grid-row contract-form-row">

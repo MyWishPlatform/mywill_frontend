@@ -36,6 +36,24 @@
                     <span>Launch</span>
                 </button><br/><br/>
             </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
+                <button class="btn btn-submit mobile-width-100 text-center"
+                        ng-pop-up="{
+                                template: '/templates/popups/activate-disclaimer.html',
+                                params: {
+                                    contract: contract
+                                },
+                                class: 'conditions',
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }">
+                    <span>Activate</span>
+                </button><br/><br/>
+            </div>
+
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
                 <!-- Edit instruction button -->
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-back mobile-width-100 with-icon initial-padding">

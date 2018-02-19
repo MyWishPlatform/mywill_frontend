@@ -66,11 +66,7 @@
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
-                        <label for="owner-address" class="form-control-label">
-                            Token Owner
-                            <span ng-if="request.continue_minting">Pre-Sale</span>
-                            <span ng-if="!request.continue_minting">Sale</span>
-                        </label>
+                        <label for="owner-address" class="form-control-label">Token Owner</label>
                         <input id="owner-address" type="text"
                                placeholder="0x1234567890adfbced543567acbedf34565437e8f"
                                ng-model="request.admin_address"
@@ -95,7 +91,7 @@
                         <label for="admin-address" class="form-control-label">Investments Storage Address</label>
                         <input id="admin-address" type="text"
                                placeholder="0x1234567890adfbced543567acbedf34565437e8f"
-                               ng-model="request.cold_wallet"
+                               ng-model="request.cold_wallet_address"
                                ng-pattern="/^0x[0-9a-f]{40}$/i"
                                required
                                class="form-control-input"/>
@@ -113,13 +109,13 @@
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/crowdsale_params')"></div>
 </form>
-<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="timeBonusForm">
+<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid || !tokenInfoForm.$valid}" name="timeBonusForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/time_bonuses')"></div>
 </form>
-<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid}" name="amountBonusForm">
+<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid || !tokenInfoForm.$valid}" name="amountBonusForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/amount_bonuses')"></div>
 </form>
-<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid)}" name="distributionForm">
+<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid && tokenInfoForm.$valid)}" name="distributionForm">
 
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/holders')"></div>
 </form>
@@ -145,7 +141,7 @@
                 <div class="grid-cell grid-cell-vs-1-2">
                     <button class="uppercase btn btn-submit mobile-width-100"
                             type="button" ng-disabled="!(saleTokensParamsForm.$valid && timeBonusForm.$valid &&
-                            amountBonusForm.$valid && distributionForm.$valid) || tokensAmountError" ng-click="createContract()">
+                            amountBonusForm.$valid && distributionForm.$valid && tokenInfoForm.$valid) || tokensAmountError" ng-click="createContract()">
                         <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
                         <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
                     </button>

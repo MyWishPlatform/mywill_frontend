@@ -214,8 +214,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 }
                 return undefined;
             },
-            tokensList: function($stateParams, contractService) {
-                if ($stateParams.selectedType === 'crowdSale') {
+            tokensList: function($stateParams, contractService, CONTRACT_TYPES_NAMES_CONSTANTS, openedContract) {
+                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {
                     return contractService.getTokenContracts();
                 }
                 return undefined;

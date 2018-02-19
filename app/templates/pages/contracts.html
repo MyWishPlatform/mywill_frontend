@@ -13,8 +13,24 @@
             <div class="clearfix show-ps"></div>
             <div class="contract-status-block">
                 <div class="contract-status-buttons">
+                    <!-- Activate instruction button -->
+                    <button ng-pop-up="{
+                                template: '/templates/popups/activate-disclaimer.html',
+                                params: {
+                                    contract: contract
+                                },
+                                class: 'conditions',
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }"
+                            ng-if="statuses[contract.state]['value'] == 10"
+                            class="btn btn-submit hide-ps">
+                        <span>Activate</span>
+                    </button>
 
-                <!-- Pay instruction button -->
+                    <!-- Pay instruction button -->
                     <button ng-click="payContract(contract)"
                             ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
                             class="btn btn-submit hide-ps">

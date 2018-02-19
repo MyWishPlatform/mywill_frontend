@@ -1,0 +1,30 @@
+<div class="contract-popup-wrapper">
+    <div class="condition-text-wrapper">
+        <div class="main-section-chapter-fieldset custom-fieldset">
+            <div class="main-section-chapter-title">
+                <i class="main-section-chapter-title_icon icon-warning"></i>
+                <span class="main-section-chapter-title_text">Disclaimer</span>
+            </div>
+            <ul class="condition-text">
+                <li class="condition-text-item">For sale activation you need to transfer token ownership to crowdsale contract.</li>
+                <li class="condition-text-item">You will need to make the special transaction from token owner address ({{ngPopUp.params.contract.contract_details.admin_address}})</li>
+            </ul>
+            <div class="condition-text-buttons">
+                <div class="text-center">
+                    <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                        <span>Cancel</span>
+                    </button>
+                    <button class="btn btn-submit"
+                            ng-pop-up="{
+                            template: '/templates/popups/activate-instruction.html',
+                            params: ngPopUp.params,
+                            actions: ngPopUp.actions,
+                            onClose: closeCommonPopup
+                        }">
+                        <span>Continue</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

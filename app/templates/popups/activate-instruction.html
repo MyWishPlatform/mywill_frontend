@@ -1,0 +1,81 @@
+<div class="contract-popup-wrapper">
+    <div class="instruction-title clearfix">
+        <div class="contract-name-block">
+            <div class="contract-name-text uppercase">Finalize&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div class="instruction-title-text">
+            <div class="instruction-title-text__content">
+                To Finalize the contract and make tokens transferable do the following steps (under investment address)
+            </div>
+        </div>
+    </div>
+    <ul class="instruction-steps-list">
+        <li class="clearfix">
+            <div class="instruction-item-text">Open your wallet (Parity, <a href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>)</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Click the contracts tab in your wallet</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">
+                Copy the contract address to the Contract Address
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            text="ngPopUp.params.contract.contract_details.eth_contract_crowdsale.address"
+                            ng-class="{copied: ngPopUp.params.contract.copied['address']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text">{{ngPopUp.params.contract.contract_details.eth_contract_crowdsale.address}}</div>
+                </div>
+            </div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">
+                Copy MyWill data to ABI/JSON interface
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            text="ngPopUp.params.contract.contract_details.eth_contract_crowdsale.abi|json"
+                            ng-class="{copied: ngPopUp.params.contract.copied['abi']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'abi')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text json-text">{{ngPopUp.params.contract.contract_details.eth_contract_crowdsale.abi|json}}</div>
+                </div>
+            </div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Select the FINALIZE function</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Click send transaction</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Confirm the steps and press Done button</div>
+        </li>
+    </ul>
+
+    <div class="instruction-action-buttons">
+        <button class="btn btn-submit mobile-width-100" ng-click="ngPopUp.actions.startChecking(ngPopUp.params.contract)"
+                ng-if="ngPopUp.params.contract.stateValue === 1">
+            <span>Done</span>
+        </button>
+        <!-- button class="btn btn-transparent with-icon" ng-click="ngPopUp.actions.cancelChecking(ngPopUp.params)"
+                ng-if="ngPopUp.params.stateValue === 2">
+            <i class="icon-cancel"></i>
+            <span>Cancel</span>
+        </button -->
+        <div class="instruction-checking" ng-if="ngPopUp.params.contract.stateValue === 2">
+            <div class="preloader-container">
+                <div class="preloader-circle preloader-circle-1"></div>
+                <div class="preloader-circle preloader-circle-2"></div>
+                <div class="preloader-circle preloader-circle-3"></div>
+            </div>
+            <span class="instruction-checking-text">Checking</span>
+        </div>
+    </div>
+</div>

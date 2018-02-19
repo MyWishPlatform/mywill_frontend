@@ -21,7 +21,7 @@
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/token_info')"></div>
 </form>
 
-<form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
+<form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleInfoForm">
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset with-padding">
             <div class="form-control-label">Choose Type of Crowdsale</div>
@@ -106,16 +106,16 @@
     </div>
 </form>
 
-<form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleTokensParamsForm">
+<form class="main-section-chapter" ng-class="{'no-active': !(tokenInfoForm.$valid && saleInfoForm.$valid)}" name="saleTokensParamsForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/crowdsale_params')"></div>
 </form>
-<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid || !tokenInfoForm.$valid}" name="timeBonusForm">
+<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && tokenInfoForm.$valid && saleInfoForm.$valid)}" name="timeBonusForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/time_bonuses')"></div>
 </form>
-<form class="main-section-chapter" ng-class="{'no-active': !saleTokensParamsForm.$valid || !tokenInfoForm.$valid}" name="amountBonusForm">
+<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && tokenInfoForm.$valid && saleInfoForm.$valid)}" name="amountBonusForm">
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/amount_bonuses')"></div>
 </form>
-<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid && tokenInfoForm.$valid)}" name="distributionForm">
+<form class="main-section-chapter" ng-class="{'no-active': !(saleTokensParamsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid && tokenInfoForm.$valid && saleInfoForm.$valid)}" name="distributionForm">
 
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/holders')"></div>
 </form>
@@ -135,7 +135,7 @@
             </div>
         </div><br/>
     </div>
-    <div class="contract-form-fieldset"><br/>
+    <div class="contract-form-fieldset without-padding"><br/>
         <div class="contract-form-information-btns">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-vs-1-2">

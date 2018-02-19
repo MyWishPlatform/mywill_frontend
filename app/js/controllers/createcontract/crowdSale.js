@@ -24,9 +24,10 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         if (!$scope.token.selectedToken.id) return;
         var contract = new web3.eth.Contract(abi);
         contract.options.address = $scope.token.selectedToken.address;
+        var seelctedToken = $scope.token.selectedToken;
         contract.methods.totalSupply().call(function(error, result) {
             if (error) return;
-            $scope.token.selectedToken.totalSupply = result;
+            seelctedToken.totalSupply = result;
             $scope.$apply();
         });
     };

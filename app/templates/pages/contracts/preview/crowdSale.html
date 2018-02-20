@@ -20,7 +20,7 @@
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
-            <div class="contract-form-fieldset with-border" ng-if="(contract.stateValue == 4) && details.eth_contract_crowdsale.address">
+            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_crowdsale.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contract-form-fieldset with-border" ng-if="(contract.stateValue == 4) && details.eth_contract_token.address">
+            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_token.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Token address</div>

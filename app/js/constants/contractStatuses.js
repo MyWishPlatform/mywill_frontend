@@ -40,8 +40,12 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
         title: 'Triggered',
         value: 9
     },
-    'WAITING_FOR_ACTIVATION': {
+    'WAITING_ACTIVATION': {
         title: 'Not Activated',
         value: 10
+    },
+    'ENDED': {
+        title: 'Done',
+        value: 11
     }
 });

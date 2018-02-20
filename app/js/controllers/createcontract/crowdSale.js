@@ -427,11 +427,20 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     };
     $scope.createAmountBonusChartData = function() {
         $scope.amountBonusChartData = [];
+
+        if (!$scope.amountBonusForm.$valid) return;
+
         if (!$scope.bonuses.length) return;
-        var firstBonus = $scope.bonuses[0];
-        var lastBonus = $scope.bonuses[$scope.bonuses.length - 1];
-        if (isNaN(lastBonus.max_amount) || isNaN(firstBonus.min_amount)) return;
-        $scope.bonuses.map(function(item) {
+
+        var bonuses = angular.copy($scope.bonuses);
+
+        var firstBonus = bonuses[0];
+        var lastBonus = bonuses[bonuses.length - 1];
+        lastBonus.max_amount = lastBonus.max_amount || new BigNumber($scope.request.hard_cap).div($scope.request.rate).floor().toString();
+
+        if (isNaN(firstBonus.min_amount)) return;
+
+        bonuses.map(function(item) {
             var chartItem = {
                 valueY: item.bonus,
                 maxValueX: item.max_amount,

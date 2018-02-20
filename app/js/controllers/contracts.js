@@ -9,6 +9,7 @@ angular.module('app').controller('contractsController', function(contractService
 
     var launchProgress = false;
     var launchContract = function(contract) {
+        if (launchProgress) return;
         launchProgress = true;
         contractService.deployContract(contract.id).then(function() {
             launchProgress = false;
@@ -60,6 +61,7 @@ angular.module('app').controller('contractsController', function(contractService
 
     };
     $scope.deleteContract = function(contract) {
+        if (deletingProgress) return;
         deletingProgress = true;
         contractService.deleteContract(contract.id).then(function() {
             deletingProgress = false;

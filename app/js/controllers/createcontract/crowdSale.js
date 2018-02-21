@@ -5,8 +5,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     var web3 = new Web3();
 
     try {
-        // web3.setProvider(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
-        web3.setProvider(new Web3.providers.HttpProvider("https://ropsten.infura.io/MEDIUMTUTORIAL"));
+        web3.setProvider(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
+        // web3.setProvider(new Web3.providers.HttpProvider("https://ropsten.infura.io/MEDIUMTUTORIAL"));
     } catch(err) {
         console.log('Infura not found');
     }
@@ -27,7 +27,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         var seelctedToken = $scope.token.selectedToken;
         contract.methods.totalSupply().call(function(error, result) {
             if (error) return;
-            seelctedToken.totalSupply = result;
+            seelctedToken.totalSupply = new BigNumber(result).div(Math.pow(10,$scope.token.selectedToken.decimals)).toString(10);
             $scope.$apply();
         });
     };
@@ -548,4 +548,45 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
     $scope.checkTokensAmount();
+}).controller('crowdSaleActivation', function($scope, web3Service) {
+    var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
+    web3Service.getAccounts().then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type);
+            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
+            var interfaceMethod = web3Service.getMethodInterface('transferOwnership', contractDetails.eth_contract_token.abi);
+            $scope.activateSignature = (new Web3()).eth.abi.encodeFunctionCall(
+                interfaceMethod,
+                [contractDetails.eth_contract_crowdsale.address]
+            );
+        }
+    });
+    $scope.sendTransaction = function() {
+        contract.methods.transferOwnership(contractDetails.eth_contract_crowdsale.address).send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+}).controller('crowdSaleFinalize', function($scope, web3Service) {
+    var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
+    web3Service.getAccounts().then(function(result) {
+
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type);
+            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+            var interfaceMethod = web3Service.getMethodInterface('finalize', contractDetails.eth_contract_crowdsale.abi);
+            $scope.activateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+        }
+    });
+    $scope.sendTransaction = function() {
+        contract.methods.finalize().send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
 });

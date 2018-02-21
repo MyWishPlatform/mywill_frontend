@@ -15,6 +15,7 @@
                         <span>Cancel</span>
                     </button>
                     <button class="btn btn-submit"
+                            ng-click="closeCurrentPopup()"
                             ng-pop-up="{
                             template: '/templates/popups/activate-instruction.html',
                             params: ngPopUp.params,

@@ -1,14 +1,36 @@
-<div class="contract-popup-wrapper">
+<div class="contract-popup-wrapper" ng-controller="crowdSaleActivation">
     <div class="instruction-title clearfix">
         <div class="contract-name-block">
             <div class="contract-name-text uppercase">Activate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         </div>
         <div class="instruction-title-text">
             <div class="instruction-title-text__content">
-                To Activate the contract and make tokens transferable do the following steps (under investment address)
+                To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address.
             </div>
         </div>
     </div>
+
+    <div class="instruction-steps-list">
+        <a ng-attr-href="{{
+            'https://www.myetherwallet.com/?data=' + activateSignature +
+            '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract_token.address}}#send-transaction"
+           target="_blank" class="btn btn-payment btn-payment--wallet text-center">
+            <span>MyEtherwallet</span>
+        </a>
+        <button ng-click="sendTransaction()"
+           ng-if="currentWallet && (currentWallet.type === 'parity')"
+           class="btn btn-payment btn-payment--parity text-center">
+            <span>Parity</span>
+        </button>
+        <button  ng-click="sendTransaction()"
+           ng-if="currentWallet && (currentWallet.type === 'metamask')"
+           class="btn btn-payment btn-payment--metamask text-center">
+            <span>Metamask</span>
+        </button>
+    </div>
+
+    <div class="form-fieldset-delimiter"><span>OR</span></div>
+
     <ul class="instruction-steps-list">
         <li class="clearfix">
             <div class="instruction-item-text">Open your wallet (Parity, <a href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>)</div>
@@ -52,30 +74,23 @@
             <div class="instruction-item-text">Select the TRANSFER OWNER SHIP function</div>
         </li>
         <li class="clearfix">
-            <div class="instruction-item-text">Click send transaction</div>
+            <div class="instruction-item-text">
+                Insert Crowdsale contract address
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            text="ngPopUp.params.contract.contract_details.eth_contract_crowdsale.address"
+                            ng-class="{copied: ngPopUp.params.contract.copied['crowdsale_address']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'crowdsale_address')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text">{{ngPopUp.params.contract.contract_details.eth_contract_crowdsale.address}}</div>
+                </div>
+                to NewOwner field</div>
         </li>
         <li class="clearfix">
-            <div class="instruction-item-text">Confirm the steps and press Done button</div>
+            <div class="instruction-item-text">Make the transaction</div>
         </li>
     </ul>
-
-    <div class="instruction-action-buttons">
-        <button class="btn btn-submit mobile-width-100" ng-click="ngPopUp.actions.startChecking(ngPopUp.params.contract)"
-                ng-if="ngPopUp.params.contract.stateValue === 1">
-            <span>Done</span>
-        </button>
-        <!-- button class="btn btn-transparent with-icon" ng-click="ngPopUp.actions.cancelChecking(ngPopUp.params)"
-                ng-if="ngPopUp.params.stateValue === 2">
-            <i class="icon-cancel"></i>
-            <span>Cancel</span>
-        </button -->
-        <div class="instruction-checking" ng-if="ngPopUp.params.contract.stateValue === 2">
-            <div class="preloader-container">
-                <div class="preloader-circle preloader-circle-1"></div>
-                <div class="preloader-circle preloader-circle-2"></div>
-                <div class="preloader-circle preloader-circle-3"></div>
-            </div>
-            <span class="instruction-checking-text">Checking</span>
-        </div>
-    </div>
 </div>

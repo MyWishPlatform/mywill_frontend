@@ -5,8 +5,8 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     var web3 = new Web3();
 
     try {
-        web3.setProvider(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
-        // web3.setProvider(new Web3.providers.HttpProvider("https://ropsten.infura.io/MEDIUMTUTORIAL"));
+        // web3.setProvider(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
+        web3.setProvider(new Web3.providers.HttpProvider("https://ropsten.infura.io/MEDIUMTUTORIAL"));
     } catch(err) {
         console.log('Infura not found');
     }
@@ -28,6 +28,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         contract.methods.totalSupply().call(function(error, result) {
             if (error) return;
             seelctedToken.totalSupply = new BigNumber(result).div(Math.pow(10,$scope.token.selectedToken.decimals)).toString(10);
+            $scope.$broadcast('tokensCapChanged');
             $scope.$apply();
         });
     };
@@ -491,9 +492,17 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         }, new BigNumber(0));
 
         var stringValue = holdersSum.toString(10);
-        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || (isNaN(stringValue) && $scope.request.token_holders.length);
+
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue);
+
         if (!$scope.tokensAmountError) {
             var ethSum = holdersSum.plus($scope.request.hard_cap);
+
+
+            if ($scope.token.selectedToken.id) {
+                ethSum = ethSum.plus($scope.token.selectedToken.totalSupply);
+            }
+
             $scope.totalSupply = {
                 eth: ethSum.div($scope.request.rate).round(2).toString(10),
                 tokens: ethSum.round(2).toString(10)
@@ -515,6 +524,14 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             amount: $scope.request.hard_cap,
             address: 'For Sale'
         });
+
+        if ($scope.token.selectedToken.id) {
+            $scope.chartData.unshift({
+                amount: $scope.token.selectedToken.totalSupply,
+                address: 'Pre-Sale'
+            })
+        }
+
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
     $scope.onChangeDateOfRecipient = function(path, value) {
@@ -548,6 +565,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
     $scope.checkTokensAmount();
+    $scope.$on('tokensCapChanged', $scope.checkTokensAmount);
 }).controller('crowdSaleActivation', function($scope, web3Service) {
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
     web3Service.getAccounts().then(function(result) {

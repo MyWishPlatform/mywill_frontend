@@ -172,13 +172,19 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
             },
             currencyRate: function(contractService, $stateParams) {
-                if ($stateParams.selectedType == 'crowdSale') {
+                if ($stateParams.selectedType === 'crowdSale') {
                     return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
                 }
                 return undefined;
             },
             openedContract: function() {
                 return false;
+            },
+            tokensList: function($stateParams, contractService) {
+                if ($stateParams.selectedType === 'crowdSale') {
+                    return contractService.getTokenContracts();
+                }
+                return undefined;
             }
         },
         parent: 'main.createcontract'
@@ -203,8 +209,14 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
             },
             currencyRate: function(contractService, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
-                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] == 'crowdSale') {
+                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {
                     return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
+                }
+                return undefined;
+            },
+            tokensList: function($stateParams, contractService, CONTRACT_TYPES_NAMES_CONSTANTS, openedContract) {
+                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {
+                    return contractService.getTokenContracts();
                 }
                 return undefined;
             }

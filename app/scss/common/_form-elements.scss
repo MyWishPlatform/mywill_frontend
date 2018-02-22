@@ -58,7 +58,12 @@
 .contract-form-fieldset {
   margin-left: -$fieldsets-padding;
   margin-right: -$fieldsets-padding;
-  padding:  0 $fieldsets-padding 1em;
+  &:not(.without-padding) {
+    padding:  0 $fieldsets-padding 1em;
+  }
+  &.without-padding {
+    padding:  0 0 1em;
+  }
   &:not(&-light) + .contract-form-fieldset:not(.contract-form-fieldset-grey) {
     border-top: 1px solid #D8D8D8;
   }
@@ -396,7 +401,27 @@ input {
   margin-top: 0.4em;
   color: #979797;
 }
-
+.radio-button-decoration {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5em;
+  overflow: hidden;
+  cursor: pointer;
+  span {
+    font-size: 2em;
+    color: $main-blue-color;
+  }
+  input {
+    position: absolute;
+    right: 100%;
+    bottom: 100%;
+    outline: none;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+  }
+}
 .checkbox-decoration {
   cursor: pointer;
   margin: 1.03em 0 0.9em;
@@ -504,9 +529,14 @@ input {
 
 @media screen and (max-width: 640px) {
   .contract-form-fieldset {
-    padding: 1em 1.5%!important;
     margin-left: -1.5%;
     margin-right: -1.5%;
+    &:not(.without-padding) {
+      padding: 1em 1.5%!important;
+    }
+    &.without-padding {
+      padding:  1em 0;
+    }
     &:last-child {
       margin-bottom: -1em;
     }

@@ -30,7 +30,7 @@
       background-color: #f7ec45;
     }
   }
-  &.contract-status-3 {
+  &.contract-status-3, &.contract-status-10 {
     &:before {
       background-color: #fd821a;
     }
@@ -60,9 +60,9 @@
       background-color: #a90202;
     }
   }
-  &.contract-status-9 {
+  &.contract-status-9, &.contract-status-11 {
     &:before {
-      background-color: #a90202;
+      background-color: #28870d;
     }
   }
 }
@@ -78,7 +78,7 @@
 }
 .contract-status-buttons {
   float: right;
-  padding: 0 0.75em;
+  padding: 0.6em 0.75em;
   .btn {
     //font-size: 0.8em;
   }

@@ -97,6 +97,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="contract-form-fieldset contract-form-fieldset-grey with-padding">
     <div class="grid-row contract-form-row">
         <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
@@ -113,7 +115,7 @@
                        tabindex="-1"
                        type="number"
                        ng-attr-min="{{minStartDate.format('X')}}"
-                       ng-attr-max="{{dates.endDate.clone().add(-30, 'minutes').format('X')}}"/>
+                       ng-attr-max="{{dates.endDate.clone().add(-5, 'minutes').format('X')}}"/>
 
                 <input type="datetime" required
                        id="start-date"
@@ -160,7 +162,7 @@
                        ng-model="request.stop_date"
                        type="number"
                        step="1"
-                       ng-attr-min="{{dates.startDate.clone().add(30, 'minutes').format('X')}}"/>
+                       ng-attr-min="{{dates.startDate.clone().add(5, 'minutes').format('X')}}"/>
 
                 <input type="datetime" required
                        id="end-date"
@@ -193,32 +195,7 @@
             <span class="form-control-description__text">Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached</span>
         </div>
     </div><br/><br/>
-    <div class="grid-row" ng-if="$location.$$hash === 'pre-sale'">
-        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
-            <div class="form-control">
-                <div class="checkbox-decoration">
-                    <label for="is_transferable_at_once" class="form-control-label inline-label">
-                        <i class="form-control-label-icon"></i>
-                        Pre-Sale:
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
-            <div class="form-control">
-                <label class="checkbox-decoration">
-                    <input type="checkbox" ng-model="request.continue_minting"/>
-                    <span class="checkbox-decoration-displaying">
-                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
-                    </span>
-                </label>
-            </div>
-        </div>
-        <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-            <span class="form-control-description__text">Get investments after pre-sale and use the same token during the final</span>
-        </div>
-    </div>
+
     <div class="grid-row">
         <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">

@@ -20,7 +20,7 @@
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
-            <div class="contract-form-fieldset with-border" ng-if="(contract.stateValue == 4) && details.eth_contract_crowdsale.address">
+            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_crowdsale.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contract-form-fieldset with-border" ng-if="(contract.stateValue == 4) && details.eth_contract_token.address">
+            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_token.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Token address</div>
@@ -92,6 +92,14 @@
                             {{ contract.contract_details.decimals }}
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="contract-form-fieldset with-border clearfix with-padding">
+                <div class="form-control-label">
+                    Crowdsale type:
+                    <b ng-if="details.continue_minting">PRE-SALE</b>
+                    <b ng-if="!details.continue_minting">FINAL SALE</b>
                 </div>
             </div>
             <!-- ICO info -->
@@ -167,20 +175,6 @@
                     </div>
                     <div class="clearfix"><br/></div>
 
-                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="details.continue_minting">
-                        <div class="form-control-label">
-                            <i class="form-control-label-icon"></i>
-                            Pre-Sale
-                        </div>
-                        <div class="contract-preview-base-font contract-preview-base-value">
-                            <div class="contract-preview-base-value-string">
-                                <i class="icon-check_circle"></i>
-                                <span>YES</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="clearfix" ng-if="details.continue_minting"><br/></div>
-
                     <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                         <div class="form-control-label">
                             <i class="icon-padlock form-control-label-icon"></i>
@@ -242,8 +236,9 @@
                         </div>
                     </div>
                 </div>
-            </div><br/><br/>
+            </div>
             <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="timeBonusChartData.length">
+                <br/>
                 <div ng-times-bonus-chart="{data: timeBonusChartData, params: timeBonusChartParams}"></div>
             </div>
             <!-- Amount bonuses -->
@@ -268,8 +263,9 @@
                         </div>
                     </div>
                 </div>
-            </div><br/><br/>
+            </div>
             <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="amountBonusChartData.length">
+                <br/>
                 <div ng-bar-chart="{data: amountBonusChartData}"></div>
             </div>
 
@@ -278,8 +274,7 @@
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">
-                            <i class="icon-wallet form-control-label-icon"></i>
-                            Investments Storage Address
+                            Token Owner
                         </div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
@@ -295,6 +290,31 @@
                                     ng-class="{copied: contract.copied['admin_address']}"
                                     text="details.admin_address"
                                     on-copied="successCodeCopy(contract, 'admin_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div><br/>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            Investments Storage Address
+                        </div>
+                        <br class="show-ls"/>
+                        <span class="identicon-container">
+                            <img class="identicon-image" ng-src="{{generateIdenticon(details.cold_wallet_address)}}"/>
+                        </span>
+                        <div class="contract-wallet-information-wallet">
+                            <a href="https://etherscan.io/address/{{details.cold_wallet_address}}"
+                               target="_blank"
+                               ng-bind="details.cold_wallet_address"></a>
+
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['cold_wallet_address']}"
+                                    text="details.cold_wallet_address"
+                                    on-copied="successCodeCopy(contract, 'cold_wallet_address')"
                                     on-error="failCodeCopy(err)">
                                 <i class="icon-content_copy"></i>
                             </button>

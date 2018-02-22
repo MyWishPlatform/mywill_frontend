@@ -89,4 +89,35 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         }, function() {
         });
     };
+}).controller('instructionsController', function($scope, web3Service) {
+
+    var web3 = web3Service.web3();
+    var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
+
+    web3Service.getAccounts().then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.user_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type);
+            contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
+
+            var killInterfaceMethod = web3Service.getMethodInterface('kill', contractDetails.eth_contract.abi);
+            $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(killInterfaceMethod);
+        }
+    });
+
+    $scope.sendDeposit = function() {
+        web3.eth.sendTransaction({
+            to: contractDetails.eth_contract.address,
+            from: $scope.currentWallet.wallet
+        }, console.log);
+    };
+
+    $scope.killContract = function() {
+        contract.methods.kill().send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+
 });

@@ -4,7 +4,7 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard']);
 
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
@@ -14,16 +14,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.toggleMenu = function() {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
-    $scope.showMenu(function(e) {
-        e.preventDefault();
-        alert('show');
-    });
-    $scope.hideMenu(function() {
-        alert('hide');
-    })
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval) {
+
+    $rootScope.$location = $location;
 
     $rootScope.contractTypesIcons = {
         0: 'icon-lastwill',
@@ -217,6 +212,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         if (!value || isNaN(value)) return;
         return new BigNumber(value);
     };
+
+    $rootScope.web3Utils = Web3.utils;
 
 }).config(function($httpProvider, $qProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';

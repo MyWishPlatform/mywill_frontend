@@ -20,7 +20,7 @@
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
-            <div class="contract-form-fieldset with-border" ng-if="(stateValue == 4) && details.eth_contract_crowdsale.address">
+            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_crowdsale.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
@@ -32,11 +32,19 @@
                             <a href="https://etherscan.io/address/{{details.eth_contract_crowdsale.address}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.address"></a>
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['crowdsale_address']}"
+                                    text="details.eth_contract_crowdsale.address"
+                                    on-copied="successCodeCopy(contract, 'crowdsale_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="contract-form-fieldset with-border" ng-if="(stateValue == 4) && details.eth_contract_token.address">
+            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_token.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Token address</div>
@@ -45,9 +53,17 @@
                         <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_token.address)}}"/>
                     </span>
                         <div class="contract-wallet-information-wallet">
-                            <a href="https://etherscan.io/address/{{details.eth_contract_token.address}}"
+                            <a href="https://etherscan.io/token/{{details.eth_contract_token.address}}"
                                target="_blank"
                                ng-bind="details.eth_contract_token.address"></a>
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['token_address']}"
+                                    text="details.eth_contract_token.address"
+                                    on-copied="successCodeCopy(contract, 'token_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -76,6 +92,14 @@
                             {{ contract.contract_details.decimals }}
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="contract-form-fieldset with-border clearfix with-padding">
+                <div class="form-control-label">
+                    Crowdsale type:
+                    <b ng-if="details.continue_minting">PRE-SALE</b>
+                    <b ng-if="!details.continue_minting">FINAL SALE</b>
                 </div>
             </div>
             <!-- ICO info -->
@@ -133,7 +157,7 @@
                         </div>
                         <div class="contract-preview-base-font contract-preview-base-value">
                             <div class="contract-preview-base-value-string">
-                                {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
+                                {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                             </div>
                         </div>
                     </div>
@@ -145,11 +169,12 @@
                         </div>
                         <div class="contract-preview-base-font contract-preview-base-value">
                             <div class="contract-preview-base-value-string">
-                                {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;h:mm a'}}
+                                {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                             </div>
                         </div>
                     </div>
                     <div class="clearfix"><br/></div>
+
                     <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                         <div class="form-control-label">
                             <i class="icon-padlock form-control-label-icon"></i>
@@ -177,6 +202,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -210,8 +236,9 @@
                         </div>
                     </div>
                 </div>
-            </div><br/><br/>
+            </div>
             <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="timeBonusChartData.length">
+                <br/>
                 <div ng-times-bonus-chart="{data: timeBonusChartData, params: timeBonusChartParams}"></div>
             </div>
             <!-- Amount bonuses -->
@@ -236,8 +263,9 @@
                         </div>
                     </div>
                 </div>
-            </div><br/><br/>
+            </div>
             <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="amountBonusChartData.length">
+                <br/>
                 <div ng-bar-chart="{data: amountBonusChartData}"></div>
             </div>
 
@@ -246,8 +274,7 @@
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">
-                            <i class="icon-wallet form-control-label-icon"></i>
-                            Investments Storage Address
+                            Token Owner
                         </div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
@@ -257,6 +284,40 @@
                             <a href="https://etherscan.io/address/{{details.admin_address}}"
                                target="_blank"
                                ng-bind="details.admin_address"></a>
+
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['admin_address']}"
+                                    text="details.admin_address"
+                                    on-copied="successCodeCopy(contract, 'admin_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div><br/>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">
+                            Investments Storage Address
+                        </div>
+                        <br class="show-ls"/>
+                        <span class="identicon-container">
+                            <img class="identicon-image" ng-src="{{generateIdenticon(details.cold_wallet_address)}}"/>
+                        </span>
+                        <div class="contract-wallet-information-wallet">
+                            <a href="https://etherscan.io/address/{{details.cold_wallet_address}}"
+                               target="_blank"
+                               ng-bind="details.cold_wallet_address"></a>
+
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['cold_wallet_address']}"
+                                    text="details.cold_wallet_address"
+                                    on-copied="successCodeCopy(contract, 'cold_wallet_address')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -272,6 +333,14 @@
                     <a href="https://etherscan.io/address/{{holder.address}}"
                        target="_blank"
                        ng-bind="holder.address"></a>
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            ng-class="{copied: contract.copied['holder_address_' + $index]}"
+                            text="holder.address"
+                            on-copied="successCodeCopy(contract, 'holder_address_' + $index)"
+                            on-error="failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
                 </div>
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
@@ -377,11 +446,12 @@
                         <div class="contract-preview-code-text" ng-if="details.sources[contract.codeTab]">
                             {{details.sources[contract.codeTab]}}
                         </div>
+
                         <button class="for-copy-button" ng-if="details.sources[contract.codeTab]"
-                                ng-class="{copied: copiedCode}"
+                                ng-class="{copied: contract.copied[contract.codeTab]}"
                                 clipboard supported="supported"
-                                text="details.sources[codeTab]"
-                                on-copied="successCodeCopy()"
+                                text="details.sources[contract.codeTab]"
+                                on-copied="successCodeCopy(contract, contract.codeTab)"
                                 on-error="failCodeCopy(err)">
                             <i class="icon-content_copy"></i>
                         </button>

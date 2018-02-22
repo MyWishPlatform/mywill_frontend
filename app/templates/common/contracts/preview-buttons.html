@@ -1,4 +1,4 @@
-<div class="contract-form-fieldset" ng-if="stateValue < 3"><br/>
+<div class="contract-form-fieldset" ng-if="contract.stateValue < 3"><br/>
     <div class="grid-row">
         <div class="grid-cell grid-cell-1">
             <div class="costs-info-block">
@@ -11,11 +11,11 @@
         </div>
     </div><br/>
 </div>
-<div class="contract-form-fieldset"><br/>
+<div class="contract-form-fieldset without-padding"><br/>
     <div class="contract-form-information-btns">
         <div class="grid-row">
             <div class="grid-cell grid-cell-vs-1-2 float-right"
-                 ng-if="(stateValue == 1) || (stateValue == 2) || (stateValue == 5) || (stateValue == 6) || (stateValue == 7)">
+                 ng-if="(contract.stateValue == 1) || (contract.stateValue == 2) || (contract.stateValue == 5) || (contract.stateValue == 6) || (contract.stateValue == 7)">
                 <button class="btn btn-red with-icon mobile-width-100 with-icon initial-padding text-center"
                         ng-pop-up="{
                             template: '/templates/popups/delete-contract.html',
@@ -29,21 +29,39 @@
                     <span>Delete</span>
                 </button><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(stateValue == 1) || (stateValue == 2)">
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
                 <button class="btn btn-submit mobile-width-100 text-center"
                         ng-click="payContract()">
                     <i class="icon-rocket-ship"></i>
                     <span>Launch</span>
                 </button><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="stateValue == 1">
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
+                <button class="btn btn-submit mobile-width-100 text-center"
+                        ng-pop-up="{
+                                template: '/templates/popups/activate-disclaimer.html',
+                                params: {
+                                    contract: contract
+                                },
+                                class: 'conditions',
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }">
+                    <span>Activate</span>
+                </button><br/><br/>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
                 <!-- Edit instruction button -->
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-back mobile-width-100 with-icon initial-padding">
                     <i class="icon-edit"></i>
                     <span>Edit</span>
                 </a><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(stateValue == 4) && (contract.contract_type != 4)">
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4)">
                 <!-- Deposit instruction button -->
                 <button ng-pop-up="{
                             template: '/templates/popups/deposit-instruction.html',
@@ -58,7 +76,7 @@
                     <span>Deposit</span>
                 </button><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(stateValue == 4) && (contract.contract_type != 4)">
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4)">
                 <!-- Cancel instruction button -->
                 <button ng-pop-up="{
                             template: '/templates/popups/stop-instruction.html',
@@ -73,7 +91,7 @@
                     <span>Cancel</span>
                 </button><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(stateValue == 4) && (contract.contract_type == 4)">
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 4)">
                 <button ng-pop-up="{
                             template: '/templates/popups/finalize-instruction.html',
                             params: {

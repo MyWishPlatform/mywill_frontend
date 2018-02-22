@@ -21,13 +21,23 @@
   position: relative;
   margin-left: -45%;
   padding: 0;
-  background-color: $blocks-background;
-  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   left: 50%;
   z-index: 3;
-  border-radius: 0.9em;
 }
+
+&.popup-content {
+  background-color: $blocks-background;
+  box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
+  transform: scale(0.9) translateZ(0);
+  transition: transform cubic-bezier(0, 2, 1, 1) 0.2s;
+  border-radius: 0.9em;
+  position: relative;
+  &.popup-normalize {
+    transform: scale(1) translateZ(0);
+  }
+}
+
 .popup-window-content-buttons {
   padding-top: 2.7em;
   white-space: nowrap;
@@ -108,3 +118,5 @@
     top: 0;
   }
 }
+
+

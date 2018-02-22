@@ -16,13 +16,13 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         console.log(err);
     }
 
-    metamask.eth.getAccounts(function(err, addresses) {
+    metamask ? metamask.eth.getAccounts(function(err, addresses) {
         $scope.wallets.metamask = addresses;
-    });
+    }) : false;
 
-    parity.eth.getAccounts(function(err, addresses) {
+    parity ? parity.eth.getAccounts(function(err, addresses) {
         $scope.wallets.parity = addresses;
-    });
+    }) : false;
 
     $scope.sendTransaction = function() {
         var web3;

@@ -11,8 +11,8 @@ var gulp = require('gulp'),
     del = require('del'),
     browserify = require('gulp-browserify'),
     // autoprefixer = require('gulp-autoprefixer'),
-    revReplace = require("gulp-rev-replace");
-
+    revReplace = require("gulp-rev-replace"),
+    sourcemaps = require("gulp-sourcemaps");
 
 var output = 'app';
 var input = 'dist';
@@ -150,6 +150,10 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(output, 'vendors', '**/*')
         ])
         .pipe(concat('vendors.js'))
+        .pipe(sourcemaps.init({
+            loadMaps: true
+        }))
+        .pipe(sourcemaps.write())
         //.pipe(uglifyjs({mangle: false})).pipe(rev())
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', 'vendors')))

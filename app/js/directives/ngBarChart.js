@@ -27,13 +27,34 @@ module.directive('ngBarChart', function($rootScope) {
                 $scope.svgHeight = $scope.originalSvgHeight * (svgElement.width() / 1000);
                 svgElement.height($scope.svgHeight);
 
+
+                var maxBonus, minBonus;
+                data.map(function(item) {
+                    maxBonus = (maxBonus && (maxBonus > item.valueY)) ? maxBonus : item.valueY;
+                    minBonus = (minBonus && (minBonus < item.valueY)) ? minBonus : item.valueY;
+                });
+
+                if (minBonus == maxBonus) {
+                    minBonus = 0;
+                }
+                $scope.bonusesParams = {
+                    min: minBonus,
+                    max: maxBonus,
+                    rangeBonuses: maxBonus - minBonus,
+                    minOpacity: 0.3,
+                    maxOpacity: 1
+                };
+
                 data.map(function(dataItem) {
                     var leftOffset = new BigNumber(dataItem.minValueX).minus(firstElement.minValueX).div(onePercent).times(onePercentForPixel);
+                    var percentOfValue = Math.round(($scope.bonusesParams.minOpacity + (dataItem.valueY - $scope.bonusesParams.min) / $scope.bonusesParams.rangeBonuses * 0.7) * 1000) / 1000;
+
                     var currentChartItem = {
                         width: new BigNumber(dataItem.maxValueX).minus(dataItem.minValueX).div(onePercent).times(onePercentForPixel).plus(leftOffset).round(2).toString(10),
                         left: leftOffset.round(2).toString(10),
-                        height: $scope.svgHeight * (dataItem.valueY / 100),
-                        bonus: dataItem.valueY / 100
+                        height: $scope.svgHeight * percentOfValue,
+                        bonus: dataItem.valueY / 100,
+                        opacity: percentOfValue
                     };
                     $scope.amountBonusChartData.push(currentChartItem);
                 });

@@ -1,6 +1,6 @@
-angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, $timeout) {
+angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, $timeout, CONTRACT_STATUSES_CONSTANTS) {
     var deletingProgress = false;
-
+    $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
 
     var url = 'https://www.myetherwallet.com/?';
@@ -12,6 +12,8 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
     $scope.setContract = function(contract) {
         $scope.contract = contract;
+        $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
+        $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
         if (!contract.contract_details.eth_contract) return;
         var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];
         var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
@@ -87,4 +89,35 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         }, function() {
         });
     };
+}).controller('instructionsController', function($scope, web3Service) {
+
+    var web3 = web3Service.web3();
+    var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
+
+    web3Service.getAccounts().then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.user_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type);
+            contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
+
+            var killInterfaceMethod = web3Service.getMethodInterface('kill', contractDetails.eth_contract.abi);
+            $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(killInterfaceMethod);
+        }
+    });
+
+    $scope.sendDeposit = function() {
+        web3.eth.sendTransaction({
+            to: contractDetails.eth_contract.address,
+            from: $scope.currentWallet.wallet
+        }, console.log);
+    };
+
+    $scope.killContract = function() {
+        contract.methods.kill().send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+
 });

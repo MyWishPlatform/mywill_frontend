@@ -101,12 +101,13 @@
             </div>
         </div>
     </div>
+
     <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="!tokensAmountError">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1">
                 <div class="form-control-label">
                     <!--({{totalSupply.eth|separateNumber}} ETH)-->
-                    Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
+                    Total supply: {{totalSupply.tokens|separateNumber}} {{token.selectedToken.id ? token.selectedToken.token_short_name : request.token_short_name}}
                 </div>
                 <div class="form-control-description one-line without-padding">
                     <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>

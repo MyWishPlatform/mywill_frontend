@@ -52,7 +52,6 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                 var minDateBonus = firstDateBonus ? firstDateBonus.min_time : $scope.ngTimesBonusChart.params.min_time;
                 var maxDateBonus = lastDateBonus ? lastDateBonus.max_time : $scope.ngTimesBonusChart.params.max_time;
 
-
                 var rangeDates = (maxDateBonus - minDateBonus) / 100 * ($scope.maxPosition / onePercentOfWidth);
 
                 if (maxDateBonus < $scope.ngTimesBonusChart.params.max_time) {
@@ -69,57 +68,82 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                 var datesLength = maxDateBonus - minDateBonus;
                 var dateTimeOnePercentLength = onePercentOfWidth / datesLength * 100;
 
-                chartData.map(function(bonus) {
-                    bonus.min_amount = bonus.min_amount || minAmountBonus.toString(10);
-                    bonus.max_amount = bonus.max_amount || maxAmountBonus.toString(10);
-                    bonus.prev_min_amount = bonus.prev_min_amount || minAmountBonus.toString(10);
-                    bonus.min_time = bonus.min_time || minDateBonus;
-                    bonus.max_time = bonus.max_time || maxDateBonus;
-                    bonus.prev_min_time = bonus.prev_min_time || minDateBonus;
+                var maxBonus, minBonus;
+                chartData.map(function(item) {
+                    maxBonus = (maxBonus && (maxBonus > item.bonus)) ? maxBonus : item.bonus;
+                    minBonus = (minBonus && (minBonus < item.bonus)) ? minBonus : item.bonus;
                 });
 
-                $scope.ngTimesBonusChart.data.map(function(item, index) {
-                    var redColor = 225 - Math.round(4.5 * Math.max(0, item.bonus - 50));
-                    var greenColor = 225 - Math.round(4.5 * Math.max(0, 50 - item.bonus));
-                    var blueColor = 0;
+                var onlyDateMaxBonus, onlyTokenMaxBonus;
+
+                chartData.filter(function(item) {
+                    return !item.min_amount;
+                }).map(function(item) {
+                    onlyDateMaxBonus = (onlyDateMaxBonus && (onlyDateMaxBonus > item.bonus)) ? onlyDateMaxBonus : item.bonus;
+                });
+
+                chartData.filter(function(item) {
+                    return !item.min_time;
+                }).map(function(item) {
+                    onlyTokenMaxBonus = (onlyTokenMaxBonus && (onlyTokenMaxBonus > item.bonus)) ? onlyTokenMaxBonus : item.bonus;
+                });
+                if (onlyDateMaxBonus && onlyTokenMaxBonus) {
+                    maxBonus = onlyDateMaxBonus + onlyTokenMaxBonus;
+                }
+
+
+                $scope.bonusesParams = {
+                    min: minBonus,
+                    max: maxBonus,
+                    rangeBonuses: maxBonus - minBonus,
+                    minOpacity: 0.3,
+                    maxOpacity: 1
+                };
+
+
+
+                chartData.map(function(item, index) {
+
+                    item.min_amount = item.min_amount || minAmountBonus.toString(10);
+                    item.max_amount = item.max_amount || maxAmountBonus.toString(10);
+                    item.prev_min_amount = item.prev_min_amount || minAmountBonus.toString(10);
+                    item.min_time = item.min_time || minDateBonus;
+                    item.max_time = item.max_time || maxDateBonus;
+                    item.prev_min_time = item.prev_min_time || minDateBonus;
+
 
                     var bottomAmountPosition =
-                        new BigNumber(item['min_amount']).minus(minAmountBonus).times(amountOnePercentLength).toString(10) * 1;
-                    var prevBottomAmountPosition =
-                        new BigNumber(item['prev_min_amount']).minus(minAmountBonus).times(amountOnePercentLength).toString(10) * 1;
+                        new BigNumber(item['min_amount']).minus(minAmountBonus).times(amountOnePercentLength).round(3).toString(10) * 1;
+                    // var prevBottomAmountPosition =
+                    //     new BigNumber(item['prev_min_amount']).minus(minAmountBonus).times(amountOnePercentLength).round(3).toString(10) * 1;
                     var topAmountPosition =
-                        new BigNumber(item['max_amount']).minus(minAmountBonus).times(amountOnePercentLength).toString(10) * 1;
-
+                        new BigNumber(item['max_amount']).minus(minAmountBonus).times(amountOnePercentLength).round(3).toString(10) * 1;
                     var leftDatePosition =
-                        (item['min_time'] - minDateBonus) * dateTimeOnePercentLength;
-                    var prevLeftDatePosition =
-                        (item['prev_min_time'] - minDateBonus) * dateTimeOnePercentLength;
+                        Math.round((item['min_time'] - minDateBonus) * dateTimeOnePercentLength);
+                    // var prevLeftDatePosition =
+                    //     Math.round((item['prev_min_time'] - minDateBonus) * dateTimeOnePercentLength);
                     var rightDatePosition =
-                        (item['max_time'] - minDateBonus) * dateTimeOnePercentLength;
-
+                        Math.round((item['max_time'] - minDateBonus) * dateTimeOnePercentLength);
                     var yCorrector = $scope.svgHeight - $scope.bottomOffset;
-                    var pointX1 = prevLeftDatePosition + $scope.leftOffset;
-                    var pointX2 = leftDatePosition + $scope.leftOffset;
-                    var pointX3 = rightDatePosition + $scope.leftOffset;
-                    var pointY1 = yCorrector - prevBottomAmountPosition;
-                    var pointY2 = yCorrector - bottomAmountPosition;
-                    var pointY3 = yCorrector - topAmountPosition;
-
+                    var pointX1 = leftDatePosition + $scope.leftOffset;
+                    var pointX2 = rightDatePosition + $scope.leftOffset;
+                    var pointY1 = yCorrector - bottomAmountPosition;
+                    var pointY2 = yCorrector - topAmountPosition;
                     var points = [
-                        pointX1 + ',' + pointY3,
-                        pointX3 + ',' + pointY3,
-                        pointX3 + ',' + pointY1,
+                        pointX1 + ',' + pointY1,
                         pointX2 + ',' + pointY1,
-                        pointX2 + ', ' + pointY2,
-                        pointX1 + ', ' + pointY2
+                        pointX2 + ',' + pointY2,
+                        pointX1 + ',' + pointY2
                     ];
+
+                    var opacity = $scope.bonusesParams.rangeBonuses ?
+                        $scope.bonusesParams.minOpacity + (item.bonus - $scope.bonusesParams.min) / $scope.bonusesParams.rangeBonuses * 0.7 : 1;
 
                     $scope.timesBonusChartData.push({
                         point:  points.join(' '),
-                        color: redColor+','+greenColor+','+blueColor,
-                        bonus: item.bonus / 100
+                        bonus: item.bonus / 100,
+                        opacity: Math.round(opacity * 1000) / 1000
                     });
-
                 });
             };
 

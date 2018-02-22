@@ -68,6 +68,32 @@
                     </div>
                 </div>
             </div>
+            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_crowdsale.vault">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1">
+                        <div class="form-control-label">Vault</div>
+                        <br class="show-ls"/>
+                        <span class="identicon-container">
+                            <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.vault)}}"/>
+                        </span>
+                        <div class="contract-wallet-information-wallet">
+                            <a href="https://etherscan.io/address/{{details.eth_contract_crowdsale.vault}}"
+                               target="_blank"
+                               ng-bind="details.eth_contract_crowdsale.address"></a>
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: contract.copied['crowdsale_vault']}"
+                                    text="details.eth_contract_crowdsale.vault"
+                                    on-copied="successCodeCopy(contract, 'crowdsale_vault')"
+                                    on-error="failCodeCopy(err)">
+                                <i class="icon-content_copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <!--- Base token info --->
             <div class="contract-form-fieldset with-border clearfix with-padding">

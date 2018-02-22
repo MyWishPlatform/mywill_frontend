@@ -17,10 +17,12 @@
                     <i class="icon-warning"></i>
                     <span>Unknown user</span>
                 </span>
-                <span class="as_menu_link" ng-if="!currentUser.is_ghost">
+                <a ui-sref="main.profile" class="as_menu_link"
+                   ng-class="{'active': $state.current.name == 'main.profile'}"
+                   ng-if="!currentUser.is_ghost">
                     <i class="icon-account"></i>
                     <span>{{currentUser.email}}</span>
-                </span>
+                </a>
             </li>
 
             <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow && (!currentUser[menuItem.hideForUser])">

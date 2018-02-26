@@ -11,11 +11,9 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         contract.methods.vault().call(function(error, result) {
             if (error) return;
             contractDetails.eth_contract_crowdsale.vault = result;
+            $scope.$apply();
         });
-        console.log(contract);
-        // var interfaceMethod = web3Service.getMethodInterface('finalize', contractDetails.eth_contract_crowdsale.abi);
     }
-
 
 
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];

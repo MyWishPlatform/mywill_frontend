@@ -5,8 +5,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     var web3 = new Web3();
 
     try {
-        // web3.setProvider(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
-        web3.setProvider(new Web3.providers.HttpProvider("https://ropsten.infura.io/MEDIUMTUTORIAL"));
+        web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.INFURA_ADDRESS));
     } catch(err) {
         console.log('Infura not found');
     }

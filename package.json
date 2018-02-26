@@ -43,6 +43,7 @@
     "jquery": "^3.1.1",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
+    "qrious": "^4.0.2",
     "web3": "^1.0.0-beta.28"
   }
 }

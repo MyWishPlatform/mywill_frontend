@@ -77,7 +77,6 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                             margin = Math.max(margin, 10);
                             currentWindow.css({
                                 'margin-top': margin,
-                                'margin-bottom': margin,
                                 'visibility': ''
                             });
                             $timeout(function() {
@@ -103,6 +102,10 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                     }
                 }
             };
+
+            $scope.$on('$closePopUps', function() {
+                $scope.closeCurrentPopup();
+            });
 
             $scope.$on('$destroy', function() {
                 $scope.closeCurrentPopup();

@@ -25,5 +25,9 @@ angular.module('Constants').constant('API', {
     "SENTENCES": "sentences/",
     "ETH2RUB": "eth2rub/",
     "CURRENCY_RATE": "exc_rate/",
-    "TOKEN_PARAMS": "get_token_contracts/"
+    "TOKEN_PARAMS": "get_token_contracts/",
+    "GENERATE_KEY": "generate_key/",
+    "ENABLE_2FA": "enable_2fa/",
+    "DISABLE_2FA": "disable_2fa/"
+
 });

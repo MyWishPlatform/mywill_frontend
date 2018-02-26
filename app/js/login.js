@@ -30,6 +30,7 @@ module.controller('authController', function($scope) {
         url: '/',
         templateUrl: templatesPath + 'auth.html',
         controller: function ($scope, authService) {
+            $scope.twoFAEnabled = false;
             $scope.request = {};
             $scope.sendLoginForm = function(authForm) {
                 if (!authForm.$valid) return;
@@ -43,6 +44,16 @@ module.controller('authController', function($scope) {
                     switch (response.status) {
                         case 400:
                             $scope.serverErrors = response.data;
+                            break;
+                        case 403:
+                            switch (response.data.detail) {
+                                case '1019':
+                                    $scope.twoFAEnabled = true;
+                                    break;
+                                case '1020':
+                                    $scope.serverErrors = {totp: 'Неверный код'};
+                                    break;
+                            }
                             break;
                     }
                 });

@@ -498,7 +498,7 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             var ethSum = holdersSum.plus($scope.request.hard_cap);
 
 
-            if ($scope.token.selectedToken.id) {
+            if ($scope.token.selectedToken.id && $scope.token.selectedToken.totalSupply) {
                 ethSum = ethSum.plus($scope.token.selectedToken.totalSupply);
             }
 

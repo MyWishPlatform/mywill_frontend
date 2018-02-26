@@ -1,10 +1,10 @@
 <div class="main-section-content">
-    <div class="buttons-list">
+    <!-- div class="buttons-list">
         <div class="btn btn-gray text-center active">
             <span>Security</span>
         </div>
     </div>
-    <br/><br/>
+    <br/><br/ -->
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="main-section-chapter-title">
@@ -24,11 +24,11 @@
                     <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
                         <div class="form-control">
                             <label class="checkbox-decoration">
-                                <input type="checkbox">
+                                <input type="checkbox" ng-model="twoFactor">
                                 <span class="checkbox-decoration-displaying">
-                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
-                    </span>
+                                <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                            </span>
                             </label>
                         </div>
                     </div>
@@ -42,7 +42,10 @@
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control float-right">
-                            <button class="btn btn-submit" type="button" ng-click="payDone()">
+                            <button class="btn btn-submit"
+                                    ng-pop-up="(twoFactor && !currentUser.use_totp) ? enableInstructionPopUpParams : (!twoFactor && currentUser.use_totp ? disablePopUpParams : false)"
+                                    ng-disabled="(twoFactor && currentUser.use_totp) || (!twoFactor && !currentUser.use_totp)"
+                                    type="button">
                                 <span>&nbsp;&nbsp;&nbsp;Apply&nbsp;&nbsp;&nbsp;</span>
                             </button>
                         </div>
@@ -53,7 +56,11 @@
     </div>
 
 
-    <div class="main-section-chapter">
+    <form class="main-section-chapter"
+          novalidate
+          autocomplete="new-password"
+          ng-submit="setNewPassword(passwordChangeForm)"
+          name="passwordChangeForm">
         <div class="main-section-chapter-fieldset">
             <div class="main-section-chapter-title">
                 <span class="main-section-chapter-title_text">Change Password</span>
@@ -62,27 +69,55 @@
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                         <div class="form-control">
-                            <div class="form-control-label">Введите текущий пароль</div>
-                            <input type="password" class="form-control-input">
+                            <div class="form-control-label">Current password</div>
+                            <input type="password"
+                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.old_password}"
+                                   autocomplete="new-password"
+                                   required
+                                   ng-model="passwordParams.old_password"
+                                   class="form-control-input">
+                            <span class="field-error form-field_error-required">Field is required</span>
+                            <span class="field-error form-field_error-server">{{serverErrors.old_password.join(', ')}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                         <div class="form-control">
-                            <div class="form-control-label">Введите новый пароль</div>
-                            <input type="password" class="form-control-input">
+                            <div class="form-control-label">New password</div>
+                            <input type="password"
+                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password1}"
+                                   autocomplete="new-password"
+                                   required
+                                   ng-model="passwordParams.new_password1"
+                                   class="form-control-input">
+                            <span class="field-error form-field_error-pattern">Incorrect password</span>
+                            <span class="field-error form-field_error-minlength">Minimum password length 8 characters</span>
+                            <span class="field-error form-field_error-required">Field is required</span>
+                            <span class="field-error form-field_error-server">{{serverErrors.new_password1.join(', ')}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                         <div class="form-control">
-                            <div class="form-control-label">Подтвердите новый пароль</div>
-                            <input type="password" class="form-control-input">
+                            <div class="form-control-label">Repeat new password</div>
+                            <input type="password"
+                                   required
+                                   ng-match="passwordParams.new_password1"
+                                   autocomplete="new-password"
+                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password2}"
+                                   ng-model="passwordParams.new_password2"
+                                   class="form-control-input">
+                            <span class="field-error form-field_error-required">Field is required</span>
+                            <span class="field-error form-field_error-pattern">Passwords do not match</span>
+                            <span class="field-error form-field_error-server">{{serverErrors.new_password2.join(', ')}}</span>
                         </div>
                     </div>
                 </div>
+                <span class="field-error"
+                      style="display: block"
+                      ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
                 <br/><br/>
             </div>
 
@@ -90,7 +125,7 @@
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control float-right">
-                            <button class="btn btn-submit" type="button" ng-click="payDone()">
+                            <button class="btn btn-submit" type="submit" ng-click="payDone()">
                                 <span>&nbsp;&nbsp;&nbsp;Apply&nbsp;&nbsp;&nbsp;</span>
                             </button>
                         </div>
@@ -98,5 +133,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>

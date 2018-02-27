@@ -12,11 +12,9 @@
             </div>
             <div class="contract-form-fieldset">
                 <div class="form-control">
-                    <div class="checkbox-decoration">
-                        <div class="form-control-label inline-label">
-                            We strongly recommend you to Enable 2FA
-                        </div>
-                    </div>
+                    <div class="form-control-label inline-label">
+                        We strongly recommend you to Enable 2FA
+                    </div><br/><br/>
                 </div>
             </div>
 
@@ -97,7 +95,7 @@
                     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                         <div class="form-control">
                             <div class="form-control-label">2FA code</div>
-                            <input type="password"
+                            <input type="text"
                                    required
                                    autocomplete="new-password"
                                    ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"

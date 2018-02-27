@@ -8,11 +8,13 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     if (contractDetails.eth_contract_crowdsale.address) {
         web3Service.setProvider('infura');
         var contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
-        contract.methods.vault().call(function(error, result) {
-            if (error) return;
-            contractDetails.eth_contract_crowdsale.vault = result;
-            $scope.$apply();
-        });
+        if (typeof contract.methods.vault === 'function') {
+            contract.methods.vault().call(function(error, result) {
+                if (error) return;
+                contractDetails.eth_contract_crowdsale.vault = result;
+                $scope.$apply();
+            });
+        }
     }
 
 

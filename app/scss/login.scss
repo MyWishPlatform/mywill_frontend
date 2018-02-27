@@ -1,3 +1,4 @@
+@import 'common/_awesome.scss';
 html, body {
   width: 100%;
   height: 100%;
@@ -32,8 +33,10 @@ header {
 }
 .field-container {
   position: relative;
-  padding-top: 2.775em;
   margin-bottom: 2em;
+  &:not(.without-padding) {
+    padding-top: 2.775em;
+  }
 }
 
 .field-error, .field-success {
@@ -53,9 +56,10 @@ header {
 
 .static-field-error {
   display: block;
-  color: #0037FF;
-  font-size: 1em;
   margin: -1.5em 0 2em;
+  color: #f91c1c;
+  font-size: 1.2em;
+  padding: 0.5em 0;
 }
 .field-input {
   box-sizing: border-box;
@@ -179,7 +183,14 @@ header {
   font-size: 1.7em;
   color: #206EFF;
   line-height: 1.2em;
+  cursor: pointer;
+  &.advanced-field-open {
+    span {
+      border-bottom: 1px dotted;
+    }
+  }
 }
+
 
 .email-confirm-title, .email-confirm-text {
   color: #206EFF;

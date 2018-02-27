@@ -94,6 +94,9 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     var web3 = web3Service.web3();
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
 
+    var killInterfaceMethod = web3Service.getMethodInterface('kill', contractDetails.eth_contract.abi);
+    $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(killInterfaceMethod);
+
     web3Service.getAccounts().then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.user_address.toLowerCase();
@@ -101,9 +104,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type);
             contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
-
-            var killInterfaceMethod = web3Service.getMethodInterface('kill', contractDetails.eth_contract.abi);
-            $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(killInterfaceMethod);
         }
     });
 

@@ -1,8 +1,9 @@
 'use strict';
 angular.module('Services', []);
 angular.module('Constants', []);
+angular.module('Directives', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Services', 'ngCookies', 'templates']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Services', 'ngCookies', 'templates', 'Directives']);
 
 
 module.controller('authController', function($scope) {
@@ -30,6 +31,7 @@ module.controller('authController', function($scope) {
         url: '/',
         templateUrl: templatesPath + 'auth.html',
         controller: function ($scope, authService) {
+            $scope.twoFAEnabled = false;
             $scope.request = {};
             $scope.sendLoginForm = function(authForm) {
                 if (!authForm.$valid) return;
@@ -43,6 +45,16 @@ module.controller('authController', function($scope) {
                     switch (response.status) {
                         case 400:
                             $scope.serverErrors = response.data;
+                            break;
+                        case 403:
+                            switch (response.data.detail) {
+                                case '1019':
+                                    $scope.twoFAEnabled = true;
+                                    break;
+                                case '1020':
+                                    $scope.serverErrors = {totp: 'Неверный код'};
+                                    break;
+                            }
                             break;
                     }
                 });
@@ -132,28 +144,4 @@ module.controller('authController', function($scope) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $qProvider.errorOnUnhandledRejections(false);
-}).directive('ngMatch', ['$parse', function ($parse) {
-    return {
-        restrict: 'A',
-        require: '?ngModel',
-        link: function(scope, elem, attrs, ctrl) {
-            if (!ctrl) return;
-            if (!attrs['ngMatch']) return;
-            var firstPassword = $parse(attrs['ngMatch']);
-
-            var validator = function (value) {
-                var temp = firstPassword(scope),
-                    v = value === temp;
-                ctrl.$setValidity('pattern', v);
-                return value;
-            };
-
-            ctrl.$parsers.unshift(validator);
-            ctrl.$formatters.push(validator);
-            attrs.$observe('ngMatch', function () {
-                validator(ctrl.$viewValue);
-            });
-
-        }
-    }
-}]);
+});

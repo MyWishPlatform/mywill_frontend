@@ -14,9 +14,9 @@
                        pattern="^ok$" ng-required="token.selectedToken.id" readonly tabindex="-1">
 
                 <span class="field-error" style="display: block" ng-if="token.selectedToken.state !== 'ok'">
-                <span ng-if="token.selectedToken.state === 'closed'">You can't use this token. Final sale is already completed</span>
-                <span ng-if="token.selectedToken.state === 'running'">You can't use this token until the previous sale is not completed</span>
-            </span>
+                    <span ng-if="token.selectedToken.state === 'closed'">You can't use this token. Final sale is already completed</span>
+                    <span ng-if="token.selectedToken.state === 'running'">You can't use this token until the previous sale is not completed</span>
+                </span>
             </div>
         </div>
     </div>

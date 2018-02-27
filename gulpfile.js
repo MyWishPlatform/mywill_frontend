@@ -210,6 +210,7 @@ gulp.task('login:js', function() {
             path.join(output, folders['js'], 'services', 'request.js'),
             path.join(output, folders['js'], 'services', 'auth.js'),
             path.join(output, folders['js'], 'constants', 'app.js'),
+            path.join(output, folders['js'], 'directives', 'ngMatch.js'),
             path.join(output, folders['js'], 'constants', 'api.js')
         ])
         .pipe(concat('login.js'))

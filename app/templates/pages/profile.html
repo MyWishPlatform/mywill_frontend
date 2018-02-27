@@ -11,45 +11,22 @@
                 <span class="main-section-chapter-title_text">Two-factor authentication</span>
             </div>
             <div class="contract-form-fieldset">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
-                        <div class="form-control">
-                            <div class="checkbox-decoration">
-                                <div class="form-control-label inline-label">
-                                    Включено:
-                                </div>
-                            </div>
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <div class="form-control-label inline-label">
+                            We strongly recommend you to Enable 2FA
                         </div>
-                    </div>
-                    <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
-                        <div class="form-control">
-                            <label class="checkbox-decoration">
-                                <input type="checkbox" ng-model="twoFactor">
-                                <span class="checkbox-decoration-displaying">
-                                <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                                <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
-                            </span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                        <span class="form-control-description__text">Можно какую-нибудь подсказку сюда добавить</span>
                     </div>
                 </div>
-            </div><br/><br/>
+            </div>
 
             <div class="contract-form-fieldset with-padding contract-form-fieldset-grey ng-scope">
-                <div class="grid-row contract-form-row">
-                    <div class="grid-cell grid-cell-1">
-                        <div class="form-control float-right">
-                            <button class="btn btn-submit"
-                                    ng-pop-up="(twoFactor && !currentUser.use_totp) ? enableInstructionPopUpParams : (!twoFactor && currentUser.use_totp ? disablePopUpParams : false)"
-                                    ng-disabled="(twoFactor && currentUser.use_totp) || (!twoFactor && !currentUser.use_totp)"
-                                    type="button">
-                                <span>&nbsp;&nbsp;&nbsp;Apply&nbsp;&nbsp;&nbsp;</span>
-                            </button>
-                        </div>
-                    </div>
+                <div class="form-control">
+                    <button class="btn btn-submit"
+                            ng-pop-up="!currentUser.use_totp ? enableInstructionPopUpParams : disablePopUpParams"
+                            type="button">
+                        <span>&nbsp;&nbsp;&nbsp;{{currentUser.use_totp ? 'Disable' : 'Enable'}}&nbsp;&nbsp;&nbsp;</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -115,6 +92,23 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="grid-row contract-form-row" ng-if="currentUser.use_totp">
+                    <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                        <div class="form-control">
+                            <div class="form-control-label">2FA code</div>
+                            <input type="password"
+                                   required
+                                   autocomplete="new-password"
+                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
+                                   ng-model="passwordParams.totp"
+                                   class="form-control-input">
+                            <span class="field-error form-field_error-required">Field is required</span>
+                            <span class="field-error form-field_error-server">{{serverErrors.totp.join(', ')}}</span>
+                        </div>
+                    </div>
+                </div>
+
                 <span class="field-error"
                       style="display: block"
                       ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
@@ -125,8 +119,8 @@
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control float-right">
-                            <button class="btn btn-submit" type="submit" ng-click="payDone()">
-                                <span>&nbsp;&nbsp;&nbsp;Apply&nbsp;&nbsp;&nbsp;</span>
+                            <button class="btn btn-submit" type="submit">
+                                <span>&nbsp;&nbsp;&nbsp;Change&nbsp;&nbsp;&nbsp;</span>
                             </button>
                         </div>
                     </div>

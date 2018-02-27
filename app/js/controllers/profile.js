@@ -1,7 +1,5 @@
 angular.module('app').controller('profileController', function($scope, authService, $state) {
 
-    $scope.twoFactor  = $scope.currentUser.use_totp;
-
     var enablePopUpParams = {
         template: '/templates/popups/enable-2fa.html',
         class: 'deleting-contract',
@@ -18,7 +16,7 @@ angular.module('app').controller('profileController', function($scope, authServi
                     $scope.currentUser.use_totp = true;
                     $scope.$broadcast('$closePopUps');
                 }, function() {
-                    enablePopUpParams.params.error = 'Неверный код. Повторите попытку';
+                    enablePopUpParams.params.error = 'Invalid code';
                 });
             }
         }
@@ -49,7 +47,7 @@ angular.module('app').controller('profileController', function($scope, authServi
                         $scope.currentUser.use_totp = false;
                         $scope.$broadcast('$closePopUps');
                     }, function() {
-                        $scope.disablePopUpParams.params.error = 'Неверный код. Повторите попытку';
+                        $scope.disablePopUpParams.params.error = 'Invalid code';
                     });
                 }
             }
@@ -77,7 +75,6 @@ angular.module('app').controller('profileController', function($scope, authServi
     $scope.passwordParams = {};
     var passwordChangeProgress = false;
     $scope.setNewPassword = function(form) {
-        console.log(form);
         if (!form.$valid || passwordChangeProgress) return;
         passwordChangeProgress = true;
         $scope.serverErrors = undefined;

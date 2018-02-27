@@ -21,19 +21,19 @@
         <span class="field-error form-field_error-required">Field is required</span>
         <span class="field-error form-field_error-server">{{serverErrors.password.join(', ')}}</span>
     </div>
-    <div class="field-container without-padding">
+    <!-- div class="field-container without-padding">
         <span class="restore-link advanced-field-open" ng-click="twoFAEnabled = !twoFAEnabled">
             <i ng-class="{'icon-keyboard_arrow_down': !twoFAEnabled, 'icon-keyboard_arrow_up': twoFAEnabled}"></i>
             <span>2-х факторная аутентификация</span>
         </span>
-    </div>
+    </div -->
     <div class="field-container" ng-if="twoFAEnabled">
         <input type="text"
                required
                ng-model="request.totp"
                ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
                class="field-input">
-        <span class="field-label">PIN</span>
+        <span class="field-label">2FA code</span>
         <span class="field-error form-field_error-required">Field is required</span>
         <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
     </div>

@@ -1,10 +1,10 @@
-<div class="contract-popup-wrapper without-padding">
+<form class="contract-popup-wrapper without-padding" ng-submit="ngPopUp.actions.enable2fa(pinCode)">
     <div class="main-section-chapter-fieldset custom-fieldset">
-        <div class="alert-window-title">Enabling 2fa</div>
+        <div class="alert-window-title">Enable 2FA</div>
         <br/><br/>
         <div class="form-control">
-            <label class="form-control-label">Введите pin-код из Google Authentication:</label>
-            <input type="text" class="form-control-input" ng-model="pinCode">
+            <label class="form-control-label">Enter 2FA code:</label>
+            <input type="text" class="form-control-input" ng-model="pinCode" ng-autofocus>
             <span class="field-error" style="display: block" ng-if="ngPopUp.params.error">
                 {{ngPopUp.params.error}}
             </span>
@@ -12,14 +12,13 @@
         <br/><br/>
         <div class="condition-text-buttons">
             <div class="text-center">
-                <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                <button class="btn btn-transparent" ng-click="closeCurrentPopup()" type="button">
                     <span>Cancel</span>
                 </button>
-                <button class="btn btn-submit"
-                        ng-click="ngPopUp.actions.enable2fa(pinCode)">
-                    <span>Apply</span>
+                <button class="btn btn-submit" type="submit">
+                    <span>Enable</span>
                 </button>
             </div>
         </div>
     </div>
-</div>
+</form>

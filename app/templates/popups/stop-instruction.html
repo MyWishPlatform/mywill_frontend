@@ -19,11 +19,11 @@
            target="_blank" class="btn btn-payment btn-payment--wallet text-center">
             <span>MyEtherwallet</span>
         </a>
-        <a href="http://localhost:8180/" target="_blank" ng-click="killContract()"
+        <button ng-click="killContract()"
                 ng-if="currentWallet && (currentWallet.type === 'parity')"
                 class="btn btn-payment btn-payment--parity text-center">
             <span>Parity</span>
-        </a>
+        </button>
         <button  ng-click="killContract()"
                  ng-if="currentWallet && (currentWallet.type === 'metamask')"
                  class="btn btn-payment btn-payment--metamask text-center">

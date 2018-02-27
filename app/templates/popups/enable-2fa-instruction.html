@@ -2,18 +2,17 @@
     <div class="condition-text-wrapper">
         <div class="main-section-chapter-fieldset custom-fieldset">
             <div class="main-section-chapter-title">
-                <span class="main-section-chapter-title_text">Enabling 2fa</span>
+                <span class="main-section-chapter-title_text">Enable 2FA</span>
             </div>
             <ul class="condition-text">
                 <li class="condition-text-item">
-                    Отсканируйте qr-код
+                    Scan QR-code
                     <div class="text-center">
                         <img ng-src="{{ngPopUp.params.imgUrl}}"/>
                     </div>
                 </li>
-                <li class="condition-text-item">Добавьте аккаунт в Google Authenticator, кликнув по полученной ссылке</li>
-                <li class="condition-text-item">Используйте сгенерированный код при входе в сервис</li>
-                <li class="condition-text-item">Нажмите Done</li>
+                <li class="condition-text-item">Add mywish app in your Google Authenticator or in similar app</li>
+                <li class="condition-text-item">Use code everytime when login to MyWish</li>
             </ul>
             <div class="condition-text-buttons">
                 <div class="text-center">
@@ -23,7 +22,7 @@
                     <button class="btn btn-submit"
                             ng-click="closeCurrentPopup()"
                             ng-pop-up="ngPopUp.params.confirmEnablePopUp">
-                        <span>Next</span>
+                        <span>Enable</span>
                     </button>
                 </div>
             </div>

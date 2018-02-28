@@ -52,7 +52,7 @@ module.controller('authController', function($scope) {
                                     $scope.twoFAEnabled = true;
                                     break;
                                 case '1020':
-                                    $scope.serverErrors = {totp: 'Неверный код'};
+                                    $scope.serverErrors = {totp: 'Invalid code'};
                                     break;
                             }
                             break;
@@ -123,6 +123,17 @@ module.controller('authController', function($scope) {
                     switch (response.status) {
                         case 400:
                             $scope.serverErrors = response.data;
+                            break;
+
+                        case 403:
+                            switch (response.data.detail) {
+                                case '1021':
+                                    $scope.twoFAEnabled = true;
+                                    break;
+                                case '1022':
+                                    $scope.serverErrors = {totp: 'Invalid code'};
+                                    break;
+                            }
                             break;
                     }
                 });

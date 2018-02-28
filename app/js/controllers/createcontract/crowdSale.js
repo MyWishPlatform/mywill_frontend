@@ -1,4 +1,4 @@
-angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService, $location, tokensList,
+angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
                                                                        openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
 

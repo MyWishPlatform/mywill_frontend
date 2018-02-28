@@ -1,8 +1,21 @@
-angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, exRate, $state) {
+angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
+                                                                        openedContract, $scope, exRate, $state) {
     $scope.contract = openedContract.data;
     $scope.setContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
+
+    if (contractDetails.eth_contract_crowdsale.address) {
+        web3Service.setProvider('infura');
+        var contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+        if (typeof contract.methods.vault === 'function') {
+            contract.methods.vault().call(function(error, result) {
+                if (error) return;
+                contractDetails.eth_contract_crowdsale.vault = result;
+                $scope.$apply();
+            });
+        }
+    }
 
 
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];

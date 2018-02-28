@@ -1,4 +1,4 @@
-angular.module('Services').service('web3Service', function($q, $rootScope) {
+angular.module('Services').service('web3Service', function($q, $rootScope, APP_CONSTANTS) {
 
     var web3 = new Web3(), contract, _this = this;
 
@@ -15,6 +15,11 @@ angular.module('Services').service('web3Service', function($q, $rootScope) {
             web3Providers['parity'] = new Web3.providers.HttpProvider("http://localhost:8545");
         } catch(err) {
             console.log('Parity not found');
+        }
+        try {
+            web3Providers['infura'] = new Web3.providers.HttpProvider(APP_CONSTANTS.INFURA_ADDRESS);
+        } catch(err) {
+            console.log('Infura not found');
         }
     };
     createWeb3Providers();
@@ -41,7 +46,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope) {
 
     var getAccounts = function(providerName) {
         var defer = $q.defer();
-        _this.setProvider(providerName, true);
+        _this.setProvider(providerName);
         web3.eth.getAccounts(function(err, addresses) {
             if (!addresses) {
                 defer.resolve([]);

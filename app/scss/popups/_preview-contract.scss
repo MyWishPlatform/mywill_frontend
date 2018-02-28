@@ -151,7 +151,9 @@
   }
 }
 .contract-popup-wrapper {
-  padding: 2.4em 0;
+  &:not(.without-padding) {
+    padding: 2.4em 0;
+  }
 }
 .contract-preview-information {
 }

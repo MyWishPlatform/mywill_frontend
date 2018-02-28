@@ -66,6 +66,34 @@ module.service('authService', function(requestService, API) {
             params.API_PATH = API.HOSTS.AUTH_PATH;
             params.path = API.PASSWORD_RESET_CONFIRM;
             return requestService.post(params);
+        },
+        setNewPassword: function(data) {
+            var params = {
+                data: data
+            };
+            params.API_PATH = API.HOSTS.AUTH_PATH;
+            params.path = API.PASSWORD_CHANGE;
+            return requestService.post(params);
+        },
+        generate2fa: function() {
+            var params = {
+                path: API.GENERATE_KEY
+            };
+            return requestService.post(params);
+        },
+        enable2fa: function(data) {
+            var params = {
+                path: API.ENABLE_2FA,
+                data: data
+            };
+            return requestService.post(params);
+        },
+        disable2fa: function(data) {
+            var params = {
+                path: API.DISABLE_2FA,
+                data: data
+            };
+            return requestService.post(params);
         }
     };
 });

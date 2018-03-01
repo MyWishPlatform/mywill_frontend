@@ -24,7 +24,7 @@ module.service('SocialAuthService', function(authService, API, $q) {
                     }
                 }).then(function(response) {
                     callback ? callback(response) : false;
-                });
+                }, errCallback || false);
             };
             var openLoginDialog = function() {
                 FB ? FB.login(function(response) {
@@ -32,7 +32,6 @@ module.service('SocialAuthService', function(authService, API, $q) {
                 }) : false;
             };
             FB ? FB.getLoginStatus(function(response) {
-                console.log(response);
                 checkLoginStatus(response, onLogged, openLoginDialog);
             }) : false;
         },

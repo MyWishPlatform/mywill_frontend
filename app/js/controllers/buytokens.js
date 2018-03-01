@@ -87,13 +87,13 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     var rate = $scope.exRate.ETH;
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.ethAmount || 0);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(18).toString(10);
+        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
     $scope.checkEthAmount = function() {
         if (!$scope.formData.wishesAmount) return;
         var ethAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.ethAmount = ethAmount.times(rate).round(18).toString(10);
+        $scope.formData.ethAmount = ethAmount.times(rate).round(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
 }).controller('buytokensBtcController', function($scope) {

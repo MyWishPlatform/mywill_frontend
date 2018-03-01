@@ -191,6 +191,10 @@ gulp.task('app:js', ['app:js-clean'], function() {
         .pipe(concat('main.js'))
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
         //.pipe(uglifyjs({mangle: false}))
+        .pipe(sourcemaps.init({
+            loadMaps: true
+        }))
+        .pipe(sourcemaps.write())
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
         .pipe(rev.manifest('main.json'))
@@ -201,7 +205,7 @@ gulp.task('login:js-clean', function () {
     return del([path.join(input, 'static', 'js', 'login*')]);
 });
 /* Scripts collection */
-gulp.task('login:js', function() {
+gulp.task('login:js', ['login:js-clean'], function() {
     return gulp.src(
         [
             path.join(folders['npm'], 'angular', 'angular.min.js'),
@@ -218,6 +222,10 @@ gulp.task('login:js', function() {
         ])
         .pipe(concat('login.js'))
         //.pipe(uglifyjs({mangle: false}))
+        .pipe(sourcemaps.init({
+            loadMaps: true
+        }))
+        .pipe(sourcemaps.write())
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
         .pipe(rev.manifest('login.json'))

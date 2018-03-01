@@ -17,10 +17,32 @@ module.controller('authController', function($scope) {
         template: "<div ui-view class='main-wrapper-section'></div>",
         controller: function(authService, $rootScope, $scope, SocialAuthService) {
 
+            $scope.socialAuthError = false;
             var onSocialAuth = function(response) {
                 window.location = window.location.href;
             };
 
+            var errorSocialAuth = function(response) {
+                switch (response.status) {
+                    case 403:
+                        $scope.socialAuthError = response.data.detail;
+                        switch (response.status) {
+                            case '1030':
+
+                                break;
+                            case '1031':
+
+                                break;
+                            case '1032':
+
+                                break;
+                            case '1033':
+
+                                break;
+                        }
+                        break;
+                }
+            };
 
             if (window.FB) {
                 FB.init({
@@ -32,11 +54,11 @@ module.controller('authController', function($scope) {
                 })
             }
 
-            $scope.fbLogin = function(){
-                SocialAuthService.facebookAuth(onSocialAuth);
+            $scope.fbLogin = function() {
+                SocialAuthService.facebookAuth(onSocialAuth, errorSocialAuth);
             };
-            $scope.googleAuth = function() {
-                SocialAuthService.googleAuth(onSocialAuth);
+            $scope.googleLogin = function() {
+                SocialAuthService.googleAuth(onSocialAuth, errorSocialAuth);
             };
 
             authService.profile().then(function(response) {

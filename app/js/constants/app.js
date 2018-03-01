@@ -10,3 +10,4 @@ module.constant('APP_CONSTANTS', {
         // "https://mainnet.infura.io/MEDIUMTUTORIAL"
         "https://ropsten.infura.io/MEDIUMTUTORIAL"
 });
+

@@ -16,7 +16,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
 }).controller('headerController', function($rootScope, $scope) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
-                MENU_CONSTANTS, $interval) {
+                MENU_CONSTANTS, $interval, AnalyticsService) {
 
     $rootScope.$location = $location;
 
@@ -220,6 +220,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.web3Utils = Web3.utils;
 
+    $rootScope.isProduction = $location.host().indexOf('contracts.mywish.io')>=0;
 
     if (window.FB) {
         FB.init({
@@ -230,12 +231,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             version: 'v2.8'
         })
     }
-
 }).config(function($httpProvider, $qProvider, $compileProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $qProvider.errorOnUnhandledRejections(false);
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(otpauth):/);
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(mailto|otpauth|https?):/);
 }).filter('declNumber', function($filter) {
     return function(value, words) {
         var float = value % 1;

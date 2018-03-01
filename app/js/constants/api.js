@@ -28,6 +28,14 @@ angular.module('Constants').constant('API', {
     "TOKEN_PARAMS": "get_token_contracts/",
     "GENERATE_KEY": "generate_key/",
     "ENABLE_2FA": "enable_2fa/",
-    "DISABLE_2FA": "disable_2fa/"
+    "DISABLE_2FA": "disable_2fa/",
 
+    "SOCIAL": {
+        "FACEBOOK": "facebook/",
+        "POPUP_URLS": {
+            "GOOGLE": "/rest-auth/google/login/",
+            "VK": "/rest-auth/vk/login/",
+            "TWITTER": "/rest-auth/twitter/login/"
+        }
+    }
 });

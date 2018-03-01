@@ -28,6 +28,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         4: 'icon-crowdsale'
     };
 
+    $rootScope.deviceInfo = UAParser(window.navigator.userAgent);
 
     $rootScope.globalProgress = false;
     $rootScope.finishGlobalProgress = false;
@@ -159,8 +160,16 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             }
             return false;
         }
+        return true;
     };
     createDefer();
+
+    var showProgress = function(newLocation) {
+        if (newLocation.resolve) {
+            $rootScope.globalProgress = true;
+            $rootScope.finishGlobalProgress = false;
+        }
+    };
     $rootScope.$on("$stateChangeStart", function(event, newLocation, newStateParams, oldLocation, oldStateParams) {
         getCurrentUser(newLocation.name === 'anonymous');
 
@@ -168,18 +177,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             return;
         }
 
-        if (newLocation.resolve) {
-            $rootScope.globalProgress = true;
-            $rootScope.finishGlobalProgress = false;
-        }
         if (!$rootScope.currentUser) {
             $rootScope.currentUserDefer.promise.then(function() {
-                checkLocation(newLocation, oldLocation);
+                checkLocation(newLocation, oldLocation) ? showProgress(newLocation) : false;
             }, function() {
                 console.error('Unknown profile');
             });
         } else {
-            checkLocation(newLocation, oldLocation, event);
+            checkLocation(newLocation, oldLocation, event) ? showProgress(newLocation) : false;
         }
     });
     var stateHandlersActivate = function() {
@@ -215,10 +220,22 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.web3Utils = Web3.utils;
 
-}).config(function($httpProvider, $qProvider) {
+
+    if (window.FB) {
+        FB.init({
+            appId: '392887687850892',
+            status: true,
+            cookie: true,
+            xfbml: true,
+            version: 'v2.8'
+        })
+    }
+
+}).config(function($httpProvider, $qProvider, $compileProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $qProvider.errorOnUnhandledRejections(false);
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(otpauth):/);
 }).filter('declNumber', function($filter) {
     return function(value, words) {
         var float = value % 1;

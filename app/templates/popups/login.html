@@ -1,0 +1,60 @@
+<div class="contract-popup-wrapper">
+    <div class="main-section-chapter-fieldset custom-fieldset">
+        <div class="alert-window-title">Log in</div>
+        <form class="alert-window-buttons" name="logInForm"
+              ng-submit="sendLoginForm(logInForm)"
+              ng-controller="authController">
+
+            <div class="contract-form-row">
+                <div class="form-control">
+                    <label class="form-control-label">E-mail</label>
+                    <input type="email"
+                           required
+                           ng-model="request.username"
+                           ng-class="{'ng-invalid ng-invalid-server': serverErrors.email}"
+                           class="form-control-input">
+                    <span class="field-error form-field_error-required">Field is required</span>
+                    <span class="field-error form-field_error-email">Enter your e-mail</span>
+                    <span class="field-error form-field_error-server">{{serverErrors.email.join(', ')}}</span>
+                </div>
+            </div>
+
+            <div class="contract-form-row">
+                <div class="form-control">
+                    <label class="form-control-label">Password</label>
+                    <input type="password"
+                           required
+                           ng-model="request.password"
+                           ng-class="{'ng-invalid ng-invalid-server': serverErrors.password}"
+                           class="form-control-input">
+                    <span class="field-error form-field_error-required">Field is required</span>
+                    <span class="field-error form-field_error-server">{{serverErrors.password.join(', ')}}</span>
+                </div>
+            </div>
+
+            <div class="contract-form-row" ng-if="twoFAEnabled">
+                <div class="form-control">
+                    <label class="form-control-label">2FA code</label>
+                    <input type="text"
+                           required
+                           ng-model="request.totp"
+                           ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
+                           class="form-control-input">
+                    <span class="field-error form-field_error-required">Field is required</span>
+                    <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
+                </div>
+            </div>
+
+            <div class="contract-form-row">
+                <div class="condition-text-buttons">
+                    <div class="text-center">
+                        <button class="btn btn-submit" type="submit">
+                            <span>Log in</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

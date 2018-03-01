@@ -135,6 +135,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
     return gulp.src(
         [
             path.join(folders['npm'], 'jquery', 'dist', 'jquery.min.js'),
+            path.join(folders['npm'], 'ua-parser-js', 'dist', 'ua-parser.min.js'),
             path.join(folders['npm'], 'qrious', 'dist', 'qrious.min.js'),
             path.join(folders['npm'], 'angular', 'angular.min.js'),
             path.join(folders['npm'], 'angular-resource', 'angular-resource.min.js'),
@@ -209,7 +210,9 @@ gulp.task('login:js', function() {
             path.join(output, folders['js'], 'login.js'),
             path.join(output, folders['js'], 'services', 'request.js'),
             path.join(output, folders['js'], 'services', 'auth.js'),
+            path.join(output, folders['js'], 'services', 'socialAuth.js'),
             path.join(output, folders['js'], 'constants', 'app.js'),
+            path.join(output, folders['js'], 'controllers', 'auth.js'),
             path.join(output, folders['js'], 'directives', 'ngMatch.js'),
             path.join(output, folders['js'], 'constants', 'api.js')
         ])

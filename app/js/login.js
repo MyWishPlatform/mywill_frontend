@@ -15,7 +15,30 @@ module.controller('authController', function($scope) {
     $stateProvider.state('main', {
         abstract: true,
         template: "<div ui-view class='main-wrapper-section'></div>",
-        controller: function(authService, $rootScope) {
+        controller: function(authService, $rootScope, $scope, SocialAuthService) {
+
+            var onSocialAuth = function(response) {
+                window.location = window.location.href;
+            };
+
+
+            if (window.FB) {
+                FB.init({
+                    appId: '392887687850892',
+                    status: true,
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.8'
+                })
+            }
+
+            $scope.fbLogin = function(){
+                SocialAuthService.facebookAuth(onSocialAuth);
+            };
+            $scope.googleAuth = function() {
+                SocialAuthService.googleAuth(onSocialAuth);
+            };
+
             authService.profile().then(function(response) {
                 var profile = response.data;
                 if (!profile.is_ghost) {
@@ -30,36 +53,7 @@ module.controller('authController', function($scope) {
     }).state('main.login', {
         url: '/',
         templateUrl: templatesPath + 'auth.html',
-        controller: function ($scope, authService) {
-            $scope.twoFAEnabled = false;
-            $scope.request = {};
-            $scope.sendLoginForm = function(authForm) {
-                if (!authForm.$valid) return;
-                $scope.serverErrors = undefined;
-
-                authService.auth({
-                    data: $scope.request
-                }).then(function (response) {
-                    window.location = '/dashboard/';
-                }, function (response) {
-                    switch (response.status) {
-                        case 400:
-                            $scope.serverErrors = response.data;
-                            break;
-                        case 403:
-                            switch (response.data.detail) {
-                                case '1019':
-                                    $scope.twoFAEnabled = true;
-                                    break;
-                                case '1020':
-                                    $scope.serverErrors = {totp: 'Invalid code'};
-                                    break;
-                            }
-                            break;
-                    }
-                });
-            }
-        }
+        controller: 'authController'
     }).state('main.forgot', {
         url: '/forgot-password',
         templateUrl: templatesPath + 'forgot-password.html',

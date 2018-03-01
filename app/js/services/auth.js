@@ -18,8 +18,8 @@ module.service('authService', function(requestService, API) {
             return requestService.get(params);
         },
         auth: function(params) {
-            params.API_PATH = API.HOSTS.AUTH_PATH;
-            params.path = API.LOGIN;
+            params.API_PATH = params.API_PATH || API.HOSTS.AUTH_PATH;
+            params.path = params.path || API.LOGIN;
             return requestService.post(params);
         },
         createGhost: function() {

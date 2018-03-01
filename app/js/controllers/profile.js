@@ -59,11 +59,13 @@ angular.module('app').controller('profileController', function($scope, authServi
             var data = response.data;
             var url = 'otpauth://totp/Secure%20App:' + data.user + '?issuer=' + data.issuer + '%20App&secret=' + data.secret;
             var qr = new QRious({
-                // level: 'H',
+                level: 'Q',
                 padding: 0,
-                size: 266,
+                size: 200,
+                backgroundAlpha: 0,
                 value: url
             });
+            $scope.enableInstructionPopUpParams.params.url = url;
             $scope.enableInstructionPopUpParams.params.imgUrl = qr.toDataURL();
         });
     };

@@ -43,6 +43,18 @@
 
     <div class="field-submit-container">
         <button type="submit">Log in</button>
+        <a ui-sref="main.forgot" class="restore-link">Forgot your password?</a>
     </div>
-    <a ui-sref="main.forgot" class="restore-link">restore login and password</a>
+
+    <div class="social-network-buttons">
+        <a href="#" class="social-button social-button-fb width-100" ng-click="fbLogin()">
+            <i class="icon-facebook"></i>
+            <span>Log in via Facebook</span>
+        </a>
+        <a href="#" class="social-button social-button-g width-100" ng-click="googleAuth()">
+            <i class="icon-google"></i>
+            <span>Log in via Google</span>
+        </a>
+    </div>
+
 </form>

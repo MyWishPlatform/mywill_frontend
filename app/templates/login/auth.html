@@ -75,3 +75,20 @@
         <button type="submit">Continue</button>
     </div>
 </form>
+<form ng-if="socialAuthError == '1032'"
+      ng-submit="continueSocialAuth(socialContinueForm)" name="socialContinueForm" novalidate >
+    <div class="field-container">
+        <input type="text"
+               required
+               ng-model="socialAuthInfo.request.totp"
+               ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
+               class="field-input">
+        <span class="field-label">2FA code</span>
+        <span class="field-error form-field_error-required">Field is required</span>
+        <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
+    </div>
+
+    <div class="field-submit-container">
+        <button type="submit">Continue</button>
+    </div>
+</form>

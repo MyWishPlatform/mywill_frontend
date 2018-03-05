@@ -34,6 +34,7 @@
     <form class="main-section-chapter"
           novalidate
           autocomplete="new-password"
+          ng-if="!currentUser.is_social"
           ng-submit="setNewPassword(passwordChangeForm)"
           name="passwordChangeForm">
         <div class="main-section-chapter-fieldset">

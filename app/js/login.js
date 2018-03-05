@@ -17,48 +17,53 @@ module.controller('authController', function($scope) {
         template: "<div ui-view class='main-wrapper-section'></div>",
         controller: function(authService, $rootScope, $scope, SocialAuthService) {
 
+            $scope.advancedSocialRequest = {};
+
             $scope.socialAuthError = false;
             var onSocialAuth = function(response) {
                 window.location = window.location.href;
             };
 
-            var errorSocialAuth = function(response) {
+            var errorSocialAuth = function(response, request, type) {
+                $scope.socialAuthInfo = {
+                    network: type,
+                    request: request
+                };
                 switch (response.status) {
                     case 403:
                         $scope.socialAuthError = response.data.detail;
                         switch (response.status) {
                             case '1030':
-
                                 break;
                             case '1031':
-
                                 break;
                             case '1032':
-
                                 break;
                             case '1033':
-
                                 break;
                         }
                         break;
                 }
             };
 
-            if (window.FB) {
-                FB.init({
-                    appId: '392887687850892',
-                    status: true,
-                    cookie: true,
-                    xfbml: true,
-                    version: 'v2.8'
-                })
-            }
 
-            $scope.fbLogin = function() {
-                SocialAuthService.facebookAuth(onSocialAuth, errorSocialAuth);
+            $scope.fbLogin = function(advancedData) {
+                SocialAuthService.facebookAuth(onSocialAuth, errorSocialAuth, advancedData);
             };
-            $scope.googleLogin = function() {
-                SocialAuthService.googleAuth(onSocialAuth, errorSocialAuth);
+            $scope.googleLogin = function(advancedData) {
+                SocialAuthService.googleAuth(onSocialAuth, errorSocialAuth, advancedData);
+            };
+
+            $scope.continueSocialAuth = function(form) {
+                if (!form.$valid) return;
+                switch ($scope.socialAuthInfo.network) {
+                    case 'google':
+                        $scope.googleLogin($scope.socialAuthInfo.request);
+                        break;
+                    case 'facebook':
+                        $scope.fbLogin($scope.socialAuthInfo.request);
+                        break;
+                }
             };
 
             authService.profile().then(function(response) {

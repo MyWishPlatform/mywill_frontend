@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('authService', function(requestService, API) {
+module.service('authService', function(requestService, API, $q, $timeout) {
     return {
         registration: function(params) {
             params.API_PATH = API.HOSTS.AUTH_PATH;

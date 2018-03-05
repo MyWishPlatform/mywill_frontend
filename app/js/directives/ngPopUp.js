@@ -22,6 +22,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
 
             $scope.getTemplate = $rootScope.getTemplate;
             $scope.avatarPlaceholder = $rootScope.avatarPlaceholder;
+            $scope.ngPopUp.params = $scope.ngPopUp.params || {};
 
             $scope.$parent.popupScope = $scope;
 
@@ -58,7 +59,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 if ($scope.ngPopUp.closer) {
                     var closeLine = angular.element('<div>').addClass('map-closer-line').
                     appendTo(currentHolder);
-                } else {
+                } else if (!$scope.ngPopUp.params.noBackgroundCloser) {
                     currentCloser.on('click', function() {
                         $scope.closeCurrentPopup();
                         $scope.$apply();

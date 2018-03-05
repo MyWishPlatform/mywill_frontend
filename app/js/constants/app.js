@@ -8,6 +8,17 @@ module.constant('APP_CONSTANTS', {
     },
     'INFURA_ADDRESS':
         // "https://mainnet.infura.io/MEDIUMTUTORIAL"
-        "https://ropsten.infura.io/MEDIUMTUTORIAL"
+        "https://ropsten.infura.io/MEDIUMTUTORIAL",
+    'EMPTY_PROFILE': {
+        "email":"",
+        "username":"",
+        "contracts":0,
+        "is_ghost":true,
+        "balance":"0",
+        "visibleBalance":"0",
+        "internal_btc_address":null,
+        "use_totp":false,
+        "internal_address":null
+    }
 });
 

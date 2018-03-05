@@ -1,10 +1,13 @@
 <div class="contract-popup-wrapper">
     <div class="alert-window-title">Not enough tokens for contract deployment</div>
     <div class="alert-window-buttons text-center">
-        <a ui-sref="main.buytokens" ng-click="$root.closeCommonPopup()" class="btn btn-submit">
+        <a ui-sref="main.buytokens"
+           ng-click="$root.closeCommonPopup(); $root.sendEvent('Button', 'to_buy_tokens_accept')"
+           class="btn btn-submit">
             <span>Buy tokens</span>
         </a>
-        <button ng-click="$root.closeCommonPopup()" class="btn btn-transparent">
+        <button ng-click="$root.closeCommonPopup(); $root.sendEvent('Button', 'to_buy_tokens_cancel')"
+                class="btn btn-transparent">
             <span>Cancel</span>
         </button>
     </div>

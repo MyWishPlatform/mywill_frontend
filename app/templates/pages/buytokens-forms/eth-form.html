@@ -173,6 +173,7 @@
                     </a>
 
                     <a class="btn btn-transparent center-input-field"
+                       ng-click="sendEvent('Button_Pay_Click', 'on_pay_' + visibleForm + '_' + formData.activeService)"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
                        ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?sendMode=ether&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount + '#send-transaction' : undefined }}">

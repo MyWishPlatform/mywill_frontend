@@ -79,14 +79,25 @@ angular.module('app').controller('deferredCreateController', function($scope, co
     $scope.resetForms = resetForm;
 
     var contractInProgress = false;
-    $scope.createContract = function(callback) {
+
+    $scope.createContract = function() {
+        var isWaitingOfLogin = $scope.checkUserIsGhost();
+        if (!isWaitingOfLogin) {
+            createContract();
+            return;
+        }
+        isWaitingOfLogin.then($scope.createContract);
+        return true;
+    };
+
+    var createContract = function() {
         if (contractInProgress) return;
         var data = angular.copy($scope.request);
 
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
             contractInProgress = false;
-            callback ? callback() : $state.go('main.contracts.preview.byId', {id: response.data.id});
+            $state.go('main.contracts.preview.byId', {id: response.data.id});
         });
     };
 

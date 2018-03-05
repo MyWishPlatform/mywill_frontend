@@ -1,6 +1,14 @@
 var module = angular.module('Services');
 module.service('AnalyticsService', function($window, $location, $rootScope) {
     return {
+        initGA: function(trackerCode) {
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })($window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            $window.ga('create', trackerCode, 'auto');
+        },
         sendEvent: function(CATEGORY, ACTION) {
             $window.ga('send', {
                 hitType: 'event',
@@ -8,21 +16,6 @@ module.service('AnalyticsService', function($window, $location, $rootScope) {
                 eventAction: ACTION,
                 eventLabel: $rootScope.isProduction ? 'PRODUCTION' : 'TEST'
             });
-            $window.ga(
-                'send',
-                'event',
-                CATEGORY,
-                ACTION,
-                $rootScope.isProduction ? 'PRODUCTION' : 'TEST',
-                {
-                    'dimension2': $rootScope.currentProfile.email
-                }
-            );
-
-            switch (ACTION) {
-                case 'REGISTRATION':
-                    $window.fbq('track', 'CompleteRegistration');
-            }
         },
         sendModulePassed: function (MODULE_NAME) {
             $window.ga(
@@ -33,7 +26,7 @@ module.service('AnalyticsService', function($window, $location, $rootScope) {
                 'PRODUCTION',
                 {
                     'dimension1': MODULE_NAME,
-                    'dimension2': $rootScope.currentProfile.email
+                    'dimension2': $rootScope.currentUser.email
                 }
             )
         }

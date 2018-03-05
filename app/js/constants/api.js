@@ -32,8 +32,9 @@ angular.module('Constants').constant('API', {
 
     "SOCIAL": {
         "FACEBOOK": "facebook/",
+        "GOOGLE": "google/",
         "POPUP_URLS": {
-            "GOOGLE": "/rest-auth/google/login/",
+            "GOOGLE": "/rest-auth/google/",
             "VK": "/rest-auth/vk/login/",
             "TWITTER": "/rest-auth/twitter/login/"
         }

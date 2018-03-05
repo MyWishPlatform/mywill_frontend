@@ -15,8 +15,155 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.showedMenu = !$rootScope.showedMenu;
     };
 }).controller('headerController', function($rootScope, $scope) {
+}).controller('authorizationController', function(authService, $rootScope, $scope, SocialAuthService) {
+
+    /* Social networks buttons */
+    $scope.socialAuthError = false;
+    var onAuth = function(response) {
+        $rootScope.$broadcast('$userOnLogin', $scope.ngPopUp.params.onLogin || false);
+        $scope.closeCurrentPopup();
+    };
+    $scope.serverErrors = {};
+    $scope.socialAuthInfo = {};
+    var errorSocialAuth = function(response, request, type) {
+        $scope.socialAuthInfo = {
+            network: type,
+            request: request
+        };
+        switch (response.status) {
+            case 403:
+                $scope.socialAuthError = response.data.detail;
+                switch ($scope.socialAuthError) {
+                    case '1030':
+
+                        break;
+                    case '1031':
+
+                        break;
+                    case '1032':
+
+                        break;
+                    case '1033':
+                        $scope.serverErrors = {totp: 'Invalid code'};
+                        break;
+                }
+                break;
+        }
+    };
+
+    $scope.fbLogin = function(advancedData) {
+        SocialAuthService.facebookAuth(onAuth, errorSocialAuth, advancedData);
+    };
+    $scope.googleLogin = function(advancedData) {
+        SocialAuthService.googleAuth(onAuth, errorSocialAuth, advancedData);
+    };
+    $scope.continueSocialAuth = function(form) {
+        console.log(form.$valid);
+        if (!form.$valid) return;
+        switch ($scope.socialAuthInfo.network) {
+            case 'google':
+                $scope.googleLogin($scope.socialAuthInfo.request);
+                break;
+            case 'facebook':
+                $scope.fbLogin($scope.socialAuthInfo.request);
+                break;
+        }
+    };
+
+    /* Reset password */
+    $scope.forgotRequest = {};
+    $scope.forgotServerErrors = undefined;
+
+    $scope.sendResetPassForm = function(resetForm) {
+        if (!resetForm.$valid) return;
+        $scope.forgotServerErrors = undefined;
+        $scope.forgotSuccessText = false;
+        authService.passwordReset($scope.forgotRequest.email).then(function (response) {
+            $scope.forgotSuccessText = response.data.detail;
+        }, function (response) {
+            switch (response.status) {
+                case 400:
+                    $scope.forgotServerErrors = response.data;
+                    break;
+            }
+        });
+    };
+
+    /* Log in */
+    $scope.twoFAEnabled = false;
+    $scope.logInRequest = {};
+    $scope.logInServerErrors = undefined;
+
+    $scope.sendLoginForm = function(authForm) {
+        if (!authForm.$valid) return;
+        $scope.logInServerErrors = undefined;
+        authService.auth({
+            data: $scope.logInRequest
+        }).then(function (response) {
+            onAuth();
+        }, function (response) {
+            switch (response.status) {
+                case 400:
+                    $scope.logInServerErrors = response.data;
+                    break;
+                case 403:
+                    switch (response.data.detail) {
+                        case '1019':
+                            $scope.twoFAEnabled = true;
+                            break;
+                        case '1020':
+                            $scope.logInServerErrors = {totp: 'Invalid code'};
+                            break;
+                    }
+                    break;
+            }
+        });
+    };
+
+    /* Registration */
+    $scope.regRequest = {};
+    $scope.regServerErrors = undefined;
+
+    $scope.sendRegForm = function(regForm) {
+        if (!regForm.$valid) return;
+        $scope.regRequest.username = $scope.regRequest.email;
+        $scope.regServerErrors = undefined;
+        authService.registration({
+            data: $scope.regRequest
+        }).then(function(response) {
+
+        }, function(response) {
+            switch (response.status) {
+                case 400:
+                    $scope.regServerErrors = response.data;
+                    break;
+            }
+        });
+    };
+
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, AnalyticsService) {
+
+
+    var loginWatcherInProgress;
+    $rootScope.checkProfile = function(event, requestData) {
+        if (loginWatcherInProgress) return;
+        loginWatcherInProgress = true;
+        authService.profile().then(function(data) {
+            $rootScope.setCurrentUser(data.data);
+            if (!$rootScope.currentUser.is_ghost) {
+                (requestData && requestData.callback) ? requestData.callback(true) : false;
+            }
+            loginWatcherInProgress = false;
+        }, function() {
+            loginWatcherInProgress = false;
+        });
+    };
+    $rootScope.$on('$userOnLogin', $rootScope.checkProfile);
+
+
+    $rootScope.sendEvent = AnalyticsService.sendEvent;
+    // AnalyticsService.initGA('UA-103787362-1');
 
     $rootScope.$location = $location;
 
@@ -42,6 +189,9 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             $state.go('exit');
             return;
         }
+        var userBalance = new BigNumber(profile.balance);
+        profile.visibleBalance = userBalance.div(Math.pow(10, 18)).toFormat(2);
+        profile.balanceInRefresh = $rootScope.currentUser ? $rootScope.currentUser.balanceInRefresh : false;
         $rootScope.currentUser = profile;
         return profile;
     };
@@ -71,9 +221,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var getCurrentUser = function(isGhost) {
         authService.profile().then(function(data) {
             if (data) {
-                var userBalance = new BigNumber(data.data.balance);
-                data.data.visibleBalance = userBalance.div(Math.pow(10, 18)).toFormat(2);
-                data.data.balanceInRefresh = $rootScope.currentUser ? $rootScope.currentUser.balanceInRefresh : false;
                 $rootScope.setCurrentUser(data.data);
                 iniApplication();
                 $rootScope.currentUserDefer.resolve(data);
@@ -82,11 +229,21 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                     return $state.go('exit');
                 }
             }
-        }, function() {
-            $rootScope.currentUserDefer.resolve(false);
-            if (!isGhost) {
-                return $state.go('exit');
+        }, function(response) {
+            var errorCode = response.status;
+            switch(errorCode) {
+                case 403:
+                    $rootScope.setCurrentUser(APP_CONSTANTS.EMPTY_PROFILE);
+                    iniApplication();
+                    $rootScope.currentUserDefer.resolve({
+                        data: APP_CONSTANTS.EMPTY_PROFILE
+                    });
+                    break;
             }
+            // $rootScope.currentUserDefer.resolve(false);
+            // if (!isGhost) {
+            //     return $state.go('exit');
+            // }
         });
         return $rootScope.currentUserDefer.promise;
     };
@@ -222,15 +379,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.isProduction = $location.host().indexOf('contracts.mywish.io')>=0;
 
-    if (window.FB) {
-        FB.init({
-            appId: '392887687850892',
-            status: true,
-            cookie: true,
-            xfbml: true,
-            version: 'v2.8'
-        })
-    }
+
 }).config(function($httpProvider, $qProvider, $compileProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';

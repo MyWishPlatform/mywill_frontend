@@ -130,6 +130,7 @@
                        required
                        ng-model="forgotRequest.email"
                        ng-class="{'ng-invalid ng-invalid-server': forgotServerErrors.email}"
+                       ng-change="forgotSuccessText ? forgotSuccessText = undefined : false;"
                        class="form-control-input">
                 <span class="field-error form-field_error-required">Field is required</span>
                 <span class="field-error form-field_error-email">Enter your e-mail</span>
@@ -146,6 +147,13 @@
             </div>
         </form>
 
+    </div>
+
+
+    <div class="form-control contract-form-row" ng-if="ngPopUp.params.page === 'email-confirm'">
+        <p class="email-confirm-text">
+            Please check your email & confirm registration. Thank you!
+        </p>
     </div>
 
 
@@ -167,4 +175,5 @@
             </button>
         </div>
     </form>
+
 </div>

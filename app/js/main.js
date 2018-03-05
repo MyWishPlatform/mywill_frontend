@@ -131,7 +131,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         authService.registration({
             data: $scope.regRequest
         }).then(function(response) {
-
+            $scope.ngPopUp.params.page = 'email-confirm';
         }, function(response) {
             switch (response.status) {
                 case 400:

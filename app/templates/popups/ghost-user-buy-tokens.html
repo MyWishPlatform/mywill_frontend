@@ -3,12 +3,14 @@
         Please sign in/sign up to replenish your account
     </div>
     <div class="alert-window-buttons text-center">
-        <a href="/auth/registration" class="btn btn-submit uppercase"
-           target="_blank">
+
+        <button class="btn btn-submit uppercase"
+                ng-click="$root.openAuthWindow('registration')">
             <span>Sign Up</span>
-        </a>
-        <a href="/auth/" target="_blank" class="btn btn-transparent uppercase">
+        </button>
+        <button class="btn btn-transparent uppercase"
+                ng-click="$root.openAuthWindow('auth')">
             <span>Sign in</span>
-        </a>
+        </button>
     </div>
 </div>

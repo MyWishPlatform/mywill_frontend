@@ -8,7 +8,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         abstract: true,
         templateUrl: '/templates/common/main.html',
         resolve: {
-            currentUser: function(usersService, $rootScope) {
+            currentUser: function($rootScope) {
                 return $rootScope.currentUserDefer.promise;
             }
         }
@@ -21,15 +21,16 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return $rootScope.currentUserDefer.promise;
             }
         },
-        controller: function(currentUser, $state, authService, $stateParams, $location, $rootScope) {
+        controller: function(currentUser, $state, authService, $stateParams, $location, $window) {
             if (!currentUser) {
-                authService.createGhost().then(function(response) {
-                    if (!$stateParams.go) {
-                        $state.go('main.createcontract.types');
-                    } else {
-                        $location.url(decodeURIComponent($stateParams.go));
-                    }
-                });
+                // $rootScope.setCurrentUser();
+                // authService.createGhost().then(function(response) {
+                //     if (!$stateParams.go) {
+                //         $state.go('main.createcontract.types');
+                //     } else {
+                //         $location.url(decodeURIComponent($stateParams.go));
+                //     }
+                // });
             } else {
                 if (!$stateParams.go) {
                     currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
@@ -117,8 +118,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: 'contractsController',
         templateUrl: templatesPath + 'contracts.html',
         resolve: {
-            contractsList: function(contractService) {
-                return contractService.getContractsList();
+            currentUser: function($rootScope) {
+                return $rootScope.currentUserDefer.promise;
+            },
+            contractsList: function(contractService, $rootScope) {
+                return !$rootScope.currentUser.is_ghost ? contractService.getContractsList() : [];
             }
         }
     }).state('main.contracts.preview', {
@@ -151,7 +155,47 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.createcontract', {
         abstract: true,
-        templateUrl: templatesPath + 'createcontract.html'
+        templateUrl: templatesPath + 'createcontract.html',
+        controller: function($scope, $rootScope, $window, $q, authService) {
+
+            $scope.checkUserIsGhost = function() {
+                if ($rootScope.currentUser.is_ghost) {
+
+                    var defer = $q.defer();
+
+                    /* Open authorisation window */
+                    $rootScope.commonOpenedPopup = 'login';
+                    $rootScope.commonOpenedPopupParams = {
+                        'class': 'login-form',
+                        'page': 'registration',
+                        'onClose': function() {
+                            destroyFocusEvent();
+                            $rootScope.closeCommonPopup();
+                        },
+                        'onLogin': {
+                            callback: defer.resolve
+                        }
+                    };
+
+                    /* Destroy watchers */
+                    var destroyFocusEvent = function() {
+                        angular.element($window).off('focus', checkWindowFocus);
+                    };
+
+                    /* Check profile for window focus */
+                    var checkWindowFocus = function() {
+                        $rootScope.checkProfile(false, {
+                            callback: defer.resolve
+                        });
+                    };
+
+                    angular.element($window).on('focus', checkWindowFocus);
+                    $scope.$on('$destroy', destroyFocusEvent);
+                    return defer.promise;
+                }
+                return false;
+            };
+        }
     }).state('main.createcontract.types', {
         url: '/create',
         controller: function() {

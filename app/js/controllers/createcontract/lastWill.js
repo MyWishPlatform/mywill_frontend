@@ -146,8 +146,18 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     $scope.editContractMode = !!contract.id;
 
+    $scope.createContract = function() {
+        var isWaitingOfLogin = $scope.checkUserIsGhost();
+        if (!isWaitingOfLogin) {
+            createContract();
+            return;
+        }
+        isWaitingOfLogin.then($scope.createContract);
+        return true;
+    };
+
     var contractInProgress = false;
-    $scope.createContract = function(callback) {
+    var createContract = function(callback) {
         if (contractInProgress) return;
         var data = {
             name: $scope.contractName,

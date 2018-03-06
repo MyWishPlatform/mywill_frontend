@@ -135,6 +135,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
     return gulp.src(
         [
             path.join(folders['npm'], 'jquery', 'dist', 'jquery.min.js'),
+            path.join(folders['npm'], 'ua-parser-js', 'dist', 'ua-parser.min.js'),
             path.join(folders['npm'], 'qrious', 'dist', 'qrious.min.js'),
             path.join(folders['npm'], 'angular', 'angular.min.js'),
             path.join(folders['npm'], 'angular-resource', 'angular-resource.min.js'),
@@ -190,6 +191,10 @@ gulp.task('app:js', ['app:js-clean'], function() {
         .pipe(concat('main.js'))
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
         //.pipe(uglifyjs({mangle: false}))
+        .pipe(sourcemaps.init({
+            loadMaps: true
+        }))
+        .pipe(sourcemaps.write())
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
         .pipe(rev.manifest('main.json'))
@@ -200,7 +205,7 @@ gulp.task('login:js-clean', function () {
     return del([path.join(input, 'static', 'js', 'login*')]);
 });
 /* Scripts collection */
-gulp.task('login:js', function() {
+gulp.task('login:js', ['login:js-clean'], function() {
     return gulp.src(
         [
             path.join(folders['npm'], 'angular', 'angular.min.js'),
@@ -209,12 +214,18 @@ gulp.task('login:js', function() {
             path.join(output, folders['js'], 'login.js'),
             path.join(output, folders['js'], 'services', 'request.js'),
             path.join(output, folders['js'], 'services', 'auth.js'),
+            path.join(output, folders['js'], 'services', 'socialAuth.js'),
             path.join(output, folders['js'], 'constants', 'app.js'),
+            path.join(output, folders['js'], 'controllers', 'auth.js'),
             path.join(output, folders['js'], 'directives', 'ngMatch.js'),
             path.join(output, folders['js'], 'constants', 'api.js')
         ])
         .pipe(concat('login.js'))
         //.pipe(uglifyjs({mangle: false}))
+        .pipe(sourcemaps.init({
+            loadMaps: true
+        }))
+        .pipe(sourcemaps.write())
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
         .pipe(rev.manifest('login.json'))

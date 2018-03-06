@@ -51,6 +51,9 @@
     })(window,document,'script','dataLayer','GTM-MDHD74W');</script>
     <!-- End Google Tag Manager -->
 
+    <script src="//connect.facebook.net/en_US/sdk.js"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+
     <script src="/static/vendors/vendors.js"></script>
     <script src="/static/tpl/templates.tpl.js"></script>
     <script src="/static/web3/web3.js"></script>
@@ -90,12 +93,26 @@
                 </div>
 
                 <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
-                    <a href="/auth/registration" class="uppercase btn btn-submit hide-ls">
+                    <button class="uppercase btn btn-submit hide-ls"
+                            ng-pop-up="{
+                                'template': '/templates/popups/login.html',
+                                'class': 'login-form',
+                                'params': {
+                                    page: 'registration'
+                                }
+                            }">
                         <span>Sign up</span>
-                    </a>
-                    <a href="/auth/" class="btn btn-transparent uppercase">
+                    </button>
+                    <button ng-pop-up="{
+                                'template': '/templates/popups/login.html',
+                                'class': 'login-form',
+                                'params': {
+                                    page: 'auth'
+                                }
+                            }"
+                            class="btn btn-transparent uppercase">
                         <span>Sign in</span>
-                    </a>
+                    </button>
                 </div>
                 <!-- div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
                     <button class="btn btn-transparent" ng-pop-up="{
@@ -118,7 +135,7 @@
     params: commonOpenedPopupParams || {},
     opened: true,
     noClickShow: true,
-    onClose: closeCommonPopup
+    onClose: commonOpenedPopupParams.onClose || closeCommonPopup
 }" ng-if="commonOpenedPopup"></div>
 
 
@@ -165,7 +182,6 @@
     gtag('js', new Date());
     gtag('config', 'UA-103787362-1');
 </script>
-
 
 </body>
 </html>

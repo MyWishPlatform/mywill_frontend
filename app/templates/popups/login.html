@@ -1,0 +1,180 @@
+<div class="main-section-chapter-fieldset custom-fieldset" ng-controller="authorizationController">
+
+    <ul class="auth-form-menu">
+        <li ng-class="{active: ngPopUp.params.page === 'auth'}">
+            <span ng-click="ngPopUp.params.page = 'auth'">Sign in</span>
+        </li>
+        <li ng-class="{active: ngPopUp.params.page === 'registration'}">
+            <span ng-click="ngPopUp.params.page = 'registration'">Sign up</span>
+        </li>
+    </ul>
+
+    <div ng-if="((ngPopUp.params.page === 'registration') || (ngPopUp.params.page === 'auth')) && !socialAuthError">
+        <div ng-if="ngPopUp.params.page === 'auth'">
+            <form class="login-form" ng-submit="sendLoginForm(loginForm)" name="loginForm" novalidate ng-if="!socialAuthError">
+                <div class="form-control contract-form-row">
+                    <div class="form-control-label">E-mail</div>
+                    <input type="email"
+                           required
+                           ng-model="logInRequest.username"
+                           ng-class="{'ng-invalid ng-invalid-server': logInServerErrors.username}"
+                           class="form-control-input">
+                    <span class="field-error form-field_error-required">Field is required</span>
+                    <span class="field-error form-field_error-email">Enter your e-mail</span>
+                    <span class="field-error form-field_error-server">{{logInServerErrors.username.join(', ')}}</span>
+                </div>
+                <div class="form-control contract-form-row">
+                    <div class="form-control-label">Password</div>
+                    <input type="password"
+                           required
+                           ng-model="logInRequest.password"
+                           ng-class="{'ng-invalid ng-invalid-server': logInServerErrors.password}"
+                           class="form-control-input">
+                    <span class="field-error form-field_error-required">Field is required</span>
+                    <span class="field-error form-field_error-server">{{logInServerErrors.password.join(', ')}}</span>
+                </div>
+
+                <div class="form-control contract-form-row" ng-if="twoFAEnabled">
+                    <div class="form-control-label">2FA code</div>
+                    <input type="text"
+                           required
+                           ng-model="logInRequest.totp"
+                           ng-class="{'ng-invalid ng-invalid-server': logInServerErrors.totp}"
+                           class="form-control-input">
+                    <span class="field-error form-field_error-required">Field is required</span>
+                    <span class="field-error form-field_error-server">{{logInServerErrors.totp}}</span>
+                </div>
+                <span class="field-error" style="display: block"
+                      ng-if="logInServerErrors.non_field_errors">{{logInServerErrors.non_field_errors.join(', ')}}</span>
+
+                <div class="form-control contract-form-row text-right clearfix"><br/>
+                    <button type="submit" class="btn btn-submit float-left"
+                            ng-click="$root.sendEvent('Authentication_popup', 'click_on_login');">
+                        <span>Log in</span>
+                    </button>
+                    <span class="restore-link" ng-click="ngPopUp.params.page = 'forgot-password'">Forgot your password?</span>
+                </div>
+            </form>
+        </div>
+        <div ng-if="ngPopUp.params.page === 'registration'">
+        <form class="login-form" ng-submit="sendRegForm(regForm)" name="regForm" novalidate>
+
+            <div class="form-control contract-form-row">
+                <div class="form-control-label">E-mail</div>
+                <input type="email"
+                       autocomplete="new-password"
+                       ng-class="{'ng-invalid ng-invalid-server': regServerErrors.username}"
+                       ng-model="regRequest.username" required
+                       class="form-control-input">
+                <span class="field-error form-field_error-required">Field is required</span>
+                <span class="field-error form-field_error-email">Enter your e-mail</span>
+                <span class="field-error form-field_error-email">Enter your e-mail</span>
+                <span class="field-error form-field_error-server">{{regServerErrors.username.join(', ')}}</span>
+            </div>
+
+            <div class="form-control contract-form-row">
+                <div class="form-control-label">Password</div>
+                <input pattern=".+"
+                       type="password"
+                       minlength="8"
+                       ng-model="regRequest.password1"
+                       ng-class="{'ng-invalid ng-invalid-server': regServerErrors.password1}"
+                       autocomplete="new-password"
+                       required
+                       class="form-control-input">
+                <span class="field-error form-field_error-pattern">Incorrect password</span>
+                <span class="field-error form-field_error-minlength">Minimum password length 8 characters</span>
+                <span class="field-error form-field_error-required">Field is required</span>
+                <span class="field-error form-field_error-server">{{regServerErrors.password1.join(', ')}}</span>
+            </div>
+
+            <div class="form-control contract-form-row">
+                <div class="form-control-label">Repeat password</div>
+                <input type="password"
+                       ng-match="regRequest.password1"
+                       autocomplete="new-password"
+                       ng-class="{'ng-invalid ng-invalid-server': regServerErrors.password2}"
+                       ng-model="regRequest.password2" required
+                       class="form-control-input">
+                <span class="field-error form-field_error-required">Field is required</span>
+                <span class="field-error form-field_error-pattern">Passwords do not match</span>
+                <span class="field-error form-field_error-server">{{regServerErrors.password2.join(', ')}}</span>
+                <span class="field-error" style="display: block"
+                      ng-if="regServerErrors.non_field_errors">{{regServerErrors.non_field_errors.join(', ')}}</span>
+            </div>
+
+            <div class="form-control contract-form-row"><br/>
+                <button type="submit" class="btn btn-submit" ng-click="$root.sendEvent('Authentication_popup', 'click_on_create_account');">
+                    <span>Create account</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+        <div class="network-auth-buttons">
+            <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin(); $root.sendEvent('Authentication_popup', 'click_on_fb_login');">
+                <i class="icon-network-facebook"></i>
+                <span>Log in via Facebook</span>
+            </a>
+            <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin(); $root.sendEvent('Authentication_popup', 'click_on_google_login');">
+                <i class="icon-network-google"></i>
+                <span>Log in via Google</span>
+            </a>
+        </div>
+    </div>
+
+    <div ng-if="ngPopUp.params.page === 'forgot-password'">
+        <form class="login-form" ng-submit="sendResetPassForm(resetForm)" name="resetForm" novalidate>
+            <div class="form-control contract-form-row">
+                <div class="form-control-label">Enter e-mail for password reset</div>
+                <input type="email"
+                       required
+                       ng-model="forgotRequest.email"
+                       ng-class="{'ng-invalid ng-invalid-server': forgotServerErrors.email}"
+                       ng-change="forgotSuccessText ? forgotSuccessText = undefined : false;"
+                       class="form-control-input">
+                <span class="field-error form-field_error-required">Field is required</span>
+                <span class="field-error form-field_error-email">Enter your e-mail</span>
+                <span class="field-error form-field_error-server">{{forgotServerErrors.email.join(', ')}}</span>
+                <span class="field-success" ng-if="forgotSuccessText">{{forgotSuccessText}}</span>
+                <span class="field-error" style="display: block"
+                      ng-if="forgotServerErrors.non_field_errors">{{forgotServerErrors.non_field_errors.join(', ')}}</span>
+            </div>
+
+            <div class="form-control contract-form-row"><br/>
+                <button type="submit" class="btn btn-submit" ng-click="$root.sendEvent('Authentication_popup', 'click_on_forgot');">
+                    <span>Send</span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div class="form-control contract-form-row" ng-if="ngPopUp.params.page === 'email-confirm'">
+        <p class="email-confirm-text">
+            Please check your email & confirm registration. Thank you!
+        </p>
+    </div>
+
+
+    <form ng-if="(socialAuthError == '1032') || (socialAuthError == '1033')"
+          ng-submit="continueSocialAuth(socialContinueForm)" name="socialContinueForm" novalidate >
+        <div class="form-control contract-form-row">
+            <div class="form-control-label">2FA code</div>
+            <input type="text"
+                   required
+                   ng-model="socialAuthInfo.request.totp"
+                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
+                   class="form-control-input">
+            <span class="field-error form-field_error-required">Field is required</span>
+            <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
+        </div>
+        <div class="form-control contract-form-row"><br/>
+            <button type="submit" class="btn btn-submit" ng-click="$root.sendEvent('Authentication_popup', 'click_on_social_login_with_2fa');">
+                <span>Continue</span>
+            </button>
+        </div>
+    </form>
+
+</div>

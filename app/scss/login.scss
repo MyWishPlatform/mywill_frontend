@@ -1,4 +1,5 @@
-@import 'common/_awesome.scss';
+@import 'common/awesome.scss';
+@import 'common/social-buttons.scss';
 html, body {
   width: 100%;
   height: 100%;
@@ -167,6 +168,11 @@ header {
 }
 .field-submit-container {
   margin-bottom: 2.775em;
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
   button {
     background-color: #206EFF;
     color: #fff;
@@ -177,13 +183,18 @@ header {
     cursor: pointer;
     border-radius: 1.5em;
     outline: none;
+    float: left;
   }
 }
 .restore-link {
-  font-size: 1.7em;
+  font-size: 1.3em;
   color: #206EFF;
   line-height: 1.2em;
   cursor: pointer;
+  display: block;
+  padding: 1.2em 0;
+  white-space: nowrap;
+  text-align: right;
   &.advanced-field-open {
     span {
       border-bottom: 1px dotted;

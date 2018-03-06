@@ -21,7 +21,7 @@
                    ng-class="{'active': $state.current.name == 'main.profile'}"
                    ng-if="!currentUser.is_ghost">
                     <i class="icon-account"></i>
-                    <span>{{currentUser.email}}</span>
+                    <span>{{currentUser.username || 'Unknown'}}</span>
                 </a>
             </li>
 

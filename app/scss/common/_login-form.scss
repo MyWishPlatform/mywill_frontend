@@ -1,0 +1,34 @@
+.auth-form-menu {
+  list-style-type: none;
+  padding: 0 0 2em;
+  margin: 0;
+  li {
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 0.225em;
+    + li {
+      margin-left: 1.5em;
+    }
+    &.active {
+      border-bottom: 2px solid $main-blue-color;
+    }
+    span {
+      font-size: 2em;
+      color: black;
+      line-height: 1.25em;
+      cursor: pointer;
+    }
+  }
+}
+.login-form {
+  .btn {
+    padding: 0 3em;
+    height: 4.8em;
+    line-height: 4.8em;
+    border-radius: 2.5em;
+  }
+}
+.email-confirm-text {
+  font-size: 1.6em;
+  line-height: 1.22em;
+}

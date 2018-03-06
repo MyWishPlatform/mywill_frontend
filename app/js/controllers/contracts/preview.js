@@ -70,6 +70,10 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                 return;
             }
             if (new BigNumber($rootScope.currentUser.balance).minus(new BigNumber(contract.cost)) < 0) {
+                $rootScope.commonOpenedPopupParams = {
+                    withoutCloser: true,
+                    noBackgroundCloser: true
+                };
                 $rootScope.commonOpenedPopup = 'less-balance';
                 return;
             }

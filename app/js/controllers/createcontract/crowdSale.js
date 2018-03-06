@@ -11,14 +11,20 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     }
 
     $scope.tokensList = tokensList.data;
-    $scope.tokensList.map(function(token) {
-        token.name = token.token_name + ' (' + token.token_short_name + ')'
-    });
 
-    $scope.tokensList.unshift({
-        name: 'Create new token'
-    });
     $scope.token = {};
+
+    if ($scope.tokensList.length) {
+        $scope.tokensList.map(function(token) {
+            token.name = token.token_name + ' (' + token.token_short_name + ')'
+        });
+        $scope.tokensList.unshift({
+            name: 'Create new token'
+        });
+    } else {
+        $scope.token.selectedToken = {};
+    }
+
     $scope.changeToken = function() {
         if (!$scope.token.selectedToken.id) return;
         var contract = new web3.eth.Contract(abi);
@@ -86,10 +92,19 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         $scope.$broadcast('tokensCapChanged');
     };
 
+    $scope.createContract = function() {
+        var isWaitingOfLogin = $scope.checkUserIsGhost();
+        if (!isWaitingOfLogin) {
+            createContract();
+            return;
+        }
+        isWaitingOfLogin.then($scope.createContract);
+        return true;
+    };
 
     /* Управление датой и временем начала/окончания ICO (end) */
     var contractInProgress = false;
-    $scope.createContract = function() {
+    var createContract = function() {
         if (contractInProgress) return;
         $scope.$broadcast('createContract');
 

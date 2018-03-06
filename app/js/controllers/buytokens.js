@@ -35,6 +35,8 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 break;
         }
 
+        $rootScope.sendEvent('Button_Pay_Click', 'on_pay_' + $scope.visibleForm + '_' + $scope.formData.activeService);
+
         web3.eth.sendTransaction({
             value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(16),
             from: $scope.formData.address,
@@ -76,24 +78,33 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     };
     resetForm();
     $scope.$watch('visibleForm', function() {
+        if ($scope.visibleForm) {
+            $rootScope.sendEvent('Button_Select_Method', 'on_open_' + $scope.visibleForm);
+        }
         resetForm();
     });
 
-    $scope.payDone = function() {
-        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
-    }
+    $scope.$watch('formData.activeService', function() {
+        if ($scope.formData.activeService) {
+            $rootScope.sendEvent('Button_Select_WalletType', 'on_select_' + $scope.visibleForm + '_' + $scope.formData.activeService);
+        }
+    });
 
+    $scope.payDone = function() {
+        $rootScope.sendEvent('Button_Done', 'on_done_' + $scope.visibleForm);
+        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
+    };
 }).controller('buytokensEthController', function($scope) {
     var rate = $scope.exRate.ETH;
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.ethAmount || 0);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(18).toString(10);
+        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
     $scope.checkEthAmount = function() {
         if (!$scope.formData.wishesAmount) return;
         var ethAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.ethAmount = ethAmount.times(rate).round(18).toString(10);
+        $scope.formData.ethAmount = ethAmount.times(rate).round(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
 }).controller('buytokensBtcController', function($scope) {

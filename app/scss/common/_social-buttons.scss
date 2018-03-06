@@ -1,0 +1,49 @@
+.network-auth-buttons {
+  padding: 2em 0;
+}
+.network-auth-button {
+  color: #fff;
+  text-decoration: none;
+  display: table;
+  border-radius: 3em;
+  &.width-100 {
+    width: 100%;
+    + .network-auth-button {
+      margin-top: 1.5em;
+    }
+  }
+
+  &-fb {
+    background-color: #466099;
+    &:hover {
+      background-color: #4e73b4;
+    }
+    &:active {
+      background-color: #3f5082;
+    }
+  }
+  &-g {
+    background-color: #e0523c;
+    &:hover {
+      background-color: #f3563f;
+    }
+    &:active {
+      background-color: #f3563f;
+    }
+  }
+  i, span {
+    display: table-cell!important;
+    vertical-align: middle;
+  }
+  i {
+    padding: 0.7em;
+    font-size: 2em;
+    width: 1px;
+  }
+  span {
+    text-align: center;
+    white-space: nowrap;
+    padding: 0 3.28em 0 0.5em;
+    font-size: 1.5em;
+  }
+}

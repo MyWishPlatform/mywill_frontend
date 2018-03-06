@@ -15,7 +15,58 @@ module.controller('authController', function($scope) {
     $stateProvider.state('main', {
         abstract: true,
         template: "<div ui-view class='main-wrapper-section'></div>",
-        controller: function(authService, $rootScope) {
+        controller: function(authService, $rootScope, $scope, SocialAuthService) {
+
+            $scope.advancedSocialRequest = {};
+            $scope.serverErrors = false;
+            $scope.socialAuthError = false;
+            var onSocialAuth = function(response) {
+                window.location = window.location.href;
+            };
+
+            var errorSocialAuth = function(response, request, type) {
+                $scope.socialAuthInfo = {
+                    network: type,
+                    request: request
+                };
+                switch (response.status) {
+                    case 403:
+                        $scope.socialAuthError = response.data.detail;
+                        switch ($scope.socialAuthError) {
+                            case '1030':
+                                break;
+                            case '1031':
+                                break;
+                            case '1032':
+                                break;
+                            case '1033':
+                                $scope.serverErrors = {totp: 'Invalid code'};
+                                break;
+                        }
+                        break;
+                }
+            };
+
+
+            $scope.fbLogin = function(advancedData) {
+                SocialAuthService.facebookAuth(onSocialAuth, errorSocialAuth, advancedData);
+            };
+            $scope.googleLogin = function(advancedData) {
+                SocialAuthService.googleAuth(onSocialAuth, errorSocialAuth, advancedData);
+            };
+
+            $scope.continueSocialAuth = function(form) {
+                if (!form.$valid) return;
+                switch ($scope.socialAuthInfo.network) {
+                    case 'google':
+                        $scope.googleLogin($scope.socialAuthInfo.request);
+                        break;
+                    case 'facebook':
+                        $scope.fbLogin($scope.socialAuthInfo.request);
+                        break;
+                }
+            };
+
             authService.profile().then(function(response) {
                 var profile = response.data;
                 if (!profile.is_ghost) {
@@ -30,36 +81,7 @@ module.controller('authController', function($scope) {
     }).state('main.login', {
         url: '/',
         templateUrl: templatesPath + 'auth.html',
-        controller: function ($scope, authService) {
-            $scope.twoFAEnabled = false;
-            $scope.request = {};
-            $scope.sendLoginForm = function(authForm) {
-                if (!authForm.$valid) return;
-                $scope.serverErrors = undefined;
-
-                authService.auth({
-                    data: $scope.request
-                }).then(function (response) {
-                    window.location = '/dashboard/';
-                }, function (response) {
-                    switch (response.status) {
-                        case 400:
-                            $scope.serverErrors = response.data;
-                            break;
-                        case 403:
-                            switch (response.data.detail) {
-                                case '1019':
-                                    $scope.twoFAEnabled = true;
-                                    break;
-                                case '1020':
-                                    $scope.serverErrors = {totp: 'Invalid code'};
-                                    break;
-                            }
-                            break;
-                    }
-                });
-            }
-        }
+        controller: 'authController'
     }).state('main.forgot', {
         url: '/forgot-password',
         templateUrl: templatesPath + 'forgot-password.html',
@@ -88,10 +110,10 @@ module.controller('authController', function($scope) {
         templateUrl: templatesPath + 'registration.html',
         controller: function ($scope, authService, $state) {
             $scope.request = {};
-
+            $scope.$parent.socialAuthError = false;
             $scope.sendRegForm = function(regForm) {
                 if (!regForm.$valid) return;
-                $scope.request.username = $scope.request.email;
+                $scope.request.email = $scope.request.username;
                 $scope.serverErrors = undefined;
                 authService.registration({
                     data: $scope.request

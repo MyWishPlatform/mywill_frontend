@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?2gtzhq');
-  src:  url('fonts/icomoon.eot?2gtzhq#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?2gtzhq') format('truetype'),
-  url('fonts/icomoon.woff?2gtzhq') format('woff'),
-  url('fonts/icomoon.svg?2gtzhq#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?mqgzfp');
+  src:  url('fonts/icomoon.eot?mqgzfp#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?mqgzfp') format('truetype'),
+  url('fonts/icomoon.woff?mqgzfp') format('woff'),
+  url('fonts/icomoon.svg?mqgzfp#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-help:before {
+  content: "\e941";
+  color: #006df0;
+}
 .icon-radio-unchecked:before {
   content: "\e93d";
 }
@@ -241,6 +245,12 @@
 }
 .icon-arrow:before {
   content: "\e900";
+}
+.icon-network-google:before {
+  content: "\e940";
+}
+.icon-network-facebook:before {
+  content: "\e93f";
 }
 .icon-exit:before {
   content: "\e939";

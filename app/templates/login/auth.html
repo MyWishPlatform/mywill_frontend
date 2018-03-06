@@ -3,12 +3,12 @@
         <input type="email"
                required
                ng-model="request.username"
-               ng-class="{'ng-invalid ng-invalid-server': serverErrors.email}"
+               ng-class="{'ng-invalid ng-invalid-server': serverErrors.username}"
                class="field-input">
         <span class="field-label">E-mail</span>
         <span class="field-error form-field_error-required">Field is required</span>
         <span class="field-error form-field_error-email">Enter your e-mail</span>
-        <span class="field-error form-field_error-server">{{serverErrors.email.join(', ')}}</span>
+        <span class="field-error form-field_error-server">{{serverErrors.username.join(', ')}}</span>
     </div>
 
     <div class="field-container">
@@ -46,36 +46,36 @@
         <a ui-sref="main.forgot" class="restore-link">Forgot your password?</a>
     </div>
 
-    <div class="social-network-buttons">
-        <a href="#" class="social-button social-button-fb width-100" ng-click="fbLogin()">
-            <i class="icon-facebook"></i>
+    <div class="network-auth-buttons">
+        <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin()">
+            <i class="icon-network-facebook"></i>
             <span>Log in via Facebook</span>
         </a>
-        <a href="#" class="social-button social-button-g width-100" ng-click="googleLogin()">
-            <i class="icon-google"></i>
+        <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin()">
+            <i class="icon-network-google"></i>
             <span>Log in via Google</span>
         </a>
     </div>
 </form>
 
-<form ng-if="socialAuthError == '1030'" ng-submit="continue(loginForm)" name="loginForm" novalidate >
-    <div class="field-container">
-        <input type="email"
-               required
-               ng-model="request.username"
-               ng-class="{'ng-invalid ng-invalid-server': serverErrors.email}"
-               class="field-input">
-        <span class="field-label">E-mail</span>
-        <span class="field-error form-field_error-required">Field is required</span>
-        <span class="field-error form-field_error-email">Enter your e-mail</span>
-        <span class="field-error form-field_error-server">{{serverErrors.email.join(', ')}}</span>
-    </div>
+<!--<form ng-if="socialAuthError == '1030'" ng-submit="continue(loginForm)" name="loginForm" novalidate >-->
+    <!--<div class="field-container">-->
+        <!--<input type="email"-->
+               <!--required-->
+               <!--ng-model="request.username"-->
+               <!--ng-class="{'ng-invalid ng-invalid-server': serverErrors.email}"-->
+               <!--class="field-input">-->
+        <!--<span class="field-label">E-mail</span>-->
+        <!--<span class="field-error form-field_error-required">Field is required</span>-->
+        <!--<span class="field-error form-field_error-email">Enter your e-mail</span>-->
+        <!--<span class="field-error form-field_error-server">{{serverErrors.email.join(', ')}}</span>-->
+    <!--</div>-->
 
-    <div class="field-submit-container">
-        <button type="submit">Continue</button>
-    </div>
-</form>
-<form ng-if="socialAuthError == '1032'"
+    <!--<div class="field-submit-container">-->
+        <!--<button type="submit">Continue</button>-->
+    <!--</div>-->
+<!--</form>-->
+<form ng-if="(socialAuthError == '1032') || (socialAuthError == '1033')"
       ng-submit="continueSocialAuth(socialContinueForm)" name="socialContinueForm" novalidate >
     <div class="field-container">
         <input type="text"

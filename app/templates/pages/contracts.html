@@ -1,5 +1,17 @@
 <div class="main-section-content">
-    <div class="contracts-list-wrapper">
+    <div class="contracts-list-wrapper text-center" ng-if="!contractsList.length">
+        <div class="main-section-chapter-fieldset">
+            <p class="just-text">
+                <span>The list of smart contracts is empty</span>
+            </p>
+            <a ui-sref="main.createcontract.types" class="btn btn-submit with-icon">
+                <i class="icon-create-contract"></i>
+                <span>Create contract</span>
+            </a><br/><br/><br/>
+        </div>
+    </div>
+
+    <div class="contracts-list-wrapper" ng-if="contractsList.length">
         <div class="main-section-chapter-fieldset contracts-list-item"
              ng-click="goToContract(contract, $event)"
              ng-repeat="contract in contractsList" ng-init="iniContract(contract)">

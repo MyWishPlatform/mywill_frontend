@@ -4,7 +4,7 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch']);
 
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
@@ -58,7 +58,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         SocialAuthService.googleAuth(onAuth, errorSocialAuth, advancedData);
     };
     $scope.continueSocialAuth = function(form) {
-        console.log(form.$valid);
         if (!form.$valid) return;
         switch ($scope.socialAuthInfo.network) {
             case 'google':
@@ -126,7 +125,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $scope.sendRegForm = function(regForm) {
         if (!regForm.$valid) return;
-        $scope.regRequest.username = $scope.regRequest.email;
+        $scope.regRequest.email = $scope.regRequest.username;
         $scope.regServerErrors = undefined;
         authService.registration({
             data: $scope.regRequest
@@ -162,8 +161,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.$on('$userOnLogin', $rootScope.checkProfile);
 
 
-    $rootScope.sendEvent = AnalyticsService.sendEvent;
-    // AnalyticsService.initGA('UA-103787362-1');
+    // $rootScope.sendEvent = AnalyticsService.sendEvent;
+    // AnalyticsService.initGA();
 
     $rootScope.$location = $location;
 
@@ -379,6 +378,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.isProduction = $location.host().indexOf('contracts.mywish.io')>=0;
 
+    $rootScope.openAuthWindow = function(page) {
+        $rootScope.commonOpenedPopup = 'login';
+        $rootScope.commonOpenedPopupParams = {
+            'class': 'login-form',
+            'page': page
+        };
+    };
 
 }).config(function($httpProvider, $qProvider, $compileProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';

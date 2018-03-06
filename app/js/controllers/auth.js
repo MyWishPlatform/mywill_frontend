@@ -1,6 +1,8 @@
 angular.module('app').controller('authController', function ($scope, authService, $state) {
     $scope.twoFAEnabled = false;
     $scope.request = {};
+
+    $scope.$parent.socialAuthError = false;
     $scope.sendLoginForm = function(authForm, reloadPage) {
         if (!authForm.$valid) return;
         $scope.serverErrors = undefined;

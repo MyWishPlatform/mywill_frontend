@@ -147,9 +147,18 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
 
     $scope.editContractMode = !!contract.id;
 
+    $scope.createContract = function() {
+        var isWaitingOfLogin = $scope.checkUserIsGhost();
+        if (!isWaitingOfLogin) {
+            createContract();
+            return;
+        }
+        isWaitingOfLogin.then($scope.createContract);
+        return true;
+    };
 
     var contractInProgress = false;
-    $scope.createContract = function(callback) {
+    var createContract = function(callback) {
         if (contractInProgress) return;
         var data = {
             name: $scope.contractName,

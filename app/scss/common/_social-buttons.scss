@@ -1,14 +1,14 @@
-.social-network-buttons {
+.network-auth-buttons {
   padding: 2em 0;
 }
-.social-button {
+.network-auth-button {
   color: #fff;
   text-decoration: none;
   display: table;
   border-radius: 3em;
   &.width-100 {
     width: 100%;
-    + .social-button {
+    + .network-auth-button {
       margin-top: 1.5em;
     }
   }
@@ -32,7 +32,7 @@
     }
   }
   i, span {
-    display: table-cell;
+    display: table-cell!important;
     vertical-align: middle;
   }
   i {

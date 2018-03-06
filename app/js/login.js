@@ -18,7 +18,7 @@ module.controller('authController', function($scope) {
         controller: function(authService, $rootScope, $scope, SocialAuthService) {
 
             $scope.advancedSocialRequest = {};
-
+            $scope.serverErrors = false;
             $scope.socialAuthError = false;
             var onSocialAuth = function(response) {
                 window.location = window.location.href;
@@ -32,7 +32,7 @@ module.controller('authController', function($scope) {
                 switch (response.status) {
                     case 403:
                         $scope.socialAuthError = response.data.detail;
-                        switch (response.status) {
+                        switch ($scope.socialAuthError) {
                             case '1030':
                                 break;
                             case '1031':
@@ -40,6 +40,7 @@ module.controller('authController', function($scope) {
                             case '1032':
                                 break;
                             case '1033':
+                                $scope.serverErrors = {totp: 'Invalid code'};
                                 break;
                         }
                         break;
@@ -109,10 +110,10 @@ module.controller('authController', function($scope) {
         templateUrl: templatesPath + 'registration.html',
         controller: function ($scope, authService, $state) {
             $scope.request = {};
-
+            $scope.$parent.socialAuthError = false;
             $scope.sendRegForm = function(regForm) {
                 if (!regForm.$valid) return;
-                $scope.request.username = $scope.request.email;
+                $scope.request.email = $scope.request.username;
                 $scope.serverErrors = undefined;
                 authService.registration({
                     data: $scope.request

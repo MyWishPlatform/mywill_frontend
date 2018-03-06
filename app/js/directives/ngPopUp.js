@@ -29,6 +29,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
             var currentHolder;
             var currentWindow;
             var isShowed = false;
+
             var createPopup = function() {
                 element.focus();
                 currentHolder = popupHolder.clone();
@@ -111,8 +112,17 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
             $scope.$on('$destroy', function() {
                 $scope.closeCurrentPopup();
             });
+
+            $scope.$watch('ngPopUp.template', function(newTpl, oldTpl) {
+                if (isShowed && (newTpl !== oldTpl)) {
+                    currentHolder ? currentHolder.empty().remove() : false;
+                    createPopup();
+                }
+            });
+
             !$scope.ngPopUp.noClickShow  ? element.on('click', createPopup) : false;
             $scope.ngPopUp.opened ? createPopup() : false;
+
         }
     }
 });

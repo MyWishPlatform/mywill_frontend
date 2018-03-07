@@ -19,6 +19,10 @@ module.constant('APP_CONSTANTS', {
         "internal_btc_address":null,
         "use_totp":false,
         "internal_address":null
+    },
+    'SOCIAL_APP_ID': {
+        'GOOGLE': '364466470795-a5hkjeu1j743r7ado7u9lo7s89rc4r7q.apps.googleusercontent.com',
+        'FACEBOOK': '392887687850892'
     }
 });
 

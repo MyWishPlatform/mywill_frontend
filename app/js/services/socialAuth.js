@@ -1,5 +1,8 @@
 var module = angular.module('Services');
-module.service('SocialAuthService', function(authService, API, $q) {
+module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS) {
+
+    var googleAppId = APP_CONSTANTS.SOCIAL_APP_ID.GOOGLE;
+    var facebookAppId = APP_CONSTANTS.SOCIAL_APP_ID.FACEBOOK;
 
     var openAuthWindow = function(url) {
         var width = 600;
@@ -9,7 +12,7 @@ module.service('SocialAuthService', function(authService, API, $q) {
 
     if (window.FB) {
         FB.init({
-            appId: '392887687850892',
+            appId: facebookAppId,
             status: true,
             cookie: true,
             xfbml: true,
@@ -83,7 +86,7 @@ module.service('SocialAuthService', function(authService, API, $q) {
             }
 
             gapi.auth2.authorize({
-                client_id: '364466470795-a5hkjeu1j743r7ado7u9lo7s89rc4r7q.apps.googleusercontent.com',
+                client_id: googleAppId,
                 scope: 'email profile openid',
                 response_type: 'id_token permission'
             }, onLogged);

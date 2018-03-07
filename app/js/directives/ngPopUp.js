@@ -116,6 +116,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
             $scope.$watch('ngPopUp.template', function(newTpl, oldTpl) {
                 if (isShowed && (newTpl !== oldTpl)) {
                     currentHolder ? currentHolder.empty().remove() : false;
+                    showedPopups--;
                     createPopup();
                 }
             });

@@ -6,11 +6,11 @@ module.service('AnalyticsService', function($window, $location, $rootScope) {
             //         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             //     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             // })($window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
+            if (!$window.ga) return;
             $window.ga('create', 'UA-103787362-1', 'auto');
         },
         sendEvent: function(CATEGORY, ACTION) {
-            console.log(CATEGORY, ACTION);
+            if (!$window.ga) return;
             $window.ga('send', {
                 hitType: 'event',
                 eventCategory: CATEGORY,
@@ -19,6 +19,7 @@ module.service('AnalyticsService', function($window, $location, $rootScope) {
             });
         },
         sendModulePassed: function (MODULE_NAME) {
+            if (!$window.ga) return;
             $window.ga(
                 'send',
                 'event',

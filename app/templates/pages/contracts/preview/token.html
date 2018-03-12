@@ -1,0 +1,22 @@
+<div class="contract-preview-tabs" ng-init="contract.showedTab = 'info'">
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'info'}"
+         ng-click="contract.showedTab = 'info'">
+        <span>Preview contract</span>
+    </div>
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'code'}"
+         ng-click="contract.showedTab = 'code'"
+         ng-show="contract.contract_details.eth_contract.source_code">
+        <span>Source code</span>
+    </div>
+</div>
+
+
+<div ng-show="contract.showedTab == 'code'">
+
+</div>
+
+<div ng-show="contract.showedTab == 'info'">
+
+</div>

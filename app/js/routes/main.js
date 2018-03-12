@@ -216,10 +216,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
             },
             currencyRate: function(contractService, $stateParams) {
-                if ($stateParams.selectedType === 'crowdSale') {
-                    return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
-                }
-                return undefined;
+                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
             },
             openedContract: function() {
                 return false;

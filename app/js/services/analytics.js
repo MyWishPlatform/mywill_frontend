@@ -7,9 +7,10 @@ module.service('AnalyticsService', function($window, $location, $rootScope) {
             //     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             // })($window,document,'script','https://www.google-analytics.com/analytics.js','ga');
             if (!$window.ga) return;
-            $window.ga('create', 'UA-103787362-1', 'auto');
+            // $window.ga('create', 'UA-103787362-1', 'auto');
         },
         sendEvent: function(CATEGORY, ACTION) {
+            return;
             if (!$window.ga) return;
             $window.ga('send', {
                 hitType: 'event',
@@ -19,6 +20,7 @@ module.service('AnalyticsService', function($window, $location, $rootScope) {
             });
         },
         sendModulePassed: function (MODULE_NAME) {
+            return;
             if (!$window.ga) return;
             $window.ga(
                 'send',

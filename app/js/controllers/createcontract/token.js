@@ -1,4 +1,4 @@
-angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, exRate, currencyRate, $state, $rootScope,
+angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract) {
 
     $scope.request = {
@@ -12,8 +12,6 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     };
 
     var contractPrice = 0.5;
-    $scope.wishCost = new BigNumber(exRate.data.WISH).times(contractPrice).round(2).toString(10);
-    $scope.currencyRate = currencyRate.data;
 
     $scope.addRecipient = function() {
         var holder = {

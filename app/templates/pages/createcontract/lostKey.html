@@ -131,7 +131,6 @@
                             <input type="text"
                                    maxlength="3"
                                    required
-                                   ng-change="changeCondition()"
                                    ng-model="checkPeriod"
                                    ng-pattern="/^[1-9]+[0-9]*?$/"
                                    class="form-control-input text-center"/>
@@ -139,7 +138,6 @@
                         <div class="form-control">
                             <div ng-select
                                  ng-model="checkPeriodSelect"
-                                 ng-change="changeCondition()"
                                  ng-model-list="durationList"
                                  ng-select-options="{class: 'select-1', label: 'name', value: 'value'}"></div>
                         </div>
@@ -171,19 +169,8 @@
 
 
 <div class="main-section-chapter-fieldset custom-fieldset">
-    <div class="contract-form-fieldset"><br/>
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="costs-info-block">
-                    <span class="costs-info-title">Contract`s cost: </span>
-                    <div class="show-vs"></div>
-                    <span class="costs-info-value">{{checkedCost}}</span>
-                    <span class="costs-info-currency">WISH</span>
-                </div>
-            </div>
-        </div><br/>
-    </div>
-    <div class="contract-form-fieldset without-padding"><br/>
+    <div class="contract-form-fieldset"></div>
+    <div class="contract-form-fieldset without-padding"><br/><br/>
         <div class="contract-form-information-btns">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-vs-1-2">

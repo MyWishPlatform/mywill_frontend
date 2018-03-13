@@ -1,6 +1,5 @@
-angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
+angular.module('app').controller('crowdSaleCreateController', function($scope, contractService, $location, tokensList, APP_CONSTANTS,
                                                                        openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
-
 
     var web3 = new Web3();
 
@@ -11,7 +10,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     }
 
     $scope.tokensList = tokensList.data;
-
     $scope.token = {};
 
     if ($scope.tokensList.length) {
@@ -44,9 +42,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             $scope.$apply();
         });
     };
-
-    $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
-    $scope.currencyRate = currencyRate.data;
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),

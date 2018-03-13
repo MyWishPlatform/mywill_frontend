@@ -31,6 +31,47 @@
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/token_info')"></div>
 </form>
 
+<form class="main-section-chapter ng-pristine ng-valid ng-scope" name="contractTypeForm">
+    <div class="main-section-chapter-fieldset">
+        <div class="contract-form-fieldset with-padding">
+            <div class="form-control-label">Choose Type of Token</div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="token_type_20" name="token_type" ng-model="request.token_type" value="ERC20">
+                                <span ng-class="{'icon-radio-checked': request.token_type == 'ERC20', 'icon-radio-unchecked': request.token_type !== 'ERC20'}"></span>
+                            </label>
+                            <label class="form-control-label inline-label" for="token_type_20">ERC20</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                    <span class="form-control-description__text">You can make as many pre-sale rounds as you want</span>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="token_type_223" name="token_type" ng-model="request.token_type" value="ERC223">
+                                <span ng-class="{'icon-radio-checked': request.token_type == 'ERC223', 'icon-radio-unchecked': request.token_type !== 'ERC223'}"></span>
+                            </label>
+                            <label class="form-control-label inline-label" for="token_type_223">ERC223</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                    <span class="form-control-description__text">No sale is possible after final sale. No more tokens can be created after end date</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleInfoForm">
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset with-padding">

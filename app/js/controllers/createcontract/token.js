@@ -2,7 +2,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract) {
 
     $scope.request = {
-        token_holders: []
+        token_holders: [{}]
     };
 
     $scope.minStartDate = moment();
@@ -65,7 +65,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.dates.endDate;
-            holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+            holder.amount = new BigNumber(holder.amount || 0).div(powerNumber).toString(10);
             holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
         });
     };

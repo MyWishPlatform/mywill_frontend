@@ -93,7 +93,7 @@
                                 <input type="radio" id="sale-mode-radio" name="sale-mode" ng-model="request.continue_minting" ng-value="false">
                                 <span ng-class="{'icon-radio-checked': !request.continue_minting, 'icon-radio-unchecked': request.continue_minting}"></span>
                             </label>
-                            <label class="form-control-label inline-label" for="sale-mode-radio">ERC23</label>
+                            <label class="form-control-label inline-label" for="sale-mode-radio">ERC223</label>
                         </div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
             </div>
             <i class="icon-cancel float-right form-fieldset-info-button"
                ng-click="removeRecipient(recipient); checkTokensAmount();"
-               ng-if="token_holders.length"></i>
+               ng-if="token_holders.length > 1"></i>
         </div>
         <div class="contract-form-fieldset with-padding" ng-if="token_holders.length < 5">
             <div class="grid-row">

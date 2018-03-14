@@ -212,6 +212,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             return $templateCache.get(templatesPath + 'createcontract/' + $stateParams.selectedType + '.html');
         },
         resolve: {
+            currencyRate: function(contractService, $stateParams) {
+                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
+            },
             openedContract: function() {
                 return false;
             },
@@ -239,6 +242,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             openedContract: function(contractService, $stateParams) {
                 if (!$stateParams.id) return false;
                 return contractService.getContract($stateParams.id);
+            },
+            currencyRate: function(contractService, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
+                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {
+                    return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
+                }
+                return undefined;
             },
             tokensList: function($stateParams, contractService, CONTRACT_TYPES_NAMES_CONSTANTS, openedContract) {
                 if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {

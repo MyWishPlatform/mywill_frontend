@@ -29,6 +29,7 @@ angular.module('Constants').constant('API', {
     "GENERATE_KEY": "generate_key/",
     "ENABLE_2FA": "enable_2fa/",
     "DISABLE_2FA": "disable_2fa/",
+    "GET_DISCOUNT": "get_discount/",
 
     "SOCIAL": {
         "FACEBOOK": "facebook/",

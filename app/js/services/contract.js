@@ -102,6 +102,13 @@ angular.module('Services').service('contractService', function(requestService, A
                 // query: data
             };
             return requestService.get(params);
+        },
+        getDiscount: function(data) {
+            var params = {
+                path: API.GET_DISCOUNT,
+                query: data
+            };
+            return requestService.get(params);
         }
     }
 });

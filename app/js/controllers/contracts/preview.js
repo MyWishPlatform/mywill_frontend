@@ -10,10 +10,16 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     var depositUrl = url + params.join('&');
     var killUrl = url + params.join('&');
 
+    var originalCost;
+
     $scope.setContract = function(contract) {
         $scope.contract = contract;
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
+
+        $scope.contract.discount = 0;
+        originalCost = $scope.wishCost;
+
         if (!contract.contract_details.eth_contract) return;
         var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];
         var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
@@ -93,6 +99,36 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         }, function() {
         });
     };
+
+
+    $scope.changePromoCode = function() {
+        $scope.discountError = false;
+        $scope.contract.discount = 0;
+    };
+
+    $scope.getDiscount = function(code) {
+        if (!code) return;
+        contractService.getDiscount({
+            contract_type: $scope.contract.contract_type,
+            promo: code
+        }).then(function(response) {
+            $scope.contract.discount = response.data.discount;
+            $rootScope.commonOpenedPopupParams = {
+                withoutCloser: true,
+                discountPrice: - ((new BigNumber(originalCost)).times($scope.contract.discount).div(100).minus(originalCost).round(2).toString(10))
+            };
+
+            $rootScope.commonOpenedPopup = 'promo-code-activated';
+
+        }, function(response) {
+            switch (response.status) {
+                case 403:
+                    $scope.discountError = response.data.detail;
+                    break;
+            }
+        });
+    };
+
 }).controller('instructionsController', function($scope, web3Service) {
 
     var web3 = web3Service.web3();

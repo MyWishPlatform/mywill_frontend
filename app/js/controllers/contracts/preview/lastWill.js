@@ -4,7 +4,7 @@ angular.module('app').controller('lastWillPreviewController', function($timeout,
     $scope.setContract($scope.contract);
     var contractDetails = $scope.contract.contract_details;
 
-    $scope.wishCost = new BigNumber($scope.contract.cost).div(Math.pow(10, 18)).round(2).toString(10);
+    $scope.$parent.wishCost = new BigNumber($scope.contract.cost).div(Math.pow(10, 18)).round(2).toString(10);
 
     var durationList = [
         {

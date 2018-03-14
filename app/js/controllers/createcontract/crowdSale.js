@@ -1,5 +1,7 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, contractService, $location, tokensList, APP_CONSTANTS,
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
                                                                        openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+
+    $scope.currencyRate = currencyRate.data;
 
     var web3 = new Web3();
 
@@ -159,7 +161,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
                 return token.id === $scope.request.eth_contract_token.id;
             })[0];
         } else {
-            $scope.token.selectedToken = $scope.tokensList[0];
+            $scope.token.selectedToken = $scope.tokensList.length ? $scope.tokensList[0] : {};
         }
         $scope.changeToken();
 

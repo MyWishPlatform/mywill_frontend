@@ -31,7 +31,7 @@
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/token_info')"></div>
 </form>
 
-<form class="main-section-chapter ng-pristine ng-valid ng-scope" name="contractTypeForm">
+<form class="main-section-chapter" name="contractTypeForm" ng-if="!token.selectedToken.id">
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset with-padding">
             <div class="form-control-label">Choose Type of Token</div>

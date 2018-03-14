@@ -71,7 +71,7 @@
             <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_crowdsale.vault">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
-                        <div class="form-control-label">Vault</div>
+                        <div class="form-control-label">Vault contract (Investments storage until the end of crowdsale)</div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
                             <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.vault)}}"/>
@@ -430,11 +430,12 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
-    <div class="main-section-chapter-fieldset custom-fieldset" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
+
+    <div class="main-section-chapter" ng-include="'/templates/common/contracts/promocode-field.html'"></div>
+    <div class="main-section-chapter-fieldset custom-fieldset"
+         ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
 </div>
 
 

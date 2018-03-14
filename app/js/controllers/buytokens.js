@@ -112,12 +112,12 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.checkWishesAmount = function() {
         if (!$scope.formData.btcAmount) return;
         var wishesAmount = new BigNumber($scope.formData.btcAmount);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(18).toString(10);
+        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
     };
     $scope.checkBtcAmount = function() {
         if (!$scope.formData.wishesAmount) return;
         var btcAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.btcAmount = btcAmount.times(rate).round(18).toString(10);
+        $scope.formData.btcAmount = btcAmount.times(rate).round(2).toString(10);
     };
 }).controller('buytokensWishController', function($scope, $state, $rootScope) {
     $scope.$watch('formData.amount', function() {

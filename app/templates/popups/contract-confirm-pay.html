@@ -1,6 +1,7 @@
 <div class="contract-popup-wrapper">
     <div class="alert-window-title">
-        Please confirm contract launch ({{ngPopUp.params.contractCost}} WISH)
+        Please confirm contract launch
+        ({{- $root.bigNumber(ngPopUp.params.contractCost).times(ngPopUp.params.contract.discount).div(100).minus(ngPopUp.params.contractCost).round(2)}} WISH)
     </div>
     <div class="alert-window-buttons text-center">
         <button type="button"

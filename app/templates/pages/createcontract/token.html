@@ -1,7 +1,7 @@
 <div class="main-section-chapter">
     <form class="main-section-chapter-fieldset" name="contractParamsForm">
         <div class="main-section-chapter-title">
-            <i class="main-section-chapter-title_icon icon-crowdsale"></i>
+            <i class="main-section-chapter-title_icon icon-token"></i>
             <span class="main-section-chapter-title_text">Token contract</span>
         </div>
         <div class="contract-form-row">
@@ -73,16 +73,15 @@
                     <div class="form-control">
                         <div class="checkbox-decoration">
                             <label class="radio-button-decoration">
-                                <input type="radio" id="pre-sale-mode-radio" name="sale-mode" ng-model="request.continue_minting" ng-value="true">
-                                <span ng-class="{'icon-radio-checked': request.continue_minting, 'icon-radio-unchecked': !request.continue_minting}"></span>
+                                <input type="radio" id="token_type_20" name="token_type" ng-model="request.token_type" value="ERC20">
+                                <span ng-class="{'icon-radio-checked': request.token_type == 'ERC20', 'icon-radio-unchecked': request.token_type !== 'ERC20'}"></span>
                             </label>
-                            <label class="form-control-label inline-label" for="pre-sale-mode-radio">ERC20</label>
+                            <label class="form-control-label inline-label" for="token_type_20">ERC20</label>
                         </div>
                     </div>
                 </div>
-
                 <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
-                    <span class="form-control-description__text">You can make as many pre-sale rounds as you want</span>
+                    <span class="form-control-description__text">ERC-20 is recommended option. Accepted by the most exchanges.</span>
                 </div>
             </div>
             <div class="grid-row">
@@ -90,15 +89,15 @@
                     <div class="form-control">
                         <div class="checkbox-decoration">
                             <label class="radio-button-decoration">
-                                <input type="radio" id="sale-mode-radio" name="sale-mode" ng-model="request.continue_minting" ng-value="false">
-                                <span ng-class="{'icon-radio-checked': !request.continue_minting, 'icon-radio-unchecked': request.continue_minting}"></span>
+                                <input type="radio" id="token_type_223" name="token_type" ng-model="request.token_type" value="ERC223">
+                                <span ng-class="{'icon-radio-checked': request.token_type == 'ERC223', 'icon-radio-unchecked': request.token_type !== 'ERC223'}"></span>
                             </label>
-                            <label class="form-control-label inline-label" for="sale-mode-radio">ERC223</label>
+                            <label class="form-control-label inline-label" for="token_type_223">ERC223</label>
                         </div>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
-                    <span class="form-control-description__text">No sale is possible after final sale. No more tokens can be created after end date</span>
+                    <span class="form-control-description__text">ERC-223 is almost the same as ERC-20. Provides extra safety during token transfers.</span>
                 </div>
             </div>
         </div>
@@ -172,7 +171,6 @@
                                id="address-amount-{{$index}}"
                                commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
                                required
-                               ng-attr-invalid="{{tokensAmountError}}"
                                ng-change="checkTokensAmount()"
                                ng-model="recipient.amount"/>
                     </div>
@@ -196,13 +194,6 @@
                             </div>
 
                             <div class="grid-cell grid-cell-3-5">
-                                <input ng-model="recipient.parsed_freeze_date"
-                                       ng-attr-name="{{'recipient_freeze_date_' + $index}}"
-                                       class="input-for-group-fields"
-                                       type="number"
-                                       ng-if="recipient.isFrozen"
-                                       ng-attr-min="{{request.stop_date * 1 + 1}}">
-
                                 <input type="datetime"
                                        ng-required="recipient.isFrozen"
                                        ng-disabled="!recipient.isFrozen"
@@ -216,7 +207,6 @@
                                        view="year"
                                        format="YYYY-MM-DD"
                                        position="fixed"
-                                       ng-attr-invalid="{{!distributionForm['recipient_freeze_date_' + $index].$valid}}"
                                        class="form-control-input form-control-input-date"/>
                             </div>
                         </div>
@@ -241,7 +231,8 @@
             </div>
         </div>
 
-        <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="token_holders.length && !tokensAmountError">
+        <div class="contract-form-fieldset contract-form-fieldset-grey with-padding"
+             ng-if="token_holders.length && !tokensAmountError">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
@@ -304,7 +295,6 @@
 
 
 <div class="main-section-chapter-fieldset custom-fieldset">
-    <div class="contract-form-fieldset"></div>
     <div class="contract-form-fieldset without-padding"><br/><br/>
         <div class="contract-form-information-btns">
             <div class="grid-row">

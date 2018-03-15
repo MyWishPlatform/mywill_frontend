@@ -1,8 +1,11 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract) {
 
-    $scope.request = {
-        token_holders: [{}]
+    var contract = openedContract && openedContract.data ? openedContract.data : {
+        contract_details: {
+            token_holders: [{}],
+            token_type: 'ERC20'
+        }
     };
 
     $scope.minStartDate = moment();
@@ -10,8 +13,6 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : $scope.minStartDate.clone().add(1, 'days'),
         endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : $scope.minStartDate.clone().add(1, 'days').add(1, 'months')
     };
-
-    var contractPrice = 0.5;
 
     $scope.addRecipient = function() {
         var holder = {
@@ -25,13 +26,14 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             return rec !== recipient;
         });
     };
+
     $scope.checkTokensAmount = function() {
         var holdersSum = $scope.token_holders.reduce(function (val, item) {
             var value = new BigNumber(item.amount || 0);
             return value.plus(val);
         }, new BigNumber(0));
         var stringValue = holdersSum.toString(10);
-        $scope.tokensAmountError = isNaN(stringValue);
+        $scope.tokensAmountError = (holdersSum.toString(10) == 0) || isNaN(stringValue);
         if (!$scope.tokensAmountError) {
             $scope.totalSupply = {
                 tokens: holdersSum.round(2).toString(10)
@@ -42,10 +44,12 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             });
         }
     };
+
     $scope.chartOptions = {
         itemValue: 'amount',
         itemLabel: 'address'
     };
+
     $scope.chartData = [];
     $scope.dataChanged = function() {
         $scope.chartData = angular.copy($scope.token_holders);
@@ -57,17 +61,41 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             return holder.freeze_date === value;
         })[0]['parsed_freeze_date'] = value.format('X') * 1;
     };
-    var resetFormData = function() {
+
+    $scope.resetFormData = function() {
+        $scope.request = angular.copy(contract.contract_details);
+        $scope.contractName = contract.name;
+        $scope.minStartDate = moment();
         $scope.token_holders = angular.copy($scope.request.token_holders);
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.dates.endDate;
-            holder.amount = new BigNumber(holder.amount || 0).div(powerNumber).toString(10);
+            if (holder.amount) {
+                holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+            }
             holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
         });
     };
-    var createdContractData = function() {
+    $scope.resetFormData();
+    $scope.checkTokensAmount();
+
+
+    $scope.createContract = function() {
+        var isWaitingOfLogin = $scope.checkUserIsGhost();
+        if (!isWaitingOfLogin) {
+            createContract();
+            return;
+        }
+        isWaitingOfLogin.then($scope.createContract);
+        return true;
+    };
+
+    /* Управление датой и временем начала/окончания ICO (end) */
+    var contractInProgress = false;
+    var createContract = function() {
+        if (contractInProgress) return;
+
         $scope.request.token_holders = [];
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
@@ -78,10 +106,35 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
                 name: holder.name || null
             });
         });
-    };
 
-    resetFormData();
-    $scope.checkTokensAmount();
-    // $scope.$on('tokensCapChanged', $scope.checkTokensAmount);
+        var contractDetails = angular.copy($scope.request);
+        contractDetails.decimals = contractDetails.decimals * 1;
+
+        var data = {
+            name: $scope.request.token_name,
+            contract_type: CONTRACT_TYPES_CONSTANTS.TOKEN,
+            contract_details: contractDetails,
+            id: contract.id
+        };
+        contractInProgress = true;
+        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
+            contractInProgress = false;
+            $state.go('main.contracts.preview.byId', {id: response.data.id});
+        }, function(data) {
+            console.log(data);
+            switch(data.status) {
+                case 400:
+                    switch(data.data.result) {
+                        case '1':
+                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
+                    }
+                    break;
+            }
+            contractInProgress = false;
+        });
+    };
+    $scope.editContractMode = !!contract.id;
+
 
 });

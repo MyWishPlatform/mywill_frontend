@@ -87,11 +87,12 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
-        deployContract: function(id) {
+        deployContract: function(id, promo) {
             var params = {
                 path: API.DEPLOY,
                 data: {
-                    id: id
+                    id: id,
+                    promo: promo
                 }
             };
             return requestService.post(params);

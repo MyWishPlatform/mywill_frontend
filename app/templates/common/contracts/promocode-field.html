@@ -36,7 +36,10 @@
             <div class="show-vs"></div>
             <span class="">{{- bigNumber(wishCost).times(contract.discount / 100).minus(wishCost).round(2)}}</span>
             <span class="">WISH</span>
-            <span class="" ng-if="contract.contract_type == 4">({{- (bigNumber(1).times(contract.discount / 100).minus(1).round(2).toString(10))}} ETH)</span>
+            <span class="" ng-if="contract.contract_type == 4">
+                ({{- (bigNumber(1).times(contract.discount / 100).minus(1).round(2).toString(10))}} ETH)</span>
+            <span class="" ng-if="contract.contract_type == 5">
+                ({{- (bigNumber(0.5).times(contract.discount / 100).minus(0.5).round(2).toString(10))}} ETH)</span>
         </div>
     </div>
 </form>

@@ -239,9 +239,6 @@
                         <!--({{totalSupply.eth|separateNumber}} ETH)-->
                         Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
                     </div>
-                    <div class="form-control-description one-line without-padding">
-                        <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
-                    </div>
                 </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
                     <div id="chartdiv" class="chart-container" style="height: 240px"
@@ -263,7 +260,7 @@
 </form>
 
 <form class="main-section-chapter" ng-class="{'no-active': !defineAddresses.$valid}">
-    <form class="main-section-chapter-fieldset">
+    <div class="main-section-chapter-fieldset">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
                 <div class="form-control">
@@ -278,7 +275,7 @@
             <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
                 <div class="form-control">
                     <label class="checkbox-decoration">
-                        <input type="checkbox" id="is_transferable_at_once" ng-model="request.is_transferable_at_once" class="ng-pristine ng-untouched ng-valid ng-empty">
+                        <input type="checkbox" id="is_transferable_at_once" ng-model="request.future_minting" class="ng-pristine ng-untouched ng-valid ng-empty">
                         <span class="checkbox-decoration-displaying">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                         <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
@@ -287,10 +284,13 @@
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                <span class="form-control-description__text">User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended</span>
+                <span class="form-control-description__text">
+                    Yes - you can create more tokens in the future & use token for Crowdsale. <br/>
+                    No - no more tokens will be created in the future. Crowdsale is impossible
+                </span>
             </div>
         </div>
-    </form>
+    </div>
 </form>
 
 

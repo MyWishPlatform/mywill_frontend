@@ -7,14 +7,42 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
-         ng-show="contract.contract_details.eth_contract.source_code">
+         ng-show="details.eth_contract_token.source_code">
         <span>Source code</span>
     </div>
 </div>
 
 
 <div ng-show="contract.showedTab == 'code'">
+    <div class="main-section-chapter">
+        <div class="main-section-chapter-fieldset">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="github-link">
+                        <a href="https://github.com/MyWishPlatform/ico-crowdsale" target="_blank">
+                            https://github.com/MyWishPlatform/ico-crowdsale
+                        </a>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-preview-code-content">
+                        <div class="contract-preview-code-text">
+                            {{details.eth_contract_token.source_code}}
+                        </div>
 
+                        <button class="for-copy-button"
+                                ng-class="{copied: contract.copied.code}"
+                                clipboard supported="supported"
+                                text="details.eth_contract_token.source_code"
+                                on-copied="successCodeCopy(contract, 'code')"
+                                on-error="failCodeCopy(err)">
+                            <i class="icon-content_copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div ng-show="contract.showedTab == 'info'">
@@ -76,6 +104,20 @@
                             <span class="contract-preview-grey-font-color">Type of Token:</span><br/>
                             {{ contract.contract_details.token_type }}
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contract-form-fieldset with-padding">
+                <span class="form-control-label">
+                    <i class="icon-feature-minting form-control-label-icon"></i>
+                    Future Minting
+                </span>
+                <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="contract-preview-base-value-string">
+                        <i ng-class="{'icon-check_circle': details.future_minting, 'icon-cancel': !details.future_minting}"></i>
+                        <span ng-if="details.future_minting">YES</span>
+                        <span ng-if="!details.future_minting">NO</span>
                     </div>
                 </div>
             </div>
@@ -164,9 +206,6 @@
                     <div class="grid-cell grid-cell-1">
                         <!--({{totalSupply.eth|separateNumber}} ETH-->
                         <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
-                        <div class="form-control-description one-line without-padding">
-                            <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
-                        </div>
                     </div>
                     <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
                         <div class="chart-container" style="height: 240px"

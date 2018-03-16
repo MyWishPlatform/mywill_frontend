@@ -1,7 +1,10 @@
 angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
                                                                         openedContract, $scope, exRate, $state) {
     $scope.contract = openedContract.data;
+
     $scope.$parent.wishCost = exRate.data.WISH;
+    $scope.contract.cost = new BigNumber($scope.$parent.wishCost).times(Math.pow(10, 18)).toString(10);
+
     $scope.setContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;

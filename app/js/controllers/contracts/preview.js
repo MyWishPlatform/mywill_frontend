@@ -17,6 +17,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
 
+        $scope.wishCost = new BigNumber($scope.contract.cost).div(Math.pow(10, 18)).round(2).toString(10);
         $scope.contract.discount = 0;
         originalCost = $scope.wishCost;
 

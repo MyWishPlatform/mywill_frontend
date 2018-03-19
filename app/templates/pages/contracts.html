@@ -50,7 +50,7 @@
                     </button>
 
                     <!-- Deposit instruction button -->
-                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
+                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
                             ng-pop-up="{
                                 template: '/templates/popups/deposit-instruction.html',
                                 params: {
@@ -66,7 +66,7 @@
                     </button>
 
                     <!-- Cancel instruction button -->
-                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4)"
+                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
                             ng-pop-up="{
                                 template: '/templates/popups/stop-instruction.html',
                                 params: {
@@ -96,6 +96,43 @@
                         <span>Finalize</span>
                     </button>
 
+
+                    <!-- Mint form button -->
+                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting"
+                            ng-pop-up="{
+                                template: '/templates/popups/mint-token-form.html',
+                                params: {
+                                    contract: contract
+                                },
+                                class: 'page-size',
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }"
+                            class="btn btn-transparent hide-ps">
+                        <span>Mint</span>
+                    </button>
+
+                    <!-- Finalize token contract form button -->
+                    <button ng-pop-up="{
+                                template: '/templates/popups/mint-finalize-disclaimer.html',
+                                params: {
+                                    contract: contract
+                                },
+                                class: 'conditions',
+                                actions: {
+                                    successCodeCopy: successCodeCopy
+                                },
+                                onClose: returnToList
+                            }"
+                            ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting"
+                            class="btn btn-transparent hide-ps">
+                        <span>Finalize</span>
+                    </button>
+
+
+
                     <button class="btn only-icon"
                             ng-class="{'in-progress': timeoutsForProgress[contract.id]}"
                             ng-mousedown="refreshContract(contract)"
@@ -104,7 +141,7 @@
                     </button>
 
                     <button class="btn only-icon" type="button"
-                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2) || (statuses[contract.state]['value'] == 5) || (statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7)"
+                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
                             ng-pop-up="{
                                 template: '/templates/popups/delete-contract.html',
                                 params: contract,

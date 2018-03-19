@@ -6,7 +6,6 @@ angular.module('app').controller('contractsController', function(contractService
 
     $scope.contractsList = contractsList.data;
 
-
     var launchProgress = false;
     var launchContract = function(contract) {
         if (launchProgress) return;
@@ -21,6 +20,7 @@ angular.module('app').controller('contractsController', function(contractService
     };
     $scope.payContract = function(contract) {
         if (contract.isDeployProgress) return;
+        contract.discount = 0;
         $rootScope.getCurrentUser().then(function() {
             if ($rootScope.currentUser.is_ghost) {
                 $rootScope.commonOpenedPopup = 'ghost-user-alarm';

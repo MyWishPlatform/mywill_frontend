@@ -8,15 +8,11 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         }
     };
 
-    $scope.minStartDate = moment();
-    $scope.dates = {
-        startDate: $scope.editContractMode ? moment(contract.contract_details.start_date * 1000) : $scope.minStartDate.clone().add(1, 'days'),
-        endDate: $scope.editContractMode ? moment(contract.contract_details.stop_date * 1000) : $scope.minStartDate.clone().add(1, 'days').add(1, 'months')
-    };
+    $scope.minStartDate = moment().add(1, 'days');
 
     $scope.addRecipient = function() {
         var holder = {
-            freeze_date: $scope.dates.endDate.clone().add(1, 'minutes')
+            freeze_date: $scope.minStartDate.clone().add(1, 'minutes')
         };
         $scope.token_holders.push(holder);
         $scope.onChangeDateOfRecipient('', holder.freeze_date);
@@ -44,17 +40,17 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             });
         }
     };
-
+    $scope.dataChanged = function() {
+        $scope.chartData = angular.copy($scope.token_holders);
+        $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
+    };
     $scope.chartOptions = {
         itemValue: 'amount',
         itemLabel: 'address'
     };
 
     $scope.chartData = [];
-    $scope.dataChanged = function() {
-        $scope.chartData = angular.copy($scope.token_holders);
-        $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
-    };
+
 
     $scope.onChangeDateOfRecipient = function(path, value) {
         $scope.token_holders.filter(function(holder) {
@@ -70,7 +66,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
-            holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.dates.endDate;
+            holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.minStartDate;
             if (holder.amount) {
                 holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
             }

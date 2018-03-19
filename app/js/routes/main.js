@@ -118,11 +118,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: 'contractsController',
         templateUrl: templatesPath + 'contracts.html',
         resolve: {
-            currentUser: function($rootScope) {
-                return $rootScope.currentUserDefer.promise;
-            },
-            contractsList: function(contractService, $rootScope) {
-                return !$rootScope.currentUser.is_ghost ? contractService.getContractsList() : [];
+            // currentUser: function(currentUser) {
+            //     return currentUser;
+            // },
+            contractsList: function(contractService, currentUser) {
+                return !currentUser.data.is_ghost ? contractService.getContractsList() : [];
             }
         }
     }).state('main.contracts.preview', {

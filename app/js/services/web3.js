@@ -78,6 +78,11 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 if (!countProviders) {
                     defer.resolve(accountsList);
                 }
+            }, function() {
+                countProviders--;
+                if (!countProviders) {
+                    defer.resolve(accountsList);
+                }
             });
         }
         return defer.promise;

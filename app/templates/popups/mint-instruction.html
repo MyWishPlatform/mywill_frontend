@@ -5,7 +5,10 @@
         </div>
         <div class="instruction-title-text">
             <div class="instruction-title-text__content">
-                To Finalize the contract and make tokens transferable do the following steps (under investment address)
+                To Mint {{ngPopUp.params.recipient.amount|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}} tokens to
+                <a target="_blank" ng-attr-href="{{$root.etherscanUrl}}address/{{ngPopUp.params.recipient.address}}">{{ngPopUp.params.recipient.address}}</a>
+                address please make the following transaction from token owner's address
+                (<a target="_blank" ng-attr-href="{{$root.etherscanUrl}}address/{{ngPopUp.params.contract.contract_details.admin_address}}">{{ngPopUp.params.contract.contract_details.admin_address}}</a>)
             </div>
         </div>
     </div>
@@ -70,7 +73,7 @@
             </div>
         </li>
         <li class="clearfix">
-            <div class="instruction-item-text">Select the MINT function</div>
+            <div class="instruction-item-text">Select the {{!ngPopUp.params.recipient.isFrozen ? 'MINT' : 'mintAndFreeze'}} function</div>
         </li>
         <li class="clearfix">
             <div class="instruction-item-text">Click send transaction</div>

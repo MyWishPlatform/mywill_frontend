@@ -29,7 +29,7 @@
                             <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.address)}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a href="https://etherscan.io/address/{{details.eth_contract_crowdsale.address}}"
+                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.address}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.address"></a>
                             <button class="instruction-for-copy-button relative"
@@ -53,7 +53,7 @@
                         <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_token.address)}}"/>
                     </span>
                         <div class="contract-wallet-information-wallet">
-                            <a href="https://etherscan.io/token/{{details.eth_contract_token.address}}"
+                            <a ng-attr-href="{{$root.etherscanUrl}}token/{{details.eth_contract_token.address}}"
                                target="_blank"
                                ng-bind="details.eth_contract_token.address"></a>
                             <button class="instruction-for-copy-button relative"
@@ -77,7 +77,7 @@
                             <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.vault)}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a href="https://etherscan.io/address/{{details.eth_contract_crowdsale.vault}}"
+                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.vault}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.vault"></a>
                             <button class="instruction-for-copy-button relative"
@@ -314,7 +314,7 @@
                             <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a href="https://etherscan.io/address/{{details.admin_address}}"
+                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.admin_address}}"
                                target="_blank"
                                ng-bind="details.admin_address"></a>
 
@@ -339,7 +339,7 @@
                             <img class="identicon-image" ng-src="{{generateIdenticon(details.cold_wallet_address)}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a href="https://etherscan.io/address/{{details.cold_wallet_address}}"
+                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.cold_wallet_address}}"
                                target="_blank"
                                ng-bind="details.cold_wallet_address"></a>
 
@@ -363,7 +363,7 @@
                     <img class="identicon-image" ng-src="{{generateIdenticon(holder.address)}}"/>
                 </span>
                 <div class="contract-wallet-information-wallet">
-                    <a href="https://etherscan.io/address/{{holder.address}}"
+                    <a ng-attr-href="{{$root.etherscanUrl}}address/{{holder.address}}"
                        target="_blank"
                        ng-bind="holder.address"></a>
                     <button class="instruction-for-copy-button relative"

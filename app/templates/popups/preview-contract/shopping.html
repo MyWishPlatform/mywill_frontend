@@ -41,7 +41,7 @@
             </span>
             <div class="contract-wallet-information-title">Contract address:</div>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{'https://etherscan.io/address/' + ngPopUp.params.createdContract.address}}"
+                <a ng-attr-href="{{$root.etherscanUrl + 'address/' + ngPopUp.params.createdContract.address}}"
                    target="_blank"
                    ng-bind="ngPopUp.params.createdContract.address"></a>
                 <button class="instruction-for-copy-button"

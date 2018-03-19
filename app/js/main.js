@@ -144,6 +144,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
 
+    $rootScope.etherscanUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
+
     var loginWatcherInProgress;
     $rootScope.checkProfile = function(event, requestData) {
         if (loginWatcherInProgress) return;

@@ -70,8 +70,9 @@ angular.module('app').controller('deferredCreateController', function($scope, co
 
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
+        }, function() {
+            contractInProgress = false;
         });
     };
 

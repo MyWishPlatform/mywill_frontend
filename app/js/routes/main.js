@@ -22,16 +22,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             }
         },
         controller: function(currentUser, $state, authService, $stateParams, $location, $window) {
-            if (!currentUser) {
-                // $rootScope.setCurrentUser();
-                // authService.createGhost().then(function(response) {
-                //     if (!$stateParams.go) {
-                //         $state.go('main.createcontract.types');
-                //     } else {
-                //         $location.url(decodeURIComponent($stateParams.go));
-                //     }
-                // });
-            } else {
+            if (currentUser) {
                 if (!$stateParams.go) {
                     currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
                 } else {
@@ -118,11 +109,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: 'contractsController',
         templateUrl: templatesPath + 'contracts.html',
         resolve: {
-            // currentUser: function(currentUser) {
-            //     return currentUser;
-            // },
-            contractsList: function(contractService, currentUser) {
-                return !currentUser.data.is_ghost ? contractService.getContractsList() : [];
+            contractsList: function(contractService, $rootScope, currentUser) {
+                return !$rootScope.currentUser.is_ghost ? contractService.getContractsList() : [];
             }
         }
     }).state('main.contracts.preview', {

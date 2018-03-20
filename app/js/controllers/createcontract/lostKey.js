@@ -136,7 +136,6 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         };
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
             contractInProgress = false;

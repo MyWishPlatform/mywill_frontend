@@ -138,7 +138,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         };
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
             switch(data.status) {

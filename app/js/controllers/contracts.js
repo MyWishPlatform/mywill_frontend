@@ -106,6 +106,8 @@ angular.module('app').controller('contractsController', function(contractService
         contractService.getContract(contractId).then(function(response) {
             angular.merge(contract, response.data);
             $scope.refreshInProgress[contractId] = false;
+        }, function() {
+            $scope.refreshInProgress[contractId] = false;
         });
     };
 
@@ -122,5 +124,8 @@ angular.module('app').controller('contractsController', function(contractService
         if (target.is('.btn') || target.parents('.btn').length) return;
         $state.go('main.contracts.preview.byId', {id: contract.id});
     };
-});
 
+
+    $scope.$on('$userUpdated', updateList);
+
+});

@@ -136,8 +136,9 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         };
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             callback ? callback() : $state.go('main.contracts.preview.byId', {id: response.data.id});
+        }, function() {
+            contractInProgress = false;
         });
     };
 

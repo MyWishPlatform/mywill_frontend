@@ -91,6 +91,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     var contractInProgress = false;
     var createContract = function() {
         if (contractInProgress) return;
+        contractInProgress = true;
 
         $scope.request.token_holders = [];
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
@@ -112,12 +113,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             contract_details: contractDetails,
             id: contract.id
         };
-        contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
-            console.log(data);
             switch(data.status) {
                 case 400:
                     switch(data.data.result) {

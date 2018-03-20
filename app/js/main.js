@@ -155,6 +155,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             if (!$rootScope.currentUser.is_ghost) {
                 (requestData && requestData.callback) ? requestData.callback(true) : false;
             }
+            $rootScope.$broadcast('$userUpdated');
             loginWatcherInProgress = false;
         }, function() {
             loginWatcherInProgress = false;

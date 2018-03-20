@@ -67,7 +67,7 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
         },
         googleAuth: function(callback, errCallback, advancedData) {
             var onLogged = function(response) {
-                console.log(arguments);
+                console.log(response);
                 var requestData = {
                     'access_token': response.access_token,
                     'totp': response.totp
@@ -88,9 +88,9 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
 
             gapi.auth2.authorize({
                 client_id: googleAppId,
-                scope: 'email profile openid',
+                scope: 'email profile',
                 response_type: 'id_token permission',
-                prompt: 'none'
+                prompt: 'select_account'
             }, onLogged);
         }
     };

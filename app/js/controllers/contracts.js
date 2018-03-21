@@ -24,7 +24,7 @@ angular.module('app').controller('contractsController', function(contractService
                             break;
                         case 2:
                             $rootScope.commonOpenedPopupParams = {};
-                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
                             break;
                     }
                     break;

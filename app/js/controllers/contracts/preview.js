@@ -63,7 +63,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                             $rootScope.commonOpenedPopup = 'contract_date_incorrect';
                             break;
                         case 2:
-                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
                             break;
                     }
                     break;

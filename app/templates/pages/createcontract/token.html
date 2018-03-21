@@ -195,8 +195,8 @@
 
                             <div class="grid-cell grid-cell-3-5">
                                 <input type="datetime"
-                                       ng-required="recipient.isFrozen"
-                                       ng-disabled="!recipient.isFrozen"
+                                       ng-if="recipient.isFrozen"
+                                       required
                                        ng-model="recipient.freeze_date"
                                        date-change="onChangeDateOfRecipient"
                                        auto-close="true"
@@ -207,6 +207,15 @@
                                        view="year"
                                        format="YYYY-MM-DD"
                                        position="fixed"
+                                       class="form-control-input form-control-input-date"/>
+                                <input type="datetime"
+                                       ng-if="!recipient.isFrozen"
+                                       disabled
+                                       ng-model="recipient.freeze_date"
+                                       readonly
+                                       date-time
+                                       view="year"
+                                       format="YYYY-MM-DD"
                                        class="form-control-input form-control-input-date"/>
                             </div>
                         </div>

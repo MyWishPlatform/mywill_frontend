@@ -14,20 +14,48 @@ angular.module('app').controller('contractsController', function(contractService
             launchProgress = false;
             $scope.refreshContract(contract);
             $rootScope.closeCommonPopup();
-        }, function() {
+        }, function(data) {
+            switch(data.status) {
+                case 400:
+                    switch(data.data.result) {
+                        case 1:
+                            $rootScope.commonOpenedPopupParams = {};
+                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
+                        case 2:
+                            $rootScope.commonOpenedPopupParams = {};
+                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
+                    }
+                    break;
+            }
             launchProgress = false;
         });
     };
+
+    var showPriceLaunchContract = function(contract) {
+        $rootScope.commonOpenedPopup = 'contract-confirm-pay';
+        $rootScope.commonOpenedPopupParams = {
+            class: 'deleting-contract',
+            contract: contract,
+            confirmPayment: launchContract,
+            contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
+            withoutCloser: true
+        };
+    };
+
     $scope.payContract = function(contract) {
         if (contract.isDeployProgress) return;
         contract.discount = 0;
         $rootScope.getCurrentUser().then(function() {
             if ($rootScope.currentUser.is_ghost) {
                 $rootScope.commonOpenedPopup = 'ghost-user-alarm';
+                $rootScope.commonOpenedPopupParams = {};
                 return;
             }
             if (new BigNumber($rootScope.currentUser.balance).minus(new BigNumber(contract.cost)) < 0) {
                 $rootScope.commonOpenedPopup = 'less-balance';
+                $rootScope.commonOpenedPopupParams = {};
                 return;
             }
 
@@ -35,11 +63,8 @@ angular.module('app').controller('contractsController', function(contractService
                 contract: contract,
                 withoutCloser: true,
                 class: 'conditions',
-                endPay: {
-                    contract: contract,
-                    confirmPayment: launchContract,
-                    contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
-                    withoutCloser: true
+                actions: {
+                    showPriceLaunchContract: showPriceLaunchContract
                 }
             };
             $rootScope.commonOpenedPopup = 'conditions';

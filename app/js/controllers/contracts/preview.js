@@ -62,11 +62,25 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                         case 1:
                             $rootScope.commonOpenedPopup = 'contract_date_incorrect';
                             break;
+                        case 2:
+                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
                     }
                     break;
             }
             launchProgress = false;
         });
+    };
+
+    var showPriceLaunchContract = function(contract) {
+        $rootScope.commonOpenedPopup = 'contract-confirm-pay';
+        $rootScope.commonOpenedPopupParams = {
+            class: 'deleting-contract',
+            contract: contract,
+            confirmPayment: launchContract,
+            contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
+            withoutCloser: true
+        };
     };
 
     $scope.payContract = function() {
@@ -90,11 +104,8 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                     contract: contract,
                     withoutCloser: true,
                     class: 'conditions',
-                    endPay: {
-                        contract: contract,
-                        confirmPayment: launchContract,
-                        contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
-                        withoutCloser: true
+                    actions: {
+                        showPriceLaunchContract: showPriceLaunchContract
                     }
                 };
                 $rootScope.commonOpenedPopup = 'conditions';
@@ -106,7 +117,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             } else {
                 openConditionsPopUp();
             }
-
         }, function() {
         });
     };

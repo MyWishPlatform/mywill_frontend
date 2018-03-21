@@ -17,9 +17,6 @@ angular.module('app').controller('lostKeyPreviewController', function($timeout, 
         }
     ];
 
-    $scope.wishCost = new BigNumber($scope.contract.cost).div(Math.pow(10, 18)).round(2).toString(10);
-
-
     var checkInterval = durationList.filter(function(check) {
         return !(contractDetails.check_interval % (check.value * 24 * 3600));
     })[0];

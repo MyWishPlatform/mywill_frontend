@@ -1,6 +1,7 @@
-angular.module('app').controller('crowdSaleCreateController', function(exRate, $scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
                                                                        openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
+    $scope.currencyRate = currencyRate.data;
 
     var web3 = new Web3();
 
@@ -11,7 +12,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     }
 
     $scope.tokensList = tokensList.data;
-
     $scope.token = {};
 
     if ($scope.tokensList.length) {
@@ -26,27 +26,32 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     }
 
     $scope.changeToken = function() {
-        if (!$scope.token.selectedToken.id) return;
+        if (!$scope.token.selectedToken.id) {
+            $timeout(function () {
+                $scope.$broadcast('tokensCapChanged');
+            });
+            return;
+        }
         var contract = new web3.eth.Contract(abi);
         contract.options.address = $scope.token.selectedToken.address;
-        var seelctedToken = $scope.token.selectedToken;
+        var selectedToken = $scope.token.selectedToken;
         contract.methods.totalSupply().call(function(error, result) {
-            if (error) return;
-            seelctedToken.totalSupply = new BigNumber(result).div(Math.pow(10,$scope.token.selectedToken.decimals)).toString(10);
+            if (error) {
+                result = 0;
+            }
+            selectedToken.totalSupply = new BigNumber(result).div(Math.pow(10,$scope.token.selectedToken.decimals)).toString(10);
             $scope.$broadcast('tokensCapChanged');
             $scope.$apply();
         });
     };
-
-    $scope.wishCost = new BigNumber(exRate.data.WISH).round(2).toString(10);
-    $scope.currencyRate = currencyRate.data;
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
         contract_details: {
             token_holders: [],
             amount_bonuses: [],
-            time_bonuses: []
+            time_bonuses: [],
+            token_type: 'ERC20'
         }
     };
 
@@ -133,7 +138,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         };
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
             switch(data.status) {
@@ -155,10 +159,11 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
             $scope.token.selectedToken = $scope.tokensList.filter(function(token) {
                 return token.id === $scope.request.eth_contract_token.id;
             })[0];
-            if ($scope.token.selectedToken) {
-                $scope.changeToken();
-            }
+        } else {
+            $scope.token.selectedToken = $scope.tokensList.length ? $scope.tokensList[0] : {};
         }
+        $scope.changeToken();
+
         $scope.contractName = contract.name;
         $scope.minStartDate = moment();
         $scope.dates = {
@@ -512,7 +517,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
         if (!$scope.tokensAmountError) {
             var ethSum = holdersSum.plus($scope.request.hard_cap);
 
-
             if ($scope.token.selectedToken.id && $scope.token.selectedToken.totalSupply) {
                 ethSum = ethSum.plus($scope.token.selectedToken.totalSupply);
             }
@@ -578,7 +582,6 @@ angular.module('app').controller('crowdSaleCreateController', function(exRate, $
     resetFormData();
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
-    $scope.checkTokensAmount();
     $scope.$on('tokensCapChanged', $scope.checkTokensAmount);
 }).controller('crowdSaleActivation', function($scope, web3Service) {
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;

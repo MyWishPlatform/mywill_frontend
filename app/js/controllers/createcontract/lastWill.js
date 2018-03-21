@@ -96,48 +96,12 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     $scope.minDate = moment.tz('UTC').hour(12).startOf('h');
     $scope.dueDate = moment.tz('UTC').hour(12).startOf('h');
 
-    var oldParams = {};
-
     $scope.onChangeDate = function(modelName, currentDate) {
         $scope.dueDate = currentDate;
     };
 
-    var getCostTimeout;
-    $scope.changeCondition = function() {
-        var params = {
-            heirs_num: $scope.hairsList.length,
-            active_to: $scope.dueDate.format('YYYY-MM-DD'),
-            check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
-            contract_type: '0'
-        };
-        var changed = false;
-        for (var k in params) {
-            if (!params[k]) return;
-            changed = changed || (oldParams[k] !== params[k]);
-        }
-        if (changed) {
-            getCostTimeout ? $timeout.cancel(getCostTimeout) : false;
-            var currentTimeout = getCostTimeout = $timeout(function() {
-                oldParams = params;
-                contractService.getCost(params).then(function(response) {
-                    if (currentTimeout === getCostTimeout) {
-                        $scope.checkedCost = new BigNumber(response.data.result + '').div(Math.pow(10, 18)).round(2).toString(10);
-                    }
-                });
-            }, 1000);
-        }
-    };
-
-
     $scope.costCurrency = 2;
     $scope.checkPeriod = 1;
-    $scope.$watch('checkPeriodSelect', $scope.changeCondition);
-
-    $scope.changeCondition();
-    $scope.$watch('dueDate', function() {
-        $scope.changeCondition();
-    });
-    $scope.$watch('hairsList', $scope.changeCondition);
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
@@ -172,8 +136,9 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         };
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             callback ? callback() : $state.go('main.contracts.preview.byId', {id: response.data.id});
+        }, function() {
+            contractInProgress = false;
         });
     };
 

@@ -47,5 +47,9 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
     'ENDED': {
         title: 'Done',
         value: 11
+    },
+    'UNDER_CROWDSALE': {
+        title: 'Under Crowdsale',
+        value: 12
     }
 });

@@ -87,11 +87,12 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
-        deployContract: function(id) {
+        deployContract: function(id, promo) {
             var params = {
                 path: API.DEPLOY,
                 data: {
-                    id: id
+                    id: id,
+                    promo: promo
                 }
             };
             return requestService.post(params);
@@ -100,6 +101,13 @@ angular.module('Services').service('contractService', function(requestService, A
             var params = {
                 path: API.TOKEN_PARAMS
                 // query: data
+            };
+            return requestService.get(params);
+        },
+        getDiscount: function(data) {
+            var params = {
+                path: API.GET_DISCOUNT,
+                query: data
             };
             return requestService.get(params);
         }

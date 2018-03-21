@@ -10,10 +10,17 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     var depositUrl = url + params.join('&');
     var killUrl = url + params.join('&');
 
+    var originalCost;
+
     $scope.setContract = function(contract) {
         $scope.contract = contract;
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
+
+        $scope.wishCost = new BigNumber($scope.contract.cost).div(Math.pow(10, 18)).round(2).toString(10);
+        $scope.contract.discount = 0;
+        originalCost = $scope.wishCost;
+
         if (!contract.contract_details.eth_contract) return;
         var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];
         var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
@@ -45,7 +52,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     var launchContract = function(contract) {
         launchProgress = true;
         $rootScope.commonOpenedPopup = false;
-        contractService.deployContract(contract.id).then(function() {
+        contractService.deployContract(contract.id, contract.promo).then(function() {
             launchProgress = false;
             $state.go('main.contracts.list');
         }, function(data) {
@@ -55,11 +62,25 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                         case 1:
                             $rootScope.commonOpenedPopup = 'contract_date_incorrect';
                             break;
+                        case 2:
+                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
+                            break;
                     }
                     break;
             }
             launchProgress = false;
         });
+    };
+
+    var showPriceLaunchContract = function(contract) {
+        $rootScope.commonOpenedPopup = 'contract-confirm-pay';
+        $rootScope.commonOpenedPopupParams = {
+            class: 'deleting-contract',
+            contract: contract,
+            confirmPayment: launchContract,
+            contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
+            withoutCloser: true
+        };
     };
 
     $scope.payContract = function() {
@@ -78,21 +99,58 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                 return;
             }
 
-            $rootScope.commonOpenedPopupParams = {
-                contract: contract,
-                withoutCloser: true,
-                class: 'conditions',
-                endPay: {
+            var openConditionsPopUp = function() {
+                $rootScope.commonOpenedPopupParams = {
                     contract: contract,
-                    confirmPayment: launchContract,
-                    contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
-                    withoutCloser: true
-                }
+                    withoutCloser: true,
+                    class: 'conditions',
+                    actions: {
+                        showPriceLaunchContract: showPriceLaunchContract
+                    }
+                };
+                $rootScope.commonOpenedPopup = 'conditions';
             };
-            $rootScope.commonOpenedPopup = 'conditions';
+
+            var promoIsEntered = $scope.getDiscount();
+            if (promoIsEntered) {
+                promoIsEntered.then(openConditionsPopUp, openConditionsPopUp);
+            } else {
+                openConditionsPopUp();
+            }
         }, function() {
         });
     };
+
+
+    $scope.changePromoCode = function() {
+        $scope.discountError = false;
+        $scope.contract.discount = 0;
+    };
+
+    $scope.getDiscount = function() {
+        if (!$scope.contract.promo) return;
+        return contractService.getDiscount({
+            contract_type: $scope.contract.contract_type,
+            promo: $scope.contract.promo
+        }).then(function(response) {
+            $scope.contract.discount = response.data.discount;
+            $rootScope.commonOpenedPopupParams = {
+                withoutCloser: true,
+                discountPrice: - ((new BigNumber(originalCost)).times($scope.contract.discount).div(100).minus(originalCost).round(2).toString(10))
+            };
+
+            $rootScope.commonOpenedPopup = 'promo-code-activated';
+
+        }, function(response) {
+            $scope.contract.discount = 0;
+            switch (response.status) {
+                case 403:
+                    $scope.discountError = response.data.detail;
+                    break;
+            }
+        });
+    };
+
 }).controller('instructionsController', function($scope, web3Service) {
 
     var web3 = web3Service.web3();

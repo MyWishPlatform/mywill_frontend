@@ -46,35 +46,9 @@ angular.module('app').controller('deferredCreateController', function($scope, co
     };
     resetForm();
 
-    var oldParams = {};
-
     $scope.onChangeDate = function(modelName, currentDate) {
         $scope.request.contract_details.date = currentDate;
     };
-
-    var getCostTimeout;
-    $scope.changeCondition = function() {
-        var params = {
-            date: $scope.request.contract_details.date.format('YYYY-MM-DD'),
-            contract_type: $scope.request.contract_type
-        };
-
-        getCostTimeout ? $timeout.cancel(getCostTimeout) : false;
-
-        var currentTimeout = getCostTimeout = $timeout(function() {
-            oldParams = params;
-            contractService.getCost(params).then(function(response) {
-                if (currentTimeout === getCostTimeout) {
-                    $scope.checkedCost = new BigNumber(response.data.result + '').div(Math.pow(10, 18)).round(2).toString(10);
-                }
-            });
-        }, 1000);
-    };
-
-    $scope.changeCondition();
-    $scope.$watch('request.contract_details.date', function() {
-        $scope.changeCondition();
-    });
 
     $scope.resetForms = resetForm;
 
@@ -96,8 +70,9 @@ angular.module('app').controller('deferredCreateController', function($scope, co
 
         contractInProgress = true;
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
-            contractInProgress = false;
             $state.go('main.contracts.preview.byId', {id: response.data.id});
+        }, function() {
+            contractInProgress = false;
         });
     };
 

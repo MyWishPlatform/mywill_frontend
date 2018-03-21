@@ -144,6 +144,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
 
+    $rootScope.etherscanUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
+
     var loginWatcherInProgress;
     $rootScope.checkProfile = function(event, requestData) {
         if (loginWatcherInProgress) return;
@@ -153,6 +155,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             if (!$rootScope.currentUser.is_ghost) {
                 (requestData && requestData.callback) ? requestData.callback(true) : false;
             }
+            $rootScope.$broadcast('$userUpdated');
             loginWatcherInProgress = false;
         }, function() {
             loginWatcherInProgress = false;
@@ -171,7 +174,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         1: 'icon-key',
         2: 'icon-deferred',
         3: '',
-        4: 'icon-crowdsale'
+        4: 'icon-crowdsale',
+        5: 'icon-token'
     };
 
     $rootScope.deviceInfo = UAParser(window.navigator.userAgent);

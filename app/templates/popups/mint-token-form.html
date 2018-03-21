@@ -1,0 +1,127 @@
+<div class="contract-popup-wrapper without-padding" ng-controller="tokenMintController">
+    <form class="main-section-chapter-fieldset custom-fieldset" name="mintForm">
+        <div class="contract-form-fieldset">
+            <div class="main-section-chapter-title">
+                <i class="main-section-chapter-title_icon icon-token"></i>
+                <span class="main-section-chapter-title_text">{{ngPopUp.params.contract.name}}</span>
+            </div>
+        </div>
+
+
+        <div class="contract-form-fieldset relative with-padding">
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control">
+                        <div class="form-control-label">Define address for tokens (after minting it will be sent to this address)</div>
+                    </div>
+                </div>
+
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <label for="out-wallet-key" class="form-control-label">Address</label>
+                        <input id="out-wallet-key" type="text"
+                               placeholder="Enter the address of the recipient's wallet"
+                               ng-pattern="/^0x[0-9a-f]{40}$/i"
+                               ng-model="recipient.address"
+                               ng-change="!recipient.name ? checkTokensAmount() : false"
+                               required
+                               class="form-control-input"/>
+                    </div>
+                </div>
+
+                <div class="clearfix show-full hide-ps show-vs"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label for="address-amount" class="form-control-label">Token amount</label>
+                        <input class="form-control-input"
+                               id="address-amount"
+                               commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               required
+                               ng-change="checkTokensAmount()"
+                               ng-model="recipient.amount"/>
+                    </div>
+                </div>
+                <div class="clearfix show-ps"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <label class="form-control-label">
+                        <i class="icon-snowflake form-control-label-icon"></i>
+                        Frozen until date&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span>
+                    </label>
+                    <div class="form-control">
+                        <div class="grid-row contract-form-row">
+                            <div class="grid-cell grid-cell-2-5">
+                                <label class="checkbox-decoration">
+                                    <input type="checkbox" ng-model="recipient.isFrozen"/>
+                                    <span class="checkbox-decoration-displaying">
+                                    <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                    <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                                </span>
+                                </label>
+                            </div>
+
+                            <div class="grid-cell grid-cell-3-5">
+                                <input type="datetime"
+                                       ng-required="recipient.isFrozen"
+                                       ng-disabled="!recipient.isFrozen"
+                                       ng-model="recipient.freeze_date"
+                                       auto-close="true"
+                                       readonly
+                                       date-time
+                                       min-date="minStartDate"
+                                       min-view="date"
+                                       view="year"
+                                       format="YYYY-MM-DD"
+                                       position="fixed"
+                                       class="form-control-input form-control-input-date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contract-form-fieldset with-padding">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label">
+                        Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
+                    <div id="chartdiv" class="chart-container" style="height: 240px"
+                         ng-chart
+                         ng-chart-data="chartData"
+                         ng-chart-options="chartOptions"></div>
+                </div>
+                <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
+                    <div class="chart-legend">
+                        <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
+                            <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                            <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contract-form-fieldset with-padding">
+            <button class="btn btn-submit" type="button"
+                    ng-pop-up="{
+                        template: '/templates/popups/mint-instruction.html',
+                        params: {
+                            contract: contract,
+                            recipient: recipient,
+                            mintSignature: mintSignature,
+                            currentWallet: currentWallet
+                        },
+                        actions: {
+                            successCodeCopy: successCodeCopy,
+                            sendMintTransaction: sendMintTransaction
+                        },
+                        onClose: returnToList
+                    }"
+                    ng-disabled="!mintForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
+                <span>&nbsp;&nbsp;&nbsp;Mint&nbsp;&nbsp;&nbsp;</span>
+            </button>
+        </div>
+    </form>
+</div>

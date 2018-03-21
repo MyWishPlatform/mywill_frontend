@@ -147,7 +147,11 @@ angular.module('app').controller('contractsController', function(contractService
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);
         if (target.is('.btn') || target.parents('.btn').length) return;
-        $state.go('main.contracts.preview.byId', {id: contract.id});
+        var contractId = contract.id;
+        if ((contract.contract_type === 5) && (contract.state === 'UNDER_CROWDSALE')) {
+            contractId = contract.contract_details.crowdsale || contractId;
+        }
+        $state.go('main.contracts.preview.byId', {id: contractId});
     };
 
 

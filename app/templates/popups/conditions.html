@@ -18,12 +18,7 @@
                         <span>Cancel</span>
                     </button>
                     <button class="btn btn-submit"
-                            ng-pop-up="{
-                            template: '/templates/popups/contract-confirm-pay.html',
-                            class: 'deleting-contract',
-                            params: ngPopUp.params.endPay,
-                            onClose: closeCommonPopup
-                        }">
+                            ng-click="ngPopUp.params.actions.showPriceLaunchContract(ngPopUp.params.contract)">
                         <span>I Accept</span>
                     </button>
                 </div>

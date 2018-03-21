@@ -55,7 +55,7 @@
                             </span>
                             <div class="contract-wallet-information-title">Lost key contract:</div>
                             <div class="contract-wallet-information-wallet">
-                                <a ng-attr-href="{{'https://etherscan.io/address/' + contract.contract_details.eth_contract.address}}"
+                                <a ng-attr-href="{{etherScanUrl + 'address/' + contract.contract_details.eth_contract.address}}"
                                    target="_blank"
                                    ng-bind="contract.contract_details.eth_contract.address"></a>
 
@@ -140,6 +140,6 @@
             </div>
         </div>
     </div>
-
+    <div class="main-section-chapter" ng-include="'/templates/common/contracts/promocode-field.html'"></div>
     <div class="main-section-chapter-fieldset custom-fieldset" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
 </div>

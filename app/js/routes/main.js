@@ -22,16 +22,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             }
         },
         controller: function(currentUser, $state, authService, $stateParams, $location, $window) {
-            if (!currentUser) {
-                // $rootScope.setCurrentUser();
-                // authService.createGhost().then(function(response) {
-                //     if (!$stateParams.go) {
-                //         $state.go('main.createcontract.types');
-                //     } else {
-                //         $location.url(decodeURIComponent($stateParams.go));
-                //     }
-                // });
-            } else {
+            if (currentUser) {
                 if (!$stateParams.go) {
                     currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
                 } else {
@@ -118,10 +109,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: 'contractsController',
         templateUrl: templatesPath + 'contracts.html',
         resolve: {
-            currentUser: function($rootScope) {
-                return $rootScope.currentUserDefer.promise;
-            },
-            contractsList: function(contractService, $rootScope) {
+            contractsList: function(contractService, $rootScope, currentUser) {
                 return !$rootScope.currentUser.is_ghost ? contractService.getContractsList() : [];
             }
         }
@@ -212,14 +200,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             return $templateCache.get(templatesPath + 'createcontract/' + $stateParams.selectedType + '.html');
         },
         resolve: {
-            exRate: function(contractService) {
-                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
-            },
             currencyRate: function(contractService, $stateParams) {
-                if ($stateParams.selectedType === 'crowdSale') {
-                    return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
-                }
-                return undefined;
+                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
             },
             openedContract: function() {
                 return false;
@@ -248,9 +230,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             openedContract: function(contractService, $stateParams) {
                 if (!$stateParams.id) return false;
                 return contractService.getContract($stateParams.id);
-            },
-            exRate: function(contractService) {
-                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
             },
             currencyRate: function(contractService, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
                 if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {

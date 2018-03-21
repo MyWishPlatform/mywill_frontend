@@ -31,6 +31,46 @@
     <div class="main-section-chapter-fieldset" ng-include="getTemplate('pages/createcontract/crowdSale/token_info')"></div>
 </form>
 
+<form class="main-section-chapter" name="contractTypeForm" ng-if="!token.selectedToken.id">
+    <div class="main-section-chapter-fieldset">
+        <div class="contract-form-fieldset with-padding">
+            <div class="form-control-label">Choose Type of Token</div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="token_type_20" name="token_type" ng-model="request.token_type" value="ERC20">
+                                <span ng-class="{'icon-radio-checked': request.token_type == 'ERC20', 'icon-radio-unchecked': request.token_type !== 'ERC20'}"></span>
+                            </label>
+                            <label class="form-control-label inline-label" for="token_type_20">ERC20</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                    <span class="form-control-description__text">ERC-20 is recommended option. Accepted by the most exchanges.</span>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="token_type_223" name="token_type" ng-model="request.token_type" value="ERC223">
+                                <span ng-class="{'icon-radio-checked': request.token_type == 'ERC223', 'icon-radio-unchecked': request.token_type !== 'ERC223'}"></span>
+                            </label>
+                            <label class="form-control-label inline-label" for="token_type_223">ERC223</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                    <span class="form-control-description__text">ERC-223 is almost the same as ERC-20. Provides extra safety during token transfers.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
 <form class="main-section-chapter" ng-class="{'no-active': !tokenInfoForm.$valid}" name="saleInfoForm">
     <div class="main-section-chapter-fieldset">
         <div class="contract-form-fieldset with-padding">
@@ -132,20 +172,8 @@
 
 
 <div class="main-section-chapter-fieldset custom-fieldset">
-    <div class="contract-form-fieldset"><br/>
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="costs-info-block">
-                    <span class="costs-info-title">Contract`s cost: </span>
-                    <div class="show-vs"></div>
-                    <span class="costs-info-value">{{wishCost}}</span>
-                    <span class="costs-info-currency">WISH</span>
-                    <span class="costs-info-value">(1 ETH)</span>
-                </div>
-            </div>
-        </div><br/>
-    </div>
-    <div class="contract-form-fieldset without-padding"><br/>
+    <div class="contract-form-fieldset"></div>
+    <div class="contract-form-fieldset without-padding"><br/><br/>
         <div class="contract-form-information-btns">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-vs-1-2">

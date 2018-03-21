@@ -1,6 +1,7 @@
 angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
                                                                         openedContract, $scope, exRate, $state) {
     $scope.contract = openedContract.data;
+
     $scope.setContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
@@ -141,5 +142,4 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         address: 'For Sale'
     });
 
-    $scope.wishCost = exRate.data.WISH;
 });

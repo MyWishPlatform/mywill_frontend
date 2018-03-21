@@ -1,0 +1,85 @@
+<div class="contract-popup-wrapper">
+    <div class="instruction-title clearfix">
+        <div class="contract-name-block">
+            <div class="contract-name-text uppercase">Mint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div class="instruction-title-text">
+            <div class="instruction-title-text__content">
+                To Mint {{ngPopUp.params.recipient.amount|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}} tokens to
+                <a target="_blank" ng-attr-href="{{$root.etherscanUrl}}address/{{ngPopUp.params.recipient.address}}">{{ngPopUp.params.recipient.address}}</a>
+                address please make the following transaction from token owner's address
+                (<a target="_blank" ng-attr-href="{{$root.etherscanUrl}}address/{{ngPopUp.params.contract.contract_details.admin_address}}">{{ngPopUp.params.contract.contract_details.admin_address}}</a>)
+            </div>
+        </div>
+    </div>
+    <div class="instruction-steps-list">
+        <a ng-attr-href="{{
+            'https://www.myetherwallet.com/?data=' + ngPopUp.params.mintSignature +
+            '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract_token.address}}#send-transaction"
+           target="_blank" class="btn btn-payment btn-payment--wallet text-center">
+            <span>MyEtherwallet</span>
+        </a>
+        <button ng-click="ngPopUp.actions.sendMintTransaction()"
+                ng-if="ngPopUp.params.currentWallet && (ngPopUp.params.currentWallet.type === 'parity')"
+                class="btn btn-payment btn-payment--parity text-center">
+            <span>Parity</span>
+        </button>
+        <button  ng-click="ngPopUp.actions.sendMintTransaction()"
+                 ng-if="ngPopUp.params.currentWallet && (ngPopUp.params.currentWallet.type === 'metamask')"
+                 class="btn btn-payment btn-payment--metamask text-center">
+            <span>Metamask</span>
+        </button>
+    </div>
+
+    <div class="form-fieldset-delimiter"><span>OR</span></div>
+
+    <ul class="instruction-steps-list">
+        <li class="clearfix">
+            <div class="instruction-item-text">Open your wallet (Parity, <a href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>)</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Click the contracts tab in your wallet</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">
+                Copy the contract address to the Contract Address
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            text="ngPopUp.params.contract.contract_details.eth_contract_token.address"
+                            ng-class="{copied: ngPopUp.params.contract.copied['address']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text">{{ngPopUp.params.contract.contract_details.eth_contract_token.address}}</div>
+                </div>
+            </div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">
+                Copy MyWill data to ABI/JSON interface
+                <div class="instruction-for-copy">
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            text="ngPopUp.params.contract.contract_details.eth_contract_token.abi|json"
+                            ng-class="{copied: ngPopUp.params.contract.copied['abi']}"
+                            on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'abi')"
+                            on-error="ngPopUp.actions.failCodeCopy(err)">&nbsp;
+                        <i class="icon-content_copy"></i>
+                    </button>
+                    <div class="instruction-for-copy-text json-text">{{ngPopUp.params.contract.contract_details.eth_contract_token.abi|json}}</div>
+                </div>
+            </div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Select the {{!ngPopUp.params.recipient.isFrozen ? 'MINT' : 'mintAndFreeze'}} function</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Click send transaction</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Make the transaction</div>
+        </li>
+    </ul>
+</div>

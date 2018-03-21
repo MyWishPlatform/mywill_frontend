@@ -17,6 +17,12 @@
   margin-left: -24em;
 }
 
+.popup-window.page-size {
+  width: 98%;
+  max-width: 66em;
+  margin-left: -33em;
+}
+
 .popup-window.login-form {
   width: 98%;
   max-width: 36em;
@@ -24,7 +30,13 @@
 }
 
 @media screen and (max-width: 532px) {
-  .popup-window.deleting-contract, .popup-window.login-form {
+  .popup-window.deleting-contract, .popup-window.login-form, .popup-window.page-size {
+    margin-left: -49%;
+  }
+}
+
+@media screen and (max-width: 674px) {
+  .popup-window.page-size {
     margin-left: -49%;
   }
 }

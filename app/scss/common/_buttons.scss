@@ -146,9 +146,11 @@ $red-active-color: #bb0d2b;
     border-radius: 4em;
     background: #e8e8e8;
     color: #000;
-    min-width: 12em;
     padding: 0 2em;
     line-height: 3.6em;
+    &.payment-method {
+      min-width: 12em;
+    }
     &.active {
       border-color: #206EFF;
     }

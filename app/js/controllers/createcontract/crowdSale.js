@@ -537,7 +537,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
         var stringValue = holdersSum.toString(10);
 
-        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue);
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue) || isNaN($scope.request.rate);
 
         if (!$scope.tokensAmountError) {
             var ethSum = holdersSum.plus($scope.request.hard_cap);

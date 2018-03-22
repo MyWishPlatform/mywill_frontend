@@ -37,13 +37,13 @@
     <div class="contract-wallets-information">
         <div class="contract-wallets-information-one-block" ng-if="ngPopUp.params.createdContract.address">
             <span class="identicon-container">
-                <img ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.address)}}"/>
+                <img ng-src="{{ngPopUp.params.createdContract.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-title">Contract address:</div>
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{$root.etherscanUrl + 'address/' + ngPopUp.params.createdContract.address}}"
                    target="_blank"
-                   ng-bind="ngPopUp.params.createdContract.address"></a>
+                   ng-bind="ngPopUp.params.createdContract.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button"
                         clipboard supported="supported"
                         ng-class="{copied: ngPopUp.params.createdContract.copied['address']}"
@@ -58,9 +58,9 @@
             <i class="icon-wallet contract-information-icon"></i>
             <div class="contract-wallet-information-title">Send fund to</div>
             <span class="identicon-container">
-                    <img class="identicon-image" ng-src="{{$root.generateIdenticon(ngPopUp.params.createdContract.owner_address)}}"/>
+                    <img class="identicon-image" ng-src="{{ngPopUp.params.createdContract.owner_address|blockies}}"/>
                 </span>
-            <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.owner_address"></div>
+            <div class="contract-wallet-information-wallet" ng-bind="ngPopUp.params.createdContract.owner_address|toCheckSum"></div>
         </div>
 
         <div class="contract-wallets-information-one-block">

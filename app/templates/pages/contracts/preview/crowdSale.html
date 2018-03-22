@@ -26,12 +26,12 @@
                         <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.address)}}"/>
+                            <img class="identicon-image" ng-src="{{details.eth_contract_crowdsale.address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
                             <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.address}}"
                                target="_blank"
-                               ng-bind="details.eth_contract_crowdsale.address"></a>
+                               ng-bind="details.eth_contract_crowdsale.address|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: contract.copied['crowdsale_address']}"
@@ -50,12 +50,12 @@
                         <div class="form-control-label">Token address</div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
-                        <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_token.address)}}"/>
+                        <img class="identicon-image" ng-src="{{details.eth_contract_token.address|blockies}}"/>
                     </span>
                         <div class="contract-wallet-information-wallet">
                             <a ng-attr-href="{{$root.etherscanUrl}}token/{{details.eth_contract_token.address}}"
                                target="_blank"
-                               ng-bind="details.eth_contract_token.address"></a>
+                               ng-bind="details.eth_contract_token.address|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: contract.copied['token_address']}"
@@ -74,12 +74,12 @@
                         <div class="form-control-label">Vault contract (Investments storage until the end of crowdsale)</div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{$root.generateIdenticon(details.eth_contract_crowdsale.vault)}}"/>
+                            <img class="identicon-image" ng-src="{{details.eth_contract_crowdsale.vault|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
                             <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.vault}}"
                                target="_blank"
-                               ng-bind="details.eth_contract_crowdsale.vault"></a>
+                               ng-bind="details.eth_contract_crowdsale.vault|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: contract.copied['crowdsale_vault']}"
@@ -311,12 +311,12 @@
                         </div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{generateIdenticon(details.admin_address)}}"/>
+                            <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
                             <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.admin_address}}"
                                target="_blank"
-                               ng-bind="details.admin_address"></a>
+                               ng-bind="details.admin_address|toCheckSum"></a>
 
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
@@ -336,12 +336,12 @@
                         </div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{generateIdenticon(details.cold_wallet_address)}}"/>
+                            <img class="identicon-image" ng-src="{{details.cold_wallet_address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
                             <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.cold_wallet_address}}"
                                target="_blank"
-                               ng-bind="details.cold_wallet_address"></a>
+                               ng-bind="details.cold_wallet_address|toCheckSum"></a>
 
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
@@ -360,12 +360,12 @@
                 <div class="form-control-label bold">Address</div>
                 <br class="show-ls"/>
                 <span class="identicon-container">
-                    <img class="identicon-image" ng-src="{{generateIdenticon(holder.address)}}"/>
+                    <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
                 </span>
                 <div class="contract-wallet-information-wallet">
                     <a ng-attr-href="{{$root.etherscanUrl}}address/{{holder.address}}"
                        target="_blank"
-                       ng-bind="holder.address"></a>
+                       ng-bind="holder.address|toCheckSum"></a>
                     <button class="instruction-for-copy-button relative"
                             clipboard supported="supported"
                             ng-class="{copied: contract.copied['holder_address_' + $index]}"

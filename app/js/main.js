@@ -363,13 +363,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             stateHandlersActivate();
         }
     };
-    $rootScope.generateIdenticon = function(address) {
-        return blockies.create({
-            seed: address,
-            size: 8, // width/height of the icon in blocks, default: 8
-            scale: 3
-        }).toDataURL();
-    };
+
     var offset = moment().utcOffset() / 60;
     $rootScope.currentTimezone = (offset > 0 ? '+' : '') + offset;
 
@@ -410,6 +404,22 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             values[0] = values[0].toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
         }
         return values.join('.');
+    }
+}).filter('toCheckSum', function() {
+    return function(val) {
+        try {
+            return Web3.utils.toChecksumAddress(val);
+        } catch (err) {
+            return val;
+        }
+    }
+}).filter('blockies', function() {
+    return function(val) {
+        return blockies.create({
+            seed: val.toLowerCase(),
+            size: 8,
+            scale: 3
+        }).toDataURL();
     }
 }).directive('commaseparator', function($filter, $timeout) {
     'use strict';

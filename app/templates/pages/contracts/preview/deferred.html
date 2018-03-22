@@ -48,13 +48,13 @@
                     <div class="grid-cell grid-cell-1">
                     <div class="contract-wallets-information-one-block" ng-if="contract.contract_details.eth_contract.address">
                         <span class="identicon-container">
-                            <img ng-src="{{$root.generateIdenticon(contract.contract_details.eth_contract.address)}}"/>
+                            <img ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-title">Contract address:</div>
                         <div class="contract-wallet-information-wallet">
                             <a ng-attr-href="{{ $root.etherscanUrl + 'address/' + contract.contract_details.eth_contract.address}}"
                                target="_blank"
-                               ng-bind="contract.contract_details.eth_contract.address"></a>
+                               ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: contract.copied['address']}"
@@ -70,9 +70,9 @@
                         <i class="icon-wallet contract-information-icon"></i>
                         <div class="contract-wallet-information-title">From account</div>
                         <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{$root.generateIdenticon(contract.contract_details.user_address)}}"/>
+                            <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
                         </span>
-                        <div class="contract-wallet-information-wallet" ng-bind="contract.contract_details.user_address"></div>
+                        <div class="contract-wallet-information-wallet" ng-bind="contract.contract_details.user_address|toCheckSum"></div>
                     </div>
 
                     <div class="contract-wallets-information-one-block">
@@ -80,9 +80,9 @@
                         <div class="contract-wallet-information-title">Send to wallet</div>
                         <div class="contract-wallet-information-float contract-wallet-information">
                             <span class="identicon-container relative-top">
-                                <img class="identicon-image" ng-src="{{$root.generateIdenticon(contract.contract_details.recepient_address)}}"/>
+                                <img class="identicon-image" ng-src="{{contract.contract_details.recepient_address|blockies}}"/>
                             </span>
-                            <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.recepient_address"></div>
+                            <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.recepient_address|toCheckSum"></div>
                             <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="contract.contract_details.recepient_email"></div>
                         </div>
                     </div></div>

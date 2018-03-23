@@ -1,9 +1,14 @@
-.form-control-label {
+.form-control-label-checkbox {
+  line-height: 2.9em;
+}
+.form-control-label, .form-control-label-checkbox span {
   display: block;
+  text-shadow: 0 1px 0 #fff;
   font-size: 1.5em;
   line-height: 1.2em;
+}
+.form-control-label {
   padding: 0.4em 0;
-  text-shadow: 0 1px 0 #fff;
   &.inline-label {
     display: inline-block;
     vertical-align: middle;
@@ -33,7 +38,7 @@
 
 .form-control-description {
   text-shadow: 0 1px 0 #fff;
-  padding-top: 0.3em;
+  padding-top: 0.1em;
   padding-bottom: 0.3em;
   &:not(.one-line) {
     line-height: 4.7em;

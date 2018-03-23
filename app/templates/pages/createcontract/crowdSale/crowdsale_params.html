@@ -1,6 +1,6 @@
 <div class="contract-form-fieldset with-padding">
     <div class="grid-row contract-form-row">
-        <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control">
                 <label for="rate" class="form-control-label">
                     <i class="icon-bitcoin-exchange-rate-symbol form-control-label-icon"></i>
@@ -23,13 +23,13 @@
                 </div>
             </div>
         </div>
-        <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+        <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control-label hide-ps">&nbsp;</div>
             <span class="form-control-description__text">Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 ETH</span>
         </div>
     </div>
     <div class="grid-row contract-form-row">
-        <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control">
                 <label for="hard-cap" class="form-control-label">
                     <i class="icon-hard-cap form-control-label-icon"></i>
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+        <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control-label hide-ps">&nbsp;</div>
             <span class="form-control-description__text">
                 Defines how many tokens can be sold. After reaching this number sale will be stopped automatically. 1-100,000,000,000,000 Numerals are accepted.
@@ -64,7 +64,18 @@
         </div>
     </div>
     <div class="grid-row contract-form-row">
-        <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+        <div class="grid-cell grid-cell-1"><br/>
+            <div class="attention-text-container after-form-title">
+                <div class="attention-text without-top">
+                    <div class="attention-text__title">
+                        <i class="icon-alert-circle"></i>Please note!
+                    </div>
+                    If softcap > 0 all investments are stored on the vault contract until the end of crowdsale. <br/>
+                    If you need to get investments on your address right away set softcap = 0.
+                </div>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control">
                 <label for="soft-cap" class="form-control-label">
                     <i class="icon-soft-cap form-control-label-icon"></i>
@@ -89,7 +100,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid-cell grid-cell-2-5 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
             <div class="form-control-label hide-ps">&nbsp;</div>
             <span class="form-control-description__text">
                 Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their vestments back, project gets nothing. You can set it to 0 (no soft cap)

@@ -36,7 +36,7 @@
                     Hard cap tokens
                 </label>
                 <input id="hard-cap" type="text"
-                       ng-change="checkTokensAmount()"
+                       ng-change="checkTokensAmount(); checkHardCapEth()"
                        commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
                        ng-model="request.hard_cap"
                        required
@@ -45,12 +45,12 @@
                 <div class="grid-row" ng-if="request.hard_cap && request.rate">
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
-                            ETH {{(request.hard_cap / request.rate)| number:2}}
+                            ETH {{ethHardCap|number:2}}
                         </div>
                     </div>
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
-                            ${{(request.hard_cap / request.rate * currencyRate.USD)| number:2}}
+                            ${{usdHardCap}}
                         </div>
                     </div>
                 </div>

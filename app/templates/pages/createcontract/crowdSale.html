@@ -170,7 +170,7 @@
             <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
                 <div class="form-control">
                     <label class="checkbox-decoration">
-                        <input type="checkbox" ng-model="invest_limit">
+                        <input type="checkbox" ng-model="investsLimit">
                         <span class="checkbox-decoration-displaying">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                         <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
@@ -190,10 +190,16 @@
                 <div class="form-control">
                     <label for="min-invest" class="form-control-label">Minimum</label>
                     <input id="min-invest"
-                           ng-disabled="!invest_limit"
-                           ng-required="invest_limit"
+                           ng-disabled="!investsLimit"
+                           ng-required="investsLimit"
                            type="text"
                            placeholder="0"
+                           commaseparator="{
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]{0,2})?$',
+                            max: request.max_wei,
+                            min: 0
+                            }"
+                           pattern="^(([1-9][0-9,]{0,25})|(1[0,]{26}))(\.[0-9]{1,2})?$"
                            ng-model="request.min_wei" class="form-control-input">
                     <div class="input-after">ETH</div>
                 </div>
@@ -208,9 +214,15 @@
                 <div class="form-control">
                     <label for="max-invest" class="form-control-label">Maximum</label>
                     <input id="max-invest" type="text"
-                           placeholder="{{(request.hard_cap / request.rate)| number:2}}"
-                           ng-disabled="!invest_limit"
-                           ng-required="invest_limit"
+                           placeholder="{{ethHardCap|number:2}}"
+                           ng-disabled="!investsLimit"
+                           ng-required="investsLimit"
+                           commaseparator="{
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]{0,2})?$',
+                            max: ethHardCap,
+                            min: request.min_wei
+                           }"
+                           pattern="^(([1-9][0-9,]{0,25})|(1[0,]{26}))(\.[0-9]{1,2})?$"
                            ng-model="request.max_wei" class="form-control-input">
                     <div class="input-after">ETH</div>
                 </div>

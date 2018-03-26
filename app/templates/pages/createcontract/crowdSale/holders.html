@@ -65,7 +65,7 @@
                                    ng-attr-min="{{request.stop_date * 1 + 1}}">
 
                             <input type="datetime"
-                                   ng-required="{{recipient.isFrozen}}"
+                                   ng-required="recipient.isFrozen"
                                    ng-disabled="!recipient.isFrozen"
                                    ng-model="recipient.freeze_date"
                                    date-change="onChangeDateOfRecipient"

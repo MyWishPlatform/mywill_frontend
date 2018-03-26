@@ -54,6 +54,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         $rootScope.commonOpenedPopup = false;
         contractService.deployContract(contract.id, contract.promo).then(function() {
             launchProgress = false;
+            dataLayer.push({'event': 'contract_launch_success'});
             $state.go('main.contracts.list');
         }, function(data) {
             switch(data.status) {

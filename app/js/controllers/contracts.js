@@ -14,6 +14,7 @@ angular.module('app').controller('contractsController', function(contractService
             launchProgress = false;
             $scope.refreshContract(contract);
             $rootScope.closeCommonPopup();
+            dataLayer.push({'event': 'contract_launch_success'});
         }, function(data) {
             switch(data.status) {
                 case 400:

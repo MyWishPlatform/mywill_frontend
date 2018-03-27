@@ -166,3 +166,42 @@ nav, main, footer, header {
   }
 
 }
+
+.global-error-layer {
+  position: fixed;
+  top: 1.3em;
+  right: 2em;
+  z-index: 10;
+  transition: opacity linear 0.3s;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.5em;
+  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+
+  &__warning {
+    background-color: rgba(202, 169, 0, 0.8);
+  }
+  &__error {
+    background-color: rgba(203, 0, 8, 0.8);
+  }
+  &__success {
+    background-color: rgba(40, 135, 13, 0.8);
+  }
+
+  &.visible-error {
+    opacity: 1;
+    padding: 1em 2em;
+  }
+  &__text {
+    color: #fff;
+    font-size: 1.2em;
+    white-space: pre;
+  }
+}
+@media screen and (max-width: 1024px) {
+  top: 0.7em;
+  right: 0.7em;
+}
+
+

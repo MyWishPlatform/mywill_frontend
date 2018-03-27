@@ -16,8 +16,9 @@
                             <span>Ethereum</span>
                         </label>
 
-                        <label class="btn btn-gray with-icon" ng-class="{'active': blockChainNetwork === 'rsk'}">
+                        <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork === 'rsk'}">
                             <input type="radio" class="hidden-input"
+                                   disabled
                                    ng-model="blockChainNetwork"
                                    value="rsk" name="blockchain-network">
                             <img src="/static/images/blockchain/rsk.png" height="30" style="vertical-align: middle">
@@ -25,8 +26,9 @@
                             <span>RSK</span>
                         </label>
 
-                        <label class="btn btn-gray with-icon" ng-class="{'active': blockChainNetwork === 'neo'}">
+                        <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork === 'neo'}">
                             <input type="radio" class="hidden-input"
+                                   disabled
                                    ng-model="blockChainNetwork"
                                    value="neo" name="blockchain-network">
                             <img src="/static/images/blockchain/neo.png" height="30" style="vertical-align: middle">

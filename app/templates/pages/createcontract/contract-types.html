@@ -7,29 +7,29 @@
                     <div class="form-control">
                         <div class="form-control-label">Choose Blockchain Network</div>
 
-                        <label class="btn btn-gray with-icon" ng-class="{'active': blockChainNetwork === 'ethereum'}">
+                        <label class="btn btn-gray with-icon" ng-class="{'active': blockChainNetwork.type === 'ethereum'}">
                             <input type="radio" class="hidden-input"
-                                   ng-model="blockChainNetwork"
+                                   ng-model="blockChainNetwork.type"
                                    value="ethereum" name="blockchain-network">
                             <img src="/static/images/blockchain/ethereum.png" height="30" style="vertical-align: middle">
                             &nbsp;&nbsp;
                             <span>Ethereum</span>
                         </label>
 
-                        <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork === 'rsk'}">
+                        <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork.type === 'rsk'}">
                             <input type="radio" class="hidden-input"
                                    disabled
-                                   ng-model="blockChainNetwork"
+                                   ng-model="blockChainNetwork.type"
                                    value="rsk" name="blockchain-network">
                             <img src="/static/images/blockchain/rsk.png" height="30" style="vertical-align: middle">
                             &nbsp;&nbsp;
                             <span>RSK</span>
                         </label>
 
-                        <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork === 'neo'}">
+                        <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork.type === 'neo'}">
                             <input type="radio" class="hidden-input"
                                    disabled
-                                   ng-model="blockChainNetwork"
+                                   ng-model="blockChainNetwork.type"
                                    value="neo" name="blockchain-network">
                             <img src="/static/images/blockchain/neo.png" height="30" style="vertical-align: middle">
                             &nbsp;&nbsp;
@@ -43,7 +43,7 @@
                     </label>
                     <div class="form-control">
                         <label class="checkbox-decoration for-buttons-height">
-                            <input type="checkbox" ng-model="recipient.isFrozen">
+                            <input type="checkbox" ng-model="blockChainNetwork.isTest">
                             <span class="checkbox-decoration-displaying for-buttons-height">
                                 <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                                 <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
@@ -57,8 +57,8 @@
     </div>
 </div><br/><br/><br/>
 
-<div class="" ng-if="blockChainNetwork === 'ethereum'">
-    <div ui-sref="main.createcontract.form({selectedType: 'crowdSale'})" class="main-section-chapter">
+<div class="" ng-if="blockChainNetwork.type === 'ethereum'">
+    <div ui-sref="main.createcontract.form({selectedType: 'crowdSale', test: blockChainNetwork.isTest || undefined})" class="main-section-chapter">
         <div class="main-section-chapter-fieldset clearfix contract-type-link">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
@@ -73,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div ui-sref="main.createcontract.form({selectedType: 'token'})" class="main-section-chapter">
+    <div ui-sref="main.createcontract.form({selectedType: 'token', test: blockChainNetwork.isTest || undefined})" class="main-section-chapter">
         <div class="main-section-chapter-fieldset clearfix contract-type-link">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div ui-sref="main.createcontract.form({selectedType: 'lostKey'})" class="main-section-chapter">
+    <div ui-sref="main.createcontract.form({selectedType: 'lostKey', test: blockChainNetwork.isTest || undefined})" class="main-section-chapter">
         <div class="main-section-chapter-fieldset clearfix contract-type-link">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-    <div ui-sref="main.createcontract.form({selectedType: 'deferred'})" class="main-section-chapter">
+    <div ui-sref="main.createcontract.form({selectedType: 'deferred', test: blockChainNetwork.isTest || undefined})" class="main-section-chapter">
         <div class="main-section-chapter-fieldset clearfix contract-type-link">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
@@ -118,7 +118,7 @@
             </div>
         </div>
     </div>
-    <div ui-sref="main.createcontract.form({selectedType: 'lastWill'})" class="main-section-chapter">
+    <div ui-sref="main.createcontract.form({selectedType: 'lastWill', test: blockChainNetwork.isTest || undefined})" class="main-section-chapter">
         <div class="main-section-chapter-fieldset clearfix contract-type-link">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">

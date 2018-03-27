@@ -186,13 +186,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.createcontract.types', {
         url: '/create',
-        controller: function() {
-
+        controller: function($scope) {
+            $scope.blockChainNetwork = {};
         },
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {
-        url: '/create/:selectedType?:options?',
+        url: '/create/:selectedType?:options?:test?',
         controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },

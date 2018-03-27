@@ -143,7 +143,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
-
     $rootScope.etherscanUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
 
     var loginWatcherInProgress;
@@ -375,6 +374,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.web3Utils = Web3.utils;
 
     $rootScope.isProduction = $location.host().indexOf('contracts.mywish.io')>=0;
+    $rootScope.isDevelop = $location.host().indexOf('localhost')>=0;
 
     $rootScope.openAuthWindow = function(page) {
         $rootScope.commonOpenedPopup = 'login';
@@ -382,6 +382,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             'class': 'login-form',
             'page': page
         };
+    };
+
+    $rootScope.hideGlobalError = function() {
+        if ($rootScope.globalError.onclick) {
+            $rootScope.globalError.onclick();
+        }
+        $rootScope.globalError = false;
     };
 
 }).config(function($httpProvider, $qProvider, $compileProvider) {

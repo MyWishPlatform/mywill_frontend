@@ -58,10 +58,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     };
 
 
-    if (contract.contract_details.continue_minting) {
-        $location.hash('pre-sale');
-    }
-
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
         if (!$scope.dates.startDate) {
@@ -143,6 +139,9 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         if (!$scope.investsLimit) {
             contractDetails.min_wei = null;
             contractDetails.max_wei = null;
+        } else {
+            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,18)).round().toString(10);
+            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,18)).round().toString(10);
         }
         var data = {
             name: $scope.contractName,
@@ -195,6 +194,13 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
                 minutes: $scope.dates.endDate.minutes()
             }
         };
+
+        $scope.investsLimit = !!contract.contract_details.min_wei;
+        if ($scope.investsLimit) {
+            $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,18)).round(2).toString(10);
+            $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,18)).round(2).toString(10);
+        }
+
         if ($scope.request.hard_cap) {
             $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
         }

@@ -144,7 +144,7 @@
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<div class="global-error-layer"
+<div class="global-error-layer {{'global-error-layer__' + globalError.type}}"
      ng-click="hideGlobalError()"
      ng-class="{'visible-error': globalError.text}">
     <div class="global-error-layer__text">{{globalError.text}}</div>

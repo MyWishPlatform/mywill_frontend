@@ -177,6 +177,18 @@ nav, main, footer, header {
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 0.5em;
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+
+  &__warning {
+    background-color: rgba(202, 169, 0, 0.8);
+  }
+  &__error {
+    background-color: rgba(203, 0, 8, 0.8);
+  }
+  &__success {
+    background-color: rgba(40, 135, 13, 0.8);
+  }
+
   &.visible-error {
     opacity: 1;
     padding: 1em 2em;

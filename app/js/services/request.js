@@ -5,6 +5,7 @@ angular.module('Services').service('requestService', function($http, API, GITHUB
             case 500:
                 $rootScope.globalError = {
                     text: "Internal service error.\nClick on the message to send us information",
+                    type: 'error',
                     onclick: function() {
                         $http.post('https://api.github.com/repos/' +
                             GITHUB_ISSUER.USER + '/' + GITHUB_ISSUER.REPO +
@@ -27,6 +28,7 @@ angular.module('Services').service('requestService', function($http, API, GITHUB
                 break;
             case -1:
                 $rootScope.globalError = {
+                    type: 'warning',
                     text: 'Check your Internet connection'
                 };
                 break;

@@ -1,11 +1,12 @@
 <div class="contract-preview-tabs" ng-init="details = contract.contract_details;">
     <div class="contract-preview-one-tab"
-         ng-click="goTo('info')"
+         ng-mousedown="goTo('info')"
          ng-class="{'active': showedTab == 'info'}">
         <span>Preview</span>
     </div>
     <div class="contract-preview-one-tab"
-         ng-click="goTo('code')"
+         ng-mousedown="goTo('code')"
+         ng-show="details.eth_contract_crowdsale.address"
          ng-class="{'active': showedTab == 'code'}">
         <span>Source codes</span>
     </div>
@@ -15,7 +16,7 @@
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
-            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_crowdsale.address">
+            <div class="contract-form-fieldset with-border with-padding" ng-if="details.eth_contract_crowdsale.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Crowdsale contract (All contributions shall be sent to this address)</div>
@@ -48,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_token.address">
+            <div class="contract-form-fieldset with-border with-padding" ng-if="details.eth_contract_token.address">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Token address</div>
@@ -80,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            <div class="contract-form-fieldset with-border" ng-if="details.eth_contract_crowdsale.vault">
+            <div class="contract-form-fieldset with-border with-padding" ng-if="details.eth_contract_crowdsale.vault">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1">
                         <div class="form-control-label">Vault contract (Investments storage until the end of crowdsale)</div>
@@ -510,16 +511,17 @@
             </div>
             <div class="contract-form-fieldset with-padding">
                 <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-2 text-center">
+                    <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 text-center">
                         <button type="button" class="btn btn-gray with-icon initial-padding"
-                                ng-click="goTo('code', 'eth_contract_crowdsale')"
+                                ng-mousedown="goTo('code', 'eth_contract_crowdsale')"
                                 ng-class="{'active': selectedContract === 'eth_contract_crowdsale'}">
                             <span>CrowdSale contract</span>
                         </button>
                     </div>
-                    <div class="grid-cell grid-cell-1-2 text-center">
+                    <div class="clearfix show-vs"><br/></div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 text-center">
                         <button type="button" class="btn btn-gray with-icon initial-padding"
-                                ng-click="goTo('code', 'eth_contract_token')"
+                                ng-mousedown="goTo('code', 'eth_contract_token')"
                                 ng-class="{'active': selectedContract === 'eth_contract_token'}">
                             <span>Token contract</span>
                         </button>
@@ -539,9 +541,26 @@
                             In Contract Code tab choose "Verify And Publish"
                         </div>
                     </li>
+
                     <li class="new-instruction-list__item">
                         <div class="new-instruction-list__item__text">
-                            Fill out Contract Name (For example, {{contract.name}})& Contract Address:
+                            Enter Contract Name:
+                            <div class="copy-block">
+                                <button class="copy-block__button relative"
+                                        clipboard supported="supported"
+                                        text="selectedContract === 'eth_contract_crowdsale' ? 'TemplateCrowdsale' : 'MainToken'"
+                                        ng-class="{copied: contract.copied['contractName']}"
+                                        on-copied="successCodeCopy(contract, 'contractName')"
+                                        on-error="failCodeCopy(err)">&nbsp;
+                                    <i class="icon-content_copy"></i>
+                                </button>
+                                <div class="copy-block__text">{{selectedContract === 'eth_contract_crowdsale' ? 'TemplateCrowdsale' : 'MainToken'}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="new-instruction-list__item">
+                        <div class="new-instruction-list__item__text">
+                            Enter Contract Address:
                             <div class="copy-block">
                                 <button class="copy-block__button relative"
                                         clipboard supported="supported"

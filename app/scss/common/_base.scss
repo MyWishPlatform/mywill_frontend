@@ -62,14 +62,32 @@ body {
 .uppercase {
   text-transform: uppercase;
 }
+
 button, input, textarea {
   font-family: inherit;
 }
 a, .as-link {
   color: $main-blue-color;
   text-decoration: underline;
-  &:hover, &:focus {
+  &.dotted, &:hover, &:focus {
     text-decoration: none;
+  }
+  &.dotted {
+    span {
+      border-bottom: 1px dotted;
+    }
+    &:hover, &:focus {
+      span {
+        border-bottom: 0 none;
+      }
+    }
+    i {
+      font-size: 0.8em;
+      &.icon-download {
+        position: relative;
+        top: 3px;
+      }
+    }
   }
 }
 .as-link {
@@ -199,6 +217,16 @@ nav, main, footer, header {
     white-space: pre;
   }
 }
+
+.normal-text {
+  font-size: 1.5em;
+  margin: 0;
+  line-height: 1.2em;
+  + .normal-text {
+    margin-top: 0.5em;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   top: 0.7em;
   right: 0.7em;

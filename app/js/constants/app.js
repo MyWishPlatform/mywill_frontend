@@ -9,12 +9,12 @@ module.constant('APP_CONSTANTS', {
     'INFURA_ADDRESS':
 
         // For production
-        "https://mainnet.infura.io/MEDIUMTUTORIAL",
+        // "https://mainnet.infura.io/MEDIUMTUTORIAL",
 
         // For test
-        // "https://ropsten.infura.io/MEDIUMTUTORIAL",
-    // 'ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
-    'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
+        "https://ropsten.infura.io/MEDIUMTUTORIAL",
+    'ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
+    // 'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

@@ -4,7 +4,7 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch', 'ngFileSaver']);
 
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
@@ -16,6 +16,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
 }).controller('headerController', function($rootScope, $scope) {
 }).controller('authorizationController', function(authService, $rootScope, $scope, SocialAuthService) {
+
 
     /* Social networks buttons */
     $scope.socialAuthError = false;
@@ -144,6 +145,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
     $rootScope.etherscanUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
+    $rootScope.max = Math.max;
+    $rootScope.min = Math.min;
 
     var loginWatcherInProgress;
     $rootScope.checkProfile = function(event, requestData) {

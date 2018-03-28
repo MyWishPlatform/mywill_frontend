@@ -475,7 +475,9 @@
                     <span>Your CrowdSale source code <a href="#" class="dotted">here</a></span>
                 </p>
                 <p class="normal-text">
-                    <span>Libraries & other files can be found <a href="#" class="dotted">here</a></span>
+                    <span>Libraries & other files can be found
+                        <a href="https://github.com/MyWishPlatform/ico-crowdsale" target="_blank">here</a>
+                    </span>
                 </p>
             </div>
             <div class="contract-form-fieldset with-padding">
@@ -488,26 +490,90 @@
             <div class="contract-form-fieldset with-padding">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1-2 text-center">
-                        <label class="btn btn-gray with-icon" ng-class="{'active': selectedContract === 'token'}">
-                            <input type="radio" class="hidden-input"
-                                   ng-model="selectedContract"
-                                   value="token" name="contract-view-instruction">
-                            <span>{{contract.name}} (Token)</span>
-                        </label>
+                        <button type="button" class="btn btn-gray with-icon"
+                                ng-click="selectedContract = 'eth_contract_token'"
+                                ng-class="{'active': selectedContract === 'eth_contract_token'}">
+                            <span>{{contract.name}}&nbsp;(Token)</span>
+                        </button>
                     </div>
                     <div class="grid-cell grid-cell-1-2 text-center">
-                        <label class="btn btn-gray with-icon" ng-class="{'active': selectedContract === 'crowdsale'}">
-                            <input type="radio" class="hidden-input"
-                                   ng-model="selectedContract"
-                                   value="crowdsale" name="contract-view-instruction">
-                            <span>{{contract.name}} (CrowdSale)</span>
-                        </label>
+                        <button type="button" class="btn btn-gray with-icon"
+                                ng-click="selectedContract = 'eth_contract_crowdsale'"
+                                ng-class="{'active': selectedContract === 'eth_contract_crowdsale'}">
+                            <span>{{contract.name}}&nbsp;(CrowdSale)</span>
+                        </button>
                     </div>
                 </div>
             </div>
+            <div class="contract-form-fieldset with-padding" ng-if="selectedContract">
+                <ul class="instruction-steps-list">
+                    <li class="clearfix">
+                        <div class="instruction-item-text">Зайдите на
+                            <a ng-attr-href="https://ropsten.etherscan.io/address/{{contract.contract_details[selectedContract].address}}#code">Etherscan</a>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="instruction-item-text">Нажмите Verify and Publish</div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="instruction-item-text">
+                            Заполните поле Contract Name ({{contract.name}})
+                            <div class="instruction-for-copy">
+                                <button class="instruction-for-copy-button relative"
+                                        clipboard supported="supported"
+                                        text="contract.contract_details[selectedContract].address"
+                                        ng-class="{copied: contract.copied['address']}"
+                                        on-copied="successCodeCopy(contract, 'address')"
+                                        on-error="failCodeCopy(err)">&nbsp;
+                                    <i class="icon-content_copy"></i>
+                                </button>
+                                <div class="instruction-for-copy-text">{{contract.contract_details[selectedContract].address}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="instruction-item-text">
+                            Укажите название компилятора
+                            <div class="instruction-for-copy">
+                                <button class="instruction-for-copy-button relative"
+                                        clipboard supported="supported"
+                                        text="contract.contract_details[selectedContract].compiler_version"
+                                        ng-class="{copied: contract.copied['compiler_version']}"
+                                        on-copied="successCodeCopy(contract, 'compiler_version')"
+                                        on-error="failCodeCopy(err)">&nbsp;
+                                    <i class="icon-content_copy"></i>
+                                </button>
+                                <div class="instruction-for-copy-text">{{contract.contract_details[selectedContract].compiler_version}}</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="clearfix">
+                        <div class="instruction-item-text">
+                            Вставьте код контракта
+                            <div class="instruction-for-copy">
+                                <button class="instruction-for-copy-button relative"
+                                        clipboard supported="supported"
+                                        text="contract.contract_details[selectedContract].abi|json"
+                                        ng-class="{copied: contract.copied['abi']}"
+                                        on-copied="successCodeCopy(contract, 'abi')"
+                                        on-error="failCodeCopy(err)">&nbsp;
+                                    <i class="icon-content_copy"></i>
+                                </button>
+                                <div class="instruction-for-copy-text json-text">{{contract.contract_details[selectedContract].abi|json}}</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="clearfix">
+                        <div class="instruction-item-text">
+                            Введите капчу и нажмите Verify and Publish
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
 
-        <div class="main-section-chapter-fieldset with-border">
+        <!-- div class="main-section-chapter-fieldset with-border">
 
             <div class="grid-row " ng-init="contract.codeTab = 'token'">
                 <div class="grid-cell grid-cell-1">
@@ -559,7 +625,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
     </div>
 </div>
 

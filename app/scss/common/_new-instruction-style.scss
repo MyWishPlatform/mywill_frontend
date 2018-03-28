@@ -1,0 +1,84 @@
+.new-instruction-list {
+  list-style-type: decimal;
+  padding: 0 0 0 1.5em;
+  margin: 0;
+  &__item {
+    padding: 0.5em 0;
+    counter-increment: itemCounter;
+    font-size: 1.5em;
+    &__text {
+    }
+  }
+}
+
+.copy-block {
+  box-sizing: border-box;
+  padding-right: 3em;
+  position: relative;
+  &__text {
+    color: $white-color;
+    background-color: #000;
+    border-radius: 5px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    max-height: 10em;
+    overflow: auto;
+    &:not(.json-text) {
+      padding: 0.65em 1em;
+    }
+    &.json-text {
+      overflow: auto;
+      height: 20em;
+      white-space: pre;
+      padding: 0.65em 1em;
+      box-sizing: border-box;
+    }
+  }
+  &__button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: $main-blue-color;
+    font-size: 1.2em;
+    outline: none;
+    cursor: pointer;
+    float: right;
+    margin-right: -1em;
+    margin-top: 0.5em;
+    &.copied {
+      color: #ffa2a8;
+      &:before {
+        position: absolute;
+        bottom: 100%;
+        margin-bottom: 0.8em;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        content: 'Copied';
+        white-space: nowrap;
+        font-size: 0.75em;
+        padding: 0.5em 1.2em;
+        right: -0.3em;
+        border-radius: 3px;
+      }
+      &:after {
+        content: '';
+        font-size: 0.75em;
+        position: absolute;
+        bottom: 100%;
+        width: 0.5em;
+        height: 0.5em;
+        background-color: rgba(0, 0, 0, 0.8);
+        transform: rotate(45deg);
+        right: 0.6em;
+        margin-bottom: 0.55em;
+      }
+    }
+  }
+}
+@media screen and (max-width: 640px) {
+  .new-instruction-list {
+    padding-left: 2em;
+  }
+}

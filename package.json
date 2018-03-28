@@ -34,6 +34,7 @@
     "angular-clipboard": "^1.6.1",
     "angular-cookies": "^1.6.1",
     "angular-datepicker": "^1.0.5",
+    "angular-file-saver": "^1.1.3",
     "angular-resource": "^1.5.8",
     "angular-touch": "^1.6.6",
     "angular-ui-router": "^0.3.2",

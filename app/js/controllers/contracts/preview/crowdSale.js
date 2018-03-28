@@ -1,6 +1,7 @@
 angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
-                                                                        openedContract, $scope, exRate, $state) {
+                                                                        openedContract, $scope) {
     $scope.contract = openedContract.data;
+
 
     $scope.setContract($scope.contract);
 

@@ -1,7 +1,21 @@
-angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, $timeout, CONTRACT_STATUSES_CONSTANTS) {
+angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope,
+                                                                        $timeout, CONTRACT_STATUSES_CONSTANTS, FileSaver) {
     var deletingProgress = false;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
+
+    $scope.selectedContract = false;
+    $scope.showedTab = 'info';
+
+    $scope.goTo = function(tab, contractType) {
+        $scope.showedTab = tab;
+        $scope.selectedContract = contractType;
+    };
+
+    $scope.saveAsFile = function(data, name) {
+        data = new Blob([data], { type: 'text/plain;charset=utf-8' });
+        FileSaver.saveAs(data, name + '.sol');
+    };
 
     var url = 'https://www.myetherwallet.com/?';
     var params = [

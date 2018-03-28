@@ -73,9 +73,20 @@ a, .as-link {
     text-decoration: none;
   }
   &.dotted {
-    border-bottom: 1px dotted;
+    span {
+      border-bottom: 1px dotted;
+    }
     &:hover, &:focus {
-      border-bottom: 0 none;
+      span {
+        border-bottom: 0 none;
+      }
+    }
+    i {
+      font-size: 0.8em;
+      &.icon-download {
+        position: relative;
+        top: 3px;
+      }
     }
   }
 }

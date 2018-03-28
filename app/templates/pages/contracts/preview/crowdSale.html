@@ -1,22 +1,17 @@
-<div class="contract-preview-tabs" ng-init="contract.showedTab = 'info'; details = contract.contract_details;">
+<div class="contract-preview-tabs" ng-init="details = contract.contract_details;">
     <div class="contract-preview-one-tab"
-         ng-click="contract.showedTab = 'info'"
-         ng-class="{'active': contract.showedTab == 'info'}">
+         ng-click="goTo('info')"
+         ng-class="{'active': showedTab == 'info'}">
         <span>Preview</span>
     </div>
     <div class="contract-preview-one-tab"
-         ng-click="contract.showedTab = 'code'"
-         ng-class="{'active': contract.showedTab == 'code'}">
-        <span>Source &ndash; codes</span>
+         ng-click="goTo('code')"
+         ng-class="{'active': showedTab == 'code'}">
+        <span>Source codes</span>
     </div>
-    <!-- div class="contract-preview-one-tab"
-         ng-click="contract.showedTab = 'description'"
-         ng-class="{'active': contract.showedTab == 'description'}">
-        <span>Description</span>
-    </div -->
 </div>
 
-<div ng-if="contract.showedTab == 'info'">
+<div ng-if="showedTab == 'info'">
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
@@ -29,18 +24,27 @@
                             <img class="identicon-image" ng-src="{{details.eth_contract_crowdsale.address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.address}}"
+                            <a ng-attr-href="{{etherscanUrl}}address/{{details.eth_contract_crowdsale.address|toCheckSum}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.address|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: contract.copied['crowdsale_address']}"
-                                    text="details.eth_contract_crowdsale.address"
+                                    text="details.eth_contract_crowdsale.address|toCheckSum"
                                     on-copied="successCodeCopy(contract, 'crowdsale_address')"
                                     on-error="failCodeCopy(err)">
                                 <i class="icon-content_copy"></i>
                             </button>
                         </div>
+
+                        <p class="normal-text">
+                            <small>
+                                <span class="as-link dotted"
+                                      ng-click="goTo('code', 'eth_contract_crowdsale');">
+                                    <span>How to verify on etherscan?</span>
+                                </span>
+                            </small>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -50,21 +54,29 @@
                         <div class="form-control-label">Token address</div>
                         <br class="show-ls"/>
                         <span class="identicon-container">
-                        <img class="identicon-image" ng-src="{{details.eth_contract_token.address|blockies}}"/>
-                    </span>
+                            <img class="identicon-image" ng-src="{{details.eth_contract_token.address|blockies}}"/>
+                        </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{$root.etherscanUrl}}token/{{details.eth_contract_token.address}}"
+                            <a ng-attr-href="{{$root.etherscanUrl}}token/{{details.eth_contract_token.address|toCheckSum}}"
                                target="_blank"
                                ng-bind="details.eth_contract_token.address|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: contract.copied['token_address']}"
-                                    text="details.eth_contract_token.address"
+                                    text="details.eth_contract_token.address|toCheckSum"
                                     on-copied="successCodeCopy(contract, 'token_address')"
                                     on-error="failCodeCopy(err)">
                                 <i class="icon-content_copy"></i>
                             </button>
                         </div>
+                        <p class="normal-text">
+                            <small>
+                                <span class="as-link dotted"
+                                      ng-click="goTo('code', 'eth_contract_token');">
+                                    <span>How to verify on etherscan?</span>
+                                </span>
+                            </small>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -77,13 +89,13 @@
                             <img class="identicon-image" ng-src="{{details.eth_contract_crowdsale.vault|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.vault}}"
+                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.vault|toCheckSum}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.vault|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: contract.copied['crowdsale_vault']}"
-                                    text="details.eth_contract_crowdsale.vault"
+                                    text="details.eth_contract_crowdsale.vault|toCheckSum"
                                     on-copied="successCodeCopy(contract, 'crowdsale_vault')"
                                     on-error="failCodeCopy(err)">
                                 <i class="icon-content_copy"></i>
@@ -92,8 +104,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <!--- Base token info --->
             <div class="contract-form-fieldset with-border clearfix with-padding">
@@ -263,7 +273,6 @@
                     </div>
                 </div>
             </div>
-
 
             <!-- Time bonuses -->
             <div class="contract-form-fieldset with-padding with-border contract-form-fieldset-light"
@@ -464,15 +473,27 @@
          ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
 </div>
 
-<div ng-if="contract.showedTab == 'code'">
+<div ng-if="showedTab == 'code'">
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
             <div class="contract-form-fieldset with-padding">
                 <p class="normal-text">
-                    <span>Your TOKEN source code <a href="#" class="dotted">here</a></span>
+                    <span>Your TOKEN source code
+                        <span class="as-link dotted"
+                              ng-click="saveAsFile(contract.contract_details.eth_contract_token.source_code, contract.name + '(token)')">
+                            <span>here</span>
+                            <!--<i class="icon-download"></i>-->
+                        </span>
+                    </span>
                 </p>
                 <p class="normal-text">
-                    <span>Your CrowdSale source code <a href="#" class="dotted">here</a></span>
+                    <span>Your CrowdSale source code
+                        <span class="as-link dotted"
+                              ng-click="saveAsFile(contract.contract_details.eth_contract_crowdsale.source_code, contract.name + '(crowdsale)')">
+                            <span>here</span>
+                            <!--<i class="icon-download"></i>-->
+                        </span>
+                    </span>
                 </p>
                 <p class="normal-text">
                     <span>Libraries & other files can be found
@@ -482,60 +503,63 @@
             </div>
             <div class="contract-form-fieldset with-padding">
                 <p class="normal-text">
-                    If you need to verify contract on Etherscan please contact us by email
-                    (<a href="#">support@mywish.io</a>)
+                    If you need to verify contract on Etherscan please contact us by
+                    <a href="mailto:support@mywish.io">email</a>
                     or follow the instruction:
                 </p>
             </div>
             <div class="contract-form-fieldset with-padding">
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1-2 text-center">
-                        <button type="button" class="btn btn-gray with-icon"
-                                ng-click="selectedContract = 'eth_contract_token'"
-                                ng-class="{'active': selectedContract === 'eth_contract_token'}">
-                            <span>{{contract.name}}&nbsp;(Token)</span>
+                        <button type="button" class="btn btn-gray with-icon initial-padding"
+                                ng-click="goTo('code', 'eth_contract_crowdsale')"
+                                ng-class="{'active': selectedContract === 'eth_contract_crowdsale'}">
+                            <span>CrowdSale contract</span>
                         </button>
                     </div>
                     <div class="grid-cell grid-cell-1-2 text-center">
-                        <button type="button" class="btn btn-gray with-icon"
-                                ng-click="selectedContract = 'eth_contract_crowdsale'"
-                                ng-class="{'active': selectedContract === 'eth_contract_crowdsale'}">
-                            <span>{{contract.name}}&nbsp;(CrowdSale)</span>
+                        <button type="button" class="btn btn-gray with-icon initial-padding"
+                                ng-click="goTo('code', 'eth_contract_token')"
+                                ng-class="{'active': selectedContract === 'eth_contract_token'}">
+                            <span>Token contract</span>
                         </button>
                     </div>
                 </div>
             </div>
             <div class="contract-form-fieldset with-padding" ng-if="selectedContract">
-                <ul class="instruction-steps-list">
-                    <li class="clearfix">
-                        <div class="instruction-item-text">Зайдите на
-                            <a ng-attr-href="https://ropsten.etherscan.io/address/{{contract.contract_details[selectedContract].address}}#code">Etherscan</a>
+                <ul class="new-instruction-list">
+                    <li class="new-instruction-list__item">
+                        <div class="new-instruction-list__item__text">
+                            Open
+                            <a ng-attr-href="{{etherscanUrl}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
                         </div>
                     </li>
-                    <li class="clearfix">
-                        <div class="instruction-item-text">Нажмите Verify and Publish</div>
+                    <li class="new-instruction-list__item">
+                        <div class="new-instruction-list__item__text">
+                            In Contract Code tab choose "Verify And Publish"
+                        </div>
                     </li>
-                    <li class="clearfix">
-                        <div class="instruction-item-text">
-                            Заполните поле Contract Name ({{contract.name}})
-                            <div class="instruction-for-copy">
-                                <button class="instruction-for-copy-button relative"
+                    <li class="new-instruction-list__item">
+                        <div class="new-instruction-list__item__text">
+                            Fill out Contract Name (For example, {{contract.name}})& Contract Address:
+                            <div class="copy-block">
+                                <button class="copy-block__button relative"
                                         clipboard supported="supported"
-                                        text="contract.contract_details[selectedContract].address"
+                                        text="contract.contract_details[selectedContract].address|toCheckSum"
                                         ng-class="{copied: contract.copied['address']}"
                                         on-copied="successCodeCopy(contract, 'address')"
                                         on-error="failCodeCopy(err)">&nbsp;
                                     <i class="icon-content_copy"></i>
                                 </button>
-                                <div class="instruction-for-copy-text">{{contract.contract_details[selectedContract].address}}</div>
+                                <div class="copy-block__text">{{contract.contract_details[selectedContract].address|toCheckSum}}</div>
                             </div>
                         </div>
                     </li>
-                    <li class="clearfix">
-                        <div class="instruction-item-text">
-                            Укажите название компилятора
-                            <div class="instruction-for-copy">
-                                <button class="instruction-for-copy-button relative"
+                    <li class="new-instruction-list__item">
+                        <div class="new-instruction-list__item__text">
+                            Fill out Compiler version:
+                            <div class="copy-block">
+                                <button class="copy-block__button relative"
                                         clipboard supported="supported"
                                         text="contract.contract_details[selectedContract].compiler_version"
                                         ng-class="{copied: contract.copied['compiler_version']}"
@@ -543,97 +567,34 @@
                                         on-error="failCodeCopy(err)">&nbsp;
                                     <i class="icon-content_copy"></i>
                                 </button>
-                                <div class="instruction-for-copy-text">{{contract.contract_details[selectedContract].compiler_version}}</div>
+                                <div class="copy-block__text">{{contract.contract_details[selectedContract].compiler_version}}</div>
                             </div>
                         </div>
                     </li>
-                    <li class="clearfix">
-                        <div class="instruction-item-text">
-                            Вставьте код контракта
-                            <div class="instruction-for-copy">
-                                <button class="instruction-for-copy-button relative"
+                    <li class="new-instruction-list__item">
+                        <div class="new-instruction-list__item__text">
+                            Paste the Solidity Contract code:
+                            <div class="copy-block">
+                                <button class="copy-block__button relative"
                                         clipboard supported="supported"
-                                        text="contract.contract_details[selectedContract].abi|json"
-                                        ng-class="{copied: contract.copied['abi']}"
-                                        on-copied="successCodeCopy(contract, 'abi')"
+                                        text="contract.contract_details[selectedContract].source_code"
+                                        ng-class="{copied: contract.copied['source_code']}"
+                                        on-copied="successCodeCopy(contract, 'source_code')"
                                         on-error="failCodeCopy(err)">&nbsp;
                                     <i class="icon-content_copy"></i>
                                 </button>
-                                <div class="instruction-for-copy-text json-text">{{contract.contract_details[selectedContract].abi|json}}</div>
+                                <div class="copy-block__text json-text">{{contract.contract_details[selectedContract].source_code}}</div>
                             </div>
                         </div>
                     </li>
 
-                    <li class="clearfix">
-                        <div class="instruction-item-text">
-                            Введите капчу и нажмите Verify and Publish
+                    <li class="new-instruction-list__item">
+                        <div class="new-instruction-list__item__text">
+                            Others fields are not required. Press "Verify And Publish"
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-
-        <!-- div class="main-section-chapter-fieldset with-border">
-
-            <div class="grid-row " ng-init="contract.codeTab = 'token'">
-                <div class="grid-cell grid-cell-1">
-                    <div class="github-link">
-                        <a href="https://github.com/MyWishPlatform/ico-crowdsale" target="_blank">https://github.com/MyWishPlatform/ico-crowdsale</a>
-
-                    </div>
-                </div>
-
-                <div class="grid-cell grid-cell-1-2">
-                    <span href="#"
-                          ng-click="contract.codeTab = 'token'"
-                       disabled
-                       ng-if="details.sources.token && (contract.codeTab != 'token')"
-                       class="as-link contract-preview-base-font">{{contract.name}} Token</span>
-                    <span class="contract-preview-base-font"
-                          ng-class="{'grey-text-color': !details.sources.token}"
-                          ng-if="!details.sources.token || (contract.codeTab == 'token')">
-                        {{contract.name}} Token
-                    </span>
-                </div>
-                <div class="grid-cell grid-cell-1-2" ng-init="contract.codeTab = contract.codeTab || 'crowdsale'">
-                    <a href="#"
-                       ng-click="contract.codeTab = 'crowdsale'"
-                       ng-if="details.sources.crowdsale && (contract.codeTab != 'crowdsale')"
-                       class="contract-preview-base-font">{{contract.name}} Contract</a>
-                    <span class="contract-preview-base-font"
-                          ng-class="{'grey-text-color': !details.sources.crowdsale}"
-                          ng-if="!details.sources.crowdsale || (contract.codeTab == 'crowdsale')">
-                        {{contract.name}} Contract
-                    </span>
-                </div>
-
-                <div class="clearfix"><br/></div>
-                <div class="grid-cell grid-cell-1">
-                    <div class="contract-preview-code-content">
-                        <div class="contract-preview-code-text" ng-if="details.sources[contract.codeTab]">
-                            {{details.sources[contract.codeTab]}}
-                        </div>
-
-                        <button class="for-copy-button" ng-if="details.sources[contract.codeTab]"
-                                ng-class="{copied: contract.copied[contract.codeTab]}"
-                                clipboard supported="supported"
-                                text="details.sources[contract.codeTab]"
-                                on-copied="successCodeCopy(contract, contract.codeTab)"
-                                on-error="failCodeCopy(err)">
-                            <i class="icon-content_copy"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div-->
     </div>
 </div>
-
-<div ng-if="contract.showedTab == 'description'">
-    <div class="main-section-chapter">
-        <div class="main-section-chapter-fieldset">
-            <h1>Description</h1>
-        </div>
-    </div>
-</div>
-

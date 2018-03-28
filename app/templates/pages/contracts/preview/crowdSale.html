@@ -7,7 +7,7 @@
     <div class="contract-preview-one-tab"
          ng-click="contract.showedTab = 'code'"
          ng-class="{'active': contract.showedTab == 'code'}">
-        <span>Source</span>
+        <span>Source &ndash; codes</span>
     </div>
     <!-- div class="contract-preview-one-tab"
          ng-click="contract.showedTab = 'description'"
@@ -464,10 +464,51 @@
          ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
 </div>
 
-
 <div ng-if="contract.showedTab == 'code'">
     <div class="main-section-chapter">
         <div class="main-section-chapter-fieldset">
+            <div class="contract-form-fieldset with-padding">
+                <p class="normal-text">
+                    <span>Your TOKEN source code <a href="#" class="dotted">here</a></span>
+                </p>
+                <p class="normal-text">
+                    <span>Your CrowdSale source code <a href="#" class="dotted">here</a></span>
+                </p>
+                <p class="normal-text">
+                    <span>Libraries & other files can be found <a href="#" class="dotted">here</a></span>
+                </p>
+            </div>
+            <div class="contract-form-fieldset with-padding">
+                <p class="normal-text">
+                    If you need to verify contract on Etherscan please contact us by email
+                    (<a href="#">support@mywish.io</a>)
+                    or follow the instruction:
+                </p>
+            </div>
+            <div class="contract-form-fieldset with-padding">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1-2 text-center">
+                        <label class="btn btn-gray with-icon" ng-class="{'active': selectedContract === 'token'}">
+                            <input type="radio" class="hidden-input"
+                                   ng-model="selectedContract"
+                                   value="token" name="contract-view-instruction">
+                            <span>{{contract.name}} (Token)</span>
+                        </label>
+                    </div>
+                    <div class="grid-cell grid-cell-1-2 text-center">
+                        <label class="btn btn-gray with-icon" ng-class="{'active': selectedContract === 'crowdsale'}">
+                            <input type="radio" class="hidden-input"
+                                   ng-model="selectedContract"
+                                   value="crowdsale" name="contract-view-instruction">
+                            <span>{{contract.name}} (CrowdSale)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-section-chapter-fieldset with-border">
+
             <div class="grid-row " ng-init="contract.codeTab = 'token'">
                 <div class="grid-cell grid-cell-1">
                     <div class="github-link">

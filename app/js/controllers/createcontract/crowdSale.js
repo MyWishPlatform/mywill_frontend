@@ -1,4 +1,4 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams,
                                                                        $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
@@ -49,6 +49,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
+        network: $stateParams.test ? 'ETHEREUM_ROPSTEN' : 'ETHEREUM_MAINNET',
         contract_details: {
             token_holders: [],
             amount_bonuses: [],
@@ -146,6 +147,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         }
         var data = {
             name: $scope.contractName,
+            network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
             contract_details: contractDetails,
             id: contract.id

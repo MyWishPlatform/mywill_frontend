@@ -15,6 +15,7 @@ module.constant('APP_CONSTANTS', {
         // "https://ropsten.infura.io/MEDIUMTUTORIAL",
     // 'ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
     'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
+    'ROPSTEN_ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

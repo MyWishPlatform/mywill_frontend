@@ -6,9 +6,9 @@
         <div class="instruction-title-text">
             <div class="instruction-title-text__content">
                 To Mint {{ngPopUp.params.recipient.amount|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}} tokens to
-                <a target="_blank" ng-attr-href="{{$root.etherscanUrl}}address/{{ngPopUp.params.recipient.address}}">{{ngPopUp.params.recipient.address}}</a>
+                <a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.recipient.address}}">{{ngPopUp.params.recipient.address}}</a>
                 address please make the following transaction from token owner's address
-                (<a target="_blank" ng-attr-href="{{$root.etherscanUrl}}address/{{ngPopUp.params.contract.contract_details.admin_address}}">{{ngPopUp.params.contract.contract_details.admin_address}}</a>)
+                (<a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.contract.contract_details.admin_address}}">{{ngPopUp.params.contract.contract_details.admin_address}}</a>)
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 angular.module('app').controller('lostKeyCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                     openedContract,
+                                                                     openedContract, $stateParams,
                                                                      CONTRACT_TYPES_CONSTANTS) {
 
     $scope.request = {};
@@ -105,6 +105,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
     $scope.checkPeriod = 1;
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyLostKey' + ($rootScope.currentUser.contracts + 1),
+        network: $stateParams.test ? 'ETHEREUM_ROPSTEN' : 'ETHEREUM_MAINNET',
         contract_details: {}
     };
 
@@ -127,6 +128,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
             name: $scope.contractName,
             id: contract.id,
             contract_type: CONTRACT_TYPES_CONSTANTS.LOST_KEY,
+            network: contract.network,
             contract_details: {
                 user_address: $scope.walletAddress,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,

@@ -55,7 +55,7 @@
                             </span>
                             <div class="contract-wallet-information-title">Contract address:</div>
                             <div class="contract-wallet-information-wallet">
-                                <a ng-attr-href="{{ $root.etherscanUrl + 'address/' + contract.contract_details.eth_contract.address}}"
+                                <a ng-attr-href="{{ getEtherscanUrl(contract) + 'address/' + contract.contract_details.eth_contract.address}}"
                                    target="_blank"
                                    ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                                 <button class="instruction-for-copy-button relative"

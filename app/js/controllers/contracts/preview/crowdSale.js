@@ -98,6 +98,9 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
     contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
 
+    contractDetails.min_wei = contractDetails.min_wei !== null ? contractDetails.min_wei : undefined;
+    contractDetails.max_wei = contractDetails.max_wei !== null ? contractDetails.max_wei : undefined;
+
     $scope.timeBonusChartParams = {
         max_time: contractDetails.stop_date,
         min_time: contractDetails.start_date,

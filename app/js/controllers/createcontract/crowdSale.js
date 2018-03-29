@@ -106,6 +106,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.usdHardCap = $filter('number')($scope.request.hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
     };
 
+
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
@@ -212,6 +213,10 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.$broadcast('resetForm');
     };
     $scope.resetForms();
+
+    if (contract.id) {
+        $scope.checkHardCapEth();
+    }
 
 }).controller('crowdSaleTimeBonusesController', function($scope, $timeout) {
     $scope.addTokenBonus = function() {

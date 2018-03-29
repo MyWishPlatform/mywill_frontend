@@ -1,7 +1,8 @@
 angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
-                                                                       openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
+    $scope.investsLimit = false;
 
     var web3 = new Web3();
 
@@ -13,6 +14,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     $scope.tokensList = tokensList.data;
     $scope.token = {};
+
 
     if ($scope.tokensList.length) {
         $scope.tokensList.map(function(token) {
@@ -56,10 +58,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     };
 
 
-    if (contract.contract_details.continue_minting) {
-        $location.hash('pre-sale');
-    }
-
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
         if (!$scope.dates.startDate) {
@@ -93,9 +91,21 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.onChangeStopTime = setStopTimestamp;
     $scope.onChangeStartDate = setStartTimestamp;
     $scope.onChangeEndDate = setStopTimestamp;
+
+    var checkTokensAmountTimeout;
     $scope.checkTokensAmount = function() {
-        $scope.$broadcast('tokensCapChanged');
+        checkTokensAmountTimeout ? $timeout.cancel(checkTokensAmountTimeout)  : false;
+        checkTokensAmountTimeout = $timeout(function() {
+            $scope.$broadcast('tokensCapChanged');
+        }, 300);
     };
+
+
+    $scope.checkHardCapEth = function() {
+        $scope.ethHardCap = new BigNumber($scope.request.hard_cap).div($scope.request.rate).round(2).toString(10);
+        $scope.usdHardCap = $filter('number')($scope.request.hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
+    };
+
 
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
@@ -112,9 +122,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     var createContract = function() {
         if (contractInProgress) return;
         $scope.$broadcast('createContract');
-
         var contractDetails = angular.copy($scope.request);
-
         if ($scope.token.selectedToken.id) {
             contractDetails.eth_contract_token = {
                 id: $scope.token.selectedToken.id
@@ -123,13 +131,19 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
                 contractDetails.token_short_name =
                     contractDetails.decimals = undefined;
         }
-
         contractDetails.rate = contractDetails.rate * 1;
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.start_date = contractDetails.start_date * 1;
         contractDetails.stop_date = contractDetails.stop_date * 1;
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
         contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
+        if (!$scope.investsLimit) {
+            contractDetails.min_wei = null;
+            contractDetails.max_wei = null;
+        } else {
+            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,18)).round().toString(10);
+            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,18)).round().toString(10);
+        }
         var data = {
             name: $scope.contractName,
             contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
@@ -181,6 +195,13 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
                 minutes: $scope.dates.endDate.minutes()
             }
         };
+
+        $scope.investsLimit = !!contract.contract_details.min_wei;
+        if ($scope.investsLimit) {
+            $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,18)).round(2).toString(10);
+            $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,18)).round(2).toString(10);
+        }
+
         if ($scope.request.hard_cap) {
             $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,18)).round().toString(10);
         }
@@ -192,6 +213,10 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.$broadcast('resetForm');
     };
     $scope.resetForms();
+
+    if (contract.id) {
+        $scope.checkHardCapEth();
+    }
 
 }).controller('crowdSaleTimeBonusesController', function($scope, $timeout) {
     $scope.addTokenBonus = function() {

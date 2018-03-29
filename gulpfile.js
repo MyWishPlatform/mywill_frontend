@@ -142,6 +142,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(folders['npm'], 'angular-cookies', 'angular-cookies.min.js'),
             path.join(folders['npm'], 'angular-ui-router', 'release', 'angular-ui-router.min.js'),
             path.join(folders['npm'], 'angular-clipboard', 'angular-clipboard.js'),
+            path.join(folders['npm'], 'angular-file-saver', 'dist', 'angular-file-saver.bundle.min.js'),
             path.join(folders['npm'], 'angular-touch', 'angular-touch.min.js'),
             path.join(folders['npm'], 'moment', 'min', 'moment.min.js'),
             path.join(folders['npm'], 'moment-timezone', 'builds', 'moment-timezone-with-data.min.js'),
@@ -216,6 +217,7 @@ gulp.task('login:js', ['login:js-clean'], function() {
             path.join(output, folders['js'], 'services', 'auth.js'),
             path.join(output, folders['js'], 'services', 'socialAuth.js'),
             path.join(output, folders['js'], 'constants', 'app.js'),
+            path.join(output, folders['js'], 'constants', 'githubIssuer.js'),
             path.join(output, folders['js'], 'controllers', 'auth.js'),
             path.join(output, folders['js'], 'directives', 'ngMatch.js'),
             path.join(output, folders['js'], 'constants', 'api.js')

@@ -4,7 +4,7 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch', 'ngFileSaver']);
 
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
@@ -16,6 +16,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
 }).controller('headerController', function($rootScope, $scope) {
 }).controller('authorizationController', function(authService, $rootScope, $scope, SocialAuthService) {
+
 
     /* Social networks buttons */
     $scope.socialAuthError = false;
@@ -143,8 +144,9 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
-
     $rootScope.etherscanUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
+    $rootScope.max = Math.max;
+    $rootScope.min = Math.min;
 
     var loginWatcherInProgress;
     $rootScope.checkProfile = function(event, requestData) {
@@ -363,13 +365,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             stateHandlersActivate();
         }
     };
-    $rootScope.generateIdenticon = function(address) {
-        return blockies.create({
-            seed: address,
-            size: 8, // width/height of the icon in blocks, default: 8
-            scale: 3
-        }).toDataURL();
-    };
+
     var offset = moment().utcOffset() / 60;
     $rootScope.currentTimezone = (offset > 0 ? '+' : '') + offset;
 
@@ -381,6 +377,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.web3Utils = Web3.utils;
 
     $rootScope.isProduction = $location.host().indexOf('contracts.mywish.io')>=0;
+    $rootScope.isDevelop = $location.host().indexOf('localhost')>=0;
 
     $rootScope.openAuthWindow = function(page) {
         $rootScope.commonOpenedPopup = 'login';
@@ -388,6 +385,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             'class': 'login-form',
             'page': page
         };
+    };
+
+    $rootScope.hideGlobalError = function() {
+        if ($rootScope.globalError.onclick) {
+            $rootScope.globalError.onclick();
+        }
+        $rootScope.globalError = false;
     };
 
 }).config(function($httpProvider, $qProvider, $compileProvider) {
@@ -410,6 +414,22 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             values[0] = values[0].toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
         }
         return values.join('.');
+    }
+}).filter('toCheckSum', function() {
+    return function(val) {
+        try {
+            return Web3.utils.toChecksumAddress(val);
+        } catch (err) {
+            return val;
+        }
+    }
+}).filter('blockies', function() {
+    return function(val) {
+        return blockies.create({
+            seed: val.toLowerCase(),
+            size: 8,
+            scale: 3
+        }).toDataURL();
     }
 }).directive('commaseparator', function($filter, $timeout) {
     'use strict';

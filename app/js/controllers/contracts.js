@@ -36,6 +36,10 @@ angular.module('app').controller('contractsController', function(contractService
     };
 
     var showPriceLaunchContract = function(contract) {
+        if (contract.cost == 0) {
+            launchContract(contract);
+            return;
+        }
         $rootScope.commonOpenedPopup = 'contract-confirm-pay';
         $rootScope.commonOpenedPopupParams = {
             class: 'deleting-contract',

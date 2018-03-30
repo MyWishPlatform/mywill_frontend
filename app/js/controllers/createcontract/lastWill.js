@@ -1,5 +1,5 @@
 angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.request = {};
     $scope.listWalletActivity = [
@@ -105,7 +105,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.test ? 'ETHEREUM_ROPSTEN' : 'ETHEREUM_MAINNET',
+        network: $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'],
         contract_details: {}
     };
 

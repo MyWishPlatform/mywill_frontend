@@ -2,8 +2,11 @@
     <i class="main-section-chapter-title_icon" ng-class="contractTypesIcons[contract.contract_type]"></i>
     <span class="main-section-chapter-title_text">{{contract.name}}</span>
 </div>
-<div class="contract-status-name float-right mobile-width-100" ng-class="'contract-status-' + contract.stateValue">
-    <div class="contract-status-text">
+<div class="mobile-width-100 contract-status_container">
+    <div class="contract-status_container__network" ng-class="'contract-status_container__network_' + (contract.network || 1)">
+        <span>{{contract.networkName}}</span>
+    </div>
+    <div class="contract-status_container__name" ng-class="'contract-status_container__name_' + contract.stateValue">
         <span>{{contract.stateTitle}}</span>
     </div>
 </div>

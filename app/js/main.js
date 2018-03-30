@@ -145,10 +145,12 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
     $rootScope.getEtherscanUrl = function(contract) {
-        var networkType = contract.network;
-        return networkType === 'ETHEREUM_ROPSTEN' ?
+        var networkType = contract.network || 1;
+
+        return networkType === 2 ?
                 APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS : APP_CONSTANTS.ETHERSCAN_ADDRESS;
     };
+
 
     $rootScope.max = Math.max;
     $rootScope.min = Math.min;

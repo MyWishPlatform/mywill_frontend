@@ -22,9 +22,14 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             console.log('Infura not found');
         }
     };
+
     createWeb3Providers();
     /* Определение провайдеров клиентов */
 
+
+    this.setRopstenInfuraProvider = function() {
+        web3Providers['infura'] = new Web3.providers.HttpProvider(APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS);
+    };
 
     this.getMethodInterface = function(methodName, abi) {
         return abi.filter(function(m) {

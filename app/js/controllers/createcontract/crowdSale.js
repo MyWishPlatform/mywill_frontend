@@ -4,10 +4,12 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.currencyRate = currencyRate.data;
     $scope.investsLimit = false;
 
+    var ethereumNetwork = $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'];
+
     var web3 = new Web3();
 
     try {
-        web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.INFURA_ADDRESS));
+        web3.setProvider(new Web3.providers.HttpProvider(ethereumNetwork === NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] ? APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS : APP_CONSTANTS.INFURA_ADDRESS));
     } catch(err) {
         console.log('Infura not found');
     }
@@ -49,7 +51,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'],
+        network: ethereumNetwork,
         contract_details: {
             token_holders: [],
             amount_bonuses: [],

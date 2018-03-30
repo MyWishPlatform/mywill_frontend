@@ -1,4 +1,4 @@
-angular.module('app').controller('deferredCreateController', function($scope, contractService, $timeout, $state, $rootScope,
+angular.module('app').controller('deferredCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, NETWORKS_TYPES_CONSTANTS) {
 
 
@@ -9,6 +9,10 @@ angular.module('app').controller('deferredCreateController', function($scope, co
         contract_details: {
             date: moment.tz('UTC').hour(12).startOf('h')
         }
+    };
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
     };
 
     $scope.editContractMode = !!contract.id;
@@ -37,7 +41,7 @@ angular.module('app').controller('deferredCreateController', function($scope, co
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.request.contract_details.user_address).then(function(response) {
+            contractService.getBalance($scope.request.contract_details.user_address, contract.network).then(function(response) {
                 var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;

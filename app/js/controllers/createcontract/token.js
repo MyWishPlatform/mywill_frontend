@@ -1,5 +1,5 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams,  NETWORKS_TYPES_NAMES_CONSTANTS) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'],
@@ -7,6 +7,10 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             token_holders: [{}],
             token_type: 'ERC20'
         }
+    };
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
     };
 
     $scope.minStartDate = moment().add(1, 'days');

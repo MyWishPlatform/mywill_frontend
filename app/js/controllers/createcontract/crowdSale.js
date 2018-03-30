@@ -1,4 +1,4 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams,
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
                                                                        $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
@@ -57,7 +57,10 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             token_type: 'ERC20'
         }
     };
-
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
+    };
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {

@@ -1,5 +1,5 @@
 angular.module('app').controller('lostKeyCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                     openedContract, $stateParams,
+                                                                     openedContract, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
                                                                      CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.request = {};
@@ -86,7 +86,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.walletAddress).then(function(response) {
+            contractService.getBalance($scope.walletAddress, contract.network).then(function(response) {
                 var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
@@ -107,6 +107,10 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         name:  'MyLostKey' + ($rootScope.currentUser.contracts + 1),
         network: $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'],
         contract_details: {}
+    };
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
     };
 
     $scope.editContractMode = !!contract.id;

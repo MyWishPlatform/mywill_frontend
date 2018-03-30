@@ -1,4 +1,4 @@
-angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope,
+angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.request = {};
@@ -84,7 +84,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.walletAddress).then(function(response) {
+            contractService.getBalance($scope.walletAddress, contract.network).then(function(response) {
                 var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
@@ -107,6 +107,10 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
         network: $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'],
         contract_details: {}
+    };
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
     };
 
     $scope.editContractMode = !!contract.id;

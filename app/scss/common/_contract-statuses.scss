@@ -1,6 +1,6 @@
 .contract-status_container {
   line-height: 5.5em;
-  float: right;
+  float: left;
 
   &__name, &__network {
     display: block;
@@ -78,30 +78,38 @@
   }
 
   &__network {
+    font-size: 0.8em;
+    margin-left: 1.25em;
+    &.in-preview {
+      margin-left: -1.25em;
+      margin-top: -1em;
+      margin-bottom: 2em;
+    }
     span {
-      font-size: 1.4em;
+      font-size: 1.5em;
     }
     &:before {
       position: absolute;
-      width: 1.2em;
-      height: 1.2em;
+      width: 1em;
+      height: 1em;
       content: '';
       display: inline-block;
-      min-width: 1.2em;
       left: 0;
+      top: 50%;
+      margin-top: -0.5em;
     }
     &_1 {
-      color: #038789;
+      color: #03babc;
       &:before {
         transform: rotate(45deg);
-        background: #038789;
+        background: #03babc;
       }
     }
     &_2 {
-      color: #891e00;
+      color: #ff3300;
       &:before {
         transform: rotate(45deg);
-        background: #891e00;
+        background: #ff3300;
       }
     }
   }

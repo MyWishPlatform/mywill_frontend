@@ -1,10 +1,11 @@
 angular.module('Services').service('contractService', function(requestService, API) {
     return {
-        getBalance: function (address) {
+        getBalance: function (address, network) {
             var params = {
                 path: API.BALANCE,
                 params: {
-                    address: address
+                    address: address,
+                    network: network
                 }
             };
             return requestService.get(params);

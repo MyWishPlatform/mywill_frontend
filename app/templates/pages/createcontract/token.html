@@ -1,9 +1,13 @@
 <div class="main-section-chapter">
     <form class="main-section-chapter-fieldset" name="contractParamsForm">
+        <div class="contract-status_container__network in-preview" ng-class="'contract-status_container__network_' + (network.id || 1)">
+            <span>{{network.name}}</span>
+        </div>
         <div class="main-section-chapter-title">
             <i class="main-section-chapter-title_icon icon-token"></i>
             <span class="main-section-chapter-title_text">Token contract</span>
         </div>
+
         <div class="contract-form-row">
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">

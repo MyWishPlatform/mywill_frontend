@@ -187,7 +187,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.createcontract.types', {
         url: '/create',
         controller: function($scope) {
-            $scope.blockChainNetwork = {};
+            $scope.blockChainNetwork = {
+                type: 'ethereum'
+            };
         },
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 

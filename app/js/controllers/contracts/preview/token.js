@@ -157,7 +157,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     };
 
 
-}).controller('tokenMintFinalize', function($scope, web3Service) {
+}).controller('tokenMintFinalize', function($scope, web3Service, NETWORKS_TYPES_CONSTANTS) {
 
     if ($scope.ngPopUp.params.contract.network == NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN']) {
         web3Service.setRopstenInfuraProvider();

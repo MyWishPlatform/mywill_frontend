@@ -105,16 +105,19 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                 $rootScope.commonOpenedPopup = 'ghost-user-alarm';
                 return;
             }
-            if (new BigNumber($rootScope.currentUser.balance).minus(new BigNumber(contract.cost)) < 0) {
-                $rootScope.commonOpenedPopupParams = {
-                    withoutCloser: true,
-                    noBackgroundCloser: true
-                };
-                $rootScope.commonOpenedPopup = 'less-balance';
-                return;
-            }
 
             var openConditionsPopUp = function() {
+                var originalCost = new BigNumber(contract.cost);
+                var changedBalance = - originalCost.times(contract.discount / 100).minus(originalCost);
+                if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
+                    $rootScope.commonOpenedPopupParams = {
+                        withoutCloser: true,
+                        noBackgroundCloser: true
+                    };
+                    $rootScope.commonOpenedPopup = 'less-balance';
+                    return;
+                }
+
                 $rootScope.commonOpenedPopupParams = {
                     contract: contract,
                     withoutCloser: true,

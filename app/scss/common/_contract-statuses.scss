@@ -98,18 +98,38 @@
       top: 50%;
       margin-top: -0.5em;
     }
+    &_1, &_2 {
+      &:before {
+        transform: rotate(45deg);
+      }
+    }
     &_1 {
       color: #03babc;
       &:before {
-        transform: rotate(45deg);
         background: #03babc;
       }
     }
     &_2 {
       color: #ff3300;
       &:before {
-        transform: rotate(45deg);
         background: #ff3300;
+      }
+    }
+    &_3, &_4 {
+      &:before {
+        border-radius: 50%;
+      }
+    }
+    &_3 {
+      color: #009900;
+      &:before {
+        background: #009900;
+      }
+    }
+    &_4 {
+      color: #E3A528;
+      &:before {
+        background: #E3A528;
       }
     }
   }

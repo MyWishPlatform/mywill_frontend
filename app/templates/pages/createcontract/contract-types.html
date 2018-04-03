@@ -16,9 +16,8 @@
                         &nbsp;&nbsp;
                         <span>Ethereum</span>
                     </label>
-                    <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork.type === 'rsk'}">
+                    <label class="btn btn-gray with-icon" ng-class="{'active': blockChainNetwork.type === 'rsk'}">
                         <input type="radio" class="hidden-input"
-                               disabled
                                ng-model="blockChainNetwork.type"
                                value="rsk" name="blockchain-network">
                         <img src="/static/images/blockchain/rsk.png" height="30" style="vertical-align: middle">
@@ -70,6 +69,24 @@
         </div>
     </div>
 </div><br/><br/><br/>
+
+<div class="" ng-if="blockChainNetwork.type === 'rsk'">
+    <div ui-sref="main.createcontract.form({selectedType: 'rskLastWill', network: blockChainNetwork.isTest ? 4 : 3})" class="main-section-chapter">
+        <div class="main-section-chapter-fieldset clearfix contract-type-link">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-type-description_title">
+                        <i class="icon-lastwill contract-type-icon"></i>
+                        <span class="contract-type-description_title__text">Will contract</span>
+                    </div>
+                    <div class="contract-type-description_text">
+                        <span>Setup the transfer of funds to family or friends, in case of long inactive period of time (death, accidents & so on).</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="" ng-if="blockChainNetwork.type === 'ethereum'">
     <div ui-sref="main.createcontract.form({selectedType: 'crowdSale', network: blockChainNetwork.isTest ? 2 : 1})" class="main-section-chapter">

@@ -105,7 +105,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'],
+        network: $stateParams.network,
         contract_details: {}
     };
     $scope.network = {

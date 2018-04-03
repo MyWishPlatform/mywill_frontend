@@ -194,7 +194,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {
-        url: '/create/:selectedType?:options?:test?',
+        url: '/create/:selectedType?:options?:network?',
         controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },
@@ -210,7 +210,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             },
             tokensList: function($stateParams, contractService) {
                 if ($stateParams.selectedType === 'crowdSale') {
-                    return contractService.getTokenContracts();
+                    return contractService.getTokenContracts($stateParams.network);
                 }
                 return undefined;
             }

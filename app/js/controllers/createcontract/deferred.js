@@ -5,7 +5,7 @@ angular.module('app').controller('deferredCreateController', function($scope, co
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyDeferred' + ($rootScope.currentUser.contracts + 1),
         contract_type: CONTRACT_TYPES_CONSTANTS.DEFERRED,
-        network: $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'],
+        network: $stateParams.network,
         contract_details: {
             date: moment.tz('UTC').hour(12).startOf('h')
         }

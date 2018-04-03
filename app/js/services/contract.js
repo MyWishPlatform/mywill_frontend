@@ -98,10 +98,12 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.post(params);
         },
-        getTokenContracts: function() {
+        getTokenContracts: function(network) {
             var params = {
-                path: API.TOKEN_PARAMS
-                // query: data
+                path: API.TOKEN_PARAMS,
+                query: {
+                    network: network
+                }
             };
             return requestService.get(params);
         },

@@ -18,6 +18,7 @@ angular.module('Services').service('contractService', function(requestService, A
             return requestService.get(params);
         },
         createContract: function (data) {
+            data.network = parseInt(data.network);
             var params = {
                 path: API.CONTRACTS,
                 data: data
@@ -25,6 +26,7 @@ angular.module('Services').service('contractService', function(requestService, A
             return requestService.post(params);
         },
         updateContract: function (data) {
+            data.network = parseInt(data.network);
             var params = {
                 path: API.CONTRACTS + data.id + '/',
                 data: data,

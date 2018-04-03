@@ -105,7 +105,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
     $scope.checkPeriod = 1;
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyLostKey' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.network,
+        network: $stateParams.network || 1,
         contract_details: {}
     };
     $scope.network = {

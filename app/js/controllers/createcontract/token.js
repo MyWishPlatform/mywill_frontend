@@ -2,7 +2,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams,  NETWORKS_TYPES_NAMES_CONSTANTS) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
-        network: $stateParams.network,
+        network: $stateParams.network || 1,
         contract_details: {
             token_holders: [{}],
             token_type: 'ERC20'

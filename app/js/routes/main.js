@@ -210,7 +210,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             },
             tokensList: function($stateParams, contractService) {
                 if ($stateParams.selectedType === 'crowdSale') {
-                    return contractService.getTokenContracts($stateParams.network);
+                    return contractService.getTokenContracts($stateParams.network || 1);
                 }
                 return undefined;
             }

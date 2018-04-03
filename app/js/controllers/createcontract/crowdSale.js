@@ -4,7 +4,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.currencyRate = currencyRate.data;
     $scope.investsLimit = false;
 
-    var ethereumNetwork = $stateParams.test ? NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] : NETWORKS_TYPES_CONSTANTS['ETHEREUM_MAINNET'];
+    var ethereumNetwork = $stateParams.network;
 
     var web3 = new Web3();
 

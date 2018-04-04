@@ -1,5 +1,8 @@
 <div class="main-section-chapter">
     <form class="main-section-chapter-fieldset" name="contractNameForm">
+        <div class="contract-status_container__network in-preview" ng-class="'contract-status_container__network_' + (network.id || 1)">
+            <span>{{network.name}}</span>
+        </div>
         <div class="main-section-chapter-title">
             <i class="main-section-chapter-title_icon icon-key"></i>
             <span class="main-section-chapter-title_text">Lost key contract</span>

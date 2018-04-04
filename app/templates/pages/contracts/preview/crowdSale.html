@@ -25,7 +25,7 @@
                             <img class="identicon-image" ng-src="{{details.eth_contract_crowdsale.address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{etherscanUrl}}address/{{details.eth_contract_crowdsale.address|toCheckSum}}"
+                            <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{details.eth_contract_crowdsale.address|toCheckSum}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.address|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
@@ -58,7 +58,7 @@
                             <img class="identicon-image" ng-src="{{details.eth_contract_token.address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{$root.etherscanUrl}}token/{{details.eth_contract_token.address|toCheckSum}}"
+                            <a ng-attr-href="{{getEtherscanUrl(contract)}}token/{{details.eth_contract_token.address|toCheckSum}}"
                                target="_blank"
                                ng-bind="details.eth_contract_token.address|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
@@ -90,7 +90,7 @@
                             <img class="identicon-image" ng-src="{{details.eth_contract_crowdsale.vault|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.eth_contract_crowdsale.vault|toCheckSum}}"
+                            <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{details.eth_contract_crowdsale.vault|toCheckSum}}"
                                target="_blank"
                                ng-bind="details.eth_contract_crowdsale.vault|toCheckSum"></a>
                             <button class="instruction-for-copy-button relative"
@@ -350,7 +350,7 @@
                             <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.admin_address}}"
+                            <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{details.admin_address}}"
                                target="_blank"
                                ng-bind="details.admin_address|toCheckSum"></a>
 
@@ -375,7 +375,7 @@
                             <img class="identicon-image" ng-src="{{details.cold_wallet_address|blockies}}"/>
                         </span>
                         <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{$root.etherscanUrl}}address/{{details.cold_wallet_address}}"
+                            <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{details.cold_wallet_address}}"
                                target="_blank"
                                ng-bind="details.cold_wallet_address|toCheckSum"></a>
 
@@ -399,7 +399,7 @@
                     <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
                 </span>
                 <div class="contract-wallet-information-wallet">
-                    <a ng-attr-href="{{$root.etherscanUrl}}address/{{holder.address}}"
+                    <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{holder.address}}"
                        target="_blank"
                        ng-bind="holder.address|toCheckSum"></a>
                     <button class="instruction-for-copy-button relative"
@@ -533,7 +533,7 @@
                     <li class="new-instruction-list__item">
                         <div class="new-instruction-list__item__text">
                             Open
-                            <a ng-attr-href="{{etherscanUrl}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
+                            <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
                         </div>
                     </li>
                     <li class="new-instruction-list__item">

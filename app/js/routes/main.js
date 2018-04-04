@@ -186,13 +186,15 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.createcontract.types', {
         url: '/create',
-        controller: function() {
-
+        controller: function($scope) {
+            $scope.blockChainNetwork = {
+                type: 'ethereum'
+            };
         },
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {
-        url: '/create/:selectedType?:options?',
+        url: '/create/:selectedType?:options?:network?',
         controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },
@@ -208,7 +210,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             },
             tokensList: function($stateParams, contractService) {
                 if ($stateParams.selectedType === 'crowdSale') {
-                    return contractService.getTokenContracts();
+                    return contractService.getTokenContracts($stateParams.network || 1);
                 }
                 return undefined;
             }

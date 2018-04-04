@@ -1,6 +1,7 @@
 angular.module('app').controller('contractsController', function(contractService, CONTRACT_STATUSES_CONSTANTS, $rootScope, authService,
-                                                                 contractsList, $scope, $state, $interval, $timeout) {
+                                                                 contractsList, $scope, $state, $interval, $timeout, NETWORKS_TYPES_NAMES_CONSTANTS) {
 
+    $scope.networks = NETWORKS_TYPES_NAMES_CONSTANTS;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 
@@ -35,6 +36,10 @@ angular.module('app').controller('contractsController', function(contractService
     };
 
     var showPriceLaunchContract = function(contract) {
+        if (contract.cost == 0) {
+            launchContract(contract);
+            return;
+        }
         $rootScope.commonOpenedPopup = 'contract-confirm-pay';
         $rootScope.commonOpenedPopupParams = {
             class: 'deleting-contract',

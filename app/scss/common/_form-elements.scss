@@ -439,6 +439,9 @@ input {
   display: inline-block;
   position: relative;
   user-select: none;
+  &.for-buttons-height {
+    margin: 0.6em 0 0.6em;
+  }
   &-val {
     color: #fff;
     position: absolute;
@@ -451,20 +454,20 @@ input {
     transition: opacity 0.1s linear;
     z-index: 2;
     text-shadow: 0 1px 0 rgba(0,0,0,0.1);
-    &_on {
+    &_off {
       right: 0.2em;
       left: 2em;
-      opacity: 0;
-      input:checked ~ .checkbox-decoration-displaying & {
-        opacity: 1;
-      }
-    }
-    &_off {
-      left: 0.2em;
-      right: 2em;
       opacity: 1;
       input:checked ~ .checkbox-decoration-displaying & {
         opacity: 0;
+      }
+    }
+    &_on {
+      left: 0.2em;
+      right: 2em;
+      opacity: 0;
+      input:checked ~ .checkbox-decoration-displaying & {
+        opacity: 1;
       }
     }
   }
@@ -489,15 +492,15 @@ input {
       display: block;
       position: relative;
       top: 50%;
-      left: 100%;
-      margin-left: -2.6em;
+      left: 0;
+      margin-left: 0.5em;
       margin-top: -1.05em;
       background-color: #fff;
       border-radius: 50%;
       transition: all 0.1s linear;
       input:checked ~ & {
-        left: 0;
-        margin-left: 0.5em;
+        left: 100%;
+        margin-left: -2.6em;
       }
     }
   }
@@ -557,4 +560,8 @@ input {
       }
     }
   }
+}
+
+.hidden-input {
+  display: none;
 }

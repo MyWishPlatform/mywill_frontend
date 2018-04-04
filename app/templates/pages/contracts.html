@@ -15,6 +15,11 @@
         <div class="main-section-chapter-fieldset contracts-list-item"
              ng-click="goToContract(contract, $event)"
              ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
+
+            <div class="contract-status_container__network" ng-class="'contract-status_container__network_' + (contract.network || 1)">
+                <span>{{networks[contract.network]}}</span>
+            </div>
+
             <div class="contract-name-block">
                 <span class="contract-show-button">
                     <i ng-class="contractTypesIcons[contract.contract_type]"></i>

@@ -1,88 +1,158 @@
-<div ui-sref="main.createcontract.form({selectedType: 'crowdSale'})" class="main-section-chapter">
-    <div class="main-section-chapter-fieldset clearfix contract-type-link">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="contract-type-description_title">
-                    <i class="icon-crowdsale contract-type-icon"></i>
-                    <span class="contract-type-description_title__text">Crowdsale & Token contracts</span>
+
+<div class="main-section-chapter">
+    <div class="main-section-chapter-fieldset">
+
+        <div class="main-section-chapter-title">
+            <span class="main-section-chapter-title_text">Choose Blockchain</span>
+        </div>
+        <div class="contract-form-fieldset">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-1">
+                    <label class="btn btn-gray with-icon" ng-class="{'active': blockChainNetwork.type === 'ethereum'}">
+                        <input type="radio" class="hidden-input"
+                               ng-model="blockChainNetwork.type"
+                               value="ethereum" name="blockchain-network">
+                        <img src="/static/images/blockchain/ethereum.png" height="30" style="vertical-align: middle">
+                        &nbsp;&nbsp;
+                        <span>Ethereum</span>
+                    </label>
+                    <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork.type === 'rsk'}">
+                        <input type="radio" class="hidden-input"
+                               disabled
+                               ng-model="blockChainNetwork.type"
+                               value="rsk" name="blockchain-network">
+                        <img src="/static/images/blockchain/rsk.png" height="30" style="vertical-align: middle">
+                        &nbsp;&nbsp;
+                        <span>RSK</span>
+                    </label>
+                    <label class="btn btn-gray with-icon disabled" ng-class="{'active': blockChainNetwork.type === 'neo'}">
+                        <input type="radio" class="hidden-input"
+                               disabled
+                               ng-model="blockChainNetwork.type"
+                               value="neo" name="blockchain-network">
+                        <img src="/static/images/blockchain/neo.png" height="30" style="vertical-align: middle">
+                        &nbsp;&nbsp;
+                        <span>NEO</span>
+                    </label>
                 </div>
-                <div class="contract-type-description_text">
-                    <span>Start your ICO/Token sale in just several clicks (starting from 1 ETH)</span>
+                <div class="show-ps clearfix"><br/></div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
+                    <div class="grid-row">
+                        <div class="grid-cell grid-cell-1-2 nowrap">
+                            <div class="form-control">
+                                <div class="checkbox-decoration">
+                                    <label class="form-control-label-checkbox">
+                                        <span>Test Network</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid-cell grid-cell-1-2 without-padding">
+                            <div class="form-control">&nbsp;&nbsp;&nbsp;&nbsp;
+                                <label class="checkbox-decoration for-buttons-height">
+                                    <input type="checkbox" ng-model="blockChainNetwork.isTest">
+                                    <span class="checkbox-decoration-displaying for-buttons-height">
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><br/>
+        </div>
+    </div>
+</div><br/><br/><br/>
+
+<div class="" ng-if="blockChainNetwork.type === 'ethereum'">
+    <div ui-sref="main.createcontract.form({selectedType: 'crowdSale', network: blockChainNetwork.isTest ? 2 : 1})" class="main-section-chapter">
+        <div class="main-section-chapter-fieldset clearfix contract-type-link">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-type-description_title">
+                        <i class="icon-crowdsale contract-type-icon"></i>
+                        <span class="contract-type-description_title__text">Crowdsale & Token contracts</span>
+                    </div>
+                    <div class="contract-type-description_text">
+                        <span>Start your ICO/Token sale with a few clicks</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div ui-sref="main.createcontract.form({selectedType: 'token'})" class="main-section-chapter">
-    <div class="main-section-chapter-fieldset clearfix contract-type-link">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="contract-type-description_title">
-                    <i class="icon-token contract-type-icon"></i>
-                    <span class="contract-type-description_title__text">Token contract</span>
-                </div>
-                <div class="contract-type-description_text">
-                    <span>If you do not need Crowdsale you can create Token and distribute it by yourself (starting from 0.5 ETH).</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div ui-sref="main.createcontract.form({selectedType: 'lostKey'})" class="main-section-chapter">
-    <div class="main-section-chapter-fieldset clearfix contract-type-link">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="contract-type-description_title">
-                    <i class="icon-key contract-type-icon"></i>
-                    <span class="contract-type-description_title__text">Lost key</span>
-                </div>
-                <div class="contract-type-description_text">
-                    <span>The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key.</span>
+    <div ui-sref="main.createcontract.form({selectedType: 'token', network: blockChainNetwork.isTest ? 2 : 1})" class="main-section-chapter">
+        <div class="main-section-chapter-fieldset clearfix contract-type-link">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-type-description_title">
+                        <i class="icon-token contract-type-icon"></i>
+                        <span class="contract-type-description_title__text">Token contract</span>
+                    </div>
+                    <div class="contract-type-description_text">
+                        <span> If you don't need a Crowdsale, you can create a token and distribute it yourself</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div ui-sref="main.createcontract.form({selectedType: 'deferred'})" class="main-section-chapter">
-    <div class="main-section-chapter-fieldset clearfix contract-type-link">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="contract-type-description_title">
-                    <i class="icon-deferred contract-type-icon"></i>
-                    <span class="contract-type-description_title__text">Deferred payment</span>
-                </div>
-                <div class="contract-type-description_text">
-                    <span>Smart contract makes payment on a specified date.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div ui-sref="main.createcontract.form({selectedType: 'lastWill'})" class="main-section-chapter">
-    <div class="main-section-chapter-fieldset clearfix contract-type-link">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="contract-type-description_title">
-                    <i class="icon-lastwill contract-type-icon"></i>
-                    <span class="contract-type-description_title__text">Will contract</span>
-                </div>
-                <div class="contract-type-description_text">
-                    <span>Setup the transfer of funds to family or friends, in case of long inactive period of time (death, accidents & so on).</span>
+    <div ui-sref="main.createcontract.form({selectedType: 'lostKey', network: blockChainNetwork.isTest ? 2 : 1})" class="main-section-chapter">
+        <div class="main-section-chapter-fieldset clearfix contract-type-link">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-type-description_title">
+                        <i class="icon-key contract-type-icon"></i>
+                        <span class="contract-type-description_title__text">Lost key</span>
+                    </div>
+                    <div class="contract-type-description_text">
+                        <span>The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key.</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div ui-sref="main.createcontract.form({selectedType: 'wedding'})" class="main-section-chapter">
-    <div class="main-section-chapter-fieldset clearfix contract-type-link">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="contract-type-description_title">
-                    <i class="icon-wedding contract-type-icon"></i>
-                    <span class="contract-type-description_title__text">Wedding contract</span>
+    <div ui-sref="main.createcontract.form({selectedType: 'deferred', network: blockChainNetwork.isTest ? 2 : 1})" class="main-section-chapter">
+        <div class="main-section-chapter-fieldset clearfix contract-type-link">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-type-description_title">
+                        <i class="icon-deferred contract-type-icon"></i>
+                        <span class="contract-type-description_title__text">Deferred payment</span>
+                    </div>
+                    <div class="contract-type-description_text">
+                        <span>Smart contract makes payment on a specified date.</span>
+                    </div>
                 </div>
-                <div class="contract-type-description_text">
-                    <span>Wallet with Multisig function & distribution of funds between the owners after/during specified period of time.</span>
+            </div>
+        </div>
+    </div>
+    <div ui-sref="main.createcontract.form({selectedType: 'lastWill', network: blockChainNetwork.isTest ? 2 : 1})" class="main-section-chapter">
+        <div class="main-section-chapter-fieldset clearfix contract-type-link">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-type-description_title">
+                        <i class="icon-lastwill contract-type-icon"></i>
+                        <span class="contract-type-description_title__text">Will contract</span>
+                    </div>
+                    <div class="contract-type-description_text">
+                        <span>Setup the transfer of funds to family or friends, in case of long inactive period of time (death, accidents & so on).</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ui-sref="main.createcontract.form({selectedType: 'wedding'})" class="main-section-chapter">
+        <div class="main-section-chapter-fieldset clearfix contract-type-link">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="contract-type-description_title">
+                        <i class="icon-wedding contract-type-icon"></i>
+                        <span class="contract-type-description_title__text">Wedding contract</span>
+                    </div>
+                    <div class="contract-type-description_text">
+                        <span>Wallet with Multisig function & distribution of funds between the owners after/during specified period of time.</span>
+                    </div>
                 </div>
             </div>
         </div>

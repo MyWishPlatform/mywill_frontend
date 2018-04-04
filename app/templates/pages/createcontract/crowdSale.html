@@ -10,10 +10,14 @@
 
 
     <form class="main-section-chapter-fieldset" name="contractNameForm">
+        <div class="contract-status_container__network in-preview" ng-class="'contract-status_container__network_' + (network.id || 1)">
+            <span>{{network.name}}</span>
+        </div>
         <div class="main-section-chapter-title">
             <i class="main-section-chapter-title_icon icon-crowdsale"></i>
             <span class="main-section-chapter-title_text">Crowdsale contract</span>
         </div>
+
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">

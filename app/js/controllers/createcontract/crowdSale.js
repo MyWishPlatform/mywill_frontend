@@ -1,13 +1,15 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
-                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
+                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
     $scope.investsLimit = false;
 
+    var ethereumNetwork = $stateParams.network;
+
     var web3 = new Web3();
 
     try {
-        web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.INFURA_ADDRESS));
+        web3.setProvider(new Web3.providers.HttpProvider(ethereumNetwork === NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] ? APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS : APP_CONSTANTS.INFURA_ADDRESS));
     } catch(err) {
         console.log('Infura not found');
     }
@@ -49,6 +51,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
+        network: ethereumNetwork,
         contract_details: {
             token_holders: [],
             amount_bonuses: [],
@@ -56,7 +59,10 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             token_type: 'ERC20'
         }
     };
-
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
+    };
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
@@ -146,6 +152,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         }
         var data = {
             name: $scope.contractName,
+            network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
             contract_details: contractDetails,
             id: contract.id
@@ -537,7 +544,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
         var stringValue = holdersSum.toString(10);
 
-        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue);
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue) || isNaN($scope.request.rate);
 
         if (!$scope.tokensAmountError) {
             var ethSum = holdersSum.plus($scope.request.hard_cap);

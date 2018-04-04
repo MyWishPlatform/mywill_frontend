@@ -1,9 +1,13 @@
 <div class="main-section-chapter">
     <form class="main-section-chapter-fieldset" name="contractParamsForm">
+        <div class="contract-status_container__network in-preview" ng-class="'contract-status_container__network_' + (network.id || 1)">
+            <span>{{network.name}}</span>
+        </div>
         <div class="main-section-chapter-title">
             <i class="main-section-chapter-title_icon icon-token"></i>
             <span class="main-section-chapter-title_text">Token contract</span>
         </div>
+
         <div class="contract-form-row">
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
@@ -39,7 +43,7 @@
                 <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control-label hide-ps">&nbsp;</div>
                     <span class="form-control-description__text">
-                Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a ng-attr-href="{{$root.etherscanUrl}}tokens" target="_blank">{{$root.etherscanUrl}}tokens</a>)
+                Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href="https://etherscan.com/tokens" target="_blank">https://etherscan.com/tokens</a>)
             </span>
                 </div>
             </div>

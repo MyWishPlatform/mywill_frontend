@@ -1,5 +1,5 @@
-angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract) {
+angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.request = {};
     $scope.listWalletActivity = [
@@ -84,7 +84,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.walletAddress).then(function(response) {
+            contractService.getBalance($scope.walletAddress, contract.network).then(function(response) {
                 var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
@@ -105,7 +105,12 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
+        network: $stateParams.network || 1,
         contract_details: {}
+    };
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
     };
 
     $scope.editContractMode = !!contract.id;
@@ -127,6 +132,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
             name: $scope.contractName,
             id: contract.id,
             contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
+            network: contract.network,
             contract_details: {
                 user_address: $scope.walletAddress,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,

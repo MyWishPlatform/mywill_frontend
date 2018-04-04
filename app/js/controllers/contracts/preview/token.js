@@ -23,9 +23,13 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         itemLabel: 'address'
     };
     $scope.chartData = angular.copy(contractDetails.token_holders);
-}).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service) {
+}).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, NETWORKS_TYPES_CONSTANTS) {
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
+
+    if (contract.network == NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN']) {
+        web3Service.setRopstenInfuraProvider();
+    }
 
     var web3Contract;
 
@@ -153,7 +157,11 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     };
 
 
-}).controller('tokenMintFinalize', function($scope, web3Service) {
+}).controller('tokenMintFinalize', function($scope, web3Service, NETWORKS_TYPES_CONSTANTS) {
+
+    if ($scope.ngPopUp.params.contract.network == NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN']) {
+        web3Service.setRopstenInfuraProvider();
+    }
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
 
     var interfaceMethod = web3Service.getMethodInterface('finishMinting', contractDetails.eth_contract_token.abi);

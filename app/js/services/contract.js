@@ -1,10 +1,11 @@
 angular.module('Services').service('contractService', function(requestService, API) {
     return {
-        getBalance: function (address) {
+        getBalance: function (address, network) {
             var params = {
                 path: API.BALANCE,
                 params: {
-                    address: address
+                    address: address,
+                    network: network
                 }
             };
             return requestService.get(params);
@@ -17,6 +18,7 @@ angular.module('Services').service('contractService', function(requestService, A
             return requestService.get(params);
         },
         createContract: function (data) {
+            data.network = parseInt(data.network);
             var params = {
                 path: API.CONTRACTS,
                 data: data
@@ -24,6 +26,7 @@ angular.module('Services').service('contractService', function(requestService, A
             return requestService.post(params);
         },
         updateContract: function (data) {
+            data.network = parseInt(data.network);
             var params = {
                 path: API.CONTRACTS + data.id + '/',
                 data: data,
@@ -97,10 +100,12 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.post(params);
         },
-        getTokenContracts: function() {
+        getTokenContracts: function(network) {
             var params = {
-                path: API.TOKEN_PARAMS
-                // query: data
+                path: API.TOKEN_PARAMS,
+                query: {
+                    network: network
+                }
             };
             return requestService.get(params);
         },

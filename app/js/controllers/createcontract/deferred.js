@@ -59,12 +59,14 @@ angular.module('app').controller('deferredCreateController', function($scope, co
 
     var contractInProgress = false;
 
+    var storage = window.localStorage || {};
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
             createContract();
             return;
         }
+        storage.draftContract = JSON.stringify($scope.request);
         isWaitingOfLogin.then($scope.createContract);
         return true;
     };

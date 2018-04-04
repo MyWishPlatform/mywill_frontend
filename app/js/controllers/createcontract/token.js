@@ -81,23 +81,19 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     $scope.resetFormData();
     $scope.checkTokensAmount();
 
-
+    var storage = window.localStorage || {};
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
             createContract();
             return;
         }
+        storage.draftContract = JSON.stringify(generateContractData());
         isWaitingOfLogin.then($scope.createContract);
         return true;
     };
 
-    /* Управление датой и временем начала/окончания ICO (end) */
-    var contractInProgress = false;
-    var createContract = function() {
-        if (contractInProgress) return;
-        contractInProgress = true;
-
+    var generateContractData = function() {
         $scope.request.token_holders = [];
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
@@ -112,13 +108,22 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
 
-        var data = {
+        return {
             name: $scope.request.token_name,
             network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.TOKEN,
             contract_details: contractDetails,
             id: contract.id
         };
+    };
+
+    var contractInProgress = false;
+    var createContract = function() {
+        if (contractInProgress) return;
+        contractInProgress = true;
+
+        var data = generateContractData();
+
         contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {

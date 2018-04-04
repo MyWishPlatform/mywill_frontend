@@ -1,5 +1,5 @@
 angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, NETWORKS_TYPES_CONSTANTS) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service) {
 
 
     $scope.durationList = [
@@ -77,6 +77,8 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     $scope.networkName = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
         ((contract.network == 3) || (contract.network == 4)) ? 'RSK' : 'Unknown';
+
+    web3Service.setProvider($scope.networkName === 'RSK' ? 'RSK' : 'infura');
 
     $scope.network = {
         name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
@@ -182,5 +184,17 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
 
     checkDraftContract();
+
+    $scope.balanceInProgress = false;
+    $scope.checkedBalance = false;
+    $scope.checkBalance = function() {
+        $scope.balanceInProgress = true;
+        web3Service.getBalance($scope.request.user_address).then(function(data) {
+            $scope.balanceInProgress = false;
+            $scope.checkedBalance = data;
+        }, function() {
+            $scope.balanceInProgress = false;
+        });
+    };
 
 });

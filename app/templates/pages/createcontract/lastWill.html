@@ -27,11 +27,16 @@
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
+                    <div class="form-control-label float-right"
+                         ng-if="mainForm.$valid"
+                         ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ' + networkName : balanceInProgress ? 'Please wait...' : ' '"></div>
+
                     <label for="wallet-key" class="form-control-label">Management address</label>
                     <input id="wallet-key" type="text"
                            ng-model="request.user_address"
                            placeholder="Enter your {{networkName}} wallet address"
                            required
+                           ng-change="checkBalance()"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
                            class="form-control-input"/>
                 </div>

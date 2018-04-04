@@ -134,6 +134,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             };
 
             var promoIsEntered = $scope.getDiscount();
+
             if (promoIsEntered) {
                 promoIsEntered.then(openConditionsPopUp, openConditionsPopUp);
             } else {

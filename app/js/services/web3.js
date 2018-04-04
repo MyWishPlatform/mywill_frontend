@@ -45,9 +45,17 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
 
     var currentProvider;
     this.setProvider = function(providerName) {
-        currentProvider = web3Providers[providerName];
-        web3.setProvider(currentProvider);
+        switch (providerName) {
+            case 'RSK':
+                currentProvider = new Web3.providers.HttpProvider("/endpoint/rsk");
+                web3.setProvider(currentProvider);
+                break;
+            default:
+                currentProvider = web3Providers[providerName];
+                web3.setProvider(currentProvider);
+        }
     };
+
 
     var getAccounts = function(providerName) {
         var defer = $q.defer();
@@ -90,6 +98,12 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 }
             });
         }
+        return defer.promise;
+    };
+
+    this.getBalance = function(address) {
+        var defer = $q.defer();
+        web3.eth.getBalance(address).then(defer.resolve, defer.resolve);
         return defer.promise;
     };
 

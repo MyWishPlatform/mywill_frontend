@@ -1,13 +1,7 @@
 angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, NETWORKS_TYPES_CONSTANTS) {
 
-    $scope.request = {};
-    $scope.listWalletActivity = [
-        {
-            value: 1,
-            name: 'Outcome'
-        }
-    ];
+
     $scope.durationList = [
         {
             value: 1,
@@ -18,15 +12,6 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }, {
             value: 365,
             name: 'year'
-        }
-    ];
-    $scope.currencyList = [
-        {
-            value: 1,
-            name: 'ETH'
-        }, {
-            value: 2,
-            name: 'WEI'
         }
     ];
 
@@ -60,7 +45,6 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         });
         $scope.hairsList.push({percentage: Math.max(0, 100 - sum)});
     };
-
     $scope.removeHair = function(hair) {
         var currentList = $scope.hairsList.filter(function(h) {
             return h != hair;
@@ -70,27 +54,6 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }
         $scope.hairsList = currentList;
         $scope.hairPercentChange();
-    };
-
-    $scope.walletAddress = '';
-    var balanceTimer;
-
-    $scope.getBalance = function() {
-        balanceTimer ? $timeout.cancel(balanceTimer) : false;
-        balanceTimer = false;
-        $scope.checkedBalance = false;
-        if (!$scope.walletAddress) {
-            return;
-        }
-        $scope.balanceInProgress = true;
-        balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.walletAddress, contract.network).then(function(response) {
-                var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
-                $scope.checkedBalance = isNaN(balance) ? false : balance;
-                balanceTimer = false;
-                $scope.balanceInProgress = false;
-            })
-        }, 500);
     };
 
     $scope.minDate = moment.tz('UTC').hour(12).startOf('h');
@@ -106,8 +69,15 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
         network: $stateParams.network || 1,
-        contract_details: {}
+        contract_details: {
+            email: $rootScope.currentUser.username || undefined
+        }
     };
+
+
+    $scope.networkName = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
+        ((contract.network == 3) || (contract.network == 4)) ? 'RSK' : 'Unknown';
+
     $scope.network = {
         name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
         id: contract.network
@@ -122,7 +92,8 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
             contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
             network: contract.network,
             contract_details: {
-                user_address: $scope.walletAddress,
+                user_address: $scope.request.user_address,
+                email: $scope.request.email,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
                 heirs: angular.copy($scope.hairsList)
@@ -169,19 +140,13 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.percentageSum = sum;
         $scope.percentageStatus = sum > 100 ? 0 : (sum < 100 ? 1 : 2);
     };
-
-
     $scope.resetForms = function() {
+        $scope.request = angular.copy(contract.contract_details);
+
         $scope.contractName = contract.name;
-
-        $scope.walletAddress = contract.contract_details.user_address;
-        $scope.walletAddress ? $scope.getBalance() : false;
-        $scope.checkedBalance = undefined;
         $scope.hairsList = contract.contract_details.heirs || [{
-                percentage: 100
-            }];
-
-
+            percentage: 100
+        }];
         var checkInterval = contract.contract_details.check_interval ? $scope.durationList.filter(function(check) {
             return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
         }) : false;

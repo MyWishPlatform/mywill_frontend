@@ -113,7 +113,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
             var openConditionsPopUp = function() {
                 var originalCost = new BigNumber(contract.cost);
-                var changedBalance = - originalCost.times(contract.discount / 100).minus(originalCost);
+                var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
                 if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
                     $rootScope.commonOpenedPopupParams = {
                         withoutCloser: true,
@@ -122,7 +122,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                     $rootScope.commonOpenedPopup = 'less-balance';
                     return;
                 }
-
                 $rootScope.commonOpenedPopupParams = {
                     contract: contract,
                     withoutCloser: true,

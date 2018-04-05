@@ -60,6 +60,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 $state.go('main.createcontract.form', {
                     selectedType: CONTRACT_TYPES_NAMES_CONSTANTS[data.contract_type], network: data.network
                 });
+            } else {
+                $state.go('main.base');
             }
         },
         title: 'start'

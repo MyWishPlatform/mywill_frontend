@@ -1,5 +1,5 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams,  NETWORKS_TYPES_NAMES_CONSTANTS) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams,  NETWORKS_TYPES_NAMES_CONSTANTS, CONTRACT_TYPES_NAMES_CONSTANTS) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network || 1,
@@ -78,18 +78,39 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
         });
     };
-    $scope.resetFormData();
+
+
+    var checkDraftContract = function(redirect) {
+        if (localStorage.draftContract) {
+            if (!contract.id) {
+                var draftContract = JSON.parse(localStorage.draftContract);
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
+                    contract = draftContract;
+                }
+            }
+        }
+        $scope.resetFormData();
+        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
+            $scope.createContract();
+        } else if (redirect && !localStorage.draftContract) {
+            $state.go('main.contracts.list');
+        }
+    };
+
+    checkDraftContract();
+
     $scope.checkTokensAmount();
 
     var storage = window.localStorage || {};
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
+            delete storage.draftContract;
             createContract();
             return;
         }
         storage.draftContract = JSON.stringify(generateContractData());
-        isWaitingOfLogin.then($scope.createContract);
+        isWaitingOfLogin.then(checkDraftContract(true));
         return true;
     };
 
@@ -124,7 +145,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
 
         var data = generateContractData();
 
-        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
+        contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
             switch(data.status) {

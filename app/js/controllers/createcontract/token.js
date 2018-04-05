@@ -110,7 +110,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             return;
         }
         storage.draftContract = JSON.stringify(generateContractData());
-        isWaitingOfLogin.then(checkDraftContract(true));
+        isWaitingOfLogin.then(function() {
+            checkDraftContract(true)
+        });
         return true;
     };
 

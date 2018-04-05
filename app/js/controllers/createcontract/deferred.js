@@ -67,7 +67,9 @@ angular.module('app').controller('deferredCreateController', function($scope, co
             return;
         }
         storage.draftContract = JSON.stringify($scope.request);
-        isWaitingOfLogin.then(checkDraftContract(true));
+        isWaitingOfLogin.then(function() {
+            checkDraftContract(true)
+        });
         return true;
     };
 

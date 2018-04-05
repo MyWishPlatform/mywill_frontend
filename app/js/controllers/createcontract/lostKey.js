@@ -124,7 +124,9 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
             return;
         }
         storage.draftContract = JSON.stringify(generateContractData());
-        isWaitingOfLogin.then(checkDraftContract(true));
+        isWaitingOfLogin.then(function() {
+            checkDraftContract(true)
+        });
         return true;
     };
 

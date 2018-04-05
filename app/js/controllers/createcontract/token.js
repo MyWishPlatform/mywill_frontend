@@ -80,26 +80,6 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     };
 
 
-    var checkDraftContract = function(redirect) {
-        if (localStorage.draftContract) {
-            if (!contract.id) {
-                var draftContract = JSON.parse(localStorage.draftContract);
-                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
-                    contract = draftContract;
-                }
-            }
-        }
-        $scope.resetFormData();
-        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
-            $scope.createContract();
-        } else if (redirect && !localStorage.draftContract) {
-            $state.go('main.contracts.list');
-        }
-    };
-
-    checkDraftContract();
-
-    $scope.checkTokensAmount();
 
     var storage = window.localStorage || {};
     $scope.createContract = function() {
@@ -164,5 +144,24 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     };
     $scope.editContractMode = !!contract.id;
 
+
+    var checkDraftContract = function(redirect) {
+        if (localStorage.draftContract) {
+            if (!contract.id) {
+                var draftContract = JSON.parse(localStorage.draftContract);
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
+                    contract = draftContract;
+                }
+            }
+        }
+        $scope.resetFormData();
+        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
+            $scope.createContract();
+        } else if (redirect && !localStorage.draftContract) {
+            $state.go('main.contracts.list');
+        }
+    };
+    checkDraftContract();
+    $scope.checkTokensAmount();
 
 });

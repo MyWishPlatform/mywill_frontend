@@ -113,22 +113,10 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         id: contract.network
     };
 
-    $scope.editContractMode = !!contract.id;
 
-    $scope.createContract = function() {
-        var isWaitingOfLogin = $scope.checkUserIsGhost();
-        if (!isWaitingOfLogin) {
-            createContract();
-            return;
-        }
-        isWaitingOfLogin.then($scope.createContract);
-        return true;
-    };
 
-    var contractInProgress = false;
-    var createContract = function(callback) {
-        if (contractInProgress) return;
-        var data = {
+    var generateContractData = function() {
+        return {
             name: $scope.contractName,
             id: contract.id,
             contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
@@ -139,9 +127,32 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
                 heirs: angular.copy($scope.hairsList)
             }
-        };
+        }
+    };
+
+
+    $scope.editContractMode = !!contract.id;
+
+    var storage = window.localStorage || {};
+    $scope.createContract = function() {
+        var isWaitingOfLogin = $scope.checkUserIsGhost();
+        if (!isWaitingOfLogin) {
+            delete storage.draftContract;
+            createContract();
+            return;
+        }
+        storage.draftContract = JSON.stringify(generateContractData());
+        isWaitingOfLogin.then(checkDraftContract(true));
+        return true;
+    };
+
+
+    var contractInProgress = false;
+    var createContract = function(callback) {
+        if (contractInProgress) return;
+        var data = generateContractData();
         contractInProgress = true;
-        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
+        contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             callback ? callback() : $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
             contractInProgress = false;
@@ -182,6 +193,27 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
         $scope.hairPercentChange();
     };
-    $scope.resetForms();
+
+
+    var checkDraftContract = function(redirect) {
+        if (localStorage.draftContract && !contract.id) {
+            if (!contract.id) {
+                var draftContract = JSON.parse(localStorage.draftContract);
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.LAST_WILL) {
+                    contract = draftContract;
+                }
+            }
+        }
+        $scope.resetForms();
+        $scope.getBalance();
+        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
+            $scope.createContract();
+        } else if (redirect && !localStorage.draftContract) {
+            $state.go('main.contracts.list');
+        }
+    };
+
+
+    checkDraftContract();
 
 });

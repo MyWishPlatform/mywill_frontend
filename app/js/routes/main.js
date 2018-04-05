@@ -46,6 +46,24 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 window.location.href = '/auth/';
             });
         }
+    }).state('first_entry', {
+        url: '/first_entry',
+        resolve: {
+            currentUser: function($rootScope) {
+                return $rootScope.currentUserDefer.promise;
+            }
+        },
+        controller: function(currentUser, $state, contractService, CONTRACT_TYPES_NAMES_CONSTANTS) {
+            var localStorage = window.localStorage || {};
+            if (localStorage.draftContract) {
+                var data = JSON.parse(localStorage.draftContract);
+                $state.go('main.createcontract.form', {
+                    selectedType: CONTRACT_TYPES_NAMES_CONSTANTS[data.contract_type], network: data.network
+                });
+            }
+        },
+        title: 'start'
+
     }).state('main.base', {
         url: '/',
         controller: function(currentUser, $state) {

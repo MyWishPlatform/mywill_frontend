@@ -1,5 +1,5 @@
 angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
+                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS, CONTRACT_TYPES_NAMES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
     $scope.investsLimit = false;
@@ -112,22 +112,20 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.usdHardCap = $filter('number')($scope.request.hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
     };
 
-
+    var storage = window.localStorage || {};
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
+            delete storage.draftContract;
             createContract();
             return;
         }
-        isWaitingOfLogin.then($scope.createContract);
+        storage.draftContract = JSON.stringify(generateContractData());
+        isWaitingOfLogin.then(checkDraftContract(true));
         return true;
     };
 
-    /* Управление датой и временем начала/окончания ICO (end) */
-    var contractInProgress = false;
-    var createContract = function() {
-        if (contractInProgress) return;
-        $scope.$broadcast('createContract');
+    var generateContractData = function() {
         var contractDetails = angular.copy($scope.request);
         if ($scope.token.selectedToken.id) {
             contractDetails.eth_contract_token = {
@@ -150,15 +148,23 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,18)).round().toString(10);
             contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,18)).round().toString(10);
         }
-        var data = {
+        return {
             name: $scope.contractName,
             network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
             contract_details: contractDetails,
             id: contract.id
         };
+    };
+
+    /* Управление датой и временем начала/окончания ICO (end) */
+    var contractInProgress = false;
+    var createContract = function() {
+        if (contractInProgress) return;
+        $scope.$broadcast('createContract');
+        var data = generateContractData();
         contractInProgress = true;
-        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
+        contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
             switch(data.status) {
@@ -219,7 +225,26 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         setStopTimestamp();
         $scope.$broadcast('resetForm');
     };
-    $scope.resetForms();
+
+
+    var checkDraftContract = function(redirect) {
+        if (localStorage.draftContract && !contract.id) {
+            if (!contract.id) {
+                var draftContract = JSON.parse(localStorage.draftContract);
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.CROWD_SALE) {
+                    contract = draftContract;
+                }
+            }
+        }
+        $scope.resetForms();
+        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
+            $scope.createContract();
+        } else if (redirect && !localStorage.draftContract) {
+            $state.go('main.contracts.list');
+        }
+    };
+
+    checkDraftContract();
 
     if (contract.id) {
         $scope.checkHardCapEth();

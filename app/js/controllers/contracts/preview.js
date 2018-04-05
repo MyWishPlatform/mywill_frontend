@@ -1,4 +1,4 @@
-angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope,
+angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
                                                                         $timeout, CONTRACT_STATUSES_CONSTANTS, FileSaver) {
     var deletingProgress = false;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
@@ -30,6 +30,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         $scope.contract = contract;
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
+        $scope.contract.networkName = NETWORKS_TYPES_NAMES_CONSTANTS[$scope.contract.network || 1];
 
         $scope.wishCost = new BigNumber($scope.contract.cost).div(Math.pow(10, 18)).round(2).toString(10);
         $scope.contract.discount = 0;
@@ -88,6 +89,10 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     };
 
     var showPriceLaunchContract = function(contract) {
+        if (contract.cost == 0) {
+            launchContract(contract);
+            return;
+        }
         $rootScope.commonOpenedPopup = 'contract-confirm-pay';
         $rootScope.commonOpenedPopupParams = {
             class: 'deleting-contract',
@@ -108,7 +113,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
             var openConditionsPopUp = function() {
                 var originalCost = new BigNumber(contract.cost);
-                var changedBalance = - originalCost.times(contract.discount / 100).minus(originalCost);
+                var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
                 if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
                     $rootScope.commonOpenedPopupParams = {
                         withoutCloser: true,
@@ -117,7 +122,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                     $rootScope.commonOpenedPopup = 'less-balance';
                     return;
                 }
-
                 $rootScope.commonOpenedPopupParams = {
                     contract: contract,
                     withoutCloser: true,

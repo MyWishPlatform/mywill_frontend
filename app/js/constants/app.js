@@ -6,15 +6,17 @@ module.constant('APP_CONSTANTS', {
     'WISH': {
         'ADDRESS': '0x1b22c32cd936cb97c28c5690a0695a82abf688e6'
     },
-    'INFURA_ADDRESS':
+    // For production
+    'INFURA_ADDRESS': "https://mainnet.infura.io/MEDIUMTUTORIAL",
 
-        // For production
-        "https://mainnet.infura.io/MEDIUMTUTORIAL",
+    // For test
+    // 'INFURA_ADDRESS': "https://ropsten.infura.io/MEDIUMTUTORIAL",
+    'ROPSTEN_INFURA_ADDRESS': 'https://ropsten.infura.io/MEDIUMTUTORIAL',
 
-        // For test
-        // "https://ropsten.infura.io/MEDIUMTUTORIAL",
     // 'ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
     'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
+
+    'ROPSTEN_ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

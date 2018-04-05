@@ -1,5 +1,5 @@
-angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract) {
+angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.request = {};
     $scope.listWalletActivity = [
@@ -84,7 +84,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.walletAddress).then(function(response) {
+            contractService.getBalance($scope.walletAddress, contract.network).then(function(response) {
                 var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
@@ -105,37 +105,56 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
+        network: $stateParams.network || 1,
         contract_details: {}
     };
-
-    $scope.editContractMode = !!contract.id;
-
-    $scope.createContract = function() {
-        var isWaitingOfLogin = $scope.checkUserIsGhost();
-        if (!isWaitingOfLogin) {
-            createContract();
-            return;
-        }
-        isWaitingOfLogin.then($scope.createContract);
-        return true;
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
     };
 
-    var contractInProgress = false;
-    var createContract = function(callback) {
-        if (contractInProgress) return;
-        var data = {
+
+
+    var generateContractData = function() {
+        return {
             name: $scope.contractName,
             id: contract.id,
             contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
+            network: contract.network,
             contract_details: {
                 user_address: $scope.walletAddress,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
                 heirs: angular.copy($scope.hairsList)
             }
-        };
+        }
+    };
+
+
+    $scope.editContractMode = !!contract.id;
+
+    var storage = window.localStorage || {};
+    $scope.createContract = function() {
+        var isWaitingOfLogin = $scope.checkUserIsGhost();
+        if (!isWaitingOfLogin) {
+            delete storage.draftContract;
+            createContract();
+            return;
+        }
+        storage.draftContract = JSON.stringify(generateContractData());
+        isWaitingOfLogin.then(function() {
+            checkDraftContract(true)
+        });
+        return true;
+    };
+
+
+    var contractInProgress = false;
+    var createContract = function(callback) {
+        if (contractInProgress) return;
+        var data = generateContractData();
         contractInProgress = true;
-        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
+        contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             callback ? callback() : $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
             contractInProgress = false;
@@ -176,6 +195,27 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
         $scope.hairPercentChange();
     };
-    $scope.resetForms();
+
+
+    var checkDraftContract = function(redirect) {
+        if (localStorage.draftContract && !contract.id) {
+            if (!contract.id) {
+                var draftContract = JSON.parse(localStorage.draftContract);
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.LAST_WILL) {
+                    contract = draftContract;
+                }
+            }
+        }
+        $scope.resetForms();
+        $scope.getBalance();
+        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
+            $scope.createContract();
+        } else if (redirect && !localStorage.draftContract) {
+            $state.go('main.contracts.list');
+        }
+    };
+
+
+    checkDraftContract();
 
 });

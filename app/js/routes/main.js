@@ -46,6 +46,26 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 window.location.href = '/auth/';
             });
         }
+    }).state('first_entry', {
+        url: '/first_entry',
+        resolve: {
+            currentUser: function($rootScope) {
+                return $rootScope.currentUserDefer.promise;
+            }
+        },
+        controller: function(currentUser, $state, contractService, CONTRACT_TYPES_NAMES_CONSTANTS) {
+            var localStorage = window.localStorage || {};
+            if (localStorage.draftContract) {
+                var data = JSON.parse(localStorage.draftContract);
+                $state.go('main.createcontract.form', {
+                    selectedType: CONTRACT_TYPES_NAMES_CONSTANTS[data.contract_type], network: data.network
+                });
+            } else {
+                $state.go('main.base');
+            }
+        },
+        title: 'start'
+
     }).state('main.base', {
         url: '/',
         controller: function(currentUser, $state) {
@@ -186,13 +206,15 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.createcontract.types', {
         url: '/create',
-        controller: function() {
-
+        controller: function($scope) {
+            $scope.blockChainNetwork = {
+                type: 'ethereum'
+            };
         },
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {
-        url: '/create/:selectedType?:options?',
+        url: '/create/:selectedType?:options?:network?',
         controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },
@@ -208,7 +230,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             },
             tokensList: function($stateParams, contractService) {
                 if ($stateParams.selectedType === 'crowdSale') {
-                    return contractService.getTokenContracts();
+                    return contractService.getTokenContracts($stateParams.network || 1);
                 }
                 return undefined;
             }

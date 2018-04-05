@@ -1,11 +1,16 @@
-angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract) {
+angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams,  NETWORKS_TYPES_NAMES_CONSTANTS, CONTRACT_TYPES_NAMES_CONSTANTS) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
+        network: $stateParams.network || 1,
         contract_details: {
             token_holders: [{}],
             token_type: 'ERC20'
         }
+    };
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
     };
 
     $scope.minStartDate = moment().add(1, 'days');
@@ -73,26 +78,25 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
         });
     };
-    $scope.resetFormData();
-    $scope.checkTokensAmount();
 
 
+
+    var storage = window.localStorage || {};
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
+            delete storage.draftContract;
             createContract();
             return;
         }
-        isWaitingOfLogin.then($scope.createContract);
+        storage.draftContract = JSON.stringify(generateContractData());
+        isWaitingOfLogin.then(function() {
+            checkDraftContract(true)
+        });
         return true;
     };
 
-    /* Управление датой и временем начала/окончания ICO (end) */
-    var contractInProgress = false;
-    var createContract = function() {
-        if (contractInProgress) return;
-        contractInProgress = true;
-
+    var generateContractData = function() {
         $scope.request.token_holders = [];
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
@@ -107,13 +111,23 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
 
-        var data = {
+        return {
             name: $scope.request.token_name,
+            network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.TOKEN,
             contract_details: contractDetails,
             id: contract.id
         };
-        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
+    };
+
+    var contractInProgress = false;
+    var createContract = function() {
+        if (contractInProgress) return;
+        contractInProgress = true;
+
+        var data = generateContractData();
+
+        contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
             switch(data.status) {
@@ -130,5 +144,24 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     };
     $scope.editContractMode = !!contract.id;
 
+
+    var checkDraftContract = function(redirect) {
+        if (localStorage.draftContract) {
+            if (!contract.id) {
+                var draftContract = JSON.parse(localStorage.draftContract);
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
+                    contract = draftContract;
+                }
+            }
+        }
+        $scope.resetFormData();
+        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
+            $scope.createContract();
+        } else if (redirect && !localStorage.draftContract) {
+            $state.go('main.contracts.list');
+        }
+    };
+    checkDraftContract();
+    $scope.checkTokensAmount();
 
 });

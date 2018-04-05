@@ -1,13 +1,15 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS,
-                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
+                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS, CONTRACT_TYPES_NAMES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
     $scope.investsLimit = false;
 
+    var ethereumNetwork = $stateParams.network;
+
     var web3 = new Web3();
 
     try {
-        web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.INFURA_ADDRESS));
+        web3.setProvider(new Web3.providers.HttpProvider(ethereumNetwork === NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] ? APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS : APP_CONSTANTS.INFURA_ADDRESS));
     } catch(err) {
         console.log('Infura not found');
     }
@@ -49,6 +51,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
+        network: ethereumNetwork,
         contract_details: {
             token_holders: [],
             amount_bonuses: [],
@@ -56,7 +59,10 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             token_type: 'ERC20'
         }
     };
-
+    $scope.network = {
+        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
+        id: contract.network
+    };
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
@@ -106,22 +112,22 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.usdHardCap = $filter('number')($scope.request.hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
     };
 
-
+    var storage = window.localStorage || {};
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
+            delete storage.draftContract;
             createContract();
             return;
         }
-        isWaitingOfLogin.then($scope.createContract);
+        storage.draftContract = JSON.stringify(generateContractData());
+        isWaitingOfLogin.then(function() {
+            checkDraftContract(true)
+        });
         return true;
     };
 
-    /* Управление датой и временем начала/окончания ICO (end) */
-    var contractInProgress = false;
-    var createContract = function() {
-        if (contractInProgress) return;
-        $scope.$broadcast('createContract');
+    var generateContractData = function() {
         var contractDetails = angular.copy($scope.request);
         if ($scope.token.selectedToken.id) {
             contractDetails.eth_contract_token = {
@@ -144,14 +150,23 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,18)).round().toString(10);
             contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,18)).round().toString(10);
         }
-        var data = {
+        return {
             name: $scope.contractName,
+            network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
             contract_details: contractDetails,
             id: contract.id
         };
+    };
+
+    /* Управление датой и временем начала/окончания ICO (end) */
+    var contractInProgress = false;
+    var createContract = function() {
+        if (contractInProgress) return;
+        $scope.$broadcast('createContract');
+        var data = generateContractData();
         contractInProgress = true;
-        contractService[!contract.id ? 'createContract' : 'updateContract'](data).then(function(response) {
+        contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
             switch(data.status) {
@@ -212,7 +227,26 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         setStopTimestamp();
         $scope.$broadcast('resetForm');
     };
-    $scope.resetForms();
+
+
+    var checkDraftContract = function(redirect) {
+        if (localStorage.draftContract && !contract.id) {
+            if (!contract.id) {
+                var draftContract = JSON.parse(localStorage.draftContract);
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.CROWD_SALE) {
+                    contract = draftContract;
+                }
+            }
+        }
+        $scope.resetForms();
+        if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
+            $scope.createContract();
+        } else if (redirect && !localStorage.draftContract) {
+            $state.go('main.contracts.list');
+        }
+    };
+
+    checkDraftContract();
 
     if (contract.id) {
         $scope.checkHardCapEth();
@@ -537,7 +571,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
         var stringValue = holdersSum.toString(10);
 
-        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue);
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue) || isNaN($scope.request.rate);
 
         if (!$scope.tokensAmountError) {
             var ethSum = holdersSum.plus($scope.request.hard_cap);

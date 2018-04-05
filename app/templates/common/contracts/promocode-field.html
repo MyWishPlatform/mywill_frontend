@@ -1,5 +1,5 @@
 <form class="main-section-chapter-fieldset"
-      ng-if="contract.stateValue < 3"
+      ng-if="(contract.stateValue < 3) && (contract.cost != 0)"
       name="promoCodeForm" ng-submit="getDiscount()">
     <div class="contract-form-fieldset">
         <div class="grid-row contract-form-row">

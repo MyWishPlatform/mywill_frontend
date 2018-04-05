@@ -164,6 +164,20 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     };
 
 
+    $scope.balanceInProgress = false;
+    $scope.checkedBalance = false;
+    $scope.mainForm = false;
+    $scope.checkBalance = function() {
+        if (!$scope.mainForm.$valid) return;
+        $scope.balanceInProgress = true;
+        web3Service.getBalance($scope.request.user_address).then(function(data) {
+            $scope.balanceInProgress = false;
+            $scope.checkedBalance = Web3.utils.fromWei(data, 'ether');
+        }, function() {
+            $scope.balanceInProgress = false;
+        });
+    };
+
     var checkDraftContract = function(redirect) {
         if (localStorage.draftContract && !contract.id) {
             if (!contract.id) {
@@ -174,7 +188,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
             }
         }
         $scope.resetForms();
-        $scope.getBalance();
+        $scope.checkBalance();
         if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
             $scope.createContract();
         } else if (redirect && !localStorage.draftContract) {
@@ -185,16 +199,5 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     checkDraftContract();
 
-    $scope.balanceInProgress = false;
-    $scope.checkedBalance = false;
-    $scope.checkBalance = function() {
-        $scope.balanceInProgress = true;
-        web3Service.getBalance($scope.request.user_address).then(function(data) {
-            $scope.balanceInProgress = false;
-            $scope.checkedBalance = data;
-        }, function() {
-            $scope.balanceInProgress = false;
-        });
-    };
 
 });

@@ -29,8 +29,15 @@
   margin-left: -18em;
 }
 
+
+@media screen and (max-width: 368px) {
+  .popup-window.login-form {
+    margin-left: -49%;
+  }
+}
+
 @media screen and (max-width: 532px) {
-  .popup-window.deleting-contract, .popup-window.login-form, .popup-window.page-size {
+  .popup-window.deleting-contract, .popup-window.page-size {
     margin-left: -49%;
   }
 }

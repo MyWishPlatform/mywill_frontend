@@ -21,6 +21,11 @@ $red-active-color: #bb0d2b;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   box-sizing: border-box;
   text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  &.width-100 {
+    width: 100%;
+  }
   + .btn {
     margin-left: 1em;
   }

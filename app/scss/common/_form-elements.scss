@@ -99,6 +99,11 @@
     border-bottom-left-radius: 0.9em;
     border-bottom-right-radius: 0.9em;
   }
+
+  &.with-min-padding {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
   &.with-padding {
     padding-top: 2em;
     padding-bottom: 2em;

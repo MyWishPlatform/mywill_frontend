@@ -1,0 +1,75 @@
+<!-- Pay instruction button -->
+<button ng-click="payContract(contract)"
+        ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
+        class="btn btn-submit hide-ps">
+    <i class="icon-rocket-ship"></i>
+    <span>Launch</span>
+</button>
+
+<!-- Deposit instruction button -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
+        ng-pop-up="{
+            template: '/templates/popups/rsk-deposit-instruction.html',
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>Deposit</span>
+</button>
+
+<!-- Confirm live instruction button -->
+<button  ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
+         ng-pop-up="{
+            template: '/templates/popups/rsk-confirm-live-instruction.html',
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            }
+        }"
+        class="btn btn-transparent hide-ps nowrap">
+    <span>Confirm "Live"</span>
+</button>
+
+<!-- Cancel instruction button -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
+        ng-pop-up="{
+            template: '/templates/popups/rsk-cancel-instruction.html',
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>Cancel</span>
+</button>
+
+
+<button class="btn only-icon"
+        ng-class="{'in-progress': timeoutsForProgress[contract.id]}"
+        ng-mousedown="refreshContract(contract)"
+        ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 11))">
+    <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
+</button>
+
+<button class="btn only-icon" type="button"
+        ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
+        ng-pop-up="{
+                                template: '/templates/popups/delete-contract.html',
+                                params: contract,
+                                class: 'deleting-contract',
+                                actions: {
+                                    deleteContract: deleteContract
+                                }
+                            }">
+    <i class="icon-trash"></i>
+</button>

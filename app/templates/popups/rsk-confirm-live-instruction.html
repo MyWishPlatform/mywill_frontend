@@ -1,0 +1,25 @@
+<div class="contract-popup-wrapper">
+
+    <div class="instruction-title clearfix">
+        <div class="contract-name-block">
+            <div class="contract-name-text uppercase">Confirm "Live"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        </div>
+        <div class="instruction-title-text">
+            <div class="instruction-title-text__content">To make a deposit on the contract, follow the instructions.</div>
+        </div>
+    </div>
+    <ul class="instruction-steps-list">
+        <li class="clearfix">
+            <div class="instruction-item-text">Open your wallet (Parity, <a ng-attr-href="{{ngPopUp.params.contract.depositUrl}}" target="_blank">MyEtherWallet</a>)</div>
+        </li>
+        <li class="clearfix">
+            <div class="instruction-item-text">Choose Send Ether & Tokens tab in your wallet</div>
+        </li>
+    </ul>
+
+    <div class="instruction-action-buttons">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>Done</span>
+        </button>
+    </div>
+</div>

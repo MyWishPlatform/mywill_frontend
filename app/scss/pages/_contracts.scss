@@ -73,7 +73,9 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  width: 7em;
+  &:not(.auto-width) {
+    width: 7em;
+  }
 }
 .contract-show-button, .contract-name-text {
   vertical-align: middle;

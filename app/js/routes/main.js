@@ -215,6 +215,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
     }).state('main.createcontract.form', {
         url: '/create/:selectedType?:options?:network?',
+        params: {
+            network: '1'
+        },
         controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },
@@ -222,7 +225,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             return $templateCache.get(templatesPath + 'createcontract/' + $stateParams.selectedType + '.html');
         },
         resolve: {
-            currencyRate: function(contractService, $stateParams) {
+            currencyRate: function(contractService) {
                 return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
             },
             openedContract: function() {

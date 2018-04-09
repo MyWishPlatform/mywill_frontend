@@ -72,12 +72,15 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             dataLayer.push({'event': 'contract_launch_success'});
             $state.go('main.contracts.list');
         }, function(data) {
+            console.log(data);
             switch(data.status) {
                 case 400:
                     switch(data.data.result) {
+                        case '1':
                         case 1:
                             $rootScope.commonOpenedPopup = 'contract_date_incorrect';
                             break;
+                        case '2':
                         case 2:
                             $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
                             break;

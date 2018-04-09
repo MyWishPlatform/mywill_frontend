@@ -21,10 +21,12 @@ angular.module('app').controller('contractsController', function(contractService
                 case 400:
                     switch(data.data.result) {
                         case 1:
+                        case '1':
                             $rootScope.commonOpenedPopupParams = {};
                             $rootScope.commonOpenedPopup = 'contract_date_incorrect';
                             break;
                         case 2:
+                        case '2':
                             $rootScope.commonOpenedPopupParams = {};
                             $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
                             break;

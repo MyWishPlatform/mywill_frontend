@@ -1,14 +1,19 @@
-<div class="contract-info__network in-preview" ng-class="'contract-info__network_' + (contract.network || 1)">
+<div class="contract-info__network" ng-class="'contract-info__network_' + (contract.network || 1)">
     <span>{{contract.networkName}}</span>
 </div>
-<div class="main-section-chapter-title">
-    <i class="main-section-chapter-title_icon" ng-class="contractTypesIcons[contract.contract_type]"></i>
-    <span class="main-section-chapter-title_text">{{contract.name}}</span>
+
+<div class="shadow-block__content__blue-title">
+    <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
+    <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+        <span class="big-size">{{contract.name}}</span>
+    </div>
 </div>
 
-<div class="mobile-width-100 contract-status-name float-right" ng-class="'contract-status-' + statuses[contract.state]['value']">
-    <div class="contract-status-text">
-        <span>{{contract.stateTitle}}</span>
+<div class="contract-status-block">
+    <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
+        <div class="contract-status-text">
+            <span>{{contract.stateTitle}}</span>
+        </div>
     </div>
 </div>
 

@@ -61,7 +61,6 @@
 .contract-wallet-information-wallet {
   font-size: 1.4em;
   padding: 0 1.65em 0 0;
-  margin-bottom: 1em;
   &:not(.contract-wallet-information-float-cell) {
     margin-top: 0.3125em;
   }
@@ -235,13 +234,6 @@
 }
 
 .contract-wallet-information-float {
-  padding: 0.5em 0;
-  &:first-child {
-    padding-top: 1em;
-  }
-  &:last-child {
-    padding-bottom: 1em;
-  }
   &:after, &:before {
     display: table;
     content: '';
@@ -265,8 +257,8 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: 29em;
-    font-size: 1.35em;
+    margin-left: 28em;
+    font-size: 1.4em;
   }
   &.contract-wallet-information-email {
     white-space: nowrap;
@@ -286,7 +278,6 @@
 }
 @media screen and (max-width: 960px) {
   .contract-wallet-information {
-    padding: 1em 0;
     + .contract-wallet-information {
       border-top: 1px solid #8ea4c3;
     }
@@ -315,7 +306,7 @@
 
     &.contract-wallet-information-after_wallet {
       text-overflow: ellipsis;
-      margin-left: 2.3em;
+      margin-left: 2.2em;
       text-align: left;
     }
   }
@@ -342,11 +333,6 @@
 //}
 
 @media screen and (max-width: 680px) {
-  //.grid-cell {
-  //  &.float-right {
-  //    float: left!important;
-  //  }
-  //}
   .contract-preview-form {
     padding-top: 2em;
   }

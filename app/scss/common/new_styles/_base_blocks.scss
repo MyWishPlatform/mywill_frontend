@@ -29,6 +29,11 @@
     & + & {
       border-top: 1px solid #ccc;
     }
+    &.grey-color {
+      box-shadow: inset 0 0 2em rgba(0, 0, 0, 0.05);
+      background-color: #F0F0F0;
+      border-top: 0 none;
+    }
     &_min-tb-padding {
       padding-top: 1.5em;
       padding-bottom: 1.5em;
@@ -71,7 +76,7 @@
       float: left;
       background-color: #206EFF;
       line-height: 3.25em;
-      padding: 1.1em 2.5em 1.1em 1.5em;
+      padding: 1.1em 2.5em 1.1em 2em;
       border-top-right-radius: 2.9em;
       border-bottom-right-radius: 2.9em;
       color: #fff;
@@ -86,11 +91,13 @@
         width: 1.3em;
         color: #fff;
       }
+      &__icon + &__name {
+        margin-left: 4em;
+      }
       &__name {
         line-height: 3.4em;
         vertical-align: middle;
         display: block;
-        margin-left: 4em;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
@@ -98,6 +105,9 @@
           vertical-align: middle;
           font-size: 1.5em;
           display: inline-block;
+          &.big-size {
+            font-size: 2.5em;
+          }
         }
       }
     }

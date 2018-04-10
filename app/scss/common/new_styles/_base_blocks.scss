@@ -26,13 +26,16 @@
       display: table;
       width: 100%;
     }
-    & + & {
-      border-top: 1px solid #ccc;
+    & + &:not(.no-border) {
+      border-top: 1px solid #ddd;
     }
     &.grey-color {
       box-shadow: inset 0 0 2em rgba(0, 0, 0, 0.05);
       background-color: #F0F0F0;
       border-top: 0 none;
+    }
+    &.light-color {
+      background-color: #FaFaFa;
     }
     &_min-tb-padding {
       padding-top: 1.5em;
@@ -106,7 +109,7 @@
           font-size: 1.5em;
           display: inline-block;
           &.big-size {
-            font-size: 2.5em;
+            font-size: 2em;
           }
         }
       }

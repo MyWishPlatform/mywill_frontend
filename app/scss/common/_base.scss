@@ -63,6 +63,9 @@ body {
   text-transform: uppercase;
 }
 
+.no-visibility {
+  visibility: hidden;
+}
 button, input, textarea {
   font-family: inherit;
 }
@@ -226,10 +229,3 @@ nav, main, footer, header {
     margin-top: 0.5em;
   }
 }
-
-@media screen and (max-width: 1024px) {
-  top: 0.7em;
-  right: 0.7em;
-}
-
-

@@ -144,25 +144,30 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
-    $rootScope.getEtherscanUrl = function(contract) {
+    $rootScope.getEtherscanUrl = function(contract, path) {
         var networkType = (contract.network || 1) * 1;
-
+        var addressPaths = {}, networkUrl;
 
         switch(networkType) {
             case 1:
-                return APP_CONSTANTS.ETHERSCAN_ADDRESS;
+                networkUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
+                addressPaths.address = 'address';
                 break;
             case 2:
-                return APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
+                networkUrl = APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
+                addressPaths.address = 'address';
                 break;
             case 3:
-                return APP_CONSTANTS.RSK_ADDRESS;
+                networkUrl = APP_CONSTANTS.RSK_ADDRESS;
+                addressPaths.address = 'addr';
                 break;
             case 4:
-                return APP_CONSTANTS.RSK_TESTNET_ADDRESS;
+                networkUrl = APP_CONSTANTS.RSK_TESTNET_ADDRESS;
+                addressPaths.address = 'addr';
                 break;
 
         }
+        return networkUrl + (addressPaths[path] || '');
     };
 
 

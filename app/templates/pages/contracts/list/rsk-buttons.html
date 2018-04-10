@@ -34,7 +34,7 @@
             }
         }"
         class="btn btn-transparent hide-ps nowrap">
-    <span>Confirm "Live"</span>
+    <span>I Alive</span>
 </button>
 
 <!-- Cancel instruction button -->
@@ -51,14 +51,6 @@
         }"
         class="btn btn-transparent hide-ps">
     <span>Cancel</span>
-</button>
-
-
-<button class="btn only-icon"
-        ng-class="{'in-progress': timeoutsForProgress[contract.id]}"
-        ng-mousedown="refreshContract(contract)"
-        ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 11))">
-    <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
 </button>
 
 <button class="btn only-icon" type="button"

@@ -26,7 +26,7 @@ $red-active-color: #bb0d2b;
   &.width-100 {
     width: 100%;
   }
-  + .btn {
+  &:not(.float-right) ~ .btn {
     margin-left: 1em;
   }
   &[disabled] {

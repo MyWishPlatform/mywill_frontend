@@ -1,17 +1,60 @@
 <div class="main-section-content">
-    <div class="contracts-list-wrapper text-center" ng-if="!contractsList.length">
-        <div class="main-section-chapter-fieldset">
-            <p class="just-text">
+    <div class="shadow-block text-center" ng-if="!contractsList.length">
+        <div class="shadow-block__content">
+            <div class="shadow-block__content__text">
                 <span>The list of smart contracts is empty</span>
-            </p>
+            </div><br/><br/>
             <a ui-sref="main.createcontract.types" class="btn btn-submit with-icon">
                 <i class="icon-create-contract"></i>
                 <span>Create contract</span>
-            </a><br/><br/><br/>
+            </a>
         </div>
     </div>
 
-    <div class="contracts-list-wrapper" ng-if="contractsList.length">
+    <div class="shadow-block shadow-block_hovered shadow-block_hovered_no-scaled"
+         ng-click="goToContract(contract, $event)"
+         ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding  shadow-block__content_no-lr-padding">
+
+            <div class="contract-info__network" ng-class="'contract-info__network_' + (contract.network || 1)">
+                <span>{{networks[contract.network]}}</span>
+            </div>
+
+            <div class="shadow-block__content__blue-title static-width">
+                <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
+                <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+                    <span>{{ contract.name || 'Not defined'}}</span>
+                </div>
+            </div>
+
+            <div class="contract-status-block">
+                <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
+                    <div class="contract-status-text">
+                        <span>{{statuses[contract.state]['title']}}</span>
+                    </div>
+                </div>
+                <button class="btn only-icon"
+                        ng-class="{
+                            'in-progress': timeoutsForProgress[contract.id],
+                            'no-visibility': ((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 11))
+                        }"
+                        ng-mousedown="refreshContract(contract)">
+                    <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
+                </button>
+            </div>
+
+            <div class="contract-block__buttons"  ng-include="'/templates/pages/contracts/list/' + (((contract.network == 1) || (contract.network == 2)) ? 'eth' : ((contract.network == 3) || (contract.network == 4) ? 'rsk' : 'neo')) + '-buttons.html'"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- div class="contracts-list-wrapper" ng-if="contractsList.length">
         <div class="main-section-chapter-fieldset contracts-list-item"
              ng-click="goToContract(contract, $event)"
              ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
@@ -28,14 +71,14 @@
             </div>
             <div class="clearfix show-ps"></div>
             <div class="contract-status-block">
-                <div class="contract-status-buttons" ng-include="'/templates/pages/contracts/list/' + (((contract.network == 1) || (contract.network == 2)) ? 'eth' : ((contract.network == 3) || (contract.network == 4) ? 'rsk' : 'neo')) + '-buttons.html'"></div>
-
                 <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
                     <div class="contract-status-text">
                         <span>{{statuses[contract.state]['title']}}</span>
                     </div>
                 </div>
+
+                <div class="contract-status-buttons" ng-include="'/templates/pages/contracts/list/' + (((contract.network == 1) || (contract.network == 2)) ? 'eth' : ((contract.network == 3) || (contract.network == 4) ? 'rsk' : 'neo')) + '-buttons.html'"></div>
             </div>
         </div>
-    </div>
+    </div -->
 </div>

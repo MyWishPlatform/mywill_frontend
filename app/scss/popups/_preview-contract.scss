@@ -261,6 +261,13 @@
     padding-left: 0;
     padding-right: 0;
   }
+  &.contract-wallet-information-after_wallet {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 29em;
+    font-size: 1.35em;
+  }
   &.contract-wallet-information-email {
     white-space: nowrap;
     overflow: hidden;
@@ -304,6 +311,12 @@
       text-overflow: ellipsis;
       margin-left: 4.5em;
       text-align: right;
+    }
+
+    &.contract-wallet-information-after_wallet {
+      text-overflow: ellipsis;
+      margin-left: 2.3em;
+      text-align: left;
     }
   }
 }

@@ -145,10 +145,24 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
     $rootScope.getEtherscanUrl = function(contract) {
-        var networkType = contract.network || 1;
+        var networkType = (contract.network || 1) * 1;
 
-        return networkType === 2 ?
-                APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS : APP_CONSTANTS.ETHERSCAN_ADDRESS;
+
+        switch(networkType) {
+            case 1:
+                return APP_CONSTANTS.ETHERSCAN_ADDRESS;
+                break;
+            case 2:
+                return APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
+                break;
+            case 3:
+                return APP_CONSTANTS.RSK_ADDRESS;
+                break;
+            case 4:
+                return APP_CONSTANTS.RSK_TESTNET_ADDRESS;
+                break;
+
+        }
     };
 
 

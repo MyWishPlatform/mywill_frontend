@@ -43,6 +43,13 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.balance">
+            <span class="form-control-label">
+                Contract balance: <b>{{(web3Utils.fromWei(contract.balance, 'ether') || 0 | number).replace($root.numberReplacer, ' ')}}&nbsp;ETH&nbsp;&nbsp;</b>
+            </span>
+        </div>
+
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
             <div class="form-control-label">Contract address:</div>
             <br class="show-ls"/>

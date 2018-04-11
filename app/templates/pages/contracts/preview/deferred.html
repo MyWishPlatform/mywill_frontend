@@ -14,8 +14,8 @@
 
 
 <div ng-show="contract.showedTab == 'code'">
-    <div class="main-section-chapter">
-        <div class="main-section-chapter-fieldset">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content">
             <div class="github-link">
                 <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">{{$root.gitHubLink}}</a>
             </div>
@@ -39,79 +39,71 @@
 </div>
 
 <div ng-show="contract.showedTab == 'info'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
+             ng-include="'/templates/common/contracts/preview-title.html'">
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
+            <div class="form-control-label">Contract address:</div>
+            <br class="show-ls"/>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
+            </span>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['address']}"
+                        text="contract.contract_details.eth_contract.address"
+                        on-copied="successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-wallet form-control-label-icon"></i>
+                    From account
+                </div><br/>
+                <div class="contract-wallet-information-float contract-wallet-information">
+                    <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
+                    </span>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.user_address|toCheckSum"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-after_wallet" ng-bind="contract.contract_details.email"></div>
+                </div>
+            </div><br/>
 
-    <div class="main-section-chapter">
-        <div class="main-section-chapter-fieldset">
-            <div class="contract-form-fieldset with-border" ng-include="'/templates/common/contracts/preview-title.html'"></div>
-            <div class="contract-form-fieldset with-border">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1">
-                    <div class="contract-wallets-information-one-block" ng-if="contract.contract_details.eth_contract.address">
-                        <span class="identicon-container">
-                            <img ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
-                        </span>
-                        <div class="contract-wallet-information-title">Contract address:</div>
-                        <div class="contract-wallet-information-wallet">
-                            <a ng-attr-href="{{ getEtherscanUrl(contract) + 'address/' + contract.contract_details.eth_contract.address}}"
-                               target="_blank"
-                               ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
-                            <button class="instruction-for-copy-button relative"
-                                    clipboard supported="supported"
-                                    ng-class="{copied: contract.copied['address']}"
-                                    text="contract.contract_details.eth_contract.address"
-                                    on-copied="successCodeCopy(contract, 'address')"
-                                    on-error="failCodeCopy(err)">
-                                <i class="icon-content_copy"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="contract-wallets-information-one-block">
-                        <i class="icon-wallet contract-information-icon"></i>
-                        <div class="contract-wallet-information-title">From account</div>
-                        <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
-                        </span>
-                        <div class="contract-wallet-information-wallet" ng-bind="contract.contract_details.user_address|toCheckSum"></div>
-                    </div>
-
-                    <div class="contract-wallets-information-one-block">
-                        <i class="icon-in-wallet contract-information-icon"></i>
-                        <div class="contract-wallet-information-title">Send to wallet</div>
-                        <div class="contract-wallet-information-float contract-wallet-information">
-                            <span class="identicon-container relative-top">
-                                <img class="identicon-image" ng-src="{{contract.contract_details.recepient_address|blockies}}"/>
-                            </span>
-                            <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.recepient_address|toCheckSum"></div>
-                            <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="contract.contract_details.recepient_email"></div>
-                        </div>
-                    </div></div>
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-in-wallet form-control-label-icon"></i>
+                    Send to wallet
+                </div>
+                <div class="contract-wallet-information-float contract-wallet-information">
+                    <br/>
+                    <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{contract.contract_details.recepient_address|blockies}}"/>
+                    </span>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.recepient_address|toCheckSum"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="contract.contract_details.recepient_email"></div>
                 </div>
             </div>
-            <div class="contract-form-fieldset contract-form-fieldset-grey with-border">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1">
-                        <div class="contract-wallets-information-one-block contract-dates-information">
-                            <i class="icon-conditions contract-information-icon"></i>
-                            <div class="contract-information-dates-content">
-                                <div class="contract-wallet-information-table">
-                                    <div class="contract-wallet-information-row">
-                                        <!--<div class="contract-wallet-information-cell contract-wallet-information-title"></div>-->
-
-                                        <div class="contract-wallet-information-cell contract-wallet-information-date text-left">
-                                            <span>Date of transfer</span>&nbsp;
-                                            {{contract.contract_details.date|date:'yyyy-MM-dd'}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-conditions form-control-label-icon"></i>
+                    <span class="grey-text-color">Date of transfer: </span> {{contract.contract_details.date|date:'yyyy-MM-dd'}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="main-section-chapter"
+
+
+    <div class="shadow-block"
          ng-if="(contract.stateValue < 3) && (contract.cost != 0)"
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>
     <div class="main-section-chapter-fieldset custom-fieldset" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>

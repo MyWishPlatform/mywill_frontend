@@ -84,8 +84,9 @@
                 <div class="form-control-label">
                     <i class="icon-in-wallet form-control-label-icon"></i>
                     Send to wallet
-                </div><br/>
+                </div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
+                    <br/>
                     <span class="identicon-container relative-top">
                         <img class="identicon-image" ng-src="{{heir.address|blockies}}"/>
                     </span>

@@ -50,8 +50,9 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
         $scope.networkName = contract.currency;
 
+        web3Service.setProviderByNumber(contract.network);
+
         if (contract.contract_details.eth_contract.address) {
-            web3Service.setProvider($scope.networkName === 'RSK' ? 'RSK' : 'infura');
             web3Service.getBalance(contract.contract_details.eth_contract.address).then(function(result) {
                 contract.balance = result != 0 ? Web3.utils.fromWei(result, 'ether') : undefined;
             });

@@ -20,6 +20,12 @@ module.constant('APP_CONSTANTS', {
     'RSK_TESTNET_ADDRESS': 'https://explorer.testnet.rsk.co/',
 
 
+    // 'RSK_NET_ADDRESS': 'https://mywish.io/endpoint/rsk',
+    'RSK_NET_ADDRESS': '/endpoint/rsk',
+    // 'RSK_TESTNET_NET_ADDRESS': 'http://dev.mywish.io/endpoint/rsk',
+    'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk',
+
+
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

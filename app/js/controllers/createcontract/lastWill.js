@@ -74,18 +74,14 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }
     };
 
-
     $scope.networkName = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
         ((contract.network == 3) || (contract.network == 4)) ? 'RSK' : 'Unknown';
 
-    web3Service.setProvider($scope.networkName === 'RSK' ? 'RSK' : 'infura');
 
     $scope.network = {
         name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
         id: contract.network
     };
-
-
 
     var generateContractData = function() {
         return {
@@ -167,6 +163,8 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     $scope.balanceInProgress = false;
     $scope.checkedBalance = false;
     $scope.mainForm = false;
+
+    web3Service.setProviderByNumber(contract.network);
     $scope.checkBalance = function() {
         if (!$scope.mainForm.$valid) return;
         $scope.balanceInProgress = true;

@@ -1,5 +1,5 @@
 angular.module('app').controller('deferredCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service) {
 
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
@@ -32,6 +32,7 @@ angular.module('app').controller('deferredCreateController', function($scope, co
 
     var balanceTimer;
 
+    web3Service.setProviderByNumber(contract.network);
     $scope.getBalance = function() {
         balanceTimer ? $timeout.cancel(balanceTimer) : false;
         balanceTimer = false;
@@ -41,8 +42,8 @@ angular.module('app').controller('deferredCreateController', function($scope, co
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.request.contract_details.user_address, contract.network).then(function(response) {
-                var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
+            web3Service.getBalance($scope.request.contract_details.user_address).then(function(balance) {
+                balance = Web3.utils.fromWei(balance, 'ether');
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
                 $scope.balanceInProgress = false;

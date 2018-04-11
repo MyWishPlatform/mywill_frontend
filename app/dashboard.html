@@ -61,7 +61,8 @@
 
 </head>
 <body ng-class="{'with-menu': $root.showedMenu, 'visible': currentUser}"
-      ng-swipe-left="$root.showedMenu = false;" ng-swipe-right="$root.showedMenu = true;">
+      ng-swipe-left="toggleMenu(false, $event);"
+      ng-swipe-right="toggleMenu(true, $event);">
 <header class="main-header-holder"
         ng-include="getTemplate('common/header')"></header>
 

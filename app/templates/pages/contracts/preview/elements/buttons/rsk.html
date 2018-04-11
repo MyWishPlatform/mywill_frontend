@@ -1,0 +1,84 @@
+<div class="contract-form-fieldset without-padding">
+    <div class="contract-form-information-btns">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-vs-1-2 float-right"
+                 ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-red with-icon mobile-width-100 with-icon initial-padding text-center"
+                        ng-pop-up="{
+                            template: '/templates/popups/delete-contract.html',
+                            params: contract,
+                            class: 'deleting-contract',
+                            actions: {
+                                deleteContract: deleteContract
+                            }
+                        }">
+                    <i class="icon-trash"></i>
+                    <span>Delete</span>
+                </button><br/><br/>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-submit mobile-width-100 text-center"
+                        ng-click="payContract()">
+                    <i class="icon-rocket-ship"></i>
+                    <span>Launch</span>
+                </button><br/><br/>
+            </div>
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
+                <!-- Edit button -->
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-back mobile-width-100 with-icon initial-padding">
+                    <i class="icon-edit"></i>
+                    <span>Edit</span>
+                </a><br/><br/>
+            </div>
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
+                <!-- Deposit instruction button -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/rsk/deposit-instruction.html',
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Deposit</span>
+                </button><br/><br/>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
+                <!-- Cancel instruction button -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/stop-instruction.html',
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Cancel</span>
+                </button><br/><br/>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
+                <!-- Confirm live instruction button -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/rsk-confirm-live-instruction.html',
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Confirm "Live"</span>
+                </button><br/><br/>
+            </div>
+
+        </div>
+    </div>
+</div>

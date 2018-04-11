@@ -1,13 +1,13 @@
 <button class="btn only-icon float-right" type="button"
         ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
         ng-pop-up="{
-                                template: '/templates/popups/delete-contract.html',
-                                params: contract,
-                                class: 'deleting-contract',
-                                actions: {
-                                    deleteContract: deleteContract
-                                }
-                            }">
+            template: '/templates/popups/delete-contract.html',
+            params: contract,
+            class: 'deleting-contract',
+            actions: {
+                deleteContract: deleteContract
+            }
+        }">
     <i class="icon-trash"></i>
 </button>
 
@@ -23,7 +23,7 @@
 <!-- Deposit instruction button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
         ng-pop-up="{
-            template: '/templates/popups/rsk-deposit-instruction.html',
+            template: '/templates/popups/instructions/rsk/deposit-instruction.html',
             params: {
                 contract: contract
             },

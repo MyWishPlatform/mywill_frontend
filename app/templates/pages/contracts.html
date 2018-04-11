@@ -43,42 +43,8 @@
                 </button>
             </div>
 
-            <div class="contract-block__buttons"  ng-include="'/templates/pages/contracts/list/' + (((contract.network == 1) || (contract.network == 2)) ? 'eth' : ((contract.network == 3) || (contract.network == 4) ? 'rsk' : 'neo')) + '-buttons.html'"></div>
+            <div class="contract-block__buttons"
+                 ng-include="'/templates/pages/contracts/list/' + getNetworkPath(contract.network) + '-buttons.html'"></div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-    <!-- div class="contracts-list-wrapper" ng-if="contractsList.length">
-        <div class="main-section-chapter-fieldset contracts-list-item"
-             ng-click="goToContract(contract, $event)"
-             ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
-
-            <div class="contract-status_container__network" ng-class="'contract-status_container__network_' + (contract.network || 1)">
-                <span>{{networks[contract.network]}}</span>
-            </div>
-
-            <div class="contract-name-block">
-                <span class="contract-show-button">
-                    <i ng-class="contractTypesIcons[contract.contract_type]"></i>
-                </span>
-                <div class="contract-name-text" ng-attr-title="{{contract.name}}">{{ contract.name || 'Not defined'}}</div>
-            </div>
-            <div class="clearfix show-ps"></div>
-            <div class="contract-status-block">
-                <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
-                    <div class="contract-status-text">
-                        <span>{{statuses[contract.state]['title']}}</span>
-                    </div>
-                </div>
-
-                <div class="contract-status-buttons" ng-include="'/templates/pages/contracts/list/' + (((contract.network == 1) || (contract.network == 2)) ? 'eth' : ((contract.network == 3) || (contract.network == 4) ? 'rsk' : 'neo')) + '-buttons.html'"></div>
-            </div>
-        </div>
-    </div -->
 </div>

@@ -146,6 +146,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
+    $rootScope.getNetworkPath = function(network) {
+        return ((network == 1) || (network == 2)) ? 'eth' : ((network == 3) || (network == 4) ? 'rsk' : 'neo');
+    };
+
     $rootScope.getEtherscanUrl = function(contract, path) {
         var networkType = (contract.network || 1) * 1;
         var addressPaths = {}, networkUrl;

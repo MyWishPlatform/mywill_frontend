@@ -14,16 +14,16 @@
 
 <!-- Activate instruction button -->
 <button ng-pop-up="{
-                                template: '/templates/popups/activate-disclaimer.html',
-                                params: {
-                                    contract: contract
-                                },
-                                class: 'conditions',
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
+            template: '/templates/popups/activate-disclaimer.html',
+            params: {
+                contract: contract
+            },
+            class: 'conditions',
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
         ng-if="statuses[contract.state]['value'] == 10"
         class="btn btn-submit hide-ps">
     <span>Activate</span>
@@ -40,15 +40,15 @@
 <!-- Deposit instruction button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
         ng-pop-up="{
-                                template: '/templates/popups/deposit-instruction.html',
-                                params: {
-                                    contract: contract
-                                },
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
+            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
         class="btn btn-transparent hide-ps">
     <span>Deposit</span>
 </button>

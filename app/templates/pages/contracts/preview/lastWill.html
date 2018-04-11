@@ -131,6 +131,7 @@
     <div class="shadow-block"
          ng-if="(contract.stateValue < 3) && (contract.cost != 0)"
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>
-    <div class="main-section-chapter-fieldset custom-fieldset" ng-include="'/templates/common/contracts/preview-buttons.html'"></div>
+    <div class="main-section-chapter-fieldset custom-fieldset"
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
 
 </div>

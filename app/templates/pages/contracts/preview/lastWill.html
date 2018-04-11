@@ -13,7 +13,7 @@
 </div>
 
 <div ng-show="contract.showedTab == 'code'">
-    <div class="shadow-block">
+    <div class="shadow-block after-tabs">
         <div class="shadow-block__content">
             <div class="github-link">
                 <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">{{$root.gitHubLink}}</a>
@@ -42,28 +42,27 @@
 
 <div ng-show="contract.showedTab == 'info'">
 
-    <div class="shadow-block">
+    <div class="shadow-block after-tabs">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
-            <div class="contract-wallets-information-one-block">
-                <span class="identicon-container relative-top">
-                    <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
-                </span>
-                <span class="form-control-label">Contract address:</span>
-                <div class="contract-wallet-information-wallet">
-                    <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + contract.contract_details.eth_contract.address}}"
-                       target="_blank"
-                       ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
-                    <button class="instruction-for-copy-button relative"
-                            clipboard supported="supported"
-                            ng-class="{copied: contract.copied['address']}"
-                            text="contract.contract_details.eth_contract.address"
-                            on-copied="successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
-                        <i class="icon-content_copy"></i>
-                    </button>
-                </div>
+            <div class="form-control-label">Contract address:</div>
+            <br class="show-ls"/>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
+            </span>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['address']}"
+                        text="contract.contract_details.eth_contract.address"
+                        on-copied="successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
             </div>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding">

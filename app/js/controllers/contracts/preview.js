@@ -1,5 +1,5 @@
 angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                        $timeout, CONTRACT_STATUSES_CONSTANTS, FileSaver) {
+                                                                        $timeout, CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
     var deletingProgress = false;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
@@ -31,6 +31,8 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
         $scope.contract.networkName = NETWORKS_TYPES_NAMES_CONSTANTS[$scope.contract.network || 1];
+        contract.balance = undefined;
+
 
         $scope.wishCost = new BigNumber($scope.contract.cost).div(Math.pow(10, 18)).round(2).toString(10);
         $scope.contract.discount = 0;
@@ -42,6 +44,18 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         contract.depositUrl = depositUrl + '&' + depositParams.join('&');
         contract.killUrl = killUrl + '&' + killParams.join('&');
         contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
+
+        contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
+            ((contract.network == 3) || (contract.network == 4)) ? 'RSK' : 'Unknown';
+
+        $scope.networkName = contract.currency;
+
+        if (contract.contract_details.eth_contract.address) {
+            web3Service.setProvider($scope.networkName === 'RSK' ? 'RSK' : 'infura');
+            web3Service.getBalance(contract.contract_details.eth_contract.address).then(function(result) {
+                contract.balance = result != 0 ? Web3.utils.fromWei(result, 'ether') : undefined;
+            });
+        }
     };
 
     $scope.deleteContract = function() {

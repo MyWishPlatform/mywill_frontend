@@ -46,7 +46,7 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.balance">
             <span class="form-control-label">
-                Contract balance: <b>{{(web3Utils.fromWei(contract.balance, 'ether') || 0 | number).replace($root.numberReplacer, ' ')}}&nbsp;ETH&nbsp;&nbsp;</b>
+                Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
             </span>
         </div>
 

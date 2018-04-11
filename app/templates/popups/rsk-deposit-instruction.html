@@ -14,7 +14,7 @@
             <p class="normal-text">
                 <span>If your BTC address has been whitelisted by RSK Community
                 you can send SBTC to contract
-                    <a ng-attr-href="{{ getEtherscanUrl(ngPopUp.params.contract, 'address') + '/' + contract.contract_details.eth_contract.address}}"
+                    <a ng-attr-href="{{ $root.getEtherscanUrl(ngPopUp.params.contract, 'address') + '/' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
                        target="_blank"
                        ng-bind="ngPopUp.params.contract.contract_details.eth_contract.address"></a>
                         directly.

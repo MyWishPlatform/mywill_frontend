@@ -15,8 +15,8 @@ module.constant('APP_CONSTANTS', {
     'ROPSTEN_ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
 
 
-    'RSK_ADDRESS': 'https://explorer.rsk.co/',
-    // 'RSK_ADDRESS': 'https://explorer.testnet.rsk.co/',
+    // 'RSK_ADDRESS': 'https://explorer.rsk.co/',
+    'RSK_ADDRESS': 'https://explorer.testnet.rsk.co/',
     'RSK_TESTNET_ADDRESS': 'https://explorer.testnet.rsk.co/',
 
 

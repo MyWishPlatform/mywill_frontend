@@ -9,18 +9,7 @@
             <span>After you create the contract you need to send funds to it.</span>
         </div>
     </div>
-    <div class="shadow-block__content">
-        <p class="normal-text">
-            <span>If your BTC address has been whitelisted by RSK Community
-            you can send SBTC to contract
-                <a ng-attr-href="{{ $root.getEtherscanUrl(ngPopUp.params.contract, 'address') + '/' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
-                   target="_blank"
-                   ng-bind="ngPopUp.params.contract.contract_details.eth_contract.address"></a>
-                    directly.
-            </span>
-        </p>
-    </div>
-    <div class="shadow-block__content no-border shadow-block__content_min-tb-padding">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"><br/>
         <ul class="new-instruction-list">
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text">
@@ -48,5 +37,17 @@
                 </div>
             </li>
         </ul>
+    </div>
+    <div class="form-fieldset-delimiter"><span>OR</span></div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <p class="normal-text">
+            <span>If your BTC address has been whitelisted by RSK Community
+            you can send SBTC to contract
+                <a ng-attr-href="{{ $root.getEtherscanUrl(ngPopUp.params.contract, 'address') + '/' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
+                   target="_blank"
+                   ng-bind="ngPopUp.params.contract.contract_details.eth_contract.address"></a>
+                    directly.
+            </span>
+        </p><br/><br/>
     </div>
 </div>

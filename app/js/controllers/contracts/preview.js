@@ -46,7 +46,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
 
         contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
-            ((contract.network == 3) || (contract.network == 4)) ? 'RSK' : 'Unknown';
+            ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
 
         $scope.networkName = contract.currency;
 
@@ -54,7 +54,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
         if (contract.contract_details.eth_contract.address) {
             web3Service.getBalance(contract.contract_details.eth_contract.address).then(function(result) {
-                contract.balance = result != 0 ? Web3.utils.fromWei(result, 'ether') : undefined;
+                contract.balance = Web3.utils.fromWei(result, 'ether');
             });
         }
     };

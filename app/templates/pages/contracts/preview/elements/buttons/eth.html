@@ -142,7 +142,8 @@
             </div>
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 4)">
                 <button ng-pop-up="{
-                            template: '/templates/popups/finalize-instruction.html',
+                            template: '/templates/popups/instructions/eth/finalize-instruction.html',
+                            newPopupContent: true,
                             params: {
                                 contract: contract
                             },

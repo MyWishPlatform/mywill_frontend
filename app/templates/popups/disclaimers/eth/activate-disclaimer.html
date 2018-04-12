@@ -21,7 +21,8 @@
             <button class="btn btn-submit"
                     ng-click="closeCurrentPopup()"
                     ng-pop-up="{
-                        template: '/templates/popups/activate-instruction.html',
+                        template: '/templates/popups/instructions/eth/activate-instruction.html',
+                        newPopupContent: true,
                         params: ngPopUp.params,
                         actions: ngPopUp.actions,
                         onClose: closeCommonPopup

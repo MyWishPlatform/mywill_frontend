@@ -1,58 +1,37 @@
-.buy-tokens {
-    .btns-full-width {
-        display: flex;
-        justify-content: space-between;
-    }
-    .simple-text {
-        font-size: 1.4em;
-    }
-    .main-section-chapter-fieldset {
-        padding-bottom: 0;
-    }
-    .icon-wallet {
-        font-size: 2.8em;
-        margin-right: 0.5em;
-    }
-    .buy-tokens {
-        &__title {
-            font-weight: bold;
-            font-size: 24px;
-            color: #282828;
-            padding: 25px 0 0;
-        }
-    }
-    .form-control {
-        &--copy {
-            margin-top: 36px;
-        }
-        &--payment-title {
-            margin-bottom: 20px;
-        }
-    }
+.btns-full-width {
+    display: flex;
+    justify-content: space-between;
+}
 
-    .choose {
-        input {
-            display: none;
-            &:checked + .btn {
-                border: 2px solid #206EFF;
-            }
+.choose {
+    input {
+        display: none;
+        &:checked + .btn {
+            border: 2px solid #206EFF;
         }
-        .btn span {
-            display: block;
-            margin: 0 auto;
-            text-align: center;
-        }
+    }
+    .btn span {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
     }
 }
+
+.form-control {
+    &--copy {
+        margin-top: 36px;
+    }
+    &--payment-title {
+        margin-bottom: 20px;
+    }
+}
+
 .attention-text {
     font-size: 1.2em;
     color: #616161;
     line-height: 1.25em;
     &:not(.without-top) {
         margin-top: 30px;
-    }
-    &.after-form-title {
-
     }
     &__title {
         color: #E84848;
@@ -71,60 +50,57 @@
 }
 
 @media (max-width: 680px) {
-    .buy-tokens {
-        .contract-form-fieldset-grey {
-            .btns-full-width {
-                padding: 0;
-                display: flex;
-                margin: 0 auto;
-                float: none;
-                justify-content: space-around;
-                .choose {
-                    margin-top: 20px;
-                    .btn {
-                        width: 76px;
-                    }
-                }
-            }
-            .simple-text {
-                text-align: center;
-            }
-        }
-        .payment-row {
+    .btns-full-width {
+        padding: 0;
+        display: flex;
+        margin: 0 auto;
+        float: none;
+        justify-content: space-around;
+        .choose {
+            margin-top: 20px;
             .btn {
-                width: 200px;
-                display: block;
-                background-position-x: 40px;
-                float: left;
+                width: 76px;
             }
         }
-        .gas-info {
-            font-size: 1em;
-            .form-control {
-                &-label {
-                    font-size: 1em;
-                }
-                &--copy {
-                    margin-top: 0;
+    }
+}
+@media (max-width: 680px) {
+    .payment-row {
+        .btn {
+            width: 200px;
+            display: block;
+            background-position-x: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 1.5em;
+        }
+    }
+    .gas-info {
+        font-size: 1em;
+        .form-control {
+            &-label {
+                font-size: 1em;
+            }
+            &--copy {
+                margin-top: 0;
+                float: right;
+            }
+        }
+        & > .grid-cell {
+            margin-top: 5px
+        }
+    }
+    .form-control {
+        &--copy {
+            &--mobile {
+                margin-top: 5px;
+                .btn {
                     float: right;
                 }
             }
-            & > .grid-cell {
-                margin-top: 5px
-            }
         }
-        .form-control {
-            &--copy {
-                &--mobile {
-                    margin-top: 5px;
-                    .btn {
-                        float: right;
-                    }
-                }
-            }
-        }
-        .attention-text {
-            padding-left: 0;
-        }
+    }
+    .attention-text {
+        padding-left: 0;
     }
 }

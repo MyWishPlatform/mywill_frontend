@@ -1,14 +1,11 @@
 <form ng-controller="buytokensEthController" name="buyTokensForm">
-
-    <div class="contract-form-fieldset">
-        <br/>
-        <div class="grid-row contract-form-row">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label">Send&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
                     <input type="text" placeholder="0"
                            class="form-control-input with-currency" ng-model="formData.ethAmount"
-                           required
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
                            ng-change="checkWishesAmount()">
@@ -20,15 +17,14 @@
                     <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;Get</label>
                     <input type="text" placeholder="0"
                            class="form-control-input with-currency"
-                           required
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
                            ng-model="formData.wishesAmount" ng-change="checkEthAmount()">
                     <div class="input-after">WISH</div>
                 </div>
             </div>
-        </div>
-        <div class="grid-row contract-form-row">
+        </div><br/>
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label">Send your ETH to:</label>
@@ -36,7 +32,6 @@
                            disabled ng-model="formData.toAddress">
                 </div>
             </div>
-
             <div class="grid-cell hide-ps grid-cell-1-4">
                 <div class="form-control text-right">
                     <span class="form-control-label">&nbsp;</span>
@@ -68,7 +63,6 @@
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
-
                 <div class="form-control">
                     <div class="form-control-description one-line">
                         <span class="form-control-description__text">Gas limit 100.000</span>
@@ -93,13 +87,12 @@
     </div>
 
     <div class="form-fieldset-delimiter"><span>OR</span></div>
-
-    <div class="contract-form-fieldset">
-        <div class="grid-row contract-form-row payment-row">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row payment-row">
             <div class="grid-cell grid-cell-1">
-                <div class="form-control form-control--payment-title">
+                <div class="form-control">
                     <label class="form-control-label">Select payment method:</label>
-                </div>
+                </div><br/>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
                 <div class="form-control form-control">
@@ -132,7 +125,11 @@
                 </div>
             </div>
         </div>
-        <div class="grid-row contract-form-row" ng-if="formData.activeService">
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-if="formData.activeService">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1" ng-if="formData.activeService != 'myetherwallet'">
                 <div class="form-control">
                     <label class="form-control-label">Choose your wallet:</label>
@@ -171,7 +168,6 @@
                        href="http://localhost:8545">
                         <span>&nbsp;&nbsp;&nbsp;Pay&nbsp;&nbsp;&nbsp;</span>
                     </a>
-
                     <a class="btn btn-transparent center-input-field"
                        ng-click="sendEvent('Button_Pay_Click', 'on_pay_' + visibleForm + '_' + formData.activeService)"
                        ng-if="formData.activeService == 'myetherwallet'"
@@ -179,23 +175,17 @@
                        ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?sendMode=ether&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount + '#send-transaction' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;Pay&nbsp;&nbsp;&nbsp;</span>
                     </a>
-
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="contract-form-fieldset with-padding contract-form-fieldset-grey">
-        <div class="grid-row contract-form-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="form-control float-right">
-                    <button class="btn btn-submit"
-                            type="button"
-                            ng-click="payDone()">
-                        <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
-                    </button>
-                </div>
-            </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="form-control float-right">
+            <button class="btn btn-submit"
+                    type="button"
+                    ng-click="payDone()">
+                <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+            </button>
         </div>
     </div>
 </form>

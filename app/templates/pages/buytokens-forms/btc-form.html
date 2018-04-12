@@ -1,8 +1,6 @@
 <form ng-controller="buytokensBtcController" name="buyTokensForm">
-
-    <div class="contract-form-fieldset">
-        <br/>
-        <div class="grid-row contract-form-row">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label">Send&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
@@ -27,8 +25,8 @@
                     <div class="input-after">WISH</div>
                 </div>
             </div>
-        </div>
-        <div class="grid-row contract-form-row">
+        </div><br/>
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label">Send your BTC to:</label>
@@ -64,21 +62,16 @@
                 <i class="icon-alert-circle"></i>ATTENTION!
             </div>
             You will receive tokens after 5 BTC blocks confirmation. The approximate time of the transaction is 1 hour.
-        </div><br/>
+        </div>
     </div>
 
-
-    <div class="contract-form-fieldset with-padding contract-form-fieldset-grey">
-        <div class="grid-row contract-form-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="form-control float-right">
-                    <button class="btn btn-submit"
-                            type="button"
-                            ng-click="payDone()">
-                        <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
-                    </button>
-                </div>
-            </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="form-control float-right">
+            <button class="btn btn-submit"
+                    type="button"
+                    ng-click="payDone()">
+                <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+            </button>
         </div>
     </div>
 </form>

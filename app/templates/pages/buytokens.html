@@ -1,57 +1,68 @@
-<div class="main-section-content buy-tokens">
-    <div class="main-section-chapter" name="tokenInfoForm">
-        <div class="main-section-chapter-fieldset">
+<div class="main-section-content">
+    <div class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-1">
-                    <div class="main-section-chapter-title">
-                        <i class="main-section-chapter-title_icon icon-wallet"></i>
-                        <span class="main-section-chapter-title_text">Buy Tokens</span>
+                    <div class="shadow-block__content__blue-title">
+                        <i class="shadow-block__content__blue-title__icon icon-wallet"></i>
+                        <div class="shadow-block__content__blue-title__name">
+                            <span class="big-size">Buy Tokens&nbsp;</span>
+                        </div>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-3-5 grid-cell-ps-1">
-                    <div class="attention-text-container after-form-title">
-                        <div class="attention-text without-top">
-                            <div class="attention-text__title">
-                                <i class="icon-alert-circle"></i>Please note!
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                        <div class="attention-text-container after-form-title">
+                            <div class="attention-text without-top">
+                                <div class="attention-text__title">
+                                    <i class="icon-alert-circle"></i>Please note!
+                                </div>
+                                After replenish you will be not able to transfer/exchange tokens.
+                                You can use it only for contracts creation inside the Platform
                             </div>
-                            After replenish you will be not able to transfer/exchange tokens. You can use it only for contracts creation inside the Platform
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="contract-form-fieldset contract-form-fieldset-grey with-padding">
-                <div class="grid-row contract-form-row">
-                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
-                        <div class="simple-text">
-                            Choose replenish method
-                        </div>
-                    </div>
-                    <div class="grid-cell grid-cell-3-4 grid-cell-ps-1 btns-full-width">
-                        <label class="choose">
-                            <input type="radio" ng-model="visibleForm" value="wish">
-                            <div class="btn btn-gray payment-method">
-                                <span>WISH</span>
-                            </div>
-                        </label>
-                        <label class="choose">
-                            <input type="radio" ng-model="visibleForm" value="eth">
-                            <div class="btn btn-gray payment-method">
-                                <span>ETH</span>
-                            </div>
-                        </label>
-                        <label class="choose">
-                            <input type="radio" ng-model="visibleForm" value="btc">
-                            <div class="btn btn-gray payment-method">
-                                <span>BTC</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>
-            <div ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
-            <div ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
         </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
+                    <label class="form-control-label-checkbox">
+                        <span>Choose replenish method</span>
+                    </label>
+                </div>
+                <div class="grid-cell grid-cell-3-4 grid-cell-ps-1 btns-full-width">
+                    <label class="btn btn-gray nowrap payment-method"
+                           ng-class="{'active': visibleForm === 'wish'}">
+                        <input type="radio" class="hidden-input"
+                               ng-model="visibleForm"
+                               value="wish" name="buy-tokens-net">
+                        <span>WISH</span>
+                    </label>
+                    <label class="btn btn-gray nowrap payment-method"
+                           ng-class="{'active': visibleForm === 'eth'}">
+                        <input type="radio" class="hidden-input"
+                               ng-model="visibleForm"
+                               value="eth" name="buy-tokens-net">
+                        <span>ETH</span>
+                    </label>
+                    <label class="btn btn-gray nowrap payment-method"
+                           ng-class="{'active': visibleForm === 'btc'}">
+                        <input type="radio" class="hidden-input"
+                               ng-model="visibleForm"
+                               value="btc" name="buy-tokens-net">
+                        <span>BTC</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
     </div>
 </div>

@@ -148,8 +148,8 @@
   padding-right: 0.9em;
   .btn {
     margin-top: 1.5em;
-    span {
-      width: 5em;
+    &:not(.only-icon) {
+      width: 12em;
     }
   }
 }

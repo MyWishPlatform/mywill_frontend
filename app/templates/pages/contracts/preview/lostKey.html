@@ -72,7 +72,8 @@
                 <button
                         ng-if="contract.stateValue == 4"
                         ng-pop-up="{
-                            template: '/templates/popups/parity-instruction.html',
+                            template: '/templates/popups/instructions/eth/parity-instruction.html',
+                            newPopupContent: true,
                             onClose: ngPopUp.onClose,
                             actions: {
                                 successCodeCopy: successCodeCopy

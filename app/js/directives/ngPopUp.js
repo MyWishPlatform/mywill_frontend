@@ -37,6 +37,10 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 currentWindow = popupWindow.clone().appendTo(currentWindowWrapper).addClass($scope.ngPopUp.class);
                 var currentCloser = popupCloser.clone().appendTo(currentWindowWrapper);
                 var currentPopupContent = popupContent.clone();
+
+                if ($scope.ngPopUp.newPopupContent) {
+                    currentPopupContent.removeClass('popup-content').addClass('new-popup-content')
+                }
                 currentPopupContent.appendTo(currentWindow);
 
                 if (!($scope.ngPopUp.params && $scope.ngPopUp.params.withoutCloser)) {

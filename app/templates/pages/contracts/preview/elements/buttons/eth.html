@@ -88,7 +88,8 @@
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
                 <!-- Deposit instruction button -->
                 <button ng-pop-up="{
-                            template: '/templates/popups/instructions/rsk/deposit-instruction.html',
+                            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+                            newPopupContent: true,
                             params: {
                                 contract: contract
                             },

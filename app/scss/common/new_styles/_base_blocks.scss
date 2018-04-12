@@ -89,6 +89,7 @@
       border-bottom-right-radius: 2.9em;
       color: #fff;
       max-width: 96%;
+      margin-right: 2%;
       &.static-width {
         width: 32em;
       }
@@ -117,6 +118,16 @@
             font-size: 2em;
           }
         }
+      }
+    }
+    &__description {
+      line-height: 3.8em;
+      margin: 1em 0 0.8em 2em;
+      span {
+        font-size: 1.4em;
+        line-height: 1.2em;
+        font-weight: bold;
+        display: inline-block;
       }
     }
   }

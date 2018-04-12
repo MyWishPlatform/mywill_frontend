@@ -24,6 +24,7 @@
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
         ng-pop-up="{
             template: '/templates/popups/instructions/rsk/deposit-instruction.html',
+            newPopupContent: true,
             params: {
                 contract: contract
             },

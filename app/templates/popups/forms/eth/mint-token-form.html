@@ -1,21 +1,18 @@
-<div class="contract-popup-wrapper without-padding" ng-controller="tokenMintController">
-    <form class="main-section-chapter-fieldset custom-fieldset" name="mintForm">
-        <div class="contract-form-fieldset">
-            <div class="main-section-chapter-title">
-                <i class="main-section-chapter-title_icon icon-token"></i>
-                <span class="main-section-chapter-title_text">{{ngPopUp.params.contract.name}}</span>
+<div class="shadow-block" ng-controller="tokenMintController">
+    <form name="mintForm">
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-token"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span>{{ngPopUp.params.contract.name}}&nbsp;</span>
+                </div>
             </div>
         </div>
-
-
-        <div class="contract-form-fieldset relative with-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control">
+                <div class="form-control-label">Define address for tokens (after minting it will be sent to this address)</div>
+            </div>
             <div class="grid-row contract-form-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="form-control">
-                        <div class="form-control-label">Define address for tokens (after minting it will be sent to this address)</div>
-                    </div>
-                </div>
-
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <label for="out-wallet-key" class="form-control-label">Address</label>
@@ -53,9 +50,9 @@
                                 <label class="checkbox-decoration">
                                     <input type="checkbox" ng-model="recipient.isFrozen"/>
                                     <span class="checkbox-decoration-displaying">
-                                    <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                                    <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
-                                </span>
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                                    </span>
                                 </label>
                             </div>
 
@@ -79,8 +76,7 @@
                 </div>
             </div>
         </div>
-
-        <div class="contract-form-fieldset with-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
@@ -103,10 +99,11 @@
                 </div>
             </div>
         </div>
-        <div class="contract-form-fieldset with-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
             <button class="btn btn-submit" type="button"
                     ng-pop-up="{
-                        template: '/templates/popups/mint-instruction.html',
+                        template: '/templates/popups/instructions/eth/mint-instruction.html',
+                        newPopupContent: true,
                         params: {
                             contract: contract,
                             recipient: recipient,

@@ -1,0 +1,33 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-warning"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">Disclaimer&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <ul class="condition-text">
+            <li class="condition-text-item">For sale activation you need to transfer token ownership to crowdsale contract.</li>
+            <li class="condition-text-item">You will need to make the special transaction from token owner address ({{ngPopUp.params.contract.contract_details.admin_address}})</li>
+        </ul>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="text-center">
+            <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                <span>Cancel</span>
+            </button>
+            <button class="btn btn-submit"
+                    ng-click="closeCurrentPopup()"
+                    ng-pop-up="{
+                        template: '/templates/popups/activate-instruction.html',
+                        params: ngPopUp.params,
+                        actions: ngPopUp.actions,
+                        onClose: closeCommonPopup
+                    }">
+                <span>Continue</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -90,7 +90,8 @@
 
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
         ng-pop-up="{
-            template: '/templates/popups/finalize-instruction.html',
+            template: '/templates/popups/instructions/eth/finalize-instruction.html',
+            newPopupContent: true,
             params: {
                 contract: contract
             },

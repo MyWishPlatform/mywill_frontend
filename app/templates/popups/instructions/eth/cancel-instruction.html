@@ -70,9 +70,8 @@
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
                                 text="ngPopUp.params.contract.willCode"
-                                ng-class="{copied: contract.copied['willCode']}"
-                                on-copied="successCodeCopy(contract, 'willCode')"
-                                on-error="failCodeCopy(err)">&nbsp;
+                                ng-class="{copied: ngPopUp.params.contract.copied['willCode']}"
+                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'willCode')">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
                         <div class="copy-block__text json-text">{{ngPopUp.params.contract.willCode}}</div>

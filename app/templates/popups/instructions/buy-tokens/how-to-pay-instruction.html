@@ -25,8 +25,8 @@
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
                                 text="ngPopUp.params.createdContract.toAddress"
-                                ng-class="{copied: ngPopUp.params.contract.copied['toAddress']}"
-                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.createdContract, 'toAddress')">&nbsp;
+                                ng-class="{copied: ngPopUp.params.createdContract.copied['toAddress']}"
+                                on-copied="ngPopUp.params.successCodeCopy(ngPopUp.params.createdContract, 'toAddress')">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
                         <div class="copy-block__text">{{ngPopUp.params.createdContract.toAddress}}</div>

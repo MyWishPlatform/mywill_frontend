@@ -144,11 +144,12 @@ angular.module('app').controller('contractsPreviewController', function($state, 
                     contract: contract,
                     withoutCloser: true,
                     class: 'conditions',
+                    newPopupContent: true,
                     actions: {
                         showPriceLaunchContract: showPriceLaunchContract
                     }
                 };
-                $rootScope.commonOpenedPopup = 'conditions';
+                $rootScope.commonOpenedPopup = 'disclaimers/conditions';
             };
 
             var promoIsEntered = $scope.getDiscount();

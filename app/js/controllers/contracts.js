@@ -71,11 +71,12 @@ angular.module('app').controller('contractsController', function(contractService
                 contract: contract,
                 withoutCloser: true,
                 class: 'conditions',
+                newPopupContent: true,
                 actions: {
                     showPriceLaunchContract: showPriceLaunchContract
                 }
             };
-            $rootScope.commonOpenedPopup = 'conditions';
+            $rootScope.commonOpenedPopup = 'disclaimers/conditions';
             contract.isDeployProgress = false;
         }, function() {
             contract.isDeployProgress = false;

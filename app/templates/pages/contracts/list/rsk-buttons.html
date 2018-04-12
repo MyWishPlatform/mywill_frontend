@@ -55,7 +55,8 @@
 <!-- Cancel instruction button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
         ng-pop-up="{
-            template: '/templates/popups/rsk-cancel-instruction.html',
+            template: '/templates/popups/instructions/rsk/cancel-instruction.html',
+            newPopupContent: true,
             params: {
                 contract: contract
             },

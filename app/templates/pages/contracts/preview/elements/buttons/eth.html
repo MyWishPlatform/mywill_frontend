@@ -101,10 +101,12 @@
                     <span>Deposit</span>
                 </button><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
                 <!-- Cancel instruction button -->
                 <button ng-pop-up="{
-                            template: '/templates/popups/stop-instruction.html',
+                            template: '/templates/popups/instructions/eth/cancel-instruction.html',
+                            newPopupContent: true,
                             params: {
                                 contract: contract
                             },

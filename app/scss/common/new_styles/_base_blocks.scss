@@ -123,11 +123,18 @@
     &__description {
       line-height: 3.8em;
       margin: 1em 0 0.8em 2em;
-      span {
+      > span {
         font-size: 1.4em;
         line-height: 1.2em;
         font-weight: bold;
         display: inline-block;
+      }
+      &__red {
+        background-color: rgb(214, 74, 74);
+        padding: 0.3em 0.5em;
+        margin: 0 0.2em;
+        color: #fff;
+        border-radius: 2px;
       }
     }
   }

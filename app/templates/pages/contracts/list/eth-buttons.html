@@ -54,6 +54,22 @@
     <span>Deposit</span>
 </button>
 
+<!-- Confirm live instruction button -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 0)"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/i-alive-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            }
+        }"
+        class="btn btn-transparent hide-ps nowrap">
+    <span>I Alive</span>
+</button>
+
 <!-- Cancel instruction button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
         ng-pop-up="{

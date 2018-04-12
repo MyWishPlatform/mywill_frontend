@@ -38,9 +38,10 @@
 </button>
 
 <!-- Confirm live instruction button -->
-<button  ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 0)"
          ng-pop-up="{
-            template: '/templates/popups/rsk-confirm-live-instruction.html',
+            template: '/templates/popups/instructions/rsk/i-alive-instruction.html',
+            newPopupContent: true,
             params: {
                 contract: contract
             },

@@ -101,6 +101,25 @@
                     <span>Deposit</span>
                 </button><br/><br/>
             </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 0)">
+                <!-- Deposit instruction button -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/i-alive-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>I Alive</span>
+                </button><br/><br/>
+            </div>
+
+
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
                 <!-- Cancel instruction button -->

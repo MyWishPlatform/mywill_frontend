@@ -14,25 +14,26 @@
 <div ng-show="contract.showedTab == 'code'">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content">
-            <div class="github-link">
-                <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">{{$root.gitHubLink}}</a>
-            </div>
+            <p class="normal-text">
+                <span>Your Will source code
+                    <span class="as-link dotted"
+                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(will)')">
+                        <span>here</span>
+                    </span>
+                </span>
+            </p>
+            <p class="normal-text">
+                <span>Libraries & other files can be found
+                    <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">here</a>
+                </span>
+            </p>
+        </div>
 
-            <div class="clearfix"><br/></div>
-
-            <div class="contract-preview-code-content" ng-if="contract.contract_details.eth_contract.source_code">
-                <div class="contract-preview-code-text">
-                    {{contract.contract_details.eth_contract.source_code}}
-                </div>
-                <button class="for-copy-button"
-                        ng-class="{copied: contract.copied['code']}"
-                        clipboard supported="supported"
-                        text="contract.contract_details.eth_contract.source_code"
-                        on-copied="successCodeCopy(contract, 'code')"
-                        on-error="failCodeCopy(err)">
-                    <i class="icon-content_copy"></i>
-                </button>
-            </div>
+        <div class="shadow-block__content">
+            <p class="normal-text">
+                If you need to verify contract on Etherscan please contact us by
+                <a href="mailto:support@mywish.io">email</a>
+            </p>
         </div>
     </div>
 </div>

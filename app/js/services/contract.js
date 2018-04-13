@@ -119,16 +119,16 @@ angular.module('Services').service('contractService', function(requestService, A
         sendIAmAlive: function(data) {
             var params = {
                 path: API.I_AM_ALIVE,
-                query: data
+                data: data
             };
-            return requestService.get(params);
+            return requestService.post(params);
         },
         sendCancelContract: function(data) {
             var params = {
                 path: API.CONTRACT_CANCEL,
-                query: data
+                data: data
             };
-            return requestService.get(params);
+            return requestService.post(params);
         }
     }
 });

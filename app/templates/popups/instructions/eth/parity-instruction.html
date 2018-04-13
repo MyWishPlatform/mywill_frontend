@@ -47,6 +47,25 @@
                         <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract.address}}</div>
                     </div>
                 </div>
+                <ul class="condition-text">
+                    <li class="condition-text-item">
+                        Specify the name of the contract (the name that you specified in MyWish service is recommended )
+                    </li>
+                    <li class="condition-text-item">Enter the contract description (optionally)</li>
+                    <li class="condition-text-item">
+                        Copy ABI contract from MyWish instruction
+                        <div class="copy-block">
+                            <button class="copy-block__button relative"
+                                    clipboard supported="supported"
+                                    text="ngPopUp.params.contract.contract_details.eth_contract.abi|json"
+                                    ng-class="{copied: ngPopUp.params.contract.copied['abi']}"
+                                    on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'abi')">&nbsp;
+                                <i class="icon-content_copy"></i>
+                            </button>
+                            <div class="copy-block__text json-text">{{ngPopUp.params.contract.contract_details.eth_contract.abi|json}}</div>
+                        </div>
+                    </li>
+                </ul>
             </li>
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text">

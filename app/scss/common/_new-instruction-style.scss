@@ -1,12 +1,20 @@
 .new-instruction-list {
-  list-style-type: decimal;
+  list-style-type: none;
   padding: 0 0 0 1.5em;
   margin: 0;
   &__item {
     padding: 0.5em 0;
     counter-increment: itemCounter;
-    font-size: 1.5em;
+    position: relative;
     &__text {
+      &:before {
+        content: counter(itemCounter)'.';
+        position: absolute;
+        right: 100%;
+        margin-right: 0.5em;
+        top: 0.33em;
+      }
+      font-size: 1.5em;
     }
   }
 }

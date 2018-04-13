@@ -43,7 +43,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
         contract.depositUrl = depositUrl + '&' + depositParams.join('&');
         contract.killUrl = killUrl + '&' + killParams.join('&');
-        contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
 
         contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
             ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';

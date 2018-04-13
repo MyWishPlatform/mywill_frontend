@@ -6,24 +6,23 @@ module.constant('APP_CONSTANTS', {
     'WISH': {
         'ADDRESS': '0x1b22c32cd936cb97c28c5690a0695a82abf688e6'
     },
-    // 'INFURA_ADDRESS': "https://mainnet.infura.io/MEDIUMTUTORIAL",
-    'INFURA_ADDRESS': "https://ropsten.infura.io/MEDIUMTUTORIAL",
+    'INFURA_ADDRESS': "https://mainnet.infura.io/MEDIUMTUTORIAL",
+    // 'INFURA_ADDRESS': "https://ropsten.infura.io/MEDIUMTUTORIAL",
     'ROPSTEN_INFURA_ADDRESS': 'https://ropsten.infura.io/MEDIUMTUTORIAL',
 
-    'ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
-    // 'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
+    // 'ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
+    'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
     'ROPSTEN_ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
 
 
-    // 'RSK_ADDRESS': 'https://explorer.rsk.co/',
-    'RSK_ADDRESS': 'https://explorer.testnet.rsk.co/',
+    'RSK_ADDRESS': 'https://explorer.rsk.co/',
+    // 'RSK_ADDRESS': 'https://explorer.testnet.rsk.co/',
     'RSK_TESTNET_ADDRESS': 'https://explorer.testnet.rsk.co/',
 
 
-    // 'RSK_NET_ADDRESS': 'https://mywish.io/endpoint/rsk',
     'RSK_NET_ADDRESS': '/endpoint/rsk',
-    // 'RSK_TESTNET_NET_ADDRESS': 'http://dev.mywish.io/endpoint/rsk',
-    'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk',
+    // 'RSK_NET_ADDRESS': '/endpoint/rsk-testnet',
+    'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
 
     'EMPTY_PROFILE': {

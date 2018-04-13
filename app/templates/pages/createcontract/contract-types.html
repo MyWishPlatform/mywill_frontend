@@ -67,8 +67,12 @@
             <div ng-if="blockChainNetwork.isTest" ng-pop-up="{
                 opened: true,
                 newPopupContent: true,
-                template: '/templates/popups/disclaimers/all/test-net-disclaimer.html',
-                class: 'conditions'
+                template: '/templates/popups/disclaimers/all/test-net-disclaimer.html'
+            }"></div>
+            <div ng-if="blockChainNetwork.type == 'rsk'" ng-pop-up="{
+                opened: true,
+                newPopupContent: true,
+                template: '/templates/popups/disclaimers/btc-how-it-works.html'
             }"></div>
         </div>
     </div>

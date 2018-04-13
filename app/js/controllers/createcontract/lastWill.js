@@ -146,7 +146,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.request = angular.copy(contract.contract_details);
 
         $scope.contractName = contract.name;
-        $scope.hairsList = contract.contract_details.heirs || [{
+        $scope.hairsList = contract.contract_details.heirs ? angular.copy(contract.contract_details.heirs) : [{
             percentage: 100
         }];
 

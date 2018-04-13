@@ -144,6 +144,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(folders['npm'], 'angular-clipboard', 'angular-clipboard.js'),
             path.join(folders['npm'], 'angular-file-saver', 'dist', 'angular-file-saver.bundle.min.js'),
             path.join(folders['npm'], 'angular-touch', 'angular-touch.min.js'),
+            path.join(folders['npm'], 'angular-ui-carousel', 'dist', 'ui-carousel.min.js'),
             path.join(folders['npm'], 'moment', 'min', 'moment.min.js'),
             path.join(folders['npm'], 'moment-timezone', 'builds', 'moment-timezone-with-data.min.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'amcharts.js'),

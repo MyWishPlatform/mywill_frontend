@@ -72,7 +72,16 @@
             <div ng-if="blockChainNetwork.type == 'rsk'" ng-pop-up="{
                 opened: true,
                 newPopupContent: true,
-                template: '/templates/popups/disclaimers/btc-how-it-works.html'
+                template: '/templates/popups/disclaimers/btc-how-it-works.html',
+                params: {
+                    slides: [
+                        {
+                            image: '/static/images/btc-how-it-works/sh_01.png'
+                        }, {
+                            image: '/static/images/btc-how-it-works/sh_02.png'
+                        }
+                    ]
+                }
             }"></div>
         </div>
     </div>

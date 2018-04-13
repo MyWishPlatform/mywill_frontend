@@ -43,7 +43,14 @@
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">{{networkName}} address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission</span>
+                <span class="form-control-description__text" ng-if="networkName == 'ETH'">
+                    {{networkName}} address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission
+                </span>
+                <span class="form-control-description__text" ng-if="networkName == 'RSK'">
+                    This address will manage your contract.
+                    You can create it by <a href="https://jaxx.io/" target="_blank">Jaxx</a> wallet.
+                    Double check it before submission.
+                </span>
             </div>
             <div class="clearfix"></div><br/>
 
@@ -81,7 +88,14 @@
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">Enter {{networkName}} address of beneficiary. After contract execution funds will be sent to that address.</span>
+
+                <span class="form-control-description__text" ng-if="networkName == 'ETH'">
+                    Enter {{networkName}} address of beneficiary. After contract execution funds will be sent to that address.
+                </span>
+                <span class="form-control-description__text" ng-if="networkName == 'RSK'">
+                    Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by
+                    <a href="https://jaxx.io/" target="_blank">jaxx</a> too.
+                </span>
             </div>
             <div class="clearfix"></div><br/>
             <div class="grid-cell grid-cell-1" ng-if="hairsList.length > 1">

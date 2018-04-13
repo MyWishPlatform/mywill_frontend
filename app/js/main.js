@@ -4,7 +4,7 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngFileSaver']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngFileSaver', 'ui.carousel']);
 if (UAParser(window.navigator.userAgent).device.type === "mobile") {
     module.requires.push('ngTouch');
 }

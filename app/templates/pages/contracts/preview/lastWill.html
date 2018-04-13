@@ -46,8 +46,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
-
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.balance">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
             <span class="form-control-label">
                 Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;{{contract.currency}}&nbsp;&nbsp;</b>
             </span>
@@ -103,6 +102,38 @@
                 </div>
             </div>
         </div>
+
+        <!-- Platform -->
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <span class="form-control-label">
+                        Cancel contract via MyWish
+                    </span>
+                    <div class="contract-preview-base-font">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': contract.contract_details.platform_cancel, 'icon-cancel': !contract.contract_details.platform_cancel}"></i>
+                            <span ng-if="contract.contract_details.platform_cancel">YES</span>
+                            <span ng-if="!contract.contract_details.platform_cancel">NO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <span class="form-control-label">
+                        Confirm "Live" via MyWish
+                    </span>
+                    <div class="contract-preview-base-font">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': contract.contract_details.platform_alive, 'icon-cancel': !contract.contract_details.platform_alive}"></i>
+                            <span ng-if="contract.contract_details.platform_alive">YES</span>
+                            <span ng-if="!contract.contract_details.platform_alive">NO</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">

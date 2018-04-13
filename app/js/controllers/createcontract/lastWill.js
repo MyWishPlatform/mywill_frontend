@@ -92,6 +92,8 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
             contract_type: CONTRACT_TYPES_CONSTANTS.LAST_WILL,
             network: contract.network,
             contract_details: {
+                platform_cancel: $scope.request.platform_cancel,
+                platform_alive: $scope.request.platform_alive,
                 user_address: $scope.request.user_address,
                 email: $scope.request.email,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
@@ -147,7 +149,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.hairsList = contract.contract_details.heirs || [{
             percentage: 100
         }];
-        console.log(contract.contract_details.check_interval);
+
         var checkInterval = contract.contract_details.check_interval ? $scope.durationList.filter(function(check) {
             return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
         }) : false;

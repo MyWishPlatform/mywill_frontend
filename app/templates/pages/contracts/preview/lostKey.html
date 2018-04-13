@@ -45,7 +45,7 @@
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.balance">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
             <span class="form-control-label">
                 Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
             </span>

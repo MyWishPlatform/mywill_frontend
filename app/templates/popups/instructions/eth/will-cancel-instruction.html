@@ -2,26 +2,26 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
-                <span class="uppercase">Confirm Live&nbsp;</span>
+                <span class="uppercase">Cancel&nbsp;</span>
             </div>
         </div>
         <div class="shadow-block__content__description">
             <span>
-                To Confirm your live status please do the following:
+                After cancellation all funds will be sent to your management address.<br/>
+                To Cancel please do the following:
             </span>
         </div>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
         <div class="normal-text">
-            Send any transaction from your management address
+            Send transaction from your management address
             (<a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}">{{ngPopUp.params.contract.contract_details.user_address|toCheckSum}}</a>)
             to Will contract address
             (<a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.contract.contract_details.eth_contract.eth_contract.address|toCheckSum}}">{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}</a>)
-            with Data field (<b>0x9dddafe4</b>)
+            with Data field (<b>0x41c0e1b5</b>)
         </div>
     </div>
-
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border"
          ng-if="ngPopUp.params.contract.contract_details.last_check || ngPopUp.params.contract.contract_details.next_check">
         <div class="contract-preview-base-font">
@@ -35,7 +35,6 @@
             </div>
         </div>
     </div>
-
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
         <button class="btn btn-submit" ng-click="closeCurrentPopup()">
             <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>

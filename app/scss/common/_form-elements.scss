@@ -493,6 +493,10 @@ input {
     input:checked ~ & {
       background-color: #206eff;
     }
+    input:disabled ~ & {
+      opacity: 0.5;
+      cursor: default;
+    }
     &:after {
       content: '';
       width: 2.1em;

@@ -55,8 +55,9 @@
     <span>Deposit</span>
 </button>
 
-<!-- Confirm live instruction button -->
-<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 0)"
+
+<!-- I Alive instruction button (Will | platform_alive == false) -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 0) && (!contract.contract_details.platform_alive))"
         ng-pop-up="{
             template: '/templates/popups/instructions/eth/i-alive-instruction.html',
             newPopupContent: true,
@@ -65,16 +66,68 @@
             },
             actions: {
                 successCodeCopy: successCodeCopy
-            }
+            },
+            onClose: returnToList
         }"
-        class="btn btn-transparent hide-ps nowrap">
+        class="btn btn-transparent hide-ps">
     <span>I Alive</span>
 </button>
 
-<!-- Cancel instruction button -->
-<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
+<!-- I Alive instruction button (Will | platform_alive true) -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 0) && (contract.contract_details.platform_alive))"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/networks/i-alive-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>I Alive</span>
+</button>
+
+<!-- Cancel instruction button (Deferred, Lost Key) -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 1) || (contract.contract_type == 2))"
         ng-pop-up="{
             template: '/templates/popups/instructions/eth/cancel-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>Cancel</span>
+</button>
+
+<!-- Cancel instruction button (Will | platform_cancel == false) -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 0) && (!contract.contract_details.platform_cancel))"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/will-cancel-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>Cancel</span>
+</button>
+
+<!-- Cancel instruction button (Will | platform_cancel true) -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 0) && (contract.contract_details.platform_cancel))"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/rsk/cancel-instruction.html',
             newPopupContent: true,
             params: {
                 contract: contract

@@ -38,27 +38,14 @@
 </button>
 
 
-<!-- I Alive instruction button (Will | platform_alive == false) -->
-<button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 0) && (!contract.contract_details.platform_alive))"
-        ng-pop-up="{
-            template: '/templates/popups/instructions/eth/i-alive-instruction.html',
-            newPopupContent: true,
-            params: {
-                contract: contract
-            },
-            actions: {
-                successCodeCopy: successCodeCopy
-            },
-            onClose: returnToList
-        }"
-        class="btn btn-transparent hide-ps">
-    <span>I Alive</span>
-</button>
 
 <!-- I Alive instruction button (Will | platform_alive true) -->
-<button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 0) && (contract.contract_details.platform_alive))"
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 0)"
         ng-pop-up="{
-            template: '/templates/popups/instructions/rsk/i-alive-instruction.html',
+            template: !contract.contract_details.platform_alive ?
+                '/templates/popups/instructions/rsk/i-alive-instruction.html' :
+                '/templates/popups/instructions/networks/i-alive-instruction.html',
+
             newPopupContent: true,
             params: {
                 contract: contract
@@ -73,9 +60,10 @@
 </button>
 
 <!-- Cancel instruction button -->
-<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
-        ng-pop-up="{
-            template: '/templates/popups/instructions/rsk/cancel-instruction.html',
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 0)"
+        ng-pop-up="{template: !contract.contract_details.platform_cancel ?
+                '/templates/popups/instructions/rsk/will-cancel-instruction.html' :
+                '/templates/popups/instructions/networks/will-cancel-instruction.html',
             newPopupContent: true,
             params: {
                 contract: contract

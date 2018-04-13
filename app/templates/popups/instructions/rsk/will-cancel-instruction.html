@@ -2,21 +2,13 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
-                <span class="uppercase">Confirm Live&nbsp;&nbsp;&nbsp;</span>
+                <span class="uppercase">Cancel&nbsp;&nbsp;&nbsp;</span>
             </div>
-        </div>
-        <div class="shadow-block__content__description">
-            <span>To Confirm your live status please do the following:</span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
         <p class="normal-text">
-            Send any transaction from your management address
-            (RSK address - {{ngPopUp.params.contract.contract_details.user_address|toCheckSum}}) to Will contract address
-            (RSK address - {{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}})
-        </p>
-        <p class="normal-text">
-            You can use <a href="https://jaxx.io/" target="_blank">Jaxx wallet</a>
+            Are you sure to cancel contract? After cancellation all funds will be sent to your management address.
         </p>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border"
@@ -35,7 +27,7 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
         <div class="text-center">
             <button class="btn btn-submit"
-                    ng-click="sendCancelRequest(ngPopUp.params.contract)">
+                    ng-click="sendCancelRequest(ngPopUp.params.contract); closeCurrentPopup();">
                 <span>&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;</span>
             </button>
             <button class="btn btn-transparent" ng-click="closeCurrentPopup()">

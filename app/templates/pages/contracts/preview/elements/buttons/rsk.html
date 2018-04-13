@@ -50,9 +50,11 @@
 
             <!-- I Alive instruction button (Will | platform_alive == false) -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 0) && !contract.contract_details.platform_alive)">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 0)">
                 <button ng-pop-up="{
-                            template: '/templates/popups/instructions/rsk/i-alive-instruction.html',
+                            template: !contract.contract_details.platform_alive ?
+                                '/templates/popups/instructions/rsk/i-alive-instruction.html' :
+                                '/templates/popups/instructions/networks/i-alive-instruction.html',
                             newPopupContent: true,
                             params: {
                                 contract: contract
@@ -66,28 +68,13 @@
                 </button><br/><br/>
             </div>
 
-            <!-- I Alive instruction button (Will | platform_alive == true) -->
+            <!-- Cancel instruction button (Will | platform_cancel == false) -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 0) && contract.contract_details.platform_alive)">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 0)">
                 <button ng-pop-up="{
-                            template: '/templates/popups/instructions/networks/i-alive-instruction.html',
-                            newPopupContent: true,
-                            params: {
-                                contract: contract
-                            },
-                            actions: {
-                                successCodeCopy: successCodeCopy
-                            }
-                        }"
-                        class="btn btn-transparent mobile-width-100">
-                    <span>I Alive</span>
-                </button><br/><br/>
-            </div>
-
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
-                <!-- Cancel instruction button -->
-                <button ng-pop-up="{
-                            template: '/templates/popups/instructions/rsk/cancel-instruction.html',
+                            template: !contract.contract_details.platform_cancel ?
+                                '/templates/popups/instructions/rsk/will-cancel-instruction.html' :
+                                '/templates/popups/instructions/networks/will-cancel-instruction.html',
                             newPopupContent: true,
                             params: {
                                 contract: contract

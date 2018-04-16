@@ -26,7 +26,7 @@
   z-index: 3;
 }
 
-&.popup-content {
+.new-popup-content, .popup-content {
   background-color: $blocks-background;
   box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
   transform: scale(0.9) translateZ(0);

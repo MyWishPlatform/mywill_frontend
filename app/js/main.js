@@ -4,7 +4,7 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngFileSaver', 'ui.carousel']);
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngFileSaver']);
 if (UAParser(window.navigator.userAgent).device.type === "mobile") {
     module.requires.push('ngTouch');
 }
@@ -14,6 +14,9 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).controller('baseController', function($scope, $rootScope) {
     $rootScope.showedMenu = false;
     $rootScope.toggleMenu = function(state, event) {
+        if (state === undefined) {
+            state = !$rootScope.showedMenu;
+        }
         $rootScope.showedMenu = state;
     };
 }).controller('headerController', function($rootScope, $scope) {

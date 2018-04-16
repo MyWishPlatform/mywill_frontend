@@ -15,13 +15,13 @@ module.constant('APP_CONSTANTS', {
     'ROPSTEN_ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
 
 
-    'RSK_ADDRESS': 'https://explorer.rsk.co/',
     // 'RSK_ADDRESS': 'https://explorer.testnet.rsk.co/',
+    'RSK_ADDRESS': 'https://explorer.rsk.co/',
     'RSK_TESTNET_ADDRESS': 'https://explorer.testnet.rsk.co/',
 
 
-    'RSK_NET_ADDRESS': '/endpoint/rsk',
     // 'RSK_NET_ADDRESS': '/endpoint/rsk-testnet',
+    'RSK_NET_ADDRESS': '/endpoint/rsk',
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
 

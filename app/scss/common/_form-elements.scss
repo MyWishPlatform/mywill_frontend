@@ -505,14 +505,13 @@ input {
       position: relative;
       top: 50%;
       left: 0;
-      margin-left: 0.5em;
+      transform: translateX(0.5em);
       margin-top: -1.05em;
       background-color: #fff;
       border-radius: 50%;
-      transition: all 0.1s linear;
+      transition: transform 0.15s;
       input:checked ~ & {
-        left: 100%;
-        margin-left: -2.6em;
+        transform: translateX(4.4em);
       }
     }
   }

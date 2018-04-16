@@ -98,15 +98,12 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                         if (images.length) {
                             var imagesCount = images.length;
                             images.each(function () {
-                                var image = new Image();
-                                image.onload = function () {
+                                this.onload = function () {
                                     imagesCount--;
                                     if (!imagesCount) {
                                         compileTemplate(cloned);
                                     }
                                 };
-                                image.src = this.src;
-                                console.log(this);
                             });
                         } else {
                             compileTemplate(cloned);

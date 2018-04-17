@@ -1,3 +1,65 @@
+.contract-info__network {
+  font-size: 0.8em;
+  margin-left: 2em;
+  position: relative;
+  padding-left: 2em;
+  margin-bottom: 1.8em;
+  &.in-preview {
+    margin-left: 0;
+    margin-top: -1em;
+  }
+  span {
+    font-size: 1.5em;
+  }
+  &:before {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    content: '';
+    display: inline-block;
+    left: 0;
+    top: 50%;
+    margin-top: -0.5em;
+  }
+  &_1, &_2 {
+    &:before {
+      transform: rotate(45deg);
+    }
+  }
+  &_1 {
+    color: #03babc;
+    &:before {
+      background: #03babc;
+    }
+  }
+  &_2 {
+    color: #ff3300;
+    &:before {
+      background: #ff3300;
+    }
+  }
+  &_3, &_4 {
+    &:before {
+      border-radius: 50%;
+    }
+  }
+  &_3 {
+    color: #009900;
+    &:before {
+      background: #009900;
+    }
+  }
+  &_4 {
+    color: #E3A528;
+    &:before {
+      background: #E3A528;
+    }
+  }
+}
+
+
+
+
 .contracts-list-wrapper {
   .contract-wallets-information {
     display: none;
@@ -73,10 +135,23 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  width: 7em;
+  &:not(.auto-width) {
+    width: 7em;
+  }
 }
 .contract-show-button, .contract-name-text {
   vertical-align: middle;
+}
+.contract-block__buttons {
+  clear: both;
+  padding-left: 1.5em;
+  padding-right: 0.9em;
+  .btn {
+    margin-top: 1.5em;
+    &:not(.only-icon) {
+      width: 12em;
+    }
+  }
 }
 
 @media screen and (max-width: 640px) {

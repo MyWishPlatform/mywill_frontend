@@ -1,0 +1,75 @@
+<div class="shadow-block" ng-controller="instructionsController">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="uppercase">Deposit&nbsp;</span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description">
+            <span>To make a deposit on the contract, follow the instructions.</span>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <ul class="new-instruction-list">
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    Open your wallet (Parity,
+                    <a ng-attr-href="{{ngPopUp.params.contract.depositUrl}}"
+                       target="_blank">MyEtherWallet</a>)
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    Choose Send Ether & Tokens tab in your wallet
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    Insert the following recipient's address: <br/>
+                    <div class="copy-block">
+                        <button class="copy-block__button relative"
+                                clipboard supported="supported"
+                                text="ngPopUp.params.contract.contract_details.eth_contract.address"
+                                ng-class="{copied: ngPopUp.params.contract.copied['address']}"
+                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')">&nbsp;
+                            <i class="icon-content_copy"></i>
+                        </button>
+                        <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract.address}}</div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    Specify how much ETH you want to send (Amount to Send field)
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    Specify Gas limit 30000
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    Click generate Transaction
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    Confirm the payment by pressing the button "DONE"
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>

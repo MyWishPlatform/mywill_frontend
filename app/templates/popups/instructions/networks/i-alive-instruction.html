@@ -1,0 +1,39 @@
+<div class="shadow-block" ng-controller="myWishActionsController">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="uppercase">Confirm Live&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <p class="normal-text">
+            Do you confirm your “live” status? If you don’t then funds will be distributed in accordance with the contract.
+        </p>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border"
+         ng-if="ngPopUp.params.contract.contract_details.last_check || ngPopUp.params.contract.contract_details.next_check">
+        <div class="contract-preview-base-font">
+            <div ng-if="ngPopUp.params.contract.contract_details.last_check">
+                Last date:&nbsp;&nbsp;
+                {{ngPopUp.params.contract.contract_details.last_check|date:'yyyy-MM-dd'}}
+            </div>
+            <div ng-if="ngPopUp.params.contract.contract_details.next_check">
+                Next check:&nbsp;&nbsp;
+                {{ngPopUp.params.contract.contract_details.next_check|date:'yyyy-MM-dd'}}
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <div class="text-center">
+            <button class="btn btn-submit"
+                    ng-click="sendConfirmLive(ngPopUp.params.contract, closeCurrentPopup);">
+                <span>&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;</span>
+            </button>
+            <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </button>
+        </div>
+    </div>
+</div>
+

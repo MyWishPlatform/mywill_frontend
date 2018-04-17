@@ -37,6 +37,10 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 currentWindow = popupWindow.clone().appendTo(currentWindowWrapper).addClass($scope.ngPopUp.class);
                 var currentCloser = popupCloser.clone().appendTo(currentWindowWrapper);
                 var currentPopupContent = popupContent.clone();
+
+                if ($scope.ngPopUp.newPopupContent) {
+                    currentPopupContent.removeClass('popup-content').addClass('new-popup-content')
+                }
                 currentPopupContent.appendTo(currentWindow);
 
                 if (!($scope.ngPopUp.params && $scope.ngPopUp.params.withoutCloser)) {
@@ -68,8 +72,8 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 }
 
                 var templateUrl = $sce.getTrustedResourceUrl($scope.ngPopUp.template);
-                $templateRequest(templateUrl).then(function(template) {
-                    $compile(template)($scope, function(cloned, scope) {
+
+                var compileTemplate = function(cloned) {
                         cloned.appendTo(currentPopupContent);
                         currentWindow.css({
                             visibility: 'hidden'
@@ -78,14 +82,33 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                             var margin = (angular.element(window).height() - currentWindow.outerHeight()) / 2;
                             margin = Math.max(margin, 10);
                             currentWindow.css({
-                                'margin-top': margin,
+                                'margin-top': Math.max(30, margin),
+                                'margin-bottom': 50,
                                 'visibility': ''
                             });
                             $timeout(function() {
                                 currentPopupContent.addClass('popup-normalize');
                             });
                         });
-                    });
+                };
+
+                $templateRequest(templateUrl).then(function(template) {
+                    $compile(template)($scope, function(cloned, scope) {
+                        var images = cloned.find('img');
+                        if (images.length) {
+                            var imagesCount = images.length;
+                            images.each(function () {
+                                this.onload = function () {
+                                    imagesCount--;
+                                    if (!imagesCount) {
+                                        compileTemplate(cloned);
+                                    }
+                                };
+                            });
+                        } else {
+                            compileTemplate(cloned);
+                        }
+                    })
                 }, function() {
                 });
                 // $scope.$apply();

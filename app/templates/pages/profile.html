@@ -1,129 +1,117 @@
+
 <div class="main-section-content">
-    <!-- div class="buttons-list">
-        <div class="btn btn-gray text-center active">
-            <span>Security</span>
+    <div class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">Two-factor authentication</span>
+                </div>
+            </div>
         </div>
-    </div>
-    <br/><br/ -->
-    <div class="main-section-chapter">
-        <div class="main-section-chapter-fieldset">
-            <div class="main-section-chapter-title">
-                <span class="main-section-chapter-title_text">Two-factor authentication</span>
-            </div>
-            <div class="contract-form-fieldset">
-                <div class="form-control">
-                    <div class="form-control-label inline-label">
-                        We strongly recommend you to Enable 2FA
-                    </div><br/><br/>
-                </div>
-            </div>
-
-            <div class="contract-form-fieldset with-padding contract-form-fieldset-grey ng-scope">
-                <div class="form-control">
-                    <button class="btn btn-submit"
-                            ng-pop-up="!currentUser.use_totp ? enableInstructionPopUpParams : disablePopUpParams"
-                            type="button">
-                        <span>&nbsp;&nbsp;&nbsp;{{currentUser.use_totp ? 'Disable' : 'Enable'}}&nbsp;&nbsp;&nbsp;</span>
-                    </button>
-                </div>
+        <div class="shadow-block__content">
+            <span class="normal-text">We strongly recommend you to Enable 2FA</span>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border grey-color">
+            <div class="form-control">
+                <button class="btn btn-submit"
+                        ng-pop-up="!currentUser.use_totp ? enableInstructionPopUpParams : disablePopUpParams"
+                        type="button">
+                    <span>&nbsp;&nbsp;&nbsp;{{currentUser.use_totp ? 'Disable' : 'Enable'}}&nbsp;&nbsp;&nbsp;</span>
+                </button>
             </div>
         </div>
     </div>
 
-
-    <form class="main-section-chapter"
+    <form class="shadow-block"
           novalidate
           autocomplete="new-password"
           ng-if="!currentUser.is_social"
           ng-submit="setNewPassword(passwordChangeForm)"
           name="passwordChangeForm">
-        <div class="main-section-chapter-fieldset">
-            <div class="main-section-chapter-title">
-                <span class="main-section-chapter-title_text">Change Password</span>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">Change Password</span>
+                </div>
             </div>
-            <div class="contract-form-fieldset">
-                <div class="grid-row contract-form-row">
-                    <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
-                        <div class="form-control">
-                            <div class="form-control-label">Current password</div>
-                            <input type="password"
-                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.old_password}"
-                                   autocomplete="new-password"
-                                   required
-                                   ng-model="passwordParams.old_password"
-                                   class="form-control-input">
-                            <span class="field-error form-field_error-required">Field is required</span>
-                            <span class="field-error form-field_error-server">{{serverErrors.old_password.join(', ')}}</span>
-                        </div>
+        </div>
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control">
+                        <div class="form-control-label">Current password</div>
+                        <input type="password"
+                               ng-class="{'ng-invalid ng-invalid-server': serverErrors.old_password}"
+                               autocomplete="new-password"
+                               required
+                               ng-model="passwordParams.old_password"
+                               class="form-control-input">
+                        <span class="field-error form-field_error-required">Field is required</span>
+                        <span class="field-error form-field_error-server">{{serverErrors.old_password.join(', ')}}</span>
                     </div>
                 </div>
-                <div class="grid-row contract-form-row">
-                    <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
-                        <div class="form-control">
-                            <div class="form-control-label">New password</div>
-                            <input type="password"
-                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password1}"
-                                   autocomplete="new-password"
-                                   required
-                                   ng-model="passwordParams.new_password1"
-                                   class="form-control-input">
-                            <span class="field-error form-field_error-pattern">Incorrect password</span>
-                            <span class="field-error form-field_error-minlength">Minimum password length 8 characters</span>
-                            <span class="field-error form-field_error-required">Field is required</span>
-                            <span class="field-error form-field_error-server">{{serverErrors.new_password1.join(', ')}}</span>
-                        </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control">
+                        <div class="form-control-label">New password</div>
+                        <input type="password"
+                               ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password1}"
+                               autocomplete="new-password"
+                               required
+                               ng-model="passwordParams.new_password1"
+                               class="form-control-input">
+                        <span class="field-error form-field_error-pattern">Incorrect password</span>
+                        <span class="field-error form-field_error-minlength">Minimum password length 8 characters</span>
+                        <span class="field-error form-field_error-required">Field is required</span>
+                        <span class="field-error form-field_error-server">{{serverErrors.new_password1.join(', ')}}</span>
                     </div>
                 </div>
-                <div class="grid-row contract-form-row">
-                    <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
-                        <div class="form-control">
-                            <div class="form-control-label">Repeat new password</div>
-                            <input type="password"
-                                   required
-                                   ng-match="passwordParams.new_password1"
-                                   autocomplete="new-password"
-                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password2}"
-                                   ng-model="passwordParams.new_password2"
-                                   class="form-control-input">
-                            <span class="field-error form-field_error-required">Field is required</span>
-                            <span class="field-error form-field_error-pattern">Passwords do not match</span>
-                            <span class="field-error form-field_error-server">{{serverErrors.new_password2.join(', ')}}</span>
-                        </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control">
+                        <div class="form-control-label">Repeat new password</div>
+                        <input type="password"
+                               required
+                               ng-match="passwordParams.new_password1"
+                               autocomplete="new-password"
+                               ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password2}"
+                               ng-model="passwordParams.new_password2"
+                               class="form-control-input">
+                        <span class="field-error form-field_error-required">Field is required</span>
+                        <span class="field-error form-field_error-pattern">Passwords do not match</span>
+                        <span class="field-error form-field_error-server">{{serverErrors.new_password2.join(', ')}}</span>
                     </div>
                 </div>
-
-                <div class="grid-row contract-form-row" ng-if="currentUser.use_totp">
-                    <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
-                        <div class="form-control">
-                            <div class="form-control-label">2FA code</div>
-                            <input type="text"
-                                   required
-                                   autocomplete="new-password"
-                                   ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
-                                   ng-model="passwordParams.totp"
-                                   class="form-control-input">
-                            <span class="field-error form-field_error-required">Field is required</span>
-                            <span class="field-error form-field_error-server">{{serverErrors.totp.join(', ')}}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <span class="field-error"
-                      style="display: block"
-                      ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
-                <br/><br/>
             </div>
 
-            <div class="contract-form-fieldset with-padding contract-form-fieldset-grey ng-scope">
-                <div class="grid-row contract-form-row">
-                    <div class="grid-cell grid-cell-1">
-                        <div class="form-control float-right">
-                            <button class="btn btn-submit" type="submit">
-                                <span>&nbsp;&nbsp;&nbsp;Change&nbsp;&nbsp;&nbsp;</span>
-                            </button>
-                        </div>
+            <div class="grid-row" ng-if="currentUser.use_totp">
+                <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control">
+                        <div class="form-control-label">2FA code</div>
+                        <input type="text"
+                               required
+                               autocomplete="new-password"
+                               ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
+                               ng-model="passwordParams.totp"
+                               class="form-control-input">
+                        <span class="field-error form-field_error-required">Field is required</span>
+                        <span class="field-error form-field_error-server">{{serverErrors.totp.join(', ')}}</span>
                     </div>
                 </div>
+            </div>
+
+            <span class="field-error"
+                  style="display: block"
+                  ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
+            <br/><br/>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border grey-color">
+            <div class="form-control float-right">
+                <button class="btn btn-submit" type="submit">
+                    <span>&nbsp;&nbsp;&nbsp;Change&nbsp;&nbsp;&nbsp;</span>
+                </button>
             </div>
         </div>
     </form>

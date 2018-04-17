@@ -4,15 +4,20 @@ angular.module('Services', []);
 angular.module('Filters', []);
 angular.module('Constants', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngTouch', 'ngFileSaver']);
-
+var module = angular.module('app', ['Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates', 'datePicker', 'angular-clipboard', 'ngFileSaver']);
+if (UAParser(window.navigator.userAgent).device.type === "mobile") {
+    module.requires.push('ngTouch');
+}
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
 }).controller('baseController', function($scope, $rootScope) {
     $rootScope.showedMenu = false;
-    $rootScope.toggleMenu = function() {
-        $rootScope.showedMenu = !$rootScope.showedMenu;
+    $rootScope.toggleMenu = function(state, event) {
+        if (state === undefined) {
+            state = !$rootScope.showedMenu;
+        }
+        $rootScope.showedMenu = state;
     };
 }).controller('headerController', function($rootScope, $scope) {
 }).controller('authorizationController', function(authService, $rootScope, $scope, SocialAuthService) {
@@ -144,11 +149,34 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, AnalyticsService) {
 
-    $rootScope.getEtherscanUrl = function(contract) {
-        var networkType = contract.network || 1;
+    $rootScope.getNetworkPath = function(network) {
+        return ((network == 1) || (network == 2)) ? 'eth' : ((network == 3) || (network == 4) ? 'rsk' : 'neo');
+    };
 
-        return networkType === 2 ?
-                APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS : APP_CONSTANTS.ETHERSCAN_ADDRESS;
+    $rootScope.getEtherscanUrl = function(contract, path) {
+        var networkType = (contract.network || 1) * 1;
+        var addressPaths = {}, networkUrl;
+
+        switch(networkType) {
+            case 1:
+                networkUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
+                addressPaths.address = 'address';
+                break;
+            case 2:
+                networkUrl = APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
+                addressPaths.address = 'address';
+                break;
+            case 3:
+                networkUrl = APP_CONSTANTS.RSK_ADDRESS;
+                addressPaths.address = 'addr';
+                break;
+            case 4:
+                networkUrl = APP_CONSTANTS.RSK_TESTNET_ADDRESS;
+                addressPaths.address = 'addr';
+                break;
+
+        }
+        return networkUrl + (addressPaths[path] || '');
     };
 
 

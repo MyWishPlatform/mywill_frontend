@@ -1,0 +1,34 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="uppercase">Cancel&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <p class="normal-text">
+            Are you sure to cancel contract? After cancellation all funds will be sent to your management address.
+        </p>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border"
+         ng-if="ngPopUp.params.contract.contract_details.last_check || ngPopUp.params.contract.contract_details.next_check">
+        <div class="contract-preview-base-font">
+            <div ng-if="ngPopUp.params.contract.contract_details.last_check">
+                Last date:&nbsp;&nbsp;
+                {{ngPopUp.params.contract.contract_details.last_check|date:'yyyy-MM-dd'}}
+            </div>
+            <div ng-if="ngPopUp.params.contract.contract_details.next_check">
+                Next check:&nbsp;&nbsp;
+                {{ngPopUp.params.contract.contract_details.next_check|date:'yyyy-MM-dd'}}
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>
+

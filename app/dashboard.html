@@ -61,7 +61,8 @@
 
 </head>
 <body ng-class="{'with-menu': $root.showedMenu, 'visible': currentUser}"
-      ng-swipe-left="$root.showedMenu = false;" ng-swipe-right="$root.showedMenu = true;">
+      ng-swipe-left="toggleMenu(false, $event);"
+      ng-swipe-right="toggleMenu(true, $event);">
 <header class="main-header-holder"
         ng-include="getTemplate('common/header')"></header>
 
@@ -127,7 +128,25 @@
         </div>
     </div>
 </div>
-<main class="main-content-holder" ui-view></main>
+
+<main class="main-content-holder">
+    <div class="main-section-content without-bottom-padding">
+        <div class="shadow-block">
+            <div class="shadow-block__content warning-page">
+                <div class="warning-page__icon">
+                    <i class="icon-warning"></i>
+                </div>
+                <div class="warning-page__text">
+                    <span>
+                        Warning! Service is under maintenance now. <br/>
+                        Please do not use it until this message is shown.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ui-view></div>
+</main>
 
 <div ng-pop-up="{
     template: '/templates/popups/' + commonOpenedPopup + '.html',
@@ -135,6 +154,7 @@
     params: commonOpenedPopupParams || {},
     opened: true,
     noClickShow: true,
+    newPopupContent: commonOpenedPopupParams.newPopupContent,
     onClose: commonOpenedPopupParams.onClose || closeCommonPopup
 }" ng-if="commonOpenedPopup"></div>
 
@@ -149,6 +169,7 @@
      ng-class="{'visible-error': globalError.text}">
     <div class="global-error-layer__text">{{globalError.text}}</div>
 </div>
+
 
 </body>
 </html>

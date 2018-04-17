@@ -1,6 +1,6 @@
 angular.module('app').controller('lostKeyCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                      openedContract, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                     CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS, CONTRACT_TYPES_NAMES_CONSTANTS) {
+                                                                     CONTRACT_TYPES_CONSTANTS, web3Service) {
 
     $scope.request = {};
     $scope.listWalletActivity = [
@@ -77,6 +77,14 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
     $scope.walletAddress = '';
     var balanceTimer;
 
+    var contract = openedContract && openedContract.data ? openedContract.data : {
+        name:  'MyLostKey' + ($rootScope.currentUser.contracts + 1),
+        network: $stateParams.network || 1,
+        contract_details: {}
+    };
+
+    web3Service.setProviderByNumber(contract.network);
+
     $scope.getBalance = function() {
         balanceTimer ? $timeout.cancel(balanceTimer) : false;
         balanceTimer = false;
@@ -86,8 +94,8 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         }
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
-            contractService.getBalance($scope.walletAddress, contract.network).then(function(response) {
-                var balance = (response.data.result / Math.pow(10, 18)).toFixed(5);
+            web3Service.getBalance($scope.walletAddress).then(function(balance) {
+                balance = Web3.utils.fromWei(balance, 'ether');
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
                 $scope.balanceInProgress = false;
@@ -103,11 +111,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
     };
 
     $scope.checkPeriod = 1;
-    var contract = openedContract && openedContract.data ? openedContract.data : {
-        name:  'MyLostKey' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.network || 1,
-        contract_details: {}
-    };
+
     $scope.network = {
         name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
         id: contract.network
@@ -184,7 +188,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         $scope.checkPeriod = lastCheckInterval ? contract.contract_details.check_interval / (lastCheckInterval.value * 24 * 3600) : 1;
         $scope.checkPeriodSelect = lastCheckInterval ? lastCheckInterval.value : 1;
 
-        $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : moment.tz('UTC').hour(12).startOf('h');
+        $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : moment.tz('UTC').add(1, 'days').hour(12).startOf('h');
 
         $scope.hairPercentChange();
     };

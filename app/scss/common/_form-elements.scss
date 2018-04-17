@@ -2,13 +2,16 @@
   line-height: 2.9em;
 }
 .form-control-label, .form-control-label-checkbox span {
-  display: block;
   text-shadow: 0 1px 0 #fff;
   font-size: 1.5em;
   line-height: 1.2em;
 }
+.form-control-label-checkbox span {
+  display: inline-block;
+}
 .form-control-label {
   padding: 0.4em 0;
+  display: block;
   &.inline-label {
     display: inline-block;
     vertical-align: middle;
@@ -95,6 +98,11 @@
     margin-bottom: -$fieldsets-padding;
     border-bottom-left-radius: 0.9em;
     border-bottom-right-radius: 0.9em;
+  }
+
+  &.with-min-padding {
+    padding-top: 1em;
+    padding-bottom: 1em;
   }
   &.with-padding {
     padding-top: 2em;
@@ -485,6 +493,10 @@ input {
     input:checked ~ & {
       background-color: #206eff;
     }
+    input:disabled ~ & {
+      opacity: 0.5;
+      cursor: default;
+    }
     &:after {
       content: '';
       width: 2.1em;
@@ -493,14 +505,13 @@ input {
       position: relative;
       top: 50%;
       left: 0;
-      margin-left: 0.5em;
+      transform: translateX(0.5em);
       margin-top: -1.05em;
       background-color: #fff;
       border-radius: 50%;
-      transition: all 0.1s linear;
+      transition: transform 0.15s;
       input:checked ~ & {
-        left: 100%;
-        margin-left: -2.6em;
+        transform: translateX(4.4em);
       }
     }
   }
@@ -516,7 +527,7 @@ input {
 .form-fieldset-delimiter {
   text-align: center;
   border-top: 1px solid #ccc;
-  margin-top: 1.5em;
+  margin-bottom: -1.5em;
   span {
     font-size: 1.5em;
     line-height: 1.2em;

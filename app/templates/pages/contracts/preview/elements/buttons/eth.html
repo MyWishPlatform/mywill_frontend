@@ -1,0 +1,204 @@
+<div class="contract-form-fieldset without-padding">
+    <div class="contract-form-information-btns">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-vs-1-2 float-right"
+                 ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-red with-icon mobile-width-100 with-icon initial-padding text-center"
+                        ng-pop-up="{
+                            template: '/templates/popups/delete-contract.html',
+                            params: contract,
+                            class: 'deleting-contract',
+                            actions: {
+                                deleteContract: deleteContract
+                            }
+                        }">
+                    <i class="icon-trash"></i>
+                    <span>Delete</span>
+                </button><br/><br/>
+            </div>
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-transparent mobile-width-100 text-center"
+                        ng-click="payContract()">
+                    <i class="icon-rocket-ship"></i>
+                    <span>Launch</span>
+                </button><br/><br/>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
+                <button class="btn btn-submit mobile-width-100 text-center"
+                        ng-pop-up="{
+                            template: '/templates/popups/disclaimers/eth/activate-disclaimer.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'conditions',
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            },
+                            onClose: returnToList
+                        }">
+                    <span>Activate</span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Mint form button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/mint-token-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            },
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent hide-ps">
+                    <span>Mint</span>
+                </button>
+            </div>
+
+            <!-- Finalize token contract form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting">
+                <button ng-pop-up="{
+                            template: '/templates/popups/disclaimers/eth/mint-finalize-disclaimer.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'conditions',
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            },
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent hide-ps">
+                    <span>Finalize</span>
+                </button>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
+                <!-- Edit instruction button -->
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-back mobile-width-100 with-icon initial-padding">
+                    <i class="icon-edit"></i>
+                    <span>Edit</span>
+                </a><br/><br/>
+            </div>
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
+                <!-- Deposit instruction button -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Deposit</span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Cancel instruction button (Deferred, Lost Key) -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 1) || (contract.contract_type == 2))">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/cancel-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Cancel</span>
+                </button><br/><br/>
+            </div>
+
+            <!-- I Alive instruction button (Will | platform_alive == false) -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 0)">
+                <button ng-pop-up="{
+                            template: !contract.contract_details.platform_alive ?
+                                '/templates/popups/instructions/eth/i-alive-instruction.html' :
+                                '/templates/popups/instructions/networks/i-alive-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>I Alive</span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Cancel instruction button (Will | platform_cancel == false) -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 0)">
+                <button ng-pop-up="{
+                            template: !contract.contract_details.platform_cancel ?
+                                '/templates/popups/instructions/eth/will-cancel-instruction.html' :
+                                '/templates/popups/instructions/networks/will-cancel-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Cancel</span>
+                </button><br/><br/>
+            </div>
+            <!-- Withdraw instruction button (Will | platform_cancel == false) -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.stateValue == 5">
+                <button ng-pop-up="{
+                            template: !contract.contract_details.platform_cancel ?
+                                '/templates/popups/instructions/eth/will-withdraw-instruction.html' :
+                                '/templates/popups/instructions/networks/will-withdraw-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Withdraw</span>
+                </button><br/><br/>
+            </div>
+
+
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 4)">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/finalize-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-submit mobile-width-100">
+                    <span>Finalize</span>
+                </button><br/><br/>
+            </div>
+        </div>
+    </div>
+</div>

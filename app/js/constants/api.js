@@ -30,6 +30,8 @@ angular.module('Constants').constant('API', {
     "ENABLE_2FA": "enable_2fa/",
     "DISABLE_2FA": "disable_2fa/",
     "GET_DISCOUNT": "get_discount/",
+    "I_AM_ALIVE": "i_am_alive/",
+    "CONTRACT_CANCEL": "cancel/",
 
     "SOCIAL": {
         "FACEBOOK": "facebook/",

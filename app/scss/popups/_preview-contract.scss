@@ -61,7 +61,6 @@
 .contract-wallet-information-wallet {
   font-size: 1.4em;
   padding: 0 1.65em 0 0;
-  margin-bottom: 1em;
   &:not(.contract-wallet-information-float-cell) {
     margin-top: 0.3125em;
   }
@@ -117,16 +116,18 @@
   }
 }
 .contract-preview-one-tab {
-  border-top-left-radius: 1.3em;
-  border-top-right-radius: 1.3em;
+  border-top-left-radius: 0.9em;
+  border-top-right-radius: 0.9em;
   padding: 0.25em 0;
   float: left;
   width: 17.25em;
   text-align: center;
   cursor: pointer;
   background-color: #EBEBEB;
-  color: #525252;
+  color: #828282;
   user-select: none;
+  box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.25);
+  text-shadow: 0 1px 1px #fff;
   + .contract-preview-one-tab {
     margin-left: 1px;
   }
@@ -143,10 +144,28 @@
     font-size: 1.5em;
     line-height: 1em;
     vertical-align: middle;
+    position: relative;
+    z-index: 4;
   }
   &.active {
-    background-color: $main-blue-color;
-    color: #fff;
+    //background-color: $main-blue-color;
+    background-color: #f4f4f4;
+    color: #000;
+    box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.25);
+    position: relative;
+    &:after {
+      content: '';
+      top: 0;
+      bottom: -1.1em;
+      position: absolute;
+      left: 0;
+      right: 0;
+      background-color: #f4f4f4;
+      display: block;
+      z-index: 3;
+      border-top-left-radius: 0.9em;
+      border-top-right-radius: 0.9em;
+    }
   }
 }
 .contract-popup-wrapper {
@@ -235,13 +254,6 @@
 }
 
 .contract-wallet-information-float {
-  padding: 0.5em 0;
-  &:first-child {
-    padding-top: 1em;
-  }
-  &:last-child {
-    padding-bottom: 1em;
-  }
   &:after, &:before {
     display: table;
     content: '';
@@ -261,6 +273,13 @@
     padding-left: 0;
     padding-right: 0;
   }
+  &.contract-wallet-information-after_wallet {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 28em;
+    font-size: 1.4em;
+  }
   &.contract-wallet-information-email {
     white-space: nowrap;
     overflow: hidden;
@@ -279,7 +298,6 @@
 }
 @media screen and (max-width: 960px) {
   .contract-wallet-information {
-    padding: 1em 0;
     + .contract-wallet-information {
       border-top: 1px solid #8ea4c3;
     }
@@ -305,6 +323,12 @@
       margin-left: 4.5em;
       text-align: right;
     }
+
+    &.contract-wallet-information-after_wallet {
+      text-overflow: ellipsis;
+      margin-left: 2.2em;
+      text-align: left;
+    }
   }
 }
 
@@ -329,11 +353,6 @@
 //}
 
 @media screen and (max-width: 680px) {
-  //.grid-cell {
-  //  &.float-right {
-  //    float: left!important;
-  //  }
-  //}
   .contract-preview-form {
     padding-top: 2em;
   }

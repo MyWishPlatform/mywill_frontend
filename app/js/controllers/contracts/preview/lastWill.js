@@ -20,9 +20,13 @@ angular.module('app').controller('lastWillPreviewController', function($timeout,
         return !(contractDetails.check_interval % (check.value * 24 * 3600));
     })[0];
 
-    contractDetails.check_interval = {
-        period: contractDetails.check_interval / (checkInterval.value * 24 * 3600),
-        periodUnit: checkInterval.name
-    };
+    if (checkInterval) {
+        contractDetails.check_interval = {
+            period: contractDetails.check_interval / (checkInterval.value * 24 * 3600),
+            periodUnit: checkInterval.name
+        };
+    } else {
+        contractDetails.check_interval = {};
+    }
 
 });

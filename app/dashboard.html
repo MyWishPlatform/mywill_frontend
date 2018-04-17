@@ -128,7 +128,25 @@
         </div>
     </div>
 </div>
-<main class="main-content-holder" ui-view></main>
+
+<main class="main-content-holder">
+    <div class="main-section-content without-bottom-padding">
+        <div class="shadow-block">
+            <div class="shadow-block__content warning-page">
+                <div class="warning-page__icon">
+                    <i class="icon-warning"></i>
+                </div>
+                <div class="warning-page__text">
+                    <span>
+                        Warning! Service is under maintenance now. <br/>
+                        Please do not use it until this message is shown.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ui-view></div>
+</main>
 
 <div ng-pop-up="{
     template: '/templates/popups/' + commonOpenedPopup + '.html',

@@ -26,6 +26,10 @@
   }
   &__content {
     padding: 2em 2.5em;
+    &:first-child {
+      border-top-left-radius: 0.9em;
+      border-top-right-radius: 0.9em;
+    }
     &:last-child {
       border-bottom-left-radius: 0.9em;
       border-bottom-right-radius: 0.9em;

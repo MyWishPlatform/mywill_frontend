@@ -88,7 +88,25 @@
                 </button><br/><br/>
             </div>
 
-
+            <!-- Withdraw instruction button (Will | platform_cancel == false) -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.stateValue == 5">
+                <button ng-pop-up="{
+                            template: !contract.contract_details.platform_cancel ?
+                                '/templates/popups/instructions/rsk/will-withdraw-instruction.html' :
+                                '/templates/popups/instructions/networks/will-withdraw-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            actions: {
+                                successCodeCopy: successCodeCopy
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Withdraw</span>
+                </button><br/><br/>
+            </div>
         </div>
     </div>
 </div>

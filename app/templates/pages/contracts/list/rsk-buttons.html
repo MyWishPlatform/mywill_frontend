@@ -76,3 +76,21 @@
         class="btn btn-transparent hide-ps">
     <span>Cancel</span>
 </button>
+<!-- Withdraw instruction button (Will | platform_cancel == false) -->
+<button ng-if="statuses[contract.state]['value'] == 5"
+        ng-pop-up="{
+            template: !contract.contract_details.platform_cancel ?
+                '/templates/popups/instructions/rsk/will-withdraw-instruction.html' :
+                '/templates/popups/instructions/networks/will-withdraw-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>Withdraw</span>
+</button>

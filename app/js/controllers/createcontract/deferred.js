@@ -7,7 +7,7 @@ angular.module('app').controller('deferredCreateController', function($scope, co
         contract_type: CONTRACT_TYPES_CONSTANTS.DEFERRED,
         network: $stateParams.network || 1,
         contract_details: {
-            date: moment.tz('UTC').hour(12).startOf('h')
+            date: moment.tz('UTC').add(1, 'days').hour(12).startOf('h')
         }
     };
     $scope.network = {

@@ -188,7 +188,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         $scope.checkPeriod = lastCheckInterval ? contract.contract_details.check_interval / (lastCheckInterval.value * 24 * 3600) : 1;
         $scope.checkPeriodSelect = lastCheckInterval ? lastCheckInterval.value : 1;
 
-        $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : moment.tz('UTC').hour(12).startOf('h');
+        $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : moment.tz('UTC').add(1, 'days').hour(12).startOf('h');
 
         $scope.hairPercentChange();
     };

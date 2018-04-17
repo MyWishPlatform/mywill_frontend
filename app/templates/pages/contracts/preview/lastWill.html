@@ -51,6 +51,40 @@
                 Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;{{contract.currency}}&nbsp;&nbsp;</b>
             </span>
         </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="contract.stateValue == 4">
+            <p class="normal-text">
+                Please confirm “Live” status before Next check: {{contract.contract_details.next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>
+                Last “Live” confirmation:
+                {{contract.contract_details.last_reset ? (contract.contract_details.last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}
+            </p>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(contract.stateValue == 9) || (contract.stateValue == 11)">
+            <p class="normal-text">
+                Funds have been distributed in accordance with the contract on
+                {{contract.contract_details.last_check ? (contract.contract_details.last_check|date:'yyyy-MM-dd HH:mm') : '--'}}<br/><br/>
+                Last “Live” confirmation:
+                {{contract.contract_details.last_reset ? (contract.contract_details.last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}
+            </p>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(contract.stateValue == 6) || (contract.stateValue == 7)">
+            <p class="normal-text">
+                Contract was cancelled, all funds were sent to the contract’s owner.<br/><br/>
+                Last “Live” confirmation:
+                {{contract.contract_details.last_reset ? (contract.contract_details.last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}
+            </p>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="contract.stateValue == 5">
+            <p class="normal-text">
+                Contract was expired, all funds were sent to the contract’s owner.<br/><br/>
+                Last “Live” confirmation:
+                {{contract.contract_details.last_reset ? (contract.contract_details.last_reset|date:'yyyy-MM-dd') : '--'}}
+            </p>
+        </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
             <div class="form-control-label">Contract address:</div>
@@ -59,7 +93,7 @@
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (contract.contract_details.eth_contract.address|toCheckSum)}}"
                    target="_blank"
                    ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -71,6 +105,9 @@
                 </button>
             </div>
         </div>
+
+
+
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
@@ -81,8 +118,13 @@
                     <span class="identicon-container relative-top">
                         <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
                     </span>
-                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.user_address|toCheckSum"></div>
-                    <div class="contract-wallet-information-float-cell contract-wallet-information-after_wallet" ng-bind="contract.contract_details.email"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (contract.contract_details.user_address|toCheckSum)}}"
+                           target="_blank"
+                           ng-bind="contract.contract_details.user_address|toCheckSum"></a>
+                    </div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-after_wallet"
+                         ng-bind="contract.contract_details.email"></div>
                 </div>
             </div><br/>
 
@@ -96,7 +138,11 @@
                     <span class="identicon-container relative-top">
                         <img class="identicon-image" ng-src="{{heir.address|blockies}}"/>
                     </span>
-                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="heir.address|toCheckSum"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (heir.address|toCheckSum)}}"
+                           target="_blank"
+                           ng-bind="heir.address|toCheckSum"></a>
+                    </div>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.percentage+'%'"></div>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="heir.email"></div>
                 </div>
@@ -134,7 +180,7 @@
 
         </div>
 
-        <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-conditions form-control-label-icon"></i>
@@ -149,10 +195,10 @@
                         <span class="contract-preview-grey-font-color">Check every:</span>&nbsp;&nbsp;
                         {{contract.contract_details.check_interval.period}} {{contract.contract_details.check_interval.periodUnit}}
                     </div><br/>
-                    <div ng-if="contract.contract_details.next_check">
+                    <!-- div ng-if="contract.contract_details.next_check">
                         <span class="contract-preview-grey-font-color">Next check:</span>&nbsp;&nbsp;
                         {{contract.contract_details.next_check|date:'yyyy-MM-dd'}}
-                    </div>
+                    </div -->
                 </div>
             </div>
 
@@ -160,7 +206,7 @@
     </div>
 
     <div class="shadow-block"
-         ng-if="(contract.stateValue < 3) && (contract.cost != 0)"
+         ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>
     <div class="main-section-chapter-fieldset custom-fieldset"
          ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>

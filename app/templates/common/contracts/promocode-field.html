@@ -10,7 +10,6 @@
                        type="text" ng-model="contract.promo" maxlength="512" class="form-control-input">
             </div>
         </div>
-
         <div class="grid-cell grid-cell-1-5 grid-cell-ps-2-5">
             <div class="form-control">
                 <div class="form-control-label hide-vs">&nbsp;</div>
@@ -19,7 +18,6 @@
                 </button>
             </div>
         </div>
-
         <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-1">
             <div class="form-control-label hide-ps">&nbsp;</div>
             <span class="form-control-description__text">You can enter promo code and get a discount</span>
@@ -30,12 +28,14 @@
     <div class="form-control-label">
         <span class="">Contract`s cost: </span>
         <div class="show-vs"></div>
-        <span class="">{{- bigNumber(wishCost).times(contract.discount / 100).minus(wishCost).round(2)}}</span>
-        <span class="">WISH</span>
-        <span class="" ng-if="contract.contract_type == 4">
-                ({{- (bigNumber(1).times(contract.discount / 100).minus(1).round(2).toString(10))}} ETH)</span>
-        <span class="" ng-if="contract.contract_type == 5">
-                ({{- (bigNumber(0.5).times(contract.discount / 100).minus(0.5).round(2).toString(10))}} ETH)</span>
+        {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.WISH).minus(bigNumber(contract.cost.WISH).times(contract.discount).div(100)).round().toString(10), 'ether')).round(2)}}
+        WISH&nbsp;&nbsp;&nbsp;
+        <span class="grey-text-color">
+            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).minus(bigNumber(contract.cost.ETH).times(contract.discount).div(100)).round().toString(10), 'ether')).round(3)}}
+            ETH /
+            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).minus(bigNumber(contract.cost.BTC).times(contract.discount).div(100)).round().toString(10), 'ether')).round(4)}}
+            BTC
+        </span>
     </div>
 </div>
 

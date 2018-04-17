@@ -38,7 +38,7 @@ angular.module('app').controller('contractsController', function(contractService
     };
 
     var showPriceLaunchContract = function(contract) {
-        if (contract.cost == 0) {
+        if (contract.cost.WISH == 0) {
             launchContract(contract);
             return;
         }
@@ -47,7 +47,7 @@ angular.module('app').controller('contractsController', function(contractService
             class: 'deleting-contract',
             contract: contract,
             confirmPayment: launchContract,
-            contractCost: new BigNumber(contract.cost).div(Math.pow(10, 18)).round(2).toString(10),
+            contractCost: new BigNumber(contract.cost.WISH).div(Math.pow(10, 18)).round(2).toString(10),
             withoutCloser: true
         };
     };
@@ -61,7 +61,7 @@ angular.module('app').controller('contractsController', function(contractService
                 $rootScope.commonOpenedPopupParams = {};
                 return;
             }
-            if (new BigNumber($rootScope.currentUser.balance).minus(new BigNumber(contract.cost)) < 0) {
+            if (new BigNumber($rootScope.currentUser.balance).minus(new BigNumber(contract.cost.WISH)) < 0) {
                 $rootScope.commonOpenedPopup = 'less-balance';
                 $rootScope.commonOpenedPopupParams = {};
                 return;

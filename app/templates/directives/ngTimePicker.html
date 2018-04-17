@@ -11,7 +11,8 @@
         <span class="ng-time-picker-values-list">
             <span class="ng-time-picker-control icon-keyboard_arrow_up ng-time-picker-control-up" ng-mousedown="hourChangeUp()"></span>
             <span class="ng-time-picker-values-list-container">
-                <span class="ng-time-picker-values-list-items" ng-style="{'margin-top': -(values.currentHour * 2) + 'em'}">
+                <span class="ng-time-picker-values-list-items"
+                      ng-attr-style="{{'transform: translateY(' + (-(values.currentHour * 2) + 'em') + ')'}}">
                     <span class="ng-time-picker-value" ng-repeat="hour in hours track by $index" ng-class="{'ng-time-picker-value-active': $index == values.currentHour}">
                         {{ $index < 10 ? '0' + $index : $index }}
                     </span>
@@ -37,7 +38,8 @@
         <span class="ng-time-picker-values-list">
             <span class="ng-time-picker-control icon-keyboard_arrow_up ng-time-picker-control-up" ng-mousedown="minuteChangeUp()"></span>
             <span class="ng-time-picker-values-list-container">
-                <span class="ng-time-picker-values-list-items" ng-style="{'margin-top': -(values.currentMinute * 2) + 'em'}">
+                <span class="ng-time-picker-values-list-items"
+                      ng-style="{'transform': 'translateY(' + (-(values.currentMinute * 2) + 'em') + ')'}">
                     <span class="ng-time-picker-value" ng-repeat="minute in minutes track by $index" ng-class="{'ng-time-picker-value-active': $index == values.currentMinute}">
                         {{ $index < 10 ? '0' + $index : $index }}
                     </span>

@@ -1,0 +1,44 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="uppercase">Confirm Live&nbsp;</span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description">
+            <span>
+                To Confirm your live status please do the following:
+            </span>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <div class="normal-text">
+            Send any transaction from your management address
+            (ETH address - <a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.contract.contract_details.user_address|toCheckSum}}">{{ngPopUp.params.contract.contract_details.user_address|toCheckSum}}</a>)
+            to Will contract address
+            (ETH address - <a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}">{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}</a>)
+            with Data field (<b>0x9dddafe4</b>)
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border"
+         ng-if="ngPopUp.params.contract.contract_details.last_check || ngPopUp.params.contract.contract_details.next_check">
+        <div class="contract-preview-base-font">
+            <div ng-if="ngPopUp.params.contract.contract_details.last_check">
+                Last date:&nbsp;&nbsp;
+                {{ngPopUp.params.contract.contract_details.last_check|date:'yyyy-MM-dd'}}
+            </div>
+            <div ng-if="ngPopUp.params.contract.contract_details.next_check">
+                Next check:&nbsp;&nbsp;
+                {{ngPopUp.params.contract.contract_details.next_check|date:'yyyy-MM-dd'}}
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>

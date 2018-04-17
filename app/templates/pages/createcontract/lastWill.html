@@ -1,6 +1,6 @@
 <div class="main-section-chapter">
     <form class="main-section-chapter-fieldset" name="contractNameForm">
-        <div class="contract-status_container__network in-preview" ng-class="'contract-status_container__network_' + (network.id || 1)">
+        <div class="contract-info__network in-preview" ng-class="'contract-info__network_' + (network.id || 1)">
             <span>{{network.name}}</span>
         </div>
         <div class="main-section-chapter-title">
@@ -22,59 +22,83 @@
 </div>
 
 
-<div class="main-section-chapter">
-    <h2 class="content-section-title">
-        <i class="icon-wallet"></i>
-        <span>Send from</span>
-    </h2>
+<form class="main-section-chapter" name="mainForm" ng-class="{'no-active': !contractNameForm.$valid}">
     <div class="main-section-chapter-fieldset">
         <div class="grid-row contract-form-row">
-            <div class="grid-cell grid-cell-1">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <div class="form-control-label float-right"
-                         ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ETH' : balanceInProgress ? 'Please wait...' : ' '"></div>
-                    <label for="wallet-key" class="form-control-label">Your wallet</label>
+                         ng-if="mainForm.$valid"
+                         ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ' + networkName : balanceInProgress ? 'Please wait...' : ' '"></div>
+
+                    <label for="wallet-key" class="form-control-label">Management address</label>
                     <input id="wallet-key" type="text"
-                           ng-model="walletAddress"
-                           placeholder="Enter your ETH wallet address"
+                           ng-model="request.user_address"
+                           placeholder="Enter your {{networkName}} wallet address"
                            required
+                           ng-change="checkBalance()"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
-                           ng-change="getBalance()"
                            class="form-control-input"/>
                 </div>
             </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text" ng-if="networkName == 'ETH'">
+                    {{networkName}} address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission
+                </span>
+                <span class="form-control-description__text" ng-if="networkName == 'RSK'">
+                    This address will manage your contract.
+                    You can create it by <a href="https://jaxx.io/" target="_blank">Jaxx</a> wallet.
+                    Double check it before submission.
+                </span>
+            </div>
+            <div class="clearfix"></div><br/>
+
+            <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label class="form-control-label">Your Email for remainder & notifications</label>
+                    <input ng-model="request.email"
+                           required
+                           placeholder="Enter the e-mail"
+                           type="email" class="form-control-input"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">We will remind you to confirm "live" status & send notifications about the contract</span>
+            </div>
         </div>
     </div>
-
-    <div ng-help="{
-        text: 'Owner of this address will be able to manage the contract (it\'s the only one).',
-        id: 'help1'
-    }"></div>
-</div>
+</form>
 
 
-<form class="main-section-chapter"
-      ng-class="{'no-active': !checkedBalance}"
-      name="hairsForm">
-    <h2 class="content-section-title">
-        <i class="icon-in-wallet"></i>
-        <span>Send to</span>
-    </h2>
+<form class="main-section-chapter" name="hairsForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid)}">
     <div class="main-section-chapter-fieldset" ng-repeat="hair in hairsList track by $index">
         <div class="grid-row contract-form-row">
-            <div class="grid-cell grid-cell-1">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
-                    <label for="out-wallet-key" class="form-control-label">Send to wallet</label>
+                    <label for="out-wallet-key" class="form-control-label">Beneficiary address</label>
                     <input id="out-wallet-key" type="text"
-                           placeholder="Enter the address of the recipient's wallet"
+                           placeholder="Enter {{networkName}} address"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
                            ng-model="hair.address"
                            required
                            class="form-control-input"/>
                 </div>
-            </div><br/>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+
+                <span class="form-control-description__text" ng-if="networkName == 'ETH'">
+                    Enter {{networkName}} address of beneficiary. After contract execution funds will be sent to that address.
+                </span>
+                <span class="form-control-description__text" ng-if="networkName == 'RSK'">
+                    Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by
+                    <a href="https://jaxx.io/" target="_blank">jaxx</a> too.
+                </span>
+            </div>
             <div class="clearfix"></div><br/>
-            <div class="grid-cell grid-cell-1-2 grid-cell-vs-1" ng-if="hairsList.length > 1">
+            <div class="grid-cell grid-cell-1" ng-if="hairsList.length > 1">
                 <div class="form-control">
                     <div class="form-control-label">Share</div>
                     <div data-sum-percentage="{{ percentageSum }}"
@@ -89,53 +113,41 @@
                            type="email" class="form-control-input"/>
                 </div>
             </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">Enter e-mail address to which we send notification about transfer</span>
+            </div>
         </div>
-        <button class="contact-remove-btn" type="button"
-                ng-click="removeHair(hair)"
-                ng-if="hairsList.length > 1">
-            <i class="icon-cancel"></i>
+        <i class="icon-cancel float-right form-fieldset-info-button"
+           ng-click="removeHair(hair);" ng-if="hairsList.length > 1"></i>
+    </div>
+    <div ng-if="hairsList.length < 5">
+        <br/><br/>
+        <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()">
+            <i class="icon-create-contract"></i>
+            <span>Add beneficiary</span>
         </button>
     </div>
-
-    <div ng-help="{
-        text: 'Enter the recipient address. Enter e-mail address to which we send notification about transfer.',
-        id: 'help2'
-    }"></div>
-
-    <br/><br/>
-    <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()">
-        <i class="icon-create-contract"></i>
-        <span>Add wallet</span>
-    </button>
 </form>
 
-<form class="main-section-chapter" name="conditionsForm" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid}">
-    <h2 class="content-section-title">
-        <i class="icon-conditions"></i>
-        <span>Conditions</span>
-    </h2>
+<form class="main-section-chapter" name="conditionsForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid)}">
     <div class="main-section-chapter-fieldset">
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-1">
                 <div class="form-control">
-                    <label class="form-control-label">Wallet’s activity</label>
-                    <div ng-select
-                         ng-model="request.activate"
-                         ng-model-list="listWalletActivity"
-                         ng-select-options="{class: 'select-1', label: 'name', value: 'value'}"></div>
+                    <div class="form-control-label">Define how often you want to confirm your "Live" status</div>
                 </div>
             </div>
         </div>
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">Check every</label>
+                    <label class="form-control-label">Confirmation transaction every</label>
                     <div class="form-controls-group">
                         <div class="form-control-little">
                             <input type="text"
                                    maxlength="3"
                                    required
-                                   ng-change="changeCondition()"
                                    ng-model="checkPeriod"
                                    ng-pattern="/^[1-9]+[0-9]*?$/"
                                    class="form-control-input text-center"/>
@@ -143,7 +155,6 @@
                         <div class="form-control">
                             <div ng-select
                                  ng-model="checkPeriodSelect"
-                                 ng-change="changeCondition()"
                                  ng-model-list="durationList"
                                  ng-select-options="{class: 'select-1', label: 'name', value: 'value'}"></div>
                         </div>
@@ -151,9 +162,20 @@
                 </div>
             </div>
 
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">You will need to send transaction to the contract from management address every time.</span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="main-section-chapter" name="dueDateForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid)}">
+    <div class="main-section-chapter-fieldset">
+        <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 grid-cell-vs-padding-top">
                 <div class="form-control form-control-date">
-                    <label class="form-control-label">Due date</label>
+                    <label class="form-control-label">Will contract expiration</label>
                     <input type="datetime" required
                            ng-model="dueDate"
                            date-change="onChangeDate"
@@ -169,16 +191,82 @@
                            class="form-control-input"/>
                 </div>
             </div>
+
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"> After due date all funds will be send to management address if all confirmations received at time.</span>
+            </div>
         </div>
     </div>
-
-    <div ng-help="{
-        text: 'Enter the contract\'s conditions - specify when it will make the transfer.',
-        id: 'help3'
-    }"></div>
-
 </form>
 
+<form class="main-section-chapter" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid)}">
+    <div class="main-section-chapter-fieldset">
+        <div class="grid-row"
+             ng-init="request.platform_cancel = networkName !== 'ETH'">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="form-control-label-checkbox">
+                            <span>Cancel contract via MyWish</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="request.platform_cancel" disabled>
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text">
+                     If "On" you will be able to Cancel the contract and get all funds back by 1-Click on MyWish.
+                </span>
+            </div>
+        </div>
+        <div class="grid-row"
+             ng-init="request.platform_alive = networkName !== 'ETH'">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="form-control-label-checkbox">
+                            <span>Confirm "Live" via MyWish</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="request.platform_alive" disabled>
+                        <span class="checkbox-decoration-displaying">
+                            <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                            <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text">
+                    If "On" you will be able to Confirm "Live" status by 1-Click on MyWish.
+                </span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1">
+                <span class="form-control-description__text">
+                     Off mode for both options are more secured, but less convenient for use. You will need to install Metamask for management the contract. On options give you ability to manage the contract by MyWish.
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
 
 <div class="main-section-chapter-fieldset custom-fieldset">
     <div class="contract-form-fieldset"></div>
@@ -188,7 +276,7 @@
                 <div class="grid-cell grid-cell-vs-1-2">
                     <button class="uppercase btn btn-submit mobile-width-100"
                             type="button"
-                            ng-disabled="!checkedBalance || !hairsForm.$valid || !conditionsForm.$valid || (percentageSum !== 100)"
+                            ng-disabled="!(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid) || (percentageSum !== 100)"
                             ng-click="createContract()">
                         <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
                         <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>

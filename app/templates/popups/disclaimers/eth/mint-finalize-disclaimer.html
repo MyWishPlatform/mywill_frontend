@@ -1,0 +1,33 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-warning"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">Disclaimer&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <ul class="condition-text">
+            <li class="condition-text-item">After finalization no more tokens can be minted, no new crowdsales can be created</li>
+        </ul>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="text-center">
+            <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                <span>Cancel</span>
+            </button>
+            <button class="btn btn-submit"
+                    ng-click="closeCurrentPopup()"
+                    ng-pop-up="{
+                        template: '/templates/popups/instructions/eth/mint-finalize-instruction.html',
+                        newPopupContent: true,
+                        params: ngPopUp.params,
+                        actions: ngPopUp.actions,
+                        onClose: closeCommonPopup
+                    }">
+                <span>Continue</span>
+            </button>
+        </div>
+    </div>
+</div>

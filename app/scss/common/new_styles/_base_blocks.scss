@@ -1,0 +1,215 @@
+.shadow-block {
+  background-color: #F4F4F4;
+  box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.25);
+  color: #000;
+  border-radius: 0.9em;
+  &.after-tabs {
+    border-top-left-radius: 0;
+    position: relative;
+    z-index: 2;
+  }
+  &_hovered {
+    cursor: pointer;
+    &:not(&_no-scaled) {
+      transition: all 0.06s linear;
+      transform: scale(1);
+      &:hover, &:focus {
+        transform: scale(1.01);
+      }
+    }
+    &:hover, &:focus {
+      box-shadow: 0 0.2em 2em rgba(0, 0, 0, 0.25);
+    }
+    &:active {
+      box-shadow: 0 0.1em 0.6em rgba(0, 0, 0, 0.25);
+    }
+  }
+  &__content {
+    padding: 2em 2.5em;
+    &:first-child {
+      border-top-left-radius: 0.9em;
+      border-top-right-radius: 0.9em;
+    }
+    &:last-child {
+      border-bottom-left-radius: 0.9em;
+      border-bottom-right-radius: 0.9em;
+    }
+    &:after, &:before {
+      content: '';
+      display: table;
+      width: 100%;
+    }
+    & + &:not(.no-border) {
+      border-top: 1px solid #ddd;
+    }
+    &.grey-color {
+      box-shadow: inset 0 0 2em rgba(0, 0, 0, 0.05);
+      background-color: #F0F0F0;
+      border-top: 0 none;
+    }
+    &.light-color {
+      background-color: #FaFaFa;
+    }
+    &_min-tb-padding {
+      padding-top: 1.5em;
+      padding-bottom: 1.5em;
+    }
+    &_no-lr-padding {
+      padding-left: 0!important;
+      padding-right: 0!important;
+    }
+    &_no-tb-padding {
+      padding-top: 0!important;
+      padding-bottom: 0!important;
+    }
+    &__text {
+      text-shadow: 0 1px 0 #fff;
+      &_description {
+        margin-top: 1em;
+        margin-left: 7em;
+      }
+      span {
+        font-size: 1.4em;
+      }
+    }
+    &__title {
+      padding-left: 7em;
+      line-height: 5em;
+      font-weight: 700;
+      text-shadow: 0 1px 0 #fff;
+      &__text {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1.2em;
+        font-size: 2.4em;
+      }
+      &__icon {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: -1.4em;
+        font-size: 5em;
+        width: 1.3em;
+        color: #206EFF;
+      }
+    }
+    &__blue-title {
+      float: left;
+      background-color: #206EFF;
+      line-height: 3.25em;
+      padding: 1.1em 2.5em 1.1em 2em;
+      border-top-right-radius: 2.9em;
+      border-bottom-right-radius: 2.9em;
+      color: #fff;
+      max-width: 96%;
+      margin-right: 2%;
+      &.static-width {
+        width: 32em;
+      }
+      box-sizing: border-box;
+      &__icon {
+        float: left;
+        font-size: 3.4em;
+        width: 1.3em;
+        color: #fff;
+      }
+      &__icon + &__name {
+        margin-left: 4em;
+      }
+      &__name {
+        line-height: 3.4em;
+        vertical-align: middle;
+        display: block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        span {
+          vertical-align: middle;
+          font-size: 1.5em;
+          display: inline-block;
+          &.big-size {
+            font-size: 2em;
+          }
+        }
+      }
+    }
+    &__description {
+      line-height: 3.8em;
+      margin: 1em 2.5em 0 2.5em;
+      float: left;
+      > span {
+        font-size: 1.4em;
+        line-height: 1.2em;
+        font-weight: bold;
+        display: inline-block;
+      }
+      &__red {
+        background-color: rgb(214, 74, 74);
+        padding: 0.3em 0.5em;
+        margin: 0 0.2em;
+        color: #fff;
+        border-radius: 2px;
+      }
+    }
+  }
+  + .shadow-block {
+    margin-top: 2em;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .shadow-block {
+    &__content {
+      padding: 1em 1.5%;
+      &__description {
+        margin-left: 1.5%;
+        margin-right: 1.5%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .shadow-block {
+    &__content {
+      &__text {
+        &_description {
+
+        }
+      }
+      &__title {
+        &__text {
+          display: block;
+        }
+        &__icon {
+          float: left;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .shadow-block {
+    &__content {
+      &__text {
+        margin-left: 0;
+        &_description {
+
+        }
+      }
+      &__title {
+        padding-left: 6em;
+        line-height: 5em;
+        &__text {
+          font-size: 2em;
+        }
+        &__icon {
+          font-size: 4em;
+        }
+      }
+    }
+    + .shadow-block {
+      margin-top: 1em;
+    }
+  }
+}

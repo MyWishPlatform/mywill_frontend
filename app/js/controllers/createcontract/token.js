@@ -134,7 +134,12 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
                 case 400:
                     switch(data.data.result) {
                         case '1':
+                        case 1:
                             $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            break;
+                        case '2':
+                        case 2:
+                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
                             break;
                     }
                     break;

@@ -63,6 +63,9 @@ body {
   text-transform: uppercase;
 }
 
+.no-visibility {
+  visibility: hidden;
+}
 button, input, textarea {
   font-family: inherit;
 }
@@ -222,14 +225,31 @@ nav, main, footer, header {
   font-size: 1.5em;
   margin: 0;
   line-height: 1.2em;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   + .normal-text {
     margin-top: 0.5em;
   }
 }
-
-@media screen and (max-width: 1024px) {
-  top: 0.7em;
-  right: 0.7em;
+.warning-page {
+  background-color: rgba(203, 0, 8, 0.8);
+  color: #fff;
+  &__icon {
+    float: left;
+    width: 5em;
+    i {
+      font-size: 4em;
+    }
+  }
+  &__text {
+    line-height: 4.1em;
+    margin-left: 5em;
+    span {
+      font-size: 1.5em;
+      display: inline-block;
+      line-height: 1.2em;
+      vertical-align: middle;
+    }
+  }
 }
-
-

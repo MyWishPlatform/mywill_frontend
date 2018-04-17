@@ -21,7 +21,12 @@ $red-active-color: #bb0d2b;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   box-sizing: border-box;
   text-decoration: none;
-  + .btn {
+  text-align: center;
+  white-space: nowrap;
+  &.width-100 {
+    width: 100%;
+  }
+  &:not(.float-right) ~ .btn {
     margin-left: 1em;
   }
   &[disabled] {
@@ -166,7 +171,6 @@ $red-active-color: #bb0d2b;
     background-position: center;
     background-position-x: 15px;
     background-position-y: 8px;
-    margin-bottom: 20px;
     border: 2px solid transparent;
     span {
       font-size: 1.2em;

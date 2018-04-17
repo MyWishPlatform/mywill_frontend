@@ -1,6 +1,5 @@
 $fieldsets-padding: 2.5em;
 
-
 .main-content-holder {
   margin-left: 25.5em;
   color: $main-blue-color;
@@ -14,6 +13,9 @@ $fieldsets-padding: 2.5em;
     width: 100%;
     content: '';
   }
+  + .main-content-holder {
+    padding-top: 0;
+  }
 }
 .main-wrapper-section {
   float: left;
@@ -26,6 +28,9 @@ $fieldsets-padding: 2.5em;
 }
 .main-section-content {
   padding: 2em 4.3%;
+  &.without-bottom-padding {
+    padding-bottom: 0;
+  }
   &.with-tabs {
     .main-section-chapter-fieldset {
       border-top-left-radius: 0;

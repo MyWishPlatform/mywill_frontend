@@ -23,9 +23,10 @@ angular.module('Directives').directive('ngRanger', function($rootScope) {
             };
             var onMoveWindow = function(event) {
                 event.preventDefault();
-                var positionX = event.screenX || event.touches[0].screenX;
-                $scope.percentage+= (positionX - startPosition) / onePercentWidth;
-                startPosition = positionX;
+                var positionX = event.pageX !== undefined ? event.pageX : event.touches[0].screenX;
+
+                $scope.percentage = startPercentage + (positionX - startPosition) / onePercentWidth;
+                // startPosition = positionX;
                 changePercentage();
                 $scope.$apply();
                 return false;
@@ -39,17 +40,20 @@ angular.module('Directives').directive('ngRanger', function($rootScope) {
                 return false;
             };
 
-            var startPosition, widthElement, onePercentWidth;
+            var startPosition, widthElement, onePercentWidth, startPercentage;
             var onDownPoint = function(event) {
                 event.preventDefault();
                 if (event.touches && event.touches.length > 1) return;
                 widthElement = element.width();
+
                 onePercentWidth = widthElement / 100;
-                startPosition = event.pageX || event.touches[0].screenX;
+                startPosition = event.pageX !== undefined ? event.pageX : event.touches[0].screenX;
+                startPercentage = $scope.percentage;
+
                 $scope.changeProgress = true;
-                $scope.$apply();
                 win.on('mouseup touchend', onUpWindow);
                 win.on('mousemove touchmove', onMoveWindow);
+                $scope.$apply();
                 return false;
             };
 

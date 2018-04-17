@@ -27,9 +27,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
 
-    if (contract.network == NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN']) {
-        web3Service.setRopstenInfuraProvider();
-    }
+    web3Service.setProviderByNumber(contract.network);
 
     var web3Contract;
 
@@ -87,12 +85,6 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
 
-
-
-
-
-
-
     $scope.generateSignature = function() {
         var mintInterfaceMethod = web3Service.getMethodInterface(
             !$scope.recipient.isFrozen ? 'mint' : 'mintAndFreeze',
@@ -115,11 +107,6 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
         })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type);
-        } else {
-            web3Service.setProvider('infura');
-        }
         web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
         getTotalSupply();
     });
@@ -157,11 +144,10 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     };
 
 
-}).controller('tokenMintFinalize', function($scope, web3Service, NETWORKS_TYPES_CONSTANTS) {
+}).controller('tokenMintFinalize', function($scope, web3Service) {
 
-    if ($scope.ngPopUp.params.contract.network == NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN']) {
-        web3Service.setRopstenInfuraProvider();
-    }
+    web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
+
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
 
     var interfaceMethod = web3Service.getMethodInterface('finishMinting', contractDetails.eth_contract_token.abi);

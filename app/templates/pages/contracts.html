@@ -1,173 +1,51 @@
 <div class="main-section-content">
-    <div class="contracts-list-wrapper text-center" ng-if="!contractsList.length">
-        <div class="main-section-chapter-fieldset">
-            <p class="just-text">
+    <div class="shadow-block text-center" ng-if="!contractsList.length">
+        <div class="shadow-block__content">
+            <div class="shadow-block__content__text">
                 <span>The list of smart contracts is empty</span>
-            </p>
+            </div><br/><br/>
             <a ui-sref="main.createcontract.types" class="btn btn-submit with-icon">
                 <i class="icon-create-contract"></i>
                 <span>Create contract</span>
-            </a><br/><br/><br/>
+            </a>
         </div>
     </div>
 
-    <div class="contracts-list-wrapper" ng-if="contractsList.length">
-        <div class="main-section-chapter-fieldset contracts-list-item"
-             ng-click="goToContract(contract, $event)"
-             ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
+    <div class="shadow-block shadow-block_hovered shadow-block_hovered_no-scaled"
+         ng-click="goToContract(contract, $event)"
+         ng-repeat="contract in contractsList" ng-init="iniContract(contract)">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding  shadow-block__content_no-lr-padding">
 
-            <div class="contract-status_container__network" ng-class="'contract-status_container__network_' + (contract.network || 1)">
+            <div class="contract-info__network" ng-class="'contract-info__network_' + (contract.network || 1)">
                 <span>{{networks[contract.network]}}</span>
             </div>
 
-            <div class="contract-name-block">
-                <span class="contract-show-button">
-                    <i ng-class="contractTypesIcons[contract.contract_type]"></i>
-                </span>
-                <div class="contract-name-text" ng-attr-title="{{contract.name}}">{{ contract.name || 'Not defined'}}</div>
-            </div>
-            <div class="clearfix show-ps"></div>
-            <div class="contract-status-block">
-                <div class="contract-status-buttons">
-                    <!-- Activate instruction button -->
-                    <button ng-pop-up="{
-                                template: '/templates/popups/activate-disclaimer.html',
-                                params: {
-                                    contract: contract
-                                },
-                                class: 'conditions',
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
-                            ng-if="statuses[contract.state]['value'] == 10"
-                            class="btn btn-submit hide-ps">
-                        <span>Activate</span>
-                    </button>
-
-                    <!-- Pay instruction button -->
-                    <button ng-click="payContract(contract)"
-                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
-                            class="btn btn-submit hide-ps">
-                        <i class="icon-rocket-ship"></i>
-                        <span>Launch</span>
-                    </button>
-
-                    <!-- Deposit instruction button -->
-                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
-                            ng-pop-up="{
-                                template: '/templates/popups/deposit-instruction.html',
-                                params: {
-                                    contract: contract
-                                },
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
-                       class="btn btn-transparent hide-ps">
-                        <span>Deposit</span>
-                    </button>
-
-                    <!-- Cancel instruction button -->
-                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)"
-                            ng-pop-up="{
-                                template: '/templates/popups/stop-instruction.html',
-                                params: {
-                                    contract: contract
-                                },
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
-                            class="btn btn-transparent hide-ps">
-                        <span>Cancel</span>
-                    </button>
-
-                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4)"
-                            ng-pop-up="{
-                                template: '/templates/popups/finalize-instruction.html',
-                                params: {
-                                    contract: contract
-                                },
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
-                            class="btn btn-transparent hide-ps">
-                        <span>Finalize</span>
-                    </button>
-
-
-                    <!-- Mint form button -->
-                    <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting"
-                            ng-pop-up="{
-                                template: '/templates/popups/mint-token-form.html',
-                                params: {
-                                    contract: contract
-                                },
-                                class: 'page-size',
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
-                            class="btn btn-transparent hide-ps">
-                        <span>Mint</span>
-                    </button>
-
-                    <!-- Finalize token contract form button -->
-                    <button ng-pop-up="{
-                                template: '/templates/popups/mint-finalize-disclaimer.html',
-                                params: {
-                                    contract: contract
-                                },
-                                class: 'conditions',
-                                actions: {
-                                    successCodeCopy: successCodeCopy
-                                },
-                                onClose: returnToList
-                            }"
-                            ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting"
-                            class="btn btn-transparent hide-ps">
-                        <span>Finalize</span>
-                    </button>
-
-
-
-                    <button class="btn only-icon"
-                            ng-class="{'in-progress': timeoutsForProgress[contract.id]}"
-                            ng-mousedown="refreshContract(contract)"
-                            ng-if="!((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 11))">
-                        <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
-                    </button>
-
-                    <button class="btn only-icon" type="button"
-                            ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
-                            ng-pop-up="{
-                                template: '/templates/popups/delete-contract.html',
-                                params: contract,
-                                class: 'deleting-contract',
-                                actions: {
-                                    deleteContract: deleteContract
-                                }
-                            }">
-                        <i class="icon-trash"></i>
-                    </button>
-
-
-
+            <div class="shadow-block__content__blue-title static-width">
+                <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
+                <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+                    <span>{{ contract.name || 'Not defined'}}</span>
                 </div>
+            </div>
 
+            <div class="contract-status-block">
                 <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
                     <div class="contract-status-text">
                         <span>{{statuses[contract.state]['title']}}</span>
                     </div>
                 </div>
+                <button class="btn only-icon"
+                        ng-class="{
+                            'in-progress': timeoutsForProgress[contract.id],
+                            'no-visibility':
+                            ((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 11) || (statuses[contract.state]['value'] == 9))
+                        }"
+                        ng-mousedown="refreshContract(contract)">
+                    <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
+                </button>
             </div>
+
+            <div class="contract-block__buttons"
+                 ng-include="'/templates/pages/contracts/list/' + getNetworkPath(contract.network) + '-buttons.html'"></div>
         </div>
     </div>
 </div>

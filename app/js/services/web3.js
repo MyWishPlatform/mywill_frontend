@@ -27,10 +27,6 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     /* Определение провайдеров клиентов */
 
 
-    this.setRopstenInfuraProvider = function() {
-        web3Providers['infura'] = new Web3.providers.HttpProvider(APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS);
-    };
-
     this.getMethodInterface = function(methodName, abi) {
         return abi.filter(function(m) {
             return m.name === methodName;
@@ -44,10 +40,37 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     };
 
     var currentProvider;
-    this.setProvider = function(providerName) {
-        currentProvider = web3Providers[providerName];
-        web3.setProvider(currentProvider);
+
+    this.setProviderByNumber = function(networkId) {
+        networkId = networkId * 1;
+        switch (networkId) {
+            case 1:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.INFURA_ADDRESS));
+                break;
+            case 2:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS));
+                break;
+            case 3:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.RSK_NET_ADDRESS));
+                break;
+            case 4:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.RSK_TESTNET_NET_ADDRESS));
+                break;
+        }
     };
+
+    this.setProvider = function(providerName) {
+        switch (providerName) {
+            case 'RSK':
+                currentProvider = new Web3.providers.HttpProvider("/endpoint/rsk");
+                web3.setProvider(currentProvider);
+                break;
+            default:
+                currentProvider = web3Providers[providerName];
+                web3.setProvider(currentProvider);
+        }
+    };
+
 
     var getAccounts = function(providerName) {
         var defer = $q.defer();
@@ -90,6 +113,12 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 }
             });
         }
+        return defer.promise;
+    };
+
+    this.getBalance = function(address) {
+        var defer = $q.defer();
+        web3.eth.getBalance(address).then(defer.resolve, defer.resolve);
         return defer.promise;
     };
 

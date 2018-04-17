@@ -115,6 +115,20 @@ angular.module('Services').service('contractService', function(requestService, A
                 query: data
             };
             return requestService.get(params);
+        },
+        sendIAmAlive: function(data) {
+            var params = {
+                path: API.I_AM_ALIVE,
+                data: data
+            };
+            return requestService.post(params);
+        },
+        sendCancelContract: function(data) {
+            var params = {
+                path: API.CONTRACT_CANCEL,
+                data: data
+            };
+            return requestService.post(params);
         }
     }
 });

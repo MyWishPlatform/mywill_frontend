@@ -1,5 +1,5 @@
 angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service, $filter) {
 
 
     $scope.durationList = [
@@ -72,7 +72,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         network: $stateParams.network || 1,
         contract_details: {
             check_interval: 180 * 24 * 3600,
-            email: $rootScope.currentUser.username || undefined
+            email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
         }
     };
 

@@ -434,6 +434,12 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $qProvider.errorOnUnhandledRejections(false);
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(mailto|otpauth|https?):/);
+}).filter('isEmail', function($filter) {
+    return function(email) {
+        var input = angular.element('<input>').attr({type: 'email'});
+        input.val(email);
+        return input.get(0).validity.valid;
+    }
 }).filter('declNumber', function($filter) {
     return function(value, words) {
         var float = value % 1;

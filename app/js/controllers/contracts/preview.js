@@ -197,6 +197,12 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     var killInterfaceMethod = web3Service.getMethodInterface('kill', contractDetails.eth_contract.abi);
     $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(killInterfaceMethod);
 
+    var iAliveInterfaceMethod = web3Service.getMethodInterface('imAvailable', contractDetails.eth_contract.abi);
+    $scope.iAliveSignature = (new Web3()).eth.abi.encodeFunctionCall(iAliveInterfaceMethod);
+
+
+
+
     web3Service.getAccounts().then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.user_address.toLowerCase();
@@ -216,6 +222,13 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
     $scope.killContract = function() {
         contract.methods.kill().send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+
+
+    $scope.sendIAlive = function() {
+        contract.methods.imAvailable().send({
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };

@@ -1,4 +1,4 @@
-<div class="shadow-block">
+<div class="shadow-block" ng-controller="instructionsController">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
@@ -11,7 +11,25 @@
             </span>
         </div>
     </div>
-
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <a ng-attr-href="{{
+                'https://www.myetherwallet.com/?data=' + iAliveSignature +
+                '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}#send-transaction"
+           target="_blank" class="btn btn-payment btn-payment--wallet text-center">
+            <span>MyEtherwallet</span>
+        </a>
+        <button ng-click="sendIAlive()"
+                ng-if="currentWallet && (currentWallet.type === 'parity')"
+                class="btn btn-payment btn-payment--parity text-center">
+            <span>Parity</span>
+        </button>
+        <button  ng-click="sendIAlive()"
+                 ng-if="currentWallet && (currentWallet.type === 'metamask')"
+                 class="btn btn-payment btn-payment--metamask text-center">
+            <span>Metamask</span>
+        </button>
+    </div>
+    <div class="form-fieldset-delimiter"><span>OR</span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
         <div class="normal-text">
             Send any transaction from your management address

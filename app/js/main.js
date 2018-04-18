@@ -405,8 +405,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.currentTimezone = (offset > 0 ? '+' : '') + offset;
 
     $rootScope.bigNumber = function(value) {
-        if (!value || isNaN(value)) return;
-        return new BigNumber(value);
+        return ((value != 0) && !isNaN(value)) ? new BigNumber(value) : new BigNumber('0');
     };
 
     $rootScope.web3Utils = Web3.utils;

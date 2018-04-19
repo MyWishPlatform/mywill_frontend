@@ -112,7 +112,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-wallet form-control-label-icon"></i>
-                    From account
+                    Management address
                 </div><br/>
                 <div class="contract-wallet-information-float contract-wallet-information">
                     <span class="identicon-container relative-top">
@@ -131,7 +131,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-in-wallet form-control-label-icon"></i>
-                    Send to wallet
+                    Heir{{contract.contract_details.heirs.length ? 's' : ''}}
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
                     <br/>

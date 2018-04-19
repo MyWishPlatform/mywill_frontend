@@ -30,6 +30,7 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
         <div class="text-center">
             <button class="btn btn-submit"
+                    ng-disabled="!isOkAlive(ngPopUp.params.contract)"
                     ng-click="sendConfirmLive(ngPopUp.params.contract, closeCurrentPopup);">
                 <span>&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;</span>
             </button>

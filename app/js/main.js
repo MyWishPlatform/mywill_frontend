@@ -258,9 +258,17 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var createDefer = function() {
         $rootScope.currentUserDefer = $q.defer();
     };
+
+    var dateRange = 0;
+
+    $rootScope.getNowDateTime = function() {
+        return new Date((new Date()).getTime() + dateRange);
+    };
+
     var getCurrentUser = function(isGhost) {
         authService.profile().then(function(data) {
             if (data) {
+                dateRange = (new Date(data.headers('date'))).getTime() - (new Date()).getTime();
                 $rootScope.setCurrentUser(data.data);
                 iniApplication();
                 $rootScope.currentUserDefer.resolve(data);

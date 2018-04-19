@@ -103,7 +103,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         );
     };
 
-    web3Service.getAccounts().then(function(result) {
+    web3Service.getAccounts(contract.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
         })[0];
@@ -153,12 +153,12 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     var interfaceMethod = web3Service.getMethodInterface('finishMinting', contractDetails.eth_contract_token.abi);
     $scope.finalizeSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
 
-    web3Service.getAccounts().then(function(result) {
+    web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
         })[0];
         if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type);
+            web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
             contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
         }
     });

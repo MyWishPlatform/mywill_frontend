@@ -203,12 +203,12 @@ angular.module('app').controller('contractsPreviewController', function($state, 
 
 
 
-    web3Service.getAccounts().then(function(result) {
+    web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.user_address.toLowerCase();
         })[0];
         if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type);
+            web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
             contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
         }
     });

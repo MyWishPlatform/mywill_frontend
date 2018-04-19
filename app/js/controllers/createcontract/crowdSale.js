@@ -1,5 +1,5 @@
 angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS, CONTRACT_TYPES_NAMES_CONSTANTS) {
+                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
     $scope.investsLimit = false;
@@ -656,12 +656,12 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         [contractDetails.eth_contract_crowdsale.address]
     );
 
-    web3Service.getAccounts().then(function(result) {
+    web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
         })[0];
         if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type);
+            web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
             contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
         }
     });
@@ -676,14 +676,14 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     var interfaceMethod = web3Service.getMethodInterface('finalize', contractDetails.eth_contract_crowdsale.abi);
     $scope.activateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
 
-    web3Service.getAccounts().then(function(result) {
+    web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
 
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
         })[0];
 
         if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type);
+            web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
             contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
         }
     });

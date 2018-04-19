@@ -59,11 +59,19 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         }
     };
 
-    this.setProvider = function(providerName) {
+    this.setProvider = function(providerName, network) {
         switch (providerName) {
-            case 'RSK':
-                currentProvider = new Web3.providers.HttpProvider("/endpoint/rsk");
-                web3.setProvider(currentProvider);
+            case 'metamask':
+                var networkVersion = web3Providers['metamask'].publicConfigStore._state.networkVersion;
+                if (
+                    ((networkVersion == 31) && (network == 4)) ||
+                    ((networkVersion == 30) && (network == 3)) ||
+                    ((networkVersion == 1) && (network == 1)) ||
+                    ((networkVersion == 3) && (network == 2))
+                ) {
+                    currentProvider = web3Providers[providerName];
+                    web3.setProvider(currentProvider);
+                }
                 break;
             default:
                 currentProvider = web3Providers[providerName];
@@ -72,9 +80,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     };
 
 
-    var getAccounts = function(providerName) {
+    var getAccounts = function(providerName, network) {
         var defer = $q.defer();
-        _this.setProvider(providerName);
+        _this.setProvider(providerName, network);
         web3.eth.getAccounts(function(err, addresses) {
             if (!addresses) {
                 defer.resolve([]);
@@ -94,13 +102,13 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     };
 
     var accountsList;
-    this.getAccounts = function() {
+    this.getAccounts = function(network) {
         accountsList = [];
         var defer = $q.defer();
         var countProviders = 0;
         for (var clientName in web3Providers) {
             countProviders++;
-            getAccounts(clientName).then(function(result) {
+            getAccounts(clientName, network).then(function(result) {
                 countProviders--;
                 accountsList = accountsList.concat(result);
                 if (!countProviders) {

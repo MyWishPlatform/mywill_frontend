@@ -1,0 +1,28 @@
+.slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  &_container {
+    &:after, &:before {
+      content: '';
+      display: table;
+      width: 100%;
+    }
+    &__item {
+      float: left;
+    }
+  }
+  &_control {
+    position: absolute;
+    top: 100%;
+    padding: 1em 0;
+    text-align: center;
+    &__one-slide {
+      width: 1em;
+      height: 1em;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.2);
+      display: inline-block;
+    }
+  }
+}

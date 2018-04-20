@@ -2,7 +2,9 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  margin-bottom: 3em;
   &_container {
+    transition: transform 0.4s;
     &:after, &:before {
       content: '';
       display: table;
@@ -13,8 +15,6 @@
     }
   }
   &_control {
-    position: absolute;
-    top: 100%;
     padding: 1em 0;
     text-align: center;
     &__one-slide {
@@ -23,6 +23,39 @@
       border-radius: 50%;
       background-color: rgba(0, 0, 0, 0.2);
       display: inline-block;
+      margin: 0 0.3em;
+      cursor: pointer;
+      &.active {
+        background-color: #206EFF;
+      }
+    }
+  }
+  &_big_control {
+    position: absolute;
+    top: 50%;
+    width: 4em;
+    height: 4em;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-top: -1.5em;
+    cursor: pointer;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    line-height: 4em;
+    &:before {
+      font-size: 3em;
+    }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    &.no-active {
+      display: none;
+    }
+    &__next {
+      right: 1.5em;
+    }
+    &__prev {
+      left: 1.5em;
     }
   }
 }

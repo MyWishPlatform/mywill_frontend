@@ -15,7 +15,9 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }
     ];
 
-    $scope.hairsList = [];
+    $scope.hairsList = [{
+        percentage: 100
+    }];
 
     $scope.addHair = function() {
 
@@ -144,7 +146,9 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.request = angular.copy(contract.contract_details);
 
         $scope.contractName = contract.name;
-        $scope.hairsList = contract.contract_details.heirs ? angular.copy(contract.contract_details.heirs) : [];
+        $scope.hairsList = contract.contract_details.heirs ? angular.copy(contract.contract_details.heirs) : [{
+            percentage: 100
+        }];
 
         var checkInterval = contract.contract_details.check_interval ? $scope.durationList.filter(function(check) {
             return !(contract.contract_details.check_interval % (check.value * 24 * 3600));

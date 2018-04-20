@@ -72,8 +72,7 @@
 </form>
 
 
-<form class="main-section-chapter" name="hairsForm"
-      ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid)}">
+<form class="main-section-chapter" name="hairsForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid)}">
     <div class="main-section-chapter-fieldset" ng-repeat="hair in hairsList track by $index">
         <div class="grid-row contract-form-row">
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
@@ -120,7 +119,7 @@
             </div>
         </div>
         <i class="icon-cancel float-right form-fieldset-info-button"
-           ng-click="removeHair(hair);" ng-if="hairsList.length"></i>
+           ng-click="removeHair(hair);" ng-if="hairsList.length > 1"></i>
     </div>
     <div ng-if="hairsList.length"><br/><br/></div>
     <div ng-if="hairsList.length < 5">

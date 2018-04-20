@@ -16,6 +16,8 @@ angular.module('Directives').directive('ngSlider', function ($timeout) {
                 var sliderPageBtn = angular.element('<span>').addClass('slider_control__one-slide');
                 sliderPageBtn.on('click', function() {
                     activateSlide(number);
+                }).on('mousedown touchstart', function() {
+                    return false;
                 });
                 return sliderPageBtn;
             };
@@ -52,9 +54,13 @@ angular.module('Directives').directive('ngSlider', function ($timeout) {
             var prevSlideButton = angular.element('<span>').addClass('slider_big_control slider_big_control__prev icon-keyboard_arrow_left');
             nextSlideButton.on('click', function() {
                 activateSlide(activeSlide + 1);
+            }).on('mousedown touchstart', function() {
+                return false;
             });
             prevSlideButton.on('click', function() {
                 activateSlide(activeSlide - 1);
+            }).on('mousedown touchstart', function() {
+                return false;
             });
             elem.append(nextSlideButton, prevSlideButton);
 

@@ -27,8 +27,11 @@ angular.module('Directives').directive('ngSlider', function ($timeout) {
             }
             var activeSlide = 0;
             var activateSlide = function(slideNumber) {
+                slideNumber = Math.max(0, Math.min(slideNumber, items.length - 1));
+
                 controlBtns[activeSlide].removeClass('active');
                 controlBtns[slideNumber].addClass('active');
+
                 container.css({
                     transform: 'translateX(' + (- itemWidth * slideNumber) + '%)'
                 });
@@ -56,6 +59,50 @@ angular.module('Directives').directive('ngSlider', function ($timeout) {
             elem.append(nextSlideButton, prevSlideButton);
 
             activateSlide(0);
+
+            var startDownPosition;
+            var lastPosition;
+            var downSlide = function(e) {
+                e.preventDefault();
+                var clientX = 0;
+                if (e.targetTouches && e.targetTouches.length) {
+                    clientX = e.targetTouches[0].clientX;
+                } else {
+                    clientX = e.clientX;
+                }
+                startDownPosition = clientX;
+                container.addClass('no-transition');
+                angular.element(window).on('mousemove touchmove', moveWindow);
+                angular.element(window).on('mouseup touchend', upSlide);
+            };
+            var upSlide = function(e) {
+                container.removeClass('no-transition');
+                var endDownPosition = lastPosition - startDownPosition;
+                var addSlides = -Math.round(endDownPosition / (items.eq(0).width()));
+                activateSlide(activeSlide + addSlides);
+                angular.element(window).off('mousemove touchmove', moveWindow);
+                angular.element(window).off('mouseup touchend', upSlide);
+            };
+
+            var moveWindow = function(e) {
+                var clientX = 0;
+                if (e.targetTouches && e.targetTouches.length) {
+                    clientX = e.targetTouches[0].clientX;
+                } else {
+                    clientX = e.clientX;
+                }
+                var positionChange = clientX - startDownPosition;
+                lastPosition = clientX;
+
+                container.css({
+                    transform: 'translateX(calc(' + (- itemWidth * activeSlide) + '% + ' + positionChange + 'px))'
+                });
+            };
+
+            elem.on('mousedown touchstart', downSlide);
+            scope.$destroy(function() {
+                elem.off('mousedown touchstart', downSlide);
+            });
         }
     }
 });

@@ -2,9 +2,10 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  margin-bottom: 3em;
   &_container {
-    transition: transform 0.4s;
+    &:not(.no-transition) {
+      transition: transform 0.4s;
+    }
     &:after, &:before {
       content: '';
       display: table;
@@ -30,7 +31,12 @@
       }
     }
   }
+
+  &:hover &_big_control {
+    display: block;
+  }
   &_big_control {
+    display: none;
     position: absolute;
     top: 50%;
     width: 4em;
@@ -42,6 +48,8 @@
     color: #fff;
     text-align: center;
     line-height: 4em;
+    opacity: 1;
+    transition: opacity 0.4s;
     &:before {
       font-size: 3em;
     }
@@ -49,7 +57,7 @@
       background-color: rgba(0, 0, 0, 0.7);
     }
     &.no-active {
-      display: none;
+      opacity: 0;
     }
     &__next {
       right: 1.5em;

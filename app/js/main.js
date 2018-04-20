@@ -261,7 +261,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     var dateRange = 0;
 
-    $rootScope.getNowDateTime = function() {
+    $rootScope.getNowDateTime = function(addedTime) {
         return new Date((new Date()).getTime() + dateRange);
     };
 

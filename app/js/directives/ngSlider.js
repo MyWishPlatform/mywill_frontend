@@ -1,4 +1,4 @@
-angular.module('Directives').directive('ngSlider', function ($timeout) {
+angular.module('Directives').directive('ngSlider', function ($rootScope) {
     return {
         restrict: 'A',
         scope: {
@@ -105,8 +105,10 @@ angular.module('Directives').directive('ngSlider', function ($timeout) {
                 });
             };
 
+            $rootScope.menuTogglerOff = true;
             elem.on('mousedown touchstart', downSlide);
             scope.$destroy(function() {
+                $rootScope.menuTogglerOff = false;
                 elem.off('mousedown touchstart', downSlide);
             });
         }

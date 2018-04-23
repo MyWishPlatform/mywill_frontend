@@ -288,7 +288,9 @@
             <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
                 <div class="form-control">
                     <label class="checkbox-decoration">
-                        <input type="checkbox" id="is_transferable_at_once" ng-model="request.future_minting" class="ng-pristine ng-untouched ng-valid ng-empty">
+                        <input type="checkbox"
+                               ng-disabled="!token_holders.length"
+                               id="is_transferable_at_once" ng-model="request.future_minting">
                         <span class="checkbox-decoration-displaying">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
                         <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>

@@ -1,4 +1,41 @@
-<!--<h3 class="email-confirm-title">Are you registered!</h3>-->
-<p class="email-confirm-text">
-    Please check your email & confirm registration. Thank you!
-</p>
+<div class="shadow-block">
+    <div class="shadow-block__content">
+        <div class="email-confirm-title">
+            Email Activation
+        </div>
+        <p class="email-confirm-text">
+            An activation email has been sent to <br/>
+            <b ng-bind="currEmail"></b>.<br/><br/>
+            <span class="red-color">
+                If your email address is gmail or not received for a long time,
+                please check the mailbox trash/spam.
+            </span>
+        </p>
+        <br/>
+
+        <div class="text-center" ng-if="!resendError && !emailConfirmProgress">
+            <button class="btn btn-transparent" ng-click="getConfirmEmail()">
+                <span>Resend an email</span>
+            </button>
+        </div>
+
+        <div ng-if="allTimerSeconds && (allTimerSeconds != 0)" class="email-confirm-timer-text text-center">
+            <span class="email-confirm-text">
+                We can re-send mail in {{timerMinutes}}:{{timerSeconds}}
+            </span>
+        </div>
+
+        <div ng-if="resendError == 1" class="email-confirm-timer-text">
+            <span class="email-confirm-text red-color">
+                Your email was not registered. Please <a ui-sref="main.registration">sign up</a> before email activation.
+            </span>
+        </div>
+        <div ng-if="resendError == 2" class="email-confirm-timer-text">
+            <span class="email-confirm-text red-color">
+                Your email has already been verified. Please <a ui-sref="main.login">sign in</a>.
+            </span>
+        </div>
+        <br/>
+
+    </div>
+</div>

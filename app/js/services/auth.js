@@ -94,6 +94,15 @@ module.service('authService', function(requestService, API, $q, $timeout) {
                 data: data
             };
             return requestService.post(params);
+        },
+        resendConfirmEmail: function(email) {
+            var params = {
+                path: API.RESEND_EMAIL,
+                data: {
+                    email: email
+                }
+            };
+            return requestService.post(params);
         }
     };
 });

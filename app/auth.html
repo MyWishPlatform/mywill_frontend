@@ -52,7 +52,10 @@
         <img src="/static/images/logotype-dark.svg"/>
     </a>
 </header>
-<div class="auth-form">
+<div class="auth-form" ng-class="{
+    'auth-form': $state.current.name !== 'main.confirm',
+    'email-confirm-message': $state.current.name === 'main.confirm'
+    }">
     <ul class="auth-form-menu">
         <li ng-class="{active: $state.current.name == 'main.login'}">
             <a ui-sref="main.login">Sign in</a>
@@ -63,6 +66,7 @@
     </ul>
     <div ui-view></div>
 </div>
+
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDHD74W"

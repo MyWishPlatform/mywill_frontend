@@ -26,6 +26,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         $scope.token_holders = $scope.token_holders.filter(function(rec) {
             return rec !== recipient;
         });
+        if (!$scope.token_holders.length) {
+            $scope.request.future_minting = true;
+        }
     };
 
     $scope.checkTokensAmount = function() {
@@ -77,6 +80,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             }
             holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
         });
+        $scope.request.future_minting = $scope.request.future_minting || !$scope.token_holders.length;
     };
 
 

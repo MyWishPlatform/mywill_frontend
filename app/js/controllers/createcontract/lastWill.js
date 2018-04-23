@@ -173,7 +173,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     $scope.checkBalance = function() {
         if (!$scope.mainForm.$valid) return;
         $scope.balanceInProgress = true;
-        web3Service.getBalance($scope.request.user_address).then(function(data) {
+        web3Service.getBalance(Web3.utils.toChecksumAddress($scope.request.user_address)).then(function(data) {
             $scope.balanceInProgress = false;
             $scope.checkedBalance = Web3.utils.fromWei(data, 'ether');
         }, function() {

@@ -12,6 +12,9 @@
                            ng-change="!recipient.name ? checkTokensAmount() : false"
                            required
                            class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
+                          style="display: block">Address is not checksummed</span>
                 </div>
             </div>
             <div class="clearfix show-ps"><br/></div>

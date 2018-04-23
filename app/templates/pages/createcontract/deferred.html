@@ -40,6 +40,9 @@
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
                            ng-change="getBalance()"
                            class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="request.contract_details.user_address ? !web3Utils.checkAddressChecksum(request.contract_details.user_address) : false"
+                          style="display: block">Address is not checksummed</span>
                 </div>
             </div>
         </div>
@@ -71,6 +74,9 @@
                            ng-model="request.contract_details.recepient_address"
                            required
                            class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="request.contract_details.recepient_address ? !web3Utils.checkAddressChecksum(request.contract_details.recepient_address) : false"
+                          style="display: block">Address is not checksummed</span>
                 </div>
             </div>
 

@@ -39,6 +39,9 @@
                            ng-change="checkBalance()"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
                            class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="request.user_address ? !web3Utils.checkAddressChecksum(request.user_address) : false"
+                          style="display: block">Address is not checksummed</span>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
@@ -81,9 +84,13 @@
                     <input id="out-wallet-key" type="text"
                            placeholder="Enter {{networkName}} address"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
+                           ng-check-sum
                            ng-model="hair.address"
                            required
                            class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="hair.address ? !web3Utils.checkAddressChecksum(hair.address) : false"
+                          style="display: block">Address is not checksummed</span>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">

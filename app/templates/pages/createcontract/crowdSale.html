@@ -126,6 +126,9 @@
                                ng-pattern="/^0x[0-9a-f]{40}$/i"
                                required
                                class="form-control-input"/>
+                        <span class="field-error form-field_error-check-sum"
+                              ng-if="request.admin_address ? !web3Utils.checkAddressChecksum(request.admin_address) : false"
+                              style="display: block">Address is not checksummed</span>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
@@ -147,6 +150,9 @@
                                ng-pattern="/^0x[0-9a-f]{40}$/i"
                                required
                                class="form-control-input"/>
+                        <span class="field-error form-field_error-check-sum"
+                              ng-if="request.cold_wallet_address ? !web3Utils.checkAddressChecksum(request.cold_wallet_address) : false"
+                              style="display: block">Address is not checksummed</span>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">

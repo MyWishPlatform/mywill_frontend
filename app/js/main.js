@@ -14,6 +14,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).controller('baseController', function($scope, $rootScope) {
     $rootScope.showedMenu = false;
     $rootScope.toggleMenu = function(state, event) {
+        if ($rootScope.menuTogglerOff) return;
         if (state === undefined) {
             state = !$rootScope.showedMenu;
         }

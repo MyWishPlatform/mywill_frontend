@@ -16,14 +16,12 @@ module.controller('authController', function($scope) {
         abstract: true,
         template: "<div ui-view class='main-wrapper-section'></div>",
         controller: function(authService, $rootScope, $scope, SocialAuthService) {
-
             $scope.advancedSocialRequest = {};
             $scope.serverErrors = false;
             $scope.socialAuthError = false;
             var onSocialAuth = function(response) {
                 window.location = window.location.href;
             };
-
             var errorSocialAuth = function(response, request, type) {
                 $scope.socialAuthInfo = {
                     network: type,
@@ -46,15 +44,12 @@ module.controller('authController', function($scope) {
                         break;
                 }
             };
-
-
             $scope.fbLogin = function(advancedData) {
                 SocialAuthService.facebookAuth(onSocialAuth, errorSocialAuth, advancedData);
             };
             $scope.googleLogin = function(advancedData) {
                 SocialAuthService.googleAuth(onSocialAuth, errorSocialAuth, advancedData);
             };
-
             $scope.continueSocialAuth = function(form) {
                 if (!form.$valid) return;
                 switch ($scope.socialAuthInfo.network) {
@@ -66,7 +61,6 @@ module.controller('authController', function($scope) {
                         break;
                 }
             };
-
             authService.profile().then(function(response) {
                 var profile = response.data;
                 if (!profile.is_ghost) {
@@ -90,12 +84,9 @@ module.controller('authController', function($scope) {
             $scope.sendResetPassForm = function(resetForm) {
                 if (!resetForm.$valid) return;
                 $scope.serverErrors = undefined;
-
                 $scope.successText = false;
-
                 authService.passwordReset($scope.request.email).then(function (response) {
                     $scope.successText = response.data.detail;
-                    // window.location = '/';
                 }, function (response) {
                     switch (response.status) {
                         case 400:
@@ -108,7 +99,7 @@ module.controller('authController', function($scope) {
     }).state('main.registration', {
         url: '/registration',
         templateUrl: templatesPath + 'registration.html',
-        controller: function ($scope, authService, $state) {
+        controller: function ($scope, authService, $state, $cookies) {
             $scope.request = {};
             $scope.$parent.socialAuthError = false;
             $scope.sendRegForm = function(regForm) {
@@ -118,6 +109,7 @@ module.controller('authController', function($scope) {
                 authService.registration({
                     data: $scope.request
                 }).then(function(response) {
+                    $cookies.put('confirm-eml', $scope.request.email);
                     $state.go('main.confirm');
                 }, function(response) {
                     switch (response.status) {
@@ -128,7 +120,6 @@ module.controller('authController', function($scope) {
                 });
             };
         }
-
     }).state('main.reset', {
         url: '/reset-password/:uid/:token',
         templateUrl: templatesPath + 'reset-password.html',
@@ -164,9 +155,65 @@ module.controller('authController', function($scope) {
         }
     }).state('main.confirm', {
         url: '/notification',
-        templateUrl: templatesPath + 'email-confirm.html'
-    });
+        templateUrl: templatesPath + 'email-confirm.html',
+        controller: function($scope, $timeout, $cookies, $state, authService) {
+            $scope.emailConfirmProgress = false;
+            $scope.timerSeconds = 0;
+            var requestTimeLength = 60;
 
+            $cookies.put('confirm-eml', 'kova234@kova.ru');
+            $scope.currEmail = $cookies.get('confirm-eml');
+
+            if (!$scope.currEmail) {
+                $state.go('main.registration');
+                return;
+            }
+
+            var startTimerTime = $cookies.get('latest-email-request');
+
+
+            var checkTimer = function() {
+                $scope.allTimerSeconds = requestTimeLength - Math.round(((new Date()).getTime() - startTimerTime) / 1000);
+                $scope.timerSeconds = $scope.allTimerSeconds%60;
+                $scope.timerMinutes = Math.floor($scope.allTimerSeconds/60);
+                $scope.timerSeconds = ($scope.timerSeconds < 10 ? '0' : '') + $scope.timerSeconds;
+                $scope.timerMinutes = ($scope.timerMinutes < 10 ? '0' : '') + $scope.timerMinutes;
+
+                if ($scope.allTimerSeconds <= 0) {
+                    $scope.emailConfirmProgress = false;
+                    $cookies.put('latest-email-request');
+                } else {
+                    $timeout(checkTimer, 300);
+                }
+            };
+
+            var sentConfirmProgress;
+            $scope.getConfirmEmail = function() {
+                if (sentConfirmProgress) return;
+                sentConfirmProgress = true;
+
+                authService.resendConfirmEmail($scope.currEmail).then(function() {
+                    startTimerTime = (new Date()).getTime();
+                    $cookies.put('latest-email-request', startTimerTime);
+                    $scope.emailConfirmProgress = true;
+                    sentConfirmProgress = false;
+                    checkTimer();
+                }, function(response) {
+                    sentConfirmProgress = false;
+                    switch (response.status) {
+                        case 403:
+                            $scope.resendError = response.data.detail;
+                            break;
+                    }
+                });
+            };
+
+            if (startTimerTime) {
+                $scope.emailConfirmProgress = true;
+                checkTimer();
+            }
+        }
+    });
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false

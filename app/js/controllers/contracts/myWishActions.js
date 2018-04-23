@@ -23,7 +23,6 @@ angular.module('app').controller('myWishActionsController', function($scope, con
     $scope.sendConfirmLive = function(contract, cb) {
         if (iAmAliveProgress) return;
 
-        $rootScope.commonOpenedPopup = 'errors/frequent-call-ialive';
         contractService.sendIAmAlive({
             id: contract.id
         }).then(function() {

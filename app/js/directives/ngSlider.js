@@ -1,4 +1,4 @@
-angular.module('Directives').directive('ngSlider', function ($rootScope) {
+angular.module('Directives').directive('ngSlider', function ($rootScope, $timeout) {
     return {
         restrict: 'A',
         scope: {
@@ -82,26 +82,33 @@ angular.module('Directives').directive('ngSlider', function ($rootScope) {
                 angular.element(window).on('mouseup touchend', upSlide);
             };
             var upSlide = function(e) {
-                container.removeClass('no-transition');
+                container.css({
+                    transform: 'translateX(calc(' + (- itemWidth * activeSlide) + '% + ' + changedPosition + 'px))',
+                    marginLeft: 0
+                });
                 var endDownPosition = lastPosition - startDownPosition;
                 var addSlides = -Math.round(endDownPosition / (items.eq(0).width()));
-                activateSlide(activeSlide + addSlides);
+
+
+                $timeout(function() {
+                    container.removeClass('no-transition');
+                    activateSlide(activeSlide + addSlides);
+                }, 10);
+
                 angular.element(window).off('mousemove touchmove', moveWindow);
                 angular.element(window).off('mouseup touchend', upSlide);
             };
 
+            var changedPosition ;
             var moveWindow = function(e) {
-                var clientX = 0;
                 if (e.targetTouches && e.targetTouches.length) {
-                    clientX = e.targetTouches[0].clientX;
+                    lastPosition = e.targetTouches[0].clientX;
                 } else {
-                    clientX = e.clientX;
+                    lastPosition = e.clientX;
                 }
-                var positionChange = clientX - startDownPosition;
-                lastPosition = clientX;
-
+                changedPosition = lastPosition - startDownPosition;
                 container.css({
-                    transform: 'translateX(calc(' + (- itemWidth * activeSlide) + '% + ' + positionChange + 'px))'
+                    marginLeft: changedPosition
                 });
             };
 

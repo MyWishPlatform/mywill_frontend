@@ -161,7 +161,6 @@ module.controller('authController', function($scope) {
             $scope.timerSeconds = 0;
             var requestTimeLength = 60;
 
-            $cookies.put('confirm-eml', 'kova234@kova.ru');
             $scope.currEmail = $cookies.get('confirm-eml');
 
             if (!$scope.currEmail) {

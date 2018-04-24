@@ -3,6 +3,20 @@
   box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.25);
   color: #000;
   border-radius: 0.9em;
+  position: relative;
+  &.no-active {
+    opacity: 0.3;
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 3;
+    }
+  }
+
   &.after-tabs {
     border-top-left-radius: 0;
     position: relative;
@@ -26,6 +40,7 @@
   }
   &__content {
     padding: 2em 2.5em;
+    position: relative;
     &:first-child {
       border-top-left-radius: 0.9em;
       border-top-right-radius: 0.9em;

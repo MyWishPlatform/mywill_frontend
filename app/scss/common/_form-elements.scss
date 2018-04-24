@@ -142,22 +142,19 @@
   display: block;
   padding: 0.5em 1em;
 }
-input {
-  &.form-control-input {
-    line-height: 1em!important;
-    padding: 1em!important;
-  }
-}
+
 .form-control-input, .text-field {
   box-sizing: border-box;
-  border: 1px solid #C2C2C2;
+  border: 1px solid #ccc;
   background: #fff;
   font-size: 1.5em;
-  line-height: 2em;
+
+  line-height: 1.4em;
+  padding: 0.7em 1em;
   color: $black-color;
-  padding: 0.5em 1em;
+
   margin-top: 0.2em;
-  border-radius: 0.5em;
+  border-radius: 0.3em;
   outline: none;
   &.with-currency {
     padding-right: 3.5em;

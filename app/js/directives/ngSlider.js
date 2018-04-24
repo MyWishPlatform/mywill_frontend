@@ -112,10 +112,8 @@ angular.module('Directives').directive('ngSlider', function ($rootScope, $timeou
                 });
             };
 
-            $rootScope.menuTogglerOff = true;
             elem.on('mousedown touchstart', downSlide);
-            scope.$destroy(function() {
-                $rootScope.menuTogglerOff = false;
+            scope.$on('$destroy', function() {
                 elem.off('mousedown touchstart', downSlide);
             });
         }

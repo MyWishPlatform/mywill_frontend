@@ -13,8 +13,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
 }).controller('baseController', function($scope, $rootScope) {
     $rootScope.showedMenu = false;
+    $rootScope.menuTogglerOff = false;
+
     $rootScope.toggleMenu = function(state, event) {
-        if ($rootScope.menuTogglerOff) return;
+        if (angular.element('body').is('.popup-showed')) return;
         if (state === undefined) {
             state = !$rootScope.showedMenu;
         }

@@ -480,6 +480,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             scale: 3
         }).toDataURL();
     }
+}).filter('compilerVersion', function() {
+    return function(val) {
+        return val.replace(/^([^\+]+)(\+commit\.[^\.]+).*$/, '$1$2');
+    }
 }).directive('commaseparator', function($filter, $timeout) {
     'use strict';
     var commaSeparateNumber = $filter('separateNumber');

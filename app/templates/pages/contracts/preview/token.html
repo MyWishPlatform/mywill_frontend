@@ -294,7 +294,7 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
-                    <div class="form-control-description one-line without-padding">
+                    <div class="form-control-description one-line without-padding" ng-if="!details.future_minting">
                         <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
                     </div>
                 </div>

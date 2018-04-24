@@ -111,7 +111,9 @@
 </form>
 
 <div ng-if="hairsList.length"><br/><br/></div>
-<button class="btn btn-transparent with-icon" type="button" ng-click="addHair()">
+<button class="btn btn-transparent with-icon"
+        ng-disabled="!checkedBalance"
+        type="button" ng-click="addHair()">
     <i class="icon-create-contract"></i>
     <span>Add wallet</span>
 </button>

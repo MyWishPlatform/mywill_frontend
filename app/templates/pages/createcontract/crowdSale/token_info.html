@@ -1,4 +1,4 @@
-<div class="grid-row contract-form-row" ng-if="tokensList.length">
+<div class="grid-row" ng-if="tokensList.length">
     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
         <div class="form-control">
             <label class="form-control-label">Choose token</label>
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-<div class="grid-row contract-form-row" ng-if="token.selectedToken.id">
+<div class="grid-row" ng-if="token.selectedToken.id">
     <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
         <div class="form-control">
             <label class="form-control-label">Tokens distributed ({{token.selectedToken.token_short_name}})</label>
@@ -42,8 +42,8 @@
     </div>
 </div>
 
-<div ng-if="!token.selectedToken.id" class="contract-form-row">
-    <div class="grid-row contract-form-row">
+<div ng-if="!token.selectedToken.id">
+    <div class="grid-row">
         <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control">
                 <label for="token-name" class="form-control-label">Token name</label>
@@ -61,7 +61,7 @@
             <span class="form-control-description__text">Enter name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used</span>
         </div>
     </div>
-    <div class="grid-row contract-form-row">
+    <div class="grid-row">
         <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control">
                 <label for="token-symbol" class="form-control-label">Token symbol</label>
@@ -81,7 +81,7 @@
             </span>
         </div>
     </div>
-    <div class="grid-row contract-form-row">
+    <div class="grid-row">
         <div class="grid-cell grid-cell-1-8 grid-cell-ps-1-5 grid-cell-vs-1-4">
             <div class="form-control">
                 <label for="decimals" class="form-control-label">Decimals</label>

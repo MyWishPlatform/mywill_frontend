@@ -1,0 +1,36 @@
+<div class="shadow-block__content">
+    <div class="form-control-label">Choose Type of Crowdsale</div>
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+            <div class="form-control">
+                <div class="checkbox-decoration">
+                    <label class="radio-button-decoration">
+                        <input type="radio" id="pre-sale-mode-radio" name="sale-mode" ng-model="request.continue_minting" ng-value="true">
+                        <span ng-class="{'icon-radio-checked': request.continue_minting, 'icon-radio-unchecked': !request.continue_minting}"></span>
+                    </label>
+                    <label class="form-control-label inline-label" for="pre-sale-mode-radio">Pre-Sale</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+            <span class="form-control-description__text">You can make as many pre-sale rounds as you want</span>
+        </div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+            <div class="form-control">
+                <div class="checkbox-decoration">
+                    <label class="radio-button-decoration">
+                        <input type="radio" id="sale-mode-radio" name="sale-mode" ng-model="request.continue_minting" ng-value="false">
+                        <span ng-class="{'icon-radio-checked': !request.continue_minting, 'icon-radio-unchecked': request.continue_minting}"></span>
+                    </label>
+                    <label class="form-control-label inline-label" for="sale-mode-radio">Final sale</label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+            <span class="form-control-description__text">No sale is possible after final sale. No more tokens can be created after end date</span>
+        </div>
+    </div>
+</div>

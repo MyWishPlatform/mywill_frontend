@@ -482,6 +482,9 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     }
 }).filter('compilerVersion', function() {
     return function(val) {
+        if (!val) {
+            return val;
+        }
         return val.replace(/^([^\+]+)(\+commit\.[^\.]+).*$/, '$1$2');
     }
 }).directive('commaseparator', function($filter, $timeout) {

@@ -115,19 +115,19 @@
                         </div>
                     </div>
                 </li>
-                <li class="new-instruction-list__item">
+                <li class="new-instruction-list__item" ng-if="contract.contract_details[selectedContract].arguments">
                     <div class="new-instruction-list__item__text">
                         Enter constructor arguments ABI-encoded:
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
-                                    text="contract.contract_details[selectedContract].arguments"
+                                    text="contract.contract_details[selectedContract].arguments|json"
                                     ng-class="{copied: contract.copied['arguments']}"
                                     on-copied="successCodeCopy(contract, 'arguments')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
-                            <div class="copy-block__text">{{contract.contract_details[selectedContract].arguments}}</div>
+                            <div class="copy-block__text json-text">{{contract.contract_details[selectedContract].arguments|json}}</div>
                         </div>
                     </div>
                 </li>v

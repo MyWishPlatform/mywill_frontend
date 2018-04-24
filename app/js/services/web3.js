@@ -126,7 +126,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
 
     this.getBalance = function(address) {
         var defer = $q.defer();
-        web3.eth.getBalance(address).then(defer.resolve, defer.resolve);
+        web3.eth.getBalance(Web3.utils.toChecksumAddress(address)).then(defer.resolve, defer.resolve);
         return defer.promise;
     };
 

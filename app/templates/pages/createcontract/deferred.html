@@ -1,13 +1,18 @@
-<div class="main-section-chapter">
-    <form class="main-section-chapter-fieldset" name="contractNameForm">
-        <div class="contract-info__network in-preview" ng-class="'contract-info__network_' + (network.id || 1)">
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="contract-info__network"
+             ng-class="'contract-info__network_' + (network.id || 1)">
             <span>{{network.name}}</span>
         </div>
-        <div class="main-section-chapter-title">
-            <i class="main-section-chapter-title_icon icon-deferred"></i>
-            <span class="main-section-chapter-title_text">Deferred payment</span>
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-deferred"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size ng-binding">Deferred payment</span>
+            </div>
         </div>
-        <div class="grid-row contract-form-row">
+    </div>
+    <form class="shadow-block__content shadow-block__content_no-tb-padding no-border" name="contractNameForm">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
                     <label for="contract-name" class="form-control-label">Enter contract name:</label>
@@ -17,22 +22,19 @@
                            class="form-control-input"/>
                 </div>
             </div>
-        </div>
+        </div><br/><br/>
     </form>
 </div>
 
-<div class="main-section-chapter">
-    <h2 class="content-section-title">
-        <i class="icon-wallet"></i>
-        <span>Send from</span>
-    </h2>
-    <div class="main-section-chapter-fieldset">
-        <div class="grid-row contract-form-row">
-            <div class="grid-cell grid-cell-1">
+
+<div class="shadow-block">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <div class="form-control-label float-right"
                          ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ETH' : balanceInProgress ? 'Please wait...' : ' '"></div>
-                    <label for="wallet-key" class="form-control-label">Your wallet</label>
+                    <label for="wallet-key" class="form-control-label">Management address</label>
                     <input id="wallet-key" type="text"
                            ng-model="request.contract_details.user_address"
                            placeholder="Enter your ETH wallet address"
@@ -45,27 +47,20 @@
                           style="display: block">Address is not checksummed</span>
                 </div>
             </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"> Owner of this address will be able to manage the contract (it's the only one)</span>
+            </div>
         </div>
     </div>
-
-    <div ng-help="{
-        text: 'Owner of this address will be able to manage the contract (it\'s the only one).',
-        id: 'help7'
-    }"></div>
-
 </div>
 
 
-<form class="main-section-chapter"
-      ng-class="{'no-active': !checkedBalance}"
-      name="hairsForm">
-    <h2 class="content-section-title">
-        <i class="icon-in-wallet"></i>
-        <span>Send to</span>
-    </h2>
-    <div class="main-section-chapter-fieldset">
-        <div class="grid-row contract-form-row">
-            <div class="grid-cell grid-cell-1">
+
+<form class="shadow-block" ng-class="{'no-active': !checkedBalance}" name="hairsForm">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <label for="out-wallet-key" class="form-control-label">Send to wallet</label>
                     <input id="out-wallet-key" type="text"
@@ -79,9 +74,14 @@
                           style="display: block">Address is not checksummed</span>
                 </div>
             </div>
-
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">
+                    Enter the recipient's ETH address. This address will get transfer.
+                </span>
+            </div>
+            <div class="clearfix"></div><br/>
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
-                <br/>
                 <div class="form-control">
                     <label class="form-control-label">E-mail for notification</label>
                     <input ng-model="request.contract_details.recepient_email"
@@ -89,23 +89,20 @@
                            type="email" class="form-control-input"/>
                 </div>
             </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">
+                    Enter e-mail address to which we send notification about transfer.
+                </span>
+            </div>
         </div>
     </div>
-
-    <div ng-help="{
-        text: 'Enter e-mail address to which we send notification about transfer.',
-        id: 'help8'
-    }"></div>
-
 </form>
 
-<form class="main-section-chapter" name="conditionsForm" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid}">
-    <h2 class="content-section-title">
-        <i class="icon-conditions"></i>
-        <span>Conditions</span>
-    </h2>
-    <div class="main-section-chapter-fieldset">
-        <div class="grid-row contract-form-row">
+
+<form class="shadow-block" name="conditionsForm" ng-class="{'no-active': !checkedBalance || !hairsForm.$valid}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 grid-cell-vs-padding-top">
                 <div class="form-control form-control-date">
                     <label class="form-control-label">Date of transfer</label>
@@ -124,38 +121,32 @@
                            class="form-control-input"/>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div ng-help="{
-        text: 'Enter the contract\'s conditions - specify when it will make the transfer.',
-        id: 'help9'
-    }"></div>
-</form>
-
-
-
-<div class="main-section-chapter-fieldset custom-fieldset">
-    <div class="contract-form-fieldset"></div>
-
-    <div class="contract-form-fieldset without-padding"><br/><br/>
-        <div class="contract-form-information-btns">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-vs-1-2">
-                    <button class="uppercase btn btn-submit mobile-width-100"
-                            type="button" ng-disabled="!checkedBalance || !hairsForm.$valid || !conditionsForm.$valid" ng-click="createContract()">
-                        <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
-                        <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
-                    </button>
-                </div>
-                <div class="grid-cell grid-cell-vs-1-2">
-                    <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
-                        <i class="icon-delete-button"></i>
-                        <span ng-if="!editContractMode">Clear</span>
-                        <span ng-if="editContractMode">Reset</span>
-                    </button>
-                </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">
+                    Enter the contract's conditions - specify when it will make the transfer.
+                </span>
             </div>
         </div>
+    </div>
+</form>
+
+<br/><br/><br/>
+
+<div class="grid-row">
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="uppercase btn btn-submit mobile-width-100"
+                type="button" ng-disabled="!checkedBalance || !hairsForm.$valid || !conditionsForm.$valid" ng-click="createContract()">
+            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+            <i class="icon-delete-button"></i>
+            <span ng-if="!editContractMode">Clear</span>
+            <span ng-if="editContractMode">Reset</span>
+        </button>
     </div>
 </div>

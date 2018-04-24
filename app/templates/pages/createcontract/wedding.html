@@ -1,45 +1,53 @@
-<div class="main-section-chapter simple-form-chapter">
-    <div class="main-section-chapter-fieldset ">
-        <div class="simple-form_title">Wedding contract</div>
-        <div class="simple-form_text">
-            Please fill the form below and specify your wishes. We will ask contact of your partner before contract creation.
+<div class="shadow-block">
+    <div class="shadow-block">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="icon-wedding shadow-block__content__title__icon"></i>
+                        <span class="shadow-block__content__title__text">Wedding contract</span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span>Please fill the form below and specify your wishes. We will ask contact of your partner before contract creation.</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <form class="shadow-block__content" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
+        <div class="simple-form-wrapper">
+            <div class="simple-form-field-row">
+                <label class="simple-form-field-label">User&nbsp;name</label>
+                <div class="simple-form-field-input">
+                    <input class="form-control-input" ng-model="request.username" required/>
+                </div>
+            </div>
+            <div class="simple-form-field-row">
+                <label class="simple-form-field-label">Email</label>
+                <div class="simple-form-field-input">
+                    <input class="form-control-input" type="email" ng-model="request.email" required/>
+                </div>
+            </div>
+            <div class="simple-form-field-row">
+                <label class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</label>
+                <div class="simple-form-field-input">
+                    <textarea  class="form-control-input" placeholder="Contract description" ng-model="request.message" required></textarea>
+                </div>
+            </div>
+            <div class="simple-form-field-row">
+                <div class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</div>
+                <div class="simple-form-field-input simple-form-buttons-container">
+                    <button class="btn btn-submit">
+                        <span>&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                    <button class="btn btn-transparent" type="reset">
+                        <span>&nbsp;&nbsp;&nbsp;Clean&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-<form class="simple-form" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
-    <div class="simple-form-wrapper">
-        <div class="simple-form-field-row">
-            <label class="simple-form-field-label">User&nbsp;name</label>
-            <div class="simple-form-field-input">
-                <input class="form-control-input" ng-model="request.username" required/>
-            </div>
-        </div>
-        <div class="simple-form-field-row">
-            <label class="simple-form-field-label">Email</label>
-            <div class="simple-form-field-input">
-                <input class="form-control-input" type="email" ng-model="request.email" required/>
-            </div>
-        </div>
-        <div class="simple-form-field-row">
-            <label class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</label>
-            <div class="simple-form-field-input">
-                <textarea  class="form-control-input" placeholder="Contract description" ng-model="request.message" required></textarea>
-            </div>
-        </div>
-        <div class="simple-form-field-row">
-            <div class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</div>
-            <div class="simple-form-field-input simple-form-buttons-container">
-                <button class="btn btn-submit">
-                    <span>SEND</span>
-                </button>
-                <button class="btn btn-transparent" type="reset">
-                    <span>Clean</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</form>
-
 
 <div ng-pop-up="{
     template: '/templates/popups/form-request-success.html',

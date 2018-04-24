@@ -1,13 +1,18 @@
-<div class="main-section-chapter">
-    <form class="main-section-chapter-fieldset" name="contractNameForm">
-        <div class="contract-info__network in-preview" ng-class="'contract-info__network_' + (network.id || 1)">
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="contract-info__network"
+             ng-class="'contract-info__network_' + (network.id || 1)">
             <span>{{network.name}}</span>
         </div>
-        <div class="main-section-chapter-title">
-            <i class="main-section-chapter-title_icon icon-lastwill"></i>
-            <span class="main-section-chapter-title_text">Will contract</span>
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-lastwill"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size ng-binding">Will contract</span>
+            </div>
         </div>
-        <div class="grid-row contract-form-row">
+    </div>
+    <form class="shadow-block__content shadow-block__content_no-tb-padding no-border" name="contractNameForm">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
                     <label for="contract-name" class="form-control-label">Enter contract name:</label>
@@ -17,14 +22,15 @@
                            class="form-control-input"/>
                 </div>
             </div>
-        </div>
+        </div><br/><br/>
     </form>
 </div>
 
 
-<form class="main-section-chapter" name="mainForm" ng-class="{'no-active': !contractNameForm.$valid}">
-    <div class="main-section-chapter-fieldset">
-        <div class="grid-row contract-form-row">
+
+<form class="shadow-block" name="mainForm" ng-class="{'no-active': !contractNameForm.$valid}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <div class="form-control-label float-right"
@@ -47,7 +53,8 @@
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text" ng-if="networkName == 'ETH'">
-                    {{networkName}} address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission
+                    {{networkName}} address (not exchange address).
+                    This address will manage the will contract. Double check the address (and access to it) before submission
                 </span>
                 <span class="form-control-description__text" ng-if="networkName == 'RSK'">
                     This address will manage your contract.
@@ -75,9 +82,9 @@
 </form>
 
 
-<form class="main-section-chapter" name="hairsForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid)}">
-    <div class="main-section-chapter-fieldset" ng-repeat="hair in hairsList track by $index">
-        <div class="grid-row contract-form-row">
+<form class="shadow-block" name="hairsForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid)}">
+    <div class="shadow-block__content" ng-repeat="hair in hairsList track by $index">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <label for="out-wallet-key" class="form-control-label">Beneficiary address</label>
@@ -95,7 +102,6 @@
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-
                 <span class="form-control-description__text" ng-if="networkName == 'ETH'">
                     Enter {{networkName}} address of beneficiary. After contract execution funds will be sent to that address.
                 </span>
@@ -128,25 +134,27 @@
         <i class="icon-cancel float-right form-fieldset-info-button"
            ng-click="removeHair(hair);" ng-if="hairsList.length > 1"></i>
     </div>
-    <div ng-if="hairsList.length"><br/><br/></div>
-    <div ng-if="hairsList.length < 5">
-        <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()">
-            <i class="icon-create-contract"></i>
-            <span>Add beneficiary</span>
-        </button>
-    </div>
 </form>
+<div ng-if="hairsList.length"><br/><br/></div>
+<div ng-if="hairsList.length < 5">
+    <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()"
+            ng-disabled="!(mainForm.$valid && contractNameForm.$valid)">
+        <i class="icon-create-contract"></i>
+        <span>Add beneficiary</span>
+    </button>
+    <br/><br/><br/>
+</div>
 
-<form class="main-section-chapter" name="conditionsForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid)}">
-    <div class="main-section-chapter-fieldset">
-        <div class="grid-row contract-form-row">
+<form class="shadow-block" name="conditionsForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid)}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-1">
                 <div class="form-control">
                     <div class="form-control-label">Define how often you want to confirm your "Live" status</div>
                 </div>
             </div>
         </div>
-        <div class="grid-row contract-form-row">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
                 <div class="form-control">
                     <label class="form-control-label">Confirmation transaction every</label>
@@ -177,9 +185,9 @@
     </div>
 </form>
 
-<form class="main-section-chapter" name="dueDateForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid)}">
-    <div class="main-section-chapter-fieldset">
-        <div class="grid-row contract-form-row">
+<form class="shadow-block" name="dueDateForm" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid)}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 grid-cell-vs-padding-top">
                 <div class="form-control form-control-date">
                     <label class="form-control-label">Will contract expiration</label>
@@ -207,8 +215,8 @@
     </div>
 </form>
 
-<form class="main-section-chapter" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid)}">
-    <div class="main-section-chapter-fieldset">
+<form class="shadow-block" ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid)}">
+    <div class="shadow-block__content">
         <div class="grid-row"
              ng-init="request.platform_cancel = networkName !== 'ETH'">
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
@@ -274,30 +282,22 @@
         </div>
     </div>
 </form>
-
-<div class="main-section-chapter-fieldset custom-fieldset">
-    <div class="contract-form-fieldset"></div>
-    <div class="contract-form-fieldset without-padding"><br/><br/>
-        <div class="contract-form-information-btns">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-vs-1-2">
-                    <button class="uppercase btn btn-submit mobile-width-100"
-                            type="button"
-                            ng-disabled="!(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid) || (percentageSum !== 100)"
-                            ng-click="createContract()">
-                        <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
-                        <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
-                    </button>
-                </div>
-                <div class="grid-cell grid-cell-vs-1-2">
-                    <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
-                        <i class="icon-delete-button"></i>
-                        <span ng-if="!editContractMode">Clear</span>
-                        <span ng-if="editContractMode">Reset</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+<br/><br/><br/>
+<div class="grid-row">
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="uppercase btn btn-submit mobile-width-100"
+                type="button"
+                ng-disabled="!(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid) || (percentageSum !== 100)"
+                ng-click="createContract()">
+            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+            <i class="icon-delete-button"></i>
+            <span ng-if="!editContractMode">Clear</span>
+            <span ng-if="editContractMode">Reset</span>
+        </button>
     </div>
 </div>
-

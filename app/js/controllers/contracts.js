@@ -36,7 +36,6 @@ angular.module('app').controller('contractsController', function(contractService
             launchProgress = false;
         });
     };
-
     var showPriceLaunchContract = function(contract) {
         if (contract.cost.WISH == 0) {
             launchContract(contract);
@@ -47,11 +46,10 @@ angular.module('app').controller('contractsController', function(contractService
             class: 'deleting-contract',
             contract: contract,
             confirmPayment: launchContract,
-            contractCost: new BigNumber(contract.cost.WISH).div(Math.pow(10, 18)).round(2).toString(10),
+            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether'),
             withoutCloser: true
         };
     };
-
     $scope.payContract = function(contract) {
         if (contract.isDeployProgress) return;
         contract.discount = 0;
@@ -83,29 +81,6 @@ angular.module('app').controller('contractsController', function(contractService
         });
     };
 
-    var deletingProgress;
-    var updateList = function() {
-        $rootScope.commonOpenedPopupParams = false;
-        $rootScope.commonOpenedPopup = false;
-        $state.transitionTo($state.current, {}, {
-            reload: true,
-            inherit: false,
-            notify: true
-        });
-
-    };
-    $scope.deleteContract = function(contract) {
-        if (deletingProgress) return;
-        deletingProgress = true;
-        contractService.deleteContract(contract.id).then(function() {
-            deletingProgress = false;
-            updateList();
-        }, function() {
-            deletingProgress = false;
-            updateList();
-        });
-    };
-
     var url = 'https://www.myetherwallet.com/?';
     var params = [
         'sendMode=ether'
@@ -122,10 +97,8 @@ angular.module('app').controller('contractsController', function(contractService
         contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
     };
 
-
     $scope.refreshInProgress = {};
     $scope.timeoutsForProgress = {};
-
 
     $scope.refreshContract = function(contract) {
         var contractId = contract.id;
@@ -144,15 +117,6 @@ angular.module('app').controller('contractsController', function(contractService
             $scope.refreshInProgress[contractId] = false;
         });
     };
-
-    $scope.successCodeCopy = function(contract, field) {
-        contract.copied = contract.copied || {};
-        contract.copied[field] = true;
-        $timeout(function() {
-            contract.copied[field] = false;
-        }, 1000);
-    };
-
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);
         if (target.is('.btn') || target.parents('.btn').length) return;
@@ -163,7 +127,42 @@ angular.module('app').controller('contractsController', function(contractService
         $state.go('main.contracts.preview.byId', {id: contractId});
     };
 
+    var updateList = function() {
+        $rootScope.commonOpenedPopupParams = false;
+        $rootScope.commonOpenedPopup = false;
+        $state.transitionTo($state.current, {}, {
+            reload: true,
+            inherit: false,
+            notify: true
+        });
+    };
 
     $scope.$on('$userUpdated', updateList);
+
+    $scope.deleteContract = function(contract) {
+        $scope.$parent.deleteContract(contract, updateList);
+    };
+
+}).controller('baseContractsController', function($scope, $state, $timeout, contractService) {
+    var deletingProgress;
+
+    $scope.deleteContract = function(contract, callback) {
+        if (deletingProgress) return;
+        deletingProgress = true;
+        contractService.deleteContract(contract.id).then(function() {
+            deletingProgress = false;
+            callback ? callback() : $state.go('main.contracts.list');
+        }, function() {
+            deletingProgress = false;
+            callback ? callback() : false;
+        });
+    };
+    $scope.successCodeCopy = function(contract, field) {
+        contract.copied = contract.copied || {};
+        contract.copied[field] = true;
+        $timeout(function() {
+            contract.copied[field] = false;
+        }, 1000);
+    };
 
 });

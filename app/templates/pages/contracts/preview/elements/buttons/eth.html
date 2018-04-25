@@ -5,7 +5,8 @@
                  ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
                 <button class="btn btn-red with-icon mobile-width-100 with-icon initial-padding text-center"
                         ng-pop-up="{
-                            template: '/templates/popups/delete-contract.html',
+                            template: '/templates/popups/confirmations/delete-contract.html',
+                            newPopupContent: true,
                             params: contract,
                             class: 'deleting-contract',
                             actions: {

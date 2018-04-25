@@ -1,6 +1,5 @@
 angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
                                                                         $timeout, CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
-    var deletingProgress = false;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
 
@@ -11,7 +10,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         $scope.showedTab = tab;
         $scope.selectedContract = contractType;
     };
-
     $scope.saveAsFile = function(data, name) {
         data = new Blob([data], { type: 'text/plain;charset=utf-8' });
         FileSaver.saveAs(data, name + '.sol');
@@ -23,8 +21,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
     ];
     var depositUrl = url + params.join('&');
     var killUrl = url + params.join('&');
-
-    var originalCost;
 
     $scope.setContract = function(contract) {
         $scope.contract = contract;
@@ -54,24 +50,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         }
     };
 
-    $scope.deleteContract = function() {
-        deletingProgress = true;
-        contractService.deleteContract($scope.contract.id).then(function() {
-            deletingProgress = false;
-            $state.go('main.contracts.list');
-        }, function() {
-            deletingProgress = false;
-        });
-    };
-
-
-    $scope.successCodeCopy = function(contract, field) {
-        contract.copied = contract.copied || {};
-        contract.copied[field] = true;
-        $timeout(function() {
-            contract.copied[field] = false;
-        }, 1000);
-    };
 
     var launchProgress = false;
     var launchContract = function(contract) {
@@ -82,7 +60,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             dataLayer.push({'event': 'contract_launch_success'});
             $state.go('main.contracts.list');
         }, function(data) {
-            console.log(data);
             switch(data.status) {
                 case 400:
                     switch(data.data.result) {
@@ -100,9 +77,7 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             launchProgress = false;
         });
     };
-
     var showPriceLaunchContract = function(contract) {
-
         if (contract.cost.WISH == 0) {
             launchContract(contract);
             return;
@@ -116,7 +91,6 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             withoutCloser: true
         };
     };
-
     $scope.payContract = function() {
         var contract = $scope.contract;
         $rootScope.getCurrentUser().then(function(data) {
@@ -157,16 +131,13 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         }, function() {
         });
     };
-
-
     $scope.changePromoCode = function() {
         $scope.discountError = false;
         $scope.contract.discount = 0;
     };
-
     $scope.getDiscount = function() {
         if (!$scope.contract.promo) return;
-        var originalCost = new BigNumber($scope.contract.cost.WISH);
+
         return contractService.getDiscount({
             contract_type: $scope.contract.contract_type,
             promo: $scope.contract.promo
@@ -189,20 +160,14 @@ angular.module('app').controller('contractsPreviewController', function($state, 
         });
     };
 
-}).controller('instructionsController', function($scope, web3Service) {
 
+}).controller('instructionsController', function($scope, web3Service) {
     var web3 = web3Service.web3();
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
-
     var killInterfaceMethod = web3Service.getMethodInterface('kill', contractDetails.eth_contract.abi);
     $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(killInterfaceMethod);
-
     var iAliveInterfaceMethod = web3Service.getMethodInterface('imAvailable', contractDetails.eth_contract.abi);
     $scope.iAliveSignature = (new Web3()).eth.abi.encodeFunctionCall(iAliveInterfaceMethod);
-
-
-
-
     web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.user_address.toLowerCase();
@@ -212,25 +177,20 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
         }
     });
-
     $scope.sendDeposit = function() {
         web3.eth.sendTransaction({
             to: contractDetails.eth_contract.address,
             from: $scope.currentWallet.wallet
         }, console.log);
     };
-
     $scope.killContract = function() {
         contract.methods.kill().send({
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
-
-
     $scope.sendIAlive = function() {
         contract.methods.imAvailable().send({
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
-
 });

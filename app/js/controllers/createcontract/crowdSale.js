@@ -174,11 +174,17 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
                     switch(data.data.result) {
                         case '1':
                         case 1:
-                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/contract_date_incorrect';
                             break;
                         case '2':
                         case 2:
-                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/contract_freeze_date_incorrect';
                             break;
                     }
                     break;

@@ -55,10 +55,11 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         static: true,
         url: 'support@mywish.io',
         type: 'mail'
-    }, {
-        title: 'Log out',
-        icon: 'icon-exit',
-        route: 'exit',
-        hideForUser: 'is_ghost'
-    }
+    },
+    // {
+    //     title: 'Log out',
+    //     icon: 'icon-exit',
+    //     route: 'exit',
+    //     hideForUser: 'is_ghost'
+    // }
 ]);

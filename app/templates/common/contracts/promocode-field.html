@@ -1,12 +1,12 @@
 <form class="shadow-block__content shadow-block__content_min-tb-padding"
-      name="promoCodeForm" ng-submit="getDiscount()">
+      name="promoCodeForm" ng-submit="getDiscount(contract)">
     <div class="grid-row contract-form-row">
         <div class="grid-cell grid-cell-1-3 grid-cell-ps-3-5 grid-cell-vs-1">
             <div class="form-control">
                 <label for="promo-code" class="form-control-label">Promo code</label>
                 <input id="promo-code"
-                       ng-class="{'ng-invalid': discountError}"
-                       ng-change="changePromoCode()"
+                       ng-class="{'ng-invalid': contract.discountError}"
+                       ng-change="changePromoCode(contract)"
                        type="text" ng-model="contract.promo" maxlength="512" class="form-control-input">
             </div>
         </div>

@@ -1,0 +1,39 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">Enable 2FA&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                <ul class="condition-text">
+                    <li class="condition-text-item">Scan QR-code</li>
+                    <li class="condition-text-item">Add mywish app in your Google Authenticator or in similar app</li>
+                    <li class="condition-text-item">Use code everytime when login to MyWish</li>
+                </ul>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                <div class="text-center">
+                    <a href="{{ngPopUp.params.url}}">
+                        <img src="{{ngPopUp.params.imgUrl}}"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content grey-color no-border">
+        <div class="text-center">
+            <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                <span>Cancel</span>
+            </button>
+            <button class="btn btn-submit"
+                    ng-click="closeCurrentPopup()"
+                    ng-pop-up="ngPopUp.params.confirmEnablePopUp">
+                <span>Enable</span>
+            </button>
+        </div>
+    </div>
+</div>

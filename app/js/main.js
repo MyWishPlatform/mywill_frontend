@@ -360,7 +360,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var checkLocation = function(newLocation, oldLocation, event) {
         if (newLocation.data && newLocation.data.notAccess && $rootScope.currentUser[newLocation.data.notAccess]) {
             event.preventDefault();
-            $rootScope.commonOpenedPopup = 'ghost-user-buy-tokens';
+            $rootScope.commonOpenedPopupParams = {
+                newPopupContent: true
+            };
+            $rootScope.commonOpenedPopup = 'alerts/ghost-user-buy-tokens';
             if (oldLocation.name) {
                 $state.go(oldLocation.name);
             } else {

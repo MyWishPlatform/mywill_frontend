@@ -64,7 +64,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 if ($scope.ngPopUp.closer) {
                     var closeLine = angular.element('<div>').addClass('map-closer-line').
                     appendTo(currentHolder);
-                } else if (!$scope.ngPopUp.params.noBackgroundCloser) {
+                } else if (!$scope.ngPopUp.noBackgroundCloser) {
                     currentCloser.on('click', function() {
                         $scope.closeCurrentPopup();
                         $scope.$apply();

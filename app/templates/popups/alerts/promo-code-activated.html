@@ -1,0 +1,15 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_no-lr-padding">
+        <div class="alert-window-title">
+            Promo code was activated.<br/>
+            New price:
+            {{$root.bigNumber($root.web3Utils.fromWei($root.bigNumber(ngPopUp.params.contract.cost.WISH).minus($root.bigNumber(ngPopUp.params.contract.cost.WISH).times(ngPopUp.params.contract.discount).div(100)).round().toString(10), 'ether')).round(2)}}
+            WISH.
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
+        <button class="btn btn-submit" type="button" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;Ok&nbsp;&nbsp;&nbsp;</span>
+        </button><br/><br/>
+    </div>
+</div>

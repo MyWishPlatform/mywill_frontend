@@ -139,11 +139,11 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
                     switch(data.data.result) {
                         case '1':
                         case 1:
-                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            $rootScope.commonOpenedPopup = 'errors/contract_date_incorrect';
                             break;
                         case '2':
                         case 2:
-                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
+                            $rootScope.commonOpenedPopup = 'errors/contract_freeze_date_incorrect';
                             break;
                     }
                     break;

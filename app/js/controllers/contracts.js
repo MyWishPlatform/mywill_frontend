@@ -1,85 +1,11 @@
-angular.module('app').controller('contractsController', function(contractService, CONTRACT_STATUSES_CONSTANTS, $rootScope, authService,
-                                                                 contractsList, $scope, $state, $interval, $timeout, NETWORKS_TYPES_NAMES_CONSTANTS) {
+angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope,
+                                                                 contractsList, $scope, $state, NETWORKS_TYPES_NAMES_CONSTANTS) {
 
     $scope.networks = NETWORKS_TYPES_NAMES_CONSTANTS;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 
     $scope.contractsList = contractsList.data;
-
-    var launchProgress = false;
-    var launchContract = function(contract) {
-        if (launchProgress) return;
-        launchProgress = true;
-        contractService.deployContract(contract.id).then(function() {
-            launchProgress = false;
-            $scope.refreshContract(contract);
-            $rootScope.closeCommonPopup();
-            dataLayer.push({'event': 'contract_launch_success'});
-        }, function(data) {
-            switch(data.status) {
-                case 400:
-                    switch(data.data.result) {
-                        case 1:
-                        case '1':
-                            $rootScope.commonOpenedPopupParams = {};
-                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
-                            break;
-                        case 2:
-                        case '2':
-                            $rootScope.commonOpenedPopupParams = {};
-                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
-                            break;
-                    }
-                    break;
-            }
-            launchProgress = false;
-        });
-    };
-    var showPriceLaunchContract = function(contract) {
-        if (contract.cost.WISH == 0) {
-            launchContract(contract);
-            return;
-        }
-        $rootScope.commonOpenedPopup = 'contract-confirm-pay';
-        $rootScope.commonOpenedPopupParams = {
-            class: 'deleting-contract',
-            contract: contract,
-            confirmPayment: launchContract,
-            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether'),
-            withoutCloser: true
-        };
-    };
-    $scope.payContract = function(contract) {
-        if (contract.isDeployProgress) return;
-        contract.discount = 0;
-        $rootScope.getCurrentUser().then(function() {
-            if ($rootScope.currentUser.is_ghost) {
-                $rootScope.commonOpenedPopup = 'ghost-user-alarm';
-                $rootScope.commonOpenedPopupParams = {};
-                return;
-            }
-            if (new BigNumber($rootScope.currentUser.balance).minus(new BigNumber(contract.cost.WISH)) < 0) {
-                $rootScope.commonOpenedPopup = 'less-balance';
-                $rootScope.commonOpenedPopupParams = {};
-                return;
-            }
-
-            $rootScope.commonOpenedPopupParams = {
-                contract: contract,
-                withoutCloser: true,
-                class: 'conditions',
-                newPopupContent: true,
-                actions: {
-                    showPriceLaunchContract: showPriceLaunchContract
-                }
-            };
-            $rootScope.commonOpenedPopup = 'disclaimers/conditions';
-            contract.isDeployProgress = false;
-        }, function() {
-            contract.isDeployProgress = false;
-        });
-    };
 
     var url = 'https://www.myetherwallet.com/?';
     var params = [
@@ -97,26 +23,6 @@ angular.module('app').controller('contractsController', function(contractService
         contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
     };
 
-    $scope.refreshInProgress = {};
-    $scope.timeoutsForProgress = {};
-
-    $scope.refreshContract = function(contract) {
-        var contractId = contract.id;
-        if ($scope.timeoutsForProgress[contractId]) return;
-        $scope.refreshInProgress[contractId] = true;
-        $scope.timeoutsForProgress[contractId] = $interval(function() {
-            if (!$scope.refreshInProgress[contractId]) {
-                $interval.cancel($scope.timeoutsForProgress[contractId]);
-                $scope.timeoutsForProgress[contractId] = false;
-            }
-        }, 1000);
-        contractService.getContract(contractId).then(function(response) {
-            angular.merge(contract, response.data);
-            $scope.refreshInProgress[contractId] = false;
-        }, function() {
-            $scope.refreshInProgress[contractId] = false;
-        });
-    };
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);
         if (target.is('.btn') || target.parents('.btn').length) return;
@@ -143,9 +49,12 @@ angular.module('app').controller('contractsController', function(contractService
         $scope.$parent.deleteContract(contract, updateList);
     };
 
-}).controller('baseContractsController', function($scope, $state, $timeout, contractService) {
+}).controller('baseContractsController', function($scope, $state, $timeout, contractService, $rootScope, $interval) {
     var deletingProgress;
+    $scope.refreshInProgress = {};
+    $scope.timeoutsForProgress = {};
 
+    /* (Click) Deleting contract */
     $scope.deleteContract = function(contract, callback) {
         if (deletingProgress) return;
         deletingProgress = true;
@@ -157,6 +66,8 @@ angular.module('app').controller('contractsController', function(contractService
             callback ? callback() : false;
         });
     };
+
+    /* (Click) Success for copy field */
     $scope.successCodeCopy = function(contract, field) {
         contract.copied = contract.copied || {};
         contract.copied[field] = true;
@@ -165,4 +76,151 @@ angular.module('app').controller('contractsController', function(contractService
         }, 1000);
     };
 
+    /* (Click) Contract refresh */
+    $scope.refreshContract = function(contract) {
+        var contractId = contract.id;
+        if ($scope.timeoutsForProgress[contractId]) return;
+        $scope.refreshInProgress[contractId] = true;
+        $scope.timeoutsForProgress[contractId] = $interval(function() {
+            if (!$scope.refreshInProgress[contractId]) {
+                $interval.cancel($scope.timeoutsForProgress[contractId]);
+                $scope.timeoutsForProgress[contractId] = false;
+            }
+        }, 1000);
+        contractService.getContract(contractId).then(function(response) {
+            angular.merge(contract, response.data);
+            $scope.refreshInProgress[contractId] = false;
+        }, function() {
+            $scope.refreshInProgress[contractId] = false;
+        });
+    };
+
+    var launchProgress = false;
+
+    var launchContract = function(contract) {
+        if (launchProgress) return;
+        launchProgress = true;
+        contractService.deployContract(contract.id, contract.promo).then(function() {
+            launchProgress = false;
+            $rootScope.closeCommonPopup();
+            dataLayer.push({'event': 'contract_launch_success'});
+            if ($state.current.name === 'main.contracts.list') {
+                $scope.refreshContract(contract);
+            } else {
+                $state.go('main.contracts.list');
+            }
+        }, function(data) {
+            switch(data.status) {
+                case 400:
+                    switch(data.data.result) {
+                        case 1:
+                        case '1':
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/contract_date_incorrect';
+                            break;
+                        case 2:
+                        case '2':
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/contract_freeze_date_incorrect';
+                            break;
+                    }
+                    break;
+            }
+            launchProgress = false;
+        });
+    };
+
+    /* (Click) Launch contract */
+    $scope.payContract = function(contract) {
+        if (contract.isDeployProgress) return;
+        contract.discount = contract.discount || 0;
+
+        $rootScope.getCurrentUser().then(function(data) {
+            if ($rootScope.currentUser.is_ghost) {
+                $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
+                $rootScope.commonOpenedPopupParams = {
+                    newPopupContent: true
+                }
+                return;
+            }
+            var openConditionsPopUp = function() {
+                var originalCost = new BigNumber(contract.cost.WISH);
+                var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
+                if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
+                    $rootScope.commonOpenedPopupParams = {
+                        withoutCloser: true,
+                        noBackgroundCloser: true,
+                        newPopupContent: true
+                    };
+                    $rootScope.commonOpenedPopup = 'errors/less-balance';
+                    return;
+                }
+                $rootScope.commonOpenedPopupParams = {
+                    contract: contract,
+                    withoutCloser: true,
+                    class: 'conditions',
+                    newPopupContent: true,
+                    actions: {
+                        showPriceLaunchContract: showPriceLaunchContract
+                    }
+                };
+                $rootScope.commonOpenedPopup = 'disclaimers/conditions';
+            };
+
+            var promoIsEntered = $scope.getDiscount(contract);
+            if (promoIsEntered) {
+                promoIsEntered.then(openConditionsPopUp, openConditionsPopUp);
+            } else {
+                openConditionsPopUp();
+            }
+        }, function() {
+
+        });
+    };
+
+    var showPriceLaunchContract = function(contract) {
+        if (contract.cost.WISH == 0) {
+            launchContract(contract);
+            return;
+        }
+        $rootScope.commonOpenedPopup = 'confirmations/contract-confirm-pay';
+        $rootScope.commonOpenedPopupParams = {
+            newPopupContent: true,
+            class: 'deleting-contract',
+            contract: contract,
+            confirmPayment: launchContract,
+            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether'),
+            withoutCloser: true
+        };
+    };
+
+    $scope.getDiscount = function(contract) {
+        if (!contract.promo) return;
+
+        return contractService.getDiscount({
+            contract_type: contract.contract_type,
+            promo: contract.promo
+        }).then(function(response) {
+            contract.discount = response.data.discount;
+            $rootScope.commonOpenedPopupParams = {
+                withoutCloser: true,
+                contract: contract,
+                newPopupContent: true
+            };
+
+            $rootScope.commonOpenedPopup = 'alerts/promo-code-activated';
+
+        }, function(response) {
+            contract.discount = 0;
+            switch (response.status) {
+                case 403:
+                    contract.discountError = response.data.detail;
+                    break;
+            }
+        });
+    };
 });

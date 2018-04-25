@@ -36,6 +36,18 @@
                     <span ng-if="menuItem.title">{{menuItem.title}}</span>
                 </a>
             </li>
+
+            <li>
+                <a href="#" class="as_menu_link" ng-if="!currentUser.is_ghost" ng-pop-up="{
+                        class: 'deleting-contract',
+                        template: '/templates/popups/confirmations/logout-confirm.html',
+                        newPopupContent: true,
+                    }">
+                    <i class="icon-exit"></i>
+                    <span>Log out</span>
+                </a>
+            </li>
+
         </ul>
     </nav>
     <span class="release-version">version 1.6.0</span>

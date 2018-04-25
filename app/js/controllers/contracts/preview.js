@@ -1,5 +1,5 @@
-angular.module('app').controller('contractsPreviewController', function($state, $scope, contractService, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
-                                                                        $timeout, CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
+angular.module('app').controller('contractsPreviewController', function($scope, NETWORKS_TYPES_NAMES_CONSTANTS,
+                                                                        CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
 
@@ -49,115 +49,9 @@ angular.module('app').controller('contractsPreviewController', function($state, 
             });
         }
     };
-
-
-    var launchProgress = false;
-    var launchContract = function(contract) {
-        launchProgress = true;
-        $rootScope.commonOpenedPopup = false;
-        contractService.deployContract(contract.id, contract.promo).then(function() {
-            launchProgress = false;
-            dataLayer.push({'event': 'contract_launch_success'});
-            $state.go('main.contracts.list');
-        }, function(data) {
-            switch(data.status) {
-                case 400:
-                    switch(data.data.result) {
-                        case '1':
-                        case 1:
-                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
-                            break;
-                        case '2':
-                        case 2:
-                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
-                            break;
-                    }
-                    break;
-            }
-            launchProgress = false;
-        });
-    };
-    var showPriceLaunchContract = function(contract) {
-        if (contract.cost.WISH == 0) {
-            launchContract(contract);
-            return;
-        }
-        $rootScope.commonOpenedPopup = 'contract-confirm-pay';
-        $rootScope.commonOpenedPopupParams = {
-            class: 'deleting-contract',
-            contract: contract,
-            confirmPayment: launchContract,
-            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether'),
-            withoutCloser: true
-        };
-    };
-    $scope.payContract = function() {
-        var contract = $scope.contract;
-        $rootScope.getCurrentUser().then(function(data) {
-            if ($rootScope.currentUser.is_ghost) {
-                $rootScope.commonOpenedPopup = 'ghost-user-alarm';
-                return;
-            }
-            var openConditionsPopUp = function() {
-                var originalCost = new BigNumber(contract.cost.WISH);
-                var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
-                if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
-                    $rootScope.commonOpenedPopupParams = {
-                        withoutCloser: true,
-                        noBackgroundCloser: true
-                    };
-                    $rootScope.commonOpenedPopup = 'less-balance';
-                    return;
-                }
-                $rootScope.commonOpenedPopupParams = {
-                    contract: contract,
-                    withoutCloser: true,
-                    class: 'conditions',
-                    newPopupContent: true,
-                    actions: {
-                        showPriceLaunchContract: showPriceLaunchContract
-                    }
-                };
-                $rootScope.commonOpenedPopup = 'disclaimers/conditions';
-            };
-
-            var promoIsEntered = $scope.getDiscount();
-
-            if (promoIsEntered) {
-                promoIsEntered.then(openConditionsPopUp, openConditionsPopUp);
-            } else {
-                openConditionsPopUp();
-            }
-        }, function() {
-        });
-    };
-    $scope.changePromoCode = function() {
-        $scope.discountError = false;
-        $scope.contract.discount = 0;
-    };
-    $scope.getDiscount = function() {
-        if (!$scope.contract.promo) return;
-
-        return contractService.getDiscount({
-            contract_type: $scope.contract.contract_type,
-            promo: $scope.contract.promo
-        }).then(function(response) {
-            $scope.contract.discount = response.data.discount;
-            $rootScope.commonOpenedPopupParams = {
-                withoutCloser: true,
-                contract: $scope.contract
-            };
-
-            $rootScope.commonOpenedPopup = 'promo-code-activated';
-
-        }, function(response) {
-            $scope.contract.discount = 0;
-            switch (response.status) {
-                case 403:
-                    $scope.discountError = response.data.detail;
-                    break;
-            }
-        });
+    $scope.changePromoCode = function(contract) {
+        contract.discountError = false;
+        contract.discount = 0;
     };
 
 

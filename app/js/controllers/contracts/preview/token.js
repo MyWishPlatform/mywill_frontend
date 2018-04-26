@@ -36,10 +36,13 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
         })[0];
         if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.metamask);
+            web3Service.setProvider($scope.currentWallet.type, contract.network);
         }
         web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
         getTotalSupply();
+        $timeout(function() {
+            $scope.$apply();
+        });
     });
 
     $scope.minStartDate = moment();

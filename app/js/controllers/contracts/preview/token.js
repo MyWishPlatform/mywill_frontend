@@ -26,29 +26,23 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
 }).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, NETWORKS_TYPES_CONSTANTS) {
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
+    $scope.contract = contract;
 
     web3Service.setProviderByNumber(contract.network);
-
     var web3Contract;
 
-    var getTotalSupply = function() {
-        web3Contract.methods.totalSupply().call(function(error, result) {
-            if (error) {
-                result = 0;
-            }
-
-            $scope.chartData.unshift({
-                amount: new BigNumber(result).div(Math.pow(10, contract.contract_details.decimals)),
-                name: 'Total Distributed (before)'
-            });
-            $scope.checkTokensAmount();
-            $scope.$apply();
-        });
-    };
-
+    web3Service.getAccounts(contract.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.metamask);
+        }
+        web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
+        getTotalSupply();
+    });
 
     $scope.minStartDate = moment();
-
     contract.contract_details.token_holders = [];
 
     $scope.recipient = {
@@ -59,29 +53,46 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         itemValue: 'amount',
         itemLabel: 'address'
     };
-    contract.contract_details.token_holders.push($scope.recipient);
-    $scope.chartData = contract.contract_details.token_holders;
-    $scope.contract = contract;
 
-    $scope.checkTokensAmount = function() {
-        var holdersSum = contract.contract_details.token_holders.reduce(function (val, item) {
-            var value = new BigNumber(item.amount || 0);
-            return value.plus(val);
-        }, new BigNumber(0));
-        var stringValue = holdersSum.toString(10);
-        $scope.tokensAmountError = (holdersSum.toString(10) == 0) || isNaN(stringValue);
-        if (!$scope.tokensAmountError) {
-            $scope.totalSupply = {
-                tokens: holdersSum.round(2).toString(10)
-            };
+    var getTotalSupply = function() {
+        web3Contract.methods.totalSupply().call(function(error, result) {
+            if (error) {
+                result = 0;
+            }
+
+            totalSupply.tokens =
+                beforeDistributed.amount =
+                    new BigNumber(result).div(Math.pow(10, contract.contract_details.decimals));
+
+            $scope.checkTokensAmount();
             $timeout(function() {
-                $scope.dataChanged();
                 $scope.$apply();
             });
+        });
+    };
+
+    var beforeDistributed = {
+        amount: 0,
+        address: 'Total Distributed (before)'
+    };
+    var totalSupply = {
+        tokens: 0
+    };
+
+    var chartData = [beforeDistributed];
+    $scope.chartData = [];
+
+    $scope.checkTokensAmount = function() {
+        $scope.chartData = angular.copy(chartData);
+        $scope.totalSupply = angular.copy(totalSupply);
+
+        if ($scope.mintForm.$valid) {
+            $scope.chartData.push($scope.recipient);
+            $scope.totalSupply.tokens = $scope.totalSupply.tokens.plus($scope.recipient.amount);
         }
     };
+
     $scope.dataChanged = function() {
-        $scope.chartData = angular.copy(contract.contract_details.token_holders);
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
 
@@ -92,9 +103,8 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
-        var params = [$scope.recipient.address,
-            amount
-        ];
+        var params = [$scope.recipient.address, amount];
+
         if ($scope.recipient.isFrozen) {
             params.push($scope.recipient.freeze_date.format('X'));
         }
@@ -102,15 +112,6 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             mintInterfaceMethod, params
         );
     };
-
-    web3Service.getAccounts(contract.network).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
-        })[0];
-        web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
-        getTotalSupply();
-    });
-
     $scope.successCodeCopy = function(contract, field) {
         contract.copied = contract.copied || {};
         contract.copied[field] = true;
@@ -118,10 +119,10 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             contract.copied[field] = false;
         }, 1000);
     };
-
     $scope.sendMintTransaction = function() {
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
+
         if ($scope.recipient.isFrozen) {
             web3Contract.methods.mintAndFreeze(
                 $scope.recipient.address,
@@ -136,7 +137,6 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             }).then(console.log);
         }
     };
-
     $scope.sendFinalizeTransaction = function() {
         web3Contract.methods.finishMinting().send({
             from: $scope.currentWallet.wallet

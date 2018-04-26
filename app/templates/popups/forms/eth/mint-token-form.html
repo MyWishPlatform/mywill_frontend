@@ -24,7 +24,7 @@
                                required
                                class="form-control-input"/>
                         <span class="field-error form-field_error-check-sum"
-                              ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
+                              ng-if="recipient.address ? !$root.web3Utils.checkAddressChecksum(recipient.address) : false"
                               style="display: block">Address is not checksummed</span>
                     </div>
                 </div>
@@ -83,14 +83,19 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
-                        Total supply: {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
+                        Total supply: {{totalSupply.tokens|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}}
                     </div>
                 </div>
+
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
-                    <div id="chartdiv" class="chart-container" style="height: 240px"
+                    <div id="chartdiv" class="chart-container" ng-hide="totalSupply.tokens == 0"
                          ng-chart
                          ng-chart-data="chartData"
                          ng-chart-options="chartOptions"></div>
+                    <div class="chart-placeholder" ng-hide="totalSupply.tokens != 0">
+                        <i class="icon-distribution"></i>
+                    </div>
+                    &nbsp;
                 </div>
                 <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
                     <div class="chart-legend">

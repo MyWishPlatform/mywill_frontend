@@ -67,6 +67,18 @@
   }
 }
 .chart-container {
+  height: 240px;
+}
+.chart-placeholder {
+  text-align: center;
+  height: 24em;
+  i {
+    display: inline-block;
+    font-size: 20em;
+    color: #ccc;
+    text-shadow: 0 1px 1px #fff;
+    margin-top: 0.1em;
+  }
 }
 .chart-legend {
 }

@@ -117,23 +117,6 @@
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Enter constructor arguments ABI-encoded:
-                        <div class="copy-block">
-                            <button class="copy-block__button relative"
-                                    ng-if="contract.contract_details[selectedContract].constructor_arguments"
-                                    clipboard supported="supported"
-                                    text="contract.contract_details[selectedContract].constructor_arguments"
-                                    ng-class="{copied: contract.copied['arguments']}"
-                                    on-copied="successCodeCopy(contract, 'arguments')"
-                                    on-error="failCodeCopy(err)">&nbsp;
-                                <i class="icon-content_copy"></i>
-                            </button>
-                            <div class="copy-block__text">{{contract.contract_details[selectedContract].constructor_arguments}}&nbsp;</div>
-                        </div>
-                    </div>
-                </li>
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
                         Others fields are not required. Press "Verify And Publish"
                     </div>
                 </li>

@@ -1,0 +1,13 @@
+{
+  "MAIN_MENU": {
+    "UNKNOWN_USER": "Unknown user",
+    "UNKNOWN": "Unknown",
+    "CREATE_CONTRACT": "Create contract",
+    "MY_CONTRACTS": "My contracts",
+    "EXTERNAL_DEVELOPERS": "External developers",
+    "BUY_TOKENS": "Buy tokens",
+    "SUPPORT": "Support",
+    "LOG_OUT": "Log out",
+    "VERSION": "version"
+  }
+}

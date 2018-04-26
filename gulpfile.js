@@ -145,6 +145,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(folders['npm'], 'angular-file-saver', 'dist', 'angular-file-saver.bundle.min.js'),
             path.join(folders['npm'], 'angular-touch', 'angular-touch.min.js'),
             path.join(folders['npm'], 'angular-translate', 'dist', 'angular-translate.min.js'),
+            path.join(folders['npm'], 'angular-translate', 'dist', 'angular-translate-loader-static-files', 'angular-translate-loader-static-files.min.js'),
             path.join(folders['npm'], 'moment', 'min', 'moment.min.js'),
             path.join(folders['npm'], 'moment-timezone', 'builds', 'moment-timezone-with-data.min.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'amcharts.js'),
@@ -243,11 +244,11 @@ gulp.task('app:css-images', function() {
 });
 
 
-// /* Languages */
-// gulp.task('app:i18n', function() {
-//     return gulp.src(path.join(output, folders['i18n'], '**/*'))
-//         .pipe(gulp.dest(path.join(input, folders['static'], folders['i18n'])));
-// });
+/* Languages */
+gulp.task('app:i18n', function() {
+    return gulp.src(path.join(output, folders['i18n'], '**/*'))
+        .pipe(gulp.dest(path.join(input, folders['static'], folders['i18n'])));
+});
 
 gulp.task('app:revision', function() {
     var manifestCSS = gulp.src(path.join(input, 'static', folders['css'], 'rev-manifest.json'));
@@ -274,8 +275,15 @@ gulp.task('app:rev', ['app:css', 'app:vendors', 'all:js-start', 'app:templates']
 gulp.task('css:watcher', ['app:css'], function() {
     return gulp.start('app:revision');
 });
+gulp.task('i18n:watcher', ['app:i18n'], function() {
+    return gulp.start('app:revision');
+});
 
 gulp.task('watcher',function() {
+
+    gulp.watch(path.join(output, folders['i18n'], '**/*'), function() {
+        gulp.start('i18n:watcher');
+    });
     gulp.watch(path.join(output, folders['scss'], '**/*'), function() {
         gulp.start('css:watcher');
     });
@@ -294,7 +302,7 @@ gulp.task('watcher',function() {
 
 
 
-gulp.task('default', ['app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing-build', 'app:web3'],
+gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing-build', 'app:web3'],
     function() {
         if (!isProduction) {
             return gulp.start('serve');

@@ -13,10 +13,9 @@ if (UAParser(window.navigator.userAgent).device.type === "mobile") {
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
-}).controller('baseController', function($scope, $rootScope) {
+}).controller('baseController', function($scope, $rootScope, $translate) {
     $rootScope.showedMenu = false;
     $rootScope.menuTogglerOff = false;
-
     $rootScope.toggleMenu = function(state, event) {
         if (angular.element('body').is('.popup-showed')) return;
         if (state === undefined) {
@@ -24,6 +23,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         $rootScope.showedMenu = state;
     };
+    $translate.use('en');
 }).controller('headerController', function($rootScope, $scope) { })
     .controller('authorizationController', function(authService, $rootScope, $scope, SocialAuthService) {
     /* Social networks buttons */
@@ -445,12 +445,17 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
 
 })
-    .config(function($httpProvider, $qProvider, $compileProvider) {
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-    $qProvider.errorOnUnhandledRejections(false);
-    $compileProvider.aHrefSanitizationWhitelist(/^\s*(mailto|otpauth|https?):/);
-})
+    .config(function($httpProvider, $qProvider, $compileProvider, $translateProvider) {
+        $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        $qProvider.errorOnUnhandledRejections(false);
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(mailto|otpauth|https?):/);
+        $translateProvider.useStaticFilesLoader({
+            prefix: '/static/i18n/',
+            suffix: '.json'
+        });
+
+    })
     .filter('isEmail', function($filter) {
     return function(email) {
         var input = angular.element('<input>').attr({type: 'email'});

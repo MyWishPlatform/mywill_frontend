@@ -7,50 +7,50 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         hideForUser: 'is_ghost',
         noshow: true
     },{
-        title: 'Settings',
+        title: 'MAIN_MENU.SETTINGS',
         icon: 'icon-settings',
         route: 'main.settings',
         noactive: true,
         noshow: true
     }, {
-        title: 'Create contract',
+        title: 'MAIN_MENU.CREATE_CONTRACT',
         icon: 'icon-create-contract',
         route: 'main.createcontract.types',
         parent: 'main.createcontract'
     }, {
-        title: 'My contracts',
+        title: 'MAIN_MENU.MY_CONTRACTS',
         icon: 'icon-contracts',
         route: 'main.contracts.list',
         parent: 'main.contracts'
     }, {
-        title: 'External developers',
+        title: 'MAIN_MENU.EXTERNAL_DEVELOPERS',
         icon: 'icon-framew',
         route: 'main.extdevs'
     }, {
-        title: 'Messages',
+        title: 'MAIN_MENU.MESSAGES',
         icon: 'icon-mail',
         route: 'main.messages',
         noactive: true,
         noshow: true
     }, {
-        title: 'Address book',
+        title: 'MAIN_MENU.ADDRESS_BOOK',
         icon: 'icon-phone-call',
         route: 'main.contacts',
         noactive: true,
         noshow: true
     }, {
-        title: 'FAQ',
+        title: 'MAIN_MENU.FAQ',
         icon: 'icon-question',
         route: 'main.faq',
         noactive: true,
         noshow: true
     }, {
-        title: 'Buy tokens',
+        title: 'MAIN_MENU.BUY_TOKENS',
         icon: 'icon-but-tokens',
         route: 'main.buytokens',
         noactive: false
     }, {
-        title: 'Support',
+        title: 'MAIN_MENU.SUPPORT',
         icon: 'icon-phone-call',
         static: true,
         url: 'support@mywish.io',

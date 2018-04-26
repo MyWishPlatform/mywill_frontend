@@ -430,6 +430,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.openAuthWindow = function(page) {
         $rootScope.commonOpenedPopup = 'login';
         $rootScope.commonOpenedPopupParams = {
+            newPopupContent: true,
             'class': 'login-form',
             'page': page
         };

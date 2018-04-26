@@ -299,9 +299,11 @@
   padding-bottom: 1em;
   .input-after {
     position: absolute;
-    right: 10px;
+    right: 1em;
     font-size: 1.5em;
-    top: 60%;
+    line-height: 1em;
+    display: block;
+    bottom: 1.7em;
   }
   &_label {
     line-height: 4.9em;

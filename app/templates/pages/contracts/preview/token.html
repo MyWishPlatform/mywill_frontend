@@ -120,6 +120,7 @@
                         Enter constructor arguments ABI-encoded:
                         <div class="copy-block">
                             <button class="copy-block__button relative"
+                                    ng-if="contract.contract_details[selectedContract].constructor_arguments"
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].constructor_arguments"
                                     ng-class="{copied: contract.copied['arguments']}"

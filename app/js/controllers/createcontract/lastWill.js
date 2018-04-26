@@ -142,6 +142,11 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.percentageSum = sum;
         $scope.percentageStatus = sum > 100 ? 0 : (sum < 100 ? 1 : 2);
     };
+
+    $scope.checkTimeLimit = function() {
+        $scope.checkedTimeLimit = $scope.checkPeriod * $scope.checkPeriodSelect;
+    };
+
     $scope.resetForms = function() {
         $scope.request = angular.copy(contract.contract_details);
 
@@ -160,7 +165,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.checkPeriodSelect = lastCheckInterval ? lastCheckInterval.value : 1;
 
         $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : defaultDueDate.clone();
-
+        $scope.checkTimeLimit();
         $scope.hairPercentChange();
     };
 

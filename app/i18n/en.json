@@ -9,5 +9,13 @@
     "SUPPORT": "Support",
     "LOG_OUT": "Log out",
     "VERSION": "version"
+  },
+  "HEADER": {
+    "BUTTONS": {
+      "BUY": "Buy",
+      "SIGN_IN": "Sign in",
+      "SIGN_UP": "Sign up"
+    }
   }
 }
+

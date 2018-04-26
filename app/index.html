@@ -72,7 +72,6 @@
     <div class="pre-release-information-container">
         <div class="main-content-holder">
             <div class="main-section-content">
-
                 <div class="user-balance">
                     <div class="user-balance-value">
                         <i class="user-balance-icon icon-mywish">
@@ -89,10 +88,9 @@
                     </div>
                     <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon hide-ls">
                         <i class="icon-create-contract"></i>
-                        <span>Buy</span>
+                        <span translate="HEADER.BUTTONS.BUY"></span>
                     </a>
                 </div>
-
                 <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
                     <button class="uppercase btn btn-submit hide-ls"
                             ng-pop-up="{
@@ -102,28 +100,19 @@
                                     page: 'registration'
                                 }
                             }">
-                        <span>Sign up</span>
+                        <span translate="HEADER.BUTTONS.SIGN_UP"></span>
                     </button>
-                    <button ng-pop-up="{
+                    <button class="btn btn-transparent uppercase"
+                            ng-pop-up="{
                                 'template': '/templates/popups/login.html',
                                 'class': 'login-form',
                                 'params': {
                                     page: 'auth'
                                 }
-                            }"
-                            class="btn btn-transparent uppercase">
-                        <span>Sign in</span>
+                            }">
+                        <span translate="HEADER.BUTTONS.SIGN_IN"></span>
                     </button>
                 </div>
-                <!-- div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
-                    <button class="btn btn-transparent" ng-pop-up="{
-                        template: '/templates/popups/logout-confirm.html',
-                        class: 'deleting-contract'
-                    }">
-                        <span>Log out</span>
-                    </button>
-                </div -->
-                <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
             </div>
         </div>
     </div>

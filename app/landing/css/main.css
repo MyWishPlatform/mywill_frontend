@@ -27,7 +27,7 @@ html {
 
 
 body {
-    font-family: 'Roboto';
+    font-family: 'Ubuntu', sans-serif;
     background: url('../img/background.png') center center no-repeat #6399ff;
     background-size: cover;
     position: relative;

@@ -1,7 +1,6 @@
 angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope,
-                                                                 contractsList, $scope, $state, NETWORKS_TYPES_NAMES_CONSTANTS) {
+                                                                 contractsList, $scope, $state) {
 
-    $scope.networks = NETWORKS_TYPES_NAMES_CONSTANTS;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 

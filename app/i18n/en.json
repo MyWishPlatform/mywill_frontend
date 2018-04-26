@@ -17,6 +17,28 @@
       "SIGN_UP": "Sign up"
     }
   },
-  "WARNING_MESSAGE": "Warning! Service is under maintenance now.<br/> Please do not use it until this message is shown."
+
+  "WARNING_MESSAGE": "Warning! Service is under maintenance now.<br/> Please do not use it until this message is shown.",
+  "CONTRACTS_STATUSES": {
+    "DRAFT": "Draft",
+    "CREATED": "Created",
+    "WAITING_FOR_PAYMENT": "Waiting for payment",
+    "WAITING_FOR_DEPLOYMENT": "Waiting for deployment",
+    "ACTIVE": "Active",
+    "EXPIRED": "Expired",
+    "CANCELLED": "Cancelled",
+    "KILLED": "Cancelled",
+    "POSTPONED": "Postponed",
+    "TRIGGERED": "Done",
+    "WAITING_ACTIVATION": "Not Activated",
+    "ENDED": "Done",
+    "UNDER_CROWDSALE": "Under Crowdsale"
+  },
+  "CONTRACTS_NETWORKS": {
+    "NETWORK_1": "Main Ethereum Network",
+    "NETWORK_2": "Ropsten Test Net",
+    "NETWORK_3": "RSK Network",
+    "NETWORK_4": "RSK Testnet faucet"
+  }
 }
 

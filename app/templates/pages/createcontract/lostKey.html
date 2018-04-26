@@ -148,15 +148,26 @@
                     <label class="form-control-label">Check every</label>
                     <div class="form-controls-group">
                         <div class="form-control-little">
+                            <input class="input-for-group-fields"
+                                   tabindex="-1"
+                                   readonly
+                                   name="checkTimeLimit"
+                                   type="number"
+                                   max="3650"
+                                   ng-model="checkedTimeLimit"/>
+
                             <input type="text"
                                    maxlength="3"
+                                   ng-change="checkTimeLimit()"
                                    required
                                    ng-model="checkPeriod"
                                    ng-pattern="/^[1-9]+[0-9]*?$/"
+                                   ng-attr-invalid="{{!conditionsForm['checkTimeLimit'].$valid}}"
                                    class="form-control-input text-center"/>
                         </div>
                         <div class="form-control">
                             <div ng-select
+                                 ng-select-change="checkTimeLimit()"
                                  ng-model="checkPeriodSelect"
                                  ng-model-list="durationList"
                                  ng-select-options="{class: 'select-1', label: 'name', value: 'value'}"></div>

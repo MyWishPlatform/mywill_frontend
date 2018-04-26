@@ -32,7 +32,10 @@ body {
   }
   padding-bottom: 6em;
 }
-
+a img {
+  border: 0 none;
+  text-decoration: none;
+}
 .btn, [ng-click] {
   -webkit-touch-callout:none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust:none;             /* prevent webkit from resizing text to fit */

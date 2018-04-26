@@ -15,7 +15,7 @@ var indexTemplates = ['auth'].join('|');
 
 var devServerApi = {
     path: [
-        "/api", '/accounts', '/logout', '/endpoint'
+        "/api", '/accounts', '/logout', '/endpoint', '/fonts'
     ],
     // url: url.parse("https://contracts.mywish.io")
     // url: url.parse("http://192.168.10.203:8000")

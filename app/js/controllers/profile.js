@@ -1,7 +1,8 @@
 angular.module('app').controller('profileController', function($scope, authService, $state) {
 
     var enablePopUpParams = {
-        template: '/templates/popups/enable-2fa.html',
+        template: '/templates/popups/confirmations/enable-2fa.html',
+        newPopupContent: true,
         class: 'deleting-contract',
         params: {
             withoutCloser: true
@@ -24,7 +25,8 @@ angular.module('app').controller('profileController', function($scope, authServi
 
     $scope.enableInstructionPopUpParams = {
         class: 'conditions',
-        template: '/templates/popups/enable-2fa-instruction.html',
+        newPopupContent: true,
+        template: '/templates/popups/instructions/2fa/enable-2fa-instruction.html',
         params: {
             withoutCloser: true,
             confirmEnablePopUp: enablePopUpParams
@@ -33,23 +35,24 @@ angular.module('app').controller('profileController', function($scope, authServi
 
     $scope.disablePopUpParams = {
         class: 'deleting-contract',
-        template: '/templates/popups/disable-2fa.html',
+        template: '/templates/popups/confirmations/disable-2fa.html',
+        newPopupContent: true,
         params: {
-            withoutCloser: true,
-            actions: {
-                disable2fa: function(code) {
+            withoutCloser: true
+        },
+        actions: {
+            disable2fa: function(code) {
+                enablePopUpParams.params.error = undefined;
+                authService.disable2fa({
+                    totp: code
+                }).then(function() {
+                    generateKey();
                     enablePopUpParams.params.error = undefined;
-                    authService.disable2fa({
-                        totp: code
-                    }).then(function() {
-                        generateKey();
-                        enablePopUpParams.params.error = undefined;
-                        $scope.currentUser.use_totp = false;
-                        $scope.$broadcast('$closePopUps');
-                    }, function() {
-                        $scope.disablePopUpParams.params.error = 'Invalid code';
-                    });
-                }
+                    $scope.currentUser.use_totp = false;
+                    $scope.$broadcast('$closePopUps');
+                }, function() {
+                    $scope.disablePopUpParams.params.error = 'Invalid code';
+                });
             }
         }
     };

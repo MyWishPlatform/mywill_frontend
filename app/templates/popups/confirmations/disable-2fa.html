@@ -1,0 +1,30 @@
+<form class="shadow-block" ng-submit="ngPopUp.actions.disable2fa(pinCode)">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">Disable 2FA&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <div class="form-control">
+            <label class="form-control-label">Enter 2FA code:</label>
+            <input type="text" class="form-control-input" ng-model="pinCode" ng-autofocus>
+            <span class="field-error" style="display: block" ng-if="ngPopUp.params.error">
+                {{ngPopUp.params.error}}
+            </span>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_no-tb-padding no-border">
+        <div class="text-center">
+            <button class="btn btn-transparent" ng-click="closeCurrentPopup()" type="button">
+                <span>Cancel</span>
+            </button>
+            <button class="btn btn-submit" type="submit">
+                <span>Disable</span>
+            </button>
+        </div>
+    </div><br/><br/>
+</form>
+

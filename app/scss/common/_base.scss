@@ -6,13 +6,15 @@ $black-color: #000;
 $info-color: #f5a623;
 $cost-value-color: #EFEFEF;
 $dark-grey-color: #808080;
-
-html, body {
+html {
   height: 100%;
+}
+html, body {
   width: 100%;
   min-width: 320px;
 }
 body {
+  min-height: 100%;
   margin: 0;
   color: $black-color;
   font-size: 10px;
@@ -28,8 +30,12 @@ body {
       display: none;
     }
   }
+  padding-bottom: 6em;
 }
-
+a img {
+  border: 0 none;
+  text-decoration: none;
+}
 .btn, [ng-click] {
   -webkit-touch-callout:none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust:none;             /* prevent webkit from resizing text to fit */
@@ -94,10 +100,8 @@ a, .as-link {
   }
 }
 .as-link {
-  color: $main-blue-color!important;
   background: none;
   border: 0;
-  text-decoration: underline;
   cursor: pointer;
 }
 strong {
@@ -180,10 +184,10 @@ nav, main, footer, header {
     vertical-align: middle;
   }
   i {
-    font-size: 2.5em;
+    font-size: 1.9em;
     color: $main-blue-color;
     vertical-align: middle;
-    margin-right: 0.5em;
+    margin-right: 0.75em;
   }
 
 }

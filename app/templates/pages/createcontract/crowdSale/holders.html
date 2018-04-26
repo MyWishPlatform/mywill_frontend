@@ -1,130 +1,131 @@
-<div ng-controller="crowdSaleHoldersController">
-    <div class="contract-form-fieldset relative with-padding"
-         ng-repeat="recipient in token_holders">
-        <div class="grid-row contract-form-row">
-            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
-                <div class="form-control">
-                    <label for="out-wallet-key-{{$index}}" class="form-control-label">Address</label>
-                    <input id="out-wallet-key-{{$index}}" type="text"
-                           placeholder="Enter the address of the recipient's wallet"
-                           ng-pattern="/^0x[0-9a-f]{40}$/i"
-                           ng-model="recipient.address"
-                           ng-change="!recipient.name ? checkTokensAmount() : false"
-                           required
-                           class="form-control-input"/>
-                </div>
+<div class="shadow-block__content"
+     ng-repeat="recipient in token_holders">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+            <div class="form-control">
+                <label for="out-wallet-key-{{$index}}" class="form-control-label">Address</label>
+                <input id="out-wallet-key-{{$index}}" type="text"
+                       placeholder="Enter the address of the recipient's wallet"
+                       ng-pattern="/^0x[0-9a-f]{40}$/i"
+                       ng-model="recipient.address"
+                       ng-change="!recipient.name ? checkTokensAmount() : false"
+                       required
+                       class="form-control-input"/>
+                <span class="field-error form-field_error-check-sum"
+                      ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
+                      style="display: block">Address is not checksummed</span>
             </div>
-            <div class="clearfix show-ps"><br/></div>
-            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
-                <div class="form-control">
-                    <label for="address-name-{{$index}}" class="form-control-label">Name</label>
-                    <input id="address-name-{{$index}}" type="text"
-                           ng-change="checkTokensAmount()"
-                           ng-model="recipient.name"
-                           class="form-control-input"/>
-                </div>
+        </div>
+        <div class="clearfix show-ps"><br/></div>
+        <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control">
+                <label for="address-name-{{$index}}" class="form-control-label">Name</label>
+                <input id="address-name-{{$index}}" type="text"
+                       ng-change="checkTokensAmount()"
+                       ng-model="recipient.name"
+                       class="form-control-input"/>
             </div>
+        </div>
 
-            <div class="clearfix show-full hide-ps show-vs"><br/></div>
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
-                <div class="form-control">
-                    <label for="address-amount-{{$index}}" class="form-control-label">Token amount</label>
-                    <input class="form-control-input"
-                           id="address-amount-{{$index}}"
-                           commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
-                           required
-                           ng-attr-invalid="{{tokensAmountError}}"
-                           ng-change="checkTokensAmount()"
-                           ng-model="recipient.amount"/>
-                </div>
+        <div class="clearfix show-full hide-ps show-vs"><br/></div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control">
+                <label for="address-amount-{{$index}}" class="form-control-label">Token amount</label>
+                <input class="form-control-input"
+                       id="address-amount-{{$index}}"
+                       commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                       required
+                       ng-attr-invalid="{{tokensAmountError}}"
+                       ng-change="checkTokensAmount()"
+                       ng-model="recipient.amount"/>
             </div>
-            <div class="clearfix show-ps"><br/></div>
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
-                <label class="form-control-label">
-                    <i class="icon-snowflake form-control-label-icon"></i>
-                    Frozen until date&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
-                </label>
-                <div class="form-control">
-                    <div class="grid-row contract-form-row">
-                        <div class="grid-cell grid-cell-2-5">
-                            <label class="checkbox-decoration">
-                                <input type="checkbox" ng-model="recipient.isFrozen"/>
-                                <span class="checkbox-decoration-displaying">
-                                    <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                                    <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
-                                </span>
-                            </label>
-                        </div>
-                        
-                        <div class="grid-cell grid-cell-3-5">
-                            <input ng-model="recipient.parsed_freeze_date"
-                                   ng-attr-name="{{'recipient_freeze_date_' + $index}}"
-                                   class="input-for-group-fields"
-                                   type="number"
-                                   ng-if="recipient.isFrozen"
-                                   ng-attr-min="{{request.stop_date * 1 + 1}}">
+        </div>
+        <div class="clearfix show-ps"><br/></div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+            <label class="form-control-label">
+                <i class="icon-snowflake form-control-label-icon"></i>
+                Frozen until date&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
+            </label>
+            <div class="form-control">
+                <div class="grid-row contract-form-row">
+                    <div class="grid-cell grid-cell-2-5">
+                        <label class="checkbox-decoration">
+                            <input type="checkbox" ng-model="recipient.isFrozen"/>
+                            <span class="checkbox-decoration-displaying">
+                                <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                            </span>
+                        </label>
+                    </div>
 
-                            <input type="datetime"
-                                   ng-required="recipient.isFrozen"
-                                   ng-disabled="!recipient.isFrozen"
-                                   ng-model="recipient.freeze_date"
-                                   date-change="onChangeDateOfRecipient"
-                                   auto-close="true"
-                                   readonly
-                                   date-time
-                                   min-date="minStartDate"
-                                   min-view="date"
-                                   view="year"
-                                   format="YYYY-MM-DD"
-                                   position="fixed"
-                                   ng-attr-invalid="{{!distributionForm['recipient_freeze_date_' + $index].$valid}}"
-                                   class="form-control-input form-control-input-date"/>
-                        </div>
+                    <div class="grid-cell grid-cell-3-5">
+                        <input ng-model="recipient.parsed_freeze_date"
+                               ng-attr-name="{{'recipient_freeze_date_' + $index}}"
+                               class="input-for-group-fields"
+                               type="number"
+                               ng-if="recipient.isFrozen"
+                               ng-attr-min="{{request.stop_date * 1 + 1}}">
+
+                        <input type="datetime"
+                               ng-required="recipient.isFrozen"
+                               ng-disabled="!recipient.isFrozen"
+                               ng-model="recipient.freeze_date"
+                               date-change="onChangeDateOfRecipient"
+                               auto-close="true"
+                               readonly
+                               date-time
+                               min-date="minStartDate"
+                               min-view="date"
+                               view="year"
+                               format="YYYY-MM-DD"
+                               position="fixed"
+                               ng-attr-invalid="{{!distributionForm['recipient_freeze_date_' + $index].$valid}}"
+                               class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
             </div>
         </div>
-        <i class="icon-cancel float-right form-fieldset-info-button"
-           ng-click="removeRecipient(recipient); checkTokensAmount();"
-           ng-if="token_holders.length"></i>
     </div>
-    <div class="contract-form-fieldset with-padding" ng-if="token_holders.length < 5">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
-                <span class="form-control-description__text">You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion</span><br/>
-            </div>
-            <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
-                <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
-                    <i class="icon-create-contract"></i>
-                    <span>Add extra address</span>
-                </button>
-            </div>
+    <i class="icon-cancel float-right form-fieldset-info-button"
+       ng-click="removeRecipient(recipient); checkTokensAmount();"
+       ng-if="token_holders.length"></i>
+</div>
+<div class="shadow-block__content" ng-if="token_holders.length < 5">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
+            <span class="form-control-description__text">You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion</span><br/>
+        </div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
+            <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
+                <i class="icon-create-contract"></i>
+                <span>Add extra address</span>
+            </button>
         </div>
     </div>
+</div>
 
-    <div class="contract-form-fieldset contract-form-fieldset-grey with-padding" ng-if="!tokensAmountError">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1">
-                <div class="form-control-label">
-                    <!--({{totalSupply.eth|separateNumber}} ETH)-->
-                    Total supply: {{totalSupply.tokens|separateNumber}} {{token.selectedToken.id ? token.selectedToken.token_short_name : request.token_short_name}}
-                </div>
-                <div class="form-control-description one-line without-padding">
-                    <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
-                </div>
+<div class="shadow-block__content grey-color" ng-if="!tokensAmountError">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1">
+            <div class="form-control-label">
+                <!--({{totalSupply.eth|separateNumber}} ETH)-->
+                Total supply: {{totalSupply.tokens|separateNumber}} {{token.selectedToken.id ? token.selectedToken.token_short_name : request.token_short_name}}
             </div>
-            <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
-                <div id="chartdiv" class="chart-container" style="height: 240px"
-                     ng-chart
-                     ng-chart-data="chartData"
-                     ng-chart-options="chartOptions"></div>
+            <div class="form-control-description one-line without-padding">
+                <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
             </div>
-            <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
-                <div class="chart-legend">
-                    <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
-                        <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
-                        <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
-                    </div>
+        </div>
+        <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
+            <div id="chartdiv" class="chart-container" style="height: 240px"
+                 ng-chart
+                 ng-chart-data="chartData"
+                 ng-chart-options="chartOptions"></div>
+        </div>
+        <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
+            <div class="chart-legend">
+                <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
+                    <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                    <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
                 </div>
             </div>
         </div>

@@ -15,7 +15,9 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         }
     ];
 
-    $scope.hairsList = [];
+    $scope.hairsList = [{
+        percentage: 100
+    }];
 
     $scope.addHair = function() {
 
@@ -140,11 +142,18 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.percentageSum = sum;
         $scope.percentageStatus = sum > 100 ? 0 : (sum < 100 ? 1 : 2);
     };
+
+    $scope.checkTimeLimit = function() {
+        $scope.checkedTimeLimit = $scope.checkPeriod * $scope.checkPeriodSelect;
+    };
+
     $scope.resetForms = function() {
         $scope.request = angular.copy(contract.contract_details);
 
         $scope.contractName = contract.name;
-        $scope.hairsList = contract.contract_details.heirs ? angular.copy(contract.contract_details.heirs) : [];
+        $scope.hairsList = contract.contract_details.heirs ? angular.copy(contract.contract_details.heirs) : [{
+            percentage: 100
+        }];
 
         var checkInterval = contract.contract_details.check_interval ? $scope.durationList.filter(function(check) {
             return !(contract.contract_details.check_interval % (check.value * 24 * 3600));
@@ -156,7 +165,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
         $scope.checkPeriodSelect = lastCheckInterval ? lastCheckInterval.value : 1;
 
         $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : defaultDueDate.clone();
-
+        $scope.checkTimeLimit();
         $scope.hairPercentChange();
     };
 

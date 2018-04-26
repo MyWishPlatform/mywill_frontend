@@ -4,7 +4,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network || 1,
         contract_details: {
-            token_holders: [{}],
+            token_holders: [],
             token_type: 'ERC20'
         }
     };
@@ -26,6 +26,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         $scope.token_holders = $scope.token_holders.filter(function(rec) {
             return rec !== recipient;
         });
+        if (!$scope.token_holders.length) {
+            $scope.request.future_minting = true;
+        }
     };
 
     $scope.checkTokensAmount = function() {
@@ -77,6 +80,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             }
             holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
         });
+        $scope.request.future_minting = $scope.request.future_minting || !$scope.token_holders.length;
     };
 
 
@@ -135,11 +139,11 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
                     switch(data.data.result) {
                         case '1':
                         case 1:
-                            $rootScope.commonOpenedPopup = 'contract_date_incorrect';
+                            $rootScope.commonOpenedPopup = 'errors/contract_date_incorrect';
                             break;
                         case '2':
                         case 2:
-                            $rootScope.commonOpenedPopup = 'contract_freeze_date_incorrect';
+                            $rootScope.commonOpenedPopup = 'errors/contract_freeze_date_incorrect';
                             break;
                     }
                     break;

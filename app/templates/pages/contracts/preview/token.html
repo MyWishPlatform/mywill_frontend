@@ -41,7 +41,7 @@
             <ul class="new-instruction-list">
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Open
+                        Open contract address on
                         <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
                     </div>
                 </li>
@@ -89,13 +89,13 @@
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
-                                    text="contract.contract_details[selectedContract].compiler_version"
+                                    text="contract.contract_details[selectedContract].compiler_version|compilerVersion"
                                     ng-class="{copied: contract.copied['compiler_version']}"
                                     on-copied="successCodeCopy(contract, 'compiler_version')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
-                            <div class="copy-block__text">{{contract.contract_details[selectedContract].compiler_version}}</div>
+                            <div class="copy-block__text">{{contract.contract_details[selectedContract].compiler_version|compilerVersion}}</div>
                         </div>
                     </div>
                 </li>
@@ -115,7 +115,23 @@
                         </div>
                     </div>
                 </li>
-
+                <li class="new-instruction-list__item">
+                    <div class="new-instruction-list__item__text">
+                        Enter constructor arguments ABI-encoded:
+                        <div class="copy-block">
+                            <button class="copy-block__button relative"
+                                    ng-if="contract.contract_details[selectedContract].constructor_arguments"
+                                    clipboard supported="supported"
+                                    text="contract.contract_details[selectedContract].constructor_arguments"
+                                    ng-class="{copied: contract.copied['arguments']}"
+                                    on-copied="successCodeCopy(contract, 'arguments')"
+                                    on-error="failCodeCopy(err)">&nbsp;
+                                <i class="icon-content_copy"></i>
+                            </button>
+                            <div class="copy-block__text">{{contract.contract_details[selectedContract].constructor_arguments}}&nbsp;</div>
+                        </div>
+                    </div>
+                </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
                         Others fields are not required. Press "Verify And Publish"
@@ -294,10 +310,13 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
-                    <div class="form-control-description one-line without-padding">
+                    <div class="form-control-description one-line without-padding" ng-if="!details.future_minting">
                         <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
                     </div>
                 </div>
+            </div>
+
+            <div class="grid-row" ng-if="chartData.length">
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
                     <div class="chart-container" style="height: 240px"
                          ng-chart

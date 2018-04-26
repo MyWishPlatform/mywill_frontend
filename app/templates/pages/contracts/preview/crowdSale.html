@@ -537,7 +537,7 @@
             <ul class="new-instruction-list">
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Open
+                        Open contract address on
                         <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
                     </div>
                 </li>
@@ -585,13 +585,13 @@
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
-                                    text="contract.contract_details[selectedContract].compiler_version"
+                                    text="contract.contract_details[selectedContract].compiler_version|compilerVersion"
                                     ng-class="{copied: contract.copied['compiler_version']}"
                                     on-copied="successCodeCopy(contract, 'compiler_version')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
-                            <div class="copy-block__text">{{contract.contract_details[selectedContract].compiler_version}}</div>
+                            <div class="copy-block__text">{{contract.contract_details[selectedContract].compiler_version|compilerVersion}}</div>
                         </div>
                     </div>
                 </li>
@@ -608,6 +608,23 @@
                                 <i class="icon-content_copy"></i>
                             </button>
                             <div class="copy-block__text json-text">{{contract.contract_details[selectedContract].source_code}}</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="new-instruction-list__item">
+                    <div class="new-instruction-list__item__text">
+                        Enter constructor arguments ABI-encoded:
+                        <div class="copy-block">
+                            <button class="copy-block__button relative"
+                                    ng-if="contract.contract_details[selectedContract].constructor_arguments"
+                                    clipboard supported="supported"
+                                    text="contract.contract_details[selectedContract].constructor_arguments"
+                                    ng-class="{copied: contract.copied['arguments']}"
+                                    on-copied="successCodeCopy(contract, 'arguments')"
+                                    on-error="failCodeCopy(err)">&nbsp;
+                                <i class="icon-content_copy"></i>
+                            </button>
+                            <div class="copy-block__text">{{contract.contract_details[selectedContract].constructor_arguments}}&nbsp;</div>
                         </div>
                     </div>
                 </li>

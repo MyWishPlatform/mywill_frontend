@@ -123,7 +123,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.contracts', {
         abstract: true,
-        template: '<div ui-view></div>'
+        template: '<div ui-view></div>',
+        controller: 'baseContractsController'
     }).state('main.contracts.list', {
         url: '/contracts',
         controller: 'contractsController',

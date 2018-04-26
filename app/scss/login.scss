@@ -1,5 +1,6 @@
 @import 'common/awesome.scss';
 @import 'common/social-buttons.scss';
+@import 'common/new_styles/base_blocks';
 html, body {
   width: 100%;
   height: 100%;
@@ -27,10 +28,20 @@ header {
   }
 }
 
-.auth-form {
-  width: 34.65em;
+a img {
+  border: 0 none;
+  text-decoration: none;
+}
+
+.auth-form, .email-confirm-message {
+  width: 48em;
   margin: 0 auto;
-  max-width: 90%;
+  max-width: 96%;
+}
+.login-form {
+  padding-top: 2.875em;
+  width: 34.65em;
+  max-width: 100%;
 }
 .field-container {
   position: relative;
@@ -144,7 +155,7 @@ header {
 }
 .auth-form-menu {
   list-style-type: none;
-  padding: 0 0 4.875em;
+  padding: 0 0 2em;
   margin: 0;
   li {
     display: inline-block;
@@ -201,15 +212,72 @@ header {
     }
   }
 }
-
-
+.text-center {
+  text-align: center;
+}
+.btn {
+  border: 0 none;
+  padding: 0 3em;
+  outline: none;
+  font-size: 1em;
+  border-radius: 2.6em;
+  display: inline-block;
+  vertical-align: middle;
+  transition: box-shadow 0.05s linear;
+  box-shadow: 0 0 0 transparent;
+  box-sizing: border-box;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  &-transparent {
+    border: 0.2em solid;
+    color: #206EFF;
+    background: none;
+  }
+  span {
+    font-size: 1.8em;
+    line-height: 2.7em;
+  }
+}
+b {
+  font-weight: 600;
+}
 .email-confirm-title, .email-confirm-text {
-  color: #206EFF;
+  color: #4c4c4c;
+  text-shadow: 0 1px 1px #fff;
 }
 .email-confirm-title {
   font-size: 2.5em;
+  text-align: center;
+  margin-top: 0.3em;
 }
 .email-confirm-text {
-  font-size: 2em;
+  font-size: 1.75em;
   line-height: 1.35em;
+}
+.red-color {
+  color: #ff5f73;
+  a {
+    color: inherit;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+.dark-red-color {
+  color: #a00;
+  a {
+    color: inherit;
+  }
+}
+.email-confirm-timer-text {
+  display: block;
+  line-height: 5.2em;
+  color: #4c4c4c;
+  span {
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+  }
 }

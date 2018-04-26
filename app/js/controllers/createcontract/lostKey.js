@@ -170,6 +170,10 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         $scope.percentageStatus = sum > 100 ? 0 : (sum < 100 ? 1 : 2);
     };
 
+    $scope.checkTimeLimit = function() {
+        $scope.checkedTimeLimit = $scope.checkPeriod * $scope.checkPeriodSelect;
+    };
+
     $scope.resetForms = function() {
         $scope.contractName = contract.name;
         $scope.walletAddress = contract.contract_details.user_address;
@@ -189,7 +193,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         $scope.checkPeriodSelect = lastCheckInterval ? lastCheckInterval.value : 1;
 
         $scope.dueDate = contract.contract_details.active_to ? moment(contract.contract_details.active_to) : moment.tz('UTC').add(1, 'days').hour(12).startOf('h');
-
+        $scope.checkTimeLimit();
         $scope.hairPercentChange();
     };
 

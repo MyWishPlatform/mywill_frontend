@@ -13,7 +13,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
 }).controller('baseController', function($scope, $rootScope) {
     $rootScope.showedMenu = false;
+    $rootScope.menuTogglerOff = false;
+
     $rootScope.toggleMenu = function(state, event) {
+        if (angular.element('body').is('.popup-showed')) return;
         if (state === undefined) {
             state = !$rootScope.showedMenu;
         }
@@ -261,7 +264,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     var dateRange = 0;
 
-    $rootScope.getNowDateTime = function() {
+    $rootScope.getNowDateTime = function(addedTime) {
         return new Date((new Date()).getTime() + dateRange);
     };
 
@@ -357,7 +360,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var checkLocation = function(newLocation, oldLocation, event) {
         if (newLocation.data && newLocation.data.notAccess && $rootScope.currentUser[newLocation.data.notAccess]) {
             event.preventDefault();
-            $rootScope.commonOpenedPopup = 'ghost-user-buy-tokens';
+            $rootScope.commonOpenedPopupParams = {
+                newPopupContent: true
+            };
+            $rootScope.commonOpenedPopup = 'alerts/ghost-user-buy-tokens';
             if (oldLocation.name) {
                 $state.go(oldLocation.name);
             } else {
@@ -424,6 +430,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.openAuthWindow = function(page) {
         $rootScope.commonOpenedPopup = 'login';
         $rootScope.commonOpenedPopupParams = {
+            newPopupContent: true,
             'class': 'login-form',
             'page': page
         };
@@ -478,6 +485,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             size: 8,
             scale: 3
         }).toDataURL();
+    }
+}).filter('compilerVersion', function() {
+    return function(val) {
+        if (!val) {
+            return val;
+        }
+        return val.replace(/^([^\+]+)(\+commit\.[^\.]+).*$/, '$1$2');
     }
 }).directive('commaseparator', function($filter, $timeout) {
     'use strict';

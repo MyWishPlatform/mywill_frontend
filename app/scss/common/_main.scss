@@ -37,20 +37,8 @@ $fieldsets-padding: 2.5em;
     }
   }
 }
-.content-section-title {
-  font-size: 1.8em;
-  margin-bottom: 1em;
-  font-weight: normal;
-  i {
-    display: inline-block;
-    vertical-align: bottom;
-    &:before {
-      font-size: 2em;
-      vertical-align: middle;
-      margin-right: 0.3em;
-    }
-  }
-}
+
+
 a.main-section-chapter {
   display: block;
   &, &:hover, &:focus {

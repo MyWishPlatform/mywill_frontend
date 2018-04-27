@@ -1,4 +1,7 @@
 {
+  "YES": "Yes",
+  "NO": "No",
+  "DISCLAIMER": "Disclaimer",
   "MAIN_MENU": {
     "UNKNOWN_USER": "Unknown user",
     "UNKNOWN": "Unknown",
@@ -44,7 +47,8 @@
     "ENABLE": "Enable",
     "DISABLE": "Disable",
     "CHANGE": "Change",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "CLOSE": "Close"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -52,6 +56,11 @@
     "MIN_LENGTH_PASSWORD": "Minimum password length 8 characters",
     "NO_MATCH_PASSWORD": "Passwords do not match",
     "INVALID_2FA_CODE": "Invalid code"
+  },
+  "BLOCKCHAIN_NETWORKS": {
+    "ETH": "Ethereum",
+    "BTC": "Bitcoin",
+    "NEO": "NEO"
   },
   "PAGES": {
     "PROFILE": {
@@ -100,6 +109,57 @@
           "2FA": {
             "LABEL": "2FA code"
           }
+        }
+      }
+    },
+    "CREATE_CONTRACT": {
+      "BLOCKCHAIN_BLOCK": {
+        "TITLE": "Choose Blockchain",
+        "TEST_NETWORK_LABEL": "Test Network"
+      },
+      "CROWDSALE": {
+        "TITLE": "Crowdsale contract",
+        "DESCRIPTION": "Start your ICO/Token sale with a few clicks"
+      },
+      "TOKEN": {
+        "TITLE": "Token contract",
+        "DESCRIPTION": "If you don't need a Crowdsale, you can create a token and distribute it yourself"
+      },
+      "LOST_KEY": {
+        "TITLE": "Lost key",
+        "DESCRIPTION": "The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
+      },
+      "DEFERRED": {
+        "TITLE": "Deferred payment",
+        "DESCRIPTION": "Smart contract makes payment on a specified date."
+      },
+      "WILL": {
+        "TITLE": "Will contract",
+        "DESCRIPTION": "Setup the transfer of funds to family or friends, in case of long inactive period of time (death, accidents & so on)."
+      },
+      "WEDDING": {
+        "TITLE": "Wedding contract",
+        "DESCRIPTION": "Wallet with Multisig function & distribution of funds between the owners after/during specified period of time."
+      },
+      "TEST_NET_DISCLAIMER": {
+        "LIST": {
+          "LIST_ITEM_1": "Contracts in Test Net are free for use (you can create & deploy it to test network)",
+          "LIST_ITEM_2": "Please accept low speed for deployment (up to 3 hours)",
+          "LIST_ITEM_3": "Contracts in Test/ Main network have identical code",
+          "LIST_ITEM_4": "Please use Test Net addresses (Ropsten for ETH) while working with contracts"
+        }
+      },
+      "BTC_DISCLAIMER": {
+        "TITLE": "How it works",
+        "LIST_1": {
+          "LIST_ITEM_1": "Log into MyWish Platform.",
+          "LIST_ITEM_2": "Choose Will contract & set it up. MyWish generates your personal smart contract.",
+          "LIST_ITEM_3": "Make a payment & MyWish deploys the contract to the RSK network.",
+          "LIST_ITEM_4": "Smart contract is deployed & ready for execution."
+        },
+        "LIST_2": {
+          "LIST_ITEM_1": "User regularly calls the contract to confirm its’ \"live\" status.",
+          "LIST_ITEM_2": "If no confirmation during the specified timeframe is detected, the contract distributes the funds to heirs."
         }
       }
     }

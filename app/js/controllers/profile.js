@@ -17,7 +17,7 @@ angular.module('app').controller('profileController', function($scope, authServi
                     $scope.currentUser.use_totp = true;
                     $scope.$broadcast('$closePopUps');
                 }, function() {
-                    enablePopUpParams.params.error = 'Invalid code';
+                    enablePopUpParams.params.error = 'INVALID_2FA_CODE';
                 });
             }
         }

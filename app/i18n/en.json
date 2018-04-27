@@ -43,19 +43,39 @@
   "BUTTONS": {
     "ENABLE": "Enable",
     "DISABLE": "Disable",
-    "CHANGE": "Change"
+    "CHANGE": "Change",
+    "CANCEL": "Cancel"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
     "INCORRECT_PASSWORD": "Incorrect password",
     "MIN_LENGTH_PASSWORD": "Minimum password length 8 characters",
-    "NO_MATCH_PASSWORD": "Passwords do not match"
+    "NO_MATCH_PASSWORD": "Passwords do not match",
+    "INVALID_2FA_CODE": "Invalid code"
   },
   "PAGES": {
     "PROFILE": {
       "TWO_FACTOR_AUTH": {
         "TITLE": "Two-factor authentication",
-        "DESCRIPTION": "We strongly recommend you to Enable 2FA"
+        "DESCRIPTION": "We strongly recommend you to Enable 2FA",
+        "POPUPS": {
+          "ENABLE_INSTRUCTION": {
+            "TITLE": "Enable 2FA",
+            "LIST_STEPS": {
+              "STEP_1": "Scan QR-code",
+              "STEP_2": "Add mywish app in your Google Authenticator or in similar app",
+              "STEP_3": "Use code every time when login to MyWish"
+            }
+          },
+          "ENABLE_FORM": {
+            "TITLE": "Enable 2FA",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "Enter 2FA code:"
+              }
+            }
+          }
+        }
       },
       "CHANGE_PASSWORD": {
         "TITLE": "Change Password",

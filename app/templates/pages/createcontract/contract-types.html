@@ -56,15 +56,13 @@
                 </div>
             </div>
             <div class="grid-cell">
-                <div class="form-control">
-                    <label class="checkbox-decoration">
-                        <input type="checkbox" ng-model="blockChainNetwork.isTest">
-                        <span class="checkbox-decoration-displaying for-buttons-height">
-                            <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                            <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
-                        </span>
-                    </label>
-                </div>
+                <label class="checkbox-decoration">
+                    <input type="checkbox" ng-model="blockChainNetwork.isTest">
+                    <span class="checkbox-decoration-displaying for-buttons-height">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                    </span>
+                </label>
             </div>
             <div ng-if="blockChainNetwork.isTest" ng-pop-up="{
                 opened: true,

@@ -39,6 +39,42 @@
     "NETWORK_2": "Ropsten Test Net",
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet"
+  },
+  "BUTTONS": {
+    "ENABLE": "Enable",
+    "DISABLE": "Disable",
+    "CHANGE": "Change"
+  },
+  "FIELDS_ERRORS": {
+    "REQUIRED": "Field is required",
+    "INCORRECT_PASSWORD": "Incorrect password",
+    "MIN_LENGTH_PASSWORD": "Minimum password length 8 characters",
+    "NO_MATCH_PASSWORD": "Passwords do not match"
+  },
+  "PAGES": {
+    "PROFILE": {
+      "TWO_FACTOR_AUTH": {
+        "TITLE": "Two-factor authentication",
+        "DESCRIPTION": "We strongly recommend you to Enable 2FA"
+      },
+      "CHANGE_PASSWORD": {
+        "TITLE": "Change Password",
+        "FIELDS": {
+          "CURR_PASS": {
+            "LABEL": "Current password"
+          },
+          "NEW_PASS": {
+            "LABEL": "New password"
+          },
+          "NEW_PASS_CONFIRM": {
+            "LABEL": "Repeat new password"
+          },
+          "2FA": {
+            "LABEL": "2FA code"
+          }
+        }
+      }
+    }
   }
 }
 

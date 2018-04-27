@@ -216,7 +216,7 @@
       ~ .form-field_error-required {
         display: block;
         ~ .field-error {
-          display: none;
+          display: none!important;
         }
       }
     }
@@ -225,7 +225,7 @@
         .form-field_error-email {
           display: block;
           ~ .field-error {
-            display: none;
+            display: none!important;
           }
         }
       }
@@ -235,7 +235,7 @@
         .form-field_error-pattern {
           display: block;
           ~ .field-error {
-            display: none;
+            display: none!important;
           }
         }
       }
@@ -245,7 +245,7 @@
         .form-field_error-minlength {
           display: block;
           ~ .field-error {
-            display: none;
+            display: none!important;
           }
         }
       }
@@ -256,7 +256,7 @@
         .form-field_error-server {
           display: block;
           ~ .field-error {
-            display: none;
+            display: none!important;
           }
         }
       }
@@ -266,7 +266,7 @@
         .form-field_error-soft-cap {
           display: block;
           ~ .field-error {
-            display: none;
+            display: none!important;
           }
         }
       }
@@ -276,7 +276,7 @@
         .form-field_error-check-sum {
           display: block;
           ~ .field-error {
-            display: none;
+            display: none!important;
           }
         }
       }

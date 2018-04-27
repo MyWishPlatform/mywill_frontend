@@ -74,6 +74,14 @@
                 "LABEL": "Enter 2FA code:"
               }
             }
+          },
+          "DISABLE_FORM": {
+            "TITLE": "Disable 2FA",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "Enter 2FA code:"
+              }
+            }
           }
         }
       },

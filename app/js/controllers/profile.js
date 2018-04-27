@@ -8,7 +8,8 @@ angular.module('app').controller('profileController', function($scope, authServi
             withoutCloser: true
         },
         actions: {
-            enable2fa: function(code) {
+            enable2fa: function(code, form) {
+                if (!form.$valid) return;
                 enablePopUpParams.params.error = undefined;
                 authService.enable2fa({
                     totp: code
@@ -19,6 +20,9 @@ angular.module('app').controller('profileController', function($scope, authServi
                 }, function() {
                     enablePopUpParams.params.error = 'INVALID_2FA_CODE';
                 });
+            },
+            resetError: function() {
+                enablePopUpParams.params.error = undefined;
             }
         }
     };
@@ -41,18 +45,22 @@ angular.module('app').controller('profileController', function($scope, authServi
             withoutCloser: true
         },
         actions: {
-            disable2fa: function(code) {
-                enablePopUpParams.params.error = undefined;
+            disable2fa: function(code, form) {
+                if (!form.$valid) return;
+                $scope.disablePopUpParams.params.error = undefined;
                 authService.disable2fa({
                     totp: code
                 }).then(function() {
                     generateKey();
-                    enablePopUpParams.params.error = undefined;
+                    $scope.disablePopUpParams.params.error = undefined;
                     $scope.currentUser.use_totp = false;
                     $scope.$broadcast('$closePopUps');
                 }, function() {
-                    $scope.disablePopUpParams.params.error = 'Invalid code';
+                    $scope.disablePopUpParams.params.error = 'INVALID_2FA_CODE';
                 });
+            },
+            resetError: function() {
+                $scope.disablePopUpParams.params.error = undefined;
             }
         }
     };

@@ -538,7 +538,7 @@
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
                         Open contract address on
-                        <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
+                        <a target="_blank" ng-attr-href="{{getEtherscanUrl(contract)}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
@@ -609,6 +609,12 @@
                             </button>
                             <div class="copy-block__text json-text">{{contract.contract_details[selectedContract].source_code}}</div>
                         </div>
+                    </div>
+                </li>
+
+                <li class="new-instruction-list__item" ng-if="selectedContract === 'eth_contract_token'">
+                    <div class="new-instruction-list__item__text">
+                        Remove the parameters from the Constructor Arguments field ABI-encoded
                     </div>
                 </li>
                 <li class="new-instruction-list__item" ng-if="selectedContract === 'eth_contract_crowdsale'">

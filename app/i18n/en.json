@@ -50,7 +50,8 @@
     "CANCEL": "Cancel",
     "CLOSE": "Close",
     "CLEAN": "Clean",
-    "SEND": "Send"
+    "SEND": "Send",
+    "OK": "Ok"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -63,6 +64,11 @@
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
     "NEO": "NEO"
+  },
+  "ALERTS": {
+    "FORM_REQUEST_SUCCESS": {
+      "TEXT": "Thank you! Your message has been sent, we will contact you by Email."
+    }
   },
   "PAGES": {
     "PROFILE": {

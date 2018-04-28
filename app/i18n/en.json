@@ -75,6 +75,11 @@
       "TEXT": "Thank you! Your message has been sent, we will contact you by Email."
     }
   },
+  "CONFIRMATIONS": {
+    "LOG_OUT": {
+      "TEXT": "Do you really want to Log Out?"
+    }
+  },
   "PAGES": {
     "PROFILE": {
       "TWO_FACTOR_AUTH": {

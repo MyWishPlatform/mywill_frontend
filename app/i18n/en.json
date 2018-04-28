@@ -48,7 +48,9 @@
     "DISABLE": "Disable",
     "CHANGE": "Change",
     "CANCEL": "Cancel",
-    "CLOSE": "Close"
+    "CLOSE": "Close",
+    "CLEAN": "Clean",
+    "SEND": "Send"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -160,6 +162,24 @@
         "LIST_2": {
           "LIST_ITEM_1": "User regularly calls the contract to confirm its’ \"live\" status.",
           "LIST_ITEM_2": "If no confirmation during the specified timeframe is detected, the contract distributes the funds to heirs."
+        }
+      }
+    },
+    "EXTERNAL_DEVELOPERS": {
+      "TITLE": "External Developers",
+      "DESCRIPTION": "To add your contract to the MyWish library and start audit process, fill the form below.",
+      "FIELDS": {
+        "USER_NAME": {
+          "LABEL": "User name"
+        },
+        "EMAIL": {
+          "LABEL": "Email"
+        },
+        "CONTRACT_NAME": {
+          "LABEL": "Contract name"
+        },
+        "DESCRIPTION": {
+          "PLACEHOLDER": "Contract description"
         }
       }
     }

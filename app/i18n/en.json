@@ -1,6 +1,8 @@
 {
   "YES": "Yes",
   "NO": "No",
+  "OR": "or",
+  "COPIED": "Copied",
   "DISCLAIMER": "Disclaimer",
   "MAIN_MENU": {
     "UNKNOWN_USER": "Unknown user",
@@ -51,7 +53,10 @@
     "CLOSE": "Close",
     "CLEAN": "Clean",
     "SEND": "Send",
-    "OK": "Ok"
+    "OK": "Ok",
+    "COPY": "Copy",
+    "PAY": "Pay",
+    "DONE": "Done"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -186,6 +191,41 @@
         },
         "DESCRIPTION": {
           "PLACEHOLDER": "Contract description"
+        }
+      }
+    },
+    "BUY_TOKENS": {
+      "TITLE": "Buy Tokens",
+      "NOTE": {
+        "RED_TEXT": "Please note!",
+        "TEXT": "After replenish you will be not able to transfer/exchange tokens. You can use it only for contracts creation inside the Platform"
+      },
+      "GET": "Get",
+      "SEND": "Send",
+      "CHOOSE_REPLENISH_METHOD": "Choose replenish method",
+      "CHOOSE_PAYMENT_METHOD": "Select payment method:",
+      "CHOOSE_WALLET": "Choose your wallet:",
+      "SEND_WISH": "Send WISH tokens to:",
+      "SEND_ETH": "Send your ETH to:",
+      "SEND_BTC": "Send your BTC to:",
+      "ENTER_AMOUNT": "Enter Amount:",
+      "BTC_ATTENTION": {
+        "RED_TEXT": "Attention!",
+        "TEXT": "You will receive tokens after 5 BTC blocks confirmation. <br/> The approximate time of the transaction is 1 hour."
+      },
+      "GAS_PRICE": "Gas price 30 gwei",
+      "GAS_LIMIT": "Gas limit 100.000",
+      "HOW_TO_DO_IT": "How to do it?",
+      "HOW_TO_DO_IT_INSTRUCTION": {
+        "TITLE": "How To Pay",
+        "LIST": {
+          "LIST_ITEM_1": "Open your wallet",
+          "LIST_ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
+          "LIST_ITEM_3": "Insert the following recipient`s address:",
+          "LIST_ITEM_4": "Enter Amount to Send and choose ETH or WISH",
+          "LIST_ITEM_5": "Specify Gas limit 30000",
+          "LIST_ITEM_6": "Click Generate Transaction",
+          "LIST_ITEM_7": "Confirm the payment by pressing the button \"DONE\""
         }
       }
     }

@@ -22,7 +22,6 @@
       "SIGN_UP": "Sign up"
     }
   },
-
   "WARNING_MESSAGE": "Warning! Service is under maintenance now.<br/> Please do not use it until this message is shown.",
   "CONTRACTS_STATUSES": {
     "DRAFT": "Draft",
@@ -236,4 +235,3 @@
     }
   }
 }
-

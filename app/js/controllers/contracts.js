@@ -103,7 +103,40 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         contractService.deployContract(contract.id, contract.promo).then(function() {
             launchProgress = false;
             $rootScope.closeCommonPopup();
-            dataLayer.push({'event': 'contract_launch_success'});
+
+            var testNetwork = false;
+            switch (contract.network) {
+                case 1:
+                case 3:
+                    break;
+                case 2:
+                case 4:
+                    testNetwork = true;
+                    break;
+            }
+            var contractType;
+            switch (contract.contract_type) {
+                case 0:
+                    contractType = 'will';
+                    break;
+                case 1:
+                    contractType = 'lost_key';
+                    break;
+                case 2:
+                    contractType = 'deferred';
+                    break;
+                case 4:
+                    contractType = 'crowdsale';
+                    break;
+                case 5:
+                    contractType = 'token';
+                    break;
+                default:
+                    contractType = 'unknown';
+            }
+
+            dataLayer.push({'event': contractType + '_contract_launch_success' + (testNetwork ? '_test' : '')});
+
             if ($state.current.name === 'main.contracts.list') {
                 $scope.refreshContract(contract);
             } else {

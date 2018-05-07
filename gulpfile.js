@@ -302,7 +302,7 @@ gulp.task('watcher',function() {
 
 
 
-gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:landing-build', 'app:web3'],
+gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', /*'app:landing-build',*/ 'app:web3'],
     function() {
         if (!isProduction) {
             return gulp.start('serve');

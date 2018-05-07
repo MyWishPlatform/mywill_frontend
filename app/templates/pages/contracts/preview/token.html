@@ -15,15 +15,26 @@
 
 <div ng-show="showedTab == 'code'">
     <div class="shadow-block after-tabs">
+        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+            <p class="normal-text">
+                <span>In free version (Test Net) sources codes are not available for loading.</span>
+            </p>
+        </div>
         <div class="shadow-block__content">
             <p class="normal-text">
                 <span>Your TOKEN source code
                     <span class="as-link dotted"
+                          ng-if="(contract.network == 1) || (contract.network == 3)"
                           ng-click="saveAsFile(contract.contract_details.eth_contract_token.source_code, contract.name + '(token)')">
+                        <span>here</span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="(contract.network == 2) || (contract.network == 4)">
                         <span>here</span>
                     </span>
                 </span>
             </p>
+
             <p class="normal-text">
                 <span>Libraries & other files can be found
                     <a href="https://github.com/MyWishPlatform/ico-crowdsale" target="_blank">here</a>
@@ -99,7 +110,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="new-instruction-list__item">
+                <li class="new-instruction-list__item" ng-if="(contract.network == 2) || (contract.network == 4)">
+                    <div class="new-instruction-list__item__text">
+                        Paste the Solidity Contract code:
+                        <div class="copy-block">
+                            <div class="copy-block__text">
+                                Not available in free version
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="new-instruction-list__item" ng-if="(contract.network == 1) || (contract.network == 3)">
                     <div class="new-instruction-list__item__text">
                         Paste the Solidity Contract code:
                         <div class="copy-block">

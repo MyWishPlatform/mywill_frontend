@@ -14,11 +14,21 @@
 
 <div ng-show="contract.showedTab == 'code'">
     <div class="shadow-block after-tabs">
+        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+            <p class="normal-text">
+                <span>In free version (Test Net) sources codes are not available for loading.</span>
+            </p>
+        </div>
         <div class="shadow-block__content">
             <p class="normal-text">
                 <span>Your Will source code
                     <span class="as-link dotted"
+                          ng-if="(contract.network == 1) || (contract.network == 3)"
                           ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(will)')">
+                        <span>here</span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="(contract.network == 2) || (contract.network == 4)">
                         <span>here</span>
                     </span>
                 </span>

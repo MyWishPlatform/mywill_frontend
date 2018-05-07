@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html ng-app="app" ng-controller="baseController">
+<head lang="en">
     <title>MyWish</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="/fonts/css?family=Ubuntu:400,600,800" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link href="/fonts/css?family=Ubuntu:400,600" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet"/>
+    <base href="/"/>
     <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-touch-icon-60x60.png">
@@ -31,70 +34,153 @@
     <!-- iOS Safari -->
     <meta name="apple-mobile-web-app-status-bar-style" content="#206EFF">
 
-    <link rel="stylesheet" type="text/css" href="/landing/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/landing/css/main.css">
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+    <link rel="apple-touch-icon" href="/static/favicon/android-chrome-192x192.png">
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="196x196" href="/static/favicon/android-chrome-192x192.png">
+
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MDHD74W');</script>
+    <!-- End Google Tag Manager -->
+
+    <script src="//connect.facebook.net/en_US/sdk.js"></script>
+    <script src="https://apis.google.com/js/platform.js"></script>
+
+    <script src="/static/vendors/vendors.js"></script>
+    <script src="/static/tpl/templates.tpl.js"></script>
+    <script src="/static/web3/web3.js"></script>
+    <script src="/static/js/main.js"></script>
+
 </head>
+<body ng-class="{'with-menu': $root.showedMenu, 'visible': currentUser}"
+      ng-swipe-left="toggleMenu(false, $event);"
+      ng-swipe-right="toggleMenu(true, $event);">
+<header class="main-header-holder"
+        ng-include="getTemplate('common/header')"></header>
 
-<body>
-<header class="invisible-content">
-    <div class="content-holder">
-        <a href="https://mywish.io/" class="logotype">
-            <img src="/static/images/logotype.png"/>
-        </a>
-        <button class="mobile-menu-btn header-btn without-border" type="button" id="mobile-menu-btn">
-            <img src="/landing/img/menu.svg">
-        </button>
-        <div class="header-buttons">
-            <a href="https://mywish.io" target="_blank" class="header-btn without-border">Main</a>
-            <a href="/auth/registration" class="header-btn sign-up-btn">Sign up</a>
-            <a href="/auth/" class="header-btn">Sign in</a>
-            <a href="mailto:support@mywish.io" class="header-btn without-border">
-                <img src="/landing/img/support.svg" class="header-btn-icon"/>
-                Support
-            </a>
+<div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
+<div class="pre-release-information"
+     ng-class="{'start-loading': globalProgress, 'finish-loading': finishGlobalProgress}">
+    <div class="pre-release-information-container">
+        <div class="main-content-holder">
+            <div class="main-section-content">
+
+                <div class="user-balance">
+                    <div class="user-balance-value">
+                        <i class="user-balance-icon icon-mywish">
+                            <span class="path1"></span><span class="path2"></span>
+                        </i>
+                        <div ng-bind="currentUser.visibleBalance" ui-sref="main.buytokens"
+                             class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
+
+                        <button class="btn only-icon user-balance-refresh"
+                                ng-class="{'in-progress': currentUser.balanceInRefresh}"
+                                ng-click="getCurrentBalance()">
+                            <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
+                        </button>
+                    </div>
+                    <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon hide-ls">
+                        <i class="icon-create-contract"></i>
+                        <span>Buy</span>
+                    </a>
+                </div>
+
+                <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
+                    <button class="uppercase btn btn-submit hide-ls"
+                            ng-pop-up="{
+                                'template': '/templates/popups/login.html',
+                                'class': 'login-form',
+                                'params': {
+                                    page: 'registration'
+                                }
+                            }">
+                        <span>Sign up</span>
+                    </button>
+                    <button ng-pop-up="{
+                                'template': '/templates/popups/login.html',
+                                'class': 'login-form',
+                                'params': {
+                                    page: 'auth'
+                                }
+                            }"
+                            class="btn btn-transparent uppercase">
+                        <span>Sign in</span>
+                    </button>
+                </div>
+                <!-- div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
+                    <button class="btn btn-transparent" ng-pop-up="{
+                        template: '/templates/popups/logout-confirm.html',
+                        class: 'deleting-contract'
+                    }">
+                        <span>Log out</span>
+                    </button>
+                </div -->
+                <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
+            </div>
         </div>
     </div>
-</header>
-<main class="invisible-content">
-    <div class="content-holder">
-        <div class="main-wrapper">
-            <div class="title">
-                Decentralized platform for smart contracts creation on Ethereum
-            </div>
+</div>
 
-            <div class="buttons">
-                <a href="/dashboard/anonymous" class="main-btn yellow-btn" target="_blank">
-                    <span>Try it</span>
-                </a>
-                <a href="/auth/registration" class="main-btn white-btn" target="_blank">
-                    <span>Sign up</span>
-                </a>
+<main class="main-content-holder">
+    <!-- div class="main-section-content without-bottom-padding">
+        <div class="shadow-block">
+            <div class="shadow-block__content warning-page">
+                <div class="warning-page__icon">
+                    <i class="icon-warning"></i>
+                </div>
+                <div class="warning-page__text">
+                    <span>
+                        Warning! Service is under maintenance now. <br/>
+                        Please do not use it until this message is shown.
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
+    </div -->
+    <div ui-view></div>
 </main>
-<footer class="invisible-content">
-    <div class="content-holder">
-        <div class="copyright">
-            &copy; 2018 <a href="https://mywish.io/">MyWish</a>
-        </div>
-    </div>
-</footer>
 
-<script src="/landing/js/jquery-3.2.1.min.js"></script>
-<script src="/landing/js/landing.js"></script>
+<div ng-pop-up="{
+    template: '/templates/popups/' + commonOpenedPopup + '.html',
+    class: commonOpenedPopupParams.class || 'deleting-contract',
+    params: commonOpenedPopupParams || {},
+    opened: true,
+    noClickShow: true,
+    newPopupContent: commonOpenedPopupParams.newPopupContent,
+    onClose: commonOpenedPopupParams.onClose || closeCommonPopup
+}" ng-if="commonOpenedPopup"></div>
 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MDHD74W');</script>
-<!-- End Google Tag Manager -->
 
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDHD74W"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
+
+<div class="global-error-layer {{'global-error-layer__' + globalError.type}}"
+     ng-click="hideGlobalError()"
+     ng-class="{'visible-error': globalError.text}">
+    <div class="global-error-layer__text">{{globalError.text}}</div>
+</div>
+
+<!-- Start of LiveChat (www.livechatinc.com) code -->
+<script type="text/javascript">
+    window.__lc = window.__lc || {};
+    window.__lc.license = 9683030;
+    (function() {
+        var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
+        lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
+    })();
+</script>
+<!-- End of LiveChat code -->
+
 </body>
 </html>

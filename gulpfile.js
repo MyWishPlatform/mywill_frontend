@@ -257,7 +257,7 @@ gulp.task('app:revision', function() {
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
 
     return gulp.src([path.join(output, '*.html'),
-        '!' + path.join(output, 'index.html')])
+        '!' + path.join(output, 'index-landing.html')])
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
         .pipe(revReplace({manifest: manifestLoginJS}))

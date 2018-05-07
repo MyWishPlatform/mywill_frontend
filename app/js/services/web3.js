@@ -7,7 +7,11 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     var createWeb3Providers = function() {
         var metamask, parity, infura;
         try {
-            web3Providers['metamask'] = Web3.givenProvider || new Web3.providers.WebsocketProvider("ws://localhost:8546");
+            var metaMaskProvider = Web3.givenProvider || new Web3.providers.WebsocketProvider("ws://localhost:8546");
+            if (metaMaskProvider.publicConfigStore) {
+                web3Providers['metamask'] = metaMaskProvider;
+            }
+
         } catch(err) {
             console.log('Metamask not found');
         }
@@ -62,6 +66,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     this.setProvider = function(providerName, network) {
         switch (providerName) {
             case 'metamask':
+
                 var networkVersion = web3Providers['metamask'].publicConfigStore._state.networkVersion;
                 if (
                     ((networkVersion == 31) && (network == 4)) ||
@@ -83,6 +88,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     var getAccounts = function(providerName, network) {
         var defer = $q.defer();
         _this.setProvider(providerName, network);
+
         web3.eth.getAccounts(function(err, addresses) {
             if (!addresses) {
                 defer.resolve([]);

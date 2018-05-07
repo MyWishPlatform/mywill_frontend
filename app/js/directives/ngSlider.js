@@ -14,7 +14,7 @@ angular.module('Directives').directive('ngSlider', function ($rootScope, $timeou
             elem.after(controlButtons);
             var iniControlButton = function(number) {
                 var sliderPageBtn = angular.element('<span>').addClass('slider_control__one-slide');
-                sliderPageBtn.on('click', function() {
+                sliderPageBtn.on('click touchstart', function() {
                     activateSlide(number);
                 }).on('mousedown touchstart', function() {
                     return false;
@@ -52,12 +52,12 @@ angular.module('Directives').directive('ngSlider', function ($rootScope, $timeou
 
             var nextSlideButton = angular.element('<span>').addClass('slider_big_control slider_big_control__next icon-keyboard_arrow_right');
             var prevSlideButton = angular.element('<span>').addClass('slider_big_control slider_big_control__prev icon-keyboard_arrow_left');
-            nextSlideButton.on('click', function() {
+            nextSlideButton.on('click touchstart', function() {
                 activateSlide(activeSlide + 1);
             }).on('mousedown touchstart', function() {
                 return false;
             });
-            prevSlideButton.on('click', function() {
+            prevSlideButton.on('click touchstart', function() {
                 activateSlide(activeSlide - 1);
             }).on('mousedown touchstart', function() {
                 return false;
@@ -76,7 +76,7 @@ angular.module('Directives').directive('ngSlider', function ($rootScope, $timeou
                 } else {
                     clientX = e.clientX;
                 }
-                startDownPosition = clientX;
+                lastPosition = startDownPosition = clientX;
                 container.addClass('no-transition');
                 angular.element(window).on('mousemove touchmove', moveWindow);
                 angular.element(window).on('mouseup touchend', upSlide);
@@ -88,7 +88,7 @@ angular.module('Directives').directive('ngSlider', function ($rootScope, $timeou
                 });
                 var endDownPosition = lastPosition - startDownPosition;
                 var addSlides = -Math.round(endDownPosition / (items.eq(0).width()));
-
+                changedPosition = 0;
 
                 $timeout(function() {
                     container.removeClass('no-transition');

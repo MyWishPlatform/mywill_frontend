@@ -103,12 +103,12 @@
     margin-left: -50%;
     height: 100%;
     overflow: auto;
+    margin-bottom: 6em!important;
     .contract-popup-wrapper {
       height: 100%;
     }
     &:not(.deleting-contract) {
       margin-top: 0!important;
-      margin-bottom: 0!important;
       border-radius: 0;
     }
   }

@@ -10,7 +10,7 @@ angular.module('app').controller('authController', function ($scope, authService
             data: $scope.request
         }).then(function (response) {
             if (!reloadPage) {
-                window.location = '/dashboard/';
+                window.location = '/';
             } else {
                 $state.transitionTo($state.current, {}, {
                     reload: true,

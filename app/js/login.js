@@ -64,7 +64,7 @@ module.controller('authController', function($scope) {
             authService.profile().then(function(response) {
                 var profile = response.data;
                 if (!profile.is_ghost) {
-                    window.location = '/dashboard/';
+                    window.location = '/';
                 } else {
                     $rootScope.onCheck = true;
                 }

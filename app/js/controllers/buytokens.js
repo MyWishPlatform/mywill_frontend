@@ -92,7 +92,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
     $scope.payDone = function() {
         $rootScope.sendEvent('Button_Done', 'on_done_' + $scope.visibleForm);
-        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.form');
+        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
     };
 }).controller('buytokensEthController', function($scope) {
     var rate = $scope.exRate.ETH;

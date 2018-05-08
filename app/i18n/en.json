@@ -57,6 +57,18 @@
     "PAY": "Pay",
     "DONE": "Done"
   },
+  "CONTRACTS_BUTTONS": {
+    "ACTIVATE": "Activate",
+    "LAUNCH": "Launch",
+    "DEPOSIT": "Deposit",
+    "CANCEL": "Cancel",
+    "I_ALIVE": "I Alive",
+    "WITHDRAW": "Withdraw",
+    "FINALIZE": "Finalize",
+    "MINT": "Mint",
+    "DELETE": "Delete",
+    "EDIT": "Edit"
+  },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
     "INCORRECT_PASSWORD": "Incorrect password",

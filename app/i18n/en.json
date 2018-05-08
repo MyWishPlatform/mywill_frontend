@@ -92,6 +92,12 @@
     }
   },
   "PAGES": {
+    "CONTRACTS": {
+      "CREATE_CONTRACT_BLOCK": {
+        "DESCRIPTION": "The list of smart contracts is empty",
+        "BUTTON": "Create contract"
+      }
+    },
     "PROFILE": {
       "TWO_FACTOR_AUTH": {
         "TITLE": "Two-factor authentication",
@@ -244,6 +250,29 @@
           "LIST_ITEM_7": "Confirm the payment by pressing the button \"DONE\""
         }
       }
+    }
+  },
+  "CONTRACTS_INSTRUCTIONS": {
+    "ETH": {
+      "ACTIVATE": {
+        "TITLE": "Activate",
+        "DESCRIPTION": "To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address.",
+        "LIST": {
+
+        }
+      },
+      "CANCEL": {},
+      "DEPOSIT": {},
+      "FINALIZE": {},
+      "I_ALIVE": {},
+      "MINT_FINALIZE": {},
+      "MINT": {},
+      "PARITY": {},
+      "WILL_CANCEL": {},
+      "WILL_WITHDRAW": {}
+    },
+    "RSK": {
+
     }
   }
 }

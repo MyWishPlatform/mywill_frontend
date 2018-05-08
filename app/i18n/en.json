@@ -55,7 +55,8 @@
     "OK": "Ok",
     "COPY": "Copy",
     "PAY": "Pay",
-    "DONE": "Done"
+    "DONE": "Done",
+    "CONTINUE": "Continue"
   },
   "CONTRACTS_BUTTONS": {
     "ACTIVATE": "Activate",
@@ -252,13 +253,33 @@
       }
     }
   },
+  "CONTRACTS_DISCLAIMERS": {
+    "ETH": {
+      "ACTIVATE": {
+        "TITLE": "Disclaimer",
+        "LIST": {
+          "ITEM_1": "For sale activation you need to transfer token ownership to crowdsale contract.",
+          "ITEM_2": "You will need to make the special transaction from token owner address ({{address}})"
+        }
+      }
+    }
+  },
   "CONTRACTS_INSTRUCTIONS": {
     "ETH": {
       "ACTIVATE": {
         "TITLE": "Activate",
         "DESCRIPTION": "To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address.",
         "LIST": {
-
+          "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Click the contracts tab in your wallet",
+          "ITEM_3": "Copy the contract address to the Contract Address",
+          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
+          "ITEM_5": "Select the TRANSFER OWNER SHIP function",
+          "ITEM_6": {
+            "PART_1": "Insert Crowdsale contract address",
+            "PART_2": "to NewOwner field"
+          },
+          "ITEM_7": "Make the transaction"
         }
       },
       "CANCEL": {},

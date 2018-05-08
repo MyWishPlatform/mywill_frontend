@@ -1,5 +1,8 @@
 $fieldsets-padding: 2.5em;
 
+main.main-content-holder {
+  padding-bottom: 6em;
+}
 .main-content-holder {
   margin-left: 25.5em;
   color: $main-blue-color;
@@ -7,7 +10,6 @@ $fieldsets-padding: 2.5em;
   max-width: 72em;
   position: relative;
   z-index: 1;
-  padding-bottom: 2em;
   &:after, &:before {
     display: table;
     width: 100%;

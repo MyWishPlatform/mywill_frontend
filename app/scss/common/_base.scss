@@ -18,19 +18,18 @@ body {
   margin: 0;
   color: $black-color;
   font-size: 10px;
-  //background: url(images/bg.png) left center repeat #262a36;
   background-color: $white-color;
   position: relative;
   font-family: 'Ubuntu', sans-serif;
   &.popup-showed {
     overflow: hidden;
+    height: 100%;
   }
   &:not(.visible) {
     .main-header-holder, .main-menu-holder, .pre-release-information, .main-content-holder {
       display: none;
     }
   }
-  padding-bottom: 6em;
 }
 a img {
   border: 0 none;
@@ -41,6 +40,13 @@ a img {
   -webkit-text-size-adjust:none;             /* prevent webkit from resizing text to fit */
   -webkit-tap-highlight-color:rgba(0,0,0,0); /* prevent tap highlight color / shadow */
   -webkit-user-select:none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+}
+[ui-view] {
+  &:after, &:before {
+    clear: both;
+    display: table;
+    width: 100%;
+  }
 }
 .text-center {
   text-align: center!important;

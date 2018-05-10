@@ -330,14 +330,12 @@
   "CONTRACTS_DISCLAIMERS": {
     "ETH": {
       "ACTIVATE": {
-        "TITLE": "Disclaimer",
         "LIST": {
           "ITEM_1": "For sale activation you need to transfer token ownership to crowdsale contract.",
           "ITEM_2": "You will need to make the special transaction from token owner address ({{address}})"
         }
       },
       "MINT_FINALIZE": {
-        "TITLE": "Disclaimer",
         "LIST": {
           "ITEM_0": "After finalization no more tokens can be minted, no new crowdsales can be created"
         }
@@ -345,7 +343,6 @@
     },
     "ALL": {
       "LAUNCH": {
-        "TITLE": "Disclaimer",
         "LIST": {
           "ITEM_1": "MyWish is NOT responsible for the use of the contract",
           "ITEM_2": "MyWish is ONLY responsible for creation & launch it on Ethereum/RSK network",

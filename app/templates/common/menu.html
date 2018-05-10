@@ -12,7 +12,7 @@
             <li>
                 <span class="as_menu_link" ng-if="currentUser.is_ghost">
                     <i class="icon-warning"></i>
-                    <span>('MAIN_MENU.UNKNOWN_USER'|translate)</span>
+                    <span>{{'MAIN_MENU.UNKNOWN_USER'|translate}}</span>
                 </span>
                 <a ui-sref="main.profile" class="as_menu_link"
                    ng-class="{'active': $state.current.name == 'main.profile'}"

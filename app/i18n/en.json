@@ -2,6 +2,7 @@
   "YES": "Yes",
   "NO": "No",
   "OR": "or",
+  "OK": "Ok",
   "COPIED": "Copied",
   "DISCLAIMER": "Disclaimer",
   "MAIN_MENU": {
@@ -59,7 +60,25 @@
     "CONTINUE": "Continue",
     "I_ACCEPT": "I Accept",
     "CONFIRM": "Confirm",
-    "BUY_TOKENS": "Buy tokens"
+    "BUY_TOKENS": "Buy tokens",
+    "CHECK": "Check"
+  },
+  "AUTH_POPUP": {
+    "FIELDS": {
+      "EMAIL": "E-mail",
+      "RESET_EMAIL": "Enter e-mail for password reset",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Repeat password",
+      "2FA": "2FA code"
+    },
+    "CONFIRM_EMAIL": "Please check your email & confirm registration. Thank you!",
+    "BUTTONS": {
+      "LOG_IN": "Log in",
+      "FORGOT_PASSWORD": "Forgot your password?",
+      "LOGIN_FACEBOOK": "Log in via Facebook",
+      "LOGIN_GOOGLE": "Log in via Google",
+      "CREATE_ACCOUNT": "Create account"
+    }
   },
   "CONTRACTS_BUTTONS": {
     "ACTIVATE": "Activate",
@@ -76,6 +95,7 @@
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
     "INCORRECT_PASSWORD": "Incorrect password",
+    "YOUR_EMAIL": "Enter your e-mail",
     "MIN_LENGTH_PASSWORD": "Minimum password length 8 characters",
     "NO_MATCH_PASSWORD": "Passwords do not match",
     "INVALID_2FA_CODE": "Invalid code",
@@ -95,6 +115,9 @@
     },
     "GHOST_BUY_TOKENS": {
       "TEXT": "Please sign in/sign up to replenish your account"
+    },
+    "PROMO_ACTIVATED": {
+      "TEXT": "Promo code was activated.<br/>New price: {{price}} WISH."
     }
   },
   "CONFIRMATIONS": {
@@ -296,6 +319,12 @@
     },
     "LESS_BALANCE": {
       "TEXT": "Not enough tokens for contract deployment"
+    },
+    "FREEZE_DATE": {
+      "TEXT": "Un-Freeze date for token is expired.<br/>Please change it & Try again."
+    },
+    "CONTRACT_START_DATE": {
+      "TEXT": "Contract's start date is incorrect. <br/>Please change it & Try again."
     }
   },
   "CONTRACTS_DISCLAIMERS": {
@@ -486,6 +515,14 @@
           "ITEM_4": "If your BTC address has been whitelisted by RSK Community you can send SBTC to contract <a ng-attr-href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> directly."
         }
       }
+    }
+  },
+
+  "CONTRACTS": {
+    "ENTER_PROMO_BLOCK": {
+      "FIELD_LABEL": "Promo code",
+      "DESCRIPTION": "You can enter promo code and get a discount",
+      "COST": "Contract`s cost:"
     }
   }
 }

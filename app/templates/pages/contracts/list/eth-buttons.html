@@ -113,7 +113,7 @@
 </button>
 
 <!-- Withdraw instruction button (Will | platform_cancel == false) -->
-<button ng-if="statuses[contract.state]['value'] == 5"
+<button ng-if="(statuses[contract.state]['value'] == 5) && (contract.contract_type == 0)"
         ng-pop-up="{
             template: !contract.contract_details.platform_cancel ?
                 '/templates/popups/instructions/eth/will-withdraw-instruction.html' :

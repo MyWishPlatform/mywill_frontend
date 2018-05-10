@@ -2,61 +2,65 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
-                <span class="uppercase">Confirm Live&nbsp;</span>
+                <span class="uppercase" translate="CONTRACTS_INSTRUCTIONS.ETH.I_ALIVE.TITLE"></span>
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span>
-                To Confirm your live status please do the following:
-            </span>
+            <span translate="CONTRACTS_INSTRUCTIONS.ETH.I_ALIVE.DESCRIPTION"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <a ng-attr-href="{{
                 'https://www.myetherwallet.com/?data=' + iAliveSignature +
                 '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}#send-transaction"
-           target="_blank" class="btn btn-payment btn-payment--wallet text-center">
+           target="_blank" class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="sendIAlive()"
                 ng-if="currentWallet && (currentWallet.type === 'parity')"
-                class="btn btn-payment btn-payment--parity text-center">
+                class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
         <button  ng-click="sendIAlive()"
                  ng-if="currentWallet && (currentWallet.type === 'metamask')"
-                 class="btn btn-payment btn-payment--metamask text-center">
+                 class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>
         </button>
     </div>
-    <div class="form-fieldset-delimiter"><span>OR</span></div>
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
-        <div class="normal-text">
-            Send any transaction from your management address
-            (ETH address - <a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.contract.contract_details.user_address|toCheckSum}}">{{ngPopUp.params.contract.contract_details.user_address|toCheckSum}}</a>)
-            to Will contract address
-            (ETH address - <a target="_blank" ng-attr-href="{{$root.getEtherscanUrl(ngPopUp.params.contract)}}address/{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}">{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}</a>)
-            with Data field (<b>0x9dddafe4</b>)
+        <div class="normal-text"
+             translate-values="{
+                user_address: (ngPopUp.params.contract.contract_details.user_address|toCheckSum),
+                contract_address: (ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum),
+                etherscan_url: $root.getEtherscanUrl(ngPopUp.params.contract)
+             }"
+             translate="CONTRACTS_INSTRUCTIONS.ETH.I_ALIVE.LIST.ITEM_0">
         </div>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border"
          ng-if="ngPopUp.params.contract.contract_details.last_check || ngPopUp.params.contract.contract_details.next_check">
         <div class="contract-preview-base-font">
-            <div ng-if="ngPopUp.params.contract.contract_details.last_check">
-                Last date:&nbsp;&nbsp;
-                {{ngPopUp.params.contract.contract_details.last_check|date:'yyyy-MM-dd'}}
+            <div ng-if="ngPopUp.params.contract.contract_details.last_check"
+                 translate-values="{
+                    last_check_date: ngPopUp.params.contract.contract_details.last_check
+                 }" translate="CONTRACTS_INSTRUCTIONS.ETH.I_ALIVE.LAST_CHECK">
             </div>
-            <div ng-if="ngPopUp.params.contract.contract_details.next_check">
-                Next check:&nbsp;&nbsp;
-                {{ngPopUp.params.contract.contract_details.next_check|date:'yyyy-MM-dd'}}
+            <div ng-if="ngPopUp.params.contract.contract_details.next_check"
+                 translate-values="{
+                    next_check_date: ngPopUp.params.contract.contract_details.next_check
+                 }" translate="CONTRACTS_INSTRUCTIONS.ETH.I_ALIVE.NEXT_CHECK">
             </div>
         </div>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
         <button class="btn btn-submit" ng-click="closeCurrentPopup()">
-            <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>
 </div>

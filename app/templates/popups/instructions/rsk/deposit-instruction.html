@@ -2,18 +2,18 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
-                <span class="uppercase">Deposit&nbsp;</span>
+                <span class="uppercase" translate="CONTRACTS_INSTRUCTIONS.RSK.DEPOSIT.TITLE"></span>
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span>After you create the contract you need to send funds to it.</span>
+            <span translate="CONTRACTS_INSTRUCTIONS.RSK.DEPOSIT.DESCRIPTION"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding"><br/>
         <ul class="new-instruction-list">
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text">
-                    Send your BTC to generated address (it’s unique): <br/>
+                    {{'CONTRACTS_INSTRUCTIONS.RSK.DEPOSIT.LIST.ITEM_1'|translate}}
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
@@ -27,26 +27,22 @@
                 </div>
             </li>
             <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    After getting BTC it will be sent to RSK network from MyWish whitelisted address.
-                </div>
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.RSK.DEPOSIT.LIST.ITEM_2"></div>
             </li>
             <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    In 3-6 hours (10 BTC confirmations are needed) your RSK contract balance will be credited (1 BTC = 1 RSK) and you will get email confirmation.
-                </div>
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.RSK.DEPOSIT.LIST.ITEM_3"></div>
             </li>
         </ul>
     </div>
-    <div class="form-fieldset-delimiter"><span>OR</span></div>
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <p class="normal-text">
-            <span>If your BTC address has been whitelisted by RSK Community
-            you can send SBTC to contract
-                <a ng-attr-href="{{ $root.getEtherscanUrl(ngPopUp.params.contract, 'address') + '/' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
-                   target="_blank"
-                   ng-bind="ngPopUp.params.contract.contract_details.eth_contract.address"></a>
-                    directly.
+            <span translate-values="{
+                etherscan_url: $root.getEtherscanUrl(ngPopUp.params.contract, 'address'),
+                contract_address: ngPopUp.params.contract.contract_details.eth_contract.address
+            }" translate="CONTRACTS_INSTRUCTIONS.RSK.DEPOSIT.LIST.ITEM_4">
             </span>
         </p><br/><br/>
     </div>

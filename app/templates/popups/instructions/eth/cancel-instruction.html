@@ -2,54 +2,59 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
-                <span class="uppercase">Cancel&nbsp;</span>
+                <span class="uppercase"
+                      translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.TITLE"></span>
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span>
-                To <span class="shadow-block__content__description__red uppercase">stop</span> the contract, follow the steps in the instruction.
-            </span>
+            <span translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.DESCRIPTION"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <a ng-attr-href="{{
                 'https://www.myetherwallet.com/?data=' + killSignature +
                 '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}#send-transaction"
-           target="_blank" class="btn btn-payment btn-payment--wallet text-center">
+           target="_blank" class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="killContract()"
                 ng-if="currentWallet && (currentWallet.type === 'parity')"
-                class="btn btn-payment btn-payment--parity text-center">
+                class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
         <button  ng-click="killContract()"
                  ng-if="currentWallet && (currentWallet.type === 'metamask')"
-                 class="btn btn-payment btn-payment--metamask text-center">
+                 class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>
         </button>
     </div>
 
-    <div class="form-fieldset-delimiter"><span>OR</span></div>
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <ul class="new-instruction-list">
 
             <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    Open your wallet (Parity, <a ng-attr-href="{{ngPopUp.params.contract.killUrl}}" target="_blank">MyEtherWallet</a>)
+                <div class="new-instruction-list__item__text"
+                     translate-values="{
+                        killUrl: ngPopUp.params.contract.killUrl
+                     }"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.LIST.ITEM_1">
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.LIST.ITEM_2">
                 </div>
             </li>
 
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text">
-                    Click the contracts tab in your wallet
-                </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    Copy the contract address to the Contract Address:<br/>
+                    {{'CONTRACTS_INSTRUCTIONS.ETH.CANCEL.LIST.ITEM_3'|translate}}
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
@@ -65,7 +70,7 @@
 
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text">
-                    Copy MyWill data to ABI/JSON interface:
+                    {{'CONTRACTS_INSTRUCTIONS.ETH.CANCEL.LIST.ITEM_4'|translate}}
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
@@ -80,21 +85,21 @@
             </li>
 
             <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    Select the KILL function
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.LIST.ITEM_5">
                 </div>
             </li>
 
             <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    Make the transaction
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.LIST.ITEM_6">
                 </div>
             </li>
         </ul>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <button class="btn btn-submit" ng-click="closeCurrentPopup()">
-            <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>
 </div>

@@ -1,13 +1,13 @@
 <div class="shadow-block">
     <div class="shadow-block__content shadow-block__content_no-lr-padding">
-        <div class="alert-window-title">Do you want to remove it?</div>
+        <div class="alert-window-title" translate="CONFIRMATIONS.CONTRACT_DELETE.TEXT"></div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
         <button class="btn btn-submit" type="button" ng-click="ngPopUp.actions.deleteContract(ngPopUp.params)">
-            <span>&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;{{'YES'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
         <button class="btn btn-transparent" ng-click="closeCurrentPopup()" type="button">
-            <span>&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;{{'NO'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button><br/><br/>
     </div>
 </div>

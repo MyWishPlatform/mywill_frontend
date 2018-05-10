@@ -91,7 +91,7 @@
 
             <!-- Withdraw instruction button (Will | platform_cancel == false) -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="contract.stateValue == 5">
+                 ng-if="(contract.stateValue == 5) && (contract.contract_type == 0)">
                 <button ng-pop-up="{
                             template: !contract.contract_details.platform_cancel ?
                                 '/templates/popups/instructions/rsk/will-withdraw-instruction.html' :

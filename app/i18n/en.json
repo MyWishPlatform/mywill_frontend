@@ -528,6 +528,7 @@
       "DAY": "day",
       "MONTH": "month",
       "YEAR": "year",
+      "WATCH_INSTRUCTION": "Watch instruction",
       "WEDDING": {
         "TITLE": "Wedding contract",
         "DESCRIPTION": "Please fill the form below and specify your wishes. We will ask contact of your partner before contract creation.",
@@ -663,6 +664,57 @@
           },
           "BOTH_VIA_MYWISH_TEXT": {
             "DESCRIPTION": "Off mode for both options are more secured, but less convenient for use. You will need to install Metamask for management the contract. On options give you ability to manage the contract by MyWish."
+          }
+        }
+      },
+      "TOKEN": {
+        "TITLE": "Token contract",
+        "BUTTONS": {
+          "ADD_ADDRESS": "Add address"
+        },
+        "TOTAL_SUPPLY": "Total supply:",
+        "FIELDS": {
+          "TOKEN_NAME": {
+            "LABEL": "Token name:",
+            "DESCRIPTION": "Enter name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used"
+          },
+          "TOKEN_SYMBOL": {
+            "LABEL": "Token symbol",
+            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)"
+          },
+          "DECIMALS": {
+            "LABEL": "Decimals",
+            "DESCRIPTION": "Defines the number of decimals for the token. 0-50 numerals are accepted. 18 as common practice"
+          },
+          "TOKEN_TYPE": {
+            "LABEL": "Choose Type of Token",
+            "DESCRIPTION_1": "ERC-20 is recommended option. Accepted by the most exchanges.",
+            "DESCRIPTION_2": "ERC-223 is almost the same as ERC-20. Provides extra safety during token transfers."
+          },
+          "TOKEN_OWNER": {
+            "LABEL": "Token Owner",
+            "DESCRIPTION": "ETH address (not exchange address). This address will be owner of the token (after sale end date). Double check the address (and access to it) before submission"
+          },
+          "RECIPIENT": {
+            "TITLE": "Define address for tokens (after minting it will be sent to this address)",
+            "DESCRIPTION_BLOCK": "You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion"
+          },
+          "RECIPIENT_ADDRESS": {
+            "LABEL": "Address",
+            "PLACEHOLDER": "Enter the address of the recipient's wallet"
+          },
+          "RECIPIENT_NAME": {
+            "LABEL": "Name"
+          },
+          "RECIPIENT_AMOUNT": {
+            "LABEL": "Token amount"
+          },
+          "FROZEN_UNTIL": {
+            "LABEL": "Frozen until date"
+          },
+          "FUTURE_MINTING": {
+            "LABEL": "Future Minting:",
+            "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible"
           }
         }
       }

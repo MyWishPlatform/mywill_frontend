@@ -832,6 +832,42 @@
           "AMOUNT_BONUS_DESCRIPTION": "You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions"
         }
       }
+    },
+    "PREVIEW": {
+      "BUTTONS": {
+        "BACK_BUTTON": "My contracts"
+      },
+      "TABS": {
+        "INFO": "Preview contract",
+        "SOURCE": "Source code"
+      },
+      "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
+
+      "WILL_SOURCE_CODE": "Your Will source code",
+      "DEFERRED_SOURCE_CODE": "Your Deferred payment contract source code",
+      "LOST_KEY_SOURCE_CODE": "Your Lost Key source code",
+      "TOKEN_SOURCE_CODE": "Your TOKEN source code",
+      "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
+
+      "HERE": "here",
+
+      "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>",
+      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
+
+      "LIBRARIES_AND_FILES": "Libraries & other files can be found <a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
+
+      "VERIFY_INSTRUCTION": {
+        "ITEM_1": "Open contract address on <a target=\"_blank\" href=\"{{address_url}}\">etherscan</a>",
+        "ITEM_2": "In Contract Code tab choose \"Verify And Publish\"",
+        "ITEM_3": "Enter Contract Name:",
+        "ITEM_4": "Enter Contract Address:",
+        "ITEM_5": "Fill out Compiler version:",
+        "ITEM_6": "Paste the Solidity Contract code:",
+        "ITEM_7_1": "Remove the parameters from the Constructor Arguments field ABI-encoded",
+        "ITEM_7_2": "Enter constructor arguments ABI-encoded:",
+        "ITEM_8": "Others fields are not required. Press \"Verify And Publish\""
+      },
+      "CONTRACT_CODE_FOR_FREE": "Not available in free version"
     }
   }
 }

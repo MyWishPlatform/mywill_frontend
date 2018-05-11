@@ -2,50 +2,46 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'info'}"
          ng-click="contract.showedTab = 'info'">
-        <span>Preview contract</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
          ng-show="contract.contract_details.eth_contract.address">
-        <span>Source code</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
-
 
 <div ng-show="contract.showedTab == 'code'">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
             <p class="normal-text">
-                <span>In free version (Test Net) sources codes are not available for loading.</span>
-            </p>
-        </div>
-        <div class="shadow-block__content">
-            <p class="normal-text">
-                <span>Your Deferred payment contract source code
-                    <span class="as-link dotted"
-                          ng-if="(contract.network == 1) || (contract.network == 3)"
-                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(deferred)')">
-                        <span>here</span>
-                    </span>
-                    <span class="grey-text-color"
-                          ng-if="(contract.network == 2) || (contract.network == 4)">
-                        <span>here</span>
-                    </span>
-                </span>
-            </p>
-            <p class="normal-text">
-                <span>Libraries & other files can be found
-                    <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">here</a>
-                </span>
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
         </div>
 
         <div class="shadow-block__content">
             <p class="normal-text">
-                If you need to verify contract on Etherscan please contact us by
-                <a href="mailto:support@mywish.io">email</a>
+                <span>{{'CONTRACTS.PREVIEW.DEFERRED_SOURCE_CODE'|translate}}
+                    <span class="as-link dotted"
+                          ng-if="(contract.network == 1) || (contract.network == 3)"
+                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(deferred)')">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                </span>
             </p>
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: $root.gitHubLink}"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT"></p>
         </div>
     </div>
 </div>

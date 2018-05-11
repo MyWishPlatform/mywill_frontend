@@ -2,69 +2,63 @@
     <div class="contract-preview-one-tab"
          ng-click="goTo('info')"
          ng-class="{'active': showedTab == 'info'}">
-        <span>Preview</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
     <div class="contract-preview-one-tab"
          ng-click="goTo('code', 'eth_contract_token')"
          ng-show="details.eth_contract_token.address"
          ng-class="{'active': showedTab == 'code'}">
-        <span>Source codes</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
-
 
 <div ng-show="showedTab == 'code'">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
             <p class="normal-text">
-                <span>In free version (Test Net) sources codes are not available for loading.</span>
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
         </div>
+
         <div class="shadow-block__content">
             <p class="normal-text">
-                <span>Your TOKEN source code
+                <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
                           ng-if="(contract.network == 1) || (contract.network == 3)"
                           ng-click="saveAsFile(contract.contract_details.eth_contract_token.source_code, contract.name + '(token)')">
-                        <span>here</span>
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
                           ng-if="(contract.network == 2) || (contract.network == 4)">
-                        <span>here</span>
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
             </p>
 
             <p class="normal-text">
-                <span>Libraries & other files can be found
-                    <a href="https://github.com/MyWishPlatform/ico-crowdsale" target="_blank">here</a>
-                </span>
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/ico-crowdsale'}"></span>
             </p>
         </div>
         <div class="shadow-block__content">
-            <p class="normal-text">
-                If you need to verify contract on Etherscan please contact us by
-                <a href="mailto:support@mywish.io">email</a>
-                or follow the instruction:
-            </p>
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"></p>
         </div>
         <div class="shadow-block__content">
             <ul class="new-instruction-list">
                 <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        Open contract address on
-                        <a target="_blank" ng-attr-href="{{getEtherscanUrl(contract)}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
+                    <div class="new-instruction-list__item__text"
+                         translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_1"
+                         translate-values="{address_url: getEtherscanUrl(contract)+'address/'+(contract.contract_details[selectedContract].address|toCheckSum)+'#code'}">
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        In Contract Code tab choose "Verify And Publish"
-                    </div>
+                    <div class="new-instruction-list__item__text"
+                         translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_2"></div>
                 </li>
 
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Enter Contract Name:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_3'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
@@ -80,7 +74,7 @@
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Enter Contract Address:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_4'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
@@ -96,7 +90,7 @@
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Fill out Compiler version:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_5'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
@@ -112,17 +106,15 @@
                 </li>
                 <li class="new-instruction-list__item" ng-if="(contract.network == 2) || (contract.network == 4)">
                     <div class="new-instruction-list__item__text">
-                        Paste the Solidity Contract code:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_6'|translate}}
                         <div class="copy-block">
-                            <div class="copy-block__text">
-                                Not available in free version
-                            </div>
+                            <div class="copy-block__text" translate="CONTRACTS.PREVIEW.CONTRACT_CODE_FOR_FREE"></div>
                         </div>
                     </div>
                 </li>
                 <li class="new-instruction-list__item" ng-if="(contract.network == 1) || (contract.network == 3)">
                     <div class="new-instruction-list__item__text">
-                        Paste the Solidity Contract code:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_6'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
@@ -138,12 +130,12 @@
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Remove the parameters from the Constructor Arguments field ABI-encoded
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_7_1'|translate}}
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Others fields are not required. Press "Verify And Publish"
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_8'|translate}}
                     </div>
                 </li>
             </ul>

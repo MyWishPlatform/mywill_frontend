@@ -867,7 +867,19 @@
         "ITEM_7_2": "Enter constructor arguments ABI-encoded:",
         "ITEM_8": "Others fields are not required. Press \"Verify And Publish\""
       },
-      "CONTRACT_CODE_FOR_FREE": "Not available in free version"
+      "CONTRACT_CODE_FOR_FREE": "Not available in free version",
+
+
+
+
+
+
+
+
+
+
+      "CONTRACT_BALANCE": "Contract balance:",
+      "CONTRACT_ADDRESS": "Contract address:"
     }
   }
 }

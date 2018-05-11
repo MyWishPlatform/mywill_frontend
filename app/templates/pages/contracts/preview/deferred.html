@@ -54,12 +54,12 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
             <span class="form-control-label">
-                Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
+                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}} <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
             </span>
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
-            <div class="form-control-label">Contract address:</div>
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
@@ -81,8 +81,8 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-wallet form-control-label-icon"></i>
-                    From account
-                </div><br/>
+                    {{'CONTRACTS.FORMS.DEFERRED.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
+                </div>
                 <div class="contract-wallet-information-float contract-wallet-information">
                     <span class="identicon-container relative-top">
                         <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
@@ -95,7 +95,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-in-wallet form-control-label-icon"></i>
-                    Send to wallet
+                    {{'CONTRACTS.FORMS.DEFERRED.FIELDS.SEND_TO_WALLET.LABEL'|translate}}
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information">
                     <br/>
@@ -111,7 +111,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-conditions form-control-label-icon"></i>
-                    <span class="grey-text-color">Date of transfer: </span> {{contract.contract_details.date|date:'yyyy-MM-dd'}}
+                    {{'CONTRACTS.FORMS.DEFERRED.FIELDS.DATE_OF_TRANSFER.LABEL'|translate}}: {{contract.contract_details.date|date:'yyyy-MM-dd'}}
                 </div>
             </div>
         </div>

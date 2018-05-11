@@ -53,6 +53,9 @@
     "CLOSE": "Close",
     "CLEAN": "Clean",
     "SEND": "Send",
+    "CREATE": "Create",
+    "UPDATE": "Update",
+    "RESET": "Reset",
     "OK": "Ok",
     "COPY": "Copy",
     "PAY": "Pay",
@@ -520,6 +523,54 @@
       "FIELD_LABEL": "Promo code",
       "DESCRIPTION": "You can enter promo code and get a discount",
       "COST": "Contract`s cost:"
+    },
+    "FORMS": {
+      "WEDDING": {
+        "TITLE": "Wedding contract",
+        "DESCRIPTION": "Please fill the form below and specify your wishes. We will ask contact of your partner before contract creation.",
+        "FIELDS": {
+          "USERNAME": {
+            "LABEL": "User&nbsp;name"
+          },
+          "EMAIL": {
+            "LABEL": "E-mail"
+          },
+          "DESCRIPTION": {
+            "PLACEHOLDER": "Contract description"
+          }
+        }
+      },
+      "FIELDS": {
+        "ENTER_CONTRACT_NAME": {
+          "LABEL": "Enter contract name:"
+        }
+      },
+
+      "DEFERRED": {
+        "TITLE": "Deferred payment",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your ETH wallet address",
+            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+          },
+          "SEND_TO_WALLET": {
+            "LABEL": "Send to wallet",
+            "PLACEHOLDER": "Enter the address of the recipient's wallet",
+            "DESCRIPTION": "Enter the recipient's ETH address. This address will get transfer."
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "E-mail for notification",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "Enter e-mail address to which we send notification about transfer."
+          },
+          "DATE_OF_TRANSFER": {
+            "LABEL": "Date of transfer",
+            "PLACEHOLDER": "",
+            "DESCRIPTION": "Enter the contract's conditions - specify when it will make the transfer."
+          }
+        }
+      }
     }
   }
 }

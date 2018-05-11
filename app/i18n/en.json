@@ -94,7 +94,8 @@
     "FINALIZE": "Finalize",
     "MINT": "Mint",
     "DELETE": "Delete",
-    "EDIT": "Edit"
+    "EDIT": "Edit",
+    "ADD_TO_PARITY": "+ Add to parity"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -610,10 +611,10 @@
             }
           },
           "CHECK_EVERY": {
-            "LABEL": "Check every"
+            "LABEL": "Check every:"
           },
           "DUE_DATE": {
-            "LABEL": "Due date"
+            "LABEL": "Due date:"
           }
         }
       },
@@ -879,7 +880,8 @@
 
 
       "CONTRACT_BALANCE": "Contract balance:",
-      "CONTRACT_ADDRESS": "Contract address:"
+      "CONTRACT_ADDRESS": "Contract address:",
+      "NEXT_CHECK": "Next check:"
     }
   }
 }

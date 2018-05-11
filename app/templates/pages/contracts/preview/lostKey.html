@@ -55,12 +55,12 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
             <span class="form-control-label">
-                Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
+                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}} <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
             </span>
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
-            <div class="form-control-label">Lost key contract:</div>
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
@@ -92,7 +92,7 @@
                         }"
                         ng-click="closeCurrentPopup(true)"
                         class="as-link">
-                    <span>+ Add to parity</span>
+                    <span translate="CONTRACTS_BUTTONS.ADD_TO_PARITY"></span>
                 </button>
 
             </div>
@@ -102,7 +102,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-wallet form-control-label-icon"></i>
-                    Management address
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
                 </div><br/>
                 <div class="contract-wallet-information-float contract-wallet-information">
                     <span class="identicon-container relative-top">
@@ -116,7 +116,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-in-wallet form-control-label-icon"></i>
-                    Reserve address
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.RESERVE_ADDRESS.LABEL'|translate}}
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
                     <br/>
@@ -134,19 +134,19 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-conditions form-control-label-icon"></i>
-                    Outcome transactions
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.WALLETS_ACTIVITY.LIST.ITEM_1'|translate}}
                 </div>
                 <div class="contract-preview-base-font contract-preview-base-value">
                     <div>
-                        <span class="contract-preview-grey-font-color">Due date:</span>&nbsp;&nbsp;
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.DUE_DATE.LABEL'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.active_to|date:'yyyy-MM-dd'}}
                     </div><br/>
                     <div>
-                        <span class="contract-preview-grey-font-color">Check every:</span>&nbsp;&nbsp;
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.CHECK_EVERY.LABEL'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.check_interval.period}} {{contract.contract_details.check_interval.periodUnit}}
                     </div><br/>
                     <div ng-if="contract.contract_details.next_check">
-                        <span class="contract-preview-grey-font-color">Next check:</span>&nbsp;&nbsp;
+                        {{'CONTRACTS.PREVIEW.NEXT_CHECK'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.next_check|date:'yyyy-MM-dd'}}
                     </div>
                 </div>

@@ -2,7 +2,8 @@
     <div class="grid-row">
         <div class="grid-cell grid-cell-1-6 grid-cell-ps-1-4 grid-cell-vs-1-3">
             <div class="form-control">
-                <label class="form-control-label">Bonus</label>
+                <label class="form-control-label"
+                       translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TIME_BONUS.LABEL"></label>
                 <input class="form-control-input" type="number"
                        placeholder="50"
                        ng-change="createTimeBonusChartData()"
@@ -12,13 +13,15 @@
         </div>
         <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
             <div class="form-control-label hide-vs">&nbsp;</div>
-            <span class="form-control-description__text">Usually 0.1-100%.  How many extra tokens will be sent to contributor.</span>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TIME_BONUS.DESCRIPTION"></span>
         </div>
     </div><br/><br/>
 
     <div class="form-control">
         <div class="checkbox-decoration">
-            <div class="form-control-label inline-label">Please choose one of the options (or both) for bonus activation</div>
+            <div class="form-control-label inline-label"
+                 translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TIME_BONUS_TITLE"></div>
         </div>
     </div>
 
@@ -26,9 +29,8 @@
         <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
-                    <label class="form-control-label inline-label">
-                        Depends on amount of sold tokens:
-                    </label>
+                    <label class="form-control-label inline-label"
+                           translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_AMOUNT.LABEL"></label>
                 </div>
             </div>
         </div>
@@ -40,21 +42,22 @@
                            ng-change="changeBonusTokensTrigger(bonus)"
                            ng-model="bonus.isTokensAmount"/>
                     <span class="checkbox-decoration-displaying">
-                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
                     </span>
                 </label>
             </div>
         </div>
         <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-            <span class="form-control-description__text">Specify how many tokens shall be sold before bonus activation and when bonus deactivated</span>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_AMOUNT.DESCRIPTION"></span>
         </div>
     </div>
     <div ng-if="bonus.isTokensAmount" class="grid-row">
         <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
             <div class="form-control">
                 <label class="form-control-label">
-                    From&nbsp;&nbsp;
+                    {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_AMOUNT.AMOUNT_FROM'|translate}}&nbsp;&nbsp;
                     <img src="/static/images/right-arrow.svg" alt="">
                 </label>
                 <input type="text"
@@ -67,7 +70,6 @@
                             min: 0,
                             max: bigNumber(bonus.max_amount).minus('1'), autoCheck: true
                        }" class="form-control-input"/>
-
                 <input type="text" ng-model="bonus.forCheckTokens.prev" disabled
                        ng-if="bonus.forCheckTokens.prev" commaseparator="{}" class="form-control-input"/>
                 <div class="input-after">{{ request.token_short_name }}</div>
@@ -76,10 +78,9 @@
 
         <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
             <div class="form-control">
-
                 <label class="form-control-label">
                     <img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;
-                    To
+                    {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_AMOUNT.AMOUNT_TO'|translate}}
                 </label>
                 <input type="text"
                        ng-model="bonus.max_amount"
@@ -94,15 +95,14 @@
             </div>
         </div>
     </div><br/>
-    <div class="form-fieldset-delimiter"><span>AND / OR</span></div><br/>
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="AND_OR"></span></div><br/>
 
     <div class="grid-row">
         <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
-                    <label class="form-control-label inline-label">
-                        Depends on date/time:
-                    </label>
+                    <label class="form-control-label inline-label"
+                           translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_DATE_TIME.LABEL"></label>
                 </div>
             </div>
         </div>
@@ -113,14 +113,15 @@
                            ng-change="changeBonusTimesTrigger(bonus)"
                            ng-required="!bonus.isTokensAmount"/>
                     <span class="checkbox-decoration-displaying">
-                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
                     </span>
                 </label>
             </div>
         </div>
         <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-            <span class="form-control-description__text">Specify the time frame when bonus is active for everyone</span>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_DATE_TIME.DESCRIPTION"></span>
         </div>
     </div>
     <div ng-if="bonus.isTimesAmount">
@@ -129,7 +130,7 @@
                 <div class="form-control">
 
                     <label class="form-control-label">
-                        Date from&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
+                        {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_DATE_TIME.DATE_FROM'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
                     </label>
 
                     <input class="input-for-group-fields"
@@ -188,7 +189,7 @@
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-vs-1">
                 <div class="form-control">
                     <label class="form-control-label">
-                        Date to&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
+                        {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.DEPENDS_DATE_TIME.DATE_TO'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
                     </label>
 
                     <input class="input-for-group-fields"
@@ -199,7 +200,6 @@
                            ng-attr-min="{{(bonus.forCheckDates.prev.date || bonus.date_from).format('X') * 1 + 60}}"
                            ng-attr-max="{{dates.endDate.format('X') * 1}}"
                            ng-model="bonus.max_time"/>
-
                     <input type="text"
                            ng-model="bonus.date_to"
                            date-change="onChangeBonusDate"
@@ -237,7 +237,8 @@
 <div class="shadow-block__content" ng-if="bonuses.length < 10">
     <div class="grid-row">
         <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description" ng-if="!bonuses.length">
-            <span class="form-control-description__text"> You can define bonus depending on amount of sold tokens and time. For example, give extra 10% to the first week contributors</span><br/>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TIME_BONUS_DESCRIPTION"></span><br/>
         </div>
         <div class="grid-cell grid-cell-ls-1 form-control-description"
              ng-class="{'grid-cell-1-2':!bonuses.length, 'grid-cell-1': bonuses.length}">
@@ -245,8 +246,8 @@
                     ng-disabled="!timeBonusForm.$valid"
                     type="button" ng-click="addTokenBonus();">
                 <i class="icon-create-contract"></i>
-                <span ng-if="!bonuses.length">Add Bonus: Time/Sold Tokens</span>
-                <span ng-if="bonuses.length">Add Other Bonus: Time/Sold Tokens</span>
+                <span ng-if="!bonuses.length" translate="CONTRACTS.FORMS.CROWD_SALE.BUTTONS.ADD_NEW_TIME_BONUS"></span>
+                <span ng-if="bonuses.length" translate="CONTRACTS.FORMS.CROWD_SALE.BUTTONS.ADD_OTHER_TIME_BONUS"></span>
             </button>
         </div>
     </div>

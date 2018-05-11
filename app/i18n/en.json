@@ -3,6 +3,7 @@
   "NO": "No",
   "OR": "or",
   "OK": "Ok",
+  "AND_OR": "And/Or",
   "COPIED": "Copied",
   "DISCLAIMER": "Disclaimer",
   "MAIN_MENU": {
@@ -519,6 +520,8 @@
   },
 
   "CONTRACTS": {
+    "FOR_SALE": "For Sale",
+    "PRE_SALE": "Pre-Sale",
     "ENTER_PROMO_BLOCK": {
       "FIELD_LABEL": "Promo code",
       "DESCRIPTION": "You can enter promo code and get a discount",
@@ -716,6 +719,117 @@
             "LABEL": "Future Minting:",
             "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible"
           }
+        }
+      },
+      "CROWD_SALE": {
+        "TITLE": "Crowdsale contract",
+        "BUTTONS": {
+          "ADD_NEW_TIME_BONUS": "Add Bonus: Time/Sold Tokens",
+          "ADD_OTHER_TIME_BONUS": "Add Other Bonus: Time/Sold Tokens",
+          "ADD_NEW_AMOUNT_BONUS": "Add Amount Bonus",
+          "ADD_OTHER_AMOUNT_BONUS": "Add Other Amount Bonus",
+          "ADD_EXTRA_ADDRESS": "Add extra address"
+        },
+        "CAP_NOTE": {
+          "TITLE": "Please note!",
+          "TEXT": "If softcap > 0 all investments are stored on the vault contract until the end of crowdsale. <br/>If you need to get investments on your address right away set softcap = 0."
+        },
+        "CHART_TOKEN_DISTRIBUTED_MESSAGE": "Max possible emission of tokens, no more tokens can be minted.",
+        "FIELDS": {
+          "CHOOSE_TOKEN": {
+            "LABEL": "Choose token",
+            "ERRORS": {
+              "CLOSED": "You can't use this token. Final sale is already completed",
+              "RUNNING": "You can't use this token until the previous sale is not completed"
+            },
+            "DESCRIPTION": "Create New Token or Choose existing one if you've already completed presale on MyWish platform",
+            "DISTRIBUTED": "Tokens distributed ({{short_name}})",
+            "DISTRIBUTED_DESCRIPTION": "Shows how many tokens you have already distributed during pre-sale rounds (incl. reserved tokens for Team, Bounty, Bonuses if any)"
+          },
+          "CROWD_SALE_TYPE": {
+            "LABEL": "Choose Type of Crowdsale",
+            "VALUE_1": "Pre-Sale",
+            "DESCRIPTION_1": "You can make as many pre-sale rounds as you want",
+            "VALUE_2": "Final sale",
+            "DESCRIPTION_2": "No sale is possible after final sale. No more tokens can be created after end date"
+          },
+          "STORAGE_ADDRESS": {
+            "LABEL": "Investments Storage Address",
+            "DESCRIPTION": "ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it"
+          },
+          "TOKEN_RATE": {
+            "LABEL": "Token rate",
+            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 ETH",
+            "ADV_DESCRIPTION": "per 1 ETH"
+          },
+          "HARD_CAP": {
+            "LABEL": "Hard cap tokens",
+            "DESCRIPTION": "Defines how many tokens can be sold. After reaching this number sale will be stopped automatically. 1-100,000,000,000,000 Numerals are accepted."
+          },
+          "SOFT_CAP": {
+            "LABEL": "Soft cap tokens",
+            "DESCRIPTION": "Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their vestments back, project gets nothing. You can set it to 0 (no soft cap)"
+          },
+          "START_DATE": {
+            "LABEL": "Start date",
+            "DESCRIPTION": "Start date/time for sale. No contributions will be accepted before that time"
+          },
+          "FINISH_DATE": {
+            "LABEL": "Finish date",
+            "DESCRIPTION": "Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached"
+          },
+          "TRANSFERABLE": {
+            "LABEL": "Transferable:",
+            "DESCRIPTION": "User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended"
+          },
+          "AUTO_FINALIZE": {
+            "LABEL": "Finalize auto:",
+            "DESCRIPTION": "Our system can finalize the contract (to make tokens transferable) automatically after end date (you can do it early if hard cap reached)"
+          },
+          "MIN_MAX_INVESTMENTS": {
+            "LABEL": "Min & Max investments limitations",
+            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+          },
+          "MIN_INVESTMENTS": {
+            "LABEL": "Minimum",
+            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+          },
+          "MAX_INVESTMENTS": {
+            "LABEL": "Maximum",
+            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+          },
+          "TIME_BONUS": {
+            "LABEL": "Bonus",
+            "DESCRIPTION": "Usually 0.1-100%.  How many extra tokens will be sent to contributor."
+          },
+          "TIME_BONUS_TITLE": "Please choose one of the options (or both) for bonus activation",
+          "DEPENDS_AMOUNT": {
+            "LABEL": "Depends on amount of sold tokens:",
+            "DESCRIPTION": "Specify how many tokens shall be sold before bonus activation and when bonus deactivated",
+            "AMOUNT_FROM": "From",
+            "AMOUNT_TO": "To"
+          },
+          "DEPENDS_DATE_TIME": {
+            "LABEL": "Depends on date/time:",
+            "DESCRIPTION": "Specify the time frame when bonus is active for everyone",
+            "DATE_FROM": "Date from",
+            "DATE_TO": "Date to"
+          },
+          "TIME_BONUS_DESCRIPTION": "You can define bonus depending on amount of sold tokens and time. For example, give extra 10% to the first week contributors",
+
+          "AMOUNT_BONUS": {
+            "LABEL": "Bonus",
+            "DESCRIPTION": "Usually 0.1-100%.  How many extra tokens will be sent to contributor."
+          },
+          "MIN_AMOUNT": {
+            "LABEL": "Min Amount",
+            "DESCRIPTION": "Minimum contribution for getting specified bonus"
+          },
+          "MAX_AMOUNT": {
+            "LABEL": "Max Amount",
+            "DESCRIPTION": "Maximum contribution for getting specified bonus{{last ? ' (you can left it empty if there is no limit)' : ''}}"
+          },
+          "AMOUNT_BONUS_DESCRIPTION": "You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions"
         }
       }
     }

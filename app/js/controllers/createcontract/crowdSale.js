@@ -558,7 +558,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
     $scope.createAmountBonusChartData();
-}).controller('crowdSaleHoldersController', function($scope, $timeout) {
+}).controller('crowdSaleHoldersController', function($scope, $timeout, $filter) {
     $scope.addRecipient = function() {
         var holder = {
             freeze_date: $scope.dates.endDate.clone().add(1, 'minutes')
@@ -607,13 +607,13 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.chartData = angular.copy($scope.token_holders);
         $scope.chartData.unshift({
             amount: $scope.request.hard_cap,
-            address: 'For Sale'
+            address: $filter('translate')('CONTRACTS.FOR_SALE')
         });
 
         if ($scope.token.selectedToken.id) {
             $scope.chartData.unshift({
                 amount: $scope.token.selectedToken.totalSupply,
-                address: 'Pre-Sale'
+                address: $filter('translate')('CONTRACTS.PRE_SALE')
             })
         }
 

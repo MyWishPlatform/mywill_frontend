@@ -525,6 +525,9 @@
       "COST": "Contract`s cost:"
     },
     "FORMS": {
+      "DAY": "day",
+      "MONTH": "month",
+      "YEAR": "year",
       "WEDDING": {
         "TITLE": "Wedding contract",
         "DESCRIPTION": "Please fill the form below and specify your wishes. We will ask contact of your partner before contract creation.",
@@ -545,7 +548,9 @@
           "LABEL": "Enter contract name:"
         }
       },
-
+      "BUTTONS": {
+        "ADD_WALLET": "Add wallet"
+      },
       "DEFERRED": {
         "TITLE": "Deferred payment",
         "FIELDS": {
@@ -568,6 +573,43 @@
             "LABEL": "Date of transfer",
             "PLACEHOLDER": "",
             "DESCRIPTION": "Enter the contract's conditions - specify when it will make the transfer."
+          }
+        }
+      },
+      "LOST_KEY": {
+        "TITLE": "Lost key contract",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your ETH wallet address",
+            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+          },
+          "RESERVE_ADDRESS": {
+            "LABEL": "Reserve address",
+            "PLACEHOLDER": "Enter the address of the recipient's wallet",
+            "DESCRIPTION": "Specify the backup address to which you want to send funds in the event that a private key is lost from the management address"
+          },
+          "SHARE": {
+            "LABEL": "Share",
+            "DESCRIPTION": "You can divide the funds between several reserve accounts. Choose percentage for every reserve address."
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "E-mail for notification",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "Enter the e-mail address to which you want to send a message about transferring the crypto currency"
+          },
+          "CONDITIONS_TEXT": "Enter Conditions for the wallet's activity",
+          "WALLETS_ACTIVITY": {
+            "LABEL": "Wallet’s activity",
+            "LIST": {
+              "ITEM_1": "Outcome transactions"
+            }
+          },
+          "CHECK_EVERY": {
+            "LABEL": "Check every"
+          },
+          "DUE_DATE": {
+            "LABEL": "Due date"
           }
         }
       }

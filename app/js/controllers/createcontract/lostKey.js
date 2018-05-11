@@ -1,24 +1,24 @@
 angular.module('app').controller('lostKeyCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                     openedContract, $stateParams,
+                                                                     openedContract, $stateParams, $filter,
                                                                      CONTRACT_TYPES_CONSTANTS, web3Service) {
 
     $scope.request = {};
     $scope.listWalletActivity = [
         {
             value: 1,
-            name: 'Outcome transactions'
+            name: $filter('translate')('CONTRACTS.FORMS.LOST_KEY.FIELDS.WALLETS_ACTIVITY.LIST.ITEM_1')
         }
     ];
     $scope.durationList = [
         {
             value: 1,
-            name: 'day'
+            name: $filter('translate')('CONTRACTS.FORMS.DAY')
         }, {
             value: 30,
-            name: 'month'
+            name: $filter('translate')('CONTRACTS.FORMS.MONTH')
         }, {
             value: 365,
-            name: 'year'
+            name: $filter('translate')('CONTRACTS.FORMS.YEAR')
         }
     ];
     $scope.currencyList = [

@@ -612,6 +612,59 @@
             "LABEL": "Due date"
           }
         }
+      },
+      "LAST_WILL": {
+        "TITLE": "Will contract",
+        "BUTTONS": {
+          "ADD_BENEFICIARY": "Add beneficiary"
+        },
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your {{networkName}} wallet address",
+            "ETH_DESCRIPTION": "ETH address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission",
+            "RSK_DESCRIPTION": "This address will manage your contract. You can create it by <a href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a> wallet. Double check it before submission."
+          },
+          "YOUR_EMAIL": {
+            "LABEL": "Your Email for remainder & notifications",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "We will remind you to confirm \"live\" status & send notifications about the contract"
+          },
+          "BENEFICIARY_ADDR": {
+            "LABEL": "Beneficiary address",
+            "PLACEHOLDER": "Enter {{networkName}} address",
+            "ETH_DESCRIPTION": "Enter ETH address of beneficiary. After contract execution funds will be sent to that address.",
+            "RSK_DESCRIPTION": "Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by <a href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> too."
+          },
+          "SHARE": {
+            "LABEL": "Share"
+          },
+          "BENEFICIARY_EMAIL": {
+            "LABEL": "E-mail for notification",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "Enter e-mail address to which we send notification about transfer"
+          },
+          "CONDITIONS_TITLE": "Define how often you want to confirm your \"Live\" status",
+          "CONFIRMATION_EVERY": {
+            "LABEL": "Confirmation transaction every",
+            "DESCRIPTION": "You will need to send transaction to the contract from management address every time."
+          },
+          "CONTRACT_EXPIRATION": {
+            "LABEL": "Will contract expiration",
+            "DESCRIPTION": "After due date all funds will be send to management address if all confirmations received at time."
+          },
+          "CANCEL_VIA_MYWISH": {
+            "LABEL": "Cancel contract via MyWish",
+            "DESCRIPTION": "If \"On\" you will be able to Cancel the contract and get all funds back by 1-Click on MyWish."
+          },
+          "CONFIRM_LIVE_VIA_MYWISH": {
+            "LABEL": "Confirm \"Live\" via MyWish",
+            "DESCRIPTION": "If \"On\" you will be able to Confirm \"Live\" status by 1-Click on MyWish."
+          },
+          "BOTH_VIA_MYWISH_TEXT": {
+            "DESCRIPTION": "Off mode for both options are more secured, but less convenient for use. You will need to install Metamask for management the contract. On options give you ability to manage the contract by MyWish."
+          }
+        }
       }
     }
   }

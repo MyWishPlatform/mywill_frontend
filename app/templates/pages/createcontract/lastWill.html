@@ -7,7 +7,7 @@
         <div class="shadow-block__content__blue-title">
             <i class="shadow-block__content__blue-title__icon icon-lastwill"></i>
             <div class="shadow-block__content__blue-title__name">
-                <span class="big-size ng-binding">Will contract</span>
+                <span class="big-size" translate="CONTRACTS.FORMS.LAST_WILL.TITLE"></span>
             </div>
         </div>
     </div>
@@ -15,7 +15,8 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
-                    <label for="contract-name" class="form-control-label">Enter contract name:</label>
+                    <label for="contract-name" class="form-control-label"
+                           translate="CONTRACTS.FORMS.FIELDS.ENTER_CONTRACT_NAME.LABEL"></label>
                     <input id="contract-name" type="text"
                            ng-model="contractName"
                            required
@@ -37,45 +38,45 @@
                          ng-if="mainForm.$valid"
                          ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ' + networkName : balanceInProgress ? 'Please wait...' : ' '"></div>
 
-                    <label for="wallet-key" class="form-control-label">Management address</label>
+                    <label for="wallet-key" class="form-control-label"
+                           translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
                     <input id="wallet-key" type="text"
                            ng-model="request.user_address"
-                           placeholder="Enter your {{networkName}} wallet address"
+                           ng-attr-placeholder="{{'CONTRACTS.FORMS.LAST_WILL.FIELDS.MANAGEMENT_ADDR.PLACEHOLDER'|translate:'{networkName:\''+networkName+'\'}'}}"
                            required
                            ng-change="checkBalance()"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
                            class="form-control-input"/>
                     <span class="field-error form-field_error-check-sum"
                           ng-if="request.user_address ? !web3Utils.checkAddressChecksum(request.user_address) : false"
-                          style="display: block">Address is not checksummed</span>
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text" ng-if="networkName == 'ETH'">
-                    {{networkName}} address (not exchange address).
-                    This address will manage the will contract. Double check the address (and access to it) before submission
-                </span>
-                <span class="form-control-description__text" ng-if="networkName == 'RSK'">
-                    This address will manage your contract.
-                    You can create it by <a href="https://jaxx.io/" target="_blank">Jaxx</a> wallet.
-                    Double check it before submission.
-                </span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.MANAGEMENT_ADDR.ETH_DESCRIPTION"
+                      ng-if="networkName == 'ETH'"></span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.MANAGEMENT_ADDR.RSK_DESCRIPTION"
+                      ng-if="networkName == 'RSK'"></span>
             </div>
             <div class="clearfix"></div><br/>
 
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">Your Email for remainder & notifications</label>
+                    <label class="form-control-label"
+                           translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.YOUR_EMAIL.LABEL"></label>
                     <input ng-model="request.email"
                            required
-                           placeholder="Enter the e-mail"
+                           placeholder="{{'CONTRACTS.FORMS.LAST_WILL.FIELDS.YOUR_EMAIL.PLACEHOLDER'|translate}}"
                            type="email" class="form-control-input"/>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">We will remind you to confirm "live" status & send notifications about the contract</span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.YOUR_EMAIL.DESCRIPTION"></span>
             </div>
         </div>
     </div>
@@ -87,9 +88,10 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
-                    <label for="out-wallet-key" class="form-control-label">Beneficiary address</label>
+                    <label for="out-wallet-key" class="form-control-label"
+                           translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.BENEFICIARY_ADDR.LABEL"></label>
                     <input id="out-wallet-key" type="text"
-                           placeholder="Enter {{networkName}} address"
+                           ng-attr-placeholder="{{'CONTRACTS.FORMS.LAST_WILL.FIELDS.BENEFICIARY_ADDR.PLACEHOLDER'|translate:'{networkName:\''+networkName+'\'}'}}"
                            ng-pattern="/^0x[0-9a-f]{40}$/i"
                            ng-check-sum
                            ng-model="hair.address"
@@ -97,38 +99,38 @@
                            class="form-control-input"/>
                     <span class="field-error form-field_error-check-sum"
                           ng-if="hair.address ? !web3Utils.checkAddressChecksum(hair.address) : false"
-                          style="display: block">Address is not checksummed</span>
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text" ng-if="networkName == 'ETH'">
-                    Enter {{networkName}} address of beneficiary. After contract execution funds will be sent to that address.
-                </span>
-                <span class="form-control-description__text" ng-if="networkName == 'RSK'">
-                    Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by
-                    <a href="https://jaxx.io/" target="_blank">jaxx</a> too.
-                </span>
+                <span class="form-control-description__text" ng-if="networkName == 'ETH'"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.BENEFICIARY_ADDR.ETH_DESCRIPTION"></span>
+                <span class="form-control-description__text" ng-if="networkName == 'RSK'"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.BENEFICIARY_ADDR.RSK_DESCRIPTION"></span>
             </div>
             <div class="clearfix"></div><br/>
             <div class="grid-cell grid-cell-1" ng-if="hairsList.length > 1">
                 <div class="form-control">
-                    <div class="form-control-label">Share</div>
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.SHARE.LABEL"></div>
                     <div data-sum-percentage="{{ percentageSum }}"
                          ng-ranger="{model: hair, onChange: hairPercentChange, sumStatus: percentageStatus}"></div>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">E-mail for notification</label>
+                    <label class="form-control-label"
+                           translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.BENEFICIARY_EMAIL.LABEL"></label>
                     <input ng-model="hair.email"
-                           placeholder="Enter the e-mail"
+                           placeholder="{{'CONTRACTS.FORMS.LAST_WILL.FIELDS.BENEFICIARY_EMAIL.PLACEHOLDER'|translate}}"
                            type="email" class="form-control-input"/>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">Enter e-mail address to which we send notification about transfer</span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.BENEFICIARY_EMAIL.DESCRIPTION"></span>
             </div>
         </div>
         <i class="icon-cancel float-right form-fieldset-info-button"
@@ -140,7 +142,7 @@
     <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()"
             ng-disabled="!(mainForm.$valid && contractNameForm.$valid)">
         <i class="icon-create-contract"></i>
-        <span>Add beneficiary</span>
+        <span translate="CONTRACTS.FORMS.LAST_WILL.BUTTONS.ADD_BENEFICIARY"></span>
     </button>
     <br/><br/><br/>
 </div>
@@ -150,14 +152,16 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-1">
                 <div class="form-control">
-                    <div class="form-control-label">Define how often you want to confirm your "Live" status</div>
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONDITIONS_TITLE"></div>
                 </div>
             </div>
         </div>
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">Confirmation transaction every</label>
+                    <label class="form-control-label"
+                           translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONFIRMATION_EVERY.LABEL"></label>
                     <div class="form-controls-group">
                         <div class="form-control-little">
                             <input class="input-for-group-fields"
@@ -190,7 +194,8 @@
 
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">You will need to send transaction to the contract from management address every time.</span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONFIRMATION_EVERY.DESCRIPTION"></span>
             </div>
         </div>
     </div>
@@ -201,7 +206,8 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 grid-cell-vs-padding-top">
                 <div class="form-control form-control-date">
-                    <label class="form-control-label">Will contract expiration</label>
+                    <label class="form-control-label"
+                           translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONTRACT_EXPIRATION.LABEL"></label>
                     <input type="datetime" required
                            ng-model="dueDate"
                            date-change="onChangeDate"
@@ -220,7 +226,8 @@
 
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text"> After due date all funds will be send to management address if all confirmations received at time.</span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONTRACT_EXPIRATION.DESCRIPTION"></span>
             </div>
         </div>
     </div>
@@ -234,7 +241,7 @@
                 <div class="form-control">
                     <div class="checkbox-decoration">
                         <label class="form-control-label-checkbox">
-                            <span>Cancel contract via MyWish</span>
+                            <span translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CANCEL_VIA_MYWISH.LABEL"></span>
                         </label>
                     </div>
                 </div>
@@ -244,16 +251,15 @@
                     <label class="checkbox-decoration">
                         <input type="checkbox" ng-model="request.platform_cancel" disabled>
                         <span class="checkbox-decoration-displaying">
-                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
                     </span>
                     </label>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                <span class="form-control-description__text">
-                     If "On" you will be able to Cancel the contract and get all funds back by 1-Click on MyWish.
-                </span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CANCEL_VIA_MYWISH.DESCRIPTION"></span>
             </div>
         </div>
         <div class="grid-row"
@@ -262,7 +268,7 @@
                 <div class="form-control">
                     <div class="checkbox-decoration">
                         <label class="form-control-label-checkbox">
-                            <span>Confirm "Live" via MyWish</span>
+                            <span translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONFIRM_LIVE_VIA_MYWISH.LABEL"></span>
                         </label>
                     </div>
                 </div>
@@ -272,43 +278,42 @@
                     <label class="checkbox-decoration">
                         <input type="checkbox" ng-model="request.platform_alive" disabled>
                         <span class="checkbox-decoration-displaying">
-                            <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                            <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
                         </span>
                     </label>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                <span class="form-control-description__text">
-                    If "On" you will be able to Confirm "Live" status by 1-Click on MyWish.
-                </span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONFIRM_LIVE_VIA_MYWISH.DESCRIPTION"></span>
             </div>
         </div>
         <div class="grid-row">
             <div class="grid-cell grid-cell-1">
-                <span class="form-control-description__text">
-                     Off mode for both options are more secured, but less convenient for use. You will need to install Metamask for management the contract. On options give you ability to manage the contract by MyWish.
-                </span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.BOTH_VIA_MYWISH_TEXT.DESCRIPTION"></span>
             </div>
         </div>
     </div>
 </form>
 <br/><br/><br/>
+
 <div class="grid-row">
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
                 type="button"
                 ng-disabled="!(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid) || (percentageSum !== 100)"
                 ng-click="createContract()">
-            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;Create&nbsp;&nbsp;&nbsp;</span>
-            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;Update&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
             <i class="icon-delete-button"></i>
-            <span ng-if="!editContractMode">Clear</span>
-            <span ng-if="editContractMode">Reset</span>
+            <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
+            <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>
         </button>
     </div>
 </div>

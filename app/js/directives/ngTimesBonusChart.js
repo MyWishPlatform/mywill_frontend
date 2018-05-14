@@ -17,15 +17,15 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                 $scope.timesBonusChartData = [];
                 var svg = element.find('svg');
                 $scope.svgWidth = svg.width();
-                $scope.svgHeight = $scope.originalSvgHeight * ($scope.svgWidth / $scope.originalSvgWidth);
+                $scope.svgHeight = Math.round($scope.originalSvgHeight * ($scope.svgWidth / $scope.originalSvgWidth));
                 $scope.leftOffset = 30;
                 $scope.bottomOffset = 20;
                 $scope.maxPosition = 25;
 
 
                 svg.height($scope.svgHeight);
-                var onePercentOfWidth = ($scope.svgWidth - $scope.leftOffset) / 100;
-                var onePercentOfHeight = ($scope.svgHeight - $scope.bottomOffset) / 100;
+                var onePercentOfWidth = new BigNumber($scope.svgWidth).minus($scope.leftOffset).div(100).round(5);
+                var onePercentOfHeight = new BigNumber($scope.svgHeight).minus($scope.bottomOffset).div(100).round(5);
 
                 var chartData = $scope.ngTimesBonusChart.data;
 

@@ -4,7 +4,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.currencyRate = currencyRate.data;
     $scope.investsLimit = false;
 
-    $scope.network = $stateParams.network;
 
     var web3 = new Web3();
 
@@ -51,7 +50,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
-        network: $scope.network,
+        network: $stateParams.network,
         contract_details: {
             token_holders: [],
             amount_bonuses: [],
@@ -59,7 +58,9 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             token_type: 'ERC20'
         }
     };
-    
+
+    $scope.network = contract.network;
+
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
         if (!$scope.dates.startDate) {

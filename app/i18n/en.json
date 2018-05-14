@@ -907,6 +907,30 @@
         "TOKEN_ADDRESS": "Token address",
         "TOKEN_TYPE": "Token type:",
         "TOKEN_DISTRIBUTION": "Token distribution"
+      },
+
+      "CROWD_SALE": {
+        "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",
+        "VAULT_ADDRESS": "Vault contract (Investments storage until the end of crowdsale)",
+        "CROWD_SALE_TYPE": "Crowdsale type:",
+        "TIME_BONUSES": {
+          "TITLE": "Time bonuses",
+          "BONUS": "Bonus:",
+          "TOKENS_FROM": "Tokens from",
+          "TOKENS_TO": "Tokens to",
+
+          "DATE_FROM": "Date from",
+          "DATE_TO": "Date to",
+
+          "SOLD_TOKENS_BONUS_TEXT": "Sold token bonus",
+          "TIME_BONUS_TEXT": "Time bonus"
+        },
+        "AMOUNT_BONUSES": {
+          "TITLE": "Amount bonuses",
+          "BONUS": "Bonus:",
+          "MIN_AMOUNT": "Min amount",
+          "MAX_AMOUNT": "Max amount"
+        }
       }
     }
   }

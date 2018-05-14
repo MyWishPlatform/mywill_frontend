@@ -7,7 +7,7 @@
                        translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"
                        class="form-control-label">Address</label>
                 <input id="out-wallet-key-{{$index}}" type="text"
-                       placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL'|placeholder}}"
+                       placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL'|translate}}"
                        ng-pattern="/^0x[0-9a-f]{40}$/i"
                        ng-model="recipient.address"
                        ng-change="!recipient.name ? checkTokensAmount() : false"

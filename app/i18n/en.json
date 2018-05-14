@@ -668,6 +668,12 @@
           },
           "BOTH_VIA_MYWISH_TEXT": {
             "DESCRIPTION": "Off mode for both options are more secured, but less convenient for use. You will need to install Metamask for management the contract. On options give you ability to manage the contract by MyWish."
+          },
+          "CHECK_EVERY": {
+            "LABEL": "Check every:"
+          },
+          "DUE_DATE": {
+            "LABEL": "Due date:"
           }
         }
       },
@@ -869,7 +875,7 @@
         "ITEM_8": "Others fields are not required. Press \"Verify And Publish\""
       },
       "CONTRACT_CODE_FOR_FREE": "Not available in free version",
-
+      "CONTRACT_CONDITIONS": "Contract conditions",
 
 
 
@@ -881,7 +887,20 @@
 
       "CONTRACT_BALANCE": "Contract balance:",
       "CONTRACT_ADDRESS": "Contract address:",
-      "NEXT_CHECK": "Next check:"
+      "NEXT_CHECK": "Next check:",
+
+      "LAST_WILL": {
+        "CONFIRM_LIVE": {
+          "VARIANT_1": "Please confirm “Live” status before Next check: {{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>Last “Live” confirmation:{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_2": "Funds have been distributed in accordance with the contract on {{last_check ? (last_check|date:'yyyy-MM-dd HH:mm') : '--'}}<br/><br/>Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_3": "Contract was cancelled, all funds were sent to the contract’s owner.<br/><br/> Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_4": "Contract was expired, contract’s owner should withdraw the funds.<br/><br/>Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd') : '--'}}"
+        },
+        "LABELS": {
+          "HEIR": "Heir",
+          "HEIRS": "Heirs"
+        }
+      }
     }
   }
 }

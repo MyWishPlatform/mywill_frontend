@@ -506,8 +506,39 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         return val.replace(/^([^\+]+)(\+commit\.[^\.]+).*$/, '$1$2');
     }
-})
-    .directive('commaseparator', function($filter, $timeout) {
+}).directive('ngChecksumAddressValidator', function($filter) {
+    return {
+        require: 'ngModel',
+        scope: {
+            ngChecksumAddressValidator: '='
+        },
+        link: function(scope, elem, attrs, ctrl) {
+            ctrl.$formatters.unshift(function (value) {
+                return ctrl.$modelValue;
+            });
+            console.log(scope.ngChecksumAddressValidator);
+            switch(scope.ngChecksumAddressValidator.network) {
+                case 'ETH':
+                    elem.attr('placeholder', elem.attr('placeholder') || '0x1234567890adfbced543567acbedf34565437e8f');
+                    break;
+                case 'NEO':
+                    elem.attr('placeholder', elem.attr('placeholder') || 'AP5n92qDhmoNGP5S71LMBBmn9C4XcMGZDz');
+                    break;
+            }
+
+            ctrl.$parsers.unshift(function(value) {
+                if (!value) return;
+                var val = value;
+                if (scope.ngChecksumAddressValidator.network === 'ETH') {
+                    val = $filter('toCheckSum')(val);
+                }
+                var validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);
+                ctrl.$setValidity('valid-address', validAddress);
+                return value;
+            });
+        }
+    }
+}).directive('commaseparator', function($filter, $timeout) {
     var commaSeparateNumber = $filter('separateNumber');
     return {
         require: 'ngModel',

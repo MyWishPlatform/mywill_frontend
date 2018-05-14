@@ -81,7 +81,7 @@
     </form>
 </div>
 
-<form class="shadow-block" name="contractTypeForm">
+<form class="shadow-block" name="contractTypeForm" ng-if="(network.id != 5) && (network.id != 6)">
     <div class="shadow-block__content">
         <div class="form-control-label"
              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_TYPE.LABEL"></div>
@@ -129,19 +129,20 @@
                     <label for="owner-address" class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></label>
                     <input id="owner-address" type="text"
-                           placeholder="0x1234567890adfbced543567acbedf34565437e8f"
+                           ng-checksum-address-validator="{'network': blockchain}"
                            ng-model="request.admin_address"
-                           ng-pattern="/^0x[0-9a-f]{40}$/i"
                            required
                            class="form-control-input"/>
                     <span class="field-error form-field_error-check-sum"
-                          ng-if="request.admin_address ? !web3Utils.checkAddressChecksum(request.admin_address) : false"
-                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"
+                          ng-if="(blockchain === 'ETH') && (request.admin_address ? !web3Utils.checkAddressChecksum(request.admin_address) : false)"
+                          style="display: block"></span>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text"
+                      translate-values="{blockchain: blockchain}"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.DESCRIPTION"></span>
             </div>
         </div>
@@ -164,13 +165,13 @@
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"></label>
                     <input id="out-wallet-key-{{$index}}" type="text"
                            placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.PLACEHOLDER'|translate}}"
-                           ng-pattern="/^0x[0-9a-f]{40}$/i"
+                           ng-checksum-address-validator="{'network': blockchain}"
                            ng-model="recipient.address"
                            ng-change="!recipient.name ? checkTokensAmount() : false"
                            required
                            class="form-control-input"/>
                     <span class="field-error form-field_error-check-sum"
-                          ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
+                          ng-if="(blockchain === 'ETH') && (recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false)"
                           style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
                 </div>
             </div>
@@ -200,7 +201,7 @@
                 </div>
             </div>
             <div class="clearfix show-ps"><br/></div>
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1" ng-if="blockchain === 'ETH'">
                 <label class="form-control-label">
                     <i class="icon-snowflake form-control-label-icon"></i>
                     {{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>

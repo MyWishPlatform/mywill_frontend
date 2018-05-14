@@ -30,12 +30,11 @@
             </div>
             <div class="show-vs clearfix"><br/></div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2">
-                <label class="btn btn-gray with-icon disabled width-100" ng-class="{'active': blockChainNetwork.type === 'neo'}">
+                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'neo'}">
                     <input type="radio" class="hidden-input"
-                           disabled
                            ng-model="blockChainNetwork.type"
                            value="neo" name="blockchain-network">
-                    <img src="/static/images/blockchain/neo-inactive.png" width="20" style="vertical-align: middle">
+                    <img src="/static/images/blockchain/neo.png" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.NEO"></span>
                 </label>
@@ -104,6 +103,25 @@
                     </div>
                     <div class="shadow-block__content__text shadow-block__content__text_description">
                         <span translate="PAGES.CREATE_CONTRACT.WILL.DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="" ng-if="blockChainNetwork.type === 'neo'">
+    <div ui-sref="main.createcontract.form({selectedType: 'token', network: blockChainNetwork.isTest ? 6 : 5})"
+          class="shadow-block shadow-block_hovered">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="icon-token shadow-block__content__title__icon"></i>
+                        <span class="shadow-block__content__title__text">Token contract</span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span>If you don't need a Crowdsale, you can create a token and distribute it yourself</span>
                     </div>
                 </div>
             </div>

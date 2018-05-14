@@ -8,8 +8,18 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             token_type: 'ERC20'
         }
     };
+    $scope.network = contract.network * 1;
 
-    $scope.network = contract.network;
+    switch ($scope.network.id) {
+        case 1:
+        case 2:
+            $scope.blockchain = 'ETH';
+            break;
+        case 5:
+        case 6:
+            $scope.blockchain = 'NEO';
+            break;
+    }
 
     $scope.minStartDate = moment().add(1, 'days');
 

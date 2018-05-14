@@ -77,12 +77,12 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
     $scope.walletAddress = '';
     var balanceTimer;
 
-    $scope.network = $stateParams.network;
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyLostKey' + ($rootScope.currentUser.contracts + 1),
         network: $stateParams.network,
         contract_details: {}
     };
+    $scope.network = contract.network;
 
     web3Service.setProviderByNumber(contract.network);
 

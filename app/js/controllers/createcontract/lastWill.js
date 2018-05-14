@@ -67,7 +67,6 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     $scope.checkPeriod = 1;
 
-    $scope.network = $stateParams.network;
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
         network: $stateParams.network,
@@ -76,6 +75,7 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
             email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
         }
     };
+    $scope.network = contract.network;
 
     $scope.networkName = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
         ((contract.network == 3) || (contract.network == 4)) ? 'RSK' : 'Unknown';

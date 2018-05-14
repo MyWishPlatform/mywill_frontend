@@ -151,7 +151,7 @@
 
         <!-- Token contract address -->
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.eth_contract_token.address">
-            <div class="form-control-label">Token address</div>
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{details.eth_contract_token.address|blockies}}"/>
@@ -173,7 +173,7 @@
                 <small>
                     <span class="as-link dotted"
                           ng-click="goTo('code', 'eth_contract_token');">
-                        <span>How to verify on etherscan?</span>
+                        <span translate="CONTRACTS.PREVIEW.HOW_TO_VERIFY"></span>
                     </span>
                 </small>
             </p>
@@ -185,28 +185,32 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Token name:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.LABEL"></span><br/>
                         {{ contract.contract_details.token_name }}
                     </div>
                 </div>
                 <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Token symbol:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></span><br/>
                         {{ contract.contract_details.token_short_name }}
                     </div>
                 </div>
                 <div class="clearfix"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Decimals:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></span><br/>
                         {{ contract.contract_details.decimals }}
                     </div>
                 </div>
                 <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Type of Token:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_TYPE"></span><br/>
                         {{ contract.contract_details.token_type }}
                     </div>
                 </div>
@@ -217,13 +221,13 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <span class="form-control-label">
                 <i class="icon-feature-minting form-control-label-icon"></i>
-                Future Minting
+                {{'CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.LABEL'|translate}}
             </span>
             <div class="contract-preview-base-font contract-preview-base-value">
                 <div class="contract-preview-base-value-string">
                     <i ng-class="{'icon-check_circle': details.future_minting, 'icon-cancel': !details.future_minting}"></i>
-                    <span ng-if="details.future_minting">YES</span>
-                    <span ng-if="!details.future_minting">NO</span>
+                    <span ng-if="details.future_minting" translate="YES" class="uppercase"></span>
+                    <span ng-if="!details.future_minting" translate="NO" class="uppercase"></span>
                 </div>
             </div>
         </div>
@@ -232,13 +236,12 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
-                    <div class="form-control-label">
-                        Token Owner
-                    </div>
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></div>
                     <br class="show-ls"/>
                     <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
-                        </span>
+                        <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
+                    </span>
                     <div class="contract-wallet-information-wallet">
                         <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{details.admin_address}}"
                            target="_blank"
@@ -263,14 +266,15 @@
             <div class="shadow-block__content__blue-title">
                 <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Token distribution</span>
+                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_DISTRIBUTION"></span>
                 </div>
             </div>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
              ng-class="{'no-border': !$index}"
              ng-repeat="holder in details.token_holders">
-            <div class="form-control-label bold">Address</div>
+            <div class="form-control-label bold"
+                 translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
@@ -290,17 +294,20 @@
             </div><br/>
             <div class="grid-row">
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold">Name</div>
+                    <div class="form-control-label bold"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_NAME.LABEL"></div>
                     <div class="form-control-preview-value">{{holder.name || '-'}}</div>
                 </div>
                 <div class="clearfix show-vs"><br/></div>
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold">Token</div>
+                    <div class="form-control-label bold"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></div>
                     <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
                 </div>
                 <div class="clearfix show-ps"><br/></div>
                 <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
-                    <div class="form-control-label bold">Frozen till</div>
+                    <div class="form-control-label bold"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL_SHORT.LABEL"></div>
                     <div class="form-control-preview-value">
                         {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
                     </div>
@@ -310,9 +317,11 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
-                    <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
+                    <div class="form-control-label">
+                        {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}}
+                        {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
                     <div class="form-control-description one-line without-padding" ng-if="!details.future_minting">
-                        <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
+                        <span class="form-control-description__text" translate="CONTRACTS.FORMS.CROWD_SALE.CHART_TOKEN_DISTRIBUTED_MESSAGE"></span>
                     </div>
                 </div>
             </div>

@@ -139,7 +139,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-in-wallet form-control-label-icon"></i>
-                    {{('CONTRACTS.PREVIEW.LAST_WILL.LABELS.HEIR' + contract.contract_details.heirs.length ? 'S' : '')|translate}}
+                    {{('CONTRACTS.PREVIEW.LAST_WILL.LABELS.HEIR' + ((contract.contract_details.heirs.length > 1) ? 'S' : ''))|translate}}
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information"
                      ng-repeat="heir in contract.contract_details.heirs"><br/>

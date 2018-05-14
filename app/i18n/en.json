@@ -689,11 +689,11 @@
             "DESCRIPTION": "Enter name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used"
           },
           "TOKEN_SYMBOL": {
-            "LABEL": "Token symbol",
+            "LABEL": "Token symbol:",
             "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)"
           },
           "DECIMALS": {
-            "LABEL": "Decimals",
+            "LABEL": "Decimals:",
             "DESCRIPTION": "Defines the number of decimals for the token. 0-50 numerals are accepted. 18 as common practice"
           },
           "TOKEN_TYPE": {
@@ -721,6 +721,9 @@
           },
           "FROZEN_UNTIL": {
             "LABEL": "Frozen until date"
+          },
+          "FROZEN_UNTIL_SHORT": {
+            "LABEL": "Frozen till"
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting:",
@@ -876,8 +879,7 @@
       },
       "CONTRACT_CODE_FOR_FREE": "Not available in free version",
       "CONTRACT_CONDITIONS": "Contract conditions",
-
-
+      "HOW_TO_VERIFY": "How to verify on etherscan?",
 
 
 
@@ -900,6 +902,11 @@
           "HEIR": "Heir",
           "HEIRS": "Heirs"
         }
+      },
+      "TOKEN": {
+        "TOKEN_ADDRESS": "Token address",
+        "TOKEN_TYPE": "Token type:",
+        "TOKEN_DISTRIBUTION": "Token distribution"
       }
     }
   }

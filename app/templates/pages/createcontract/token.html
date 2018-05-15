@@ -64,9 +64,12 @@
                     <label for="decimals" class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></label>
                     <input id="decimals" type="text"
-                           placeholder="18"
+                           placeholder="{{blockchain != 'NEO' ? 18 : 8}}"
                            ng-model="request.decimals"
-                           commaseparator="{regexp: '^(0|([1-9]{1})|([1-4]{1}[0-9]{1})|(50))$'}"
+                           commaseparator="{
+                                min: 0,
+                                max: blockchain != 'NEO' ? 50 : 255
+                           }"
                            required
                            class="form-control-input text-center"/>
                 </div>

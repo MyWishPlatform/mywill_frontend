@@ -44,7 +44,9 @@
     "NETWORK_1": "Main Ethereum Network",
     "NETWORK_2": "Ropsten Test Net",
     "NETWORK_3": "RSK Network",
-    "NETWORK_4": "RSK Testnet faucet"
+    "NETWORK_4": "RSK Testnet faucet",
+    "NETWORK_5": "NEO MainNet",
+    "NETWORK_6": "NEO TestNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -694,7 +696,7 @@
           },
           "DECIMALS": {
             "LABEL": "Decimals:",
-            "DESCRIPTION": "Defines the number of decimals for the token. 0-50 numerals are accepted. 18 as common practice"
+            "DESCRIPTION": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice"
           },
           "TOKEN_TYPE": {
             "LABEL": "Choose Type of Token",
@@ -703,7 +705,7 @@
           },
           "TOKEN_OWNER": {
             "LABEL": "Token Owner",
-            "DESCRIPTION": "ETH address (not exchange address). This address will be owner of the token (after sale end date). Double check the address (and access to it) before submission"
+            "DESCRIPTION": "{{blockchain}} address (not exchange address). This address will be owner of the token (after sale end date). Double check the address (and access to it) before submission"
           },
           "RECIPIENT": {
             "TITLE": "Define address for tokens (after minting it will be sent to this address)",

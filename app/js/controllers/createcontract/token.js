@@ -10,7 +10,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     };
     $scope.network = contract.network * 1;
 
-    switch ($scope.network.id) {
+    switch ($scope.network) {
         case 1:
         case 2:
             $scope.blockchain = 'ETH';

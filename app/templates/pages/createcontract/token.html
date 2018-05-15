@@ -64,11 +64,11 @@
                     <label for="decimals" class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></label>
                     <input id="decimals" type="text"
-                           placeholder="{{blockchain != 'NEO' ? 18 : 8}}"
+                           placeholder="{{(blockchain != 'NEO') ? 18 : 8}}"
                            ng-model="request.decimals"
                            commaseparator="{
                                 min: 0,
-                                max: blockchain != 'NEO' ? 50 : 255
+                                max: (blockchain != 'NEO') ? 50 : 255
                            }"
                            required
                            class="form-control-input text-center"/>
@@ -77,6 +77,10 @@
             <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
                 <div class="form-control-label hide-vs">&nbsp;</div>
                 <span class="form-control-description__text"
+                      translate-values="{
+                            max_decimals: (blockchain != 'NEO') ? 50 : 255,
+                            default_decimals: (blockchain != 'NEO') ? 18 : 8
+                       }"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.DESCRIPTION"></span>
             </div>
         </div>
@@ -84,7 +88,7 @@
     </form>
 </div>
 
-<form class="shadow-block" name="contractTypeForm" ng-if="(network.id != 5) && (network.id != 6)">
+<form class="shadow-block" name="contractTypeForm" ng-if="blockchain !== 'NEO'">
     <div class="shadow-block__content">
         <div class="form-control-label"
              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_TYPE.LABEL"></div>
@@ -130,6 +134,7 @@
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <label for="owner-address" class="form-control-label"
+                           translate-values="{blockchain: blockchain}"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></label>
                     <input id="owner-address" type="text"
                            ng-checksum-address-validator="{'network': blockchain}"
@@ -204,7 +209,7 @@
                 </div>
             </div>
             <div class="clearfix show-ps"><br/></div>
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1" ng-if="blockchain === 'ETH'">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1" ng-if="blockchain !== 'NEO'">
                 <label class="form-control-label">
                     <i class="icon-snowflake form-control-label-icon"></i>
                     {{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>

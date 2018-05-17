@@ -146,8 +146,9 @@ strong {
 .nowrap {
   white-space: nowrap;
 }
-.bold {
-  font-weight: bold;
+
+b, .bold {
+  font-weight: 500;
 }
 .grey-text-color {
   color: #bbb;

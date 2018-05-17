@@ -205,7 +205,7 @@
       },
       "TOKEN": {
         "TITLE": "Token contract",
-        "DESCRIPTION": "Create a Token and distribute it yourself or by Crowdsale contract"
+        "DESCRIPTION": "Create a Token and distribute it yourself or with a Crowdsale Contract"
       },
       "LOST_KEY": {
         "TITLE": "Lost key",

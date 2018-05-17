@@ -203,7 +203,7 @@
       },
       "TOKEN": {
         "TITLE": "Token contract",
-        "DESCRIPTION": "If you don't need a Crowdsale, you can create a token and distribute it yourself"
+        "DESCRIPTION": "Create a Token and distribute it yourself or by Crowdsale contract"
       },
       "LOST_KEY": {
         "TITLE": "Lost key",

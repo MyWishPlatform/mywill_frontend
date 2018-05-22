@@ -57,12 +57,12 @@
                 <label for="max-invest" class="form-control-label"
                        translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.MAX_INVESTMENTS.LABEL"></label>
                 <input id="max-invest" type="text"
-                       placeholder="{{ethHardCap|number:2}}"
+                       placeholder="{{additionalParams.ethHardCap|number:2}}"
                        ng-disabled="!additionalParams.investsLimit"
                        ng-required="additionalParams.investsLimit"
                        commaseparator="{
                             regexp: '^((0)|([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]{0,2})?$',
-                            max: ethHardCap,
+                            max: additionalParams.ethHardCap,
                             min: max(10, request.min_wei)
                            }"
                        pattern="^((0)|([1-9][0-9,]{0,25})|(1[0,]{26}))(\.[0-9]{1,2})?$"

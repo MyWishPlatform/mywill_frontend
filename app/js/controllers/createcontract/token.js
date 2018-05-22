@@ -4,8 +4,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,
         contract_details: {
-            token_holders: [],
-            token_type: 'ERC20'
+            token_holders: []
         }
     };
     $scope.network = contract.network * 1;
@@ -13,6 +12,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     switch ($scope.network) {
         case 1:
         case 2:
+            contract.contract_details.token_type = 'ERC20';
             $scope.blockchain = 'ETH';
             break;
         case 5:
@@ -138,7 +138,6 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         contractInProgress = true;
 
         var data = generateContractData();
-
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {

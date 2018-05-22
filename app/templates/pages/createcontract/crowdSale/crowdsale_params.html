@@ -48,12 +48,12 @@
                 <div class="grid-row" ng-if="request.hard_cap && request.rate">
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
-                            ETH {{ethHardCap|number:2}}
+                            ETH {{additionalParams.ethHardCap|number:2}}
                         </div>
                     </div>
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
-                            ${{usdHardCap}}
+                            ${{additionalParams.usdHardCap}}
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,9 @@
                        ng-model="request.soft_cap"
                        ng-change="checkTokensAmount()"
                        required
-                       commaseparator="{regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', fullModel: request, checkWith: 'hard_cap'}"
+                       commaseparator="{
+                       regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', max: request.hard_cap
+                       }"
                        class="form-control-input"/>
 
                 <div class="grid-row" ng-if="request.soft_cap && request.rate">

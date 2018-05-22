@@ -107,8 +107,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     $scope.checkHardCapEth = function() {
         var hard_cap = $scope.request.hard_cap || 0;
-        $scope.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).round(2).toString(10);
-        $scope.usdHardCap = $filter('number')(hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
+        $scope.additionalParams.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).round(2).toString(10);
+        $scope.additionalParams.usdHardCap = $filter('number')(hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
     };
 
     var storage = window.localStorage || {};

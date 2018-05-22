@@ -45,17 +45,19 @@
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
                     <input id="token-symbol" type="text"
                            placeholder="NEW"
-                           pattern='^[^"]+$'
+                           ng-pattern='blockchain !== "NEO" ? "[^\"]+" : "[A-Z]+"'
                            ng-model="request.token_short_name"
-                           maxlength="64"
+                           ng-maxlength="{{blockchain !== 'NEO' ? 64 : 8}}"
+                           ng-minlength="{{blockchain !== 'NEO' ? false : 3}}"
                            required
                            class="form-control-input"/>
                 </div>
             </div>
+
             <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.DESCRIPTION"></span>
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.DESCRIPTION_NEO"></span>
             </div>
         </div>
         <div class="grid-row">
@@ -66,6 +68,7 @@
                     <input id="decimals" type="text"
                            placeholder="{{(blockchain != 'NEO') ? 18 : 8}}"
                            ng-model="request.decimals"
+                           pattern="^[0-9]+$"
                            commaseparator="{
                                 min: 0,
                                 max: (blockchain != 'NEO') ? 50 : 255
@@ -259,7 +262,7 @@
            ng-click="removeRecipient(recipient); checkTokensAmount();"
            ng-if="token_holders.length"></i>
     </div>
-    <div class="shadow-block__content" ng-if="token_holders.length < 5">
+    <div class="shadow-block__content" ng-if="((blockchain === 'NEO') && (token_holders.length < 3)) || ((blockchain !== 'NEO') && (token_holders.length < 5))">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
                 <span class="form-control-description__text"
@@ -346,7 +349,7 @@
         </button>
     </div>
     <div class="grid-cell grid-cell-vs-1-2">
-        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetFormData($event)">
             <i class="icon-delete-button"></i>
             <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
             <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>

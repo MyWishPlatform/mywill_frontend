@@ -692,8 +692,11 @@
           },
           "TOKEN_SYMBOL": {
             "LABEL": "Token symbol:",
-            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)"
+            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
           },
+
+
           "DECIMALS": {
             "LABEL": "Decimals:",
             "DESCRIPTION": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice"

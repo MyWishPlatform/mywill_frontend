@@ -2,7 +2,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
                                                                        $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
-    $scope.investsLimit = false;
+    $scope.additionalParams = {};
+    $scope.additionalParams.investsLimit = false;
 
 
     var web3 = new Web3();
@@ -141,7 +142,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         contractDetails.stop_date = contractDetails.stop_date * 1;
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
         contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
-        if (!$scope.investsLimit) {
+        if (!$scope.additionalParams.investsLimit) {
             contractDetails.min_wei = null;
             contractDetails.max_wei = null;
         } else {
@@ -220,8 +221,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             }
         };
 
-        $scope.investsLimit = !!contract.contract_details.min_wei;
-        if ($scope.investsLimit) {
+        $scope.additionalParams.investsLimit = !!contract.contract_details.min_wei;
+        if ($scope.additionalParams.investsLimit) {
             $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,18)).round(2).toString(10);
             $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,18)).round(2).toString(10);
         }

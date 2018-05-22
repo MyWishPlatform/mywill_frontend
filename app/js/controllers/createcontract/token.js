@@ -126,7 +126,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         return {
             name: $scope.request.token_name,
             network: contract.network,
-            contract_type: CONTRACT_TYPES_CONSTANTS.TOKEN,
+            contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.TOKEN : CONTRACT_TYPES_CONSTANTS.TOKEN_NEO,
             contract_details: contractDetails,
             id: contract.id
         };
@@ -166,7 +166,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         if (localStorage.draftContract) {
             if (!contract.id) {
                 var draftContract = JSON.parse(localStorage.draftContract);
-                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
+                if ((draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) || (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN_NEO)) {
                     contract = draftContract;
                 }
             }

@@ -122,7 +122,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
-
+        if ($scope.blockchain === 'NEO') {
+            contractDetails.token_short_name = angular.uppercase(contractDetails.token_short_name);
+        }
         return {
             name: $scope.request.token_name,
             network: contract.network,

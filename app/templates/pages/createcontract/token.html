@@ -44,11 +44,12 @@
                     <label for="token-symbol" class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
                     <input id="token-symbol" type="text"
+                           ng-class="{'uppercase': blockchain === 'NEO'}"
                            placeholder="NEW"
-                           ng-pattern='blockchain !== "NEO" ? "[^\"]+" : "[A-Z]+"'
+                           ng-pattern='blockchain !== "NEO" ? "[^\"]+" : "[a-zA-Z]+"'
                            ng-model="request.token_short_name"
-                           ng-maxlength="{{blockchain !== 'NEO' ? 64 : 8}}"
-                           ng-minlength="{{blockchain !== 'NEO' ? false : 3}}"
+                           maxlength="{{blockchain !== 'NEO' ? 64 : 8}}"
+                           minlength="{{blockchain !== 'NEO' ? 1 : 3}}"
                            required
                            class="form-control-input"/>
                 </div>

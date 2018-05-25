@@ -24,6 +24,8 @@ module.constant('APP_CONSTANTS', {
     'RSK_NET_ADDRESS': '/endpoint/rsk',
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
+    "NEO_TESTNET_ADDRESS": 'https://neoscan-testnet.io/',
+    "NEO_MAINNET_ADDRESS": 'https://neoscan.io/',
 
     'EMPTY_PROFILE': {
         "email":"",

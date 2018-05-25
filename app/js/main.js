@@ -23,7 +23,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         $rootScope.showedMenu = state;
     };
-    $translate.use('jp');
+    $translate.use('en');
 
     $rootScope.visibleGirl = false;
     var clickBodyCounter = 0, clickTimer;
@@ -195,6 +195,15 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             case 4:
                 networkUrl = APP_CONSTANTS.RSK_TESTNET_ADDRESS;
                 addressPaths.address = 'addr';
+                break;
+
+            case 5:
+                networkUrl = APP_CONSTANTS.NEO_MAINNET_ADDRESS;
+                addressPaths.address = 'address';
+                break;
+            case 6:
+                networkUrl = APP_CONSTANTS.NEO_TESTNET_ADDRESS;
+                addressPaths.address = 'address';
                 break;
 
         }

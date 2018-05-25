@@ -197,7 +197,8 @@
     "CREATE_CONTRACT": {
       "BLOCKCHAIN_BLOCK": {
         "TITLE": "Choose Blockchain",
-        "TEST_NETWORK_LABEL": "Test Network"
+        "TEST_NETWORK_LABEL": "Test Network",
+        "TEST_NETWORK_DESCRIPTION": "Free of charge - for testing your contract before paying for it"
       },
       "CROWDSALE": {
         "TITLE": "Crowdsale contract",
@@ -606,6 +607,7 @@
             "DESCRIPTION": "Enter the e-mail address to which you want to send a message about transferring the crypto currency"
           },
           "CONDITIONS_TEXT": "Enter Conditions for the wallet's activity",
+          "CONDITIONS_DESCRIPTION": "Enter the contract's conditions - specify when it will make the transfer.",
           "WALLETS_ACTIVITY": {
             "LABEL": "Wallet’s activity",
             "LIST": {
@@ -630,7 +632,7 @@
             "LABEL": "Management address",
             "PLACEHOLDER": "Enter your {{networkName}} wallet address",
             "ETH_DESCRIPTION": "ETH address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission",
-            "RSK_DESCRIPTION": "This address will manage your contract. You can create it by <a href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a> wallet. Double check it before submission."
+            "RSK_DESCRIPTION": "This address will manage your contract. You can create it by <a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a> wallet. Double check it before submission."
           },
           "YOUR_EMAIL": {
             "LABEL": "Your Email for remainder & notifications",
@@ -641,7 +643,7 @@
             "LABEL": "Beneficiary address",
             "PLACEHOLDER": "Enter {{networkName}} address",
             "ETH_DESCRIPTION": "Enter ETH address of beneficiary. After contract execution funds will be sent to that address.",
-            "RSK_DESCRIPTION": "Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by <a href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> too."
+            "RSK_DESCRIPTION": "Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by <a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> too."
           },
           "SHARE": {
             "LABEL": "Share"
@@ -692,7 +694,7 @@
           },
           "TOKEN_SYMBOL": {
             "LABEL": "Token symbol:",
-            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
             "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
           },
 

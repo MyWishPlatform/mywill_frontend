@@ -58,7 +58,11 @@
             <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text"
+                      ng-if="blockchain === 'NEO'"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.DESCRIPTION_NEO"></span>
+                <span class="form-control-description__text"
+                      ng-if="blockchain !== 'NEO'"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.DESCRIPTION"></span>
             </div>
         </div>
         <div class="grid-row">
@@ -213,7 +217,7 @@
                 </div>
             </div>
             <div class="clearfix show-ps"><br/></div>
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1" ng-if="blockchain !== 'NEO'">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                 <label class="form-control-label">
                     <i class="icon-snowflake form-control-label-icon"></i>
                     {{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>

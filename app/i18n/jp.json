@@ -1,0 +1,923 @@
+{
+  "YES": "はい",
+  "NO": "いいえ",
+  "OR": "それとも",
+  "OK": "OK",
+  "AND_OR": "そして/または",
+  "COPIED": "コピーされた",
+  "DISCLAIMER": "免責事項",
+  "MAIN_MENU": {
+    "UNKNOWN_USER": "不明なユーザー",
+    "UNKNOWN": "不明",
+    "CREATE_CONTRACT": "契約を結ぶ",
+    "MY_CONTRACTS": "私の契約",
+    "EXTERNAL_DEVELOPERS": "外部デベロッパー",
+    "BUY_TOKENS": "トークンを購入する",
+    "SUPPORT": "サポート",
+    "LOG_OUT": "ログアウト",
+    "VERSION": "バージョン"
+  },
+  "HEADER": {
+    "BUTTONS": {
+      "BUY": "買う",
+      "SIGN_IN": "サインイン",
+      "SIGN_UP": "サインアップ"
+    }
+  },
+  "WARNING_MESSAGE": "警告！ サービスは現在保守中です。<br/>このメッセージが表示されるまで、使用しないでください。",
+  "CONTRACTS_STATUSES": {
+    "DRAFT": "ドラフト",
+    "CREATED": "作成した",
+    "WAITING_FOR_PAYMENT": "支払い待ち",
+    "WAITING_FOR_DEPLOYMENT": "デプロイメント待ち",
+    "ACTIVE": "アクティブ",
+    "EXPIRED": "失効した",
+    "CANCELLED": "キャンセルされた",
+    "KILLED": "キャンセルされた",
+    "POSTPONED": "延期された",
+    "TRIGGERED": "トリガーされた",
+    "WAITING_ACTIVATION": "活性化されていません",
+    "ENDED": "完了しました",
+    "UNDER_CROWDSALE": "クラウド セールの下"
+  },
+  "CONTRACTS_NETWORKS": {
+    "NETWORK_1": "Main Ethereum Network",
+    "NETWORK_2": "Ropsten Test Net",
+    "NETWORK_3": "RSK Network",
+    "NETWORK_4": "RSK Testnet faucet",
+    "NETWORK_5": "NEO MainNet",
+    "NETWORK_6": "NEO TestNet"
+  },
+  "BUTTONS": {
+    "ENABLE": "有効にする",
+    "DISABLE": "無効にする",
+    "CHANGE": "切り替える",
+    "CANCEL": "キャンセル",
+    "CLOSE": "閉める",
+    "CLEAN": "クリーン",
+    "SEND": "遣う",
+    "CREATE": "作成する",
+    "UPDATE": "アップデイトする",
+    "RESET": "リセットする",
+    "OK": "OK",
+    "COPY": "コピー",
+    "PAY": "支払う",
+    "DONE": "完了しました",
+    "CONTINUE": "続ける",
+    "I_ACCEPT": "同意する",
+    "CONFIRM": "確認する",
+    "BUY_TOKENS": "トークンを購入する",
+    "CHECK": "確認する"
+  },
+  "AUTH_POPUP": {
+    "FIELDS": {
+      "EMAIL": "メールアドレス",
+      "RESET_EMAIL": "パスワードリセット用のメールアドレスを入力してください",
+      "PASSWORD": "パスワード",
+      "CONFIRM_PASSWORD": "パスワード（確認）",
+      "2FA": "2FAコード"
+    },
+    "CONFIRM_EMAIL": "あなたのメールアドレスを確認し、ご登録を確認してください。 ありがとうございました！",
+    "BUTTONS": {
+      "LOG_IN": "ログイン",
+      "FORGOT_PASSWORD": "パスワードを忘れましらか",
+      "LOGIN_FACEBOOK": "Facebook経由でログイン",
+      "LOGIN_GOOGLE": "Google経由でログイン",
+      "CREATE_ACCOUNT": "アカウントを作成する"
+    }
+  },
+  "CONTRACTS_BUTTONS": {
+    "ACTIVATE": "活性化する",
+    "LAUNCH": "打ち上げる",
+    "DEPOSIT": "デポジット",
+    "CANCEL": "キャンセル",
+    "I_ALIVE": "私は生きている",
+    "WITHDRAW": "撤退",
+    "FINALIZE": "ファイナライズ",
+    "MINT": "鑄る",
+    "DELETE": "デリート",
+    "EDIT": "エディット",
+    "ADD_TO_PARITY": "+パリティに追加"
+  },
+  "FIELDS_ERRORS": {
+    "REQUIRED": "フィールドが必要です",
+    "INCORRECT_PASSWORD": "間違ったパスワード",
+    "YOUR_EMAIL": "メールアドレスを入力してください",
+    "MIN_LENGTH_PASSWORD": "パスワードの最小長さは8つの文字",
+    "NO_MATCH_PASSWORD": "パスワードが一致しません",
+    "INVALID_2FA_CODE": "コードが無効です",
+    "ADDRESS_NOT_CHECKSUMMED": "アドレスはチェックサムされていません"
+  },
+  "BLOCKCHAIN_NETWORKS": {
+    "ETH": "Ethereum",
+    "BTC": "Bitcoin",
+    "NEO": "NEO"
+  },
+  "ALERTS": {
+    "FORM_REQUEST_SUCCESS": {
+      "TEXT": "ありがとうございました！ あなたのメッセージが送信されました、私たちはメールアドレスで連絡します"
+    },
+    "GHOST_USER": {
+      "TEXT": "あなたの個人アカウントに契約<BR/>を追加するためにサインイン/サインアップしてください"
+    },
+    "GHOST_BUY_TOKENS": {
+      "TEXT": "あなたのアカウントを補充するためにサインイン/サインアップしてください"
+    },
+    "PROMO_ACTIVATED": {
+      "TEXT": "プロモーションコードが活性化されました。<br/>新しい価格ー{{price}} WISH"
+    }
+  },
+  "CONFIRMATIONS": {
+    "LOG_OUT": {
+      "TEXT": "あなたは本当にログアウトしますか？"
+    },
+    "CONTRACT_DELETE": {
+      "TEXT": "あなたはこの契約を削除しますか？"
+    },
+    "CONTRACT_PAY": {
+      "TEXT": "契約打ち上げ({{price}} WISH)を確認してください"
+    }
+  },
+  "PAGES": {
+    "CONTRACTS": {
+      "CREATE_CONTRACT_BLOCK": {
+        "DESCRIPTION": "スマルト契約のリストは空です。",
+        "BUTTON": "コントラクトを作成する"
+      }
+    },
+    "PROFILE": {
+      "TWO_FACTOR_AUTH": {
+        "TITLE": "二要素認証",
+        "DESCRIPTION": "私たちは強くあなたが2FAコードを有効にすることをお勧めします",
+        "POPUPS": {
+          "ENABLE_INSTRUCTION": {
+            "TITLE": "2FAコードを有効にする",
+            "LIST_STEPS": {
+              "STEP_1": "QRコードをスキャンする",
+              "STEP_2": "Google認証システムまたは同様なアプリにMywishアプリを追加します。",
+              "STEP_3": "MyWishアップルにログインする時、毎回コードを使用する必要があります。"
+            }
+          },
+          "ENABLE_FORM": {
+            "TITLE": "2FAコードを有効にします",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "2FAコードを入力します"
+              }
+            }
+          },
+          "DISABLE_FORM": {
+            "TITLE": "2FAコードを無効にする",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "2FAコードを入力します"
+              }
+            }
+          }
+        }
+      },
+      "CHANGE_PASSWORD": {
+        "TITLE": "パスワードを変更する",
+        "FIELDS": {
+          "CURR_PASS": {
+            "LABEL": "現在のパスワード"
+          },
+          "NEW_PASS": {
+            "LABEL": "新しいパスワード"
+          },
+          "NEW_PASS_CONFIRM": {
+            "LABEL": "新しいパスワードを繰り返す"
+          },
+          "2FA": {
+            "LABEL": "2FAコード"
+          }
+        }
+      }
+    },
+    "CREATE_CONTRACT": {
+      "BLOCKCHAIN_BLOCK": {
+        "TITLE": "ブロックチェーンを選択",
+        "TEST_NETWORK_LABEL": "テストネットワーク",
+        "TEST_NETWORK_DESCRIPTION": "無料! 支払う前に、あなたは契約をテストすることができます"
+      },
+      "CROWDSALE": {
+        "TITLE": "クラウド セール契約",
+        "DESCRIPTION": "数回のクリックでICO・トークンの販売を開始する"
+      },
+      "TOKEN": {
+        "TITLE": "トークン契約",
+        "DESCRIPTION": "トークンを作成し、自分で配布するか、クラウドセールの契約で配布する"
+      },
+      "LOST_KEY": {
+        "TITLE": "失われたキー",
+        "DESCRIPTION": "スマート契約は、標準のEthereumウォレットと同じ機能を備えています。また、アクセス/秘密キーを失うと、資金をバックアップウォレットにリダイレクトします。"
+      },
+      "DEFERRED": {
+        "TITLE": "後払い",
+        "DESCRIPTION": "スマート契約は指定された日付に支払いを行います。"
+      },
+      "WILL": {
+        "TITLE": "ウィル契約",
+        "DESCRIPTION": "休止期間が長引いた場合（死亡、事故など）、家族や友人への送金をセットアップします。"
+      },
+      "WEDDING": {
+        "TITLE": "ウェディング契約",
+        "DESCRIPTION": "指定された期間の後/間に所有者の間でMultisig財布が機能し、資金の配分です。"
+      },
+      "TEST_NET_DISCLAIMER": {
+        "LIST": {
+          "LIST_ITEM_1": "テストネットへの契約は、使用のために無料です。（あなたが作成＆テストネットワークにデプロイすることができます）",
+          "LIST_ITEM_2": "デプロイメントのための低速を受け入れてください（最大3時間）",
+          "LIST_ITEM_3": "テスト/メインネットワークの契約には同じコードがあります",
+          "LIST_ITEM_4": "契約を扱う時にテストネットアドレス（ETHの場合はRopsten）を使用してください"
+        }
+      },
+      "BTC_DISCLAIMER": {
+        "TITLE": "使い方",
+        "LIST_1": {
+          "LIST_ITEM_1": "MyWishプラットフォームにログインする",
+          "LIST_ITEM_2": "ウィル契約を選択し、それを設定します。MyWishはあなたの個人的なスマート契約を生成します。",
+          "LIST_ITEM_3": "支払いを行い、MyWishは契約をRSKネットワークに展開します。",
+          "LIST_ITEM_4": "スマート契約が展開したと実行のために準備されます。"
+        },
+        "LIST_2": {
+          "LIST_ITEM_1": "ユーザーは契約書を定期的に呼び出して、「ライブ」状態を確認します。",
+          "LIST_ITEM_2": "指定された時間枠の間には確認が検出されない場合、契約は相続人に資金を配布しています。"
+        }
+      }
+    },
+    "EXTERNAL_DEVELOPERS": {
+      "TITLE": "外部開発者",
+      "DESCRIPTION": "MyWishライブラリにご契約を追加し、監査プロセスを開始するには、以下のフォームに記入してください。",
+      "FIELDS": {
+        "USER_NAME": {
+          "LABEL": "ユーザー名"
+        },
+        "EMAIL": {
+          "LABEL": "メールアドレス"
+        },
+        "CONTRACT_NAME": {
+          "LABEL": "契約名"
+        },
+        "DESCRIPTION": {
+          "PLACEHOLDER": "契約の説明"
+        }
+      }
+    },
+    "BUY_TOKENS": {
+      "TITLE": "トークンを購入する",
+      "NOTE": {
+        "RED_TEXT": "ご注意ください！",
+        "TEXT": "補充後、あなたはトークンを転送/交換することができなくなります。 プラットフォーム内でのみ契約の作成のためにそれを使用することができます。"
+      },
+      "GET": "受け取る",
+      "SEND": "送信する",
+      "CHOOSE_REPLENISH_METHOD": "補充方法を選択する",
+      "CHOOSE_PAYMENT_METHOD": "支払い方法を選択する",
+      "CHOOSE_WALLET": "お財布を選択する",
+      "SEND_WISH": "WISHトークンを送信する",
+      "SEND_ETH": "あなたのETHを送信する",
+      "SEND_BTC": "あなたのBTCを送信する",
+      "ENTER_AMOUNT": "金額を入力します：",
+      "BTC_ATTENTION": {
+        "RED_TEXT": "注意！",
+        "TEXT": "あなたは5つのBTCブロック確認した後、トークンを受信します。 <BR/>取引のおおよその時間は1時間です。"
+      },
+      "GAS_PRICE": "ガス価格は30 gweiです。",
+      "GAS_LIMIT": "ガスの上限は100.000です。",
+      "HOW_TO_DO_IT": "どの用にそれを行うには？",
+      "HOW_TO_DO_IT_INSTRUCTION": {
+        "TITLE": "支払う方法",
+        "LIST": {
+          "LIST_ITEM_1": "お財布を開きます",
+          "LIST_ITEM_2": "お財布にイーサ＆トークンタブを送る選択します",
+          "LIST_ITEM_3": "次の受信者のアドレスを挿入します",
+          "LIST_ITEM_4": "送信する金額を入力し、ETHまたはWISHを選択します",
+          "LIST_ITEM_5": "ガスの上限30000を指定します",
+          "LIST_ITEM_6": "トランザクションの生成をクリックします",
+          "LIST_ITEM_7": "「完了」ボタンを押して、支払いを確認します"
+        }
+      }
+    }
+  },
+  "POPUP_FORMS": {
+    "MINT_TOKENS_FORM": {
+      "DESCRIPTION": "トークンのアドレスを定義する（明記した後、このアドレスに送信されます）",
+      "FIELDS": {
+        "ADDRESS": {
+          "PLACEHOLDER": "受信者の財布のアドレスを入力します。",
+          "LABEL": "アドレス"
+        },
+        "AMOUNT": {
+          "LABEL": "トークン額"
+        },
+        "FROZEN_DATE": {
+          "LABEL": "日付まで冷凍する"
+        }
+      },
+      "CHART": {
+        "TOTAL_SUPPLY": "総供給：",
+        "DISTRIBUTED_BEFORE": "配布されたの総計　（前）"
+      }
+    }
+  },
+  "POPUP_ERRORS": {
+    "I_ALIVE_ERROR": {
+      "TEXT": "今日はもう \"I Alive\"と呼ぶことはできません。"
+    },
+    "LESS_BALANCE": {
+      "TEXT": "トークンがデプロイメントの契約のために十分ではない"
+    },
+    "FREEZE_DATE": {
+      "TEXT": "トークンのUn-Freezeの期限が切れています。<br/>変更してもう一度お試しください。"
+    },
+    "CONTRACT_START_DATE": {
+      "TEXT": "契約開始日が正しくありません。<br/>変更してもう一度お試しください。"
+    }
+  },
+  "CONTRACTS_DISCLAIMERS": {
+    "ETH": {
+      "ACTIVATE": {
+        "LIST": {
+          "ITEM_1": "あなたは販売の活性化のためにクラウド セール契約にトークン所有権を譲渡する必要があります。",
+          "ITEM_2": "あなたは、トークン所有者アドレスからの({{address}})特別な取引を行う必要があります。"
+        }
+      },
+      "MINT_FINALIZE": {
+        "LIST": {
+          "ITEM_0": "ファイナライズの後、トークンをもうけることはできません。新しいクラウドセールを作成することはできません。"
+        }
+      }
+    },
+    "ALL": {
+      "LAUNCH": {
+        "LIST": {
+          "ITEM_1": "MyWishは契約の使用に責任を負いません",
+          "ITEM_2": "MyWishはEthereum / RSKネットワーク上での作成と起動のみを担当します",
+          "ITEM_3": "MyWishは、ユーザーが入力した間違ったパラメータの場合、間違った契約の行動の責任を負いません",
+          "ITEM_4": "MyWishは、コード内の誤りについて責任を負いませんが、彼らが検出された場合、それをできるだけ早く排除するために全力を尽くします",
+          "ITEM_5": "MyWishは契約の管理機能にアクセスすることはできず、終了日後のファイナライゼーションを除き、契約を停止したり、何か他のことをすることはできません"
+        }
+      }
+    }
+  },
+  "CONTRACTS_INSTRUCTIONS": {
+    "ALL": {
+      "I_ALIVE": {
+        "TITLE": "ライブを確認する",
+        "DESCRIPTION": "あなたの \"ライブ\"ステータスを確認しますか？",
+        "LIST": {
+          "ITEM_0": "あなたがしない場合、資金は契約に従って配布されます。"
+        },
+        "LAST_CHECK": "最後の日付:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "次のチェック:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "WILL_CANCEL": {
+        "TITLE": "キャンセル",
+        "DESCRIPTION": "契約をキャンセルしてもよろしいですか？",
+        "LIST": {
+          "ITEM_0": "キャンセル後、すべての資金はあなたの管理アドレスに送信されます。"
+        }
+      },
+      "WILL_WITHDRAW": {
+        "TITLE": "撤退",
+        "LIST": {
+          "ITEM_0": "撤退してもよろしいですか？ すべての資金はあなたの管理アドレスに送られます。"
+        }
+      }
+    },
+    "ETH": {
+      "ACTIVATE": {
+        "TITLE": "活性化する",
+        "DESCRIPTION": "クラウドセールを有効にするには、クラウドセール契約にトークン所有権を譲渡する必要があります。 トークンの所有者のアドレスから対応する関数を呼び出してください。",
+        "LIST": {
+          "ITEM_1": "お財布を開きます (パリティ、<a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "お財布に契約タブをクリックします",
+          "ITEM_3": "契約アドレスを契約住所にコピーします",
+          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
+          "ITEM_5": "〝TRANSFER OWNERSHIP”機能を選択します",
+          "ITEM_6": {
+            "PART_1": "クラウドセール契約アドレスを挿入",
+            "PART_2": "新規所有者フィールドへ"
+          },
+          "ITEM_7": "トランザクションを作ります"
+        }
+      },
+      "CANCEL": {
+        "TITLE": "キャンセル",
+        "DESCRIPTION": "契約を<span class=\"shadow-block__content__description__red uppercase\">停止する</span>には、指示の手順に従います。",
+        "LIST": {
+          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "お財布に契約タブをクリックします",
+          "ITEM_3": "契約アドレスを契約住所にコピーします",
+          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
+          "ITEM_5": "〝KILL”機能を選択します",
+          "ITEM_6": "トランザクションを作ります"
+        }
+      },
+      "DEPOSIT": {
+        "TITLE": "デポジット",
+        "DESCRIPTION": "契約上のデポジットを作るために、指示に従ってください。",
+        "LIST": {
+          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "お財布にイーサ＆トークンタブを送る選択してください",
+          "ITEM_3": "以下の受信者のアドレスを挿入します：",
+          "ITEM_4": "あなたは（”送信量”のフィールド）送信したいのETHの量を指定します",
+          "ITEM_5": "ガスの上限30000を指定します",
+          "ITEM_6": "トランザクションの生成]をクリックします",
+          "ITEM_7": "「DONE」ボタンを押して、支払いを確認します"
+        }
+      },
+      "FINALIZE": {
+        "TITLE": "ファイナライズ",
+        "DESCRIPTION": "契約をファイナライズするために、トークンを譲渡できるようにするには、以下のステップを実行します（投資アドレスの下で）",
+        "LIST": {
+          "ITEM_1": "お財布を開きます　（パリティ,  <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "お財布に契約タブをクリックします",
+          "ITEM_3": "契約アドレスを契約住所にコピーします",
+          "ITEM_4": "データをABI / JSONインターフェースにコピーする：",
+          "ITEM_5": "〝FINALIZE”機能を選択します",
+          "ITEM_6": "トランザクションを作ります",
+          "ITEM_7": "トランザクションの送信]をクリックします"
+        }
+      },
+      "I_ALIVE": {
+        "TITLE": "ライブを確認する",
+        "DESCRIPTION": "ライブステータスを確認するには、次の操作を行ってください：",
+        "LIST": {
+          "ITEM_0": "管理アドレスから（ETHアドレス- <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) ウィル契約アドレスへ(ETH アドレス- <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) データフィールド付きを(<b>0x9dddafe4</b>)　トランザクションを送信する"
+        },
+        "LAST_CHECK": "最後の日付:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "次のチェック:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "MINT_FINALIZE": {
+        "TITLE": "ファイナライズ",
+        "DESCRIPTION": "トークン{{token_short_name}}をファイナライズするためにトークン所有者の(<a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
+        "LIST": {
+          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "お財布に契約タブをクリックします",
+          "ITEM_3": "契約アドレスを契約住所にコピーします",
+          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
+          "ITEM_5": "〝finish　Minting”機能を選択します",
+          "ITEM_6": "トランザクションを作ります",
+          "ITEM_7": "トランザクションの送信]をクリックします"
+        }
+      },
+      "MINT": {
+        "TITLE": "ミント",
+        "DESCRIPTION": "受信者<a target=\"_blank\" ng-attr-href=\"{{etherscanUrl}}address/{{recipient}}\">　{{recipient}}</a>　アドレスに{{amount}} {{tokenName}} トークンをミントをするために、トークン所有者の(<a target=\"_blank\" ng-attr-href=\"{{etherscanUrl}}address/　{{admin}}\">{{admin}}</a>)　アドレスから次のトランザクションをを作成してください",
+        "LIST": {
+          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">　私のEtherワレット</a>)",
+          "ITEM_2": "お財布に契約タブをクリックします",
+          "ITEM_3": "契約アドレスを契約住所にコピーします",
+          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
+          "ITEM_5": "〝{{method}}”機能を選択します",
+          "ITEM_6": "トランザクションを作ります",
+          "ITEM_7": "トランザクションの送信]をクリックします"
+        }
+      },
+      "PARITY": {
+        "TITLE": "Parityに追加する",
+        "DESCRIPTION": "Parityで失われたキーを契約に追加する",
+        "LIST": {
+          "ITEM_1": "Parityを開く",
+          "ITEM_2": "[設定]を入力し、[Contracts]チェックボックスをクリックします。",
+          "ITEM_3": "フォルダ \"Contracts\"に行き、”+ WATCH”をクリックしてください",
+          "ITEM_4": "[Choose contract type]というフォルダで[Custom contracts]を選択してください",
+          "ITEM_5": "管理アドオン（お財布アドレス）は「Network address」フィールドに入力してください",
+          "ITEM_5_1": "契約の名前を指定します（あなたがMyWishサービスで指定した名前が推奨されます）",
+          "ITEM_5_2": "契約の説明を入力します（オプション）",
+          "ITEM_5_3": "MyWish命令からABI契約をコピーする",
+          "ITEM_6": "次に「+Add contract」をクリックします",
+          "ITEM_7": "今はこの契約はご契約のリストで利用可能であり、そこから資金を移すことができます。"
+        }
+      },
+      "WILL_CANCEL": {
+        "TITLE": "キャンセル",
+        "DESCRIPTION": "キャンセル後ですべての資金はご管理アドレスに送信されます。 キャンセルするためには以下を実行してください：",
+        "LIST": {
+          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}　address/{{user_address}}\">　{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
+        },
+        "LAST_CHECK": "最後の日付:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "次のチェック:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "WILL_WITHDRAW": {
+        "TITLE": "撤回",
+        "DESCRIPTION": "撤回した後、すべての資金はご管理アドレスに送られます。 撤退する次の手順に従ってください:",
+        "LIST": {
+          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/　{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
+        }
+      }
+    },
+    "RSK": {
+      "DEPOSIT": {
+        "TITLE": "デポジット",
+        "DESCRIPTION": "ご契約を作成した後、あなたはそれに資金を送信する必要があります。",
+        "LIST": {
+          "ITEM_1": "生成されたアドレスにごBTCを送信します。（それはユニークだ）",
+          "ITEM_2": "BTCを取得した後、それはMyWishホワイトリストのアドレスからRSKネットワークに送信されます。",
+          "ITEM_3": "3-6時間では（10のBTCの確認が必要です）、あなたのRSK契約残高は（1 BTC = 1 RSK）入金されますが、メールアドレスの確認が届きます。",
+          "ITEM_4": "あなたのBTCアドレスがRSKコミュニティによってホワイトリストに登録されている場合は、SBTCに直接契約する<a ng-attr-href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> ことができます"
+        }
+      }
+    }
+  },
+  "CONTRACTS": {
+    "FOR_SALE": "セール用",
+    "PRE_SALE": "プレセール",
+    "ENTER_PROMO_BLOCK": {
+      "FIELD_LABEL": "プロモコード",
+      "DESCRIPTION": "あなたは、プロモコードを入力してディスカウントを受けることができます",
+      "COST": "契約のコト："
+    },
+    "FORMS": {
+      "DAY": "日",
+      "MONTH": "月",
+      "YEAR": "年",
+      "WATCH_INSTRUCTION": "指示を見る",
+      "WEDDING": {
+        "TITLE": "ウェディング契約",
+        "DESCRIPTION": "下記のフォームに記入し、あなたの願いを指定してください。 我々は契約を作成する前に、あなたのパートナーの連絡先を聞いてきます。",
+        "FIELDS": {
+          "USERNAME": {
+            "LABEL": "ユーザー名"
+          },
+          "EMAIL": {
+            "LABEL": "メールアドレス"
+          },
+          "DESCRIPTION": {
+            "PLACEHOLDER": "契約の説明"
+          }
+        }
+      },
+      "FIELDS": {
+        "ENTER_CONTRACT_NAME": {
+          "LABEL": "契約名を入力："
+        }
+      },
+      "BUTTONS": {
+        "ADD_WALLET": "財布を追加する"
+      },
+      "DEFERRED": {
+        "TITLE": "後払い",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "管理アドレス",
+            "PLACEHOLDER": "あなたのETHの財布アドレスを入力してください",
+            "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
+          },
+          "SEND_TO_WALLET": {
+            "LABEL": "財布に送る",
+            "PLACEHOLDER": "受信者の財布のアドレスを入力します。",
+            "DESCRIPTION": "受信者のETHアドレスを入力します。 このアドレスは転送を取得します。"
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "通知のためのメールアドレス",
+            "PLACEHOLDER": "メールアドレスを入力します",
+            "DESCRIPTION": "転送に関する通知を送信するメールアドレスを入力します。"
+          },
+          "DATE_OF_TRANSFER": {
+            "LABEL": "転送日",
+            "PLACEHOLDER": "",
+            "DESCRIPTION": "あなたのETHの財布アドレスを入力してください"
+          }
+        }
+      },
+      "LOST_KEY": {
+        "TITLE": "失われたキーの契約",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "管理アドレス",
+            "PLACEHOLDER": "あなたのETHの財布アドレスを入力してください",
+            "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
+          },
+          "RESERVE_ADDRESS": {
+            "LABEL": "リザーブアドレス",
+            "PLACEHOLDER": "受信者の財布のアドレスを入力します。",
+            "DESCRIPTION": "あなたが秘密キーは管理アドレスから失われた場合に資金を送信する先のバックアップアドレスを指定します"
+          },
+          "SHARE": {
+            "LABEL": "シェア",
+            "DESCRIPTION": "あなたは、いくつかの予備の口座間で資金を分割することができます。 リザーブアドレスごとにパーセンテージを選択します。"
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "通知のためのメールアドレス",
+            "PLACEHOLDER": "メールアドレスを入力します",
+            "DESCRIPTION": "暗号化通貨の転送に関するメッセージを送信するメールアドレスを入力します"
+          },
+          "CONDITIONS_TEXT": "財布の活動のための条件を入力します。",
+          "CONDITIONS_DESCRIPTION": "あなたのETHの財布アドレスを入力してください",
+          "WALLETS_ACTIVITY": {
+            "LABEL": "財布の活動",
+            "LIST": {
+              "ITEM_1": "アウトカム取引"
+            }
+          },
+          "CHECK_EVERY": {
+            "LABEL": "すべてのをチェックする"
+          },
+          "DUE_DATE": {
+            "LABEL": "期日"
+          }
+        }
+      },
+      "LAST_WILL": {
+        "TITLE": "ウィル契約",
+        "BUTTONS": {
+          "ADD_BENEFICIARY": "受益者を追加する"
+        },
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "管理アドレス",
+            "PLACEHOLDER": "お財布のアドレス {{networkName}} を入力する",
+            "ETH_DESCRIPTION": "ETHアドレス（交換アドレスではない）。 このアドレスはウィル契約を管理します。 提出する前にアドレスをダブルチェックしてください",
+            "RSK_DESCRIPTION": "このアドレスは、ご契約を管理します。 あなたは<a href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a>財布でそれを作成することができます。 提出する前にアドレスをダブルチェックしてください。"
+          },
+          "YOUR_EMAIL": {
+            "LABEL": "リマインダーと通知用のメールアドレス",
+            "PLACEHOLDER": "メールアドレスを入力します",
+            "DESCRIPTION": "「ライブ」ステータスの確認と契約に関する通知の送信を促します"
+          },
+          "BENEFICIARY_ADDR": {
+            "LABEL": "受取人アドレス",
+            "PLACEHOLDER": "アドレス {{networkName}} を入力する",
+            "ETH_DESCRIPTION": "受取人のETHアドレスを入力する。契約実行後、資金はそのアドレスに送付されます。",
+            "RSK_DESCRIPTION": "受取人のRSKアドレスを入力する。契約実行後、資金はそのアドレスに送付されます。相続人は、あまりにも<a href=\"https://jaxx.io/\" target=\"_blank\">JAXX</a>でそれを作成することができます"
+          },
+          "SHARE": {
+            "LABEL": "シェア"
+          },
+          "BENEFICIARY_EMAIL": {
+            "LABEL": "通知のためのメールアドレス",
+            "PLACEHOLDER": "メールアドレスを入力します",
+            "DESCRIPTION": "転送に関する通知を送信する先のメールアドレスを入力します。"
+          },
+          "CONDITIONS_TITLE": "あなたの「ライブ」ステータスを確認する頻度を定義する",
+          "CONFIRMATION_EVERY": {
+            "LABEL": "確認取引は毎…",
+            "DESCRIPTION": "毎回管理アドレスから契約にトランザクションを送る必要があります。"
+          },
+          "CONTRACT_EXPIRATION": {
+            "LABEL": "ウィル契約満了",
+            "DESCRIPTION": "期日後にすべての確認が受け取られた場合、すべての資金は管理アドレスに送信されます。"
+          },
+          "CANCEL_VIA_MYWISH": {
+            "LABEL": "MyWish経由で契約をキャンセルする",
+            "DESCRIPTION": "\"オン\"の場合、契約をキャンセルし、MyWishを1回クリックするだけですべての資金を取り戻すことができます。"
+          },
+          "CONFIRM_LIVE_VIA_MYWISH": {
+            "LABEL": "MyWishを経由して「ライブ」の確認する",
+            "DESCRIPTION": "\"オン\"の場合、MyWishを1回クリックして「ライブ」ステータスを確認できます。"
+          },
+          "BOTH_VIA_MYWISH_TEXT": {
+            "DESCRIPTION": "両方のオプションの「オフ」モードはより安全ですが、使用にはあまり便利ではありません。 あなたは管理のための契約をMetamaskをインストールする必要があります。 「オン」オプションを使用すると、MyWishによって契約を管理することができます。"
+          },
+          "CHECK_EVERY": {
+            "LABEL": "すべてのをチェックする"
+          },
+          "DUE_DATE": {
+            "LABEL": "期日"
+          }
+        }
+      },
+      "TOKEN": {
+        "TITLE": "トークン契約",
+        "BUTTONS": {
+          "ADD_ADDRESS": "アドレスを追加する"
+        },
+        "TOTAL_SUPPLY": "総供給：",
+        "FIELDS": {
+          "TOKEN_NAME": {
+            "LABEL": "トークン名",
+            "DESCRIPTION": "スペースを入れずにプロジェクトの名前を入力します。通常は5〜25記号です。 大文字と小文字を使用できます"
+          },
+          "TOKEN_SYMBOL": {
+            "LABEL": "トークン記号：",
+            "DESCRIPTION": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
+          },
+          "DECIMALS": {
+            "LABEL": "小数：",
+            "DESCRIPTION": "トークンの小数点以下の桁数を定義します。 0-{{max_decimals}}の数字が受け入れられます。 一般的なプラクティスとしての{{default_decimals}}の数字です"
+          },
+          "TOKEN_TYPE": {
+            "LABEL": "トークンのタイプを選択します。",
+            "DESCRIPTION_1": "ERC-20をお勧めします。 ほとんどの取引所で受け入れます。",
+            "DESCRIPTION_2": "ERC-223はERC-20とほとんど同じです。 トークンの転送中に余分な安全性を提供します。"
+          },
+          "TOKEN_OWNER": {
+            "LABEL": "トークン所有者",
+            "DESCRIPTION": "{{blockchain}} アドレス（交換アドレスではない）。 このアドレスは、トークンの所有者になります（販売終了日以降）。 提出する前にアドレスをダブルチェックしてください"
+          },
+          "RECIPIENT": {
+            "TITLE": "トークンのアドレスを定義する（後でトークンがこのアドレスに送信する）",
+            "DESCRIPTION_BLOCK": "チーム、ボーナス、賞金のトークンを予約することができます。これらのトークンは作成されますが、トークンの販売完了までは販売できません"
+          },
+          "RECIPIENT_ADDRESS": {
+            "LABEL": "アドレス",
+            "PLACEHOLDER": "受信者の財布のアドレスを入力します。"
+          },
+          "RECIPIENT_NAME": {
+            "LABEL": "名前"
+          },
+          "RECIPIENT_AMOUNT": {
+            "LABEL": "トークン金額"
+          },
+          "FROZEN_UNTIL": {
+            "LABEL": "日付まで冷凍する"
+          },
+          "FROZEN_UNTIL_SHORT": {
+            "LABEL": "まで冷凍"
+          },
+          "FUTURE_MINTING": {
+            "LABEL": "将来のミント",
+            "DESCRIPTION": "はい。将来、さらにトークンを作成し、Crowdsaleにトークンを使用することができます。いいえ - 将来、トークンは作成されません。 Crowdsaleは不可能です"
+          }
+        }
+      },
+      "CROWD_SALE": {
+        "TITLE": "クラウドセール契約",
+        "BUTTONS": {
+          "ADD_NEW_TIME_BONUS": "ボーナスを追加：時間/トークンを売り出し",
+          "ADD_OTHER_TIME_BONUS": "その他のボーナスを追加：時間/トークンを売り出し",
+          "ADD_NEW_AMOUNT_BONUS": "金額ボーナスを追加する",
+          "ADD_OTHER_AMOUNT_BONUS": "他の金額ボーナスを追加する",
+          "ADD_EXTRA_ADDRESS": "余分なアドレスを追加する"
+        },
+        "CAP_NOTE": {
+          "TITLE": "ご注意ください！",
+          "TEXT": "ソフトキャップが＞０の場合、すべての投資は、クラウドデーゼルの終了までヴォールト契約に格納されます。ごアドレスに投資を取得する必要がある場合はすぐsoftcap = 0に設定する。"
+        },
+        "CHART_TOKEN_DISTRIBUTED_MESSAGE": "トークンの可能な最大放出、それ以上のトークンを発行することはできません。",
+        "FIELDS": {
+          "CHOOSE_TOKEN": {
+            "LABEL": "トークンを選択する",
+            "ERRORS": {
+              "CLOSED": "このトークンは使用できません。 最終セールは既に完了しています",
+              "RUNNING": "以前の販売が完了しない限り、このトークンを使用することはできません"
+            },
+            "DESCRIPTION": "あなたはすでにMyWishプラットフォーム上で前売りを完了した場合、新しいトークンを作成するか、既存のトークンを選択する",
+            "DISTRIBUTED": "配布されたトークン（{{short_name}}）",
+            "DISTRIBUTED_DESCRIPTION": "プレセールラウンド中にはあなたたが配布されているトークンどのように多くを示す　（チーム、賞金、ボーナスのために予約されたトークンを含む）"
+          },
+          "CROWD_SALE_TYPE": {
+            "LABEL": "クラウドセールのタイプを選択する",
+            "VALUE_1": "プレセール",
+            "DESCRIPTION_1": "必要なだけ先行販売ラウンドを行うことができます",
+            "VALUE_2": "ファイナルセール",
+            "DESCRIPTION_2": "セールはファイナルセールの後で可能ではありません。終了日後にトークンを作成することはできません"
+          },
+          "STORAGE_ADDRESS": {
+            "LABEL": "投資ストレージアドレス",
+            "DESCRIPTION": "ETHアドレス（エクスチェンジアドレスではない）。ソフトキャップに達した場合、すべての投稿は終了日後にその住所に送信されます。入力する前に住所を再確認してください"
+          },
+          "TOKEN_RATE": {
+            "LABEL": "トークンレート",
+            "DESCRIPTION": "トークンのレートを定義します。 1-100000の数字が受け入れられます。 通常1 ETHあたり500〜5000個のトークン",
+            "ADV_DESCRIPTION": "1 ETHあたり"
+          },
+          "HARD_CAP": {
+            "LABEL": "ハードキャップトークン",
+            "DESCRIPTION": "販売することができますどのように多くのトークンを定義します。 この番号の売却に到達した後、自動的に停止されます。 1-100,000,000,000,000数字が受け入れられます。"
+          },
+          "SOFT_CAP": {
+            "LABEL": "ソフトキャップトークン",
+            "DESCRIPTION": "プロジェクトの継続に必要なトークンの最小数を定義します。 ソフトキャップに達していない場合 - 貢献者が戻って彼らの祭服を取得し、プロジェクトが何を取得していません。 あなたは0に設定することができます（なしソフトキャップ）"
+          },
+          "START_DATE": {
+            "LABEL": "開始日",
+            "DESCRIPTION": "販売開始日時。 何の貢献は、その時間の前に受け入れられません"
+          },
+          "FINISH_DATE": {
+            "LABEL": "終了日",
+            "DESCRIPTION": "終了日時。 何の貢献は、設定時間後に受け付けられません。 ハードキャップに達した場合の前に終了させることができます"
+          },
+          "TRANSFERABLE": {
+            "LABEL": "譲渡可能なこと",
+            "DESCRIPTION": "ユーザーは憶測を減らすためにトークンが完了するまでの貢献者からのトークンの転送を制限することができます。 オフをお勧めします"
+          },
+          "AUTO_FINALIZE": {
+            "LABEL": "自動的にファイナライズ",
+            "DESCRIPTION": "当社のシステムは、終了日後自動的に契約（トークンを転送可能にする）を確定することができます （あなたがハードキャップに達すると早くそれをすることができます）"
+          },
+          "MIN_MAX_INVESTMENTS": {
+            "LABEL": "最小＆最大の投資制限",
+            "DESCRIPTION": "受け入れ可能な最小/最大受領額を指定することができます（ETH）。 たとえば、0.05 ETHから3000 ETHのみの寄付を受け入れます"
+          },
+          "MIN_INVESTMENTS": {
+            "LABEL": "ミニマム",
+            "DESCRIPTION": "最小量は受け入れている。\"0\"＝最小量がない"
+          },
+          "MAX_INVESTMENTS": {
+            "LABEL": "マクシーム",
+            "DESCRIPTION": "最大量は受け入れている。 それはより高いハードキャップすることができません。"
+          },
+          "TIME_BONUS": {
+            "LABEL": "ボーナス",
+            "DESCRIPTION": "通常は0.1から100パーセント。 どのように多くの余分なトークンが貢献者に送信されます"
+          },
+          "TIME_BONUS_TITLE": "ボーナスアクティベーションのオプションのいずれか（またはその両方）を選択してください",
+          "DEPENDS_AMOUNT": {
+            "LABEL": "販売されたトークンの量によって異なります：",
+            "DESCRIPTION": "ボーナスアクティベーションの前にとボーナス非アクティブ化するときが販売するトークンの数を指定する",
+            "AMOUNT_FROM": "から",
+            "AMOUNT_TO": "まで"
+          },
+          "DEPENDS_DATE_TIME": {
+            "LABEL": "日時によって異なります：",
+            "DESCRIPTION": "ボーナスは皆のためにアクティブである場合、時間枠を指定する",
+            "DATE_FROM": "デーツから",
+            "DATE_TO": "デーツまで"
+          },
+          "TIME_BONUS_DESCRIPTION": "あなたは販売トークンと時間の量に応じたボーナスを定義することができます。 たとえば、最初の週の貢献者に余分な10％を与えます",
+          "AMOUNT_BONUS": {
+            "LABEL": "ボーナス",
+            "DESCRIPTION": "通常は0.1から100パーセント。 どのように多くの余分なトークンが貢献者に送信されます。"
+          },
+          "MIN_AMOUNT": {
+            "LABEL": "最小金額",
+            "DESCRIPTION": "指定されたボーナスを取得するための最小金額"
+          },
+          "MAX_AMOUNT": {
+            "LABEL": "最大金額",
+            "DESCRIPTION": "特定のボーナスを得るための最大金額　{{last ? ？ '（制限がない場合は空にしておくことができます）': ''}}"
+          },
+          "AMOUNT_BONUS_DESCRIPTION": "あなたは寄付金額に応じたボーナスを定義することができます。たとえば、10+ ETHの貢献のための余分な5％のトークンを与えます"
+        }
+      }
+    },
+    "PREVIEW": {
+      "BUTTONS": {
+        "BACK_BUTTON": "私の契約"
+      },
+      "TABS": {
+        "INFO": "契約をプレビューする",
+        "SOURCE": "ソースコード"
+      },
+      "FREE_VERSION_MSG": "（テストネット）フリーバージョンのコードがローディングのために利用できない源を含みます。",
+      "WILL_SOURCE_CODE": "ごウィルのソースコード",
+      "DEFERRED_SOURCE_CODE": "遅延支払い契約のソースコード",
+      "LOST_KEY_SOURCE_CODE": "失われたキーのソースコード",
+      "TOKEN_SOURCE_CODE": "トークンのソースコード",
+      "CROWDSALE_SOURCE_CODE": "クラウドセールのソースコード",
+      "HERE": "ここに",
+      "ETHERSCAN_VERIFY_SUPPORT": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレスでご連絡ください</a>",
+      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレス</a>でご連絡いただくか、指示に従ってください：",
+      "LIBRARIES_AND_FILES": "ライブラリとその他のファイルを<a href=\"{{gitHubLink}}\" target=\"_blank\">こちら</a>にあります",
+      "VERIFY_INSTRUCTION": {
+        "ITEM_1": "<a target=\"_blank\" href=\"{{address_url}}\">Etherscan</a>の契約先住所をオープンしてください",
+        "ITEM_2":  "«契約コード»タブで«Verify And Publish»を選択し",
+        "ITEM_3": "契約名を入力：",
+        "ITEM_4": "契約アドレスを入力：",
+        "ITEM_6": "Paste the Solidity Contract code:",
+        "ITEM_7_1": "コンストラクタ引数とかABIエンコードフィールドからパラメータを削除します。",
+        "ITEM_7_2": "ABI–エンコードされたコンストラクタの引数を入力する",
+        "ITEM_8": "Others fields are not required. Press \"Verify And Publish\""
+      },
+      "CONTRACT_CODE_FOR_FREE": "無料版では利用できません",
+      "CONTRACT_CONDITIONS": "契約条件",
+      "HOW_TO_VERIFY": "Etherscanで確認する方法はどうですか？",
+      "CONTRACT_BALANCE": "契約バランス",
+      "CONTRACT_ADDRESS": "契約アドレス",
+      "NEXT_CHECK": "次のテェック",
+      "LAST_WILL": {
+        "CONFIRM_LIVE": {
+          "VARIANT_1": "次のチェックの前に「ライブ」ステータスを確認してください：{{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>最後の「ライブ」確認は：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_2": "資金は、契約に基づいて配布されています{{last_check ? (last_check|date:'yyyy-MM-dd HH:mm') : '--'}}<br/><br/>最後の「ライブ」確認は：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_3": "契約がキャンセルされ、すべての資金が契約者に送られました。<br/><br/> 最後の「ライブ」確認は：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_4": "契約が切れた、契約の所有者は、資金を引き出す必要があります。<br/><br/>ライブ」確認は：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}"
+        },
+        "LABELS": {
+          "HEIR": "相続人",
+          "HEIRS": "相続人たち"
+        }
+      },
+      "TOKEN": {
+        "TOKEN_ADDRESS": "トークンアドレス",
+        "TOKEN_TYPE": "トークンタイプ",
+        "TOKEN_DISTRIBUTION": "トークン配布"
+      },
+      "CROWD_SALE": {
+        "CROWD_SALE_CONTRACT": "クラウドセール契約（すべての寄付はこの住所に送付するものとする）",
+        "VAULT_ADDRESS": "金庫契約（クラウドセールの終わりまでの投資のストレージ）",
+        "CROWD_SALE_TYPE": "クラウドセールタイプ",
+        "TIME_BONUSES": {
+          "TITLE": "タイムボーナス",
+          "BONUS": "ボーナス",
+          "TOKENS_FROM": "からのトークン",
+          "TOKENS_TO": "トークンまで",
+          "DATE_FROM": "データから",
+          "DATE_TO": "データまで",
+          "SOLD_TOKENS_BONUS_TEXT": "トークンボーナスを売却していた。",
+          "TIME_BONUS_TEXT": "タイムボーナス"
+        },
+        "AMOUNT_BONUSES": {
+          "TITLE": "金額ボーナス",
+          "BONUS": "ボーナス",
+          "MIN_AMOUNT": "最小量",
+          "MAX_AMOUNT": "最大量"
+        }
+      }
+    }
+  }
+}

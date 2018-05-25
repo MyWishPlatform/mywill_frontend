@@ -54,7 +54,9 @@
             </div>
             <div class="grid-cell">
                 <label class="checkbox-decoration">
-                    <input type="checkbox" ng-model="blockChainNetwork.isTest">
+                    <input type="checkbox" ng-model="blockChainNetwork.isTest"
+                           ng-checked="blockChainNetwork.type === 'neo'"
+                           ng-disabled="blockChainNetwork.type === 'neo'">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>
@@ -83,7 +85,7 @@
                 }
             }"></div>
             <div class="grid-cell grid-cell-1">
-                <span class="normal-text">Free of charge - for testing your contract before paying for it</span>
+                <span class="normal-text" translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TEST_NETWORK_DESCRIPTION"></span>
             </div>
         </div>
     </div>
@@ -111,17 +113,18 @@
 </div>
 
 <div class="" ng-if="blockChainNetwork.type === 'neo'">
-    <div ui-sref="main.createcontract.form({selectedType: 'token', network: blockChainNetwork.isTest ? 6 : 5})"
+    <div ui-sref="main.createcontract.form({selectedType: 'token', network: blockChainNetwork.isTest ? 6 : 6})"
           class="shadow-block shadow-block_hovered">
         <div class="shadow-block__content">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="shadow-block__content__title">
                         <i class="icon-token shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text">Token contract</span>
+                        <span class="shadow-block__content__title__text"
+                              translate="PAGES.CREATE_CONTRACT.TOKEN.TITLE"></span>
                     </div>
                     <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span>If you don't need a Crowdsale, you can create a token and distribute it yourself</span>
+                        <span translate="PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION"></span>
                     </div>
                 </div>
             </div>

@@ -164,7 +164,7 @@
   .btn {
     margin-top: 1.5em;
     &:not(.only-icon) {
-      width: 12em;
+      min-width: 12em;
     }
   }
 }

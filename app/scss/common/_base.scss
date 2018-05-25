@@ -264,3 +264,21 @@ nav, main, footer, header {
     }
   }
 }
+
+
+
+.anime-girl {
+  position: fixed;
+  visibility: hidden;
+  bottom: 28px;
+  right: 20px;
+  opacity: 0;
+  transform: scale(0);
+  transition: all cubic-bezier(0.42, 0, 0.05, 1.73) 0.3s;
+  user-select: none;
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+  }
+}

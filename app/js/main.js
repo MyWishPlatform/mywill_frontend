@@ -13,7 +13,7 @@ if (UAParser(window.navigator.userAgent).device.type === "mobile") {
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
-}).controller('baseController', function($scope, $rootScope, $translate) {
+}).controller('baseController', function($scope, $rootScope, $translate, $timeout) {
     $rootScope.showedMenu = false;
     $rootScope.menuTogglerOff = false;
     $rootScope.toggleMenu = function(state, event) {
@@ -23,7 +23,25 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         $rootScope.showedMenu = state;
     };
-    $translate.use('en');
+    $translate.use('jp');
+
+    $rootScope.visibleGirl = false;
+    var clickBodyCounter = 0, clickTimer;
+    var bodyClickHandler = function() {
+        clickTimer ? $timeout.cancel(clickTimer) : false;
+        clickBodyCounter++;
+        if (clickBodyCounter === 10) {
+            $rootScope.visibleGirl = true;
+            $rootScope.$apply();
+            angular.element('body').off('click', bodyClickHandler);
+            return;
+        }
+        clickTimer = $timeout(function() {
+            clickBodyCounter = 0;
+        }, 500);
+    };
+    angular.element('body').on('click', bodyClickHandler);
+
 }).controller('headerController', function($rootScope, $scope) { })
     .controller('authorizationController', function(authService, $rootScope, $scope, SocialAuthService) {
     /* Social networks buttons */

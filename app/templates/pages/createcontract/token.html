@@ -76,7 +76,7 @@
                            pattern="^[0-9]+$"
                            commaseparator="{
                                 min: 0,
-                                max: (blockchain != 'NEO') ? 50 : 255
+                                max: (blockchain != 'NEO') ? 50 : 8
                            }"
                            required
                            class="form-control-input text-center"/>
@@ -86,7 +86,7 @@
                 <div class="form-control-label hide-vs">&nbsp;</div>
                 <span class="form-control-description__text"
                       translate-values="{
-                            max_decimals: (blockchain != 'NEO') ? 50 : 255,
+                            max_decimals: (blockchain != 'NEO') ? 50 : 8,
                             default_decimals: (blockchain != 'NEO') ? 18 : 8
                        }"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.DESCRIPTION"></span>

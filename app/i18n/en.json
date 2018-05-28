@@ -358,6 +358,11 @@
           "ITEM_4": "MyWish is NOT responsible for errors in the code, but will do everything to eliminate it asap if they are detected",
           "ITEM_5": "MyWish does NOT have access to the management functions of the contract and will not be able to stop it, continue and do anything else, except of finalisation after end date"
         }
+      },
+      "NEO_NETWORK": {
+        "LIST": {
+          "ITEM_1": "Due to high deployment costs, you need to contact <a href=\"mailto:support@mywish.io\">support@mywish.io</a> before the creation in Main Net"
+        }
       }
     }
   },
@@ -518,6 +523,32 @@
           "ITEM_2": "After getting BTC it will be sent to RSK network from MyWish whitelisted address.",
           "ITEM_3": "In 3-6 hours (10 BTC confirmations are needed) your RSK contract balance will be credited (1 BTC = 1 RSK) and you will get email confirmation.",
           "ITEM_4": "If your BTC address has been whitelisted by RSK Community you can send SBTC to contract <a ng-attr-href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> directly."
+        }
+      }
+    },
+    "NEO": {
+      "MINT": {
+        "TITLE": "Mint",
+        "DESCRIPTION": "",
+        "LIST": {
+          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "Choose TestNet",
+          "ITEM_2": "Put script hash to Script Hash field",
+          "ITEM_3": "Put \"mint\" to Operation field",
+          "ITEM_4": "Put NEO address of recipient to Argument1 field",
+          "ITEM_5": "Put amount of tokens (to mint) to Argument2 field"
+        }
+      },
+      "MINT_FINALIZE": {
+        "TITLE": "Finalize",
+        "DESCRIPTION": "",
+        "LIST": {
+          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "Choose TestNet",
+          "ITEM_2": "Put script hash to Script Hash field",
+          "ITEM_3": "Put \"finishMinting\" to Operation field",
+          "ITEM_4": "Leave Argument1 field empty",
+          "ITEM_5": "Leave Argument2 field empty"
         }
       }
     }

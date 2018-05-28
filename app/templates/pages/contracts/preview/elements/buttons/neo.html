@@ -29,12 +29,12 @@
             <!-- Mint form button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 6) && contract.contract_details.future_minting">
                 <button ng-pop-up="{
-                            template: '/templates/popups/forms/eth/mint-token-form.html',
+                            template: '/templates/popups/instructions/neo/mint-instruction.html',
                             newPopupContent: true,
                             params: {
                                 contract: contract
                             },
-                            class: 'page-size',
+                            class: 'conditions',
                             actions: {
                                 successCodeCopy: successCodeCopy
                             },
@@ -49,7 +49,7 @@
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 6) && contract.contract_details.future_minting">
                 <button ng-pop-up="{
-                            template: '/templates/popups/disclaimers/eth/mint-finalize-disclaimer.html',
+                            template: '/templates/popups/instructions/neo/mint-finalize-instruction.html',
                             newPopupContent: true,
                             params: {
                                 contract: contract

@@ -63,8 +63,16 @@
                         <span class="checkbox-decoration-val checkbox-decoration-val_off"
                               translate="NO"></span>
                     </span>
+                    <div ng-if="blockChainNetwork.type == 'neo'"
+                         class="disclaimer-btn"
+                         ng-pop-up="{
+                        newPopupContent: true,
+                        template: '/templates/popups/disclaimers/neo-network.html'
+                    }"></div>
                 </label>
             </div>
+
+
             <div ng-if="blockChainNetwork.isTest" ng-pop-up="{
                 opened: true,
                 newPopupContent: true,

@@ -358,6 +358,11 @@
           "ITEM_4": "MyWishは、コード内の誤りについて責任を負いませんが、彼らが検出された場合、それをできるだけ早く排除するために全力を尽くします",
           "ITEM_5": "MyWishは契約の管理機能にアクセスすることはできず、終了日後のファイナライゼーションを除き、契約を停止したり、何か他のことをすることはできません"
         }
+      },
+      "NEO_NETWORK": {
+        "LIST": {
+          "ITEM_1": "Due to high deployment costs, you need to contact <a href=\"mailto:support@mywish.io\">support@mywish.io</a> before the creation in Main Net"
+        }
       }
     }
   },
@@ -518,6 +523,32 @@
           "ITEM_2": "BTCを取得した後、それはMyWishホワイトリストのアドレスからRSKネットワークに送信されます。",
           "ITEM_3": "3-6時間では（10のBTCの確認が必要です）、あなたのRSK契約残高は（1 BTC = 1 RSK）入金されますが、メールアドレスの確認が届きます。",
           "ITEM_4": "あなたのBTCアドレスがRSKコミュニティによってホワイトリストに登録されている場合は、SBTCに直接契約する<a ng-attr-href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> ことができます"
+        }
+      }
+    },
+    "NEO": {
+      "MINT": {
+        "TITLE": "Mint",
+        "DESCRIPTION": "",
+        "LIST": {
+          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "Choose TestNet",
+          "ITEM_2": "Put script hash to Script Hash field",
+          "ITEM_3": "Put \"mint\" to Operation field",
+          "ITEM_4": "Put NEO address of recipient to Argument1 field",
+          "ITEM_5": "Put amount of tokens (to mint) to Argument2 field"
+        }
+      },
+      "MINT_FINALIZE": {
+        "TITLE": "Finalize",
+        "DESCRIPTION": "",
+        "LIST": {
+          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "Choose TestNet",
+          "ITEM_2": "Put script hash to Script Hash field",
+          "ITEM_3": "Put \"finishMinting\" to Operation field",
+          "ITEM_4": "Leave Argument1 field empty",
+          "ITEM_5": "Leave Argument2 field empty"
         }
       }
     }
@@ -693,8 +724,8 @@
           },
           "TOKEN_SYMBOL": {
             "LABEL": "トークン記号：",
-            "DESCRIPTION": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
-            "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
+            "DESCRIPTION": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）"
           },
           "DECIMALS": {
             "LABEL": "小数：",
@@ -869,10 +900,10 @@
         "ITEM_2":  "«契約コード»タブで«Verify And Publish»を選択し",
         "ITEM_3": "契約名を入力：",
         "ITEM_4": "契約アドレスを入力：",
-        "ITEM_6": "Paste the Solidity Contract code:",
+        "ITEM_6": "ソリディティ契約コードを貼り付ける:",
         "ITEM_7_1": "コンストラクタ引数とかABIエンコードフィールドからパラメータを削除します。",
         "ITEM_7_2": "ABI–エンコードされたコンストラクタの引数を入力する",
-        "ITEM_8": "Others fields are not required. Press \"Verify And Publish\""
+        "ITEM_8": "その他のフィールドは必要ありません。 \"Verify And Publish\""
       },
       "CONTRACT_CODE_FOR_FREE": "無料版では利用できません",
       "CONTRACT_CONDITIONS": "契約条件",

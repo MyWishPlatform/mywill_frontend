@@ -40,7 +40,7 @@
                       translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/ico-crowdsale'}"></span>
             </p>
         </div>
-        <div class="shadow-block__content">
+        <div class="shadow-block__content" ng-if="contractInfo === 'eth_contract_token'">
             <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"></p>
         </div>
         <div class="shadow-block__content" ng-if="selectedContract == 'eth_contract_token'">
@@ -159,7 +159,11 @@
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{getEtherscanUrl(contract, 'token')}}/{{details[contractInfo].address|toCheckSum}}"
                    target="_blank"
+                   ng-if="contractInfo === 'eth_contract_token'"
                    ng-bind="details[contractInfo].address|toCheckSum"></a>
+
+                <span ng-if="contractInfo === 'neo_contract_token'"
+                      ng-bind="details[contractInfo].address"></span>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['token_address']}"

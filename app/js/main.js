@@ -183,10 +183,12 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             case 1:
                 networkUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
                 addressPaths.address = 'address';
+                addressPaths.token = 'token';
                 break;
             case 2:
                 networkUrl = APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
                 addressPaths.address = 'address';
+                addressPaths.token = 'token';
                 break;
             case 3:
                 networkUrl = APP_CONSTANTS.RSK_ADDRESS;
@@ -199,11 +201,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
             case 5:
                 networkUrl = APP_CONSTANTS.NEO_MAINNET_ADDRESS;
-                addressPaths.address = 'address';
+                addressPaths.address = 'address/info';
+                addressPaths.token = 'address/info';
                 break;
             case 6:
                 networkUrl = APP_CONSTANTS.NEO_TESTNET_ADDRESS;
-                addressPaths.address = 'address';
+                addressPaths.address = 'address/info';
+                addressPaths.token = 'address/info';
                 break;
 
         }
@@ -678,3 +682,52 @@ angular.module("datePicker").run(["$templateCache", function($templateCache) {
     '<div ng-switch="view"> <div ng-switch-when="date"> <table> <thead> <tr> <th ng-click="prev()">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'month\')" ng-bind="date|mFormat:\'YYYY MMMM\':tz"></th> <th ng-click="next()">&rsaquo;</i></th> </tr> <tr> <th ng-repeat="day in weekdays" style="overflow: hidden" ng-bind="day|mFormat:\'ddd\':tz"></th> </tr> </thead> <tbody> <tr ng-repeat="week in weeks" ng-init="$index2 = $index"> <td ng-repeat="day in week"> <span ng-class="classes[$index2][$index]" ng-click="selectDate(day)" ng-bind="day|mFormat:\'DD\':tz"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="year"> <table> <thead> <tr> <th ng-click="prev(10)">&lsaquo;</th> <th colspan="5" class="switch"ng-bind="years[0].year()+\' - \'+years[years.length-1].year()"></th> <th ng-click="next(10)">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-class="classes[$index]" ng-repeat="year in years" ng-click="selectDate(year)" ng-bind="year.year()"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="month"> <table> <thead> <tr> <th ng-click="prev()">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'year\')" ng-bind="date|mFormat:\'YYYY\':tz"></th> <th ng-click="next()">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-repeat="month in months" ng-class="classes[$index]" ng-click="selectDate(month)" ng-bind="month|mFormat:\'MMM\':tz"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="hours"> <table> <thead> <tr> <th ng-click="prev(24)">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'date\')" ng-bind="date|mFormat:\'DD MMMM YYYY\':tz"></th> <th ng-click="next(24)">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-repeat="hour in hours" ng-class="classes[$index]" ng-click="selectDate(hour)" ng-bind="hour|mFormat:\'HH:mm\':tz"></span> </td> </tr> </tbody> </table> </div> <div ng-switch-when="minutes"> <table> <thead> <tr> <th ng-click="prev()">&lsaquo;</th> <th colspan="5" class="switch" ng-click="setView(\'hours\')" ng-bind="date|mFormat:\'DD MMMM YYYY\':tz"></th> <th ng-click="next()">&rsaquo;</i></th> </tr> </thead> <tbody> <tr> <td colspan="7"> <span ng-repeat="minute in minutes" ng-class="classes[$index]" ng-click="selectDate(minute)" ng-bind="minute|mFormat:\'HH:mm\':tz"></span> </td> </tr> </tbody> </table> </div> </div>'
     );
 }]);
+
+//
+// var wW = $(window).width();
+// var WH = $(window).height();
+// var dropCounter = 0;
+// var addDrop = function() {
+//     dropCounter++;
+//     // drop
+//     var dp = "<li class='d" + dropCounter + "'></li>";
+//     // Ramdon values for X, Y position
+//     var dX =  Math.floor((Math.random()*wW)+1) + "px";
+//     var dY =  Math.floor((Math.random()*WH)+1) + "px";
+//     // Ramdon values for scale
+//     var dS = Math.floor((Math.random()*1)+1) * 0.3;
+//     // Ramdon values for Opacity, Width and Height
+//     var dO = 0.85;
+//     var dW = Math.floor(Math.random()*15 + 5);
+//     var dH = Math.floor(dW * (Math.min(Math.random(), 0.5) + 1));
+//     // Append the drops
+//     $(".drops").append(dp);
+//     // Apply the random values
+//     $(".d" + dropCounter).css("opacity",dO).css("width",dW).css("height",dH).css({
+//         left: dX,
+//         top:dY,
+//         scale: dS,
+//         'background-image': 'url(' + imgForDrop + ')'
+//     });
+// };
+//
+// var imgForDrop;
+// $(function() {
+//
+//     setTimeout(function() {
+//         var node = $('#all-page-wrapper').get(0);
+//         domtoimage.toPng(node)
+//             .then(function (dataUrl) {
+//                 imgForDrop = dataUrl;
+//                 $('.bg').css({
+//                     'background-image': 'url(' + imgForDrop + ')'
+//                 });
+//             })
+//             .catch(function (error) {
+//                 console.error('oops, something went wrong!', error);
+//             });
+//         setInterval(addDrop, Math.floor(Math.random() * 1000));
+//     }, 5000);
+//
+// });
+//

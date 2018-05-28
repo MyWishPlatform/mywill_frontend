@@ -23,6 +23,19 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         itemLabel: 'address'
     };
     $scope.chartData = angular.copy(contractDetails.token_holders);
+
+
+    switch ($scope.contract.network) {
+        case 1:
+        case 2:
+            $scope.contractInfo = 'eth_contract_token';
+            break;
+        case 5:
+        case 6:
+            $scope.contractInfo = 'neo_contract_token';
+            break;
+    }
+
 }).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
 
     var contract = angular.copy($scope.ngPopUp.params.contract);

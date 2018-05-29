@@ -16,6 +16,17 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         console.log(err);
     }
 
+    $scope.getProvider = function(name) {
+        switch (name) {
+            case 'metamask':
+                return metamask;
+                break;
+            case 'parity':
+                return parity;
+                break;
+        }
+    };
+
     metamask ? metamask.eth.getAccounts(function(err, addresses) {
         $scope.wallets.metamask = addresses;
     }) : false;
@@ -38,7 +49,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $rootScope.sendEvent('Button_Pay_Click', 'on_pay_' + $scope.visibleForm + '_' + $scope.formData.activeService);
 
         web3.eth.sendTransaction({
-            value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(16),
+            value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(10),
             from: $scope.formData.address,
             to: $scope.formData.toAddress,
             gas: $scope.formData.gaslimit
@@ -135,5 +146,15 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             }]
         }, [$scope.formData.toAddress, new BigNumber($scope.formData.amount).times(Math.pow(10, 18)).toString(10)]);
     });
+
+    $scope.sendTransaction = function() {
+        var web3 = $scope.getProvider($scope.formData.activeService);
+
+        web3.eth.sendTransaction({
+            from: $scope.formData.address,
+            data: $scope.checkedTransferData
+        }).then(console.log);
+
+    };
 
 });

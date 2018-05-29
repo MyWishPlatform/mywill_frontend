@@ -6,10 +6,10 @@
                     <div class="grid-cell grid-cell-1">
                         <div class="shadow-block__content__title">
                             <i class="icon-framew shadow-block__content__title__icon"></i>
-                            <span class="shadow-block__content__title__text">External Developers</span>
+                            <span class="shadow-block__content__title__text" translate="PAGES.EXTERNAL_DEVELOPERS.TITLE"></span>
                         </div>
                         <div class="shadow-block__content__text shadow-block__content__text_description">
-                            <span>To add your contract to the MyWish library and start audit process, fill the form below.</span>
+                            <span translate="PAGES.EXTERNAL_DEVELOPERS.DESCRIPTION"></span>
                         </div>
                     </div>
                 </div>
@@ -18,19 +18,22 @@
         <form class="shadow-block__content" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
             <div class="simple-form-wrapper">
                 <div class="simple-form-field-row">
-                    <label class="simple-form-field-label">User&nbsp;name</label>
+                    <label class="simple-form-field-label"
+                           translate="PAGES.EXTERNAL_DEVELOPERS.FIELDS.USER_NAME.LABEL"></label>
                     <div class="simple-form-field-input">
                         <input class="form-control-input" ng-model="request.username" required/>
                     </div>
                 </div>
                 <div class="simple-form-field-row">
-                    <label class="simple-form-field-label">Email</label>
+                    <label class="simple-form-field-label"
+                           translate="PAGES.EXTERNAL_DEVELOPERS.FIELDS.EMAIL.LABEL"></label>
                     <div class="simple-form-field-input">
                         <input class="form-control-input" type="email" ng-model="request.email" required/>
                     </div>
                 </div>
                 <div class="simple-form-field-row">
-                    <label class="simple-form-field-label">Contract name</label>
+                    <label class="simple-form-field-label"
+                           translate="PAGES.EXTERNAL_DEVELOPERS.FIELDS.CONTRACT_NAME.LABEL"></label>
                     <div class="simple-form-field-input">
                         <input class="form-control-input" ng-model="request.contract_name" required/>
                     </div>
@@ -38,17 +41,18 @@
                 <div class="simple-form-field-row">
                     <label class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</label>
                     <div class="simple-form-field-input">
-                        <textarea class="form-control-input" placeholder="Contract description" ng-model="request.message" required></textarea>
+                        <textarea class="form-control-input"
+                                  placeholder="{{'PAGES.EXTERNAL_DEVELOPERS.FIELDS.DESCRIPTION.PLACEHOLDER'|translate}}" ng-model="request.message" required></textarea>
                     </div>
                 </div>
                 <div class="simple-form-field-row">
                     <div class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</div>
                     <div class="simple-form-field-input simple-form-buttons-container">
                         <button class="btn btn-submit">
-                            <span>&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.SEND'|translate}}&nbsp;&nbsp;&nbsp;</span>
                         </button>
                         <button class="btn btn-transparent" type="reset">
-                            <span>&nbsp;&nbsp;&nbsp;Clean&nbsp;&nbsp;&nbsp;</span>
+                            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CLEAN'|translate}}&nbsp;&nbsp;&nbsp;</span>
                         </button>
                     </div>
                 </div>

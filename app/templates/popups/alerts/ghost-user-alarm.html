@@ -1,18 +1,15 @@
 <div class="shadow-block">
     <div class="shadow-block__content shadow-block__content_no-lr-padding">
-        <div class="alert-window-title">
-            Please sign in/sign up to add the contract<br/>
-            to your personal account
-        </div>
+        <div class="alert-window-title" translate="ALERTS.GHOST_BUY_TOKENS.TEXT"></div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
         <button class="btn btn-submit uppercase"
                 ng-click="$root.openAuthWindow('registration')">
-            <span>Sign Up</span>
+            <span translate="HEADER.BUTTONS.SIGN_UP"></span>
         </button>
         <button class="btn btn-transparent uppercase"
                 ng-click="$root.openAuthWindow('auth')">
-            <span>Sign in</span>
+            <span translate="HEADER.BUTTONS.SIGN_IN"></span>
         </button><br/><br/>
     </div>
 </div>

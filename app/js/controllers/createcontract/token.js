@@ -1,17 +1,25 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams,  NETWORKS_TYPES_NAMES_CONSTANTS, CONTRACT_TYPES_NAMES_CONSTANTS) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
-        network: $stateParams.network || 1,
+        network: $stateParams.network,
         contract_details: {
-            token_holders: [],
-            token_type: 'ERC20'
+            token_holders: []
         }
     };
-    $scope.network = {
-        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
-        id: contract.network
-    };
+    $scope.network = contract.network * 1;
+
+    switch ($scope.network) {
+        case 1:
+        case 2:
+            contract.contract_details.token_type = 'ERC20';
+            $scope.blockchain = 'ETH';
+            break;
+        case 5:
+        case 6:
+            $scope.blockchain = 'NEO';
+            break;
+    }
 
     $scope.minStartDate = moment().add(1, 'days');
 
@@ -114,11 +122,13 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
-
+        if ($scope.blockchain === 'NEO') {
+            contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
+        }
         return {
             name: $scope.request.token_name,
             network: contract.network,
-            contract_type: CONTRACT_TYPES_CONSTANTS.TOKEN,
+            contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.TOKEN : CONTRACT_TYPES_CONSTANTS.TOKEN_NEO,
             contract_details: contractDetails,
             id: contract.id
         };
@@ -130,7 +140,6 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         contractInProgress = true;
 
         var data = generateContractData();
-
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
@@ -158,7 +167,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         if (localStorage.draftContract) {
             if (!contract.id) {
                 var draftContract = JSON.parse(localStorage.draftContract);
-                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
+                if ((draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) || (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN_NEO)) {
                     contract = draftContract;
                 }
             }

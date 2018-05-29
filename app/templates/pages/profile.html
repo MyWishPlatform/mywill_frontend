@@ -4,21 +4,19 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Two-factor authentication</span>
+                    <span class="big-size" translate="PAGES.PROFILE.TWO_FACTOR_AUTH.TITLE"></span>
                 </div>
             </div>
         </div>
         <div class="shadow-block__content">
-            <span class="normal-text">We strongly recommend you to Enable 2FA</span>
+            <span class="normal-text" translate="PAGES.PROFILE.TWO_FACTOR_AUTH.DESCRIPTION"></span>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding no-border grey-color">
-            <div class="form-control">
-                <button class="btn btn-submit"
-                        ng-pop-up="!currentUser.use_totp ? enableInstructionPopUpParams : disablePopUpParams"
-                        type="button">
-                    <span>&nbsp;&nbsp;&nbsp;{{currentUser.use_totp ? 'Disable' : 'Enable'}}&nbsp;&nbsp;&nbsp;</span>
-                </button>
-            </div>
+            <button class="btn btn-submit"
+                    ng-pop-up="!currentUser.use_totp ? enableInstructionPopUpParams : disablePopUpParams"
+                    type="button">
+                <span>&nbsp;&nbsp;&nbsp;{{(currentUser.use_totp ? 'BUTTONS.DISABLE' : 'BUTTONS.ENABLE')|translate}}&nbsp;&nbsp;&nbsp;</span>
+            </button>
         </div>
     </div>
 
@@ -31,7 +29,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Change Password</span>
+                    <span class="big-size" translate="PAGES.PROFILE.CHANGE_PASSWORD.TITLE"></span>
                 </div>
             </div>
         </div>
@@ -39,14 +37,16 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control">
-                        <div class="form-control-label">Current password</div>
+                        <div class="form-control-label"
+                             translate="PAGES.PROFILE.CHANGE_PASSWORD.FIELDS.CURR_PASS.LABEL"></div>
                         <input type="password"
                                ng-class="{'ng-invalid ng-invalid-server': serverErrors.old_password}"
                                autocomplete="new-password"
                                required
                                ng-model="passwordParams.old_password"
                                class="form-control-input">
-                        <span class="field-error form-field_error-required">Field is required</span>
+                        <span class="field-error form-field_error-required"
+                              translate="FIELDS_ERRORS.REQUIRED"></span>
                         <span class="field-error form-field_error-server">{{serverErrors.old_password.join(', ')}}</span>
                     </div>
                 </div>
@@ -54,16 +54,20 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control">
-                        <div class="form-control-label">New password</div>
+                        <div class="form-control-label"
+                             translate="PAGES.PROFILE.CHANGE_PASSWORD.FIELDS.NEW_PASS.LABEL"></div>
                         <input type="password"
                                ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password1}"
                                autocomplete="new-password"
                                required
                                ng-model="passwordParams.new_password1"
                                class="form-control-input">
-                        <span class="field-error form-field_error-pattern">Incorrect password</span>
-                        <span class="field-error form-field_error-minlength">Minimum password length 8 characters</span>
-                        <span class="field-error form-field_error-required">Field is required</span>
+                        <span class="field-error form-field_error-pattern"
+                              translate="FIELDS_ERRORS.INCORRECT_PASSWORD"></span>
+                        <span class="field-error form-field_error-minlength"
+                              translate="FIELDS_ERRORS.MIN_LENGTH_PASSWORD"></span>
+                        <span class="field-error form-field_error-required"
+                              translate="FIELDS_ERRORS.REQUIRED"></span>
                         <span class="field-error form-field_error-server">{{serverErrors.new_password1.join(', ')}}</span>
                     </div>
                 </div>
@@ -71,7 +75,8 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control">
-                        <div class="form-control-label">Repeat new password</div>
+                        <div class="form-control-label"
+                            translate="PAGES.PROFILE.CHANGE_PASSWORD.FIELDS.NEW_PASS_CONFIRM.LABEL"></div>
                         <input type="password"
                                required
                                ng-match="passwordParams.new_password1"
@@ -79,8 +84,10 @@
                                ng-class="{'ng-invalid ng-invalid-server': serverErrors.new_password2}"
                                ng-model="passwordParams.new_password2"
                                class="form-control-input">
-                        <span class="field-error form-field_error-required">Field is required</span>
-                        <span class="field-error form-field_error-pattern">Passwords do not match</span>
+                        <span class="field-error form-field_error-required"
+                              translate="FIELDS_ERRORS.REQUIRED"></span>
+                        <span class="field-error form-field_error-pattern"
+                              translate="FIELDS_ERRORS.NO_MATCH_PASSWORD"></span>
                         <span class="field-error form-field_error-server">{{serverErrors.new_password2.join(', ')}}</span>
                     </div>
                 </div>
@@ -89,14 +96,16 @@
             <div class="grid-row" ng-if="currentUser.use_totp">
                 <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                     <div class="form-control">
-                        <div class="form-control-label">2FA code</div>
+                        <div class="form-control-label"
+                             translate="PAGES.PROFILE.CHANGE_PASSWORD.FIELDS.2FA.LABEL"></div>
                         <input type="text"
                                required
                                autocomplete="new-password"
                                ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
                                ng-model="passwordParams.totp"
                                class="form-control-input">
-                        <span class="field-error form-field_error-required">Field is required</span>
+                        <span class="field-error form-field_error-required"
+                              translate="FIELDS_ERRORS.REQUIRED"></span>
                         <span class="field-error form-field_error-server">{{serverErrors.totp.join(', ')}}</span>
                     </div>
                 </div>
@@ -108,11 +117,9 @@
             <br/><br/>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding no-border grey-color">
-            <div class="form-control float-right">
-                <button class="btn btn-submit" type="submit">
-                    <span>&nbsp;&nbsp;&nbsp;Change&nbsp;&nbsp;&nbsp;</span>
-                </button>
-            </div>
+            <button class="btn btn-submit float-right" type="submit">
+                <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CHANGE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+            </button>
         </div>
     </form>
 </div>

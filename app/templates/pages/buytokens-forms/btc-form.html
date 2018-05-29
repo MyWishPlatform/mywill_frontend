@@ -3,7 +3,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label">Send&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
+                    <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
                     <input type="text" placeholder="0"
                            class="form-control-input with-currency" ng-model="formData.btcAmount"
                            required
@@ -15,7 +15,7 @@
             </div>
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;Get</label>
+                    <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;{{'PAGES.BUY_TOKENS.GET'|translate}}</label>
                     <input type="text" placeholder="0"
                            class="form-control-input with-currency"
                            required
@@ -29,7 +29,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label">Send your BTC to:</label>
+                    <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND_BTC'|translate}}</label>
                     <input type="text" class="form-control-input form-control-input--wish"
                            disabled ng-model="formData.toBtcAddress">
                 </div>
@@ -38,40 +38,39 @@
             <div class="grid-cell hide-ps grid-cell-1-4">
                 <div class="form-control text-right">
                     <span class="form-control-label">&nbsp;</span>
-                    <button class="btn btn-back center-input-field"
+                    <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
                             text="formData.toBtcAddress"
                             on-copied="successCodeCopy(false, 'to_btc_address')"
                             on-error="failCodeCopy(err)"
                             ng-show="!copied['to_btc_address']"
                             type="button">
-                        <span>&nbsp;&nbsp;&nbsp;Copy&nbsp;&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.COPY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </button>
 
                     <button class="btn btn-as-link center-input-field"
                             disabled
                             ng-if="copied['to_btc_address']"
                             type="button">
-                        <span>&nbsp;&nbsp;Copied&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
                     </button>
                 </div>
             </div>
         </div>
         <div class="attention-text">
             <div class="attention-text__title">
-                <i class="icon-alert-circle"></i>ATTENTION!
+                <i class="icon-alert-circle"></i>{{'PAGES.BUY_TOKENS.BTC_ATTENTION.RED_TEXT'|translate}}
             </div>
-            You will receive tokens after 5 BTC blocks confirmation. The approximate time of the transaction is 1 hour.
+
+            <span translate="PAGES.BUY_TOKENS.BTC_ATTENTION.TEXT"></span>
         </div>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-        <div class="form-control float-right">
-            <button class="btn btn-submit"
-                    type="button"
-                    ng-click="payDone()">
-                <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
-            </button>
-        </div>
+        <button class="btn btn-submit float-right"
+                type="button"
+                ng-click="payDone()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
     </div>
 </form>

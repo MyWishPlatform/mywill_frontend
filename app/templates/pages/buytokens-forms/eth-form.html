@@ -3,7 +3,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label">Send&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
+                    <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
                     <input type="text" placeholder="0"
                            class="form-control-input with-currency" ng-model="formData.ethAmount"
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
@@ -14,7 +14,7 @@
             </div>
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;Get</label>
+                    <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;{{'PAGES.BUY_TOKENS.GET'|translate}}</label>
                     <input type="text" placeholder="0"
                            class="form-control-input with-currency"
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
@@ -27,7 +27,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label">Send your ETH to:</label>
+                    <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND_ETH'|translate}}</label>
                     <input type="text" class="form-control-input form-control-input--wish"
                            disabled ng-model="formData.toAddress">
                 </div>
@@ -35,21 +35,21 @@
             <div class="grid-cell hide-ps grid-cell-1-4">
                 <div class="form-control text-right">
                     <span class="form-control-label">&nbsp;</span>
-                    <button class="btn btn-back center-input-field"
+                    <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
                             text="formData.toAddress"
                             on-copied="successCodeCopy(false, 'to_address')"
                             on-error="failCodeCopy(err)"
                             ng-show="!copied['to_address']"
                             type="button">
-                        <span>&nbsp;&nbsp;&nbsp;Copy&nbsp;&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.COPY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </button>
 
                     <button class="btn btn-as-link center-input-field"
                             disabled
                             ng-if="copied['to_address']"
                             type="button">
-                        <span>&nbsp;&nbsp;Copied&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
                     </button>
                 </div>
             </div>
@@ -58,14 +58,14 @@
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
                 <div class="form-control">
                     <div class="form-control-description one-line">
-                        <span class="form-control-description__text">Gas price 30 gwei</span>
+                        <span class="form-control-description__text">{{'PAGES.BUY_TOKENS.GAS_PRICE'|translate}}</span>
                     </div>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
                 <div class="form-control">
                     <div class="form-control-description one-line">
-                        <span class="form-control-description__text">Gas limit 100.000</span>
+                        <span class="form-control-description__text">{{'PAGES.BUY_TOKENS.GAS_LIMIT'|translate}}</span>
                     </div>
                 </div>
             </div>
@@ -80,48 +80,56 @@
                                 successCodeCopy: successCodeCopy,
                                 failCodeCopy: failCodeCopy
                             }
-                        }">How to do it?</span>
+                        }">{{'PAGES.BUY_TOKENS.HOW_TO_DO_IT'|translate}}</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="form-fieldset-delimiter"><span>OR</span></div>
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row payment-row">
             <div class="grid-cell grid-cell-1">
                 <div class="form-control">
-                    <label class="form-control-label">Select payment method:</label>
-                </div><br/>
+                    <label class="form-control-label" translate="PAGES.BUY_TOKENS.CHOOSE_PAYMENT_METHOD"></label>
+                </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
                 <div class="form-control form-control">
-                    <label class="choose">
-                        <input type="radio" ng-model="formData.activeService" value="myetherwallet">
-                        <div class="btn btn-payment btn-payment--wallet">
-                            <span>MyEtherwallet</span>
-                        </div>
+                    <label class="btn btn-gray with-icon nowrap" ng-class="{'active': formData.activeService == 'myetherwallet'}">
+                        <input type="radio" class="hidden-input" ng-model="formData.activeService" value="myetherwallet">
+                        <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">
+                        &nbsp;&nbsp;
+                        <span>MyEtherwallet</span>
                     </label>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
                 <div class="form-control form-control text-center">
-                    <label class="choose">
-                        <input type="radio" ng-model="formData.activeService" value="parity" ng-disabled="!wallets.parity">
-                        <div class="btn btn-payment btn-payment--parity" ng-disabled="!wallets.parity.length">
-                            <span>Parity</span>
-                        </div>
+                    <label class="btn btn-gray with-icon nowrap"
+                           ng-disabled="!wallets.parity.length"
+                           ng-class="{'active': formData.activeService == 'parity'}">
+                        <input type="radio" class="hidden-input"
+                               ng-disabled="!wallets.parity.length"
+                               ng-model="formData.activeService" value="parity">
+                        <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">
+                        &nbsp;&nbsp;
+                        <span>Parity</span>
                     </label>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
                 <div class="form-control form-control text-right">
-                    <label class="choose">
-                        <input type="radio" ng-model="formData.activeService" value="metamask" ng-disabled="!wallets.metamask.length">
-                        <div class="btn btn-payment btn-payment--metamask" ng-disabled="!wallets.metamask.length">
-                            <span>Metamask</span>
-                        </div>
+                    <label class="btn btn-gray with-icon nowrap"
+                           ng-disabled="!wallets.metamask.length"
+                           ng-class="{'active': formData.activeService == 'metamask'}">
+                        <input type="radio" class="hidden-input"
+                               ng-disabled="!wallets.metamask.length"
+                               ng-model="formData.activeService" value="metamask">
+                        <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">
+                        &nbsp;&nbsp;
+                        <span>Metamask</span>
                     </label>
                 </div>
             </div>
@@ -133,7 +141,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1" ng-if="formData.activeService != 'myetherwallet'">
                 <div class="form-control">
-                    <label class="form-control-label">Choose your wallet:</label>
+                    <label class="form-control-label" translate="PAGES.BUY_TOKENS.CHOOSE_WALLET"></label>
                     <div ng-select
                          ng-model="formData.address"
                          ng-model-list="wallets[formData.activeService]"
@@ -143,7 +151,7 @@
             <div class="grid-cell grid-cell-1 show-ps">&nbsp;</div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">Enter Amount:</label>
+                    <label class="form-control-label" translate="PAGES.BUY_TOKENS.ENTER_AMOUNT">Enter Amount:</label>
                     <input type="text"
                            ng-model="formData.amount"
                            class="form-control-input"
@@ -162,7 +170,7 @@
                             ng-disabled="!buyTokensForm.$valid"
                             ng-if="formData.activeService == 'metamask'"
                             type="button" ng-click="sendTransaction()">
-                        <span>&nbsp;&nbsp;&nbsp;Pay&nbsp;&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </button>
 
                     <a class="btn btn-transparent center-input-field"
@@ -170,26 +178,24 @@
                        target="_blank" ng-click="sendTransaction()"
                        ng-disabled="!buyTokensForm.$valid"
                        href="http://localhost:8545">
-                        <span>&nbsp;&nbsp;&nbsp;Pay&nbsp;&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                     <a class="btn btn-transparent center-input-field"
                        ng-click="sendEvent('Button_Pay_Click', 'on_pay_' + visibleForm + '_' + formData.activeService)"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
                        ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?sendMode=ether&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount + '#send-transaction' : undefined }}">
-                        <span>&nbsp;&nbsp;&nbsp;Pay&nbsp;&nbsp;&nbsp;</span>
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-        <div class="form-control float-right">
-            <button class="btn btn-submit"
-                    type="button"
-                    ng-click="payDone()">
-                <span>&nbsp;&nbsp;&nbsp;Done&nbsp;&nbsp;&nbsp;</span>
-            </button>
-        </div>
+        <button class="btn btn-submit float-right"
+                type="button"
+                ng-click="payDone()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
     </div>
 </form>

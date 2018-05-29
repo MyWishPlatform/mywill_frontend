@@ -1,7 +1,6 @@
 angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope,
-                                                                 contractsList, $scope, $state, NETWORKS_TYPES_NAMES_CONSTANTS) {
+                                                                 contractsList, $scope, $state) {
 
-    $scope.networks = NETWORKS_TYPES_NAMES_CONSTANTS;
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 
@@ -185,7 +184,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
                 if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
                     $rootScope.commonOpenedPopupParams = {
-                        withoutCloser: true,
                         noBackgroundCloser: true,
                         newPopupContent: true
                     };
@@ -194,7 +192,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 }
                 $rootScope.commonOpenedPopupParams = {
                     contract: contract,
-                    withoutCloser: true,
                     class: 'conditions',
                     newPopupContent: true,
                     actions: {
@@ -226,8 +223,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             class: 'deleting-contract',
             contract: contract,
             confirmPayment: launchContract,
-            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether'),
-            withoutCloser: true
+            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether')
         };
     };
 
@@ -240,7 +236,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }).then(function(response) {
             contract.discount = response.data.discount;
             $rootScope.commonOpenedPopupParams = {
-                withoutCloser: true,
                 contract: contract,
                 newPopupContent: true
             };

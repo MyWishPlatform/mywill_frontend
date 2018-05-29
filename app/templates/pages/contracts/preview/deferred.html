@@ -2,50 +2,46 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'info'}"
          ng-click="contract.showedTab = 'info'">
-        <span>Preview contract</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
          ng-show="contract.contract_details.eth_contract.address">
-        <span>Source code</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
-
 
 <div ng-show="contract.showedTab == 'code'">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
             <p class="normal-text">
-                <span>In free version (Test Net) sources codes are not available for loading.</span>
-            </p>
-        </div>
-        <div class="shadow-block__content">
-            <p class="normal-text">
-                <span>Your Deferred payment contract source code
-                    <span class="as-link dotted"
-                          ng-if="(contract.network == 1) || (contract.network == 3)"
-                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(deferred)')">
-                        <span>here</span>
-                    </span>
-                    <span class="grey-text-color"
-                          ng-if="(contract.network == 2) || (contract.network == 4)">
-                        <span>here</span>
-                    </span>
-                </span>
-            </p>
-            <p class="normal-text">
-                <span>Libraries & other files can be found
-                    <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">here</a>
-                </span>
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
         </div>
 
         <div class="shadow-block__content">
             <p class="normal-text">
-                If you need to verify contract on Etherscan please contact us by
-                <a href="mailto:support@mywish.io">email</a>
+                <span>{{'CONTRACTS.PREVIEW.DEFERRED_SOURCE_CODE'|translate}}
+                    <span class="as-link dotted"
+                          ng-if="(contract.network == 1) || (contract.network == 3)"
+                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(deferred)')">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                </span>
             </p>
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: $root.gitHubLink}"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT"></p>
         </div>
     </div>
 </div>
@@ -58,12 +54,12 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
             <span class="form-control-label">
-                Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
+                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}} <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
             </span>
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
-            <div class="form-control-label">Contract address:</div>
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
@@ -85,9 +81,10 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-wallet form-control-label-icon"></i>
-                    From account
-                </div><br/>
+                    {{'CONTRACTS.FORMS.DEFERRED.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
+                </div>
                 <div class="contract-wallet-information-float contract-wallet-information">
+                    <br/>
                     <span class="identicon-container relative-top">
                         <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
                     </span>
@@ -99,7 +96,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-in-wallet form-control-label-icon"></i>
-                    Send to wallet
+                    {{'CONTRACTS.FORMS.DEFERRED.FIELDS.SEND_TO_WALLET.LABEL'|translate}}
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information">
                     <br/>
@@ -115,7 +112,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-conditions form-control-label-icon"></i>
-                    <span class="grey-text-color">Date of transfer: </span> {{contract.contract_details.date|date:'yyyy-MM-dd'}}
+                    {{'CONTRACTS.FORMS.DEFERRED.FIELDS.DATE_OF_TRANSFER.LABEL'|translate}}: {{contract.contract_details.date|date:'yyyy-MM-dd'}}
                 </div>
             </div>
         </div>

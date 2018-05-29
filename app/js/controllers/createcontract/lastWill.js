@@ -1,17 +1,17 @@
-angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
+angular.module('app').controller('lastWillCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service, $filter) {
 
 
     $scope.durationList = [
         {
             value: 1,
-            name: 'day'
+            name: $filter('translate')('CONTRACTS.FORMS.DAY')
         }, {
             value: 30,
-            name: 'month'
+            name: $filter('translate')('CONTRACTS.FORMS.MONTH')
         }, {
             value: 365,
-            name: 'year'
+            name: $filter('translate')('CONTRACTS.FORMS.YEAR')
         }
     ];
 
@@ -69,21 +69,16 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyWill' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.network || 1,
+        network: $stateParams.network,
         contract_details: {
             check_interval: 180 * 24 * 3600,
             email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
         }
     };
+    $scope.network = contract.network;
 
     $scope.networkName = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
         ((contract.network == 3) || (contract.network == 4)) ? 'RSK' : 'Unknown';
-
-
-    $scope.network = {
-        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
-        id: contract.network
-    };
 
     var generateContractData = function() {
         return {

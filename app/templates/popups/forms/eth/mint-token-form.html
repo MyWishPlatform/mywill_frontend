@@ -10,14 +10,16 @@
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="form-control">
-                <div class="form-control-label">Define address for tokens (after minting it will be sent to this address)</div>
+                <div class="form-control-label" translate="POPUP_FORMS.MINT_TOKENS_FORM.DESCRIPTION"></div>
             </div>
             <div class="grid-row contract-form-row">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
-                        <label for="out-wallet-key" class="form-control-label">Address</label>
+                        <label for="out-wallet-key"
+                               translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.LABEL"
+                               class="form-control-label"></label>
                         <input id="out-wallet-key" type="text"
-                               placeholder="Enter the address of the recipient's wallet"
+                               placeholder="{{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.PLACEHOLDER'|translate}}"
                                ng-pattern="/^0x[0-9a-f]{40}$/i"
                                ng-model="recipient.address"
                                ng-change="!recipient.name ? checkTokensAmount() : false"
@@ -25,14 +27,15 @@
                                class="form-control-input"/>
                         <span class="field-error form-field_error-check-sum"
                               ng-if="recipient.address ? !$root.web3Utils.checkAddressChecksum(recipient.address) : false"
-                              style="display: block">Address is not checksummed</span>
+                              style="display: block" TRANSLATE="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
                     </div>
                 </div>
 
                 <div class="clearfix show-full hide-ps show-vs"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
                     <div class="form-control">
-                        <label for="address-amount" class="form-control-label">Token amount</label>
+                        <label for="address-amount" class="form-control-label"
+                               translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.AMOUNT.LABEL"></label>
                         <input class="form-control-input"
                                id="address-amount"
                                commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
@@ -45,7 +48,7 @@
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                     <label class="form-control-label">
                         <i class="icon-snowflake form-control-label-icon"></i>
-                        Frozen until date&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span>
+                        {{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.FROZEN_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span>
                     </label>
                     <div class="form-control">
                         <div class="grid-row contract-form-row">
@@ -83,7 +86,7 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
-                        Total supply: {{totalSupply.tokens|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}}
+                        {{'POPUP_FORMS.MINT_TOKENS_FORM.CHART.TOTAL_SUPPLY'|translate}} {{totalSupply.tokens|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}}
                     </div>
                 </div>
 
@@ -125,7 +128,7 @@
                         onClose: returnToList
                     }"
                     ng-disabled="!mintForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
-                <span>&nbsp;&nbsp;&nbsp;Mint&nbsp;&nbsp;&nbsp;</span>
+                <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.MINT'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>
     </form>

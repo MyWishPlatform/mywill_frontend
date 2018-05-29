@@ -1,10 +1,12 @@
 <div class="shadow-block">
     <div class="shadow-block__content">
-        <div class="alert-window-title">You can't call "I Alive" anymore today.</div>
+        <div class="alert-window-title"
+             translate="POPUP_ERRORS.I_ALIVE_ERROR.TEXT"
+            ></div>
     </div>
     <div class="shadow-block__content no-border text-center">
         <button class="btn btn-transparent" ng-click="$root.closeCommonPopup()">
-            <span>&nbsp;&nbsp;&nbsp;Close&nbsp;&nbsp;&nbsp;</span>
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CLOSE'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>
 </div>

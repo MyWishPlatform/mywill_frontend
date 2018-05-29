@@ -1,16 +1,15 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams,
                                                                        $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
     $scope.additionalParams = {};
     $scope.additionalParams.investsLimit = false;
 
-    var ethereumNetwork = $stateParams.network;
 
     var web3 = new Web3();
 
     try {
-        web3.setProvider(new Web3.providers.HttpProvider(ethereumNetwork === NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] ? APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS : APP_CONSTANTS.INFURA_ADDRESS));
+        web3.setProvider(new Web3.providers.HttpProvider($scope.network === NETWORKS_TYPES_CONSTANTS['ETHEREUM_ROPSTEN'] ? APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS : APP_CONSTANTS.INFURA_ADDRESS));
     } catch(err) {
         console.log('Infura not found');
     }
@@ -52,7 +51,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
-        network: ethereumNetwork,
+        network: $stateParams.network,
         contract_details: {
             token_holders: [],
             amount_bonuses: [],
@@ -60,10 +59,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             token_type: 'ERC20'
         }
     };
-    $scope.network = {
-        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
-        id: contract.network
-    };
+
+    $scope.network = contract.network;
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
@@ -110,8 +107,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     $scope.checkHardCapEth = function() {
         var hard_cap = $scope.request.hard_cap || 0;
-        $scope.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).round(2).toString(10);
-        $scope.usdHardCap = $filter('number')(hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
+        $scope.additionalParams.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).round(2).toString(10);
+        $scope.additionalParams.usdHardCap = $filter('number')(hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
     };
 
     var storage = window.localStorage || {};
@@ -563,7 +560,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.$on('resetForm', resetFormData);
     $scope.$on('createContract', createdContractData);
     $scope.createAmountBonusChartData();
-}).controller('crowdSaleHoldersController', function($scope, $timeout) {
+}).controller('crowdSaleHoldersController', function($scope, $timeout, $filter) {
     $scope.addRecipient = function() {
         var holder = {
             freeze_date: $scope.dates.endDate.clone().add(1, 'minutes')
@@ -612,13 +609,13 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         $scope.chartData = angular.copy($scope.token_holders);
         $scope.chartData.unshift({
             amount: $scope.request.hard_cap,
-            address: 'For Sale'
+            address: $filter('translate')('CONTRACTS.FOR_SALE')
         });
 
         if ($scope.token.selectedToken.id) {
             $scope.chartData.unshift({
                 amount: $scope.token.selectedToken.totalSupply,
-                address: 'Pre-Sale'
+                address: $filter('translate')('CONTRACTS.PRE_SALE')
             })
         }
 

@@ -412,7 +412,7 @@
         "TITLE": "Cancel",
         "DESCRIPTION": "To <span class=\"shadow-block__content__description__red uppercase\">stop</span> the contract, follow the steps in the instruction.",
         "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "Click the contracts tab in your wallet",
           "ITEM_3": "Copy the contract address to the Contract Address:",
           "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
@@ -424,7 +424,7 @@
         "TITLE": "Deposit",
         "DESCRIPTION": "To make a deposit on the contract, follow the instructions.",
         "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a ng-attr-href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
           "ITEM_3": "Insert the following recipient's address:",
           "ITEM_4": "Specify how much ETH you want to send (Amount to Send field)",
@@ -450,16 +450,16 @@
         "TITLE": "Confirm Live",
         "DESCRIPTION": "To Confirm your live status please do the following:",
         "LIST": {
-          "ITEM_0": "Send any transaction from your management address (ETH address - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x9dddafe4</b>)"
+          "ITEM_0": "Send any transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x9dddafe4</b>)"
         },
         "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "Click the contracts tab in your wallet",
           "ITEM_3": "Copy the contract address to the Contract Address",
           "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
@@ -470,7 +470,7 @@
       },
       "MINT": {
         "TITLE": "Mint",
-        "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" ng-attr-href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" ng-attr-href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)",
+        "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)",
         "LIST": {
           "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "Click the contracts tab in your wallet",
@@ -501,7 +501,7 @@
         "TITLE": "Cancel",
         "DESCRIPTION": "After cancellation all funds will be sent to your management address.<br/>To Cancel please do the following:",
         "LIST": {
-          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
+          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
         },
         "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
@@ -510,7 +510,7 @@
         "TITLE": "Withdraw",
         "DESCRIPTION": "After withdraw all funds will be sent to your management address.<br/>To Withdraw please do the following:",
         "LIST": {
-          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
+          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
         }
       }
     },
@@ -522,14 +522,14 @@
           "ITEM_1": "Send your BTC to generated address (it’s unique):",
           "ITEM_2": "After getting BTC it will be sent to RSK network from MyWish whitelisted address.",
           "ITEM_3": "In 3-6 hours (10 BTC confirmations are needed) your RSK contract balance will be credited (1 BTC = 1 RSK) and you will get email confirmation.",
-          "ITEM_4": "If your BTC address has been whitelisted by RSK Community you can send SBTC to contract <a ng-attr-href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> directly."
+          "ITEM_4": "If your BTC address has been whitelisted by RSK Community you can send SBTC to contract <a href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> directly."
         }
       }
     },
     "NEO": {
       "MINT": {
         "TITLE": "Mint",
-        "DESCRIPTION": "",
+        "DESCRIPTION": "To Mint tokens please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
           "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
           "ITEM_1": "Choose TestNet",
@@ -541,7 +541,7 @@
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "",
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
           "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
           "ITEM_1": "Choose TestNet",

@@ -37,7 +37,7 @@
 
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/ico-crowdsale'}"></span>
+                      translate-values="{gitHubLink: contractInfo === 'eth_contract_token' ? 'https://github.com/MyWishPlatform/ico-crowdsale' : 'https://github.com/MyWishPlatform/neo-ico-contracts'}"></span>
             </p>
         </div>
         <div class="shadow-block__content" ng-if="contractInfo === 'eth_contract_token'">
@@ -48,7 +48,7 @@
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text"
                          translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_1"
-                         translate-values="{address_url: getEtherscanUrl(contract)+'address/'+(contract.contract_details[selectedContract].address|toCheckSum)+'#code'}">
+                         translate-values="{address_url: getEtherscanUrl(contract, 'address')+'/'+(contract.contract_details[selectedContract].address|toCheckSum)+'#code'}">
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
@@ -284,7 +284,7 @@
                 <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{holder.address}}"
+                <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{holder.address}}"
                    target="_blank"
                    ng-bind="holder.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"

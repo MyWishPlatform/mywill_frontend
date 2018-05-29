@@ -5,6 +5,13 @@
                 <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.NEO.MINT_FINALIZE.TITLE'|translate}}&nbsp;</span>
             </div>
         </div>
+        <div class="shadow-block__content__description">
+            <span translate-values="{
+                token_short_name: ngPopUp.params.contract.contract_details.token_short_name,
+                etherscan_url: $root.getEtherscanUrl(ngPopUp.params.contract, 'address'),
+                admin_address: ngPopUp.params.contract.contract_details.admin_address
+            }" translate="CONTRACTS_INSTRUCTIONS.NEO.MINT_FINALIZE.DESCRIPTION"></span>
+        </div>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding">

@@ -553,7 +553,6 @@
       }
     }
   },
-
   "CONTRACTS": {
     "FOR_SALE": "For Sale",
     "PRE_SALE": "Pre-Sale",
@@ -728,8 +727,6 @@
             "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
             "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
           },
-
-
           "DECIMALS": {
             "LABEL": "Decimals:",
             "DESCRIPTION": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice"
@@ -864,7 +861,6 @@
             "DATE_TO": "Date to"
           },
           "TIME_BONUS_DESCRIPTION": "You can define bonus depending on amount of sold tokens and time. For example, give extra 10% to the first week contributors",
-
           "AMOUNT_BONUS": {
             "LABEL": "Bonus",
             "DESCRIPTION": "Usually 0.1-100%.  How many extra tokens will be sent to contributor."
@@ -890,20 +886,15 @@
         "SOURCE": "Source code"
       },
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
-
       "WILL_SOURCE_CODE": "Your Will source code",
       "DEFERRED_SOURCE_CODE": "Your Deferred payment contract source code",
       "LOST_KEY_SOURCE_CODE": "Your Lost Key source code",
       "TOKEN_SOURCE_CODE": "Your TOKEN source code",
       "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
-
       "HERE": "here",
-
       "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
-
       "LIBRARIES_AND_FILES": "Libraries & other files can be found <a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
-
       "VERIFY_INSTRUCTION": {
         "ITEM_1": "Open contract address on <a target=\"_blank\" href=\"{{address_url}}\">etherscan</a>",
         "ITEM_2": "In Contract Code tab choose \"Verify And Publish\"",
@@ -918,17 +909,9 @@
       "CONTRACT_CODE_FOR_FREE": "Not available in free version",
       "CONTRACT_CONDITIONS": "Contract conditions",
       "HOW_TO_VERIFY": "How to verify on etherscan?",
-
-
-
-
-
-
-
       "CONTRACT_BALANCE": "Contract balance:",
       "CONTRACT_ADDRESS": "Contract address:",
       "NEXT_CHECK": "Next check:",
-
       "LAST_WILL": {
         "CONFIRM_LIVE": {
           "VARIANT_1": "Please confirm “Live” status before Next check: {{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>Last “Live” confirmation:{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
@@ -946,7 +929,6 @@
         "TOKEN_TYPE": "Token type:",
         "TOKEN_DISTRIBUTION": "Token distribution"
       },
-
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",
         "VAULT_ADDRESS": "Vault contract (Investments storage until the end of crowdsale)",
@@ -956,10 +938,8 @@
           "BONUS": "Bonus:",
           "TOKENS_FROM": "Tokens from",
           "TOKENS_TO": "Tokens to",
-
           "DATE_FROM": "Date from",
           "DATE_TO": "Date to",
-
           "SOLD_TOKENS_BONUS_TEXT": "Sold token bonus",
           "TIME_BONUS_TEXT": "Time bonus"
         },

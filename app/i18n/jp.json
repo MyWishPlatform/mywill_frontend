@@ -412,7 +412,7 @@
         "TITLE": "キャンセル",
         "DESCRIPTION": "契約を<span class=\"shadow-block__content__description__red uppercase\">停止する</span>には、指示の手順に従います。",
         "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "お財布に契約タブをクリックします",
           "ITEM_3": "契約アドレスを契約住所にコピーします",
           "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
@@ -424,7 +424,7 @@
         "TITLE": "デポジット",
         "DESCRIPTION": "契約上のデポジットを作るために、指示に従ってください。",
         "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "お財布にイーサ＆トークンタブを送る選択してください",
           "ITEM_3": "以下の受信者のアドレスを挿入します：",
           "ITEM_4": "あなたは（”送信量”のフィールド）送信したいのETHの量を指定します",
@@ -450,16 +450,16 @@
         "TITLE": "ライブを確認する",
         "DESCRIPTION": "ライブステータスを確認するには、次の操作を行ってください：",
         "LIST": {
-          "ITEM_0": "管理アドレスから（ETHアドレス- <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) ウィル契約アドレスへ(ETH アドレス- <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) データフィールド付きを(<b>0x9dddafe4</b>)　トランザクションを送信する"
+          "ITEM_0": "管理アドレスから（ETHアドレス- <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) ウィル契約アドレスへ(ETH アドレス- <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) データフィールド付きを(<b>0x9dddafe4</b>)　トランザクションを送信する"
         },
         "LAST_CHECK": "最後の日付:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "次のチェック:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "MINT_FINALIZE": {
         "TITLE": "ファイナライズ",
-        "DESCRIPTION": "トークン{{token_short_name}}をファイナライズするためにトークン所有者の(<a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
+        "DESCRIPTION": "トークン{{token_short_name}}をファイナライズするためにトークン所有者の(<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "お財布に契約タブをクリックします",
           "ITEM_3": "契約アドレスを契約住所にコピーします",
           "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
@@ -470,9 +470,9 @@
       },
       "MINT": {
         "TITLE": "ミント",
-        "DESCRIPTION": "受信者<a target=\"_blank\" ng-attr-href=\"{{etherscanUrl}}address/{{recipient}}\">　{{recipient}}</a>　アドレスに{{amount}} {{tokenName}} トークンをミントをするために、トークン所有者の(<a target=\"_blank\" ng-attr-href=\"{{etherscanUrl}}address/　{{admin}}\">{{admin}}</a>)　アドレスから次のトランザクションをを作成してください",
+        "DESCRIPTION": "受信者<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">　{{recipient}}</a>　アドレスに{{amount}} {{tokenName}} トークンをミントをするために、トークン所有者の(<a target=\"_blank\" href=\"{{etherscanUrl}}address/　{{admin}}\">{{admin}}</a>)　アドレスから次のトランザクションをを作成してください",
         "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ, <a ng-attr-href=\"{{killUrl}}\" target=\"_blank\">　私のEtherワレット</a>)",
+          "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{killUrl}}\" target=\"_blank\">　私のEtherワレット</a>)",
           "ITEM_2": "お財布に契約タブをクリックします",
           "ITEM_3": "契約アドレスを契約住所にコピーします",
           "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
@@ -501,7 +501,7 @@
         "TITLE": "キャンセル",
         "DESCRIPTION": "キャンセル後ですべての資金はご管理アドレスに送信されます。 キャンセルするためには以下を実行してください：",
         "LIST": {
-          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}　address/{{user_address}}\">　{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
+          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}　address/{{user_address}}\">　{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
         },
         "LAST_CHECK": "最後の日付:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "次のチェック:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
@@ -510,7 +510,7 @@
         "TITLE": "撤回",
         "DESCRIPTION": "撤回した後、すべての資金はご管理アドレスに送られます。 撤退する次の手順に従ってください:",
         "LIST": {
-          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" ng-attr-href=\"{{etherscan_url}}address/　{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
+          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}address/　{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
         }
       }
     },
@@ -522,14 +522,14 @@
           "ITEM_1": "生成されたアドレスにごBTCを送信します。（それはユニークだ）",
           "ITEM_2": "BTCを取得した後、それはMyWishホワイトリストのアドレスからRSKネットワークに送信されます。",
           "ITEM_3": "3-6時間では（10のBTCの確認が必要です）、あなたのRSK契約残高は（1 BTC = 1 RSK）入金されますが、メールアドレスの確認が届きます。",
-          "ITEM_4": "あなたのBTCアドレスがRSKコミュニティによってホワイトリストに登録されている場合は、SBTCに直接契約する<a ng-attr-href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> ことができます"
+          "ITEM_4": "あなたのBTCアドレスがRSKコミュニティによってホワイトリストに登録されている場合は、SBTCに直接契約する<a href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> ことができます"
         }
       }
     },
     "NEO": {
       "MINT": {
         "TITLE": "Mint",
-        "DESCRIPTION": "",
+        "DESCRIPTION": "To Mint tokens please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
           "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
           "ITEM_1": "Choose TestNet",
@@ -541,7 +541,7 @@
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "",
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
           "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
           "ITEM_1": "Choose TestNet",
@@ -900,6 +900,7 @@
         "ITEM_2":  "«契約コード»タブで«Verify And Publish»を選択し",
         "ITEM_3": "契約名を入力：",
         "ITEM_4": "契約アドレスを入力：",
+        "ITEM_5": "Fill out Compiler version:",
         "ITEM_6": "ソリディティ契約コードを貼り付ける:",
         "ITEM_7_1": "コンストラクタ引数とかABIエンコードフィールドからパラメータを削除します。",
         "ITEM_7_2": "ABI–エンコードされたコンストラクタの引数を入力する",

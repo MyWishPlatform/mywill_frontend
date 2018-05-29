@@ -12,25 +12,25 @@
             <li>
                 <span class="as_menu_link" ng-if="currentUser.is_ghost">
                     <i class="icon-warning"></i>
-                    <span>Unknown user</span>
+                    <span>{{'MAIN_MENU.UNKNOWN_USER'|translate}}</span>
                 </span>
                 <a ui-sref="main.profile" class="as_menu_link"
                    ng-class="{'active': $state.current.name == 'main.profile'}"
                    ng-if="!currentUser.is_ghost">
                     <i class="icon-account"></i>
-                    <span>{{currentUser.username || 'Unknown'}}</span>
+                    <span>{{currentUser.username || ('MAIN_MENU.UNKNOWN'|translate)}}</span>
                 </a>
             </li>
 
             <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow && (!currentUser[menuItem.hideForUser])">
                 <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static" ng-class="{'active': ($state.current.name == menuItem.route) || ($state.current.data.top == menuItem.route) || (menuItem.parent && ($state.current.parent == menuItem.parent)), 'no-active': menuItem.noactive}">
                     <i ng-class="menuItem.icon"></i>
-                    <span ng-if="menuItem.title">{{menuItem.title}}</span>
+                    <span ng-if="menuItem.title">{{menuItem.title|translate}}</span>
                     <span ng-if="menuItem.titleUserPar">{{currentUser[menuItem.titleUserPar]}}</span>
                 </a>
                 <a ng-attr-href="{{(menuItem.type === 'mail' ? 'mailto:' : '') + menuItem.url }}" ng-if="menuItem.static">
                     <i ng-class="menuItem.icon"></i>
-                    <span ng-if="menuItem.title">{{menuItem.title}}</span>
+                    <span ng-if="menuItem.title">{{menuItem.title|translate}}</span>
                 </a>
             </li>
 
@@ -41,11 +41,11 @@
                         newPopupContent: true,
                     }">
                     <i class="icon-exit"></i>
-                    <span>Log out</span>
+                    <span translate="MAIN_MENU.LOG_OUT"></span>
                 </a>
             </li>
 
         </ul>
     </nav>
-    <span class="release-version">version 1.6.1</span>
+    <span class="release-version">{{'MAIN_MENU.VERSION'|translate}} 1.6.1</span>
 </div>

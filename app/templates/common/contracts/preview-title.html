@@ -1,5 +1,5 @@
-<div class="contract-info__network" ng-class="'contract-info__network_' + (contract.network || 1)">
-    <span>{{contract.networkName}}</span>
+<div class="contract-info__network" ng-class="'contract-info__network_' + contract.network">
+    <span>{{('CONTRACTS_NETWORKS.NETWORK_' + contract.network)|translate}}</span>
 </div>
 
 <div class="shadow-block__content__blue-title">
@@ -12,7 +12,7 @@
 <div class="contract-status-block">
     <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
         <div class="contract-status-text">
-            <span>{{contract.stateTitle}}</span>
+            <span>{{'CONTRACTS_STATUSES.' + contract.state|translate}}</span>
         </div>
     </div>
 </div>

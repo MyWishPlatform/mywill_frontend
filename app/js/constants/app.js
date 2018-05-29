@@ -24,6 +24,8 @@ module.constant('APP_CONSTANTS', {
     'RSK_NET_ADDRESS': '/endpoint/rsk',
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
+    "NEO_TESTNET_ADDRESS": 'http://testnet.antcha.in/',
+    "NEO_MAINNET_ADDRESS": 'http://antcha.in/',
 
     'EMPTY_PROFILE': {
         "email":"",

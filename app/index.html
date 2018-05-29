@@ -63,111 +63,100 @@
 <body ng-class="{'with-menu': $root.showedMenu, 'visible': currentUser}"
       ng-swipe-left="toggleMenu(false, $event);"
       ng-swipe-right="toggleMenu(true, $event);">
-<header class="main-header-holder"
-        ng-include="getTemplate('common/header')"></header>
 
-<div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
-<div class="pre-release-information"
-     ng-class="{'start-loading': globalProgress, 'finish-loading': finishGlobalProgress}">
-    <div class="pre-release-information-container">
-        <div class="main-content-holder">
-            <div class="main-section-content">
+<div id="all-page-wrapper">
+    <header class="main-header-holder"
+            ng-include="getTemplate('common/header')"></header>
 
-                <div class="user-balance">
-                    <div class="user-balance-value">
-                        <i class="user-balance-icon icon-mywish">
-                            <span class="path1"></span><span class="path2"></span>
-                        </i>
-                        <div ng-bind="currentUser.visibleBalance" ui-sref="main.buytokens"
-                             class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
+    <div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
+    <div class="pre-release-information"
+         ng-class="{'start-loading': globalProgress, 'finish-loading': finishGlobalProgress}">
+        <div class="pre-release-information-container">
+            <div class="main-content-holder">
+                <div class="main-section-content">
+                    <div class="user-balance">
+                        <div class="user-balance-value">
+                            <i class="user-balance-icon icon-mywish">
+                                <span class="path1"></span><span class="path2"></span>
+                            </i>
+                            <div ng-bind="currentUser.visibleBalance" ui-sref="main.buytokens"
+                                 class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
 
-                        <button class="btn only-icon user-balance-refresh"
-                                ng-class="{'in-progress': currentUser.balanceInRefresh}"
-                                ng-click="getCurrentBalance()">
-                            <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
+                            <button class="btn only-icon user-balance-refresh"
+                                    ng-class="{'in-progress': currentUser.balanceInRefresh}"
+                                    ng-click="getCurrentBalance()">
+                                <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
+                            </button>
+                        </div>
+                        <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon hide-ls">
+                            <i class="icon-create-contract"></i>
+                            <span translate="HEADER.BUTTONS.BUY"></span>
+                        </a>
+                    </div>
+                    <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
+                        <button class="uppercase btn btn-submit hide-ls"
+                                ng-pop-up="{
+                                    'template': '/templates/popups/login.html',
+                                    'class': 'login-form',
+                                    'params': {
+                                        page: 'registration'
+                                    }
+                                }">
+                            <span translate="HEADER.BUTTONS.SIGN_UP"></span>
+                        </button>
+                        <button class="btn btn-transparent uppercase"
+                                ng-pop-up="{
+                                    'template': '/templates/popups/login.html',
+                                    'class': 'login-form',
+                                    'params': {
+                                        page: 'auth'
+                                    }
+                                }">
+                            <span translate="HEADER.BUTTONS.SIGN_IN"></span>
                         </button>
                     </div>
-                    <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon hide-ls">
-                        <i class="icon-create-contract"></i>
-                        <span>Buy</span>
-                    </a>
                 </div>
-
-                <div class="profile-buttons float-right" ng-if="currentUser.is_ghost">
-                    <button class="uppercase btn btn-submit hide-ls"
-                            ng-pop-up="{
-                                'template': '/templates/popups/login.html',
-                                'class': 'login-form',
-                                'params': {
-                                    page: 'registration'
-                                }
-                            }">
-                        <span>Sign up</span>
-                    </button>
-                    <button ng-pop-up="{
-                                'template': '/templates/popups/login.html',
-                                'class': 'login-form',
-                                'params': {
-                                    page: 'auth'
-                                }
-                            }"
-                            class="btn btn-transparent uppercase">
-                        <span>Sign in</span>
-                    </button>
-                </div>
-                <!-- div class="profile-buttons float-right" ng-if="!currentUser.is_ghost">
-                    <button class="btn btn-transparent" ng-pop-up="{
-                        template: '/templates/popups/logout-confirm.html',
-                        class: 'deleting-contract'
-                    }">
-                        <span>Log out</span>
-                    </button>
-                </div -->
-                <!--<span class="red">Warning!</span> <span>You are using pre-release version!</span>-->
             </div>
         </div>
     </div>
-</div>
 
-<main class="main-content-holder">
-    <!-- div class="main-section-content without-bottom-padding">
-        <div class="shadow-block">
-            <div class="shadow-block__content warning-page">
-                <div class="warning-page__icon">
-                    <i class="icon-warning"></i>
-                </div>
-                <div class="warning-page__text">
-                    <span>
-                        Warning! Service is under maintenance now. <br/>
-                        Please do not use it until this message is shown.
-                    </span>
+    <main class="main-content-holder">
+        <!-- div class="main-section-content without-bottom-padding">
+            <div class="shadow-block">
+                <div class="shadow-block__content warning-page">
+                    <div class="warning-page__icon">
+                        <i class="icon-warning"></i>
+                    </div>
+                    <div class="warning-page__text">
+                        <span translate="WARNING_MESSAGE"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div -->
-    <div ui-view></div>
-</main>
+        </div -->
+        <div ui-view></div>
+    </main>
 
-<div ng-pop-up="{
-    template: '/templates/popups/' + commonOpenedPopup + '.html',
-    class: commonOpenedPopupParams.class || 'deleting-contract',
-    params: commonOpenedPopupParams || {},
-    opened: true,
-    noClickShow: true,
-    newPopupContent: commonOpenedPopupParams.newPopupContent,
-    onClose: commonOpenedPopupParams.onClose || closeCommonPopup
-}" ng-if="commonOpenedPopup"></div>
+    <div ng-pop-up="{
+        template: '/templates/popups/' + commonOpenedPopup + '.html',
+        class: commonOpenedPopupParams.class || 'deleting-contract',
+        params: commonOpenedPopupParams || {},
+        opened: true,
+        noClickShow: true,
+        newPopupContent: commonOpenedPopupParams.newPopupContent,
+        onClose: commonOpenedPopupParams.onClose || closeCommonPopup
+    }" ng-if="commonOpenedPopup"></div>
 
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDHD74W"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDHD74W"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-<div class="global-error-layer {{'global-error-layer__' + globalError.type}}"
-     ng-click="hideGlobalError()"
-     ng-class="{'visible-error': globalError.text}">
-    <div class="global-error-layer__text">{{globalError.text}}</div>
+    <div class="global-error-layer {{'global-error-layer__' + globalError.type}}"
+         ng-click="hideGlobalError()"
+         ng-class="{'visible-error': globalError.text}">
+        <div class="global-error-layer__text">{{globalError.text}}</div>
+    </div>
 </div>
 
 <!-- Start of LiveChat (www.livechatinc.com) code -->
@@ -181,6 +170,12 @@
     })();
 </script>
 <!-- End of LiveChat code -->
-
+<img src="/static/images/220px-Wikipe-tan_full_length.svg.png"
+     ng-class="{visible: visibleGirl}"
+     class="anime-girl"/>
 </body>
+
+<!--<div class="bg"></div>-->
+<!--<ul class="drops"></ul>-->
+
 </html>

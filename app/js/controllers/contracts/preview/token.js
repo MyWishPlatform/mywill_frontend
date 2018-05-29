@@ -23,7 +23,20 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         itemLabel: 'address'
     };
     $scope.chartData = angular.copy(contractDetails.token_holders);
-}).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, NETWORKS_TYPES_CONSTANTS) {
+
+
+    switch ($scope.contract.network) {
+        case 1:
+        case 2:
+            $scope.contractInfo = 'eth_contract_token';
+            break;
+        case 5:
+        case 6:
+            $scope.contractInfo = 'neo_contract_token';
+            break;
+    }
+
+}).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
     $scope.contract = contract;
@@ -76,7 +89,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
 
     var beforeDistributed = {
         amount: 0,
-        address: 'Total Distributed (before)'
+        address: $filter('translate')('POPUP_FORMS.MINT_TOKENS_FORM.CHART.DISTRIBUTED_BEFORE')
     };
     var totalSupply = {
         tokens: 0

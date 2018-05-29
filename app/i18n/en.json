@@ -1,0 +1,955 @@
+{
+  "YES": "Yes",
+  "NO": "No",
+  "OR": "or",
+  "OK": "Ok",
+  "AND_OR": "And/Or",
+  "COPIED": "Copied",
+  "DISCLAIMER": "Disclaimer",
+  "MAIN_MENU": {
+    "UNKNOWN_USER": "Unknown user",
+    "UNKNOWN": "Unknown",
+    "CREATE_CONTRACT": "Create contract",
+    "MY_CONTRACTS": "My contracts",
+    "EXTERNAL_DEVELOPERS": "External developers",
+    "BUY_TOKENS": "Buy tokens",
+    "SUPPORT": "Support",
+    "LOG_OUT": "Log out",
+    "VERSION": "version"
+  },
+  "HEADER": {
+    "BUTTONS": {
+      "BUY": "Buy",
+      "SIGN_IN": "Sign in",
+      "SIGN_UP": "Sign up"
+    }
+  },
+  "WARNING_MESSAGE": "Warning! Service is under maintenance now.<br/> Please do not use it until this message is shown.",
+  "CONTRACTS_STATUSES": {
+    "DRAFT": "Draft",
+    "CREATED": "Created",
+    "WAITING_FOR_PAYMENT": "Waiting for payment",
+    "WAITING_FOR_DEPLOYMENT": "Waiting for deployment",
+    "ACTIVE": "Active",
+    "EXPIRED": "Expired",
+    "CANCELLED": "Cancelled",
+    "KILLED": "Cancelled",
+    "POSTPONED": "Postponed",
+    "TRIGGERED": "Done",
+    "WAITING_ACTIVATION": "Not Activated",
+    "ENDED": "Done",
+    "UNDER_CROWDSALE": "Under Crowdsale"
+  },
+  "CONTRACTS_NETWORKS": {
+    "NETWORK_1": "Main Ethereum Network",
+    "NETWORK_2": "Ropsten Test Net",
+    "NETWORK_3": "RSK Network",
+    "NETWORK_4": "RSK Testnet faucet",
+    "NETWORK_5": "NEO MainNet",
+    "NETWORK_6": "NEO TestNet"
+  },
+  "BUTTONS": {
+    "ENABLE": "Enable",
+    "DISABLE": "Disable",
+    "CHANGE": "Change",
+    "CANCEL": "Cancel",
+    "CLOSE": "Close",
+    "CLEAN": "Clean",
+    "SEND": "Send",
+    "CREATE": "Create",
+    "UPDATE": "Update",
+    "RESET": "Reset",
+    "OK": "Ok",
+    "COPY": "Copy",
+    "PAY": "Pay",
+    "DONE": "Done",
+    "CONTINUE": "Continue",
+    "I_ACCEPT": "I Accept",
+    "CONFIRM": "Confirm",
+    "BUY_TOKENS": "Buy tokens",
+    "CHECK": "Check"
+  },
+  "AUTH_POPUP": {
+    "FIELDS": {
+      "EMAIL": "E-mail",
+      "RESET_EMAIL": "Enter e-mail for password reset",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Repeat password",
+      "2FA": "2FA code"
+    },
+    "CONFIRM_EMAIL": "Please check your email & confirm registration. Thank you!",
+    "BUTTONS": {
+      "LOG_IN": "Log in",
+      "FORGOT_PASSWORD": "Forgot your password?",
+      "LOGIN_FACEBOOK": "Log in via Facebook",
+      "LOGIN_GOOGLE": "Log in via Google",
+      "CREATE_ACCOUNT": "Create account"
+    }
+  },
+  "CONTRACTS_BUTTONS": {
+    "ACTIVATE": "Activate",
+    "LAUNCH": "Launch",
+    "DEPOSIT": "Deposit",
+    "CANCEL": "Cancel",
+    "I_ALIVE": "I Alive",
+    "WITHDRAW": "Withdraw",
+    "FINALIZE": "Finalize",
+    "MINT": "Mint",
+    "DELETE": "Delete",
+    "EDIT": "Edit",
+    "ADD_TO_PARITY": "+ Add to parity"
+  },
+  "FIELDS_ERRORS": {
+    "REQUIRED": "Field is required",
+    "INCORRECT_PASSWORD": "Incorrect password",
+    "YOUR_EMAIL": "Enter your e-mail",
+    "MIN_LENGTH_PASSWORD": "Minimum password length 8 characters",
+    "NO_MATCH_PASSWORD": "Passwords do not match",
+    "INVALID_2FA_CODE": "Invalid code",
+    "ADDRESS_NOT_CHECKSUMMED": "Address is not checksummed"
+  },
+  "BLOCKCHAIN_NETWORKS": {
+    "ETH": "Ethereum",
+    "BTC": "Bitcoin",
+    "NEO": "NEO"
+  },
+  "ALERTS": {
+    "FORM_REQUEST_SUCCESS": {
+      "TEXT": "Thank you! Your message has been sent, we will contact you by Email."
+    },
+    "GHOST_USER": {
+      "TEXT": "Please sign in/sign up to add the contract<br/>to your personal account"
+    },
+    "GHOST_BUY_TOKENS": {
+      "TEXT": "Please sign in/sign up to replenish your account"
+    },
+    "PROMO_ACTIVATED": {
+      "TEXT": "Promo code was activated.<br/>New price: {{price}} WISH."
+    }
+  },
+  "CONFIRMATIONS": {
+    "LOG_OUT": {
+      "TEXT": "Do you really want to Log Out?"
+    },
+    "CONTRACT_DELETE": {
+      "TEXT": "Do you want to remove it?"
+    },
+    "CONTRACT_PAY": {
+      "TEXT": "Please confirm contract launch ({{price}} WISH)"
+    }
+  },
+  "PAGES": {
+    "CONTRACTS": {
+      "CREATE_CONTRACT_BLOCK": {
+        "DESCRIPTION": "The list of smart contracts is empty",
+        "BUTTON": "Create contract"
+      }
+    },
+    "PROFILE": {
+      "TWO_FACTOR_AUTH": {
+        "TITLE": "Two-factor authentication",
+        "DESCRIPTION": "We strongly recommend you to Enable 2FA",
+        "POPUPS": {
+          "ENABLE_INSTRUCTION": {
+            "TITLE": "Enable 2FA",
+            "LIST_STEPS": {
+              "STEP_1": "Scan QR-code",
+              "STEP_2": "Add mywish app in your Google Authenticator or in similar app",
+              "STEP_3": "Use code every time when login to MyWish"
+            }
+          },
+          "ENABLE_FORM": {
+            "TITLE": "Enable 2FA",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "Enter 2FA code:"
+              }
+            }
+          },
+          "DISABLE_FORM": {
+            "TITLE": "Disable 2FA",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "Enter 2FA code:"
+              }
+            }
+          }
+        }
+      },
+      "CHANGE_PASSWORD": {
+        "TITLE": "Change Password",
+        "FIELDS": {
+          "CURR_PASS": {
+            "LABEL": "Current password"
+          },
+          "NEW_PASS": {
+            "LABEL": "New password"
+          },
+          "NEW_PASS_CONFIRM": {
+            "LABEL": "Repeat new password"
+          },
+          "2FA": {
+            "LABEL": "2FA code"
+          }
+        }
+      }
+    },
+    "CREATE_CONTRACT": {
+      "BLOCKCHAIN_BLOCK": {
+        "TITLE": "Choose Blockchain",
+        "TEST_NETWORK_LABEL": "Test Network",
+        "TEST_NETWORK_DESCRIPTION": "Free of charge - for testing your contract before paying for it"
+      },
+      "CROWDSALE": {
+        "TITLE": "Crowdsale contract",
+        "DESCRIPTION": "Start your ICO/Token sale with a few clicks"
+      },
+      "TOKEN": {
+        "TITLE": "Token contract",
+        "DESCRIPTION": "Create a Token and distribute it yourself or with a Crowdsale Contract"
+      },
+      "LOST_KEY": {
+        "TITLE": "Lost key",
+        "DESCRIPTION": "The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
+      },
+      "DEFERRED": {
+        "TITLE": "Deferred payment",
+        "DESCRIPTION": "Smart contract makes payment on a specified date."
+      },
+      "WILL": {
+        "TITLE": "Will contract",
+        "DESCRIPTION": "Setup the transfer of funds to family or friends, in case of long inactive period of time (death, accidents & so on)."
+      },
+      "WEDDING": {
+        "TITLE": "Wedding contract",
+        "DESCRIPTION": "Wallet with Multisig function & distribution of funds between the owners after/during specified period of time."
+      },
+      "TEST_NET_DISCLAIMER": {
+        "LIST": {
+          "LIST_ITEM_1": "Contracts in Test Net are free for use (you can create & deploy it to test network)",
+          "LIST_ITEM_2": "Please accept low speed for deployment (up to 3 hours)",
+          "LIST_ITEM_3": "Contracts in Test/ Main network have identical code",
+          "LIST_ITEM_4": "Please use Test Net addresses (Ropsten for ETH) while working with contracts"
+        }
+      },
+      "BTC_DISCLAIMER": {
+        "TITLE": "How it works",
+        "LIST_1": {
+          "LIST_ITEM_1": "Log into MyWish Platform.",
+          "LIST_ITEM_2": "Choose Will contract & set it up. MyWish generates your personal smart contract.",
+          "LIST_ITEM_3": "Make a payment & MyWish deploys the contract to the RSK network.",
+          "LIST_ITEM_4": "Smart contract is deployed & ready for execution."
+        },
+        "LIST_2": {
+          "LIST_ITEM_1": "User regularly calls the contract to confirm its’ \"live\" status.",
+          "LIST_ITEM_2": "If no confirmation during the specified timeframe is detected, the contract distributes the funds to heirs."
+        }
+      }
+    },
+    "EXTERNAL_DEVELOPERS": {
+      "TITLE": "External Developers",
+      "DESCRIPTION": "To add your contract to the MyWish library and start audit process, fill the form below.",
+      "FIELDS": {
+        "USER_NAME": {
+          "LABEL": "User name"
+        },
+        "EMAIL": {
+          "LABEL": "Email"
+        },
+        "CONTRACT_NAME": {
+          "LABEL": "Contract name"
+        },
+        "DESCRIPTION": {
+          "PLACEHOLDER": "Contract description"
+        }
+      }
+    },
+    "BUY_TOKENS": {
+      "TITLE": "Buy Tokens",
+      "NOTE": {
+        "RED_TEXT": "Please note!",
+        "TEXT": "After replenish you will be not able to transfer/exchange tokens. You can use it only for contracts creation inside the Platform"
+      },
+      "GET": "Get",
+      "SEND": "Send",
+      "CHOOSE_REPLENISH_METHOD": "Choose replenish method",
+      "CHOOSE_PAYMENT_METHOD": "Select payment method:",
+      "CHOOSE_WALLET": "Choose your wallet:",
+      "SEND_WISH": "Send WISH tokens to:",
+      "SEND_ETH": "Send your ETH to:",
+      "SEND_BTC": "Send your BTC to:",
+      "ENTER_AMOUNT": "Enter Amount:",
+      "BTC_ATTENTION": {
+        "RED_TEXT": "Attention!",
+        "TEXT": "You will receive tokens after 5 BTC blocks confirmation. <br/> The approximate time of the transaction is 1 hour."
+      },
+      "GAS_PRICE": "Gas price 30 gwei",
+      "GAS_LIMIT": "Gas limit 100.000",
+      "HOW_TO_DO_IT": "How to do it?",
+      "HOW_TO_DO_IT_INSTRUCTION": {
+        "TITLE": "How To Pay",
+        "LIST": {
+          "LIST_ITEM_1": "Open your wallet",
+          "LIST_ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
+          "LIST_ITEM_3": "Insert the following recipient`s address:",
+          "LIST_ITEM_4": "Enter Amount to Send and choose ETH or WISH",
+          "LIST_ITEM_5": "Specify Gas limit 30000",
+          "LIST_ITEM_6": "Click Generate Transaction",
+          "LIST_ITEM_7": "Confirm the payment by pressing the button \"DONE\""
+        }
+      }
+    }
+  },
+  "POPUP_FORMS": {
+    "MINT_TOKENS_FORM": {
+      "DESCRIPTION": "Define address for tokens (after minting it will be sent to this address)",
+      "FIELDS": {
+        "ADDRESS": {
+          "PLACEHOLDER": "Enter the address of the recipient's wallet",
+          "LABEL": "Address"
+        },
+        "AMOUNT": {
+          "LABEL": "Token amount"
+        },
+        "FROZEN_DATE": {
+          "LABEL": "Frozen until date"
+        }
+      },
+      "CHART": {
+        "TOTAL_SUPPLY": "Total supply:",
+        "DISTRIBUTED_BEFORE": "Total Distributed (before)"
+      }
+    }
+  },
+  "POPUP_ERRORS": {
+    "I_ALIVE_ERROR": {
+      "TEXT": "You can't call \"I Alive\" anymore today."
+    },
+    "LESS_BALANCE": {
+      "TEXT": "Not enough tokens for contract deployment"
+    },
+    "FREEZE_DATE": {
+      "TEXT": "Un-Freeze date for token is expired.<br/>Please change it & Try again."
+    },
+    "CONTRACT_START_DATE": {
+      "TEXT": "Contract's start date is incorrect. <br/>Please change it & Try again."
+    }
+  },
+  "CONTRACTS_DISCLAIMERS": {
+    "ETH": {
+      "ACTIVATE": {
+        "LIST": {
+          "ITEM_1": "For sale activation you need to transfer token ownership to crowdsale contract.",
+          "ITEM_2": "You will need to make the special transaction from token owner address ({{address}})"
+        }
+      },
+      "MINT_FINALIZE": {
+        "LIST": {
+          "ITEM_0": "After finalization no more tokens can be minted, no new crowdsales can be created"
+        }
+      }
+    },
+    "ALL": {
+      "LAUNCH": {
+        "LIST": {
+          "ITEM_1": "MyWish is NOT responsible for the use of the contract",
+          "ITEM_2": "MyWish is ONLY responsible for creation & launch it on Ethereum/RSK network",
+          "ITEM_3": "MyWish is NOT responsible for incorrect contract behaviour in case of wrong parameters entered by users",
+          "ITEM_4": "MyWish is NOT responsible for errors in the code, but will do everything to eliminate it asap if they are detected",
+          "ITEM_5": "MyWish does NOT have access to the management functions of the contract and will not be able to stop it, continue and do anything else, except of finalisation after end date"
+        }
+      },
+      "NEO_NETWORK": {
+        "LIST": {
+          "ITEM_1": "Due to high deployment costs, you need to contact <a href=\"mailto:support@mywish.io\">support@mywish.io</a> before the creation in Main Net"
+        }
+      }
+    }
+  },
+  "CONTRACTS_INSTRUCTIONS": {
+    "ALL": {
+      "I_ALIVE": {
+        "TITLE": "Confirm Live",
+        "DESCRIPTION": "Do you confirm your “live” status?",
+        "LIST": {
+          "ITEM_0": "If you don’t then funds will be distributed in accordance with the contract."
+        },
+        "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "WILL_CANCEL": {
+        "TITLE": "Cancel",
+        "DESCRIPTION": "Are you sure to cancel contract?",
+        "LIST": {
+          "ITEM_0": "After cancellation all funds will be sent to your management address."
+        }
+      },
+      "WILL_WITHDRAW": {
+        "TITLE": "Withdraw",
+        "LIST": {
+          "ITEM_0": "Are you sure to withdraw? All funds will be sent to your management address."
+        }
+      }
+    },
+    "ETH": {
+      "ACTIVATE": {
+        "TITLE": "Activate",
+        "DESCRIPTION": "To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address.",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Click the contracts tab in your wallet",
+          "ITEM_3": "Copy the contract address to the Contract Address",
+          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
+          "ITEM_5": "Select the TRANSFER OWNER SHIP function",
+          "ITEM_6": {
+            "PART_1": "Insert Crowdsale contract address",
+            "PART_2": "to NewOwner field"
+          },
+          "ITEM_7": "Make the transaction"
+        }
+      },
+      "CANCEL": {
+        "TITLE": "Cancel",
+        "DESCRIPTION": "To <span class=\"shadow-block__content__description__red uppercase\">stop</span> the contract, follow the steps in the instruction.",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Click the contracts tab in your wallet",
+          "ITEM_3": "Copy the contract address to the Contract Address:",
+          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
+          "ITEM_5": "Select the KILL function",
+          "ITEM_6": "Make the transaction"
+        }
+      },
+      "DEPOSIT": {
+        "TITLE": "Deposit",
+        "DESCRIPTION": "To make a deposit on the contract, follow the instructions.",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
+          "ITEM_3": "Insert the following recipient's address:",
+          "ITEM_4": "Specify how much ETH you want to send (Amount to Send field)",
+          "ITEM_5": "Specify Gas limit 30000",
+          "ITEM_6": "Click generate Transaction",
+          "ITEM_7": "Confirm the payment by pressing the button \"DONE\""
+        }
+      },
+      "FINALIZE": {
+        "TITLE": "Finalize",
+        "DESCRIPTION": "To Finalize the contract and make tokens transferable do the following steps (under investment address)",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Click the contracts tab in your wallet",
+          "ITEM_3": "Copy the contract address to the Contract Address",
+          "ITEM_4": "Copy data to ABI/JSON interface:",
+          "ITEM_5": "Select the FINALIZE function",
+          "ITEM_6": "Make the transaction",
+          "ITEM_7": "Click send transaction"
+        }
+      },
+      "I_ALIVE": {
+        "TITLE": "Confirm Live",
+        "DESCRIPTION": "To Confirm your live status please do the following:",
+        "LIST": {
+          "ITEM_0": "Send any transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x9dddafe4</b>)"
+        },
+        "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "MINT_FINALIZE": {
+        "TITLE": "Finalize",
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Click the contracts tab in your wallet",
+          "ITEM_3": "Copy the contract address to the Contract Address",
+          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
+          "ITEM_5": "Select the finishMinting function",
+          "ITEM_6": "Make the transaction",
+          "ITEM_7": "Click send transaction"
+        }
+      },
+      "MINT": {
+        "TITLE": "Mint",
+        "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Click the contracts tab in your wallet",
+          "ITEM_3": "Copy the contract address to the Contract Address",
+          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
+          "ITEM_5": "Select the {{method}} function",
+          "ITEM_6": "Make the transaction",
+          "ITEM_7": "Click send transaction"
+        }
+      },
+      "PARITY": {
+        "TITLE": "Add to parity",
+        "DESCRIPTION": "Add a contract the Lost key in Parity",
+        "LIST": {
+          "ITEM_1": "Open Parity",
+          "ITEM_2": "Enter Settings and click the Contracts checkbox.",
+          "ITEM_3": "Go to folder \"Contracts\" and click \"+ WATCH\"",
+          "ITEM_4": "In the \"Choose contract type\" choose \"Custom contracts\".",
+          "ITEM_5": "In the \"Network address\" field, enter the Management add-on (your Wallet address)",
+          "ITEM_5_1": "Specify the name of the contract (the name that you specified in MyWish service is recommended )",
+          "ITEM_5_2": "Enter the contract description (optionally)",
+          "ITEM_5_3": "Copy ABI contract from MyWish instruction",
+          "ITEM_6": "Then click \"+ ADD CONTRACT\"",
+          "ITEM_7": "Now this contract is available to you in the list of contracts and you can transfer funds from it."
+        }
+      },
+      "WILL_CANCEL": {
+        "TITLE": "Cancel",
+        "DESCRIPTION": "After cancellation all funds will be sent to your management address.<br/>To Cancel please do the following:",
+        "LIST": {
+          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
+        },
+        "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "WILL_WITHDRAW": {
+        "TITLE": "Withdraw",
+        "DESCRIPTION": "After withdraw all funds will be sent to your management address.<br/>To Withdraw please do the following:",
+        "LIST": {
+          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
+        }
+      }
+    },
+    "RSK": {
+      "DEPOSIT": {
+        "TITLE": "Deposit",
+        "DESCRIPTION": "After you create the contract you need to send funds to it.",
+        "LIST": {
+          "ITEM_1": "Send your BTC to generated address (it’s unique):",
+          "ITEM_2": "After getting BTC it will be sent to RSK network from MyWish whitelisted address.",
+          "ITEM_3": "In 3-6 hours (10 BTC confirmations are needed) your RSK contract balance will be credited (1 BTC = 1 RSK) and you will get email confirmation.",
+          "ITEM_4": "If your BTC address has been whitelisted by RSK Community you can send SBTC to contract <a href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> directly."
+        }
+      }
+    },
+    "NEO": {
+      "MINT": {
+        "TITLE": "Mint",
+        "DESCRIPTION": "To Mint tokens please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
+        "LIST": {
+          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "Choose TestNet",
+          "ITEM_2": "Put script hash to Script Hash field",
+          "ITEM_3": "Put \"mint\" to Operation field",
+          "ITEM_4": "Put NEO address of recipient to Argument1 field",
+          "ITEM_5": "Put amount of tokens (to mint) to Argument2 field"
+        }
+      },
+      "MINT_FINALIZE": {
+        "TITLE": "Finalize",
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
+        "LIST": {
+          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "Choose TestNet",
+          "ITEM_2": "Put script hash to Script Hash field",
+          "ITEM_3": "Put \"finishMinting\" to Operation field",
+          "ITEM_4": "Leave Argument1 field empty",
+          "ITEM_5": "Leave Argument2 field empty"
+        }
+      }
+    }
+  },
+  "CONTRACTS": {
+    "FOR_SALE": "For Sale",
+    "PRE_SALE": "Pre-Sale",
+    "ENTER_PROMO_BLOCK": {
+      "FIELD_LABEL": "Promo code",
+      "DESCRIPTION": "You can enter promo code and get a discount",
+      "COST": "Contract`s cost:"
+    },
+    "FORMS": {
+      "DAY": "day",
+      "MONTH": "month",
+      "YEAR": "year",
+      "WATCH_INSTRUCTION": "Watch instruction",
+      "WEDDING": {
+        "TITLE": "Wedding contract",
+        "DESCRIPTION": "Please fill the form below and specify your wishes. We will ask contact of your partner before contract creation.",
+        "FIELDS": {
+          "USERNAME": {
+            "LABEL": "User&nbsp;name"
+          },
+          "EMAIL": {
+            "LABEL": "E-mail"
+          },
+          "DESCRIPTION": {
+            "PLACEHOLDER": "Contract description"
+          }
+        }
+      },
+      "FIELDS": {
+        "ENTER_CONTRACT_NAME": {
+          "LABEL": "Enter contract name:"
+        }
+      },
+      "BUTTONS": {
+        "ADD_WALLET": "Add wallet"
+      },
+      "DEFERRED": {
+        "TITLE": "Deferred payment",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your ETH wallet address",
+            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+          },
+          "SEND_TO_WALLET": {
+            "LABEL": "Send to wallet",
+            "PLACEHOLDER": "Enter the address of the recipient's wallet",
+            "DESCRIPTION": "Enter the recipient's ETH address. This address will get transfer."
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "E-mail for notification",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "Enter e-mail address to which we send notification about transfer."
+          },
+          "DATE_OF_TRANSFER": {
+            "LABEL": "Date of transfer",
+            "PLACEHOLDER": "",
+            "DESCRIPTION": "Enter the contract's conditions - specify when it will make the transfer."
+          }
+        }
+      },
+      "LOST_KEY": {
+        "TITLE": "Lost key contract",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your ETH wallet address",
+            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+          },
+          "RESERVE_ADDRESS": {
+            "LABEL": "Reserve address",
+            "PLACEHOLDER": "Enter the address of the recipient's wallet",
+            "DESCRIPTION": "Specify the backup address to which you want to send funds in the event that a private key is lost from the management address"
+          },
+          "SHARE": {
+            "LABEL": "Share",
+            "DESCRIPTION": "You can divide the funds between several reserve accounts. Choose percentage for every reserve address."
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "E-mail for notification",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "Enter the e-mail address to which you want to send a message about transferring the crypto currency"
+          },
+          "CONDITIONS_TEXT": "Enter Conditions for the wallet's activity",
+          "CONDITIONS_DESCRIPTION": "Enter the contract's conditions - specify when it will make the transfer.",
+          "WALLETS_ACTIVITY": {
+            "LABEL": "Wallet’s activity",
+            "LIST": {
+              "ITEM_1": "Outcome transactions"
+            }
+          },
+          "CHECK_EVERY": {
+            "LABEL": "Check every:"
+          },
+          "DUE_DATE": {
+            "LABEL": "Due date:"
+          }
+        }
+      },
+      "LAST_WILL": {
+        "TITLE": "Will contract",
+        "BUTTONS": {
+          "ADD_BENEFICIARY": "Add beneficiary"
+        },
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your {{networkName}} wallet address",
+            "ETH_DESCRIPTION": "ETH address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission",
+            "RSK_DESCRIPTION": "This address will manage your contract. You can create it by <a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a> wallet. Double check it before submission."
+          },
+          "YOUR_EMAIL": {
+            "LABEL": "Your Email for remainder & notifications",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "We will remind you to confirm \"live\" status & send notifications about the contract"
+          },
+          "BENEFICIARY_ADDR": {
+            "LABEL": "Beneficiary address",
+            "PLACEHOLDER": "Enter {{networkName}} address",
+            "ETH_DESCRIPTION": "Enter ETH address of beneficiary. After contract execution funds will be sent to that address.",
+            "RSK_DESCRIPTION": "Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by <a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> too."
+          },
+          "SHARE": {
+            "LABEL": "Share"
+          },
+          "BENEFICIARY_EMAIL": {
+            "LABEL": "E-mail for notification",
+            "PLACEHOLDER": "Enter the e-mail",
+            "DESCRIPTION": "Enter e-mail address to which we send notification about transfer"
+          },
+          "CONDITIONS_TITLE": "Define how often you want to confirm your \"Live\" status",
+          "CONFIRMATION_EVERY": {
+            "LABEL": "Confirmation transaction every",
+            "DESCRIPTION": "You will need to send transaction to the contract from management address every time."
+          },
+          "CONTRACT_EXPIRATION": {
+            "LABEL": "Will contract expiration",
+            "DESCRIPTION": "After due date all funds will be send to management address if all confirmations received at time."
+          },
+          "CANCEL_VIA_MYWISH": {
+            "LABEL": "Cancel contract via MyWish",
+            "DESCRIPTION": "If \"On\" you will be able to Cancel the contract and get all funds back by 1-Click on MyWish."
+          },
+          "CONFIRM_LIVE_VIA_MYWISH": {
+            "LABEL": "Confirm \"Live\" via MyWish",
+            "DESCRIPTION": "If \"On\" you will be able to Confirm \"Live\" status by 1-Click on MyWish."
+          },
+          "BOTH_VIA_MYWISH_TEXT": {
+            "DESCRIPTION": "Off mode for both options are more secured, but less convenient for use. You will need to install Metamask for management the contract. On options give you ability to manage the contract by MyWish."
+          },
+          "CHECK_EVERY": {
+            "LABEL": "Check every:"
+          },
+          "DUE_DATE": {
+            "LABEL": "Due date:"
+          }
+        }
+      },
+      "TOKEN": {
+        "TITLE": "Token contract",
+        "BUTTONS": {
+          "ADD_ADDRESS": "Add address"
+        },
+        "TOTAL_SUPPLY": "Total supply:",
+        "FIELDS": {
+          "TOKEN_NAME": {
+            "LABEL": "Token name:",
+            "DESCRIPTION": "Enter name of the project without spaces, usually 5-25 symbols. Lower and uppercase can be used"
+          },
+          "TOKEN_SYMBOL": {
+            "LABEL": "Token symbol:",
+            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
+          },
+          "DECIMALS": {
+            "LABEL": "Decimals:",
+            "DESCRIPTION": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice"
+          },
+          "TOKEN_TYPE": {
+            "LABEL": "Choose Type of Token",
+            "DESCRIPTION_1": "ERC-20 is recommended option. Accepted by the most exchanges.",
+            "DESCRIPTION_2": "ERC-223 is almost the same as ERC-20. Provides extra safety during token transfers."
+          },
+          "TOKEN_OWNER": {
+            "LABEL": "Token Owner",
+            "DESCRIPTION": "{{blockchain}} address (not exchange address). This address will be owner of the token (after sale end date). Double check the address (and access to it) before submission"
+          },
+          "RECIPIENT": {
+            "TITLE": "Define address for tokens (after minting it will be sent to this address)",
+            "DESCRIPTION_BLOCK": "You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion"
+          },
+          "RECIPIENT_ADDRESS": {
+            "LABEL": "Address",
+            "PLACEHOLDER": "Enter the address of the recipient's wallet"
+          },
+          "RECIPIENT_NAME": {
+            "LABEL": "Name"
+          },
+          "RECIPIENT_AMOUNT": {
+            "LABEL": "Token amount"
+          },
+          "FROZEN_UNTIL": {
+            "LABEL": "Frozen until date"
+          },
+          "FROZEN_UNTIL_SHORT": {
+            "LABEL": "Frozen till"
+          },
+          "FUTURE_MINTING": {
+            "LABEL": "Future Minting:",
+            "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible"
+          }
+        }
+      },
+      "CROWD_SALE": {
+        "TITLE": "Crowdsale contract",
+        "BUTTONS": {
+          "ADD_NEW_TIME_BONUS": "Add Bonus: Time/Sold Tokens",
+          "ADD_OTHER_TIME_BONUS": "Add Other Bonus: Time/Sold Tokens",
+          "ADD_NEW_AMOUNT_BONUS": "Add Amount Bonus",
+          "ADD_OTHER_AMOUNT_BONUS": "Add Other Amount Bonus",
+          "ADD_EXTRA_ADDRESS": "Add extra address"
+        },
+        "CAP_NOTE": {
+          "TITLE": "Please note!",
+          "TEXT": "If softcap > 0 all investments are stored on the vault contract until the end of crowdsale. <br/>If you need to get investments on your address right away set softcap = 0."
+        },
+        "CHART_TOKEN_DISTRIBUTED_MESSAGE": "Max possible emission of tokens, no more tokens can be minted.",
+        "FIELDS": {
+          "CHOOSE_TOKEN": {
+            "LABEL": "Choose token",
+            "ERRORS": {
+              "CLOSED": "You can't use this token. Final sale is already completed",
+              "RUNNING": "You can't use this token until the previous sale is not completed"
+            },
+            "DESCRIPTION": "Create New Token or Choose existing one if you've already completed presale on MyWish platform",
+            "DISTRIBUTED": "Tokens distributed ({{short_name}})",
+            "DISTRIBUTED_DESCRIPTION": "Shows how many tokens you have already distributed during pre-sale rounds (incl. reserved tokens for Team, Bounty, Bonuses if any)"
+          },
+          "CROWD_SALE_TYPE": {
+            "LABEL": "Choose Type of Crowdsale",
+            "VALUE_1": "Pre-Sale",
+            "DESCRIPTION_1": "You can make as many pre-sale rounds as you want",
+            "VALUE_2": "Final sale",
+            "DESCRIPTION_2": "No sale is possible after final sale. No more tokens can be created after end date"
+          },
+          "STORAGE_ADDRESS": {
+            "LABEL": "Investments Storage Address",
+            "DESCRIPTION": "ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it"
+          },
+          "TOKEN_RATE": {
+            "LABEL": "Token rate",
+            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 ETH",
+            "ADV_DESCRIPTION": "per 1 ETH"
+          },
+          "HARD_CAP": {
+            "LABEL": "Hard cap tokens",
+            "DESCRIPTION": "Defines how many tokens can be sold. After reaching this number sale will be stopped automatically. 1-100,000,000,000,000 Numerals are accepted."
+          },
+          "SOFT_CAP": {
+            "LABEL": "Soft cap tokens",
+            "DESCRIPTION": "Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their vestments back, project gets nothing. You can set it to 0 (no soft cap)"
+          },
+          "START_DATE": {
+            "LABEL": "Start date",
+            "DESCRIPTION": "Start date/time for sale. No contributions will be accepted before that time"
+          },
+          "FINISH_DATE": {
+            "LABEL": "Finish date",
+            "DESCRIPTION": "Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached"
+          },
+          "TRANSFERABLE": {
+            "LABEL": "Transferable:",
+            "DESCRIPTION": "User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended"
+          },
+          "AUTO_FINALIZE": {
+            "LABEL": "Finalize auto:",
+            "DESCRIPTION": "Our system can finalize the contract (to make tokens transferable) automatically after end date (you can do it early if hard cap reached)"
+          },
+          "MIN_MAX_INVESTMENTS": {
+            "LABEL": "Min & Max investments limitations",
+            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+          },
+          "MIN_INVESTMENTS": {
+            "LABEL": "Minimum",
+            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+          },
+          "MAX_INVESTMENTS": {
+            "LABEL": "Maximum",
+            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+          },
+          "TIME_BONUS": {
+            "LABEL": "Bonus",
+            "DESCRIPTION": "Usually 0.1-100%.  How many extra tokens will be sent to contributor."
+          },
+          "TIME_BONUS_TITLE": "Please choose one of the options (or both) for bonus activation",
+          "DEPENDS_AMOUNT": {
+            "LABEL": "Depends on amount of sold tokens:",
+            "DESCRIPTION": "Specify how many tokens shall be sold before bonus activation and when bonus deactivated",
+            "AMOUNT_FROM": "From",
+            "AMOUNT_TO": "To"
+          },
+          "DEPENDS_DATE_TIME": {
+            "LABEL": "Depends on date/time:",
+            "DESCRIPTION": "Specify the time frame when bonus is active for everyone",
+            "DATE_FROM": "Date from",
+            "DATE_TO": "Date to"
+          },
+          "TIME_BONUS_DESCRIPTION": "You can define bonus depending on amount of sold tokens and time. For example, give extra 10% to the first week contributors",
+          "AMOUNT_BONUS": {
+            "LABEL": "Bonus",
+            "DESCRIPTION": "Usually 0.1-100%.  How many extra tokens will be sent to contributor."
+          },
+          "MIN_AMOUNT": {
+            "LABEL": "Min Amount",
+            "DESCRIPTION": "Minimum contribution for getting specified bonus"
+          },
+          "MAX_AMOUNT": {
+            "LABEL": "Max Amount",
+            "DESCRIPTION": "Maximum contribution for getting specified bonus{{last ? ' (you can left it empty if there is no limit)' : ''}}"
+          },
+          "AMOUNT_BONUS_DESCRIPTION": "You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions"
+        }
+      }
+    },
+    "PREVIEW": {
+      "BUTTONS": {
+        "BACK_BUTTON": "My contracts"
+      },
+      "TABS": {
+        "INFO": "Preview contract",
+        "SOURCE": "Source code"
+      },
+      "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
+      "WILL_SOURCE_CODE": "Your Will source code",
+      "DEFERRED_SOURCE_CODE": "Your Deferred payment contract source code",
+      "LOST_KEY_SOURCE_CODE": "Your Lost Key source code",
+      "TOKEN_SOURCE_CODE": "Your TOKEN source code",
+      "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
+      "HERE": "here",
+      "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>",
+      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
+      "LIBRARIES_AND_FILES": "Libraries & other files can be found <a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
+      "VERIFY_INSTRUCTION": {
+        "ITEM_1": "Open contract address on <a target=\"_blank\" href=\"{{address_url}}\">etherscan</a>",
+        "ITEM_2": "In Contract Code tab choose \"Verify And Publish\"",
+        "ITEM_3": "Enter Contract Name:",
+        "ITEM_4": "Enter Contract Address:",
+        "ITEM_5": "Fill out Compiler version:",
+        "ITEM_6": "Paste the Solidity Contract code:",
+        "ITEM_7_1": "Remove the parameters from the Constructor Arguments field ABI-encoded",
+        "ITEM_7_2": "Enter constructor arguments ABI-encoded:",
+        "ITEM_8": "Others fields are not required. Press \"Verify And Publish\""
+      },
+      "CONTRACT_CODE_FOR_FREE": "Not available in free version",
+      "CONTRACT_CONDITIONS": "Contract conditions",
+      "HOW_TO_VERIFY": "How to verify on etherscan?",
+      "CONTRACT_BALANCE": "Contract balance:",
+      "CONTRACT_ADDRESS": "Contract address:",
+      "NEXT_CHECK": "Next check:",
+      "LAST_WILL": {
+        "CONFIRM_LIVE": {
+          "VARIANT_1": "Please confirm “Live” status before Next check: {{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>Last “Live” confirmation:{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_2": "Funds have been distributed in accordance with the contract on {{last_check ? (last_check|date:'yyyy-MM-dd HH:mm') : '--'}}<br/><br/>Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_3": "Contract was cancelled, all funds were sent to the contract’s owner.<br/><br/> Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_4": "Contract was expired, contract’s owner should withdraw the funds.<br/><br/>Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd') : '--'}}"
+        },
+        "LABELS": {
+          "HEIR": "Heir",
+          "HEIRS": "Heirs"
+        }
+      },
+      "TOKEN": {
+        "TOKEN_ADDRESS": "Token address",
+        "TOKEN_TYPE": "Token type:",
+        "TOKEN_DISTRIBUTION": "Token distribution"
+      },
+      "CROWD_SALE": {
+        "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",
+        "VAULT_ADDRESS": "Vault contract (Investments storage until the end of crowdsale)",
+        "CROWD_SALE_TYPE": "Crowdsale type:",
+        "TIME_BONUSES": {
+          "TITLE": "Time bonuses",
+          "BONUS": "Bonus:",
+          "TOKENS_FROM": "Tokens from",
+          "TOKENS_TO": "Tokens to",
+          "DATE_FROM": "Date from",
+          "DATE_TO": "Date to",
+          "SOLD_TOKENS_BONUS_TEXT": "Sold token bonus",
+          "TIME_BONUS_TEXT": "Time bonus"
+        },
+        "AMOUNT_BONUSES": {
+          "TITLE": "Amount bonuses",
+          "BONUS": "Bonus:",
+          "MIN_AMOUNT": "Min amount",
+          "MAX_AMOUNT": "Max amount"
+        }
+      }
+    }
+  }
+}

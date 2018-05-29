@@ -1,30 +1,33 @@
-<form class="shadow-block" ng-submit="ngPopUp.actions.enable2fa(pinCode)">
-    {{ngPopUp.params.actions}}
+<form class="shadow-block" ng-submit="ngPopUp.actions.enable2fa(pinCode, enable2FAForm)"
+      novalidate name="enable2FAForm">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
-                <span class="big-size">Enable 2FA&nbsp;&nbsp;&nbsp;</span>
+                <span class="big-size">{{'PAGES.PROFILE.TWO_FACTOR_AUTH.POPUPS.ENABLE_FORM.TITLE'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </div>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
         <div class="form-control">
-            <label class="form-control-label">Enter 2FA code:</label>
+            <label class="form-control-label"
+                   translate="PAGES.PROFILE.TWO_FACTOR_AUTH.POPUPS.ENABLE_FORM.FIELDS.ENTER_2FA.LABEL"></label>
             <input type="text" class="form-control-input"
                    required
+                   ng-change="ngPopUp.actions.resetError()"
                    ng-model="pinCode" ng-autofocus>
-            <span class="field-error" style="display: block" ng-if="ngPopUp.params.error">
-                {{ngPopUp.params.error}}
-            </span>
+            <span class="field-error form-field_error-required"
+                  translate="FIELDS_ERRORS.REQUIRED"></span>
+            <span class="field-error" style="display: block"
+                  ng-if="ngPopUp.params.error" ng-bind="('FIELDS_ERRORS.' + ngPopUp.params.error)|translate"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_no-tb-padding no-border">
         <div class="text-center">
             <button class="btn btn-transparent" ng-click="closeCurrentPopup()" type="button">
-                <span>Cancel</span>
+                <span translate="BUTTONS.CANCEL"></span>
             </button>
             <button class="btn btn-submit" type="submit">
-                <span>Enable</span>
+                <span translate="BUTTONS.ENABLE"></span>
             </button>
         </div>
     </div><br/><br/>

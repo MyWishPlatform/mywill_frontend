@@ -2,85 +2,79 @@
     <div class="contract-preview-one-tab"
          ng-click="goTo('info')"
          ng-class="{'active': showedTab == 'info'}">
-        <span>Preview</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
     <div class="contract-preview-one-tab"
-         ng-click="goTo('code', 'eth_contract_token')"
-         ng-show="details.eth_contract_token.address"
+         ng-click="goTo('code', contractInfo)"
+         ng-show="details[contractInfo].address"
          ng-class="{'active': showedTab == 'code'}">
-        <span>Source codes</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
 
-
 <div ng-show="showedTab == 'code'">
     <div class="shadow-block after-tabs">
-        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4) || (contract.network == 6)">
             <p class="normal-text">
-                <span>In free version (Test Net) sources codes are not available for loading.</span>
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
         </div>
+
         <div class="shadow-block__content">
             <p class="normal-text">
-                <span>Your TOKEN source code
+                <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="(contract.network == 1) || (contract.network == 3)"
-                          ng-click="saveAsFile(contract.contract_details.eth_contract_token.source_code, contract.name + '(token)')">
-                        <span>here</span>
+                          ng-if="(contract.network == 1) || (contract.network == 3) || (contract.network == 5)"
+                          ng-click="saveAsFile(contract.contract_details[contractInfo].source_code, contract.name + '(token)')">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
-                          ng-if="(contract.network == 2) || (contract.network == 4)">
-                        <span>here</span>
+                          ng-if="(contract.network == 2) || (contract.network == 4) || (contract.network == 6)">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
             </p>
 
             <p class="normal-text">
-                <span>Libraries & other files can be found
-                    <a href="https://github.com/MyWishPlatform/ico-crowdsale" target="_blank">here</a>
-                </span>
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: contractInfo === 'eth_contract_token' ? 'https://github.com/MyWishPlatform/ico-crowdsale' : 'https://github.com/MyWishPlatform/neo-ico-contracts'}"></span>
             </p>
         </div>
-        <div class="shadow-block__content">
-            <p class="normal-text">
-                If you need to verify contract on Etherscan please contact us by
-                <a href="mailto:support@mywish.io">email</a>
-                or follow the instruction:
-            </p>
+        <div class="shadow-block__content" ng-if="contractInfo === 'eth_contract_token'">
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"></p>
         </div>
-        <div class="shadow-block__content">
+        <div class="shadow-block__content" ng-if="selectedContract == 'eth_contract_token'">
             <ul class="new-instruction-list">
                 <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        Open contract address on
-                        <a target="_blank" ng-attr-href="{{getEtherscanUrl(contract)}}address/{{contract.contract_details[selectedContract].address|toCheckSum}}#code">etherscan</a>
+                    <div class="new-instruction-list__item__text"
+                         translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_1"
+                         translate-values="{address_url: getEtherscanUrl(contract, 'address')+'/'+(contract.contract_details[selectedContract].address|toCheckSum)+'#code'}">
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        In Contract Code tab choose "Verify And Publish"
-                    </div>
+                    <div class="new-instruction-list__item__text"
+                         translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_2"></div>
                 </li>
 
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Enter Contract Name:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_3'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
-                                    text="selectedContract === 'eth_contract_crowdsale' ? 'TemplateCrowdsale' : 'MainToken'"
+                                    text="'MainToken'"
                                     ng-class="{copied: contract.copied['contractName']}"
                                     on-copied="successCodeCopy(contract, 'contractName')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
-                            <div class="copy-block__text">{{selectedContract === 'eth_contract_crowdsale' ? 'TemplateCrowdsale' : 'MainToken'}}</div>
+                            <div class="copy-block__text">MainToken</div>
                         </div>
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Enter Contract Address:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_4'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
@@ -96,7 +90,7 @@
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Fill out Compiler version:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_5'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
@@ -110,19 +104,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="new-instruction-list__item" ng-if="(contract.network == 2) || (contract.network == 4)">
+                <li class="new-instruction-list__item" ng-if="(contract.network == 2) || (contract.network == 4)|| (contract.network == 6)">
                     <div class="new-instruction-list__item__text">
-                        Paste the Solidity Contract code:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_6'|translate}}
                         <div class="copy-block">
-                            <div class="copy-block__text">
-                                Not available in free version
-                            </div>
+                            <div class="copy-block__text" translate="CONTRACTS.PREVIEW.CONTRACT_CODE_FOR_FREE"></div>
                         </div>
                     </div>
                 </li>
-                <li class="new-instruction-list__item" ng-if="(contract.network == 1) || (contract.network == 3)">
+                <li class="new-instruction-list__item" ng-if="(contract.network == 1) || (contract.network == 3) || (contract.network == 5)">
                     <div class="new-instruction-list__item__text">
-                        Paste the Solidity Contract code:
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_6'|translate}}
                         <div class="copy-block">
                             <button class="copy-block__button relative"
                                     clipboard supported="supported"
@@ -138,12 +130,12 @@
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Remove the parameters from the Constructor Arguments field ABI-encoded
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_7_1'|translate}}
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text">
-                        Others fields are not required. Press "Verify And Publish"
+                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_8'|translate}}
                     </div>
                 </li>
             </ul>
@@ -158,30 +150,34 @@
         </div>
 
         <!-- Token contract address -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.eth_contract_token.address">
-            <div class="form-control-label">Token address</div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractInfo].address">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{details.eth_contract_token.address|blockies}}"/>
+                <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract)}}token/{{details.eth_contract_token.address|toCheckSum}}"
+                <a ng-attr-href="{{getEtherscanUrl(contract, 'token')}}/{{details[contractInfo].address|toCheckSum}}"
                    target="_blank"
-                   ng-bind="details.eth_contract_token.address|toCheckSum"></a>
+                   ng-if="contractInfo === 'eth_contract_token'"
+                   ng-bind="details[contractInfo].address|toCheckSum"></a>
+
+                <span ng-if="contractInfo === 'neo_contract_token'"
+                      ng-bind="details[contractInfo].address"></span>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['token_address']}"
-                        text="details.eth_contract_token.address|toCheckSum"
+                        text="details[contractInfo].address|toCheckSum"
                         on-copied="successCodeCopy(contract, 'token_address')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
-            <p class="normal-text">
+            <p class="normal-text" ng-if="contractInfo === 'eth_contract_token'">
                 <small>
                     <span class="as-link dotted"
-                          ng-click="goTo('code', 'eth_contract_token');">
-                        <span>How to verify on etherscan?</span>
+                          ng-click="goTo('code', contractInfo);">
+                        <span translate="CONTRACTS.PREVIEW.HOW_TO_VERIFY"></span>
                     </span>
                 </small>
             </p>
@@ -193,28 +189,32 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Token name:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.LABEL"></span><br/>
                         {{ contract.contract_details.token_name }}
                     </div>
                 </div>
                 <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Token symbol:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></span><br/>
                         {{ contract.contract_details.token_short_name }}
                     </div>
                 </div>
                 <div class="clearfix"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Decimals:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></span><br/>
                         {{ contract.contract_details.decimals }}
                     </div>
                 </div>
                 <div class="clearfix show-ls"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="contract.contract_details.token_type">
                     <div class="contract-preview-base-font">
-                        <span class="contract-preview-grey-font-color">Type of Token:</span><br/>
+                        <span class="contract-preview-grey-font-color"
+                              translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_TYPE"></span><br/>
                         {{ contract.contract_details.token_type }}
                     </div>
                 </div>
@@ -225,13 +225,13 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <span class="form-control-label">
                 <i class="icon-feature-minting form-control-label-icon"></i>
-                Future Minting
+                {{'CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.LABEL'|translate}}
             </span>
             <div class="contract-preview-base-font contract-preview-base-value">
                 <div class="contract-preview-base-value-string">
                     <i ng-class="{'icon-check_circle': details.future_minting, 'icon-cancel': !details.future_minting}"></i>
-                    <span ng-if="details.future_minting">YES</span>
-                    <span ng-if="!details.future_minting">NO</span>
+                    <span ng-if="details.future_minting" translate="YES" class="uppercase"></span>
+                    <span ng-if="!details.future_minting" translate="NO" class="uppercase"></span>
                 </div>
             </div>
         </div>
@@ -240,15 +240,14 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
-                    <div class="form-control-label">
-                        Token Owner
-                    </div>
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></div>
                     <br class="show-ls"/>
                     <span class="identicon-container">
-                            <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
-                        </span>
+                        <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
+                    </span>
                     <div class="contract-wallet-information-wallet">
-                        <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{details.admin_address}}"
+                        <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{details.admin_address}}"
                            target="_blank"
                            ng-bind="details.admin_address|toCheckSum"></a>
 
@@ -271,20 +270,21 @@
             <div class="shadow-block__content__blue-title">
                 <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Token distribution</span>
+                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_DISTRIBUTION"></span>
                 </div>
             </div>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
              ng-class="{'no-border': !$index}"
              ng-repeat="holder in details.token_holders">
-            <div class="form-control-label bold">Address</div>
+            <div class="form-control-label bold"
+                 translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract)}}address/{{holder.address}}"
+                <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{holder.address}}"
                    target="_blank"
                    ng-bind="holder.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -298,17 +298,20 @@
             </div><br/>
             <div class="grid-row">
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold">Name</div>
+                    <div class="form-control-label bold"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_NAME.LABEL"></div>
                     <div class="form-control-preview-value">{{holder.name || '-'}}</div>
                 </div>
                 <div class="clearfix show-vs"><br/></div>
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold">Token</div>
+                    <div class="form-control-label bold"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></div>
                     <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
                 </div>
                 <div class="clearfix show-ps"><br/></div>
                 <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
-                    <div class="form-control-label bold">Frozen till</div>
+                    <div class="form-control-label bold"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL_SHORT.LABEL"></div>
                     <div class="form-control-preview-value">
                         {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
                     </div>
@@ -318,9 +321,11 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
-                    <div class="form-control-label">Total supply: {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
+                    <div class="form-control-label">
+                        {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}}
+                        {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
                     <div class="form-control-description one-line without-padding" ng-if="!details.future_minting">
-                        <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
+                        <span class="form-control-description__text" translate="CONTRACTS.FORMS.CROWD_SALE.CHART_TOKEN_DISTRIBUTED_MESSAGE"></span>
                     </div>
                 </div>
             </div>

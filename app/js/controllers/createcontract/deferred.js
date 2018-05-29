@@ -1,19 +1,16 @@
-angular.module('app').controller('deferredCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_NAMES_CONSTANTS,
+angular.module('app').controller('deferredCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service) {
 
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyDeferred' + ($rootScope.currentUser.contracts + 1),
         contract_type: CONTRACT_TYPES_CONSTANTS.DEFERRED,
-        network: $stateParams.network || 1,
+        network: $stateParams.network,
         contract_details: {
             date: moment.tz('UTC').add(1, 'days').hour(12).startOf('h')
         }
     };
-    $scope.network = {
-        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
-        id: contract.network
-    };
+    $scope.network = contract.network;
 
     $scope.editContractMode = !!contract.id;
 

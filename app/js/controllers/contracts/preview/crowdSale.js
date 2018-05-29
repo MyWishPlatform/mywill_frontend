@@ -1,5 +1,5 @@
 angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
-                                                                        openedContract, $scope) {
+                                                                        openedContract, $scope, $filter) {
     $scope.contract = openedContract.data;
 
 
@@ -143,7 +143,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.chartData = angular.copy(contractDetails.token_holders);
     $scope.chartData.unshift({
         amount: contractDetails.hard_cap,
-        address: 'For Sale'
+        address: $filter('translate')('CONTRACTS.FOR_SALE')
     });
 
 });

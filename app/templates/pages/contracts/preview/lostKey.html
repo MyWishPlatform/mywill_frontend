@@ -2,49 +2,46 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'info'}"
          ng-click="contract.showedTab = 'info'">
-        <span>Preview contract</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
          ng-show="contract.contract_details.eth_contract.address">
-        <span>Source code</span>
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
+
 <div ng-show="contract.showedTab == 'code'">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
             <p class="normal-text">
-                <span>In free version (Test Net) sources codes are not available for loading.</span>
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
         </div>
 
         <div class="shadow-block__content">
             <p class="normal-text">
-                <span>Your Will source code
+                <span>{{'CONTRACTS.PREVIEW.LOST_KEY_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
                           ng-if="(contract.network == 1) || (contract.network == 3)"
                           ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(will)')">
-                        <span>here</span>
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
                           ng-if="(contract.network == 2) || (contract.network == 4)">
-                        <span>here</span>
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
             </p>
             <p class="normal-text">
-                <span>Libraries & other files can be found
-                    <a ng-attr-href="{{$root.gitHubLink}}" target="_blank">here</a>
-                </span>
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: $root.gitHubLink}"></span>
             </p>
         </div>
 
         <div class="shadow-block__content">
-            <p class="normal-text">
-                If you need to verify contract on Etherscan please contact us by
-                <a href="mailto:support@mywish.io">email</a>
-            </p>
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT"></p>
         </div>
     </div>
 </div>
@@ -58,12 +55,12 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
             <span class="form-control-label">
-                Contract balance: <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
+                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}} <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
             </span>
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
-            <div class="form-control-label">Lost key contract:</div>
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
@@ -95,7 +92,7 @@
                         }"
                         ng-click="closeCurrentPopup(true)"
                         class="as-link">
-                    <span>+ Add to parity</span>
+                    <span translate="CONTRACTS_BUTTONS.ADD_TO_PARITY"></span>
                 </button>
 
             </div>
@@ -105,7 +102,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-wallet form-control-label-icon"></i>
-                    Management address
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
                 </div><br/>
                 <div class="contract-wallet-information-float contract-wallet-information">
                     <span class="identicon-container relative-top">
@@ -119,7 +116,7 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-in-wallet form-control-label-icon"></i>
-                    Reserve address
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.RESERVE_ADDRESS.LABEL'|translate}}
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
                     <br/>
@@ -137,19 +134,19 @@
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
                     <i class="icon-conditions form-control-label-icon"></i>
-                    Outcome transactions
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.WALLETS_ACTIVITY.LIST.ITEM_1'|translate}}
                 </div>
                 <div class="contract-preview-base-font contract-preview-base-value">
                     <div>
-                        <span class="contract-preview-grey-font-color">Due date:</span>&nbsp;&nbsp;
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.DUE_DATE.LABEL'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.active_to|date:'yyyy-MM-dd'}}
                     </div><br/>
                     <div>
-                        <span class="contract-preview-grey-font-color">Check every:</span>&nbsp;&nbsp;
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.CHECK_EVERY.LABEL'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.check_interval.period}} {{contract.contract_details.check_interval.periodUnit}}
                     </div><br/>
                     <div ng-if="contract.contract_details.next_check">
-                        <span class="contract-preview-grey-font-color">Next check:</span>&nbsp;&nbsp;
+                        {{'CONTRACTS.PREVIEW.NEXT_CHECK'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.next_check|date:'yyyy-MM-dd'}}
                     </div>
                 </div>

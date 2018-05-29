@@ -1,4 +1,4 @@
-angular.module('app').controller('contractsPreviewController', function($scope, NETWORKS_TYPES_NAMES_CONSTANTS,
+angular.module('app').controller('contractsPreviewController', function($scope,
                                                                         CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
@@ -26,7 +26,6 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
         $scope.contract = contract;
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
-        $scope.contract.networkName = NETWORKS_TYPES_NAMES_CONSTANTS[$scope.contract.network || 1];
         contract.balance = undefined;
         $scope.contract.discount = 0;
 

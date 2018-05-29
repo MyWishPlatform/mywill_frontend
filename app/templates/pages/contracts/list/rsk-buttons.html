@@ -18,7 +18,7 @@
         ng-if="(statuses[contract.state]['value'] == 1) || (statuses[contract.state]['value'] == 2)"
         class="btn btn-transparent hide-ps">
     <i class="icon-rocket-ship"></i>
-    <span>Launch</span>
+    <span translate="CONTRACTS_BUTTONS.LAUNCH"></span>
 </button>
 
 <!-- Deposit instruction button -->
@@ -35,7 +35,7 @@
             onClose: returnToList
         }"
         class="btn btn-transparent hide-ps">
-    <span>Deposit</span>
+    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
 </button>
 
 
@@ -57,13 +57,13 @@
             onClose: returnToList
         }"
         class="btn btn-transparent hide-ps">
-    <span>I Alive</span>
+    <span translate="CONTRACTS_BUTTONS.I_ALIVE"></span>
 </button>
 
 <!-- Cancel instruction button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 0)"
         ng-pop-up="{template: !contract.contract_details.platform_cancel ?
-                '/templates/popups/instructions/networks/will-cancel-instruction.html' :
+                '/templates/popups/instructions/rsk/will-cancel-instruction.html' :
                 '/templates/popups/instructions/networks/will-cancel-instruction.html',
             newPopupContent: true,
             params: {
@@ -75,10 +75,10 @@
             onClose: returnToList
         }"
         class="btn btn-transparent hide-ps">
-    <span>Cancel</span>
+    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
 </button>
 <!-- Withdraw instruction button (Will | platform_cancel == false) -->
-<button ng-if="statuses[contract.state]['value'] == 5"
+<button ng-if="(statuses[contract.state]['value'] == 5) && (contract.contract_type == 0)"
         ng-pop-up="{
             template: !contract.contract_details.platform_cancel ?
                 '/templates/popups/instructions/rsk/will-withdraw-instruction.html' :
@@ -93,5 +93,5 @@
             onClose: returnToList
         }"
         class="btn btn-transparent hide-ps">
-    <span>Withdraw</span>
+    <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>
 </button>

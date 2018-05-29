@@ -3,9 +3,11 @@
     <div class="grid-row">
         <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
             <div class="form-control">
-                <label for="out-wallet-key-{{$index}}" class="form-control-label">Address</label>
+                <label for="out-wallet-key-{{$index}}"
+                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"
+                       class="form-control-label">Address</label>
                 <input id="out-wallet-key-{{$index}}" type="text"
-                       placeholder="Enter the address of the recipient's wallet"
+                       placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL'|translate}}"
                        ng-pattern="/^0x[0-9a-f]{40}$/i"
                        ng-model="recipient.address"
                        ng-change="!recipient.name ? checkTokensAmount() : false"
@@ -13,13 +15,14 @@
                        class="form-control-input"/>
                 <span class="field-error form-field_error-check-sum"
                       ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
-                      style="display: block">Address is not checksummed</span>
+                      style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
             </div>
         </div>
         <div class="clearfix show-ps"><br/></div>
         <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
             <div class="form-control">
-                <label for="address-name-{{$index}}" class="form-control-label">Name</label>
+                <label for="address-name-{{$index}}" class="form-control-label"
+                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_NAME.LABEL"></label>
                 <input id="address-name-{{$index}}" type="text"
                        ng-change="checkTokensAmount()"
                        ng-model="recipient.name"
@@ -30,7 +33,8 @@
         <div class="clearfix show-full hide-ps show-vs"><br/></div>
         <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
             <div class="form-control">
-                <label for="address-amount-{{$index}}" class="form-control-label">Token amount</label>
+                <label for="address-amount-{{$index}}" class="form-control-label"
+                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></label>
                 <input class="form-control-input"
                        id="address-amount-{{$index}}"
                        commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
@@ -44,7 +48,7 @@
         <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
             <label class="form-control-label">
                 <i class="icon-snowflake form-control-label-icon"></i>
-                Frozen until date&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
+                {{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
             </label>
             <div class="form-control">
                 <div class="grid-row contract-form-row">
@@ -52,8 +56,8 @@
                         <label class="checkbox-decoration">
                             <input type="checkbox" ng-model="recipient.isFrozen"/>
                             <span class="checkbox-decoration-displaying">
-                                <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
-                                <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                                <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                                <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
                             </span>
                         </label>
                     </div>
@@ -65,7 +69,6 @@
                                type="number"
                                ng-if="recipient.isFrozen"
                                ng-attr-min="{{request.stop_date * 1 + 1}}">
-
                         <input type="datetime"
                                ng-required="recipient.isFrozen"
                                ng-disabled="!recipient.isFrozen"
@@ -93,12 +96,13 @@
 <div class="shadow-block__content" ng-if="token_holders.length < 5">
     <div class="grid-row">
         <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
-            <span class="form-control-description__text">You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion</span><br/>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.DESCRIPTION_BLOCK"></span><br/>
         </div>
         <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
             <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
                 <i class="icon-create-contract"></i>
-                <span>Add extra address</span>
+                <span translate="CONTRACTS.FORMS.CROWD_SALE.BUTTONS.ADD_EXTRA_ADDRESS"></span>
             </button>
         </div>
     </div>
@@ -108,11 +112,11 @@
     <div class="grid-row">
         <div class="grid-cell grid-cell-1">
             <div class="form-control-label">
-                <!--({{totalSupply.eth|separateNumber}} ETH)-->
-                Total supply: {{totalSupply.tokens|separateNumber}} {{token.selectedToken.id ? token.selectedToken.token_short_name : request.token_short_name}}
+                {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}} {{totalSupply.tokens|separateNumber}} {{token.selectedToken.id ? token.selectedToken.token_short_name : request.token_short_name}}
             </div>
             <div class="form-control-description one-line without-padding">
-                <span class="form-control-description__text">Max possible emission of tokens, no more tokens can be minted.</span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.CROWD_SALE.CHART_TOKEN_DISTRIBUTED_MESSAGE"></span>
             </div>
         </div>
         <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">

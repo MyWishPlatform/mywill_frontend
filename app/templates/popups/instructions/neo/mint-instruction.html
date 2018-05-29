@@ -1,0 +1,70 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.NEO.MINT.TITLE'|translate}}&nbsp;</span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description">
+            <span translate-values="{
+                token_short_name: ngPopUp.params.contract.contract_details.token_short_name,
+                etherscan_url: $root.getEtherscanUrl(ngPopUp.params.contract, 'address'),
+                admin_address: ngPopUp.params.contract.contract_details.admin_address
+            }" translate="CONTRACTS_INSTRUCTIONS.NEO.MINT.DESCRIPTION"></span>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <ul class="new-instruction-list">
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.NEO.MINT.LIST.ITEM_0">
+                </div>
+            </li>
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.NEO.MINT.LIST.ITEM_1">
+                </div>
+            </li>
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.MINT.LIST.ITEM_2"></span>
+                    <div class="copy-block">
+                        <button class="copy-block__button relative"
+                                clipboard supported="supported"
+                                text="ngPopUp.params.contract.contract_details.neo_contract_token.script_hash"
+                                ng-class="{copied: ngPopUp.params.contract.copied['script_hash']}"
+                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'script_hash')">&nbsp;
+                            <i class="icon-content_copy"></i>
+                        </button>
+                        <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.neo_contract_token.script_hash}}</div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.NEO.MINT.LIST.ITEM_3">
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.NEO.MINT.LIST.ITEM_4">
+                </div>
+            </li>
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.NEO.MINT.LIST.ITEM_5">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <div class="text-center">
+            <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                <span translate="BUTTONS.DONE"></span>
+            </button>
+        </div>
+    </div>
+</div>

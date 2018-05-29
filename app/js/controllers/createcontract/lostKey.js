@@ -1,24 +1,24 @@
 angular.module('app').controller('lostKeyCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                     openedContract, $stateParams, NETWORKS_TYPES_NAMES_CONSTANTS,
+                                                                     openedContract, $stateParams, $filter,
                                                                      CONTRACT_TYPES_CONSTANTS, web3Service) {
 
     $scope.request = {};
     $scope.listWalletActivity = [
         {
             value: 1,
-            name: 'Outcome transactions'
+            name: $filter('translate')('CONTRACTS.FORMS.LOST_KEY.FIELDS.WALLETS_ACTIVITY.LIST.ITEM_1')
         }
     ];
     $scope.durationList = [
         {
             value: 1,
-            name: 'day'
+            name: $filter('translate')('CONTRACTS.FORMS.DAY')
         }, {
             value: 30,
-            name: 'month'
+            name: $filter('translate')('CONTRACTS.FORMS.MONTH')
         }, {
             value: 365,
-            name: 'year'
+            name: $filter('translate')('CONTRACTS.FORMS.YEAR')
         }
     ];
     $scope.currencyList = [
@@ -79,9 +79,10 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyLostKey' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.network || 1,
+        network: $stateParams.network,
         contract_details: {}
     };
+    $scope.network = contract.network;
 
     web3Service.setProviderByNumber(contract.network);
 
@@ -111,11 +112,6 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
     };
 
     $scope.checkPeriod = 1;
-
-    $scope.network = {
-        name: NETWORKS_TYPES_NAMES_CONSTANTS[contract.network],
-        id: contract.network
-    };
 
     $scope.editContractMode = !!contract.id;
 

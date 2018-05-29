@@ -14,14 +14,14 @@
                             }
                         }">
                     <i class="icon-trash"></i>
-                    <span>Delete</span>
+                    <span translate="CONTRACTS_BUTTONS.DELETE"></span>
                 </button><br/><br/>
             </div>
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
                 <button class="btn btn-transparent mobile-width-100 text-center"
                         ng-click="payContract(contract)">
                     <i class="icon-rocket-ship"></i>
-                    <span>Launch</span>
+                    <span translate="CONTRACTS_BUTTONS.LAUNCH"></span>
                 </button><br/><br/>
             </div>
 
@@ -39,7 +39,7 @@
                             },
                             onClose: returnToList
                         }">
-                    <span>Activate</span>
+                    <span translate="CONTRACTS_BUTTONS.ACTIVATE"></span>
                 </button><br/><br/>
             </div>
 
@@ -58,7 +58,7 @@
                             onClose: returnToList
                         }"
                         class="btn btn-transparent hide-ps">
-                    <span>Mint</span>
+                    <span translate="CONTRACTS_BUTTONS.MINT"></span>
                 </button>
             </div>
 
@@ -78,15 +78,15 @@
                             onClose: returnToList
                         }"
                         class="btn btn-transparent hide-ps">
-                    <span>Finalize</span>
+                    <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
                 </button>
             </div>
 
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
                 <!-- Edit instruction button -->
-                <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-back mobile-width-100 with-icon initial-padding">
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
                     <i class="icon-edit"></i>
-                    <span>Edit</span>
+                    <span translate="CONTRACTS_BUTTONS.EDIT"></span>
                 </a><br/><br/>
             </div>
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
@@ -102,7 +102,7 @@
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span>Deposit</span>
+                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
                 </button><br/><br/>
             </div>
 
@@ -120,7 +120,7 @@
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span>Cancel</span>
+                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
                 </button><br/><br/>
             </div>
 
@@ -140,7 +140,7 @@
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span>I Alive</span>
+                    <span translate="CONTRACTS_BUTTONS.I_ALIVE"></span>
                 </button><br/><br/>
             </div>
 
@@ -160,12 +160,12 @@
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span>Cancel</span>
+                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
                 </button><br/><br/>
             </div>
             <!-- Withdraw instruction button (Will | platform_cancel == false) -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="contract.stateValue == 5">
+                 ng-if="(contract.stateValue == 5) && (contract.contract_type == 0)">
                 <button ng-pop-up="{
                             template: !contract.contract_details.platform_cancel ?
                                 '/templates/popups/instructions/eth/will-withdraw-instruction.html' :
@@ -179,7 +179,7 @@
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span>Withdraw</span>
+                    <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>
                 </button><br/><br/>
             </div>
 
@@ -197,7 +197,7 @@
                             }
                         }"
                         class="btn btn-submit mobile-width-100">
-                    <span>Finalize</span>
+                    <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
                 </button><br/><br/>
             </div>
         </div>

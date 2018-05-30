@@ -23,7 +23,19 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         $rootScope.showedMenu = state;
     };
-    $translate.use('en');
+
+    $rootScope.language = 'en';
+    $rootScope.languagesList = {
+        'jp': {
+            'name': '日本語',
+            'icon': 'jp'
+        },
+        'en': {
+            'name': 'English',
+            'icon': 'us'
+        }
+    };
+    $translate.use($rootScope.language);
 
     $rootScope.visibleGirl = false;
     var clickBodyCounter = 0, clickTimer;

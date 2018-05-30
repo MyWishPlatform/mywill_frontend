@@ -5,7 +5,6 @@
   padding: 1em;
   text-align: center;
   left: 0;
-  right: 0;
   color: #fff;
 }
 .main-menu-holder {
@@ -168,3 +167,25 @@
   }
 }
 
+.language-switcher {
+  position: absolute;
+  bottom: 0;
+  font-size: 1.2em;
+  padding: 1em;
+  right: 0;
+  text-align: center;
+  &__icon {
+    width: 1.8em;
+    margin-right: 0.3em;
+    vertical-align: middle;
+  }
+  &__name {
+    color: #fff;
+    vertical-align: middle;
+    text-decoration: underline;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

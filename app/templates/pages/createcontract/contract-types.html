@@ -144,7 +144,7 @@
     <div ui-sref="main.createcontract.form({selectedType: 'crowdSale', network: blockChainNetwork.isTest ? 2 : 1})"
          class="shadow-block shadow-block_hovered">
         <div class="shadow-block__content">
-            <div class="contract-price-block">
+            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
                 <div class="contract-price-block_content">
                     <span>5</span>
                     <img src="/static/images/blockchain/ethereum.png">
@@ -168,7 +168,7 @@
     <div ui-sref="main.createcontract.form({selectedType: 'token', network: blockChainNetwork.isTest ? 2 : 1})"
          class="shadow-block shadow-block_hovered">
         <div class="shadow-block__content">
-            <div class="contract-price-block">
+            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
                 <div class="contract-price-block_content">
                     <span>3</span>
                     <img src="/static/images/blockchain/ethereum.png">

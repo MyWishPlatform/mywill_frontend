@@ -392,6 +392,12 @@
       }
     },
     "ETH": {
+      "ANY_TRANSACTION": {
+        "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
+        "PART_2": "to contract address",
+        "PART_3": "with Data field"
+      },
+
       "ACTIVATE": {
         "TITLE": "Activate",
         "DESCRIPTION": "To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address.",
@@ -457,7 +463,7 @@
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
           "ITEM_1": "Open your wallet (Parity, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "Click the contracts tab in your wallet",
@@ -541,7 +547,7 @@
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
         "LIST": {
           "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
           "ITEM_1": "Choose TestNet",

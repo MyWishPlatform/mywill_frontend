@@ -663,7 +663,7 @@
       "TOKEN": {
         "TITLE": "Token contract",
         "BUTTONS": {
-          "ADD_ADDRESS": "Add address"
+          "ADD_ADDRESS": "Mint tokens"
         },
         "TOTAL_SUPPLY": "Total supply:",
         "FIELDS": {

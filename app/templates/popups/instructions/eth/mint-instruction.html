@@ -1,6 +1,6 @@
 <div class="shadow-block">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
-        <div class="shadow-block__content__blue-title">
+        <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
                 <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.ETH.MINT.TITLE'|translate}}&nbsp;</span>
             </div>
@@ -19,7 +19,7 @@
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <a ng-attr-href="{{
-            'https://www.myetherwallet.com/?data=' + ngPopUp.params.mintSignature +
+            'https://www.myetherwallet.com/?data=' + ngPopUp.params.mintSignature.string +
             '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract_token.address}}#send-transaction"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
@@ -42,7 +42,7 @@
     <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding"
          ng-init="instructionData = {
-            'dataField': ngPopUp.params.mintSignature,
+            'dataField': ngPopUp.params.mintSignature.string,
             'ownerAddress': ngPopUp.params.contract.contract_details.admin_address,
             'contractAddress': ngPopUp.params.contract.contract_details.eth_contract_token.address,
             'successCopy': ngPopUp.actions.successCodeCopy,

@@ -1,32 +1,31 @@
-<div class="normal-text"><br/>
+<div class="normal-text visible-text">
     {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_1'|translate}}
     <div class="copy-block">
         <button class="copy-block__button relative"
                 clipboard supported="supported"
-                text="instructionData.ownerAddress"
+                text="instructionData.ownerAddress|toCheckSum"
                 ng-class="{copied: instructionData.contract.copied['admin_address']}"
                 on-copied="instructionData.successCopy(instructionData.contract, 'admin_address')">&nbsp;
             <i class="icon-content_copy"></i>
         </button>
-        <div class="copy-block__text">{{instructionData.ownerAddress}}</div>
+        <div class="copy-block__text">{{instructionData.ownerAddress|toCheckSum}}</div>
     </div>
 </div>
-<div class="normal-text"><br/>
+<div class="normal-text visible-text">
     {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_2'|translate}}
     <div class="copy-block">
         <button class="copy-block__button relative"
                 clipboard supported="supported"
-                text="instructionData.contractAddress"
+                text="instructionData.contractAddress|toCheckSum"
                 ng-class="{copied: instructionData.contract.copied['address']}"
                 on-copied="instructionData.successCopy(instructionData.contract, 'address')">&nbsp;
             <i class="icon-content_copy"></i>
         </button>
-        <div class="copy-block__text">{{instructionData.contractAddress}}</div>
+        <div class="copy-block__text">{{instructionData.contractAddress|toCheckSum}}</div>
     </div>
 </div>
-<div class="normal-text"><br/>
+<div class="normal-text visible-text">
     {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_3'|translate}}
-    {{instructionData}}
     <div class="copy-block">
         <button class="copy-block__button relative"
                 clipboard supported="supported"

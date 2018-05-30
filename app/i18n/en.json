@@ -394,37 +394,16 @@
     "ETH": {
       "ANY_TRANSACTION": {
         "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
-        "PART_2": "to contract address",
-        "PART_3": "with Data field"
+        "PART_2": "To contract address",
+        "PART_3": "With Data field"
       },
-
       "ACTIVATE": {
         "TITLE": "Activate",
-        "DESCRIPTION": "To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address.",
-        "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "Click the contracts tab in your wallet",
-          "ITEM_3": "Copy the contract address to the Contract Address",
-          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
-          "ITEM_5": "Select the TRANSFER OWNER SHIP function",
-          "ITEM_6": {
-            "PART_1": "Insert Crowdsale contract address",
-            "PART_2": "to NewOwner field"
-          },
-          "ITEM_7": "Make the transaction"
-        }
+        "DESCRIPTION": "To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address."
       },
       "CANCEL": {
         "TITLE": "Cancel",
-        "DESCRIPTION": "To <span class=\"shadow-block__content__description__red uppercase\">stop</span> the contract, follow the steps in the instruction.",
-        "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "Click the contracts tab in your wallet",
-          "ITEM_3": "Copy the contract address to the Contract Address:",
-          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
-          "ITEM_5": "Select the KILL function",
-          "ITEM_6": "Make the transaction"
-        }
+        "DESCRIPTION": "To <span class=\"shadow-block__content__description__red uppercase\">stop</span> the contract, follow the steps in the instruction."
       },
       "DEPOSIT": {
         "TITLE": "Deposit",
@@ -441,51 +420,21 @@
       },
       "FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "To Finalize the contract and make tokens transferable do the following steps (under investment address)",
-        "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "Click the contracts tab in your wallet",
-          "ITEM_3": "Copy the contract address to the Contract Address",
-          "ITEM_4": "Copy data to ABI/JSON interface:",
-          "ITEM_5": "Select the FINALIZE function",
-          "ITEM_6": "Make the transaction",
-          "ITEM_7": "Click send transaction"
-        }
+        "DESCRIPTION": "To Finalize the contract and make tokens transferable do the following steps (under investment address)"
       },
       "I_ALIVE": {
         "TITLE": "Confirm Live",
         "DESCRIPTION": "To Confirm your live status please do the following:",
-        "LIST": {
-          "ITEM_0": "Send any transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x9dddafe4</b>)"
-        },
         "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "To finalize Token {{token_short_name}} please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
-        "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "Click the contracts tab in your wallet",
-          "ITEM_3": "Copy the contract address to the Contract Address",
-          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
-          "ITEM_5": "Select the finishMinting function",
-          "ITEM_6": "Make the transaction",
-          "ITEM_7": "Click send transaction"
-        }
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)"
       },
       "MINT": {
         "TITLE": "Mint",
-        "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)",
-        "LIST": {
-          "ITEM_1": "Open your wallet (Parity, <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "Click the contracts tab in your wallet",
-          "ITEM_3": "Copy the contract address to the Contract Address",
-          "ITEM_4": "Copy MyWill data to ABI/JSON interface:",
-          "ITEM_5": "Select the {{method}} function",
-          "ITEM_6": "Make the transaction",
-          "ITEM_7": "Click send transaction"
-        }
+        "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)"
       },
       "PARITY": {
         "TITLE": "Add to parity",
@@ -506,18 +455,12 @@
       "WILL_CANCEL": {
         "TITLE": "Cancel",
         "DESCRIPTION": "After cancellation all funds will be sent to your management address.<br/>To Cancel please do the following:",
-        "LIST": {
-          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
-        },
         "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "WILL_WITHDRAW": {
         "TITLE": "Withdraw",
-        "DESCRIPTION": "After withdraw all funds will be sent to your management address.<br/>To Withdraw please do the following:",
-        "LIST": {
-          "ITEM_0": "Send transaction from your management address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) to Will contract address (ETH address - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) with Data field (<b>0x41c0e1b5</b>)"
-        }
+        "DESCRIPTION": "After withdraw all funds will be sent to your management address.<br/>To Withdraw please do the following:"
       }
     },
     "RSK": {
@@ -920,7 +863,7 @@
       "NEXT_CHECK": "Next check:",
       "LAST_WILL": {
         "CONFIRM_LIVE": {
-          "VARIANT_1": "Please confirm “Live” status before Next check: {{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>Last “Live” confirmation:{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_1": "Please confirm “Live” status before Next check: {{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
           "VARIANT_2": "Funds have been distributed in accordance with the contract on {{last_check ? (last_check|date:'yyyy-MM-dd HH:mm') : '--'}}<br/><br/>Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
           "VARIANT_3": "Contract was cancelled, all funds were sent to the contract’s owner.<br/><br/> Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
           "VARIANT_4": "Contract was expired, contract’s owner should withdraw the funds.<br/><br/>Last “Live” confirmation: {{last_reset ? (last_reset|date:'yyyy-MM-dd') : '--'}}"

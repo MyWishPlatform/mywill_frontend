@@ -679,7 +679,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
 
     var interfaceMethod = web3Service.getMethodInterface('finalize', contractDetails.eth_contract_crowdsale.abi);
-    $scope.activateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+    $scope.fonalizeSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
 
     web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
 

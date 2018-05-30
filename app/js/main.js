@@ -24,7 +24,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.showedMenu = state;
     };
 
-    $rootScope.language = 'en';
     $rootScope.languagesList = {
         'jp': {
             'name': '日本語',
@@ -35,7 +34,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             'icon': 'us'
         }
     };
+    $rootScope.language = 'en';
     $translate.use($rootScope.language);
+
+    $rootScope.setLanguage = function(lng) {
+        $rootScope.language = lng;
+        $translate.use($rootScope.language);
+    };
 
     $rootScope.visibleGirl = false;
     var clickBodyCounter = 0, clickTimer;

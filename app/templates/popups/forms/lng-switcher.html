@@ -1,0 +1,14 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_no-lr-padding">
+        <div class="alert-window-title">Select language</div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
+        <div class="lng-choose">
+            <div class="lng-choose-item" ng-repeat="(key, lng) in $root.languagesList"
+                 ng-click="$root.setLanguage(key); closeCurrentPopup()">
+                <img  class="lng-choose-item__icon" ng-src="/static/images/countries/{{lng['icon']}}.svg"/>
+                <span class="lng-choose-item__name">{{lng['name']}}</span>
+            </div>
+        </div>
+    </div>
+</div>

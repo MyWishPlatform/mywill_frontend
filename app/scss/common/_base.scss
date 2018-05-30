@@ -325,3 +325,33 @@ nav, main, footer, header {
           inset 0 10px 3px rgba(255,255,255,.1);
   transform: rotate(180deg);
 }
+
+
+.lng-choose {
+  &:after {
+    content: '';
+    clear: both;
+    display: block;
+  }
+  padding-bottom: 2em;
+  &-item {
+    float: left;
+    width: 33%;
+    text-align: left;
+    &__icon {
+      width: 2.4em;
+      margin-right: 0.3em;
+      vertical-align: middle;
+    }
+    &__name {
+      color: #444;
+      vertical-align: middle;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1.4em;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

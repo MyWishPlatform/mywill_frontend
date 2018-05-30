@@ -49,7 +49,10 @@
     </nav>
     <!--<span class="release-version">{{'MAIN_MENU.VERSION'|translate}} 1.7.0</span>-->
     <span class="release-version">v1.7.0</span>
-    <span class="language-switcher">
+    <span class="language-switcher" ng-pop-up="{
+        template: '/templates/popups/forms/lng-switcher.html',
+        class: 'deleting-contract'
+    }">
         <img  class="language-switcher__icon" ng-src="/static/images/countries/{{languagesList[language]['icon']}}.svg"/>
         <span class="language-switcher__name">{{languagesList[language]['name']}}</span>
     </span>

@@ -361,7 +361,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "Due to high deployment costs, you need to contact <a href=\"mailto:support@mywish.io\">support@mywish.io</a> before the creation in Main Net"
+          "ITEM_1": "デプロイメントコストが高いなので,Main Netに作成する前に<a　href=\"mailto:support@mywish.io\">support@mywish.io</a>　に連絡する必要があります"
         }
       }
     }
@@ -392,33 +392,18 @@
       }
     },
     "ETH": {
+      "ANY_TRANSACTION": {
+        "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
+        "PART_2": "To contract address",
+        "PART_3": "With Data field"
+      },
       "ACTIVATE": {
         "TITLE": "活性化する",
-        "DESCRIPTION": "クラウドセールを有効にするには、クラウドセール契約にトークン所有権を譲渡する必要があります。 トークンの所有者のアドレスから対応する関数を呼び出してください。",
-        "LIST": {
-          "ITEM_1": "お財布を開きます (パリティ、<a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "お財布に契約タブをクリックします",
-          "ITEM_3": "契約アドレスを契約住所にコピーします",
-          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
-          "ITEM_5": "〝TRANSFER OWNERSHIP”機能を選択します",
-          "ITEM_6": {
-            "PART_1": "クラウドセール契約アドレスを挿入",
-            "PART_2": "新規所有者フィールドへ"
-          },
-          "ITEM_7": "トランザクションを作ります"
-        }
+        "DESCRIPTION": "クラウドセールを有効にするには、クラウドセール契約にトークン所有権を譲渡する必要があります。 トークンの所有者のアドレスから対応する関数を呼び出してください。"
       },
       "CANCEL": {
         "TITLE": "キャンセル",
-        "DESCRIPTION": "契約を<span class=\"shadow-block__content__description__red uppercase\">停止する</span>には、指示の手順に従います。",
-        "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "お財布に契約タブをクリックします",
-          "ITEM_3": "契約アドレスを契約住所にコピーします",
-          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
-          "ITEM_5": "〝KILL”機能を選択します",
-          "ITEM_6": "トランザクションを作ります"
-        }
+        "DESCRIPTION": "契約を<span class=\"shadow-block__content__description__red uppercase\">停止する</span>には、指示の手順に従います。"
       },
       "DEPOSIT": {
         "TITLE": "デポジット",
@@ -435,51 +420,21 @@
       },
       "FINALIZE": {
         "TITLE": "ファイナライズ",
-        "DESCRIPTION": "契約をファイナライズするために、トークンを譲渡できるようにするには、以下のステップを実行します（投資アドレスの下で）",
-        "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ,  <a href=\"https://www.myetherwallet.com/\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "お財布に契約タブをクリックします",
-          "ITEM_3": "契約アドレスを契約住所にコピーします",
-          "ITEM_4": "データをABI / JSONインターフェースにコピーする：",
-          "ITEM_5": "〝FINALIZE”機能を選択します",
-          "ITEM_6": "トランザクションを作ります",
-          "ITEM_7": "トランザクションの送信]をクリックします"
-        }
+        "DESCRIPTION": "契約をファイナライズするために、トークンを譲渡できるようにするには、以下のステップを実行します（投資アドレスの下で）"
       },
       "I_ALIVE": {
         "TITLE": "ライブを確認する",
         "DESCRIPTION": "ライブステータスを確認するには、次の操作を行ってください：",
-        "LIST": {
-          "ITEM_0": "管理アドレスから（ETHアドレス- <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>) ウィル契約アドレスへ(ETH アドレス- <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>) データフィールド付きを(<b>0x9dddafe4</b>)　トランザクションを送信する"
-        },
         "LAST_CHECK": "最後の日付:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "次のチェック:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "MINT_FINALIZE": {
         "TITLE": "ファイナライズ",
-        "DESCRIPTION": "トークン{{token_short_name}}をファイナライズするためにトークン所有者の(<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
-        "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{killUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
-          "ITEM_2": "お財布に契約タブをクリックします",
-          "ITEM_3": "契約アドレスを契約住所にコピーします",
-          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
-          "ITEM_5": "〝finish　Minting”機能を選択します",
-          "ITEM_6": "トランザクションを作ります",
-          "ITEM_7": "トランザクションの送信]をクリックします"
-        }
+        "DESCRIPTION": "トークン{{token_short_name}}をファイナライズするためにトークン所有者の(<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)"
       },
       "MINT": {
         "TITLE": "ミント",
-        "DESCRIPTION": "受信者<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">　{{recipient}}</a>　アドレスに{{amount}} {{tokenName}} トークンをミントをするために、トークン所有者の(<a target=\"_blank\" href=\"{{etherscanUrl}}address/　{{admin}}\">{{admin}}</a>)　アドレスから次のトランザクションをを作成してください",
-        "LIST": {
-          "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{killUrl}}\" target=\"_blank\">　私のEtherワレット</a>)",
-          "ITEM_2": "お財布に契約タブをクリックします",
-          "ITEM_3": "契約アドレスを契約住所にコピーします",
-          "ITEM_4": "MyWillデータをABI / JSONインターフェースにコピーする：",
-          "ITEM_5": "〝{{method}}”機能を選択します",
-          "ITEM_6": "トランザクションを作ります",
-          "ITEM_7": "トランザクションの送信]をクリックします"
-        }
+        "DESCRIPTION": "受信者<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">　{{recipient}}</a>　アドレスに{{amount}} {{tokenName}} トークンをミントをするために、トークン所有者の(<a target=\"_blank\" href=\"{{etherscanUrl}}address/　{{admin}}\">{{admin}}</a>)　アドレスから次のトランザクションをを作成してください"
       },
       "PARITY": {
         "TITLE": "Parityに追加する",
@@ -500,18 +455,12 @@
       "WILL_CANCEL": {
         "TITLE": "キャンセル",
         "DESCRIPTION": "キャンセル後ですべての資金はご管理アドレスに送信されます。 キャンセルするためには以下を実行してください：",
-        "LIST": {
-          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}　address/{{user_address}}\">　{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
-        },
         "LAST_CHECK": "最後の日付:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
         "NEXT_CHECK": "次のチェック:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "WILL_WITHDRAW": {
         "TITLE": "撤回",
-        "DESCRIPTION": "撤回した後、すべての資金はご管理アドレスに送られます。 撤退する次の手順に従ってください:",
-        "LIST": {
-          "ITEM_0": "ご管理アドレス(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}address/{{user_address}}\">{{user_address}}</a>)からデータフィールドとの(<b>0x41c0e1b5</b>)ウィル契約のアドレスへの(ETH アドレス - <a target=\"_blank\" href=\"{{etherscan_url}}address/　{{contract_address}}\">{{contract_address}}</a>)トランザクションの送信する"
-        }
+        "DESCRIPTION": "撤回した後、すべての資金はご管理アドレスに送られます。 撤退する次の手順に従ってください:"
       }
     },
     "RSK": {
@@ -529,26 +478,26 @@
     "NEO": {
       "MINT": {
         "TITLE": "Mint",
-        "DESCRIPTION": "To Mint tokens please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
+        "DESCRIPTION": "トークンをミントするには、所有者トークンのアドレス(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)から次の取引を行ってください",
         "LIST": {
-          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
-          "ITEM_1": "Choose TestNet",
-          "ITEM_2": "Put script hash to Script Hash field",
-          "ITEM_3": "Put \"mint\" to Operation field",
-          "ITEM_4": "Put NEO address of recipient to Argument1 field",
-          "ITEM_5": "Put amount of tokens (to mint) to Argument2 field"
+          "ITEM_0": "NEOLink財布をインストールする：<a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "[TestNet」を選ぶ",
+          "ITEM_2": "[Script Hash」”フィールドにスクリプトハッシュを入る",
+          "ITEM_3": "[Operation」フィールドに[mint」を入る",
+          "ITEM_4": "[Argument1」フィールドに受信者のNEOアドレスを入る",
+          "ITEM_5": "[Argument２」フィールドにトークンの量（ミントするため）を入る"
         }
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "To finalize Token {{token_short_name}} please make make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
+        "DESCRIPTION": "トークン{{token_short_name}}を完成するために、所有者トークンのアドレス(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)から以下の取引をしてください",
         "LIST": {
-          "ITEM_0": "Install NEOLink wallet: <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
-          "ITEM_1": "Choose TestNet",
-          "ITEM_2": "Put script hash to Script Hash field",
-          "ITEM_3": "Put \"finishMinting\" to Operation field",
-          "ITEM_4": "Leave Argument1 field empty",
-          "ITEM_5": "Leave Argument2 field empty"
+          "ITEM_0": "NEOLink財布をインストールする：<a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "[TestNet」を選ぶ",
+          "ITEM_2": "[Script Hash」”フィールドにスクリプトハッシュを入る",
+          "ITEM_3": "[Operation」フィールドに[finishMinting」を入る",
+          "ITEM_4": "[Argument1」フィールドを空のままにする",
+          "ITEM_5": "[Argument２」フィールドを空のままにする"
         }
       }
     }
@@ -900,7 +849,7 @@
         "ITEM_2":  "«契約コード»タブで«Verify And Publish»を選択し",
         "ITEM_3": "契約名を入力：",
         "ITEM_4": "契約アドレスを入力：",
-        "ITEM_5": "Fill out Compiler version:",
+        "ITEM_5": "“Compiler version”を記入する",
         "ITEM_6": "Solidity契約コードを貼り付ける:",
         "ITEM_7_1": "コンストラクタ引数とかABIエンコードフィールドからパラメータを削除します。",
         "ITEM_7_2": "ABI–エンコードされたコンストラクタの引数を入力する",

@@ -115,7 +115,7 @@
       border-top-right-radius: 2.9em;
       border-bottom-right-radius: 2.9em;
       color: #fff;
-      max-width: 96%;
+      max-width: 90%;
       margin-right: 2%;
       &.static-width {
         width: 32em;
@@ -149,9 +149,9 @@
       }
     }
     &__description {
-      line-height: 3.8em;
-      margin: 1em 2.5em 0 2.5em;
-      float: left;
+      margin: 0 2.5em;
+      padding-top: 1.5em;
+      clear: both;
       > span {
         font-size: 1.4em;
         line-height: 1.5em;

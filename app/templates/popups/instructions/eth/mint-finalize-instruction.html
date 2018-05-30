@@ -1,6 +1,6 @@
 <div class="shadow-block" ng-controller="tokenMintFinalize">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
-        <div class="shadow-block__content__blue-title">
+        <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
                 <span class="big-size" translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.TITLE">&nbsp;</span>
             </div>
@@ -35,67 +35,20 @@
         </button>
     </div>
     <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
-    <div class="shadow-block__content shadow-block__content_min-tb-padding">
-        <ul class="new-instruction-list">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-init="instructionData = {
+            'dataField': finalizeSignature,
+            'ownerAddress': ngPopUp.params.contract.contract_details.admin_address,
+            'contractAddress': ngPopUp.params.contract.contract_details.eth_contract_token.address,
+            'successCopy': ngPopUp.actions.successCodeCopy,
+            'contract': ngPopUp.params.contract
+         }"
+         ng-include="'/templates/popups/instructions/transaction-template.html'">
+    </div>
 
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate-values="{killUrl: ngPopUp.params.contract.killUrl}"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.LIST.ITEM_1"
-                ></div>
-            </li>
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.LIST.ITEM_2">
-                </div>
-            </li>
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    {{'CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.LIST.ITEM_3'|translate}}
-                    <div class="copy-block">
-                        <button class="copy-block__button relative"
-                                clipboard supported="supported"
-                                text="ngPopUp.params.contract.contract_details.eth_contract_token.address"
-                                ng-class="{copied: ngPopUp.params.contract.copied['address']}"
-                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')">&nbsp;
-                            <i class="icon-content_copy"></i>
-                        </button>
-                        <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract_token.address}}</div>
-                    </div>
-                </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    {{'CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.LIST.ITEM_4'|translate}}
-                    <div class="copy-block">
-                        <button class="copy-block__button relative"
-                                clipboard supported="supported"
-                                text="ngPopUp.params.contract.contract_details.eth_contract_token.abi|json"
-                                ng-class="{copied: ngPopUp.params.contract.copied['abi']}"
-                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'abi')">&nbsp;
-                            <i class="icon-content_copy"></i>
-                        </button>
-                        <div class="copy-block__text json-text">{{ngPopUp.params.contract.contract_details.eth_contract_token.abi|json}}</div>
-                    </div>
-                </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.LIST.ITEM_5">
-                </div>
-            </li>
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.LIST.ITEM_6">
-                </div>
-            </li>
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.LIST.ITEM_7">
-                </div>
-            </li>
-        </ul>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
     </div>
 </div>

@@ -111,7 +111,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     $scope.dataChanged = function() {
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
-
+    $scope.mintSignature = {};
     $scope.generateSignature = function() {
         var mintInterfaceMethod = web3Service.getMethodInterface(
             !$scope.recipient.isFrozen ? 'mint' : 'mintAndFreeze',
@@ -124,7 +124,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         if ($scope.recipient.isFrozen) {
             params.push($scope.recipient.freeze_date.format('X'));
         }
-        $scope.mintSignature = (new Web3()).eth.abi.encodeFunctionCall(
+        $scope.mintSignature.string = (new Web3()).eth.abi.encodeFunctionCall(
             mintInterfaceMethod, params
         );
     };

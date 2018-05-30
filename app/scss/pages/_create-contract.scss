@@ -102,6 +102,47 @@
 
   }
 }
+.contract-price-block {
+  position: absolute;
+  top: 1.8em;
+  right: 1.5em;
+  white-space: nowrap;
+  &:before {
+    content: attr(data-from);
+    display: inline;
+    margin-right: 0.2em;
+    font-size: 1.4em;
+    color: #bbb;
+    vertical-align: middle;
+  }
+  &_content {
+    padding: 0.6em 1em 0.6em 1.2em;
+    border-radius: 0.9em;
+    background-color: #fff;
+    border: 1px solid #eee;
+    display: inline-block;
+    vertical-align: middle;
+ }
+  span {
+    font-size: 1.6em;
+    color: #aaa;
+    line-height: 1em;
+    vertical-align: middle;
+  }
+  img {
+    width: 1.6em;
+    margin-left: 0.5em;
+  }
+  span, img {
+    vertical-align: middle;
+  }
+}
+@media screen and (max-width: 640px) {
+  .contract-price-block {
+    top: 0.8em;
+    right: 0.8em;
+  }
+}
 @media screen and (min-width: 481px) {
   .contract-type-icon {
     float: left;
@@ -114,6 +155,16 @@
   }
 }
 @media screen and (max-width: 480px) {
+  .contract-price-block {
+    top: 0;
+    right: 0;
+    font-size: 0.9em;
+    &_content {
+      border: 0 none;
+      background: initial;
+      padding-left: 0;
+    }
+  }
   .contract-type-icon {
     font-size: 4em;
   }

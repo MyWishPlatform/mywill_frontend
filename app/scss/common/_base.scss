@@ -240,8 +240,10 @@ nav, main, footer, header {
   margin: 0;
   line-height: 1.2em;
   max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  &:not(.visible-text) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   + .normal-text {
     margin-top: 0.5em;
   }

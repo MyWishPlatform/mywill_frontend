@@ -79,14 +79,6 @@
   .contract-wallets-information {
     display: none;
   }
-  .main-section-chapter-fieldset {
-    padding: 0.5em 0 1.5em 0;
-    &:after, &:before {
-      display: table;
-      content: '';
-      width: 100%;
-    }
-  }
   .contract-wallets-information-one-block {
     padding-left: 3em;
     padding-right: 3em;

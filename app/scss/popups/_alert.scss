@@ -16,6 +16,11 @@
   max-width: 48em;
   margin-left: -24em;
 }
+.popup-window.language-switcher {
+  width: 98%;
+  max-width: 32em;
+  margin-left: -16em;
+}
 
 .popup-window.page-size {
   width: 98%;
@@ -36,8 +41,14 @@
   }
 }
 
+@media screen and (max-width: 326px) {
+  .popup-window.language-switcher{
+    margin-left: -49%;
+  }
+}
+
 @media screen and (max-width: 532px) {
-  .popup-window.deleting-contract, .popup-window.page-size {
+  .popup-window.deleting-contract{
     margin-left: -49%;
   }
 }

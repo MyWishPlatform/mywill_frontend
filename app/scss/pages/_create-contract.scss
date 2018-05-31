@@ -1,71 +1,3 @@
-.contract-type-icon {
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: -1.4em;
-  font-size: 5em;
-  //text-align: center;
-  width: 1.3em;
-  color: $main-blue-color
-}
-
-.contract-type-description_title {
-  font-weight: 500;
-}
-.contract-type-description_title {
-  padding-left: 7em;
-  line-height: 5em;
-  &__text {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1.2em;
-    font-size: 2.4em;
-  }
-}
-.contract-type-description_text {
-  margin-left: 7em;
-  span {
-    font-size: 1.4em;
-  }
-}
-
-.contract-type-link {
-  cursor: pointer;
-  transition: all 0.06s linear;
-  box-shadow: 0 0.4em 2em rgba(0, 0, 0, 0.15);
-  transform: scale(1);
-  text-shadow: 0 1px 0 #fff;
-  &:hover, &:focus {
-    box-shadow:  0 0.5em 4em rgba(0, 0, 0, 0.25);
-    transform: scale(1.01);
-  }
-  &:active {
-    box-shadow: 0 0.2em 1.5em rgba(0, 0, 0, 0.20);
-  }
-}
-.contract-type-name {
-  border-radius: 0.9em;
-  padding: 1.5em 3.75%;
-  background-color: $blocks-background;
-
-  color: #000;
-  margin-bottom: 4em;
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-  .contract-type-name_icon {
-    float: left;
-    font-size: 4em;
-    color: $main-blue-color;
-  }
-  .contract-type-name_title {
-    font-size: 2.8em;
-    font-weight: 500;
-    margin-left: 2em;
-    padding: 0.2em 0;
-  }
-}
 .chart-container {
   height: 240px;
 }
@@ -143,17 +75,6 @@
     right: 0.8em;
   }
 }
-@media screen and (min-width: 481px) {
-  .contract-type-icon {
-    float: left;
-  }
-  .contract-type-description_title__text {
-    display: block;
-  }
-  .contract-type-description_text {
-    margin-top: 1em;
-  }
-}
 @media screen and (max-width: 480px) {
   .contract-price-block {
     top: 0;
@@ -163,23 +84,6 @@
       border: 0 none;
       background: initial;
       padding-left: 0;
-    }
-  }
-  .contract-type-icon {
-    font-size: 4em;
-  }
-  .contract-type-description_title {
-    padding-left: 6em;
-    line-height: 5em;
-    &__text {
-      font-size: 2em;
-    }
-  }
-  .contract-type-description_text {
-    margin-left: 0;
-    margin-top: 1em;
-    span {
-      font-size: 1.4em;
     }
   }
 }

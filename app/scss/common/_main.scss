@@ -40,86 +40,12 @@ main.main-content-holder {
   }
 }
 
-
-a.main-section-chapter {
-  display: block;
-  &, &:hover, &:focus {
-    text-decoration: none;
-  }
-}
-.main-section-chapter {
-
-  &.no-active {
-    > *:not(.help-block) {
-      opacity: 0.3;
-    }
-    position: relative;
-    &:after {
-      position: absolute;
-      content: '';
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      z-index: 3;
-    }
-  }
-  + .main-section-chapter {
-    margin-top: 3em;
-  }
-}
-
-
 .main-section-chapter-fieldset {
-  &:not(.custom-fieldset) {
-    background-color: $blocks-background;
-    box-shadow: 0 0.4em 3em rgba(0, 0, 0, 0.25);
-    color: $black-color;
-  }
   padding: $fieldsets-padding;
   border-radius: 0.9em;
   position: relative;
-  &-error-info {
-    background-color: #fff;
-    p {
-      color: #707070;
-      font-size: 1.1em;
-      margin: 0;
-      line-height: 1.4em;
-    }
-    .icon-attention {
-      font-size: 1.9em;
-      + p {
-        margin-top: 1em;
-      }
-    }
-  }
-  + .main-section-chapter-fieldset {
-    margin-top: 3em;
-  }
 }
 
-.main-section-chapter-title {
-  margin-left: -$fieldsets-padding;
-  display: inline-block;
-  background-color: $main-blue-color;
-  border-top-right-radius: 2.8em;
-  border-bottom-right-radius: 2.8em;
-  color: #fff;
-  padding: 1.35em 2.5em 1.35em $fieldsets-padding;
-  margin-bottom: 2em;
-  &_icon, &_text {
-    display: inline-block;
-    vertical-align: middle;
-  }
-  &_text {
-    font-size: 2.3em;
-  }
-  &_icon {
-    font-size: 2.8em;
-    margin-right: 0.5em;
-  }
-}
 
 .pre-release-information {
   display: block;
@@ -193,26 +119,8 @@ a.main-section-chapter {
       }
     }
   }
-  &:after {
-
-  }
 }
 
-.costs-info-block {
-  color: $main-blue-color;
-  line-height: 2.5em;
-  .costs-info-title, .costs-info-value, .costs-info-currency {
-    display: inline-block;
-    vertical-align: middle;
-  }
-  .costs-info-title {
-    font-size: 1.7em;
-  }
-  .costs-info-value, .costs-info-currency {
-    font-size: 1.8em;
-    font-weight: bold;
-  }
-}
 
 @media screen and (max-width: 1024px) {
   .main-content-holder {
@@ -231,20 +139,6 @@ a.main-section-chapter {
 @media screen and (max-width: 640px) {
   .main-section-chapter-fieldset {
     padding: 1em 1.5%;
-  }
-  .main-section-chapter-title {
-    margin-left: -1.5%;
-    font-size: 0.8em;
-  }
-  .main-section-chapter {
-    + .main-section-chapter {
-      margin-top: 1em;
-    }
-  }
-  .main-section-chapter-fieldset {
-    + .main-section-chapter-fieldset {
-      margin-top: 1em;
-    }
   }
   .main-section-content {
     padding: 0.4em 1.5% 1em;

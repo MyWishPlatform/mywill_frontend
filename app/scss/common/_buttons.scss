@@ -2,7 +2,6 @@ $white-normal-color: rgba(255, 255, 255, 0.7);
 $white-hover-color: rgba(255, 255, 255, 1);
 $white-active-color: rgba(255, 255, 255, 0.5);
 
-
 $red-normal-color: rgba(249, 14, 54, 0.8);
 $red-hover-color: #f90e36;
 $red-active-color: #bb0d2b;
@@ -62,11 +61,6 @@ $red-active-color: #bb0d2b;
     background: $main-blue-color;
     color: $white-color;
   }
-  &.btn-back {
-    background: #E3E3E3;
-    color: $main-blue-color;
-  }
-
   &.btn-red {
     background: $red-normal-color;
     color: $white-color;
@@ -79,46 +73,6 @@ $red-active-color: #bb0d2b;
   }
   &.radius-button {
     border-radius: 1.35em;
-  }
-  &.btn-popup {
-    border-radius: 2.1em;
-    padding: 1em 2em;
-    font-size: 1em;
-    span {
-      font-size: 1.8em;
-      line-height: 1.25em;
-    }
-    &.float-right {
-      float: right;
-      margin-right: 1.333em;
-    }
-    + .btn-popup {
-      margin-left: 1.15em;
-    }
-  }
-  &.btn-white {
-    color: #333;
-    background: $white-normal-color;
-    &:hover, &:focus {
-      background: $white-hover-color;
-    }
-    &:active {
-      background: $white-active-color;
-    }
-  }
-  &.btn-hide-info {
-
-    border: 1px solid;
-    color: $main-blue-color;
-    background: none;
-
-    padding: 0 2em;
-    line-height: 3.6em;
-    margin-left: 2em;
-    span {
-      text-transform: uppercase;
-      font-size: 1.5em;
-    }
   }
   &.btn-transparent {
     border: 0.2em solid;
@@ -143,9 +97,6 @@ $red-active-color: #bb0d2b;
       }
     }
   }
-  &.btn-light-grey {
-    //background-color: #F4F4F4;
-  }
   &.btn-gray {
     border: 2px solid #C7C7C7;
     border-radius: 4em;
@@ -159,38 +110,6 @@ $red-active-color: #bb0d2b;
     &.active {
       border-color: #206EFF;
     }
-  }
-  &.btn-payment {
-    background: #E5E5E5;
-    border-radius: 4em;
-    font-weight: bold;
-    color: #206EFF;
-    padding: 0 2em;
-    width: 14em;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-position-x: 15px;
-    background-position-y: 8px;
-    border: 2px solid transparent;
-    span {
-      font-size: 1.2em;
-    }
-    &--wallet {
-      background-image: url('images/icons/myetherwallet.svg');
-      span {
-        padding-left: 20px;
-      }
-    }
-    &--parity {
-      background-image: url('images/icons/parity.svg');
-    }
-    &--metamask {
-      background-image: url('images/icons/metamask.svg');
-    }
-  }
-  &.btn-green {
-    color: #000;
-    background: #63FF26;
   }
   &.only-icon {
     background: none;

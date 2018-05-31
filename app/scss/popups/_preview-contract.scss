@@ -184,10 +184,6 @@
   margin-right: 3%;
   padding-top: 3.75em;
   padding-bottom: 1.875em;
-  .costs-info-block {
-    line-height: 4em;
-    margin-bottom: 0;
-  }
 }
 .contract-preview-form {
   .btn {
@@ -414,4 +410,9 @@
   background-color: #fff;
   border: 1px solid #aaa;
   font-size: 5em;
+}
+
+.instruction-for-copy-button {
+  @extend .copy-block__button;
+  margin-top: 0;
 }

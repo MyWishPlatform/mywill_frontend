@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('authService', function(requestService, API, $q, $timeout) {
+module.service('authService', function(requestService, API, $q, $timeout, $cookies) {
     return {
         registration: function(params) {
             params.API_PATH = API.HOSTS.AUTH_PATH;
@@ -15,7 +15,15 @@ module.service('authService', function(requestService, API, $q, $timeout) {
         profile: function() {
             var params = {};
             params.path = API.PROFILE;
-            return requestService.get(params);
+            var promise = requestService.get(params);
+            promise.then(function(response) {
+                if (response.data.id) {
+                    $cookies.put('UserID', response.data.id);
+                }
+            }, function() {
+                $cookies.put('UserID', undefined);
+            });
+            return promise;
         },
         auth: function(params) {
             params.API_PATH = params.API_PATH || API.HOSTS.AUTH_PATH;

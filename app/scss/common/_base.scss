@@ -334,10 +334,16 @@ nav, main, footer, header {
     display: block;
   }
   padding-bottom: 2em;
+  text-shadow: none;
   &-item {
     float: left;
     width: 50%;
     text-align: left;
+
+    &.active &__name {
+      font-weight: bold;
+      text-decoration: none;
+    }
     &__icon {
       width: 2.4em;
       margin-right: 0.3em;

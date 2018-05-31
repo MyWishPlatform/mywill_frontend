@@ -33,11 +33,6 @@ main.main-content-holder {
   &.without-bottom-padding {
     padding-bottom: 0;
   }
-  &.with-tabs {
-    .main-section-chapter-fieldset {
-      border-top-left-radius: 0;
-    }
-  }
 }
 
 .main-section-chapter-fieldset {

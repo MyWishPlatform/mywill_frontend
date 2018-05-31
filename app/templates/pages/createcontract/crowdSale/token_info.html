@@ -107,6 +107,10 @@
         <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
             <div class="form-control-label hide-vs">&nbsp;</div>
             <span class="form-control-description__text"
+                  translate-values="{
+                        max_decimals: (blockchain != 'NEO') ? 50 : 8,
+                        default_decimals: (blockchain != 'NEO') ? 18 : 8
+                   }"
                   translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.DESCRIPTION"></span>
         </div>
     </div>

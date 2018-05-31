@@ -341,8 +341,9 @@ nav, main, footer, header {
     text-align: left;
 
     &.active &__name {
-      font-weight: bold;
+      font-weight: 600;
       text-decoration: none;
+      color: #000;
     }
     &__icon {
       width: 2.4em;

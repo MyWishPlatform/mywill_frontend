@@ -341,14 +341,15 @@ nav, main, footer, header {
     text-align: left;
 
     &.active &__name {
-      font-weight: 600;
+      font-weight: 500;
       text-decoration: none;
       color: #000;
     }
     &__icon {
-      width: 2.4em;
+      height: 2em;
       margin-right: 0.3em;
       vertical-align: middle;
+      border: 1px solid #CCC;
     }
     &__name {
       color: #444;

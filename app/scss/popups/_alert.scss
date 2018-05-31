@@ -16,7 +16,7 @@
   max-width: 48em;
   margin-left: -24em;
 }
-.popup-window.language-switcher {
+.popup-window.language-switcher-popup {
   width: 98%;
   max-width: 32em;
   margin-left: -16em;
@@ -42,7 +42,7 @@
 }
 
 @media screen and (max-width: 326px) {
-  .popup-window.language-switcher{
+  .popup-window.language-switcher-popup{
     margin-left: -49%;
   }
 }

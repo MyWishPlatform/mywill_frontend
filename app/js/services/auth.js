@@ -111,6 +111,15 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
                 }
             };
             return requestService.post(params);
+        },
+        setLanguage: function(lng) {
+            var params = {
+                path: API.SET_LNG,
+                data: {
+                    lang: lng
+                }
+            };
+            return requestService.post(params);
         }
     };
 });

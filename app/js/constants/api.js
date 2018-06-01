@@ -33,7 +33,7 @@ angular.module('Constants').constant('API', {
     "GET_DISCOUNT": "get_discount/",
     "I_AM_ALIVE": "i_am_alive/",
     "CONTRACT_CANCEL": "cancel/",
-
+    "SET_LNG": "set_lang/",
     "SOCIAL": {
         "FACEBOOK": "facebook/",
         "GOOGLE": "google/",

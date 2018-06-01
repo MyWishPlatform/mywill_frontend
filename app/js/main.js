@@ -13,7 +13,7 @@ if (UAParser(window.navigator.userAgent).device.type === "mobile") {
 
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
-}).controller('baseController', function($scope, $rootScope, $translate, $timeout) {
+}).controller('baseController', function($scope, $rootScope, $translate, $timeout, $cookies, authService) {
     $rootScope.showedMenu = false;
     $rootScope.menuTogglerOff = false;
     $rootScope.toggleMenu = function(state, event) {
@@ -25,21 +25,22 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
 
     $rootScope.languagesList = {
-        'jp': {
+        'ja': {
             'name': '日本語',
-            'icon': 'jp'
+            'icon': 'ja'
         },
         'en': {
             'name': 'English',
             'icon': 'us'
         }
     };
-    $rootScope.language = 'en';
-    $translate.use($rootScope.language);
 
-    $rootScope.setLanguage = function(lng) {
+    $rootScope.setLanguage = function(lng, noSave) {
+        if ($rootScope.language === lng) return;
         $rootScope.language = lng;
+        $cookies.put('lang', lng);
         $translate.use($rootScope.language);
+        !noSave ? authService.setLanguage(lng) : false;
     };
 
     $rootScope.visibleGirl = false;
@@ -186,7 +187,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
 })
     .run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
-                MENU_CONSTANTS, $interval, AnalyticsService) {
+                MENU_CONSTANTS, $interval, AnalyticsService, $cookies) {
 
     $rootScope.getNetworkPath = function(network) {
         return ((network == 1) || (network == 2)) ? 'eth' : ((network == 3) || (network == 4) ? 'rsk' : 'neo');
@@ -236,6 +237,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.min = Math.min;
 
     var loginWatcherInProgress;
+    var defaultLng = (navigator.language||navigator.browserLanguage).split('-')[0];
+
     $rootScope.checkProfile = function(event, requestData) {
         if (loginWatcherInProgress) return;
         loginWatcherInProgress = true;
@@ -278,6 +281,15 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.numberReplacer = /,/g;
     $rootScope.weiDelta = Math.pow(10, 18);
     $rootScope.setCurrentUser = function(profile) {
+
+        if (profile.lang) {
+            $rootScope.setLanguage(profile.lang, true);
+        } else {
+            var lng = $cookies.get('lang') || ($rootScope.languagesList[defaultLng] ? defaultLng : 'en');
+            $rootScope.setLanguage(lng);
+        }
+
+
         if (!profile) {
             $state.go('exit');
             return;

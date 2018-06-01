@@ -12,7 +12,7 @@ html {
 body {
   min-height: 100%;
   margin: 0;
-  background-color: #F5F3F3;
+  background-color: #f0f0f0;
   font-size: 10px;
   font-family: 'Ubuntu', sans-serif;
   position: relative;
@@ -292,8 +292,9 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  border-top: 1px solid #eaeaea;
+  //border-top: 1px solid #eaeaea;
   padding: 1em 0;
+  background-color: #fff;
   ul {
     display: inline-block;
     list-style-type: none;

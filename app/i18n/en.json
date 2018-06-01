@@ -103,7 +103,8 @@
     "MINT": "Mint",
     "DELETE": "Delete",
     "EDIT": "Edit",
-    "ADD_TO_PARITY": "+ Add to parity"
+    "ADD_TO_PARITY": "+ Add to parity",
+    "CHANGE_DATES": "Change Dates"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -789,6 +790,10 @@
           "AUTO_FINALIZE": {
             "LABEL": "Finalize auto:",
             "DESCRIPTION": "Our system can finalize the contract (to make tokens transferable) automatically after end date (you can do it early if hard cap reached)"
+          },
+          "CHANGING_DATES": {
+            "LABEL": "Changing dates",
+            "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "Min & Max investments limitations",

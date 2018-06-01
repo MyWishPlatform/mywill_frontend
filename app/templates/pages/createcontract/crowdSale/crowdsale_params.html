@@ -214,7 +214,7 @@
                 <div class="checkbox-decoration">
                     <label for="auto_finalize" class="form-control-label inline-label">
                         <i class="icon-calendar form-control-label-icon"></i>
-                        Changing dates
+                        {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.CHANGING_DATES.LABEL'|translate}}
                     </label>
                 </div>
             </div>
@@ -222,7 +222,7 @@
         <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
             <div class="form-control">
                 <label class="checkbox-decoration">
-                    <input type="checkbox" ng-model="changing_dates" id="changing_dates"/>
+                    <input type="checkbox" ng-model="request.allow_change_dates" id="changing_dates"/>
                     <span class="checkbox-decoration-displaying">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
                         <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
@@ -231,11 +231,8 @@
             </div>
         </div>
         <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-            <span class="form-control-description__text">
-                Start/Finish Dates can be changed manually after Contract Deployment.
-                You can prolong sale or finish it early.<br/>
-                Otherwise, dates are hardcoded and can`t be changed.
-            </span>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.CHANGING_DATES.DESCRIPTION"></span>
         </div>
     </div>
 

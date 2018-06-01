@@ -10,7 +10,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         resolve: {
             currentUser: function($rootScope) {
                 return $rootScope.currentUserDefer.promise;
-            }
+            },
+            translateReady: ['$translate', function($translate) {
+                return $translate.onReady();
+            }]
         }
     }).state('anonymous', {
         url: '/anonymous?:go?',

@@ -27,7 +27,7 @@
             onClose: returnToList
         }"
         ng-if="statuses[contract.state]['value'] == 10"
-        class="btn btn-submit hide-ps">
+        class="btn btn-transparent hide-ps">
     <span translate="CONTRACTS_BUTTONS.ACTIVATE"></span>
 </button>
 
@@ -147,6 +147,24 @@
         }"
         class="btn btn-transparent hide-ps">
     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
+</button>
+
+<!-- Date changing form button -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates"
+        ng-pop-up="{
+            template: '/templates/popups/forms/eth/change-dates-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'page-size',
+            actions: {
+                successCodeCopy: successCodeCopy
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>
 </button>
 
 

@@ -1,0 +1,147 @@
+<div class="shadow-block" ng-controller="changeDateController">
+    <form name="mintForm">
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-crowdsale"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control">
+                <div class="form-control-label">
+                    Это Ваши текущие даты старта и завершения ICO
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-waiting-2 form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.START_DATE.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{contract.contract_details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-waiting-1 form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{contract.contract_details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control">
+                <div class="form-control-label">
+                    Вы можете установить новые даты для старта или завершения ICO
+                </div>
+            </div>
+
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="start_date" name="date_type" ng-model="date_type" value="start">
+                                <span ng-class="{
+                                    'icon-radio-checked': date_type === 'start',
+                                    'icon-radio-unchecked': date_type !== 'start'
+                                }"></span>
+                            </label>
+                            <label class="form-control-label inline-label"
+                                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.START_DATE.LABEL"
+                                   for="start_date"></label>
+                        </div>
+
+                        <div class="grid-row">
+                            <div class="grid-cell grid-cell-3-5">
+                                <input type="datetime"
+                                       ng-required="date_type === 'start'"
+                                       ng-disabled="date_type !== 'start'"
+                                       ng-model="contract.start_date"
+                                       auto-close="true"
+                                       readonly
+                                       date-time
+                                       min-date="minStartDate"
+                                       min-view="date"
+                                       view="year"
+                                       format="YYYY-MM-DD"
+                                       position="fixed"
+                                       class="form-control-input form-control-input-date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="checkbox-decoration">
+                            <label class="radio-button-decoration">
+                                <input type="radio" id="end_date" name="date_type" ng-model="date_type" value="end">
+                                <span ng-class="{
+                                    'icon-radio-checked': date_type === 'end',
+                                    'icon-radio-unchecked': date_type !== 'end'
+                                }"></span>
+                            </label>
+                            <label class="form-control-label inline-label"
+                                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL"
+                                   for="end_date"></label>
+                        </div>
+                        <div class="grid-row">
+                            <div class="grid-cell grid-cell-3-5">
+                                <input type="datetime"
+                                       ng-required="date_type === 'end'"
+                                       ng-disabled="date_type !== 'end'"
+                                       ng-model="contract.finish_date"
+                                       auto-close="true"
+                                       readonly
+                                       date-time
+                                       min-date="minStartDate"
+                                       min-view="date"
+                                       view="year"
+                                       format="YYYY-MM-DD"
+                                       position="fixed"
+                                       class="form-control-input form-control-input-date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <button class="btn btn-submit" type="button"
+                    ng-pop-up="{
+                        template: '/templates/popups/instructions/eth/mint-instruction.html',
+                        newPopupContent: true,
+                        params: {
+                            contract: contract,
+                            recipient: recipient,
+                            mintSignature: mintSignature,
+                            currentWallet: currentWallet
+                        },
+                        actions: {
+                            successCodeCopy: successCodeCopy,
+                            sendMintTransaction: sendMintTransaction
+                        },
+                        onClose: returnToList
+                    }"
+                    ng-disabled="!mintForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
+                <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
+            </button>
+        </div>
+    </form>
+</div>

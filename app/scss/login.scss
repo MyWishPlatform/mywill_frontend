@@ -1,15 +1,23 @@
+$main-blue-color: #206EFF;
+$white-color: #fff;
+
 @import 'common/awesome.scss';
 @import 'common/social-buttons.scss';
+@import 'common/buttons.scss';
 @import 'common/new_styles/base_blocks';
-html, body {
+html {
   width: 100%;
   height: 100%;
 }
 body {
+  min-height: 100%;
   margin: 0;
   background-color: #F5F3F3;
   font-size: 10px;
   font-family: 'Ubuntu', sans-serif;
+  position: relative;
+  padding-bottom: 50px;
+  box-sizing: border-box;
   &:not(.visible) {
     header, .auth-form {
       display: none;
@@ -37,18 +45,31 @@ a img {
   width: 48em;
   margin: 0 auto;
   max-width: 96%;
+  .btn {
+    padding: 0 3em;
+    height: 4.8em;
+    line-height: 4.8em;
+    border-radius: 2.5em;
+    float: left;
+    &.btn-transparent {
+      line-height: 4.4em;
+    }
+  }
+}
+
+.auth-form, .email-confirm-message {
+  margin-top: 6vh;
+  margin-bottom: 6vh;
 }
 .login-form {
-  padding-top: 2.875em;
-  width: 34.65em;
+  width: 38.65em;
   max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .field-container {
   position: relative;
   margin-bottom: 2em;
-  &:not(.without-padding) {
-    padding-top: 2.775em;
-  }
 }
 
 .field-error, .field-success {
@@ -82,7 +103,7 @@ a img {
   line-height: 1.2em;
   padding: 0.75em 1em;
   color: #000;
-  border-radius: 0.65em;
+  border-radius: 0.3em;
   outline: none;
   form.ng-submitted &, &.ng-touched {
     &.ng-invalid {
@@ -146,26 +167,36 @@ a img {
   }
 }
 .field-label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 1.8em;
+  font-size: 1.6em;
   color: #000;
   line-height: 1.25em;
+  margin-bottom: 0.3em;
+  display: block;
 }
 .auth-form-menu {
   list-style-type: none;
   padding: 0 0 2em;
-  margin: 0;
+  width: 38.65em;
+  max-width: 100%;
+  margin: 0 auto;
+  visibility: hidden;
+  .auth-form & {
+    visibility: visible;
+  }
   li {
     display: inline-block;
     vertical-align: middle;
     padding-bottom: 0.225em;
+    border-bottom: 2px solid transparent;
     &.active {
       border-bottom: 2px solid #206EFF;
+      a {
+        cursor: default;
+        color: #206EFF;
+      }
     }
     + li {
-      margin-left: 1.5em;
+      margin-left: 3em;
     }
     a {
       font-size: 2em;
@@ -174,27 +205,18 @@ a img {
       &, &:hover, &:focus {
         text-decoration: none;
       }
+      &:hover {
+        color: #206EFF;
+      }
     }
   }
 }
 .field-submit-container {
-  margin-bottom: 2.775em;
+  margin-bottom: 1.5em;
   &:after {
     content: '';
     display: block;
     clear: both;
-  }
-  button {
-    background-color: #206EFF;
-    color: #fff;
-    font-size: 1.8em;
-    line-height: 1.2em;
-    border: 0 none;
-    padding: 0.75em 2.5em;
-    cursor: pointer;
-    border-radius: 1.5em;
-    outline: none;
-    float: left;
   }
 }
 .restore-link {
@@ -215,31 +237,8 @@ a img {
 .text-center {
   text-align: center;
 }
-.btn {
-  border: 0 none;
-  padding: 0 3em;
-  outline: none;
-  font-size: 1em;
-  border-radius: 2.6em;
-  display: inline-block;
-  vertical-align: middle;
-  transition: box-shadow 0.05s linear;
-  box-shadow: 0 0 0 transparent;
-  box-sizing: border-box;
-  text-decoration: none;
-  text-align: center;
-  white-space: nowrap;
-  cursor: pointer;
-  &-transparent {
-    border: 0.2em solid;
-    color: #206EFF;
-    background: none;
-  }
-  span {
-    font-size: 1.8em;
-    line-height: 2.7em;
-  }
-}
+
+
 b {
   font-weight: 500;
 }
@@ -279,5 +278,57 @@ b {
     display: inline-block;
     max-width: 100%;
     vertical-align: middle;
+  }
+}
+
+
+.main-content-holder {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-top: 1px solid #eaeaea;
+  padding: 1em 0;
+  ul {
+    display: inline-block;
+    list-style-type: none;
+    padding-left: 0;
+    li {
+      display: inline-block;
+      + li {
+        margin-left: 1em;
+      }
+    }
+  }
+  .footer-menu {
+    margin-left: 2em;
+  }
+  .footer-text {
+    color: #aaa;
+    font-size: 1.2em;
+  }
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .languages-menu {
+    white-space: nowrap;
+    float: right;
+    li span {
+      text-decoration: underline;
+      cursor: pointer;
+      &.selected, &:hover {
+        text-decoration: none;
+      }
+      &.selected {
+        color: #000;
+      }
+    }
   }
 }

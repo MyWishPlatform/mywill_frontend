@@ -1,0 +1,42 @@
+{
+  "FIELDS": {
+    "EMAIL": "メールアドレス",
+    "RESET_EMAIL": "パスワードリセット用のメールアドレスを入力してください",
+    "PASSWORD": "パスワード",
+    "CONFIRM_PASSWORD": "パスワード（確認）",
+    "2FA": "2FAコード"
+  },
+  "CONFIRM_EMAIL": "あなたのメールアドレスを確認し、ご登録を確認してください。 ありがとうございました！",
+  "BUTTONS": {
+    "LOG_IN": "ログイン",
+    "FORGOT_PASSWORD": "パスワードを忘れましらか",
+    "LOGIN_FACEBOOK": "Facebook経由でログイン",
+    "LOGIN_GOOGLE": "Google経由でログイン",
+    "CREATE_ACCOUNT": "アカウントを作成する",
+    "SIGN_IN": "サインイン",
+    "SIGN_UP": "サインアップ",
+    "CONTINUE": "続ける",
+    "SEND": "遣う",
+    "REGISTRATION": "Registration",
+    "CHANGE_PASSWORD": "パスワードを変更する"
+  },
+  "FIELDS_ERRORS": {
+    "REQUIRED": "フィールドが必要です",
+    "INCORRECT_PASSWORD": "間違ったパスワード",
+    "YOUR_EMAIL": "メールアドレスを入力してください",
+    "MIN_LENGTH_PASSWORD": "パスワードの最小長さは8つの文字",
+    "NO_MATCH_PASSWORD": "パスワードが一致しません",
+    "INVALID_2FA_CODE": "コードが無効です"
+  },
+  "CONFIRM_EMAIL_FORM": {
+    "TITLE": "Email Activation",
+    "BASE_TEXT": "An activation email has been sent to <br/><b>{{currEmail}}</b>",
+    "NOTICE_TEXT": "",
+    "RESEND_BUTTON": "Resend an email",
+    "TIMER": "We can re-send email in {{timerMinutes}}:{{timerSeconds}}",
+    "ERRORS": {
+      "ERROR_1": "Your email was not registered. Please <a href=\"/auth/registration\">sign up</a> before email activation.",
+      "ERROR_2": "Your email has already been verified. Please <a href=\"/auth\">sign in</a>"
+    }
+  }
+}

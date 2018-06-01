@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="app" ng-controller="authController">
+<html ng-app="app">
 <head lang="en">
     <title>MyWish</title>
     <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1">
@@ -46,28 +46,52 @@
     })(window,document,'script','dataLayer','GTM-MDHD74W');</script>
     <!-- End Google Tag Manager -->
 </head>
-<body ng-class="{'visible': onCheck}">
-<header>
-    <a href="/">
-        <img src="/static/images/logotype-dark.svg"/>
-    </a>
-</header>
-<div class="auth-form" ng-class="{
-    'auth-form': $state.current.name !== 'main.confirm',
-    'email-confirm-message': $state.current.name === 'main.confirm'
-    }">
-    <ul class="auth-form-menu">
-        <li ng-class="{active: $state.current.name == 'main.login'}">
-            <a ui-sref="main.login">Sign in</a>
-        </li>
-        <li ng-class="{active: $state.current.name == 'main.registration'}">
-            <a ui-sref="main.registration">Sign up</a>
-        </li>
-    </ul>
-    <div ui-view></div>
+<body ng-class="{'visible': onCheck}" ng-controller="baseController">
+<div class="main-content-holder">
+    <header>
+        <a href="/">
+            <img src="/static/images/logotype-dark.svg"/>
+        </a>
+    </header>
+    <div class="auth-form" ng-class="{
+        'auth-form': $state.current.name !== 'main.confirm',
+        'email-confirm-message': $state.current.name === 'main.confirm'
+        }" ng-if="pageLoaded">
+        <ul class="auth-form-menu">
+            <li ng-class="{active: $state.current.name == 'main.login'}">
+                <a ui-sref="main.login" translate="BUTTONS.SIGN_IN"></a>
+            </li>
+            <li ng-class="{active: $state.current.name == 'main.registration'}">
+                <a ui-sref="main.registration" translate="BUTTONS.SIGN_UP"></a>
+            </li>
+        </ul>
+        <div ui-view></div>
+    </div>
 </div>
+<footer>
+    <div class="main-content-holder">
+        <div class="languages-menu">
+            <span class="languages-menu-title footer-text">Language:&nbsp;&nbsp;</span>
+            <ul class="languages-menu-list">
+                <li><span class="footer-text"
+                          ng-class="{selected: language == 'en'}"
+                          ng-click="setLanguage('en')">English</span></li>
+                <li><span class="footer-text"
+                          ng-class="{selected: language == 'ja'}"
+                          ng-click="setLanguage('ja')">日本語</span></li>
+            </ul>
+        </div>
 
-
+        <span class="copyright footer-text">MyWish&nbsp;&copy;2018</span>
+        <ul class="footer-menu">
+            <li><a target="_blank" class="footer-text" href="https://mywish.io">About</a></li>
+            <li><a target="_blank" class="footer-text" href="https://mywish.io/platform">Platform</a></li>
+            <li><a target="_blank" class="footer-text" href="https://mywish.io/product">Product</a></li>
+            <li><a target="_blank" class="footer-text" href="https://mywish.io/team">Team</a></li>
+            <li><a target="_blank" class="footer-text" href="https://mywish.io/news">News</a></li>
+        </ul>
+    </div>
+</footer>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDHD74W"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -1,41 +1,32 @@
 <div class="shadow-block">
     <div class="shadow-block__content">
-        <div class="email-confirm-title">
-            Email Activation
-        </div>
+        <div class="email-confirm-title" translate="CONFIRM_EMAIL_FORM.TITLE"></div>
         <p class="email-confirm-text">
-            An activation email has been sent to <br/>
-            <b ng-bind="currEmail"></b>.<br/><br/>
-            <span class="red-color">
-                If your email address is gmail or not received for a long time,
-                please check the mailbox trash/spam.
-            </span>
+            <span translate="CONFIRM_EMAIL_FORM.BASE_TEXT" translate-values="{currEmail: currEmail}"></span><br/><br/>
+            <span class="red-color" translate="CONFIRM_EMAIL_FORM.NOTICE_TEXT"></span>
         </p>
         <br/>
 
         <div class="text-center" ng-if="!resendError && !emailConfirmProgress">
             <button class="btn btn-transparent" ng-click="getConfirmEmail()">
-                <span>Resend an email</span>
+                <span translate="CONFIRM_EMAIL_FORM.RESEND_BUTTON"></span>
             </button>
         </div>
 
         <div ng-if="allTimerSeconds && (allTimerSeconds != 0)" class="email-confirm-timer-text text-center">
-            <span class="email-confirm-text">
-                We can re-send email in {{timerMinutes}}:{{timerSeconds}}
-            </span>
+            <span class="email-confirm-text"
+                  translate="CONFIRM_EMAIL_FORM.TIMER"
+                  translate-values="{timerMinutes: timerMinutes, timerSeconds: timerSeconds}"></span>
         </div>
 
         <div ng-if="resendError == 1" class="email-confirm-timer-text">
-            <span class="email-confirm-text red-color">
-                Your email was not registered. Please <a ui-sref="main.registration">sign up</a> before email activation.
-            </span>
+            <span class="email-confirm-text red-color" translate="CONFIRM_EMAIL_FORM.ERRORS.ERROR_1"></span>
         </div>
         <div ng-if="resendError == 2" class="email-confirm-timer-text">
-            <span class="email-confirm-text red-color">
-                Your email has already been verified. Please <a ui-sref="main.login">sign in</a>.
-            </span>
+            <span class="email-confirm-text red-color" translate="CONFIRM_EMAIL_FORM.ERRORS.ERROR_2"></span>
         </div>
         <br/>
 
     </div>
 </div>
+

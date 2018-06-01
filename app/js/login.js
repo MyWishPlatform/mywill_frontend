@@ -3,12 +3,36 @@ angular.module('Services', []);
 angular.module('Constants', []);
 angular.module('Directives', []);
 
-var module = angular.module('app', ['Constants', 'ui.router', 'Services', 'ngCookies', 'templates', 'Directives']);
 
+var module = angular.module('app', ['Constants', 'ui.router', 'Services', 'ngCookies', 'templates', 'Directives', 'pascalprecht.translate']);
 
-module.controller('authController', function($scope) {
+module.controller('baseController', function($scope, $translate, $cookies) {
 
-}).config(function($stateProvider, $locationProvider, $urlRouterProvider) {
+    var languagesList = {
+        'ja': {
+            'name': '日本語',
+            'icon': 'ja'
+        },
+        'en': {
+            'name': 'English',
+            'icon': 'us'
+        }
+    };
+
+    var defaultLng = $cookies.get('lang') || ((navigator.language||navigator.browserLanguage).split('-')[0]);
+    $scope.setLanguage = function(lng) {
+        $scope.language = languagesList[lng] ? lng : 'en';
+        $translate.use($scope.language).then(function() {
+            $scope.pageLoaded = true;
+        });
+        $cookies.put('lang', $scope.language);
+    };
+    $scope.setLanguage(defaultLng);
+}).config(function($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+        prefix: '/static/i18n/auth-',
+        suffix: '.json'
+    });
 
     var templatesPath = '/templates/login/';
 

@@ -1,0 +1,42 @@
+{
+  "FIELDS": {
+    "EMAIL": "E-mail",
+    "RESET_EMAIL": "Enter e-mail for password reset",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Repeat password",
+    "2FA": "2FA code"
+  },
+  "CONFIRM_EMAIL": "Please check your email & confirm registration. Thank you!",
+  "BUTTONS": {
+    "LOG_IN": "Log in",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "LOGIN_FACEBOOK": "Log in via Facebook",
+    "LOGIN_GOOGLE": "Log in via Google",
+    "CREATE_ACCOUNT": "Create account",
+    "SIGN_IN": "Sign in",
+    "SIGN_UP": "Sign up",
+    "CONTINUE": "Continue",
+    "SEND": "Send",
+    "REGISTRATION": "Registration",
+    "CHANGE_PASSWORD": "Change buttons"
+  },
+  "FIELDS_ERRORS": {
+    "REQUIRED": "Field is required",
+    "INCORRECT_PASSWORD": "Incorrect password",
+    "YOUR_EMAIL": "Enter your e-mail",
+    "MIN_LENGTH_PASSWORD": "Minimum password length 8 characters",
+    "NO_MATCH_PASSWORD": "Passwords do not match",
+    "INVALID_2FA_CODE": "Invalid code"
+  },
+  "CONFIRM_EMAIL_FORM": {
+    "TITLE": "Email Activation",
+    "BASE_TEXT": "An activation email has been sent to <br/><b>{{currEmail}}</b>",
+    "NOTICE_TEXT": "",
+    "RESEND_BUTTON": "Resend an email",
+    "TIMER": "We can re-send email in {{timerMinutes}}:{{timerSeconds}}",
+    "ERRORS": {
+      "ERROR_1": "Your email was not registered. Please <a href=\"/auth/registration\">sign up</a> before email activation.",
+      "ERROR_2": "Your email has already been verified. Please <a href=\"/auth\">sign in</a>"
+    }
+  }
+}

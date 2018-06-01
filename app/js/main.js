@@ -239,7 +239,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.min = Math.min;
 
     var loginWatcherInProgress;
-    var defaultLng = (navigator.language||navigator.browserLanguage).split('-')[0];
 
     $rootScope.checkProfile = function(event, requestData) {
         if (loginWatcherInProgress) return;
@@ -282,6 +281,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.$state = $state;
     $rootScope.numberReplacer = /,/g;
     $rootScope.weiDelta = Math.pow(10, 18);
+
+    var defaultLng = (navigator.language||navigator.browserLanguage).split('-')[0];
     $rootScope.setCurrentUser = function(profile) {
 
         if (profile.lang) {

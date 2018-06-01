@@ -1,77 +1,81 @@
-<form class="login-form" ng-submit="sendLoginForm(loginForm)" name="loginForm" novalidate ng-if="!socialAuthError">
-    <div class="field-container">
-        <input type="email"
-               required
-               ng-model="request.username"
-               ng-class="{'ng-invalid ng-invalid-server': serverErrors.username}"
-               class="field-input">
-        <span class="field-label">E-mail</span>
-        <span class="field-error form-field_error-required">Field is required</span>
-        <span class="field-error form-field_error-email">Enter your e-mail</span>
-        <span class="field-error form-field_error-server">{{serverErrors.username.join(', ')}}</span>
+<form class="login-form" ng-submit="sendLoginForm(loginForm)"
+      name="loginForm" novalidate ng-if="!socialAuthError">
+    <div class="shadow-block">
+        <div class="shadow-block__content">
+            <div class="field-container">
+                <span class="field-label" translate="FIELDS.EMAIL"></span>
+                <input type="email"
+                       required
+                       ng-model="request.username"
+                       ng-class="{'ng-invalid ng-invalid-server': serverErrors.username}"
+                       class="field-input">
+                <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
+                <span class="field-error form-field_error-email" translate="FIELDS_ERRORS.YOUR_EMAIL"></span>
+                <span class="field-error form-field_error-server">{{serverErrors.username.join(', ')}}</span>
+            </div>
+
+            <div class="field-container">
+                <span class="field-label" translate="FIELDS.PASSWORD"></span>
+                <input type="password"
+                       required
+                       ng-model="request.password"
+                       ng-class="{'ng-invalid ng-invalid-server': serverErrors.password}"
+                       class="field-input">
+                <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
+                <span class="field-error form-field_error-server">{{serverErrors.password.join(', ')}}</span>
+            </div>
+            <div class="field-container" ng-if="twoFAEnabled">
+                <span class="field-label" translate="FIELDS.2FA"></span>
+                <input type="text"
+                       required
+                       ng-model="request.totp"
+                       ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
+                       class="field-input">
+                <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
+                <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
+            </div>
+
+            <span class="static-field-error"
+                  ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
+
+            <div class="field-submit-container">
+                <button type="submit" class="btn btn-submit">
+                    <span translate="BUTTONS.LOG_IN"></span>
+                </button>
+                <a ui-sref="main.forgot" class="restore-link" translate="BUTTONS.FORGOT_PASSWORD"></a>
+            </div>
+
+            <div class="network-auth-buttons">
+                <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin()">
+                    <i class="icon-network-facebook"></i>
+                    <span translate="BUTTONS.LOGIN_FACEBOOK"></span>
+                </a>
+                <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin()">
+                    <i class="icon-network-google"></i>
+                    <span translate="BUTTONS.LOGIN_GOOGLE"></span>
+                </a>
+            </div>
+        </div>
     </div>
 
-    <div class="field-container">
-        <input type="password"
-               required
-               ng-model="request.password"
-               ng-class="{'ng-invalid ng-invalid-server': serverErrors.password}"
-               class="field-input">
-        <span class="field-label">Password</span>
-        <span class="field-error form-field_error-required">Field is required</span>
-        <span class="field-error form-field_error-server">{{serverErrors.password.join(', ')}}</span>
-    </div>
-    <!-- div class="field-container without-padding">
-        <span class="restore-link advanced-field-open" ng-click="twoFAEnabled = !twoFAEnabled">
-            <i ng-class="{'icon-keyboard_arrow_down': !twoFAEnabled, 'icon-keyboard_arrow_up': twoFAEnabled}"></i>
-            <span>2-х факторная аутентификация</span>
-        </span>
-    </div -->
-    <div class="field-container" ng-if="twoFAEnabled">
-        <input type="text"
-               required
-               ng-model="request.totp"
-               ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
-               class="field-input">
-        <span class="field-label">2FA code</span>
-        <span class="field-error form-field_error-required">Field is required</span>
-        <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
-    </div>
-
-    <span class="static-field-error"
-          ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
-
-    <div class="field-submit-container">
-        <button type="submit">Log in</button>
-        <a ui-sref="main.forgot" class="restore-link">Forgot your password?</a>
-    </div>
-
-    <div class="network-auth-buttons">
-        <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin()">
-            <i class="icon-network-facebook"></i>
-            <span>Log in via Facebook</span>
-        </a>
-        <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin()">
-            <i class="icon-network-google"></i>
-            <span>Log in via Google</span>
-        </a>
-    </div>
 </form>
 
 <form ng-if="(socialAuthError == '1032') || (socialAuthError == '1033')"
       ng-submit="continueSocialAuth(socialContinueForm)" name="socialContinueForm" novalidate >
     <div class="field-container">
+        <span class="field-label" translate="FIELDS.2FA"></span>
         <input type="text"
                required
                ng-model="socialAuthInfo.request.totp"
                ng-class="{'ng-invalid ng-invalid-server': serverErrors.totp}"
                class="field-input">
-        <span class="field-label">2FA code</span>
-        <span class="field-error form-field_error-required">Field is required</span>
+        <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
         <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
     </div>
 
     <div class="field-submit-container">
-        <button type="submit">Continue</button>
+        <button type="submit" class="btn btn-submit">
+            <span translate="BUTTONS.CONTINUE"></span>
+        </button>
     </div>
 </form>

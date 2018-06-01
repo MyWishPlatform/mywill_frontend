@@ -39,7 +39,9 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         if ($rootScope.language === lng) return;
         $rootScope.language = lng;
         $cookies.put('lang', lng);
-        $translate.use($rootScope.language);
+        $translate.use($rootScope.language).then(function() {
+            $scope.loadedContent = true;
+        });
         !noSave ? authService.setLanguage(lng) : false;
     };
 

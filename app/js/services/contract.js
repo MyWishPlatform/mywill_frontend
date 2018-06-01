@@ -17,6 +17,12 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
+        getAllCosts: function () {
+            var params = {
+                path: API.GET_ALL_COSTS
+            };
+            return requestService.get(params);
+        },
         createContract: function (data) {
             data.network = parseInt(data.network);
             var params = {

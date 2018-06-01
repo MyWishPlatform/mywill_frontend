@@ -207,10 +207,19 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.createcontract.types', {
         url: '/create',
-        controller: function($scope) {
+        resolve: {
+            allCosts: function(contractService) {
+                return contractService.getAllCosts();
+            }
+        },
+        controller: function($scope, allCosts) {
             $scope.blockChainNetwork = {
                 type: 'ethereum'
             };
+            for (var key in allCosts.data) {
+                allCosts.data[key] = new BigNumber(allCosts.data[key]).round(3).toString(10);
+            }
+            $scope.allCosts = allCosts.data;
         },
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 

@@ -48,74 +48,118 @@
                 </div>
             </div>
 
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="form-control">
-                        <div class="checkbox-decoration">
-                            <label class="radio-button-decoration">
-                                <input type="radio" id="start_date" name="date_type" ng-model="date_type" value="start">
-                                <span ng-class="{
+            <div class="grid-row" ng-class="{'no-active': contract.contract_details.start_date < minStartDate.format('X')}">
+                <div class="grid-cell grid-cell-1">
+                    <div class="checkbox-decoration">
+                    <label class="radio-button-decoration">
+                        <input type="radio"
+                               ng-disabled="contract.contract_details.start_date < minStartDate.format('X')"
+                               id="start_date_radio" name="date_type" ng-model="date_type" value="start">
+                        <span ng-class="{
                                     'icon-radio-checked': date_type === 'start',
                                     'icon-radio-unchecked': date_type !== 'start'
                                 }"></span>
-                            </label>
-                            <label class="form-control-label inline-label"
-                                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.START_DATE.LABEL"
-                                   for="start_date"></label>
-                        </div>
+                    </label>
+                    <label class="form-control-label inline-label"
+                           translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.START_DATE.LABEL"
+                           for="start_date_radio"></label>
+                </div>
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                    <div class="form-control">
 
-                        <div class="grid-row">
-                            <div class="grid-cell grid-cell-3-5">
-                                <input type="datetime"
-                                       ng-required="date_type === 'start'"
-                                       ng-disabled="date_type !== 'start'"
-                                       ng-model="contract.start_date"
-                                       auto-close="true"
-                                       readonly
-                                       date-time
-                                       min-date="minStartDate"
-                                       min-view="date"
-                                       view="year"
-                                       format="YYYY-MM-DD"
-                                       position="fixed"
-                                       class="form-control-input form-control-input-date"/>
-                            </div>
-                        </div>
+                        <input class="input-for-group-fields"
+                               readonly
+                               name="checkStartDate"
+                               ng-model="newDatesFields.start_date"
+                               tabindex="-1"
+                               type="number"
+                               ng-if="date_type === 'start'"
+                               ng-attr-min="{{minStartDate.format('X')}}"
+                               ng-attr-max="{{validationDates.maxForStart}}"/>
+
+                        <input type="datetime" required
+                               id="start-date"
+                               ng-model="dates.startDate"
+                               date-change="onChangeStartDate"
+                               auto-close="true"
+                               min-date="minStartDate"
+                               ng-disabled="date_type !== 'start'"
+                               readonly
+                               date-time
+                               min-view="date"
+                               view="year"
+                               format="YYYY-MM-DD"
+                               position="fixed"
+                               ng-attr-invalid="{{!mintForm.checkStartDate.$valid}}"
+                               class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
-
-                <div class="clearfix show-ls"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
                     <div class="form-control">
-                        <div class="checkbox-decoration">
-                            <label class="radio-button-decoration">
-                                <input type="radio" id="end_date" name="date_type" ng-model="date_type" value="end">
-                                <span ng-class="{
+                        <div class="form-control-input"
+                             ng-disabled="date_type !== 'start'"
+                             ng-model="timesForStarting.start" ng-time-picker
+                             ng-attr-invalid="{{(date_type === 'start') && !mintForm.checkStartDate.$valid}}"
+                             ng-change="onChangeStartTime">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-row" ng-class="{'no-active': contract.contract_details.stop_date < minStartDate.format('X')}">
+                <div class="grid-cell grid-cell-1">
+                    <div class="checkbox-decoration">
+                        <label class="radio-button-decoration">
+                            <input type="radio" id="end_date_radio"
+                                   ng-disabled="contract.contract_details.stop_date < minStartDate.format('X')"
+                                   name="date_type" ng-model="date_type" value="end">
+                            <span ng-class="{
                                     'icon-radio-checked': date_type === 'end',
                                     'icon-radio-unchecked': date_type !== 'end'
                                 }"></span>
-                            </label>
-                            <label class="form-control-label inline-label"
-                                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL"
-                                   for="end_date"></label>
-                        </div>
-                        <div class="grid-row">
-                            <div class="grid-cell grid-cell-3-5">
-                                <input type="datetime"
-                                       ng-required="date_type === 'end'"
-                                       ng-disabled="date_type !== 'end'"
-                                       ng-model="contract.finish_date"
-                                       auto-close="true"
-                                       readonly
-                                       date-time
-                                       min-date="minStartDate"
-                                       min-view="date"
-                                       view="year"
-                                       format="YYYY-MM-DD"
-                                       position="fixed"
-                                       class="form-control-input form-control-input-date"/>
-                            </div>
-                        </div>
+                        </label>
+                        <label class="form-control-label inline-label"
+                               translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL"
+                               for="end_date_radio"></label>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <input class="input-for-group-fields"
+                               tabindex="-1"
+                               readonly
+                               name="checkStopDate"
+                               ng-model="newDatesFields.stop_date"
+                               type="number"
+                               step="1"
+                               ng-if="date_type === 'end'"
+                               ng-attr-min="{{validationDates.minForFinish}}"/>
+
+                        <input type="datetime" required
+                               id="end-date"
+                               ng-model="dates.endDate"
+                               date-change="onChangeEndDate"
+                               auto-close="true"
+                               min-date="minStartDate"
+                               readonly
+                               ng-disabled="date_type !== 'end'"
+                               date-time
+                               min-view="date"
+                               view="year"
+                               format="YYYY-MM-DD"
+                               position="fixed"
+                               ng-attr-invalid="{{!mintForm.checkStopDate.$valid}}"
+                               class="form-control-input form-control-input-date"/>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <div class="form-control-input"
+                             ng-disabled="date_type !== 'end'"
+                             ng-time-picker
+                             ng-attr-invalid="{{(date_type === 'end') && !mintForm.checkStopDate.$valid}}"
+                             ng-change="onChangeStopTime"
+                             ng-model="timesForStarting.stop">&nbsp;</div>
                     </div>
                 </div>
             </div>
@@ -129,7 +173,6 @@
                         newPopupContent: true,
                         params: {
                             contract: contract,
-                            recipient: recipient,
                             mintSignature: mintSignature,
                             currentWallet: currentWallet
                         },
@@ -139,7 +182,7 @@
                         },
                         onClose: returnToList
                     }"
-                    ng-disabled="!mintForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
+                    ng-disabled="!mintForm.$valid || !date_type" ng-click="generateSignature(); closeCurrentPopup();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>

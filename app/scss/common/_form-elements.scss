@@ -458,6 +458,9 @@
   display: inline-block;
   position: relative;
   user-select: none;
+  &.disabled {
+    opacity: 0.5;
+  }
   .disclaimer-btn {
     position: absolute;
     opacity: 0;

@@ -150,9 +150,66 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
     $scope.contract = contract;
+    $scope.date_type = false;
 
-    $scope.minStartDate = moment();
-    $scope.mintSignature = {};
+    $scope.newDatesFields = {
+        start_date: contract.contract_details.start_date,
+        stop_date: contract.contract_details.stop_date
+    };
+
+    $scope.validationDates = {
+        minForFinish: $scope.newDatesFields.start_date + 300,
+        maxForStart: $scope.newDatesFields.stop_date - 300
+    };
+
+    /* Управление датой и временем начала/окончания ICO (begin) */
+    var setStartTimestamp = function() {
+        if (!$scope.dates.startDate) {
+            $scope.dates.startDate = moment($scope.newDatesFields.start_date * 1000);
+        }
+        $scope.dates.startDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes);
+        if ($scope.dates.startDate < $scope.minStartDate) {
+            $scope.dates.startDate = $scope.minStartDate.clone();
+        }
+        $timeout(function() {
+            $scope.newDatesFields.start_date = $scope.dates.startDate.clone().hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).format('X') * 1;
+        });
+    };
+    var setStopTimestamp = function() {
+        if (!$scope.dates.endDate) {
+            $scope.dates.endDate = moment($scope.newDatesFields.stop_date * 1000);
+        }
+        $scope.dates.endDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes);
+        if ($scope.dates.endDate < $scope.minStartDate) {
+            $scope.dates.endDate = $scope.minStartDate.clone();
+        }
+        $timeout(function() {
+            $scope.newDatesFields.stop_date = $scope.dates.endDate.clone().hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).format('X') * 1;
+        });
+    };
+    $scope.onChangeStartTime = setStartTimestamp;
+    $scope.onChangeStopTime = setStopTimestamp;
+    $scope.onChangeStartDate = setStartTimestamp;
+    $scope.onChangeEndDate = setStopTimestamp;
+
+
+    $scope.minStartDate = moment().add(5, 'minutes').second(0);
+    $scope.dates = {
+        startDate: moment($scope.newDatesFields.start_date * 1000),
+        endDate: moment($scope.newDatesFields.stop_date * 1000)
+    };
+    $scope.timesForStarting = {
+        start: {
+            hours: $scope.dates.startDate.hours(),
+            minutes: $scope.dates.startDate.minutes()
+        },
+        stop: {
+            hours: $scope.dates.endDate.hours(),
+            minutes: $scope.dates.endDate.minutes()
+        }
+    };
+
+
 
     $scope.generateSignature = function() {
         // var mintInterfaceMethod = web3Service.getMethodInterface(

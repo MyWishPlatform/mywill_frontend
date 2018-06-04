@@ -269,7 +269,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         3: '',
         4: 'icon-crowdsale',
         5: 'icon-token',
-        6: 'icon-token'
+        6: 'icon-token',
+        7: 'icon-crowdsale'
     };
 
     $rootScope.deviceInfo = UAParser(window.navigator.userAgent);

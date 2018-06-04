@@ -768,8 +768,8 @@
           },
           "TOKEN_RATE": {
             "LABEL": "トークンレート",
-            "DESCRIPTION": "トークンのレートを定義します。 1-100000の数字が受け入れられます。 通常1 ETHあたり500〜5000個のトークン",
-            "ADV_DESCRIPTION": "1 ETHあたり"
+            "DESCRIPTION": "トークンのレートを定義します。 1-100000の数字が受け入れられます。 通常1 {{blockchain}}あたり500〜5000個のトークン",
+            "ADV_DESCRIPTION": "1  {{blockchain}}あたり"
           },
           "HARD_CAP": {
             "LABEL": "ハードキャップトークン",

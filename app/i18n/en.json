@@ -764,8 +764,8 @@
           },
           "TOKEN_RATE": {
             "LABEL": "Token rate",
-            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 ETH",
-            "ADV_DESCRIPTION": "per 1 ETH"
+            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 {{blockchain}}",
+            "ADV_DESCRIPTION": "per 1 {{blockchain}}"
           },
           "HARD_CAP": {
             "LABEL": "Hard cap tokens",

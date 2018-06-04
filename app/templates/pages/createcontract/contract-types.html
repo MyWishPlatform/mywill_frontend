@@ -138,6 +138,23 @@
             </div>
         </div>
     </div>
+    <div ui-sref="main.createcontract.form({selectedType: 'crowdSale', network: blockChainNetwork.isTest ? 6 : 6})"
+         class="shadow-block shadow-block_hovered">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="icon-crowdsale shadow-block__content__title__icon"></i>
+                        <span class="shadow-block__content__title__text"
+                              translate="PAGES.CREATE_CONTRACT.CROWDSALE.TITLE"></span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="" ng-if="blockChainNetwork.type === 'ethereum'">

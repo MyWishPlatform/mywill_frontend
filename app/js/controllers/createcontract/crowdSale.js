@@ -51,16 +51,28 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
-        network: $stateParams.network,
-        contract_details: {
-            token_holders: [],
-            amount_bonuses: [],
-            time_bonuses: [],
-            token_type: 'ERC20'
-        }
+        network: $stateParams.network * 1
     };
 
     $scope.network = contract.network;
+
+    switch ($scope.network) {
+        case 1:
+        case 2:
+            contract.contract_details = {
+                token_holders: [],
+                amount_bonuses: [],
+                time_bonuses: [],
+                token_type: 'ERC20'
+            };
+            $scope.blockchain = 'ETH';
+            break;
+        case 5:
+        case 6:
+            contract.contract_details = {};
+            $scope.blockchain = 'NEO';
+            break;
+    }
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
@@ -141,18 +153,28 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         contractDetails.start_date = contractDetails.start_date * 1;
         contractDetails.stop_date = contractDetails.stop_date * 1;
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
-        contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
-        if (!$scope.additionalParams.investsLimit) {
-            contractDetails.min_wei = null;
-            contractDetails.max_wei = null;
-        } else {
-            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,18)).round().toString(10);
-            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,18)).round().toString(10);
+
+        if (contractDetails.soft_cap) {
+            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,18)).round().toString(10);
+        }
+
+        if ($scope.blockchain !== 'NEO') {
+            if (!$scope.additionalParams.investsLimit) {
+                contractDetails.min_wei = null;
+                contractDetails.max_wei = null;
+            } else {
+                contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,18)).round().toString(10);
+                contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,18)).round().toString(10);
+            }
+        }
+
+        if ($scope.blockchain === 'NEO') {
+            contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
         }
         return {
             name: $scope.contractName,
             network: contract.network,
-            contract_type: CONTRACT_TYPES_CONSTANTS.CROWD_SALE,
+            contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.TOKEN : CONTRACT_TYPES_CONSTANTS.CROWDSALE_NEO,
             contract_details: contractDetails,
             id: contract.id
         };
@@ -263,6 +285,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     }
 
 }).controller('crowdSaleTimeBonusesController', function($scope, $timeout) {
+    if ($scope.blockchain === 'NEO') return;
     $scope.addTokenBonus = function() {
         var newBonus = {};
         $scope.bonuses.push(newBonus);
@@ -502,6 +525,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.$on('tokensCapChanged', $scope.createTimeBonusChartData);
     resetFormData();
 }).controller('crowdSaleAmountBonusesController', function($scope) {
+    if ($scope.blockchain === 'NEO') return;
     $scope.addAmountBonus = function() {
         $scope.bonuses.push({
             min_amount: !$scope.bonuses.length ? 0 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],
@@ -561,6 +585,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.$on('createContract', createdContractData);
     $scope.createAmountBonusChartData();
 }).controller('crowdSaleHoldersController', function($scope, $timeout, $filter) {
+    if ($scope.blockchain === 'NEO') return;
     $scope.addRecipient = function() {
         var holder = {
             freeze_date: $scope.dates.endDate.clone().add(1, 'minutes')

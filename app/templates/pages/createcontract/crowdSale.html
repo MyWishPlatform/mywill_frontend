@@ -39,7 +39,7 @@
       ng-class="{'no-active': !contractNameForm.$valid}" name="tokenInfoForm">
     <div class="shadow-block__content" ng-include="getTemplate('pages/createcontract/crowdSale/token_info')"></div>
 </form>
-<form class="shadow-block" ng-if="!token.selectedToken.id">
+<form class="shadow-block" ng-if="!token.selectedToken.id && (blockchain !== 'NEO')">
     <div class="shadow-block__content">
         <div class="form-control-label"
              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_TYPE.LABEL"></div>
@@ -81,7 +81,7 @@
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}">
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}" ng-if="blockchain !== 'NEO'">
     <div ng-include="getTemplate('pages/createcontract/crowdSale/type_of_crowdsale')"></div>
 </form>
 <form class="shadow-block"
@@ -90,23 +90,25 @@
 </form>
 <form class="shadow-block"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}"
-      name="storageForm">
+      name="storageForm" ng-if="blockchain !== 'NEO'">
     <div ng-include="getTemplate('pages/createcontract/crowdSale/token_storage')"></div>
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid)}"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && (storageForm.$valid || (blockchain === 'NEO')))}"
       name="saleTokensParamsForm">
     <div ng-include="getTemplate('pages/createcontract/crowdSale/crowdsale_params')"></div>
 </form>
 
 <form class="shadow-block"
+      ng-if="blockchain !== 'NEO'"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid)}"
       name="minMaxInvestmentsForm">
     <div ng-include="getTemplate('pages/createcontract/crowdSale/min_max_investments')"></div>
 </form>
 
 <form class="shadow-block"
+      ng-if="blockchain !== 'NEO'"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid)}"
       name="timeBonusForm">
     <div ng-controller="crowdSaleTimeBonusesController"
@@ -114,6 +116,7 @@
 </form>
 
 <form class="shadow-block"
+      ng-if="blockchain !== 'NEO'"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid)}"
       name="amountBonusForm">
     <div ng-controller="crowdSaleAmountBonusesController"
@@ -121,6 +124,7 @@
 </form>
 
 <form class="shadow-block"
+      ng-if="blockchain !== 'NEO'"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid)}"
       name="distributionForm">
     <div ng-controller="crowdSaleHoldersController"
@@ -133,7 +137,7 @@
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
                 type="button"
-                ng-disabled="!(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid && distributionForm.$valid)"
+                ng-disabled="!(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid  && saleTokensParamsForm.$valid && ((storageForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid && distributionForm.$valid) || (blockchain === 'NEO')))"
                 ng-click="createContract()">
             <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
             <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>

@@ -6,15 +6,16 @@
                 <label for="out-wallet-key-{{$index}}"
                        translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"
                        class="form-control-label">Address</label>
+
                 <input id="out-wallet-key-{{$index}}" type="text"
-                       placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL'|translate}}"
-                       ng-pattern="/^0x[0-9a-f]{40}$/i"
+                       placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.PLACEHOLDER'|translate}}"
+                       ng-checksum-address-validator="{'network': blockchain}"
                        ng-model="recipient.address"
                        ng-change="!recipient.name ? checkTokensAmount() : false"
                        required
                        class="form-control-input"/>
                 <span class="field-error form-field_error-check-sum"
-                      ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
+                      ng-if="(blockchain === 'ETH') && (recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false)"
                       style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
             </div>
         </div>

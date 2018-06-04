@@ -7,7 +7,25 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var contractDetails = $scope.contract.contract_details;
 
-    if (contractDetails.eth_contract_crowdsale.address) {
+
+    switch ($scope.contract.network) {
+        case 1:
+        case 2:
+            $scope.blockchain = 'ETH';
+            $scope.contractCrowdsaleInfo = 'eth_contract_crowdsale';
+            $scope.contractTokenInfo = 'eth_contract_token';
+            break;
+        case 5:
+        case 6:
+            $scope.blockchain = 'NEO';
+            $scope.contractCrowdsaleInfo = 'neo_contract_crowdsale';
+            $scope.contractTokenInfo = 'neo_contract_token';
+            break;
+    }
+
+    $scope.currencyPow = $scope.blockchain === 'NEO' ? 0 : 18;
+
+    if (contractDetails.eth_contract_crowdsale && contractDetails.eth_contract_crowdsale.address) {
         web3Service.setProvider('infura');
         var contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
         if (typeof contract.methods.vault === 'function') {
@@ -19,11 +37,10 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         }
     }
 
-
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];
     contractDetails.time_bonuses.map(function(bonus) {
-        bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
-        bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10) : undefined;
+        bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10) : undefined;
+        bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10) : undefined;
         bonus.min_time = bonus.min_time ? bonus.min_time * 1000 : undefined;
         bonus.max_time = bonus.max_time ? bonus.max_time * 1000 : undefined;
     });
@@ -91,16 +108,20 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         $scope.amountBonusChartData.push(chartItem);
     });
 
+    if ($scope.blockchain === 'ETH') {
+        contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
+        contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
 
-    contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,18)).round(Math.min(2, contractDetails.decimals)).toString(10);
-    contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,18)).round(Math.min(2, contractDetails.decimals)).toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
+        contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
 
-    contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
-    contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,18)).round().toString(10);
-
-    contractDetails.min_wei = contractDetails.min_wei !== null ? contractDetails.min_wei : undefined;
-    contractDetails.max_wei = contractDetails.max_wei !== null ? contractDetails.max_wei : undefined;
-
+        contractDetails.min_wei = contractDetails.min_wei !== null ? contractDetails.min_wei : undefined;
+        contractDetails.max_wei = contractDetails.max_wei !== null ? contractDetails.max_wei : undefined;
+    }
+    if ($scope.blockchain === 'NEO') {
+        contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).round(Math.min(2, contractDetails.decimals)).toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).round().toString(10);
+    }
     $scope.timeBonusChartParams = {
         max_time: contractDetails.stop_date,
         min_time: contractDetails.start_date,
@@ -110,14 +131,16 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     contractDetails.amount_bonuses = contractDetails.amount_bonuses || [];
     contractDetails.amount_bonuses.map(function(bonus) {
-        bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,18)).round().toString(10);
-        bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,18)).round().toString(10);
+        bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
+        bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
     });
 
-    contractDetails.sources = {
-        crowdsale: contractDetails.eth_contract_crowdsale.source_code || false,
-        token: contractDetails.eth_contract_token.source_code || false
-    };
+    if (contractDetails.eth_contract_crowdsale) {
+        contractDetails.sources = {
+            crowdsale: contractDetails.eth_contract_crowdsale.source_code || false,
+            token: contractDetails.eth_contract_token.source_code || false
+        };
+    }
 
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
     contractDetails.token_holders.map(function(holder) {

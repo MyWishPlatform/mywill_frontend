@@ -31,7 +31,7 @@
   "CONFIRM_EMAIL_FORM": {
     "TITLE": "Email Activation",
     "BASE_TEXT": "An activation email has been sent to <br/><b>{{currEmail}}</b>",
-    "NOTICE_TEXT": "",
+    "NOTICE_TEXT": "If your email address is gmail or not received for a long time, please check the mailbox trash/spam.",
     "RESEND_BUTTON": "Resend an email",
     "TIMER": "We can re-send email in {{timerMinutes}}:{{timerSeconds}}",
     "ERRORS": {

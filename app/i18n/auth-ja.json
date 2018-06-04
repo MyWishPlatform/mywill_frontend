@@ -17,7 +17,7 @@
     "SIGN_UP": "サインアップ",
     "CONTINUE": "続ける",
     "SEND": "遣う",
-    "REGISTRATION": "Registration",
+    "REGISTRATION": "登録",
     "CHANGE_PASSWORD": "パスワードを変更する"
   },
   "FIELDS_ERRORS": {
@@ -29,14 +29,14 @@
     "INVALID_2FA_CODE": "コードが無効です"
   },
   "CONFIRM_EMAIL_FORM": {
-    "TITLE": "Email Activation",
-    "BASE_TEXT": "An activation email has been sent to <br/><b>{{currEmail}}</b>",
-    "NOTICE_TEXT": "",
+    "TITLE": "メールアドレスのアクティベーション",
+    "BASE_TEXT": "アクティベーションメールアドレスが<br/><b>{{currEmail}}</b>に送信されました",
+    "NOTICE_TEXT": "If your email address is gmail or not received for a long time, please check the mailbox trash/spam.",
     "RESEND_BUTTON": "Resend an email",
     "TIMER": "We can re-send email in {{timerMinutes}}:{{timerSeconds}}",
     "ERRORS": {
-      "ERROR_1": "Your email was not registered. Please <a href=\"/auth/registration\">sign up</a> before email activation.",
-      "ERROR_2": "Your email has already been verified. Please <a href=\"/auth\">sign in</a>"
+      "ERROR_1": "あなたのメールアドレスは登録されていません。メールアドレスの活性化の前に<a href=\"/auth/registration\">サインアップ</a>してください。",
+      "ERROR_2": "あなたのメールアドレスはすでに確認されています。<a href=\"/auth\">サインイン</a>してください."
     }
   }
 }

@@ -1,5 +1,5 @@
-<div class="shadow-block" ng-controller="changeDateController">
-    <form name="mintForm">
+<div class="shadow-block" ng-controller="changeDateFormController">
+    <form name="changeDateForm">
         <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
             <div class="shadow-block__content__blue-title">
                 <i class="shadow-block__content__blue-title__icon icon-crowdsale"></i>
@@ -91,7 +91,7 @@
                                view="year"
                                format="YYYY-MM-DD"
                                position="fixed"
-                               ng-attr-invalid="{{!mintForm.checkStartDate.$valid}}"
+                               ng-attr-invalid="{{!changeDateForm.checkStartDate.$valid}}"
                                class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                         <div class="form-control-input"
                              ng-disabled="date_type !== 'start'"
                              ng-model="timesForStarting.start" ng-time-picker
-                             ng-attr-invalid="{{(date_type === 'start') && !mintForm.checkStartDate.$valid}}"
+                             ng-attr-invalid="{{(date_type === 'start') && !changeDateForm.checkStartDate.$valid}}"
                              ng-change="onChangeStartTime">&nbsp;</div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                                view="year"
                                format="YYYY-MM-DD"
                                position="fixed"
-                               ng-attr-invalid="{{!mintForm.checkStopDate.$valid}}"
+                               ng-attr-invalid="{{!changeDateForm.checkStopDate.$valid}}"
                                class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                         <div class="form-control-input"
                              ng-disabled="date_type !== 'end'"
                              ng-time-picker
-                             ng-attr-invalid="{{(date_type === 'end') && !mintForm.checkStopDate.$valid}}"
+                             ng-attr-invalid="{{(date_type === 'end') && !changeDateForm.checkStopDate.$valid}}"
                              ng-change="onChangeStopTime"
                              ng-model="timesForStarting.stop">&nbsp;</div>
                     </div>
@@ -169,20 +169,18 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
             <button class="btn btn-submit" type="button"
                     ng-pop-up="{
-                        template: '/templates/popups/instructions/eth/mint-instruction.html',
+                        template: '/templates/popups/instructions/eth/change-date-instruction.html',
                         newPopupContent: true,
                         params: {
                             contract: contract,
-                            mintSignature: mintSignature,
+                            signature: signature,
                             currentWallet: currentWallet
                         },
                         actions: {
-                            successCodeCopy: successCodeCopy,
-                            sendMintTransaction: sendMintTransaction
-                        },
-                        onClose: returnToList
+                            successCodeCopy: successCodeCopy
+                        }
                     }"
-                    ng-disabled="!mintForm.$valid || !date_type" ng-click="generateSignature(); closeCurrentPopup();">
+                    ng-disabled="!changeDateForm.$valid || !date_type" ng-click="generateSignature(); closeCurrentPopup();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>

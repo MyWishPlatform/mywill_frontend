@@ -146,7 +146,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         address: $filter('translate')('CONTRACTS.FOR_SALE')
     });
 
-}).controller('changeDateController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
+}).controller('changeDateFormController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
     $scope.contract = contract;
@@ -208,51 +208,34 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             minutes: $scope.dates.endDate.minutes()
         }
     };
+}).controller('changeDateController', function($scope, web3Service) {
 
+    var contractData = $scope.ngPopUp.params.contract;
+    $scope.contract = contractData;
 
+    web3Service.setProviderByNumber(contractData.network);
 
-    $scope.generateSignature = function() {
-        // var mintInterfaceMethod = web3Service.getMethodInterface(
-        //     !$scope.recipient.isFrozen ? 'mint' : 'mintAndFreeze',
-        //     contract.contract_details.eth_contract_token.abi);
-        // var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
-        // var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
-        //
-        // var params = [$scope.recipient.address, amount];
-        //
-        // if ($scope.recipient.isFrozen) {
-        //     params.push($scope.recipient.freeze_date.format('X'));
-        // }
-        // $scope.mintSignature.string = (new Web3()).eth.abi.encodeFunctionCall(
-        //     mintInterfaceMethod, params
-        // );
+    var contractDetails = contractData.contract_details, contract;
+
+    console.log(contractDetails.eth_contract_crowdsale.abi);
+    var methodName = 'isFinalized'; // ?
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+
+    $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+        }
+    });
+
+    $scope.sendTransaction = function() {
+        contract.methods[methodName]().send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
     };
-
-    $scope.successCodeCopy = function(contract, field) {
-        contract.copied = contract.copied || {};
-        contract.copied[field] = true;
-        $timeout(function() {
-            contract.copied[field] = false;
-        }, 1000);
-    };
-
-    // $scope.sendMintTransaction = function() {
-    //     var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
-    //     var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
-    //
-    //     if ($scope.recipient.isFrozen) {
-    //         web3Contract.methods.mintAndFreeze(
-    //             $scope.recipient.address,
-    //             amount,
-    //             $scope.recipient.freeze_date.format('X')
-    //         ).send({
-    //             from: $scope.currentWallet.wallet
-    //         }).then(console.log);
-    //     } else {
-    //         web3Contract.methods.mint($scope.recipient.address, amount).send({
-    //             from: $scope.currentWallet.wallet
-    //         }).then(console.log);
-    //     }
-    // };
-
 });

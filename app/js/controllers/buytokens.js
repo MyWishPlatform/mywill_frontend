@@ -51,8 +51,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         web3.eth.sendTransaction({
             value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(10),
             from: $scope.formData.address,
-            to: $scope.formData.toAddress,
-            gas: $scope.formData.gaslimit
+            to: $scope.formData.toAddress
         }, function() {
             console.log(arguments);
         });
@@ -78,15 +77,14 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.failCodeCopy = function() {
         console.log(arguments);
     };
-
     var resetForm = function() {
         $scope.formData = {
-            gaslimit: 100000,
             toAddress: $rootScope.currentUser.internal_address,
             toBtcAddress: $rootScope.currentUser.internal_btc_address,
             wishAddress: APP_CONSTANTS.WISH.ADDRESS
         };
     };
+
     resetForm();
     $scope.$watch('visibleForm', function() {
         if ($scope.visibleForm) {

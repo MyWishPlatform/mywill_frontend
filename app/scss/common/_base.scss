@@ -346,18 +346,25 @@ nav, main, footer, header {
     text-align: left;
 
     &.active &__name {
-      font-weight: 500;
+      font-weight: 700;
       text-decoration: none;
       color: #000;
+    }
+    &.active &__name, &.active &__icon {
+      cursor: default;
     }
     &__icon {
       height: 2em;
       margin-right: 0.3em;
       vertical-align: middle;
       border: 1px solid #CCC;
+      cursor: pointer;
+    }
+    &__icon:hover + &__name {
+      text-decoration: none;
     }
     &__name {
-      color: #444;
+      color: $main-blue-color;
       vertical-align: middle;
       text-decoration: underline;
       cursor: pointer;

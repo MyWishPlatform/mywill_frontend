@@ -23,6 +23,13 @@
     font-size: 1.2em;
     margin-top: -0.1em;
     width: 1.4em;
+    &.floated {
+      float: left;
+      + .after-floated {
+        margin-left: 1.6em;
+        display: block;
+      }
+    }
   }
   &-grey-text {
     color: #878787;

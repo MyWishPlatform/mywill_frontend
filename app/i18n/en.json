@@ -8,6 +8,10 @@
   "DISCLAIMER": "Disclaimer",
   "FROM": "from",
   "BALANCE": "Balance",
+  "PLEASE_WAIT": "Please wait...",
+  "MONTHS": "months",
+  "YEARS":"years",
+  "DAYS": "days",
   "MAIN_MENU": {
     "UNKNOWN_USER": "Unknown user",
     "UNKNOWN": "Unknown",
@@ -731,6 +735,10 @@
           "TEXT": "If softcap > 0 all investments are stored on the vault contract until the end of crowdsale. <br/>If you need to get investments on your address right away set softcap = 0."
         },
         "CHART_TOKEN_DISTRIBUTED_MESSAGE": "Max possible emission of tokens, no more tokens can be minted.",
+        "CHART_TEXTS": {
+          "AMOUNT": "Amount of sold tokens",
+          "DATE": "Date/Time of sold tokens"
+        },
         "FIELDS": {
           "CHOOSE_TOKEN": {
             "LABEL": "Choose token",

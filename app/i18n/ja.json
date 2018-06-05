@@ -8,6 +8,10 @@
   "DISCLAIMER": "免責事項",
   "FROM": "から",
   "BALANCE": "バランス",
+  "PLEASE_WAIT": "しばらくお待ちください",
+  "MONTHS": "ヶ月",
+  "YEARS":"年々",
+  "DAYS": "日々",
   "MAIN_MENU": {
     "UNKNOWN_USER": "不明なユーザー",
     "UNKNOWN": "不明",
@@ -713,24 +717,28 @@
           },
           "FUTURE_MINTING": {
             "LABEL": "将来のミント",
-            "DESCRIPTION": "はい。将来、さらにトークンを作成し、Crowdsaleにトークンを使用することができます。いいえ - 将来、トークンは作成されません。 Crowdsaleは不可能です"
+            "DESCRIPTION": "はい。将来、さらにトークンを作成し、クラウド セールにトークンを使用することができます。いいえ。 将来、トークンは作成されません。 クラウド セールは不可能です。"
           }
         }
       },
       "CROWD_SALE": {
         "TITLE": "クラウドセール契約",
         "BUTTONS": {
-          "ADD_NEW_TIME_BONUS": "ボーナスを追加：時間/トークンを売り出し",
-          "ADD_OTHER_TIME_BONUS": "その他のボーナスを追加：時間/トークンを売り出し",
+          "ADD_NEW_TIME_BONUS": "ボーナス：時間/販売トークン",
+          "ADD_OTHER_TIME_BONUS": "金額ボーナス",
           "ADD_NEW_AMOUNT_BONUS": "金額ボーナスを追加する",
           "ADD_OTHER_AMOUNT_BONUS": "他の金額ボーナスを追加する",
           "ADD_EXTRA_ADDRESS": "余分なアドレスを追加する"
         },
         "CAP_NOTE": {
           "TITLE": "ご注意ください！",
-          "TEXT": "ソフトキャップが＞０の場合、すべての投資は、クラウドデーゼルの終了までヴォールト契約に格納されます。ごアドレスに投資を取得する必要がある場合はすぐsoftcap = 0に設定する。"
+          "TEXT": "ソフトキャップが＞０の場合、すべての投資は、クラウドデーゼルの終了までヴォールト契約に格納されます。ごアドレスに投資を取得する必要がある場合はソフトキャップが0に設定する。 "
         },
         "CHART_TOKEN_DISTRIBUTED_MESSAGE": "トークンの可能な最大放出、それ以上のトークンを発行することはできません。",
+        "CHART_TEXTS": {
+          "AMOUNT": "販売されたトークンの金額",
+          "DATE": "販売されたトークんの日時"
+        },
         "FIELDS": {
           "CHOOSE_TOKEN": {
             "LABEL": "トークンを選択する",

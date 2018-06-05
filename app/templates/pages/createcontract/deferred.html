@@ -34,7 +34,7 @@
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <div class="form-control-label float-right"
-                         ng-bind="checkedBalance ? ('BALANCE'|translate) +': ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ETH' : balanceInProgress ? 'Please wait...' : ' '"></div>
+                         ng-bind="checkedBalance ? ('BALANCE'|translate) +': ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ETH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
                     <label for="wallet-key"
                            class="form-control-label"
                            translate="CONTRACTS.FORMS.DEFERRED.FIELDS.MANAGEMENT_ADDR.LABEL"></label>

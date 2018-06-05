@@ -7,13 +7,13 @@ angular.module('app').controller('lastWillPreviewController', function($timeout,
     var durationList = [
         {
             value: 365,
-            name: 'years'
+            name: 'YEARS'
         }, {
             value: 30,
-            name: 'months'
+            name: 'MONTHS'
         }, {
             value: 1,
-            name: 'days'
+            name: 'DAYS'
         }
     ];
     var checkInterval = durationList.filter(function(check) {

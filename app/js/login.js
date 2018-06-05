@@ -25,7 +25,7 @@ module.controller('baseController', function($scope, $translate, $cookies) {
         $translate.use($scope.language).then(function() {
             $scope.pageLoaded = true;
         });
-        $cookies.put('lang', $scope.language);
+        $cookies.put('lang', $scope.language, {path: '/'});
     };
     $scope.setLanguage(defaultLng);
 }).config(function($stateProvider, $locationProvider, $urlRouterProvider, $translateProvider) {

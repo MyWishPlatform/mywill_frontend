@@ -38,7 +38,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.setLanguage = function(lng, noSave) {
         if ($rootScope.language === lng) return;
         $rootScope.language = lng;
-        $cookies.put('lang', lng);
+        $cookies.put('lang', lng, {path: '/'});
         $translate.use($rootScope.language).then(function() {
             $scope.loadedContent = true;
         });

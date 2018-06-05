@@ -81,7 +81,7 @@
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}" ng-if="blockchain !== 'NEO'">
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}" ng-show="blockchain !== 'NEO'">
     <div ng-include="getTemplate('pages/createcontract/crowdSale/type_of_crowdsale')"></div>
 </form>
 <form class="shadow-block"
@@ -90,7 +90,7 @@
 </form>
 <form class="shadow-block"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}"
-      name="storageForm" ng-if="blockchain !== 'NEO'">
+      name="storageForm" ng-show="blockchain !== 'NEO'">
     <div ng-include="getTemplate('pages/createcontract/crowdSale/token_storage')"></div>
 </form>
 
@@ -101,14 +101,14 @@
 </form>
 
 <form class="shadow-block"
-      ng-if="blockchain !== 'NEO'"
+      ng-show="blockchain !== 'NEO'"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid)}"
       name="minMaxInvestmentsForm">
     <div ng-include="getTemplate('pages/createcontract/crowdSale/min_max_investments')"></div>
 </form>
 
 <form class="shadow-block"
-      ng-if="blockchain !== 'NEO'"
+      ng-show="blockchain !== 'NEO'"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid)}"
       name="timeBonusForm">
     <div ng-controller="crowdSaleTimeBonusesController"
@@ -116,7 +116,7 @@
 </form>
 
 <form class="shadow-block"
-      ng-if="blockchain !== 'NEO'"
+      ng-show="blockchain !== 'NEO'"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && storageForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid)}"
       name="amountBonusForm">
     <div ng-controller="crowdSaleAmountBonusesController"

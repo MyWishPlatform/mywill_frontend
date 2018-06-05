@@ -31,9 +31,9 @@
   "CONFIRM_EMAIL_FORM": {
     "TITLE": "メールアドレスのアクティベーション",
     "BASE_TEXT": "アクティベーションメールアドレスが<br/><b>{{currEmail}}</b>に送信されました",
-    "NOTICE_TEXT": "If your email address is gmail or not received for a long time, please check the mailbox trash/spam.",
-    "RESEND_BUTTON": "Resend an email",
-    "TIMER": "We can re-send email in {{timerMinutes}}:{{timerSeconds}}",
+    "NOTICE_TEXT": "あなたのメールアドレスがGmailで、長時間受信していない場合は、メールボックスのゴミ箱/スパムをチェックしてください",
+    "RESEND_BUTTON": "もう一度メールを送る",
+    "TIMER": "私たちは{{timerMinutes}}:{{timerSeconds}}でメールを再送することができます",
     "ERRORS": {
       "ERROR_1": "あなたのメールアドレスは登録されていません。メールアドレスの活性化の前に<a href=\"/auth/registration\">サインアップ</a>してください。",
       "ERROR_2": "あなたのメールアドレスはすでに確認されています。<a href=\"/auth\">サインイン</a>してください."

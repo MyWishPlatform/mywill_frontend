@@ -76,8 +76,8 @@
                          translate="PAGES.BUY_TOKENS.CHOOSE_PAYMENT_METHOD"></div>
                 </div>
             </div>
-            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
-                <div class="form-control form-control">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                <div class="form-control form-control text-center">
                     <label class="btn btn-gray with-icon nowrap" ng-class="{'active': formData.activeService == 'myetherwallet'}">
                         <input type="radio" class="hidden-input" ng-model="formData.activeService" value="myetherwallet">
                         <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">
@@ -86,7 +86,7 @@
                     </label>
                 </div>
             </div>
-            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
                 <div class="form-control form-control text-center">
                     <label class="btn btn-gray with-icon nowrap"
                            ng-disabled="!wallets.parity.length"
@@ -100,8 +100,8 @@
                     </label>
                 </div>
             </div>
-            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1">
-                <div class="form-control form-control text-right">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                <div class="form-control form-control text-center">
                     <label class="btn btn-gray with-icon nowrap"
                            ng-disabled="!wallets.metamask.length"
                            ng-class="{'active': formData.activeService == 'metamask'}">

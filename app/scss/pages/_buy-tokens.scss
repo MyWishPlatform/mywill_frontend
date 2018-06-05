@@ -12,6 +12,13 @@
         }
     }
 }
+@media (max-width: 580px) {
+    .payment-row {
+        .btn {
+            min-width: 23em;
+        }
+    }
+}
 @media (max-width: 680px) {
     .attention-text {
         padding-left: 0;

@@ -7,6 +7,7 @@
   "COPIED": "コピーされた",
   "DISCLAIMER": "免責事項",
   "FROM": "から",
+  "BALANCE": "バランス",
   "MAIN_MENU": {
     "UNKNOWN_USER": "不明なユーザー",
     "UNKNOWN": "不明",
@@ -394,9 +395,9 @@
     },
     "ETH": {
       "ANY_TRANSACTION": {
-        "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
-        "PART_2": "To contract address",
-        "PART_3": "With Data field"
+        "PART_1": "管理アドレスからトランザクション ({{amount||'0'}} ETH) を送信する",
+        "PART_2": "契約アドレスに",
+        "PART_3": "data フィールド付き"
       },
       "ACTIVATE": {
         "TITLE": "活性化する",
@@ -416,7 +417,7 @@
           "ITEM_4": "あなたは（”送信量”のフィールド）送信したいのETHの量を指定します",
           "ITEM_5": "ガスの上限30000を指定します",
           "ITEM_6": "トランザクションの生成]をクリックします",
-          "ITEM_7": "「DONE」ボタンを押して、支払いを確認します"
+          "ITEM_7": "「{{'BUTTONS.DONE'|translate}}」ボタンを押して、支払いを確認します"
         }
       },
       "FINALIZE": {
@@ -821,7 +822,7 @@
           },
           "MAX_AMOUNT": {
             "LABEL": "最大金額",
-            "DESCRIPTION": "特定のボーナスを得るための最大金額　{{last ? ？ '（制限がない場合は空にしておくことができます）': ''}}"
+            "DESCRIPTION": "特定のボーナスを得るための最大金額　{{last ? '（制限がない場合は空にしておくことができます）': ''}}"
           },
           "AMOUNT_BONUS_DESCRIPTION": "あなたは寄付金額に応じたボーナスを定義することができます。たとえば、10+ ETHの貢献のための余分な5％のトークンを与えます"
         }

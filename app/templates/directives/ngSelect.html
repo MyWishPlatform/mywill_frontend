@@ -22,7 +22,9 @@
     <span class="hidden-items">
         <span
                 class="no-visibility block"
-                ng-repeat="option in showedList">{{ ngSelectOptions.label ? getLabelModel(option, ngSelectOptions.label) : option }}</span>
+                ng-repeat="option in showedList">
+            {{ ngSelectOptions.label ? getLabelModel(option, ngSelectOptions.label) : option }}
+        </span>
     </span>
     <select
             ng-model="ngModel"
@@ -52,7 +54,9 @@
                 <span class="select-optiongroup" ng-if="ngSelectOptions.groupBy && (ngSelectOptions.prevGroup!=option[ngSelectOptions.groupBy])">
                     {{ngSelectOptions.prevGroup=option[ngSelectOptions.groupBy]}}
                 </span>
-                <span class="select-option-text" translate>{{(ngSelectOptions.label ? getLabelModel(option, ngSelectOptions.label) : option) || 'n/a' }}</span>
+                <span class="select-option-text" translate>
+                    {{(ngSelectOptions.label ? (getLabelModel(option, ngSelectOptions.label)|translate) : option) || 'n/a' }}
+                </span>
 
                 <span class="select-list-container"
                       ng-if="ngSelectOptions.advanced"

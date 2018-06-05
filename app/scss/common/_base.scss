@@ -30,6 +30,11 @@ body {
       display: none;
     }
   }
+  &.with-menu, &.popup-showed {
+    #livechat-compact-container {
+      z-index: 1!important;
+    }
+  }
 }
 #all-page-wrapper {
   min-height: 100%;

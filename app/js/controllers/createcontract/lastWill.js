@@ -5,13 +5,13 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
     $scope.durationList = [
         {
             value: 1,
-            name: $filter('translate')('CONTRACTS.FORMS.DAY')
+            name: 'CONTRACTS.FORMS.DAY'
         }, {
             value: 30,
-            name: $filter('translate')('CONTRACTS.FORMS.MONTH')
+            name: 'CONTRACTS.FORMS.MONTH'
         }, {
             value: 365,
-            name: $filter('translate')('CONTRACTS.FORMS.YEAR')
+            name: 'CONTRACTS.FORMS.YEAR'
         }
     ];
 

@@ -36,7 +36,7 @@
                 <div class="form-control">
                     <div class="form-control-label float-right"
                          ng-if="mainForm.$valid"
-                         ng-bind="checkedBalance ? 'Balance: ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ' + networkName : balanceInProgress ? 'Please wait...' : ' '"></div>
+                         ng-bind="checkedBalance ? ('BALANCE'|translate) +': ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ' + networkName : balanceInProgress ? 'Please wait...' : ' '"></div>
 
                     <label for="wallet-key" class="form-control-label"
                            translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.MANAGEMENT_ADDR.LABEL"></label>

@@ -67,7 +67,7 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.HARD_CAP.DESCRIPTION"></span>
         </div>
     </div>
-    <div class="grid-row" ng-if="blockchain !== 'NEO'">
+    <div class="grid-row" ng-show="blockchain !== 'NEO'">
         <div class="grid-cell grid-cell-1"><br/>
             <div class="attention-text-container after-form-title">
                 <div class="attention-text without-top">
@@ -87,7 +87,7 @@
                 <input id="soft-cap" type="text"
                        ng-model="request.soft_cap"
                        ng-change="checkTokensAmount()"
-                       required
+                       ng-required="blockchain === 'ETH'"
                        commaseparator="{
                        regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', max: request.hard_cap
                        }"
@@ -210,7 +210,8 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.DESCRIPTION"></span>
         </div>
     </div><br/><br/>
-    <div class="grid-row"  ng-if="blockchain !== 'NEO'">
+
+    <div class="grid-row" ng-show="blockchain !== 'NEO'">
         <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
@@ -237,8 +238,7 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.CHANGING_DATES.DESCRIPTION"></span>
         </div>
     </div>
-
-    <div class="grid-row">
+    <div class="grid-row" ng-show="blockchain !== 'NEO'">
         <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
@@ -265,7 +265,7 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TRANSFERABLE.DESCRIPTION"></span>
         </div>
     </div>
-    <div class="grid-row" ng-if="blockchain !== 'NEO'">
+    <div class="grid-row" ng-show="blockchain !== 'NEO'">
         <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
@@ -292,7 +292,5 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.AUTO_FINALIZE.DESCRIPTION"></span>
         </div>
     </div>
-
-
 
 </div>

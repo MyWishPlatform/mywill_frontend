@@ -179,6 +179,9 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
                 contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
                 contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
             }
+        } else {
+            contractDetails.min_wei = undefined;
+            contractDetails.max_wei = undefined;
         }
 
         if ($scope.blockchain === 'NEO') {
@@ -298,6 +301,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     }
 
 }).controller('crowdSaleTimeBonusesController', function($scope, $timeout) {
+    if ($scope.blockchain !== 'ETH') return;
     $scope.addTokenBonus = function() {
         var newBonus = {};
         $scope.bonuses.push(newBonus);
@@ -537,6 +541,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.$on('tokensCapChanged', $scope.createTimeBonusChartData);
     resetFormData();
 }).controller('crowdSaleAmountBonusesController', function($scope) {
+
+        if ($scope.blockchain !== 'ETH') return;
     $scope.addAmountBonus = function() {
         $scope.bonuses.push({
             min_amount: !$scope.bonuses.length ? 0 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],

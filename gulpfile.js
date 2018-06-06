@@ -104,7 +104,7 @@ gulp.task('app:templates', ['app:templates-clean'], function () {
             standalone: true,
             root: "/templates/"
         }))
-        .pipe(uglifyjs({mangle: false}))
+        //.pipe(uglifyjs({mangle: false}))
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', 'tpl')))
         .pipe(rev.manifest('templates.json'))
@@ -159,7 +159,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             loadMaps: true
         }))
         .pipe(sourcemaps.write())
-        .pipe(uglifyjs({mangle: false}))
+        //.pipe(uglifyjs({mangle: false}))
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', 'vendors')))
         .pipe(rev.manifest())
@@ -193,7 +193,7 @@ gulp.task('app:js', ['app:js-clean'], function() {
         '!' + path.join(output, folders['js'], 'login.js')])
         .pipe(concat('main.js'))
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
-        .pipe(uglifyjs({mangle: false}))
+        //.pipe(uglifyjs({mangle: false}))
         .pipe(sourcemaps.init({
             loadMaps: true
         }))
@@ -225,7 +225,7 @@ gulp.task('login:js', ['login:js-clean'], function() {
             path.join(output, folders['js'], 'constants', 'api.js')
         ])
         .pipe(concat('login.js'))
-        .pipe(uglifyjs({mangle: false}))
+        //.pipe(uglifyjs({mangle: false}))
         .pipe(sourcemaps.init({
             loadMaps: true
         }))

@@ -525,7 +525,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(mailto|otpauth|https?):/);
         $translateProvider.useStaticFilesLoader({
             prefix: '/static/i18n/',
-            suffix: '.json'
+            suffix: '.json?_=' + (new Date()).getTime()
         });
 
     })

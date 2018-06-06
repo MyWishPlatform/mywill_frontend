@@ -3,7 +3,6 @@ angular.module('app').controller('lastWillPreviewController', function($timeout,
 
     $scope.setContract($scope.contract);
     var contractDetails = $scope.contract.contract_details;
-
     var durationList = [
         {
             value: 365,

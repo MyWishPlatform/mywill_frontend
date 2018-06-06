@@ -187,7 +187,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
         return {
             name: $scope.contractName,
             network: contract.network,
-            contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.TOKEN : CONTRACT_TYPES_CONSTANTS.CROWDSALE_NEO,
+            contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.CROWD_SALE : CONTRACT_TYPES_CONSTANTS.CROWDSALE_NEO,
             contract_details: contractDetails,
             id: contract.id
         };

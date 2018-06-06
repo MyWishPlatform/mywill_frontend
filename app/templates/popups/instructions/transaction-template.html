@@ -5,7 +5,7 @@
                 clipboard supported="supported"
                 text="instructionData.ownerAddress|toCheckSum"
                 ng-class="{copied: instructionData.contract.copied['admin_address']}"
-                on-copied="instructionData.successCopy(instructionData.contract, 'admin_address')">&nbsp;
+                on-copied="$root.successCodeCopy(instructionData.contract, 'admin_address')">&nbsp;
             <i class="icon-content_copy"></i>
         </button>
         <div class="copy-block__text">{{instructionData.ownerAddress|toCheckSum}}</div>
@@ -18,7 +18,7 @@
                 clipboard supported="supported"
                 text="instructionData.contractAddress|toCheckSum"
                 ng-class="{copied: instructionData.contract.copied['address']}"
-                on-copied="instructionData.successCopy(instructionData.contract, 'address')">&nbsp;
+                on-copied="$root.successCodeCopy(instructionData.contract, 'address')">&nbsp;
             <i class="icon-content_copy"></i>
         </button>
         <div class="copy-block__text">{{instructionData.contractAddress|toCheckSum}}</div>
@@ -31,7 +31,7 @@
                 clipboard supported="supported"
                 text="instructionData.dataField"
                 ng-class="{copied: instructionData.contract.copied['dataField']}"
-                on-copied="instructionData.successCopy(instructionData.contract, 'dataField')">&nbsp;
+                on-copied="$root.successCodeCopy(instructionData.contract, 'dataField')">&nbsp;
             <i class="icon-content_copy"></i>
         </button>
         <div class="copy-block__text">{{instructionData.dataField}}</div>

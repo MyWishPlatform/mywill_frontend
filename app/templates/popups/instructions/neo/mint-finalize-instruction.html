@@ -34,7 +34,7 @@
                                 clipboard supported="supported"
                                 text="ngPopUp.params.contract.contract_details.neo_contract_token.script_hash"
                                 ng-class="{copied: ngPopUp.params.contract.copied['script_hash']}"
-                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'script_hash')">&nbsp;
+                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash')">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
                         <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.neo_contract_token.script_hash}}</div>

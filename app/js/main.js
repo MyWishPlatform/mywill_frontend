@@ -508,6 +508,15 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.globalError = false;
     };
 
+
+    $rootScope.successCodeCopy = function(contract, field) {
+        contract.copied = contract.copied || {};
+        contract.copied[field] = true;
+        $timeout(function() {
+            contract.copied[field] = false;
+        }, 1000);
+    };
+
 })
     .config(function($httpProvider, $qProvider, $compileProvider, $translateProvider) {
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';

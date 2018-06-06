@@ -38,16 +38,16 @@
                     <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
                             text="formData.toAddress"
-                            on-copied="successCodeCopy(false, 'to_address')"
+                            on-copied="$root.successCodeCopy(copied, 'to_address')"
                             on-error="failCodeCopy(err)"
-                            ng-show="!copied['to_address']"
+                            ng-show="!copied.copied['to_address']"
                             type="button">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.COPY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </button>
 
                     <button class="btn btn-as-link center-input-field"
                             disabled
-                            ng-if="copied['to_address']"
+                            ng-if="copied.copied['to_address']"
                             type="button">
                         <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
                     </button>
@@ -77,7 +77,6 @@
                             newPopupContent: true,
                             params: {
                                 createdContract: formData,
-                                successCodeCopy: successCodeCopy,
                                 failCodeCopy: failCodeCopy
                             }
                         }">{{'PAGES.BUY_TOKENS.HOW_TO_DO_IT'|translate}}</span>

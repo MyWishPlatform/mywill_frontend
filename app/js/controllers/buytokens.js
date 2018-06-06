@@ -63,20 +63,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
 
     $scope.copied = {};
-    var copiedTimeouts = {};
 
-    $scope.successCodeCopy = function(obj, copiedField) {
-        obj = obj || $scope;
-        obj['copied'] = obj['copied'] || {};
-        copiedTimeouts[copiedField] ? $timeout.cancel(copiedTimeouts[copiedField]) : false;
-        obj['copied'][copiedField] = true;
-        copiedTimeouts[copiedField] = $timeout(function() {
-            obj['copied'][copiedField] = false;
-        }, 3000);
-    };
-    $scope.failCodeCopy = function() {
-        console.log(arguments);
-    };
     var resetForm = function() {
         $scope.formData = {
             toAddress: $rootScope.currentUser.internal_address,

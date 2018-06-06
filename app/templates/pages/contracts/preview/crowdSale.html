@@ -95,7 +95,7 @@
                                     clipboard supported="supported"
                                     text="selectedContract === 'eth_contract_crowdsale' ? 'TemplateCrowdsale' : 'MainToken'"
                                     ng-class="{copied: contract.copied['contractName']}"
-                                    on-copied="successCodeCopy(contract, 'contractName')"
+                                    on-copied="$root.successCodeCopy(contract, 'contractName')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
@@ -111,7 +111,7 @@
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].address|toCheckSum"
                                     ng-class="{copied: contract.copied['address']}"
-                                    on-copied="successCodeCopy(contract, 'address')"
+                                    on-copied="$root.successCodeCopy(contract, 'address')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
@@ -127,7 +127,7 @@
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].compiler_version|compilerVersion"
                                     ng-class="{copied: contract.copied['compiler_version']}"
-                                    on-copied="successCodeCopy(contract, 'compiler_version')"
+                                    on-copied="$root.successCodeCopy(contract, 'compiler_version')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
@@ -151,7 +151,7 @@
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].source_code"
                                     ng-class="{copied: contract.copied['source_code']}"
-                                    on-copied="successCodeCopy(contract, 'source_code')"
+                                    on-copied="$root.successCodeCopy(contract, 'source_code')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
@@ -174,7 +174,7 @@
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].constructor_arguments"
                                     ng-class="{copied: contract.copied['arguments']}"
-                                    on-copied="successCodeCopy(contract, 'arguments')"
+                                    on-copied="$root.successCodeCopy(contract, 'arguments')"
                                     on-error="failCodeCopy(err)">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
@@ -214,7 +214,7 @@
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['crowdsale_address']}"
                         text="details.eth_contract_crowdsale.address|toCheckSum"
-                        on-copied="successCodeCopy(contract, 'crowdsale_address')"
+                        on-copied="$root.successCodeCopy(contract, 'crowdsale_address')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
@@ -244,7 +244,7 @@
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['token_address']}"
                         text="details.eth_contract_token.address|toCheckSum"
-                        on-copied="successCodeCopy(contract, 'token_address')"
+                        on-copied="$root.successCodeCopy(contract, 'token_address')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
@@ -274,7 +274,7 @@
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['crowdsale_vault']}"
                         text="details.eth_contract_crowdsale.vault|toCheckSum"
-                        on-copied="successCodeCopy(contract, 'crowdsale_vault')"
+                        on-copied="$root.successCodeCopy(contract, 'crowdsale_vault')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
@@ -581,7 +581,7 @@
                                 clipboard supported="supported"
                                 ng-class="{copied: contract.copied['admin_address']}"
                                 text="details.admin_address"
-                                on-copied="successCodeCopy(contract, 'admin_address')"
+                                on-copied="$root.successCodeCopy(contract, 'admin_address')"
                                 on-error="failCodeCopy(err)">
                             <i class="icon-content_copy"></i>
                         </button>
@@ -605,7 +605,7 @@
                                 clipboard supported="supported"
                                 ng-class="{copied: contract.copied['cold_wallet_address']}"
                                 text="details.cold_wallet_address"
-                                on-copied="successCodeCopy(contract, 'cold_wallet_address')"
+                                on-copied="$root.successCodeCopy(contract, 'cold_wallet_address')"
                                 on-error="failCodeCopy(err)">
                             <i class="icon-content_copy"></i>
                         </button>
@@ -641,7 +641,7 @@
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['holder_address_' + $index]}"
                         text="holder.address"
-                        on-copied="successCodeCopy(contract, 'holder_address_' + $index)"
+                        on-copied="$root.successCodeCopy(contract, 'holder_address_' + $index)"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>

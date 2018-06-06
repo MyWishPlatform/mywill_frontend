@@ -163,10 +163,8 @@
                         params: {
                             contract: contract,
                             signature: signature,
-                            currentWallet: currentWallet
-                        },
-                        actions: {
-                            successCodeCopy: successCodeCopy
+                            currentWallet: currentWallet,
+                            dates: dates
                         }
                     }"
                     ng-disabled="!changeDateForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">

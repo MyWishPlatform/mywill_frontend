@@ -41,16 +41,16 @@
                     <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
                             text="formData.toBtcAddress"
-                            on-copied="successCodeCopy(false, 'to_btc_address')"
+                            on-copied="$root.successCodeCopy(copied, 'to_btc_address')"
                             on-error="failCodeCopy(err)"
-                            ng-show="!copied['to_btc_address']"
+                            ng-show="!copied.copied['to_btc_address']"
                             type="button">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.COPY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </button>
 
                     <button class="btn btn-as-link center-input-field"
                             disabled
-                            ng-if="copied['to_btc_address']"
+                            ng-if="copied.copied['to_btc_address']"
                             type="button">
                         <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
                     </button>

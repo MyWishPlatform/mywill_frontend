@@ -66,15 +66,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
-    /* (Click) Success for copy field */
-    $scope.successCodeCopy = function(contract, field) {
-        contract.copied = contract.copied || {};
-        contract.copied[field] = true;
-        $timeout(function() {
-            contract.copied[field] = false;
-        }, 1000);
-    };
-
     /* (Click) Contract refresh */
     $scope.refreshContract = function(contract) {
         var contractId = contract.id;

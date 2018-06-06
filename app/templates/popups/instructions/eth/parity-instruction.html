@@ -36,7 +36,7 @@
                                 clipboard supported="supported"
                                 text="ngPopUp.params.contract.contract_details.eth_contract.address"
                                 ng-class="{copied: ngPopUp.params.contract.copied['address']}"
-                                on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'address')">&nbsp;
+                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'address')">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
                         <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract.address}}</div>
@@ -55,7 +55,7 @@
                                     clipboard supported="supported"
                                     text="ngPopUp.params.contract.contract_details.eth_contract.abi|json"
                                     ng-class="{copied: ngPopUp.params.contract.copied['abi']}"
-                                    on-copied="ngPopUp.actions.successCodeCopy(ngPopUp.params.contract, 'abi')">&nbsp;
+                                    on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'abi')">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
                             <div class="copy-block__text json-text">{{ngPopUp.params.contract.contract_details.eth_contract.abi|json}}</div>

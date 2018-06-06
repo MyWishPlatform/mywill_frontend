@@ -211,17 +211,18 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 }).controller('changeDateController', function($scope, web3Service) {
 
     var contractData = $scope.ngPopUp.params.contract;
-    $scope.contract = contractData;
 
+    $scope.contract = contractData;
     web3Service.setProviderByNumber(contractData.network);
 
     var contractDetails = contractData.contract_details, contract;
 
-    console.log(contractDetails.eth_contract_crowdsale.abi);
-    var methodName = 'isFinalized'; // ?
+    var methodName = 'setTimes';
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
 
-    $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+
+    var params = [$scope.ngPopUp.params.dates.startDate.format('X'), $scope.ngPopUp.params.dates.endDate.format('X')];
+    $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
 
     web3Service.getAccounts(contractData.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
@@ -234,7 +235,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     });
 
     $scope.sendTransaction = function() {
-        contract.methods[methodName]().send({
+        contract.methods[methodName](params[0], params[1]).send({
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };

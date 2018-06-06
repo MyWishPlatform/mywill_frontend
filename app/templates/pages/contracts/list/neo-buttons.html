@@ -30,9 +30,6 @@
                 contract: contract
             },
             class: 'conditions',
-            actions: {
-                successCodeCopy: successCodeCopy
-            },
             onClose: returnToList
         }"
         class="btn btn-transparent hide-ps">
@@ -47,9 +44,6 @@
                 contract: contract
             },
             class: 'conditions',
-            actions: {
-                successCodeCopy: successCodeCopy
-            },
             onClose: returnToList
         }"
         ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 6) && contract.contract_details.future_minting"

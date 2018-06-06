@@ -128,13 +128,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             mintInterfaceMethod, params
         );
     };
-    $scope.successCodeCopy = function(contract, field) {
-        contract.copied = contract.copied || {};
-        contract.copied[field] = true;
-        $timeout(function() {
-            contract.copied[field] = false;
-        }, 1000);
-    };
+
     $scope.sendMintTransaction = function() {
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);

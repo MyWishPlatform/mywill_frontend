@@ -79,6 +79,13 @@ $red-active-color: #bb0d2b;
     line-height: 3.6em;
     color: $main-blue-color;
     background: none;
+    transition: all 0.05s linear;
+    text-shadow: 0 0.4em 0.2em rgba(0, 0, 0, 0);
+    box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0), inset 0 0.4em 1.3em rgba(0, 0, 0, 0);
+    &:hover {
+      box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2), inset 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
+      text-shadow: 0 0.2em 0.2em rgba(0, 0, 0, 0.2);
+    }
   }
   &.btn-as-link {
     color: #000;

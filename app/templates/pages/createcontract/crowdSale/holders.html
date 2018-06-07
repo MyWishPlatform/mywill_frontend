@@ -45,8 +45,8 @@
                        ng-model="recipient.amount"/>
             </div>
         </div>
-        <div class="clearfix show-ps"><br/></div>
-        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+        <div class="clearfix show-ps" ng-if="blockchain !== 'NEO'"><br/></div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1" ng-show="blockchain !== 'NEO'">
             <label class="form-control-label">
                 <i class="icon-snowflake form-control-label-icon floated"></i>
                 <span class="after-floated">{{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span></span>
@@ -101,7 +101,9 @@
                   translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.DESCRIPTION_BLOCK"></span><br/>
         </div>
         <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
-            <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
+            <button class="btn btn-transparent with-icon mobile-width-100" type="button"
+                    ng-if="((blockchain === 'NEO') && (token_holders.length < 3)) || (blockchain !== 'NEO')"
+                    ng-click="addRecipient(); checkTokensAmount();">
                 <i class="icon-create-contract"></i>
                 <span translate="CONTRACTS.FORMS.CROWD_SALE.BUTTONS.ADD_EXTRA_ADDRESS"></span>
             </button>

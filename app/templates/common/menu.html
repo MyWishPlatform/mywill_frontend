@@ -9,21 +9,21 @@
     </a>
     <nav class="main-menu-navigator">
         <ul class="main-menu-global-menu">
-            <li>
+            <li ng-class="{active: $state.current.name == 'main.profile'}">
                 <span class="as_menu_link" ng-if="currentUser.is_ghost">
                     <i class="icon-warning"></i>
                     <span>{{'MAIN_MENU.UNKNOWN_USER'|translate}}</span>
                 </span>
                 <a ui-sref="main.profile" class="as_menu_link"
-                   ng-class="{'active': $state.current.name == 'main.profile'}"
                    ng-if="!currentUser.is_ghost">
                     <i class="icon-account"></i>
                     <span>{{currentUser.username || ('MAIN_MENU.UNKNOWN'|translate)}}</span>
                 </a>
             </li>
 
-            <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow && (!currentUser[menuItem.hideForUser])">
-                <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static" ng-class="{'active': ($state.current.name == menuItem.route) || ($state.current.data.top == menuItem.route) || (menuItem.parent && ($state.current.parent == menuItem.parent)), 'no-active': menuItem.noactive}">
+            <li ng-repeat="menuItem in menuList" ng-if="!menuItem.noshow && (!currentUser[menuItem.hideForUser])"
+                ng-class="{'active': !menuItem.static && (($state.current.name == menuItem.route) || ($state.current.data.top == menuItem.route) || (menuItem.parent && ($state.current.parent == menuItem.parent))), 'no-active': menuItem.noactive}">
+                <a ui-sref="{{menuItem.route}}" ng-if="!menuItem.static">
                     <i ng-class="menuItem.icon"></i>
                     <span ng-if="menuItem.title">{{menuItem.title|translate}}</span>
                     <span ng-if="menuItem.titleUserPar">{{currentUser[menuItem.titleUserPar]}}</span>

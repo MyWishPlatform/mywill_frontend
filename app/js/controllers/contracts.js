@@ -121,6 +121,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 case 5:
                     contractType = 'token';
                     break;
+                case 6:
+                    contractType = 'neo_token';
+                    break;
+                case 7:
+                    contractType = 'neo_crowdsale';
+                    break;
                 default:
                     contractType = 'unknown';
             }

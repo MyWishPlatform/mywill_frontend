@@ -5,8 +5,8 @@
         <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
     <div class="contract-preview-one-tab"
-         ng-mousedown="goTo('code')"
-         ng-show="details.eth_contract_crowdsale.address"
+         ng-click="goTo('code', contractCrowdsaleInfo)"
+         ng-show="details[contractCrowdsaleInfo].address"
          ng-class="{'active': showedTab == 'code'}">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
@@ -14,7 +14,7 @@
 
 <div ng-if="showedTab == 'code'">
     <div class="shadow-block after-tabs">
-        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4) || (contract.network == 6)">
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
@@ -24,12 +24,12 @@
             <p class="normal-text">
                 <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="(contract.network == 1) || (contract.network == 3)"
-                          ng-click="saveAsFile(contract.contract_details.eth_contract_token.source_code, contract.name + '(token)')">
+                          ng-if="(contract.network == 1) || (contract.network == 3) || (contract.network == 5)"
+                          ng-click="saveAsFile(contract.contract_details[contractTokenInfo].source_code, contract.name + '(token)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
-                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                          ng-if="(contract.network == 2) || (contract.network == 4) || (contract.network == 6)">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
@@ -37,25 +37,27 @@
             <p class="normal-text">
                 <span>{{'CONTRACTS.PREVIEW.CROWDSALE_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="(contract.network == 1) || (contract.network == 3)"
-                          ng-click="saveAsFile(contract.contract_details.eth_contract_crowdsale.source_code, contract.name + '(crowdsale)')">
+                          ng-if="(contract.network == 1) || (contract.network == 3) || (contract.network == 5)"
+                          ng-click="saveAsFile(contract.contract_details[contractCrowdsaleInfo].source_code, contract.name + '(crowdsale)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
-                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                          ng-if="(contract.network == 2) || (contract.network == 4) || (contract.network == 6)">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
             </p>
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/ico-crowdsale'}"></span>
+                      translate-values="{gitHubLink: contractTokenInfo === 'eth_contract_token' ? 'https://github.com/MyWishPlatform/ico-crowdsale' : 'https://github.com/MyWishPlatform/neo-ico-contracts'}"></span>
             </p>
         </div>
-        <div class="shadow-block__content">
+
+
+        <div class="shadow-block__content" ng-if="contractTokenInfo === 'eth_contract_token'">
             <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"></p>
         </div>
-        <div class="shadow-block__content">
+        <div class="shadow-block__content" ng-if="contractTokenInfo === 'eth_contract_token'">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 text-center">
                     <button type="button" class="btn btn-gray with-icon initial-padding"
@@ -74,7 +76,7 @@
                 </div>
             </div>
         </div>
-        <div class="shadow-block__content" ng-if="selectedContract">
+        <div class="shadow-block__content" ng-if="selectedContract && (contractTokenInfo === 'eth_contract_token')">
             <ul class="new-instruction-list">
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text"

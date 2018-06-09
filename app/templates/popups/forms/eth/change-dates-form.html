@@ -61,7 +61,7 @@
                                type="number"
                                ng-attr-min="{{minStartDate.format('X')}}"
                                ng-if="startDateIsEnable"
-                               ng-attr-max="{{validationDates.maxForStart}}"/>
+                               ng-attr-max="{{dates.endDate.format('X')}}"/>
 
                         <input type="datetime" required
                                id="start-date"
@@ -105,6 +105,7 @@
                             <i class="icon-waiting-1 form-control-label-icon floated"></i>
                             <span  class="after-floated">{{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span></span>
                         </label>
+
                         <input class="input-for-group-fields"
                                tabindex="-1"
                                readonly
@@ -113,7 +114,7 @@
                                type="number"
                                step="1"
                                ng-if="endDateIsEnable"
-                               ng-attr-min="{{validationDates.minForFinish}}"/>
+                               ng-attr-min="{{dates.startDate.format('X')}}"/>
 
                         <input type="datetime" required
                                id="end-date"

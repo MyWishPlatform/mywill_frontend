@@ -104,11 +104,7 @@
     "DELETE": "デリート",
     "EDIT": "エディット",
     "ADD_TO_PARITY": "+パリティに追加",
-
-
     "CHANGE_DATES": "Change Dates"
-
-
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -136,6 +132,12 @@
     },
     "PROMO_ACTIVATED": {
       "TEXT": "プロモーションコードが活性化されました。<br/>新しい価格ー{{price}} WISH"
+    },
+    "NEO_CROWDSALE_FINALIZED": {
+      "TEXT": "Your contract was finalized successfully."
+    },
+    "NEO_CROWDSALE_FINALIZE_ERR": {
+      "TEXT": "Error! Finalize can be executed<br/>after {{stopDate|date:'yyyy-MM-dd HH:mm'}} only."
     }
   },
   "CONFIRMATIONS": {
@@ -330,6 +332,10 @@
         "TOTAL_SUPPLY": "総供給：",
         "DISTRIBUTED_BEFORE": "配布されたの総計　（前）"
       }
+    },
+    "CHANGE_DATES_FORM": {
+      "CURRENT_DATES": "Current start / finish dates",
+      "SET_NEW_DATES": "You can set new dates for start & finish. Start date can't be changed after Sale start and for contracts with time bonuses."
     }
   },
   "POPUP_ERRORS": {
@@ -400,6 +406,10 @@
         "LIST": {
           "ITEM_0": "撤退してもよろしいですか？ すべての資金はあなたの管理アドレスに送られます。"
         }
+      },
+      "CHANGE_DATES": {
+        "TITLE": "Change Dates",
+        "DESCRIPTION": "To change start date to {{newStartDate|date:'yyyy-MM-dd HH:mm'}} / finish date to {{newFinishDate|date:'yyyy-MM-dd HH:mm'}} please do the following steps:"
       }
     },
     "ETH": {
@@ -795,14 +805,10 @@
             "LABEL": "自動的にファイナライズ",
             "DESCRIPTION": "当社のシステムは、終了日後自動的に契約（トークンを転送可能にする）を確定することができます （あなたがハードキャップに達すると早くそれをすることができます）"
           },
-
-
           "CHANGING_DATES": {
             "LABEL": "Changing dates",
             "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
           },
-
-
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小＆最大の投資制限",
             "DESCRIPTION": "受け入れ可能な最小/最大受領額を指定することができます（ETH）。 たとえば、0.05 ETHから3000 ETHのみの寄付を受け入れます"

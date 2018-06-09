@@ -116,7 +116,7 @@
         color: $main-blue-color;
         margin-right: 1.8em;
         box-shadow: inset 1px 0 2px rgba(0, 0, 0, 0.15);
-        text-shadow: 0 2px 1px rgba(0, 0, 0, 0.15);
+        text-shadow: initial;
         &:after, &:before {
           position: absolute;
           content: '';

@@ -326,6 +326,10 @@
         "TOTAL_SUPPLY": "Total supply:",
         "DISTRIBUTED_BEFORE": "Total Distributed (before)"
       }
+    },
+    "CHANGE_DATES_FORM": {
+      "CURRENT_DATES": "Current start / finish dates",
+      "SET_NEW_DATES": "You can set new dates for start & finish. Start date can't be changed after Sale start and for contracts with time bonuses."
     }
   },
   "POPUP_ERRORS": {
@@ -468,6 +472,10 @@
       "WILL_WITHDRAW": {
         "TITLE": "Withdraw",
         "DESCRIPTION": "After withdraw all funds will be sent to your management address.<br/>To Withdraw please do the following:"
+      },
+      "CHANGE_DATES": {
+        "TITLE": "Change Dates",
+        "DESCRIPTION": "To change start date to {{newStartDate|date:'yyyy-MM-dd HH:mm'}} / finish date to {{newFinishDate|date:'yyyy-MM-dd HH:mm'}} please do the following steps:"
       }
     },
     "RSK": {

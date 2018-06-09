@@ -175,7 +175,8 @@
             </div>
 
             <!-- Date changing form button -->
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates">
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/change-dates-form.html',
                             newPopupContent: true,

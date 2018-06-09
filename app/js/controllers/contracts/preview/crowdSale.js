@@ -254,23 +254,22 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     var contractDetails = contractData.contract_details, contract;
     var params = [];
 
-    var startDateIdent = $scope.ngPopUp.params.dates.startDate.format('X') == contractDetails.start_date;
-    var endDateIdent = $scope.ngPopUp.params.dates.endDate.format('X') == contractDetails.stop_date;
+    var startDate = $scope.ngPopUp.params.dates.startDate.format('X'),
+        endDate = $scope.ngPopUp.params.dates.endDate.format('X');
+
+    var startDateIdent = startDate == contractDetails.start_date;
+    var endDateIdent = endDate == contractDetails.stop_date;
 
     if (!startDateIdent) {
-        params.push($scope.ngPopUp.params.dates.startDate.format('X'));
+        params.push(startDate);
     }
     if (!endDateIdent) {
-        params.push($scope.ngPopUp.params.dates.endDate.format('X'));
+        params.push(endDate);
     }
-
-    var methodName = (!(startDateIdent || endDateIdent)) ? 'setTimes' : (!startDateIdent ? 'setStartTime' : 'setEndTime');
+    var methodName = (!startDateIdent && !endDateIdent) ? 'setTimes' : (!startDateIdent ? 'setStartTime' : 'setEndTime');
 
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
-
-
     $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
-
     web3Service.getAccounts(contractData.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
@@ -282,8 +281,16 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     });
 
     $scope.sendTransaction = function() {
-        contract.methods[methodName](params[0], params[1]).send({
-            from: $scope.currentWallet.wallet
-        }).then(console.log);
+        if (params.length === 2) {
+            contract.methods[methodName](params[0], params[1]).send({
+                from: $scope.currentWallet.wallet
+            }).then(console.log);
+        }
+        if (params.length === 1) {
+            contract.methods[methodName](params[0]).send({
+                from: $scope.currentWallet.wallet
+            }).then(console.log);
+        }
+
     };
 });

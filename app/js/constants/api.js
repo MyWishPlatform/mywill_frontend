@@ -34,6 +34,7 @@ angular.module('Constants').constant('API', {
     "GET_DISCOUNT": "get_discount/",
     "I_AM_ALIVE": "i_am_alive/",
     "CONTRACT_CANCEL": "cancel/",
+    "NEO_ICO_FINALIZE": "neo_ico_finalize/",
     "SET_LNG": "set_lang/",
     "SOCIAL": {
         "FACEBOOK": "facebook/",

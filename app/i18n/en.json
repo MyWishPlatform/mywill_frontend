@@ -132,6 +132,12 @@
     },
     "PROMO_ACTIVATED": {
       "TEXT": "Promo code was activated.<br/>New price: {{price}} WISH."
+    },
+    "NEO_CROWDSALE_FINALIZED": {
+      "TEXT": "Your contract was finalized successfully."
+    },
+    "NEO_CROWDSALE_FINALIZE_ERR": {
+      "TEXT": "Error! Finalize can be executed<br/>after {{stopDate|date:'yyyy-MM-dd HH:mm'}} only."
     }
   },
   "CONFIRMATIONS": {

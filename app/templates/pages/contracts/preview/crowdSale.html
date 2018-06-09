@@ -214,7 +214,7 @@
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['crowdsale_address']}"
-                        text="details.eth_contract_crowdsale.address|toCheckSum"
+                        text="details[contractCrowdsaleInfo].address|toCheckSum"
                         on-copied="$root.successCodeCopy(contract, 'crowdsale_address')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>

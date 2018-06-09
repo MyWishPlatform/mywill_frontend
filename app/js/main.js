@@ -330,8 +330,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     var dateRange = 0;
 
-    $rootScope.getNowDateTime = function(addedTime) {
-        return new Date((new Date()).getTime() + dateRange);
+    $rootScope.getNowDateTime = function(isMoment) {
+        var dateTime = new Date((new Date()).getTime() + dateRange);
+        if (!isMoment) {
+            return dateTime;
+        } else {
+            return moment(dateTime);
+        }
+
     };
 
     var getCurrentUser = function(isGhost) {

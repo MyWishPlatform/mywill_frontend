@@ -59,7 +59,7 @@
                                ng-model="newDatesFields.start_date"
                                tabindex="-1"
                                type="number"
-                               ng-attr-min="{{minStartDate.format('X')}}"
+                               ng-attr-min="{{validationDates.minForStart}}"
                                ng-if="startDateIsEnable"
                                ng-attr-max="{{dates.endDate.format('X')}}"/>
 
@@ -165,7 +165,7 @@
                             dates: dates
                         }
                     }"
-                    ng-disabled="!changeDateForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
+                    ng-disabled="!changeDateForm.$valid || ((contract.contract_details.stop_date == newDatesFields.stop_date) && (contract.contract_details.start_date == newDatesFields.start_date))" ng-click="generateSignature(); closeCurrentPopup();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>

@@ -188,10 +188,11 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     $scope.validationDates = {
         minForFinish: minForFinish,
+        minForStart: contract.contract_details.start_date,
         maxForStart: $scope.newDatesFields.stop_date - 300
     };
 
-    $scope.startDateIsEnable = contract.contract_details.start_date >= $scope.minStartDate.format('X') * 1;
+    $scope.startDateIsEnable = !contract.contract_details.time_bonuses.length && (contract.contract_details.start_date >= $scope.minStartDate.format('X') * 1);
     $scope.endDateIsEnable = contract.contract_details.stop_date >= $scope.minStartDate.format('X') * 1;
 
     /* Управление датой и временем начала/окончания ICO (begin) */
@@ -251,12 +252,23 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     web3Service.setProviderByNumber(contractData.network);
 
     var contractDetails = contractData.contract_details, contract;
+    var params = [];
 
-    var methodName = 'setTimes';
+    var startDateIdent = $scope.ngPopUp.params.dates.startDate.format('X') == contractDetails.start_date;
+    var endDateIdent = $scope.ngPopUp.params.dates.endDate.format('X') == contractDetails.stop_date;
+
+    if (!startDateIdent) {
+        params.push($scope.ngPopUp.params.dates.startDate.format('X'));
+    }
+    if (!endDateIdent) {
+        params.push($scope.ngPopUp.params.dates.endDate.format('X'));
+    }
+
+    var methodName = (!(startDateIdent || endDateIdent)) ? 'setTimes' : (!startDateIdent ? 'setStartTime' : 'setEndTime');
+
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
 
 
-    var params = [$scope.ngPopUp.params.dates.startDate.format('X'), $scope.ngPopUp.params.dates.endDate.format('X')];
     $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
 
     web3Service.getAccounts(contractData.network).then(function(result) {

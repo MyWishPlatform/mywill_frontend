@@ -53,11 +53,10 @@
             </p>
         </div>
 
-
-        <div class="shadow-block__content" ng-if="contractTokenInfo === 'eth_contract_token'">
+        <div class="shadow-block__content" ng-if="blockchain === 'ETH'">
             <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"></p>
         </div>
-        <div class="shadow-block__content" ng-if="contractTokenInfo === 'eth_contract_token'">
+        <div class="shadow-block__content" ng-if="blockchain === 'ETH'">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 text-center">
                     <button type="button" class="btn btn-gray with-icon initial-padding"
@@ -76,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="shadow-block__content" ng-if="selectedContract && (contractTokenInfo === 'eth_contract_token')">
+        <div class="shadow-block__content" ng-if="selectedContract && (blockchain === 'ETH')">
             <ul class="new-instruction-list">
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text"

@@ -180,6 +180,9 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         stop_date: contract.contract_details.stop_date
     };
 
+    var startSeconds = contract.contract_details.start_date % 60;
+    var stopSeconds = contract.contract_details.stop_date % 60;
+
     $scope.minStartDate = moment().add(5, 'minutes').second(0);
 
     var currentStartDate = $scope.newDatesFields.start_date + 300;
@@ -200,29 +203,27 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         if (!$scope.dates.startDate) {
             $scope.dates.startDate = moment($scope.request.start_date * 1000);
         }
-        $scope.dates.startDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes);
+        $scope.dates.startDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).second(startSeconds);
         if ($scope.dates.startDate < $scope.minStartDate) {
             $scope.dates.startDate = $scope.minStartDate.clone();
         }
 
         $timeout(function() {
-            $scope.newDatesFields.start_date = $scope.dates.startDate.clone().hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).format('X') * 1;
+            $scope.newDatesFields.start_date = $scope.dates.startDate.clone().format('X') * 1;
         });
     };
     var setStopTimestamp = function() {
         if (!$scope.dates.endDate) {
             $scope.dates.endDate = moment($scope.request.stop_date * 1000);
         }
-        $scope.dates.endDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes);
+        $scope.dates.endDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).second(stopSeconds);
         if ($scope.dates.endDate < $scope.minStartDate) {
             $scope.dates.endDate = $scope.minStartDate.clone();
         }
         $timeout(function() {
-            $scope.newDatesFields.stop_date = $scope.dates.endDate.clone().hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).format('X') * 1;
+            $scope.newDatesFields.stop_date = $scope.dates.endDate.clone().format('X') * 1;
         });
     };
-
-
 
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;

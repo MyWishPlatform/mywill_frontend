@@ -180,13 +180,23 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         stop_date: contract.contract_details.stop_date
     };
 
+    $scope.minStartDate = moment().add(5, 'minutes').second(0);
+
+    var currentStartDate = $scope.newDatesFields.start_date + 300;
+
+    var minForFinish = Math.max(currentStartDate, $scope.minStartDate.format('X')*1);
     $scope.validationDates = {
-        minForFinish: $scope.newDatesFields.start_date + 300,
+        minForFinish: minForFinish,
         maxForStart: $scope.newDatesFields.stop_date - 300
     };
 
+
+    $scope.startDateIsEnable = contract.contract_details.start_date >= $scope.minStartDate.format('X') * 1;
+    $scope.endDateIsEnable = contract.contract_details.stop_date >= $scope.minStartDate.format('X') * 1;
+
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
+        if (moment() < $scope.minStartDate) return;
         if (!$scope.dates.startDate) {
             $scope.dates.startDate = moment($scope.newDatesFields.start_date * 1000);
         }
@@ -216,7 +226,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.onChangeEndDate = setStopTimestamp;
 
 
-    $scope.minStartDate = moment().add(5, 'minutes').second(0);
     $scope.dates = {
         startDate: moment($scope.newDatesFields.start_date * 1000),
         endDate: moment($scope.newDatesFields.stop_date * 1000)

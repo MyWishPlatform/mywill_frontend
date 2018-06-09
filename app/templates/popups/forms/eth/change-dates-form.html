@@ -60,7 +60,7 @@
                                tabindex="-1"
                                type="number"
                                ng-attr-min="{{minStartDate.format('X')}}"
-                               ng-if="contract.contract_details.start_date >= minStartDate.format('X')"
+                               ng-if="startDateIsEnable"
                                ng-attr-max="{{validationDates.maxForStart}}"/>
 
                         <input type="datetime" required
@@ -68,15 +68,15 @@
                                ng-model="dates.startDate"
                                date-change="onChangeStartDate"
                                auto-close="true"
-                               min-date="minStartDate"
+                               ng-attr-min-date="{{startDateIsEnable ? 'minStartDate' : false}}"
                                readonly
                                date-time
                                min-view="date"
                                view="year"
                                format="YYYY-MM-DD"
                                position="fixed"
-                               ng-disabled="contract.contract_details.start_date < minStartDate.format('X')"
-                               ng-attr-invalid="{{!changeDateForm.checkStartDate.$valid}}"
+                               ng-disabled="!startDateIsEnable"
+                               ng-attr-invalid="{{changeDateForm.checkStartDate && !changeDateForm.checkStartDate.$valid}}"
                                class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                     <div class="form-control">
                         <div class="form-control-input"
                              ng-model="timesForStarting.start" ng-time-picker
-                             ng-disabled="contract.contract_details.start_date < minStartDate.format('X')"
+                             ng-disabled="!startDateIsEnable"
                              ng-attr-invalid="{{changeDateForm.checkStartDate && !changeDateForm.checkStartDate.$valid}}"
                              ng-change="onChangeStartTime">&nbsp;</div>
                     </div>
@@ -112,7 +112,7 @@
                                ng-model="newDatesFields.stop_date"
                                type="number"
                                step="1"
-                               ng-if="contract.contract_details.stop_date >= minStartDate.format('X')"
+                               ng-if="endDateIsEnable"
                                ng-attr-min="{{validationDates.minForFinish}}"/>
 
                         <input type="datetime" required
@@ -127,8 +127,8 @@
                                view="year"
                                format="YYYY-MM-DD"
                                position="fixed"
-                               ng-attr-invalid="{{!changeDateForm.checkStopDate.$valid}}"
-                               ng-disabled="contract.contract_details.stop_date < minStartDate.format('X')"
+                               ng-attr-invalid="{{changeDateForm.checkStopDate && !changeDateForm.checkStopDate.$valid}}"
+                               ng-disabled="!endDateIsEnable"
                                class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                     <div class="form-control">
                         <div class="form-control-input"
                              ng-time-picker
-                             ng-disabled="contract.contract_details.stop_date < minStartDate.format('X')"
+                             ng-disabled="!endDateIsEnable"
                              ng-attr-invalid="{{changeDateForm.checkStopDate && !changeDateForm.checkStopDate.$valid}}"
                              ng-change="onChangeStopTime"
                              ng-model="timesForStarting.stop">&nbsp;</div>

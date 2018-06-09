@@ -201,12 +201,12 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
         if (!$scope.dates.startDate) {
-            $scope.dates.startDate = moment($scope.request.start_date * 1000);
+            $scope.dates.startDate = moment(contract.contract_details.start_date * 1000);
         }
         $scope.dates.startDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).second(startSeconds);
-        if ($scope.dates.startDate < $scope.minStartDate) {
-            $scope.dates.startDate = $scope.minStartDate.clone();
-        }
+        // if ($scope.dates.startDate < $scope.minStartDate) {
+        //     $scope.dates.startDate = $scope.minStartDate.clone();
+        // }
 
         $timeout(function() {
             $scope.newDatesFields.start_date = $scope.dates.startDate.clone().format('X') * 1;
@@ -214,12 +214,12 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     };
     var setStopTimestamp = function() {
         if (!$scope.dates.endDate) {
-            $scope.dates.endDate = moment($scope.request.stop_date * 1000);
+            $scope.dates.endDate = moment(contract.contract_details.stop_date * 1000);
         }
         $scope.dates.endDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).second(stopSeconds);
-        if ($scope.dates.endDate < $scope.minStartDate) {
-            $scope.dates.endDate = $scope.minStartDate.clone();
-        }
+        // if ($scope.dates.endDate < $scope.minStartDate) {
+        //     $scope.dates.endDate = $scope.minStartDate.clone();
+        // }
         $timeout(function() {
             $scope.newDatesFields.stop_date = $scope.dates.endDate.clone().format('X') * 1;
         });
@@ -229,7 +229,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.onChangeStopTime = setStopTimestamp;
     $scope.onChangeStartDate = setStartTimestamp;
     $scope.onChangeEndDate = setStopTimestamp;
-
 
     $scope.dates = {
         startDate: moment($scope.newDatesFields.start_date * 1000),

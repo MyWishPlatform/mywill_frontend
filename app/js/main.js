@@ -257,7 +257,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.$on('$userOnLogin', $rootScope.checkProfile);
 
 
-    $rootScope.sendEvent = AnalyticsService.sendEvent;
     AnalyticsService.initGA();
 
     $rootScope.$location = $location;

@@ -175,6 +175,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.contract = contract;
     $scope.date_type = false;
 
+
     $scope.newDatesFields = {
         start_date: contract.contract_details.start_date,
         stop_date: contract.contract_details.stop_date
@@ -244,6 +245,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var contractData = $scope.ngPopUp.params.contract;
 
+
     $scope.contract = contractData;
     web3Service.setProviderByNumber(contractData.network);
 
@@ -265,6 +267,8 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     var methodName = (!startDateIdent && !endDateIdent) ? 'setTimes' : (!startDateIdent ? 'setStartTime' : 'setEndTime');
 
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+    if (!interfaceMethod) return;
+
     $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
     web3Service.getAccounts(contractData.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {

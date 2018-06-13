@@ -137,7 +137,7 @@
       "TEXT": "ご契約が正常に確定されました。"
     },
     "NEO_CROWDSALE_FINALIZE_ERR": {
-      "TEXT": "エラー！ ファイナライズは{{stopDate|date'yyyy-MM-dd HH：mm'}}の後だけに実行することができます。 "
+      "TEXT": "エラー！ ファイナライズは{{stopDate|date:'yyyy-MM-dd HH:mm'}}の後だけに実行することができます。 "
     }
   },
   "CONFIRMATIONS": {

@@ -104,7 +104,7 @@
     "DELETE": "デリート",
     "EDIT": "エディット",
     "ADD_TO_PARITY": "+パリティに追加",
-    "CHANGE_DATES": "Change Dates"
+    "CHANGE_DATES": "日付変更"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -134,10 +134,10 @@
       "TEXT": "プロモーションコードが活性化されました。<br/>新しい価格ー{{price}} WISH"
     },
     "NEO_CROWDSALE_FINALIZED": {
-      "TEXT": "Your contract was finalized successfully."
+      "TEXT": "ご契約が正常に確定されました。"
     },
     "NEO_CROWDSALE_FINALIZE_ERR": {
-      "TEXT": "Error! Finalize can be executed<br/>after {{stopDate|date:'yyyy-MM-dd HH:mm'}} only."
+      "TEXT": "エラー！ ファイナライズは{{stopDate|date'yyyy-MM-dd HH：mm'}}の後だけに実行することができます。 "
     }
   },
   "CONFIRMATIONS": {
@@ -334,8 +334,8 @@
       }
     },
     "CHANGE_DATES_FORM": {
-      "CURRENT_DATES": "Current start / finish dates",
-      "SET_NEW_DATES": "You can set new dates for start & finish. Start date can't be changed after Sale start and for contracts with time bonuses."
+      "CURRENT_DATES": "現在の開始日/終了日",
+      "SET_NEW_DATES": "スタートやフィーニッシュのために新しい日付を設定することができます。開始日はセールスタートの後でも、時間ボーナスのある契約の場合にも変更できません。"
     }
   },
   "POPUP_ERRORS": {
@@ -408,8 +408,8 @@
         }
       },
       "CHANGE_DATES": {
-        "TITLE": "Change Dates",
-        "DESCRIPTION": "To change start date to {{newStartDate|date:'yyyy-MM-dd HH:mm'}} / finish date to {{newFinishDate|date:'yyyy-MM-dd HH:mm'}} please do the following steps:"
+        "TITLE": "日付変更",
+        "DESCRIPTION": "開始日を{{newStartDate|date:'yyyy-MM-dd HH:mm'}}に変更するとか、終了日を{{newFinishDate|date:'yyyy-MM-dd HH:mm'}}にを変更するには、次の手順を実行してください:"
       }
     },
     "ETH": {

@@ -806,8 +806,8 @@
             "DESCRIPTION": "当社のシステムは、終了日後自動的に契約（トークンを転送可能にする）を確定することができます （あなたがハードキャップに達すると早くそれをすることができます）"
           },
           "CHANGING_DATES": {
-            "LABEL": "Changing dates",
-            "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
+            "LABEL": "日付の変更",
+            "DESCRIPTION": "開始/終了日は、契約の展開後に手動で変更することができます。あなたは販売を延長したり、早期に完了することができます。それ以外の場合は、日付がハードコーディングされており、変更することができません。"
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小＆最大の投資制限",

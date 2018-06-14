@@ -8,7 +8,9 @@
                  ng-class="{active: key === $root.language}"
                  ng-repeat="(key, lng) in $root.languagesList"
                  ng-click="$root.setLanguage(key); closeCurrentPopup()">
-                <img  class="lng-choose-item__icon" ng-src="/static/images/countries/{{lng['icon']}}.svg"/>
+                <div class="lng-choose-item__icon">
+                    <img ng-src="/static/images/countries/{{lng['icon']}}.svg"/>
+                </div>
                 <span class="lng-choose-item__name">{{lng['name']}}</span>
             </div>
         </div>

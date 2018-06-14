@@ -2,8 +2,7 @@
     <i class="icon-help"></i>
     <a href="https://www.youtube.com/watch?v=EGeg6HXLJu0"
        target="_blank"
-       translate="CONTRACTS.FORMS.WATCH_INSTRUCTION"
-       ng-click="sendEvent('Video_Instruction', 'open_token_instruction')">
+       translate="CONTRACTS.FORMS.WATCH_INSTRUCTION">
     </a>
 </div>
 <div class="shadow-block">
@@ -335,6 +334,7 @@
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <span class="form-control-description__text"
+                      translate-values="{noCrowdsale: blockchain === 'NEO'}"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.DESCRIPTION">
                 </span>
             </div>

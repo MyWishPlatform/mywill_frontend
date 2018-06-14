@@ -129,7 +129,7 @@
 </button>
 
 <!-- Date changing form button -->
-<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates"
+<button ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (statuses[contract.state]['value'] == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates"
         ng-pop-up="{
             template: '/templates/popups/forms/eth/change-dates-form.html',
             newPopupContent: true,

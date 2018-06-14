@@ -2,11 +2,16 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
-                <span class="big-size">Change date&nbsp;</span>
+                <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.ETH.CHANGE_DATES.TITLE'|translate}}&nbsp;</span>
             </div>
         </div>
+        {{dates}}
         <div class="shadow-block__content__description">
-            <span>Text text text text</span>
+            <span translate-values="{
+                newStartDate: ngPopUp.params.dates.startDate.format('x'),
+                newFinishDate: ngPopUp.params.dates.endDate.format('x')
+            }"
+                  translate="CONTRACTS_INSTRUCTIONS.ETH.CHANGE_DATES.DESCRIPTION"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">

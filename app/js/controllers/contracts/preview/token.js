@@ -28,10 +28,12 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     switch ($scope.contract.network) {
         case 1:
         case 2:
+            $scope.blockchain = 'ETH';
             $scope.contractInfo = 'eth_contract_token';
             break;
         case 5:
         case 6:
+            $scope.blockchain = 'NEO';
             $scope.contractInfo = 'neo_contract_token';
             break;
     }

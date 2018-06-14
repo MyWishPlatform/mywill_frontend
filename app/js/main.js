@@ -257,7 +257,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.$on('$userOnLogin', $rootScope.checkProfile);
 
 
-    $rootScope.sendEvent = AnalyticsService.sendEvent;
     AnalyticsService.initGA();
 
     $rootScope.$location = $location;
@@ -269,7 +268,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         3: '',
         4: 'icon-crowdsale',
         5: 'icon-token',
-        6: 'icon-token'
+        6: 'icon-token',
+        7: 'icon-crowdsale'
     };
 
     $rootScope.deviceInfo = UAParser(window.navigator.userAgent);
@@ -329,8 +329,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     var dateRange = 0;
 
-    $rootScope.getNowDateTime = function(addedTime) {
-        return new Date((new Date()).getTime() + dateRange);
+    $rootScope.getNowDateTime = function(isMoment) {
+        var dateTime = new Date((new Date()).getTime() + dateRange);
+        if (!isMoment) {
+            return dateTime;
+        } else {
+            return moment(dateTime);
+        }
+
     };
 
     var getCurrentUser = function(isGhost) {

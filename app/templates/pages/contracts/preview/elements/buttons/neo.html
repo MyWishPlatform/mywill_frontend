@@ -59,6 +59,17 @@
                 </button>
             </div>
 
+            <!-- Finalize crowdsale -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 7)">
+                <button ng-click="neoCrowdSaleFinalize(contract)"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
+                </button>
+            </div>
+
+
+
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
                 <!-- Edit button -->
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">

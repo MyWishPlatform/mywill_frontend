@@ -155,11 +155,8 @@
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{getEtherscanUrl(contract, 'token')}}/{{details[contractInfo].address|toCheckSum}}"
                    target="_blank"
-                   ng-if="contractInfo === 'eth_contract_token'"
                    ng-bind="details[contractInfo].address|toCheckSum"></a>
 
-                <span ng-if="contractInfo === 'neo_contract_token'"
-                      ng-bind="details[contractInfo].address"></span>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['token_address']}"
@@ -168,7 +165,7 @@
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
-            <p class="normal-text" ng-if="contractInfo === 'eth_contract_token'">
+            <p class="normal-text" ng-if="blockchain === 'ETH'">
                 <small>
                     <span class="as-link dotted"
                           ng-click="goTo('code', contractInfo);">
@@ -176,6 +173,22 @@
                     </span>
                 </small>
             </p>
+            <div class="clearfix" ng-if="blockchain === 'NEO'">
+                <br/>
+                <div class="form-control-label">Token contract script hash</div>
+                <br class="show-ls"/>
+                <div class="contract-wallet-information-wallet">
+                    <span ng-bind="details[contractInfo].script_hash"></span>
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            ng-class="{copied: contract.copied['token_hash']}"
+                            text="details[contractInfo].script_hash"
+                            on-copied="$root.successCodeCopy(contract, 'token_hash')"
+                            on-error="failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 
 

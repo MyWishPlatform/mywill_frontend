@@ -344,7 +344,6 @@ nav, main, footer, header {
     float: left;
     width: 50%;
     text-align: left;
-
     &.active &__name {
       font-weight: 700;
       text-decoration: none;
@@ -354,13 +353,31 @@ nav, main, footer, header {
       cursor: default;
     }
     &__icon {
-      height: 2em;
+      height: 2.2em;
       margin-right: 0.3em;
       vertical-align: middle;
-      border: 1px solid #CCC;
+      border-radius: 50%;
       cursor: pointer;
+      display: inline-block;
+      position: relative;
+      img {
+        height: 100%;
+        overflow: visible;
+        display: block;
+      }
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 50%;
+        box-shadow: inset 0 3px 5px rgba(255, 255, 255, 0.5), inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+      }
     }
-    &__icon:hover + &__name {
+
+    &:hover &__name {
       text-decoration: none;
     }
     &__name {
@@ -369,9 +386,6 @@ nav, main, footer, header {
       text-decoration: underline;
       cursor: pointer;
       font-size: 1.4em;
-      &:hover {
-        text-decoration: none;
-      }
     }
   }
 }

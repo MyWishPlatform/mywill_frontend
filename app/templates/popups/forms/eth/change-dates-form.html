@@ -10,9 +10,7 @@
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="form-control">
-                <div class="form-control-label">
-                    Это Ваши текущие даты старта и завершения ICO
-                </div>
+                <div class="form-control-label" translate="POPUP_FORMS.CHANGE_DATES_FORM.CURRENT_DATES"></div>
             </div>
 
             <div class="grid-row">
@@ -43,9 +41,8 @@
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="form-control">
-                <div class="form-control-label">
-                    Вы можете установить новые даты для старта или завершения ICO
-                </div>
+                <div class="form-control-label"
+                     translate="POPUP_FORMS.CHANGE_DATES_FORM.SET_NEW_DATES"></div>
             </div>
 
             <div class="grid-row" ng-class="{'no-active': contract.contract_details.start_date < minStartDate.format('X')}">
@@ -62,24 +59,24 @@
                                ng-model="newDatesFields.start_date"
                                tabindex="-1"
                                type="number"
-                               ng-attr-min="{{minStartDate.format('X')}}"
-                               ng-if="contract.contract_details.start_date >= minStartDate.format('X')"
-                               ng-attr-max="{{validationDates.maxForStart}}"/>
+                               ng-attr-min="{{validationDates.minForStart}}"
+                               ng-if="startDateIsEnable"
+                               ng-attr-max="{{dates.endDate.format('X')}}"/>
 
                         <input type="datetime" required
                                id="start-date"
                                ng-model="dates.startDate"
                                date-change="onChangeStartDate"
                                auto-close="true"
-                               min-date="minStartDate"
+                               ng-attr-min-date="{{startDateIsEnable ? 'minStartDate' : false}}"
                                readonly
                                date-time
                                min-view="date"
                                view="year"
                                format="YYYY-MM-DD"
                                position="fixed"
-                               ng-disabled="contract.contract_details.start_date < minStartDate.format('X')"
-                               ng-attr-invalid="{{!changeDateForm.checkStartDate.$valid}}"
+                               ng-disabled="!startDateIsEnable"
+                               ng-attr-invalid="{{changeDateForm.checkStartDate && !changeDateForm.checkStartDate.$valid}}"
                                class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
@@ -88,7 +85,7 @@
                     <div class="form-control">
                         <div class="form-control-input"
                              ng-model="timesForStarting.start" ng-time-picker
-                             ng-disabled="contract.contract_details.start_date < minStartDate.format('X')"
+                             ng-disabled="!startDateIsEnable"
                              ng-attr-invalid="{{changeDateForm.checkStartDate && !changeDateForm.checkStartDate.$valid}}"
                              ng-change="onChangeStartTime">&nbsp;</div>
                     </div>
@@ -103,7 +100,6 @@
             <div class="grid-row" ng-class="{'no-active': contract.contract_details.stop_date < minStartDate.format('X')}">
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
                     <div class="form-control">
-
                         <label for="end-date" class="form-control-label">
                             <i class="icon-waiting-1 form-control-label-icon floated"></i>
                             <span  class="after-floated">{{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span></span>
@@ -115,8 +111,8 @@
                                ng-model="newDatesFields.stop_date"
                                type="number"
                                step="1"
-                               ng-if="contract.contract_details.stop_date >= minStartDate.format('X')"
-                               ng-attr-min="{{validationDates.minForFinish}}"/>
+                               ng-if="endDateIsEnable"
+                               ng-attr-min="{{$root.max(validationDates.minForFinish, dates.startDate.format('X') * 1)}}"/>
 
                         <input type="datetime" required
                                id="end-date"
@@ -130,24 +126,24 @@
                                view="year"
                                format="YYYY-MM-DD"
                                position="fixed"
-                               ng-attr-invalid="{{!changeDateForm.checkStopDate.$valid}}"
-                               ng-disabled="contract.contract_details.stop_date < minStartDate.format('X')"
+                               ng-attr-invalid="{{changeDateForm.checkStopDate && !changeDateForm.checkStopDate.$valid}}"
+                               ng-disabled="!endDateIsEnable"
                                class="form-control-input form-control-input-date"/>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
-                    <label for="start-date" class="form-control-label hide-ps">&nbsp;</label>
+                    <label for="end-date" class="form-control-label hide-ps">&nbsp;</label>
                     <div class="form-control">
                         <div class="form-control-input"
                              ng-time-picker
-                             ng-disabled="contract.contract_details.stop_date < minStartDate.format('X')"
+                             ng-disabled="!endDateIsEnable"
                              ng-attr-invalid="{{changeDateForm.checkStopDate && !changeDateForm.checkStopDate.$valid}}"
                              ng-change="onChangeStopTime"
                              ng-model="timesForStarting.stop">&nbsp;</div>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-3 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-                    <label for="start-date" class="form-control-label hide-ps">&nbsp;</label>
+                    <label for="end-date" class="form-control-label hide-ps">&nbsp;</label>
                     <span class="form-control-description__text"
                           translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.DESCRIPTION"></span>
                 </div>
@@ -167,7 +163,7 @@
                             dates: dates
                         }
                     }"
-                    ng-disabled="!changeDateForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
+                    ng-disabled="!changeDateForm.$valid || ((contract.contract_details.stop_date == newDatesFields.stop_date) && (contract.contract_details.start_date == newDatesFields.start_date))" ng-click="generateSignature(); closeCurrentPopup();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>

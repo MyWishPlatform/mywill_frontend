@@ -98,9 +98,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             switch (contract.network) {
                 case 1:
                 case 3:
+                case 5:
                     break;
                 case 2:
                 case 4:
+                case 6:
                     testNetwork = true;
                     break;
             }
@@ -120,6 +122,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     break;
                 case 5:
                     contractType = 'token';
+                    break;
+                case 6:
+                    contractType = 'neo_token';
+                    break;
+                case 7:
+                    contractType = 'neo_crowdsale';
                     break;
                 default:
                     contractType = 'unknown';
@@ -242,4 +250,26 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             }
         });
     };
+
+    $scope.neoCrowdSaleFinalize = function(contract) {
+        contractService.neoICOFilnalize(contract.id).then(function(reponse) {
+            $rootScope.commonOpenedPopup = 'alerts/neo-finalize-success';
+            $scope.refreshContract(contract);
+        }, function(reponse) {
+            switch (reponse.status) {
+                case 400:
+                    switch(reponse.data.result) {
+                        case 2:
+                        case '2':
+                            $rootScope.commonOpenedPopupParams = {
+                                contract: contract
+                            };
+                            $rootScope.commonOpenedPopup = 'alerts/neo-finalize-denied';
+                            break;
+                    }
+                    break;
+            }
+        });
+    };
+
 });

@@ -6,15 +6,16 @@
                 <label for="out-wallet-key-{{$index}}"
                        translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"
                        class="form-control-label">Address</label>
+
                 <input id="out-wallet-key-{{$index}}" type="text"
-                       placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL'|translate}}"
-                       ng-pattern="/^0x[0-9a-f]{40}$/i"
+                       placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.PLACEHOLDER'|translate}}"
+                       ng-checksum-address-validator="{'network': blockchain}"
                        ng-model="recipient.address"
                        ng-change="!recipient.name ? checkTokensAmount() : false"
                        required
                        class="form-control-input"/>
                 <span class="field-error form-field_error-check-sum"
-                      ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
+                      ng-if="(blockchain === 'ETH') && (recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false)"
                       style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
             </div>
         </div>
@@ -44,8 +45,8 @@
                        ng-model="recipient.amount"/>
             </div>
         </div>
-        <div class="clearfix show-ps"><br/></div>
-        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+        <div class="clearfix show-ps" ng-if="blockchain !== 'NEO'"><br/></div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1" ng-show="blockchain !== 'NEO'">
             <label class="form-control-label">
                 <i class="icon-snowflake form-control-label-icon floated"></i>
                 <span class="after-floated">{{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span></span>
@@ -100,7 +101,9 @@
                   translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.DESCRIPTION_BLOCK"></span><br/>
         </div>
         <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
-            <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
+            <button class="btn btn-transparent with-icon mobile-width-100" type="button"
+                    ng-if="((blockchain === 'NEO') && (token_holders.length < 3)) || (blockchain !== 'NEO')"
+                    ng-click="addRecipient(); checkTokensAmount();">
                 <i class="icon-create-contract"></i>
                 <span translate="CONTRACTS.FORMS.CROWD_SALE.BUTTONS.ADD_EXTRA_ADDRESS"></span>
             </button>

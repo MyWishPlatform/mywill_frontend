@@ -132,6 +132,12 @@
     },
     "PROMO_ACTIVATED": {
       "TEXT": "Promo code was activated.<br/>New price: {{price}} WISH."
+    },
+    "NEO_CROWDSALE_FINALIZED": {
+      "TEXT": "Your contract was finalized successfully."
+    },
+    "NEO_CROWDSALE_FINALIZE_ERR": {
+      "TEXT": "Error! Finalize can be executed<br/>after {{stopDate|date:'yyyy-MM-dd HH:mm'}} only."
     }
   },
   "CONFIRMATIONS": {
@@ -326,6 +332,10 @@
         "TOTAL_SUPPLY": "Total supply:",
         "DISTRIBUTED_BEFORE": "Total Distributed (before)"
       }
+    },
+    "CHANGE_DATES_FORM": {
+      "CURRENT_DATES": "Current start / finish dates",
+      "SET_NEW_DATES": "You can set new dates for start & finish. Start date can't be changed after Sale start and for contracts with time bonuses."
     }
   },
   "POPUP_ERRORS": {
@@ -468,6 +478,10 @@
       "WILL_WITHDRAW": {
         "TITLE": "Withdraw",
         "DESCRIPTION": "After withdraw all funds will be sent to your management address.<br/>To Withdraw please do the following:"
+      },
+      "CHANGE_DATES": {
+        "TITLE": "Change Dates",
+        "DESCRIPTION": "To change start date to {{newStartDate|date:'yyyy-MM-dd HH:mm'}} / finish date to {{newFinishDate|date:'yyyy-MM-dd HH:mm'}} please do the following steps:"
       }
     },
     "RSK": {
@@ -718,7 +732,7 @@
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting:",
-            "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible"
+            "DESCRIPTION": "Yes - you can create more tokens in the future {{!noCrowdsale ? '& use token for Crowdsale' : ''}}. <br/>No - no more tokens will be created in the future. {{!noCrowdsale ? 'Crowdsale is impossible' : ''}}"
           }
         }
       },
@@ -764,8 +778,8 @@
           },
           "TOKEN_RATE": {
             "LABEL": "Token rate",
-            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 ETH",
-            "ADV_DESCRIPTION": "per 1 ETH"
+            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 {{blockchain}}",
+            "ADV_DESCRIPTION": "per 1 {{blockchain}}"
           },
           "HARD_CAP": {
             "LABEL": "Hard cap tokens",

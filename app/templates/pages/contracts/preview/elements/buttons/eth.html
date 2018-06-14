@@ -26,7 +26,7 @@
             </div>
 
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
-                <button class="btn btn-submit mobile-width-100 text-center"
+                <button class="btn btn-transparent mobile-width-100 text-center"
                         ng-pop-up="{
                             template: '/templates/popups/disclaimers/eth/activate-disclaimer.html',
                             newPopupContent: true,
@@ -34,9 +34,6 @@
                                 contract: contract
                             },
                             class: 'conditions',
-                            actions: {
-                                successCodeCopy: successCodeCopy
-                            },
                             onClose: returnToList
                         }">
                     <span translate="CONTRACTS_BUTTONS.ACTIVATE"></span>
@@ -52,9 +49,6 @@
                                 contract: contract
                             },
                             class: 'page-size',
-                            actions: {
-                                successCodeCopy: successCodeCopy
-                            },
                             onClose: returnToList
                         }"
                         class="btn btn-transparent mobile-width-100 text-center">
@@ -72,9 +66,6 @@
                                 contract: contract
                             },
                             class: 'conditions',
-                            actions: {
-                                successCodeCopy: successCodeCopy
-                            },
                             onClose: returnToList
                         }"
                         class="btn btn-transparent mobile-width-100 text-center">
@@ -83,7 +74,7 @@
             </div>
 
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
-                <!-- Edit instruction button -->
+                <!-- Edit button -->
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
                     <i class="icon-edit"></i>
                     <span translate="CONTRACTS_BUTTONS.EDIT"></span>
@@ -96,9 +87,6 @@
                             newPopupContent: true,
                             params: {
                                 contract: contract
-                            },
-                            actions: {
-                                successCodeCopy: successCodeCopy
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
@@ -114,9 +102,6 @@
                             newPopupContent: true,
                             params: {
                                 contract: contract
-                            },
-                            actions: {
-                                successCodeCopy: successCodeCopy
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
@@ -134,9 +119,6 @@
                             newPopupContent: true,
                             params: {
                                 contract: contract
-                            },
-                            actions: {
-                                successCodeCopy: successCodeCopy
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
@@ -154,9 +136,6 @@
                             newPopupContent: true,
                             params: {
                                 contract: contract
-                            },
-                            actions: {
-                                successCodeCopy: successCodeCopy
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
@@ -173,9 +152,6 @@
                             newPopupContent: true,
                             params: {
                                 contract: contract
-                            },
-                            actions: {
-                                successCodeCopy: successCodeCopy
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
@@ -191,15 +167,31 @@
                             newPopupContent: true,
                             params: {
                                 contract: contract
-                            },
-                            actions: {
-                                successCodeCopy: successCodeCopy
                             }
                         }"
-                        class="btn btn-submit mobile-width-100">
+                        class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
                 </button><br/><br/>
             </div>
+
+            <!-- Date changing form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/change-dates-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>
+                </button>
+            </div>
+
+
         </div>
     </div>
 </div>

@@ -3,7 +3,7 @@ $white-hover-color: rgba(255, 255, 255, 1);
 $white-active-color: rgba(255, 255, 255, 0.5);
 
 $red-normal-color: rgba(249, 14, 54, 0.8);
-$red-hover-color: #f90e36;
+$red-hover-color: #ff1e47;
 $red-active-color: #bb0d2b;
 
 .btn {
@@ -22,6 +22,7 @@ $red-active-color: #bb0d2b;
   text-decoration: none;
   text-align: center;
   white-space: nowrap;
+  position: relative;
   &.width-100 {
     width: 100%;
   }
@@ -36,6 +37,7 @@ $red-active-color: #bb0d2b;
     &:not(.only-icon) {
       &:hover, &:focus {
         box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
+        transform: translateY(-0.1em);
       }
       &:active {
         box-shadow: 0 0 0 rgba(0, 0, 0, 0);
@@ -60,10 +62,12 @@ $red-active-color: #bb0d2b;
   &.btn-submit {
     background: $main-blue-color;
     color: $white-color;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
   }
   &.btn-red {
-    background: $red-normal-color;
+    background: $red-hover-color;
     color: $white-color;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
     &:hover {
       background: $red-hover-color;
     }
@@ -76,9 +80,18 @@ $red-active-color: #bb0d2b;
   }
   &.btn-transparent {
     border: 0.2em solid;
-    line-height: 3.5em;
+    line-height: 3.6em;
     color: $main-blue-color;
     background: none;
+    transition: all 0.05s linear;
+    //text-shadow: 0 0.4em 0.2em rgba(0, 0, 0, 0);
+    box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0), inset 0 0.4em 1.3em rgba(0, 0, 0, 0);
+    &:not([disabled]):not(.active):not(.disabled) {
+      &:hover {
+        box-shadow: 0 0.1em 0.6em rgba(0, 0, 0, 0.3), inset 0 0.1em 0.6em rgba(0, 0, 0, 0.3);
+        //text-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.2);
+      }
+    }
   }
   &.btn-as-link {
     color: #000;
@@ -119,7 +132,8 @@ $red-active-color: #bb0d2b;
     box-shadow: initial;
     text-shadow: 0 0 0 rgba(0, 0, 0, 0);
     &:hover, &:focus {
-      text-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
+      text-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.2);
+      transform: translateY(-0.1em);
     }
     &:active {
       text-shadow: 0 0 0 rgba(0, 0, 0, 0);

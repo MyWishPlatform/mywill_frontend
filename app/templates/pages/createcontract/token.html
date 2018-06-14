@@ -2,8 +2,7 @@
     <i class="icon-help"></i>
     <a href="https://www.youtube.com/watch?v=EGeg6HXLJu0"
        target="_blank"
-       translate="CONTRACTS.FORMS.WATCH_INSTRUCTION"
-       ng-click="sendEvent('Video_Instruction', 'open_token_instruction')">
+       translate="CONTRACTS.FORMS.WATCH_INSTRUCTION">
     </a>
 </div>
 <div class="shadow-block">
@@ -219,8 +218,8 @@
             <div class="clearfix show-ps" ng-if="blockchain !== 'NEO'"><br/></div>
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1" ng-if="blockchain !== 'NEO'">
                 <label class="form-control-label">
-                    <i class="icon-snowflake form-control-label-icon"></i>
-                    {{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span>
+                    <i class="icon-snowflake form-control-label-icon floated"></i>
+                    <span  class="after-floated">{{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span></span>
                 </label>
                 <div class="form-control">
                     <div class="grid-row contract-form-row">
@@ -314,8 +313,8 @@
                 <div class="form-control">
                     <div class="checkbox-decoration">
                         <label for="is_transferable_at_once" class="form-control-label inline-label">
-                            <i class="icon-feature-minting form-control-label-icon"></i>
-                            {{'CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.LABEL'|translate}}
+                            <i class="icon-feature-minting form-control-label-icon floated"></i>
+                            <span class="after-floated">{{'CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.LABEL'|translate}}</span>
                         </label>
                     </div>
                 </div>
@@ -335,6 +334,7 @@
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <span class="form-control-description__text"
+                      translate-values="{noCrowdsale: blockchain === 'NEO'}"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.DESCRIPTION">
                 </span>
             </div>

@@ -108,7 +108,7 @@
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['address']}"
                         text="contract.contract_details.eth_contract.address"
-                        on-copied="successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                        on-copied="$root.successCodeCopy(contract, 'address')">
                     <i class="icon-content_copy"></i>
                 </button>
             </div>

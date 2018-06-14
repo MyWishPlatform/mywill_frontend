@@ -1,54 +1,21 @@
-angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate, APP_CONSTANTS) {
+angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate, APP_CONSTANTS, web3Service) {
 
     $scope.exRate = exRate.data;
-    var metamask, parity;
     $scope.wallets = {metamask: [], parity: []};
 
-    try {
-        metamask = new Web3(Web3.givenProvider || new Web3.providers.WebsocketProvider("ws://localhost:8546"));
-    } catch(err) {
-        console.log(err);
-    }
-
-    try {
-        parity = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-    } catch(err) {
-        console.log(err);
-    }
-
     $scope.getProvider = function(name) {
-        switch (name) {
-            case 'metamask':
-                return metamask;
-                break;
-            case 'parity':
-                return parity;
-                break;
-        }
+        web3Service.setProvider(name, 1);
+        return web3Service.web3();
     };
 
-    metamask ? metamask.eth.getAccounts(function(err, addresses) {
-        $scope.wallets.metamask = addresses;
-    }) : false;
-
-    parity ? parity.eth.getAccounts(function(err, addresses) {
-        $scope.wallets.parity = addresses;
-    }) : false;
+    web3Service.getAccounts(1).then(function(response) {
+        response.map(function(wallet) {
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
+    });
 
     $scope.sendTransaction = function() {
-        var web3;
-        switch ($scope.formData.activeService) {
-            case 'metamask':
-                web3 = metamask;
-                break;
-            case 'parity':
-                web3 = parity;
-                break;
-        }
-
-        $rootScope.sendEvent('Button_Pay_Click', 'on_pay_' + $scope.visibleForm + '_' + $scope.formData.activeService);
-
-        web3.eth.sendTransaction({
+        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
             value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(10),
             from: $scope.formData.address,
             to: $scope.formData.toAddress
@@ -61,22 +28,8 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $scope.formData.addressChecked = true;
     };
 
-
     $scope.copied = {};
-    var copiedTimeouts = {};
 
-    $scope.successCodeCopy = function(obj, copiedField) {
-        obj = obj || $scope;
-        obj['copied'] = obj['copied'] || {};
-        copiedTimeouts[copiedField] ? $timeout.cancel(copiedTimeouts[copiedField]) : false;
-        obj['copied'][copiedField] = true;
-        copiedTimeouts[copiedField] = $timeout(function() {
-            obj['copied'][copiedField] = false;
-        }, 3000);
-    };
-    $scope.failCodeCopy = function() {
-        console.log(arguments);
-    };
     var resetForm = function() {
         $scope.formData = {
             toAddress: $rootScope.currentUser.internal_address,
@@ -86,21 +39,12 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     };
 
     resetForm();
+
     $scope.$watch('visibleForm', function() {
-        if ($scope.visibleForm) {
-            $rootScope.sendEvent('Button_Select_Method', 'on_open_' + $scope.visibleForm);
-        }
         resetForm();
     });
 
-    $scope.$watch('formData.activeService', function() {
-        if ($scope.formData.activeService) {
-            $rootScope.sendEvent('Button_Select_WalletType', 'on_select_' + $scope.visibleForm + '_' + $scope.formData.activeService);
-        }
-    });
-
     $scope.payDone = function() {
-        $rootScope.sendEvent('Button_Done', 'on_done_' + $scope.visibleForm);
         $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
     };
 }).controller('buytokensEthController', function($scope) {
@@ -146,13 +90,10 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     });
 
     $scope.sendTransaction = function() {
-        var web3 = $scope.getProvider($scope.formData.activeService);
-
-        web3.eth.sendTransaction({
+        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
             from: $scope.formData.address,
             data: $scope.checkedTransferData
         }).then(console.log);
-
     };
 
 });

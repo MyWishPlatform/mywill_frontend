@@ -1,30 +1,34 @@
-<div class="shadow-block" ng-controller="instructionsController">
+<div class="shadow-block" ng-controller="changeDateController">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
-                <span class="uppercase"
-                      translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.TITLE"></span>
+                <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.ETH.CHANGE_DATES.TITLE'|translate}}&nbsp;</span>
             </div>
         </div>
+        {{dates}}
         <div class="shadow-block__content__description">
-            <span translate="CONTRACTS_INSTRUCTIONS.ETH.CANCEL.DESCRIPTION"></span>
+            <span translate-values="{
+                newStartDate: ngPopUp.params.dates.startDate.format('x'),
+                newFinishDate: ngPopUp.params.dates.endDate.format('x')
+            }"
+                  translate="CONTRACTS_INSTRUCTIONS.ETH.CHANGE_DATES.DESCRIPTION"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <a ng-attr-href="{{
-                'https://www.myetherwallet.com/?data=' + killSignature +
-                '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}#send-transaction"
+            'https://www.myetherwallet.com/?data=' + changeDateSignature +
+            '&value=0&to=' + contract.contract_details.eth_contract_crowdsale.address}}#send-transaction"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
-        <button ng-click="killContract()"
+        <button ng-click="sendTransaction()"
                 ng-if="currentWallet && (currentWallet.type === 'parity')"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
-        <button  ng-click="killContract()"
+        <button  ng-click="sendTransaction()"
                  ng-if="currentWallet && (currentWallet.type === 'metamask')"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
@@ -33,14 +37,13 @@
     </div>
 
     <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
-
     <div class="shadow-block__content shadow-block__content_min-tb-padding"
          ng-init="instructionData = {
-            'dataField': killSignature,
-            'ownerAddress': ngPopUp.params.contract.contract_details.user_address,
-            'contractAddress': ngPopUp.params.contract.contract_details.eth_contract.address,
+            'dataField': changeDateSignature,
+            'ownerAddress': contract.contract_details.admin_address,
+            'contractAddress': contract.contract_details.eth_contract_token.address,
             'contract': {
-                network: ngPopUp.params.contract.network
+                network: contract.network
             }
          }"
          ng-include="'/templates/popups/instructions/transaction-template.html'">

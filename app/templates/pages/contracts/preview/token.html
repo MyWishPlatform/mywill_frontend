@@ -64,8 +64,7 @@
                                     clipboard supported="supported"
                                     text="'MainToken'"
                                     ng-class="{copied: contract.copied['contractName']}"
-                                    on-copied="successCodeCopy(contract, 'contractName')"
-                                    on-error="failCodeCopy(err)">&nbsp;
+                                    on-copied="$root.successCodeCopy(contract, 'contractName')">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
                             <div class="copy-block__text">MainToken</div>
@@ -80,8 +79,7 @@
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].address|toCheckSum"
                                     ng-class="{copied: contract.copied['address']}"
-                                    on-copied="successCodeCopy(contract, 'address')"
-                                    on-error="failCodeCopy(err)">&nbsp;
+                                    on-copied="$root.successCodeCopy(contract, 'address')">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
                             <div class="copy-block__text">{{contract.contract_details[selectedContract].address|toCheckSum}}</div>
@@ -96,8 +94,7 @@
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].compiler_version|compilerVersion"
                                     ng-class="{copied: contract.copied['compiler_version']}"
-                                    on-copied="successCodeCopy(contract, 'compiler_version')"
-                                    on-error="failCodeCopy(err)">&nbsp;
+                                    on-copied="$root.successCodeCopy(contract, 'compiler_version')">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
                             <div class="copy-block__text">{{contract.contract_details[selectedContract].compiler_version|compilerVersion}}</div>
@@ -120,8 +117,7 @@
                                     clipboard supported="supported"
                                     text="contract.contract_details[selectedContract].source_code"
                                     ng-class="{copied: contract.copied['source_code']}"
-                                    on-copied="successCodeCopy(contract, 'source_code')"
-                                    on-error="failCodeCopy(err)">&nbsp;
+                                    on-copied="$root.successCodeCopy(contract, 'source_code')">&nbsp;
                                 <i class="icon-content_copy"></i>
                             </button>
                             <div class="copy-block__text json-text">{{contract.contract_details[selectedContract].source_code}}</div>
@@ -159,21 +155,17 @@
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{getEtherscanUrl(contract, 'token')}}/{{details[contractInfo].address|toCheckSum}}"
                    target="_blank"
-                   ng-if="contractInfo === 'eth_contract_token'"
                    ng-bind="details[contractInfo].address|toCheckSum"></a>
 
-                <span ng-if="contractInfo === 'neo_contract_token'"
-                      ng-bind="details[contractInfo].address"></span>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['token_address']}"
                         text="details[contractInfo].address|toCheckSum"
-                        on-copied="successCodeCopy(contract, 'token_address')"
-                        on-error="failCodeCopy(err)">
+                        on-copied="$root.successCodeCopy(contract, 'token_address')">
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
-            <p class="normal-text" ng-if="contractInfo === 'eth_contract_token'">
+            <p class="normal-text" ng-if="blockchain === 'ETH'">
                 <small>
                     <span class="as-link dotted"
                           ng-click="goTo('code', contractInfo);">
@@ -181,6 +173,22 @@
                     </span>
                 </small>
             </p>
+            <div class="clearfix" ng-if="blockchain === 'NEO'">
+                <br/>
+                <div class="form-control-label">Token contract script hash</div>
+                <br class="show-ls"/>
+                <div class="contract-wallet-information-wallet">
+                    <span ng-bind="details[contractInfo].script_hash"></span>
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            ng-class="{copied: contract.copied['token_hash']}"
+                            text="details[contractInfo].script_hash"
+                            on-copied="$root.successCodeCopy(contract, 'token_hash')"
+                            on-error="failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
+                </div>
+            </div>
         </div>
 
 
@@ -255,8 +263,7 @@
                                 clipboard supported="supported"
                                 ng-class="{copied: contract.copied['admin_address']}"
                                 text="details.admin_address"
-                                on-copied="successCodeCopy(contract, 'admin_address')"
-                                on-error="failCodeCopy(err)">
+                                on-copied="$root.successCodeCopy(contract, 'admin_address')">
                             <i class="icon-content_copy"></i>
                         </button>
                     </div>
@@ -291,8 +298,7 @@
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['holder_address_' + $index]}"
                         text="holder.address"
-                        on-copied="successCodeCopy(contract, 'holder_address_' + $index)"
-                        on-error="failCodeCopy(err)">
+                        on-copied="$root.successCodeCopy(contract, 'holder_address_' + $index)">
                     <i class="icon-content_copy"></i>
                 </button>
             </div><br/>

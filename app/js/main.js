@@ -257,7 +257,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.$on('$userOnLogin', $rootScope.checkProfile);
 
 
-    $rootScope.sendEvent = AnalyticsService.sendEvent;
     AnalyticsService.initGA();
 
     $rootScope.$location = $location;
@@ -269,7 +268,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         3: '',
         4: 'icon-crowdsale',
         5: 'icon-token',
-        6: 'icon-token'
+        6: 'icon-token',
+        7: 'icon-crowdsale'
     };
 
     $rootScope.deviceInfo = UAParser(window.navigator.userAgent);
@@ -329,8 +329,14 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     var dateRange = 0;
 
-    $rootScope.getNowDateTime = function(addedTime) {
-        return new Date((new Date()).getTime() + dateRange);
+    $rootScope.getNowDateTime = function(isMoment) {
+        var dateTime = new Date((new Date()).getTime() + dateRange);
+        if (!isMoment) {
+            return dateTime;
+        } else {
+            return moment(dateTime);
+        }
+
     };
 
     var getCurrentUser = function(isGhost) {
@@ -508,6 +514,15 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $rootScope.globalError = false;
     };
 
+
+    $rootScope.successCodeCopy = function(contract, field) {
+        contract.copied = contract.copied || {};
+        contract.copied[field] = true;
+        $timeout(function() {
+            contract.copied[field] = false;
+        }, 1000);
+    };
+
 })
     .config(function($httpProvider, $qProvider, $compileProvider, $translateProvider) {
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
@@ -516,7 +531,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(mailto|otpauth|https?):/);
         $translateProvider.useStaticFilesLoader({
             prefix: '/static/i18n/',
-            suffix: '.json'
+            suffix: '.json?_=' + (new Date()).getTime()
         });
 
     })

@@ -28,10 +28,12 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     switch ($scope.contract.network) {
         case 1:
         case 2:
+            $scope.blockchain = 'ETH';
             $scope.contractInfo = 'eth_contract_token';
             break;
         case 5:
         case 6:
+            $scope.blockchain = 'NEO';
             $scope.contractInfo = 'neo_contract_token';
             break;
     }
@@ -128,13 +130,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             mintInterfaceMethod, params
         );
     };
-    $scope.successCodeCopy = function(contract, field) {
-        contract.copied = contract.copied || {};
-        contract.copied[field] = true;
-        $timeout(function() {
-            contract.copied[field] = false;
-        }, 1000);
-    };
+
     $scope.sendMintTransaction = function() {
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);

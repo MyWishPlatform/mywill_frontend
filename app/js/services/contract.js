@@ -135,6 +135,15 @@ angular.module('Services').service('contractService', function(requestService, A
                 data: data
             };
             return requestService.post(params);
+        },
+        neoICOFilnalize: function(contractId) {
+            var params = {
+                path: API.NEO_ICO_FINALIZE,
+                data: {
+                    id: contractId
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

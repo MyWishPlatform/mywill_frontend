@@ -10,7 +10,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         resolve: {
             currentUser: function($rootScope) {
                 return $rootScope.currentUserDefer.promise;
-            }
+            },
+            translateReady: ['$translate', function($translate) {
+                return $translate.onReady();
+            }]
         }
     }).state('anonymous', {
         url: '/anonymous?:go?',
@@ -235,8 +238,20 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             return $templateCache.get(templatesPath + 'createcontract/' + $stateParams.selectedType + '.html');
         },
         resolve: {
-            currencyRate: function(contractService) {
-                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
+            currencyRate: function(contractService, $stateParams) {
+                var curencyValue;
+                switch($stateParams.network) {
+                    case 5:
+                    case '5':
+                    case 6:
+                    case '6':
+                        curencyValue = 'NEO';
+                        break;
+                    default:
+                        curencyValue = 'ETH';
+                        break;
+                }
+                return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
             openedContract: function() {
                 return false;

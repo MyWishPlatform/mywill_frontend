@@ -54,8 +54,7 @@
                                   ng-if="logInServerErrors.non_field_errors">{{logInServerErrors.non_field_errors.join(', ')}}</span>
 
                             <div class="form-control contract-form-row text-right clearfix"><br/>
-                                <button type="submit" class="btn btn-submit float-left"
-                                        ng-click="$root.sendEvent('Authentication_popup', 'click_on_login');">
+                                <button type="submit" class="btn btn-submit float-left">
                                     <span translate="AUTH_POPUP.BUTTONS.LOG_IN"></span>
                                 </button>
                                 <span class="restore-link"
@@ -113,18 +112,18 @@
                         </div>
 
                         <div class="form-control contract-form-row"><br/>
-                            <button type="submit" class="btn btn-submit" ng-click="$root.sendEvent('Authentication_popup', 'click_on_create_account');">
+                            <button type="submit" class="btn btn-submit">
                                 <span translate="AUTH_POPUP.BUTTONS.CREATE_ACCOUNT"></span>
                             </button>
                         </div>
                     </form>
                 </div>
                     <div class="network-auth-buttons">
-                        <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin(); $root.sendEvent('Authentication_popup', 'click_on_fb_login');">
+                        <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin();">
                             <i class="icon-network-facebook"></i>
                             <span translate="AUTH_POPUP.BUTTONS.LOGIN_FACEBOOK"></span>
                         </a>
-                        <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin(); $root.sendEvent('Authentication_popup', 'click_on_google_login');">
+                        <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin();">
                             <i class="icon-network-google"></i>
                             <span translate="AUTH_POPUP.BUTTONS.LOGIN_GOOGLE"></span>
                         </a>
@@ -152,7 +151,7 @@
                         </div>
 
                         <div class="form-control contract-form-row"><br/>
-                            <button type="submit" class="btn btn-submit" ng-click="$root.sendEvent('Authentication_popup', 'click_on_forgot');">
+                            <button type="submit" class="btn btn-submit">
                                 <span translate="BUTTONS.SEND"></span>
                             </button>
                         </div>
@@ -178,7 +177,7 @@
                         <span class="field-error form-field_error-server">{{serverErrors.totp}}</span>
                     </div>
                     <div class="form-control contract-form-row"><br/>
-                        <button type="submit" class="btn btn-submit" ng-click="$root.sendEvent('Authentication_popup', 'click_on_social_login_with_2fa');">
+                        <button type="submit" class="btn btn-submit">
                             <span translate="BUTTONS.CONTINUE"></span>
                         </button>
                     </div>

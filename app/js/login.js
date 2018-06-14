@@ -16,6 +16,10 @@ module.controller('baseController', function($scope, $translate, $cookies) {
         'en': {
             'name': 'English',
             'icon': 'us'
+        },
+        'zh': {
+            'name': '中國',
+            'icon': 'zh'
         }
     };
 

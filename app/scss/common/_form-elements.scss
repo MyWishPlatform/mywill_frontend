@@ -23,6 +23,13 @@
     font-size: 1.2em;
     margin-top: -0.1em;
     width: 1.4em;
+    &.floated {
+      float: left;
+      + .after-floated {
+        margin-left: 1.7em;
+        display: block;
+      }
+    }
   }
   &-grey-text {
     color: #878787;
@@ -458,6 +465,9 @@
   display: inline-block;
   position: relative;
   user-select: none;
+  &.disabled {
+    opacity: 0.5;
+  }
   .disclaimer-btn {
     position: absolute;
     opacity: 0;
@@ -499,6 +509,7 @@
       }
     }
   }
+
   &-displaying {
     position: relative;
     display: inline-block;

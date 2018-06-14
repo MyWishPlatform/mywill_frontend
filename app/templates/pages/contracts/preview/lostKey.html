@@ -73,7 +73,7 @@
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['address']}"
                         text="contract.contract_details.eth_contract.address"
-                        on-copied="successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                        on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
 
@@ -83,9 +83,6 @@
                             template: '/templates/popups/instructions/eth/parity-instruction.html',
                             newPopupContent: true,
                             onClose: ngPopUp.onClose,
-                            actions: {
-                                successCodeCopy: successCodeCopy
-                            },
                             params: {
                               contract: contract
                             }
@@ -129,7 +126,6 @@
                 </div>
             </div>
         </div>
-
         <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">

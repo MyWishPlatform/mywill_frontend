@@ -1,19 +1,19 @@
 .ng-time-picker {
-
+  &-container {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+  }
   &-values-list,
   &-label,
   &-delimiter,
   &-value-group {
     display: inline-block;
     vertical-align: middle;
-    margin: -2px 0;
   }
   &-delimiter, &-value-group {
     vertical-align: baseline;
   }
   &-value-group {
-    padding: 0.5em 0.3em 0.5em 1.3em;
-    margin: -0.6em -0.3em -0.6em -1.3em;
     cursor: pointer;
     &:last-child {
       margin-left: -0.7em;

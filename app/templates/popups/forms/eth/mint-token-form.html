@@ -4,7 +4,7 @@
             <div class="shadow-block__content__blue-title">
                 <i class="shadow-block__content__blue-title__icon icon-token"></i>
                 <div class="shadow-block__content__blue-title__name">
-                    <span>{{ngPopUp.params.contract.name}}&nbsp;</span>
+                    <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
                 </div>
             </div>
         </div>
@@ -47,8 +47,8 @@
                 <div class="clearfix show-ps"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                     <label class="form-control-label">
-                        <i class="icon-snowflake form-control-label-icon"></i>
-                        {{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.FROZEN_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span>
+                        <i class="icon-snowflake form-control-label-icon floated"></i>
+                        <span class="after-floated">{{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.FROZEN_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span></span>
                     </label>
                     <div class="form-control">
                         <div class="grid-row contract-form-row">
@@ -122,7 +122,6 @@
                             currentWallet: currentWallet
                         },
                         actions: {
-                            successCodeCopy: successCodeCopy,
                             sendMintTransaction: sendMintTransaction
                         },
                         onClose: returnToList

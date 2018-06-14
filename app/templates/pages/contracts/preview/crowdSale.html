@@ -220,6 +220,23 @@
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
+            <div class="clearfix" ng-if="blockchain === 'NEO'">
+                <br/>
+                <div class="form-control-label">Crowdsale contract script hash</div>
+                <br class="show-ls"/>
+                <div class="contract-wallet-information-wallet">
+                    <span ng-bind="details[contractCrowdsaleInfo].script_hash"></span>
+                    <button class="instruction-for-copy-button relative"
+                            clipboard supported="supported"
+                            ng-class="{copied: contract.copied['crowdsale_hash']}"
+                            text="details[contractCrowdsaleInfo].script_hash"
+                            on-copied="$root.successCodeCopy(contract, 'crowdsale_hash')"
+                            on-error="failCodeCopy(err)">
+                        <i class="icon-content_copy"></i>
+                    </button>
+                </div>
+            </div>
+
             <p class="normal-text" ng-if="blockchain !== 'NEO'">
                 <small>
                     <span class="as-link dotted"

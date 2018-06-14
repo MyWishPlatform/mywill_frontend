@@ -732,7 +732,7 @@
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting:",
-            "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible"
+            "DESCRIPTION": "Yes - you can create more tokens in the future {{!noCrowdsale ? '& use token for Crowdsale' : ''}}. <br/>No - no more tokens will be created in the future. {{!noCrowdsale ? 'Crowdsale is impossible' : ''}}"
           }
         }
       },

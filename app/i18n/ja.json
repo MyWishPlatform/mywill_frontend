@@ -406,10 +406,6 @@
         "LIST": {
           "ITEM_0": "撤退してもよろしいですか？ すべての資金はあなたの管理アドレスに送られます。"
         }
-      },
-      "CHANGE_DATES": {
-        "TITLE": "日付変更",
-        "DESCRIPTION": "開始日を{{newStartDate|date:'yyyy-MM-dd HH:mm'}}に変更するとか、終了日を{{newFinishDate|date:'yyyy-MM-dd HH:mm'}}にを変更するには、次の手順を実行してください:"
       }
     },
     "ETH": {
@@ -482,6 +478,10 @@
       "WILL_WITHDRAW": {
         "TITLE": "撤回",
         "DESCRIPTION": "撤回した後、すべての資金はご管理アドレスに送られます。 撤退する次の手順に従ってください:"
+      },
+      "CHANGE_DATES": {
+        "TITLE": "日付変更",
+        "DESCRIPTION": "開始日を{{newStartDate|date:'yyyy-MM-dd HH:mm'}}に変更するとか、終了日を{{newFinishDate|date:'yyyy-MM-dd HH:mm'}}にを変更するには、次の手順を実行してください:"
       }
     },
     "RSK": {

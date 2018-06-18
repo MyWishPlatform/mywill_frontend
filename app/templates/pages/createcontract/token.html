@@ -334,8 +334,12 @@
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <span class="form-control-description__text"
-                      translate-values="{noCrowdsale: blockchain === 'NEO'}"
+                      ng-if="blockchain !== 'NEO'"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.DESCRIPTION">
+                </span>
+                <span class="form-control-description__text"
+                      ng-if="blockchain === 'NEO'"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.DESCRIPTION_NEO">
                 </span>
             </div>
         </div>

@@ -1,0 +1,936 @@
+{
+  "YES": "是",
+  "NO": "不是",
+  "OR": "或",
+  "OK": "好",
+  "AND_OR": "和/或",
+  "COPIED": "复制",
+  "DISCLAIMER": "放弃",
+  "FROM": "从",
+  "BALANCE": "平衡",
+  "PLEASE_WAIT": "请，稍等。。",
+  "MONTHS": "月",
+  "YEARS":"年",
+  "DAYS": "天",
+  "MAIN_MENU": {
+    "UNKNOWN_USER": "未知用户",
+    "UNKNOWN": "未知",
+    "CREATE_CONTRACT": "创建合同",
+    "MY_CONTRACTS": "我的合同",
+    "EXTERNAL_DEVELOPERS": "外部开发者",
+    "BUY_TOKENS": "购买代币",
+    "SUPPORT": "支持",
+    "LOG_OUT": "登出",
+    "VERSION": "版"
+  },
+  "HEADER": {
+    "BUTTONS": {
+      "BUY": "购买",
+      "SIGN_IN": "签到",
+      "SIGN_UP": "注册"
+    }
+  },
+  "WARNING_MESSAGE": "警告！ 现在服务正在维护中。<br/>请不要使用，直到显示此消息。",
+  "CONTRACTS_STATUSES": {
+    "DRAFT": "草案",
+    "CREATED": "创建",
+    "WAITING_FOR_PAYMENT": "等待付款",
+    "WAITING_FOR_DEPLOYMENT": "等待部署",
+    "ACTIVE": "活性",
+    "EXPIRED": "过期",
+    "CANCELLED": "取消",
+    "KILLED": "取消",
+    "POSTPONED": "缓行",
+    "TRIGGERED": "完成",
+    "WAITING_ACTIVATION": "未激活",
+    "ENDED": "完成",
+    "UNDER_CROWDSALE": "在代币销售下"
+  },
+  "CONTRACTS_NETWORKS": {
+    "NETWORK_1": "Main Ethereum Network",
+    "NETWORK_2": "Ropsten Test Net",
+    "NETWORK_3": "RSK Network",
+    "NETWORK_4": "RSK Testnet faucet",
+    "NETWORK_5": "NEO MainNet",
+    "NETWORK_6": "NEO TestNet"
+  },
+  "BUTTONS": {
+    "ENABLE": "启用",
+    "DISABLE": "禁用",
+    "CHANGE": "更改",
+    "CANCEL": "取消",
+    "CLOSE": "关",
+    "CLEAN": "清洁",
+    "SEND": "发送",
+    "CREATE": "创建",
+    "UPDATE": "更新",
+    "RESET": "重启",
+    "OK": "Ok",
+    "COPY": "复制",
+    "PAY": "工资",
+    "DONE": "完成",
+    "CONTINUE": "继续",
+    "I_ACCEPT": "我接受",
+    "CONFIRM": "确认",
+    "BUY_TOKENS": "购买代币",
+    "CHECK": "检查"
+  },
+  "AUTH_POPUP": {
+    "FIELDS": {
+      "EMAIL": "电子邮箱",
+      "RESET_EMAIL": "输入电子邮箱以重置密码",
+      "PASSWORD": "密码",
+      "CONFIRM_PASSWORD": "重复输入密码",
+      "2FA": "2FA代码"
+    },
+    "CONFIRM_EMAIL": "请检查您的电子邮箱并确认注册。 谢谢！",
+    "BUTTONS": {
+      "LOG_IN": "登录",
+      "FORGOT_PASSWORD": "忘记密码了吗？",
+      "LOGIN_FACEBOOK": "通过Facebook登录",
+      "LOGIN_GOOGLE": "通过Google登录",
+      "CREATE_ACCOUNT": "创建帐号"
+    }
+  },
+  "CONTRACTS_BUTTONS": {
+    "ACTIVATE": "启用",
+    "LAUNCH": "发射",
+    "DEPOSIT": "存款",
+    "CANCEL": "取消",
+    "I_ALIVE": "我活着",
+    "WITHDRAW": "收回",
+    "FINALIZE": "最终确定",
+    "MINT": "巨额",
+    "DELETE": "删除",
+    "EDIT": "编辑",
+    "ADD_TO_PARITY": "+加入平价",
+    "CHANGE_DATES": "更改日期"
+  },
+  "FIELDS_ERRORS": {
+    "REQUIRED": "字段是必需的",
+    "INCORRECT_PASSWORD": "密码错误",
+    "YOUR_EMAIL": "输入你的电子邮箱",
+    "MIN_LENGTH_PASSWORD": "最小密码长度为8个字符",
+    "NO_MATCH_PASSWORD": "密码不匹配",
+    "INVALID_2FA_CODE": "无效的代码",
+    "ADDRESS_NOT_CHECKSUMMED": "地址不是校验和"
+  },
+  "BLOCKCHAIN_NETWORKS": {
+    "ETH": "以太",
+    "BTC": "比特币",
+    "NEO": "NEO"
+  },
+  "ALERTS": {
+    "FORM_REQUEST_SUCCESS": {
+      "TEXT": "谢谢！ 您的留言已发送，我们会通过电子邮箱与您联系。"
+    },
+    "GHOST_USER": {
+      "TEXT": "请登录/注册将合同<br/>添加到您的个人帐户"
+    },
+    "GHOST_BUY_TOKENS": {
+      "TEXT": "请登录/注册以补充您的帐户"
+    },
+    "PROMO_ACTIVATED": {
+      "TEXT": "促销代码已激活。<br/>新的价格: {{price}} 要."
+    },
+    "NEO_CROWDSALE_FINALIZED": {
+      "TEXT": "您的合同已成功完成。"
+    },
+    "NEO_CROWDSALE_FINALIZE_ERR": {
+      "TEXT": "错误！ 最终只可以执行<br/>after {{stopDate|date:'yyyy-MM-dd HH:mm'}} "
+    }
+  },
+  "CONFIRMATIONS": {
+    "LOG_OUT": {
+      "TEXT": "你真的想注销吗?"
+    },
+    "CONTRACT_DELETE": {
+      "TEXT": "你想删除它?"
+    },
+    "CONTRACT_PAY": {
+      "TEXT": "请确认合同启动({{price}} 要)"
+    }
+  },
+  "PAGES": {
+    "CONTRACTS": {
+      "CREATE_CONTRACT_BLOCK": {
+        "DESCRIPTION": "智能合约清单是空的",
+        "BUTTON": "创建合同"
+      }
+    },
+    "PROFILE": {
+      "TWO_FACTOR_AUTH": {
+        "TITLE": "双因素认证",
+        "DESCRIPTION": "我们强烈建议您启用2FA ",
+        "POPUPS": {
+          "ENABLE_INSTRUCTION": {
+            "TITLE": "启用2FA ",
+            "LIST_STEPS": {
+              "STEP_1": "扫描二维码",
+              "STEP_2": "在Google身份验证器或类似的应用中添加MYWISH应用",
+              "STEP_3": "每次登录MyWish时都要使用代码"
+            }
+          },
+          "ENABLE_FORM": {
+            "TITLE": "启用2FA ",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "输入2FA代码:"
+              }
+            }
+          },
+          "DISABLE_FORM": {
+            "TITLE": "禁用2FA ",
+            "FIELDS": {
+              "ENTER_2FA": {
+                "LABEL": "输入2FA代码："
+              }
+            }
+          }
+        }
+      },
+      "CHANGE_PASSWORD": {
+        "TITLE": "更改密码",
+        "FIELDS": {
+          "CURR_PASS": {
+            "LABEL": "当前密码"
+          },
+          "NEW_PASS": {
+            "LABEL": "新密码"
+          },
+          "NEW_PASS_CONFIRM": {
+            "LABEL": "重复新密码"
+          },
+          "2FA": {
+            "LABEL": "2FA代码"
+          }
+        }
+      }
+    },
+    "CREATE_CONTRACT": {
+      "BLOCKCHAIN_BLOCK": {
+        "TITLE": "选择区块链",
+        "TEST_NETWORK_LABEL": "测试网络",
+        "TEST_NETWORK_DESCRIPTION": "免费 - 在付款前测试您的合同"
+      },
+      "CROWDSALE": {
+        "TITLE": "代币合同",
+        "DESCRIPTION": "点击几下即可开始您的ICO /代币销售"
+      },
+      "TOKEN": {
+        "TITLE": "代币合同",
+        "DESCRIPTION": "创建一个代币并自行或与代币销售合约一起分发"
+      },
+      "LOST_KEY": {
+        "TITLE": "丢失的钥匙",
+        "DESCRIPTION": "智能合约与标准以太坊钱包具有完全相同的功能，此外，如果您将丢失访问/私钥，将您的资金重定向到备份钱包。"
+      },
+      "DEFERRED": {
+        "TITLE": "延期付款",
+        "DESCRIPTION": "智能合约在指定的日期付款。"
+      },
+      "WILL": {
+        "TITLE": "将合同",
+        "DESCRIPTION": "设置资金转移给家人或朋友，以防长时间不活动（死亡，事故等）。"
+      },
+      "WEDDING": {
+        "TITLE": "婚约",
+        "DESCRIPTION": "具有Multisig功能的钱包以及在特定时间段之后/期间在所有者之间分配资金。"
+      },
+      "TEST_NET_DISCLAIMER": {
+        "LIST": {
+          "LIST_ITEM_1": " Test Net中的合同可以免费使用（您可以创建并部署它以测试网络）",
+          "LIST_ITEM_2": "请接受低速部署（最多3小时）",
+          "LIST_ITEM_3": "测试/主网络中的合同具有相同的代码",
+          "LIST_ITEM_4": "请在处理合同时使用测试网地址（RTH代表ETH）"
+        }
+      },
+      "BTC_DISCLAIMER": {
+        "TITLE": "怎么运行的",
+        "LIST_1": {
+          "LIST_ITEM_1": "登录MyWish平台。",
+          "LIST_ITEM_2": "选择将合同并设置它。 MyWish生成您的个人智能合约。",
+          "LIST_ITEM_3": "付款和MyWish将合同部署到RSK网络。",
+          "LIST_ITEM_4": "智能合约已部署并可供执行。"
+        },
+        "LIST_2": {
+          "LIST_ITEM_1": "用户定期致电合约以确认其\"现场\"状态。",
+          "LIST_ITEM_2": "如果在指定的时间范围内没有发现确认，则合同将资金分配给继承人。"
+        }
+      }
+    },
+    "EXTERNAL_DEVELOPERS": {
+      "TITLE": "外部开发人员",
+      "DESCRIPTION": "要将合同添加到MyWish库并开始审计过程，请填写下面的表单。",
+      "FIELDS": {
+        "USER_NAME": {
+          "LABEL": "用户名"
+        },
+        "EMAIL": {
+          "LABEL": "电子邮箱"
+        },
+        "CONTRACT_NAME": {
+          "LABEL": "合同名"
+        },
+        "DESCRIPTION": {
+          "PLACEHOLDER": "合同描述"
+        }
+      }
+    },
+    "BUY_TOKENS": {
+      "TITLE": "购买代币",
+      "NOTE": {
+        "RED_TEXT": "请注意！",
+        "TEXT": "补充之后，您将无法转移/交换代币。 您只能将其用于平台内的合同创建"
+      },
+      "GET": "收",
+      "SEND": "发送",
+      "CHOOSE_REPLENISH_METHOD": "选择补充方法",
+      "CHOOSE_PAYMENT_METHOD": "选择付款方式：",
+      "CHOOSE_WALLET": "选择你的钱包：",
+      "SEND_WISH": "发送WISH代币到：",
+      "SEND_ETH": "发送您的ETH到：",
+      "SEND_BTC": "S发送您的BTC到：",
+      "ENTER_AMOUNT": "输入金额：",
+      "BTC_ATTENTION": {
+        "RED_TEXT": "注意！",
+        "TEXT": "您将在5 BTC块确认后收到代币。 <br/>大概的交易时间是1小时。"
+      },
+      "GAS_PRICE": "Gas p价格30 gwei",
+      "GAS_LIMIT": "Gas限制100.000",
+      "HOW_TO_DO_IT": "怎么做？",
+      "HOW_TO_DO_IT_INSTRUCTION": {
+        "TITLE": "如何付款",
+        "LIST": {
+          "LIST_ITEM_1": "打开你的钱包",
+          "LIST_ITEM_2": "选择钱包中的发送以太网和标记标签",
+          "LIST_ITEM_3": "插入以下收件人的地址：",
+          "LIST_ITEM_4": "输入要发送的金额并选择ETH或WISH ",
+          "LIST_ITEM_5": "指定GAS限制30000",
+          "LIST_ITEM_6": "点击生成交易",
+          "LIST_ITEM_7": "按下“完成”按钮确认付款"
+        }
+      }
+    }
+  },
+  "POPUP_FORMS": {
+    "MINT_TOKENS_FORM": {
+      "DESCRIPTION": "为代币定义地址（在完成后它将被发送到这个地址）",
+      "FIELDS": {
+        "ADDRESS": {
+          "PLACEHOLDER": "输入收件人的钱包地址",
+          "LABEL": "地址"
+        },
+        "AMOUNT": {
+          "LABEL": "代币数量"
+        },
+        "FROZEN_DATE": {
+          "LABEL": "直到日期冻结"
+        }
+      },
+      "CHART": {
+        "TOTAL_SUPPLY": "总供给：",
+        "DISTRIBUTED_BEFORE": "总分布式（之前）"
+      }
+    },
+    "CHANGE_DATES_FORM": {
+      "CURRENT_DATES": "当前开始/结束日期",
+      "SET_NEW_DATES": "你可以设置开始和结束的新日期。 开始日期不能在销售开始之后和具有时间奖励的合同中更改。"
+    }
+  },
+  "POPUP_ERRORS": {
+    "I_ALIVE_ERROR": {
+      "TEXT": "今天你不能称之为“我活着”。"
+    },
+    "LESS_BALANCE": {
+      "TEXT": "没有足够的代币来进行合同部署"
+    },
+    "FREEZE_DATE": {
+      "TEXT": "代币的冻结日期已过期。<br/>请更改并重试."
+    },
+    "CONTRACT_START_DATE": {
+      "TEXT": "合同开始日期不正确。 <br/>请更改并重试."
+    }
+  },
+  "CONTRACTS_DISCLAIMERS": {
+    "ETH": {
+      "ACTIVATE": {
+        "LIST": {
+          "ITEM_1": "对于销售激活，您需要将代币所有权转让给众包合约。",
+          "ITEM_2": "您将需要从代币所有者地址进行特殊交易({{address}})"
+        }
+      },
+      "MINT_FINALIZE": {
+        "LIST": {
+          "ITEM_0": "完成后不再有代币可以被销毁，也不会创建新的消费群"
+        }
+      }
+    },
+    "ALL": {
+      "LAUNCH": {
+        "LIST": {
+          "ITEM_1": " MyWish不负责合同的使用",
+          "ITEM_2": " MyWish只负责在以太 / RSK网络上创建和启动它",
+          "ITEM_3": "如果用户输入错误的参数，MyWish不对不正确的合同行为负责",
+          "ITEM_4": " MyWish不对代码中的错误负责，但是如果它们被检测到，它将尽一切可能消除它",
+          "ITEM_5": " MyWish无权访问合同的管理功能，并且无法停止它，继续并执行其他任何操作，除了结束日期之后的定稿"
+        }
+      },
+      "NEO_NETWORK": {
+        "LIST": {
+          "ITEM_1": "由于高的部署成本，<a href=\"mailto:support@mywish.io\"> support@mywish.io </a>您需要在MAIN NET中创建之前联系"
+        }
+      }
+    }
+  },
+  "CONTRACTS_INSTRUCTIONS": {
+    "ALL": {
+      "I_ALIVE": {
+        "TITLE": "确认直播",
+        "DESCRIPTION": "你确认你的“活”状态吗？",
+        "LIST": {
+          "ITEM_0": "如果你不这样做，那么资金将按照合同分配."
+        },
+        "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "WILL_CANCEL": {
+        "TITLE": "取消",
+        "DESCRIPTION": "你确定要取消合同吗？",
+        "LIST": {
+          "ITEM_0": "取消后所有资金将被发送到您的管理地址。"
+        }
+      },
+      "WILL_WITHDRAW": {
+        "TITLE": "收回",
+        "LIST": {
+          "ITEM_0": "你确定要退出吗？ 所有资金都将发送到您的管理地址。"
+        }
+      }
+    },
+    "ETH": {
+      "ANY_TRANSACTION": {
+        "PART_1": "从您的管理地址发送交易（{{amount||'0'}} ETH）",
+        "PART_2": "签约地址",
+        "PART_3": "数据字段"
+      },
+      "ACTIVATE": {
+        "TITLE": "启用",
+        "DESCRIPTION": "要激活众包，您需要将代币所有权转让给众包合约。 请从代币所有者地址呼叫相应的功能。"
+      },
+      "CANCEL": {
+        "TITLE": "取消",
+        "DESCRIPTION": "要<span class=\"shadow-block__content__description__red uppercase\">停止</ span>合同，请按照说明中的步骤操作。"
+      },
+      "DEPOSIT": {
+        "TITLE": "存款",
+        "DESCRIPTION": "要在合同上存款，请按照说明进行。",
+        "LIST": {
+          "ITEM_1": "打开你的钱包(Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "选择钱包中的发送以太网和标记标签",
+          "ITEM_3": "插入以下收件人的地址：",
+          "ITEM_4": "指定要发送多少ETH（金额发送字段）",
+          "ITEM_5": "指定GAS限制30000",
+          "ITEM_6": "点击生成交易",
+          "ITEM_7": "按下按钮\"完成\""
+        }
+      },
+      "FINALIZE": {
+        "TITLE": "最终确定",
+        "DESCRIPTION": "要完成合同并使代币可转让，请执行以下步骤（在投资地址下）"
+      },
+      "I_ALIVE": {
+        "TITLE": "确认直播",
+        "DESCRIPTION": "要确认您的实时状态，请执行以下操作：",
+        "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "MINT_FINALIZE": {
+        "TITLE": "Finalize",
+        "DESCRIPTION": "完成代币{{token_short_name}}请从代币所有者的地址进行以下交易(<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)"
+      },
+      "MINT": {
+        "TITLE": "巨额",
+        "DESCRIPTION": "巨额{{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)"
+      },
+      "PARITY": {
+        "TITLE": "加入平价",
+        "DESCRIPTION": "添加合同奇偶丢失的钥匙",
+        "LIST": {
+          "ITEM_1": "开放奇偶校验",
+          "ITEM_2": "输入设置并点击合同复选框。",
+          "ITEM_3": "进入文件夹\"合同\"并点击\"+ 查看 \"",
+          "ITEM_4": "在\"选择合约类型\"中选择\"自定义合约\".",
+          "ITEM_5": "在\"网络地址\"字段中，输入管理加载项（您的电子钱包地址）",
+          "ITEM_5_1": "指定合同的名称（建议您在MyWish服务中指定的名称)",
+          "ITEM_5_2": "输入合约说明（可选）",
+          "ITEM_5_3": "从MyWish指令复制ABI合约",
+          "ITEM_6": "然后点击\"+ 加合约 \"",
+          "ITEM_7": "现在这份合同可以在合同列表中找到，您可以从中转移资金。"
+        }
+      },
+      "WILL_CANCEL": {
+        "TITLE": "取消",
+        "DESCRIPTION": "取消后，所有资金将发送到您的管理地址。<br/>要取消，请执行以下操作：",
+        "LAST_CHECK": "最后日期：&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "下一步检查:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+      },
+      "WILL_WITHDRAW": {
+        "TITLE": "收回",
+        "DESCRIPTION": "退出后，所有资金将发送到您的管理地址。<br/>要退出，请执行以下操作："
+      },
+      "CHANGE_DATES": {
+        "TITLE": "更改日期",
+        "DESCRIPTION": "将开始日期更改到{{newStartDate|date:'yyyy-MM-dd HH:mm'}} / 完成日期到 {{newFinishDate|date:'yyyy-MM-dd HH:mm'}} 请执行以下步骤："
+      }
+    },
+    "RSK": {
+      "DEPOSIT": {
+        "TITLE": "存款",
+        "DESCRIPTION": "创建合同后，您需要向其发送资金。",
+        "LIST": {
+          "ITEM_1": "发送您的BTC到生成的地址（它是唯一的）",
+          "ITEM_2": "获得BTC后，它将从MyWish白名单地址发送到RSK网络。",
+          "ITEM_3": "在3-6小时内（需要10 BTC确认）您的RSK合约余额将被记入（1 BTC = 1 RSK），您将收到电子邮件确认。",
+          "ITEM_4": "如果您的BTC地址已被RSK社区列入白名单，您可以发送SBTC进行签约<a href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> directly."
+        }
+      }
+    },
+    "NEO": {
+      "MINT": {
+        "TITLE": "铸币",
+        "DESCRIPTION": "要向铸币代币请来令牌所有者的地址进行以下交易(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
+        "LIST": {
+          "ITEM_0": "安装NEOLink钱包： <a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "选择TestNet ",
+          "ITEM_2": "将脚本哈希放置到脚本哈希字段",
+          "ITEM_3": "将“铸币”放入操作栏",
+          "ITEM_4": "将收件人的NEO地址添加到参数1字段",
+          "ITEM_5": "将标记数量（对于铸币）放入参数2字段"
+        }
+      },
+      "MINT_FINALIZE": {
+        "TITLE": "最终确定",
+        "DESCRIPTION": "完成代币 {{token_short_name}}请从代币所有者的地址进行以下交易(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
+        "LIST": {
+          "ITEM_0": "安装NEOLink钱包：<a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
+          "ITEM_1": "选择TestNet ",
+          "ITEM_2": "将脚本哈希放置到脚本哈希字段",
+          "ITEM_3": "把\"完成铸币\"放到操作栏中",
+          "ITEM_4": "将参数1字段留空",
+          "ITEM_5": "将参数2字段留空"
+        }
+      }
+    }
+  },
+  "CONTRACTS": {
+    "FOR_SALE": "待售",
+    "PRE_SALE": "预售",
+    "ENTER_PROMO_BLOCK": {
+      "FIELD_LABEL": "促销代码",
+      "DESCRIPTION": "您可以输入促销代码并获得折扣",
+      "COST": "合同成本："
+    },
+    "FORMS": {
+      "DAY": "天",
+      "MONTH": "月",
+      "YEAR": "年",
+      "WATCH_INSTRUCTION": "观看指令",
+      "WEDDING": {
+        "TITLE": "婚约",
+        "DESCRIPTION": "请填写下面的表格并指定您的意愿。 我们会在合同创建之前询问您的合作伙伴。",
+        "FIELDS": {
+          "USERNAME": {
+            "LABEL": "User&nbsp;name"
+          },
+          "EMAIL": {
+            "LABEL": "电子邮箱"
+          },
+          "DESCRIPTION": {
+            "PLACEHOLDER": "合同描述"
+          }
+        }
+      },
+      "FIELDS": {
+        "ENTER_CONTRACT_NAME": {
+          "LABEL": "输入合约名称："
+        }
+      },
+      "BUTTONS": {
+        "ADD_WALLET": "添加钱包"
+      },
+      "DEFERRED": {
+        "TITLE": "延期付款",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "管理地址",
+            "PLACEHOLDER": "输入您的ETH钱包地址",
+            "DESCRIPTION": "这个地址的所有者将能够管理合同（这是唯一的）"
+          },
+          "SEND_TO_WALLET": {
+            "LABEL": "发送到钱包",
+            "PLACEHOLDER": "输入收件人的钱包地址",
+            "DESCRIPTION": "输入收件人的ETH地址。 该地址将被转移。"
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "电子邮箱通知",
+            "PLACEHOLDER": "输入电子邮箱",
+            "DESCRIPTION": "输入我们向其发送有关传送通知的电子邮箱地址。"
+          },
+          "DATE_OF_TRANSFER": {
+            "LABEL": "转移日期",
+            "PLACEHOLDER": "",
+            "DESCRIPTION": "输入合同的条件 - 指定何时进行转账。"
+          }
+        }
+      },
+      "LOST_KEY": {
+        "TITLE": "失去了重要合同",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "管理地址",
+            "PLACEHOLDER": "输入您的ETH钱包地址",
+            "DESCRIPTION": "这个地址的所有者将能够管理合同（这是唯一的）"
+          },
+          "RESERVE_ADDRESS": {
+            "LABEL": "保留地址",
+            "PLACEHOLDER": "输入收件人的钱包地址",
+            "DESCRIPTION": "指定在管理地址丢失私钥的情况下要将资金发送到的备份地址"
+          },
+          "SHARE": {
+            "LABEL": "分享",
+            "DESCRIPTION": "您可以在多个储备账户之间划分资金。 为每个预留地址选择百分比。"
+          },
+          "NOTIFICATION_EMAIL": {
+            "LABEL": "电子代币通知",
+            "PLACEHOLDER": "输入电子邮箱",
+            "DESCRIPTION": "输入您想要发送有关传送加密货币信息的电子邮箱地址"
+          },
+          "CONDITIONS_TEXT": "输入钱包活动的条件",
+          "CONDITIONS_DESCRIPTION": "输入合同的条件 - 指定何时进行转账。",
+          "WALLETS_ACTIVITY": {
+            "LABEL": "电子钱包的活动",
+            "LIST": {
+              "ITEM_1": "成果交易"
+            }
+          },
+          "CHECK_EVERY": {
+            "LABEL": "检查每一个："
+          },
+          "DUE_DATE": {
+            "LABEL": "截止日期"
+          }
+        }
+      },
+      "LAST_WILL": {
+        "TITLE": "将合同",
+        "BUTTONS": {
+          "ADD_BENEFICIARY": "添加受益人"
+        },
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "管理地址",
+            "PLACEHOLDER": "输入您的{{networkName}}钱包地址",
+            "ETH_DESCRIPTION": " ETH地址（不是交换地址）。 该地址将管理意愿合同。 在提交之前仔细检查地址（并访问它)",
+            "RSK_DESCRIPTION": "该地址将管理您的合同。 你可以通过创建它<a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a>钱包。 在提交之前仔细检查它。"
+          },
+          "YOUR_EMAIL": {
+            "LABEL": "您的电子邮箱的余额和通知",
+            "PLACEHOLDER": "输入电子邮箱",
+            "DESCRIPTION": "我们会提醒您确认\"实时\"状态并发送有关合同的通知"
+          },
+          "BENEFICIARY_ADDR": {
+            "LABEL": "受益人地址",
+            "PLACEHOLDER": "输入{{networkName}}地址",
+            "ETH_DESCRIPTION": "输入受益人的ETH地址。 合同执行后，资金将被发送到该地址。",
+            "RSK_DESCRIPTION": "输入受益人的RSK地址。 合同执行后，资金将被发送到该地址。 继承人可以通过创建它<a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> too."
+          },
+          "SHARE": {
+            "LABEL": "分享"
+          },
+          "BENEFICIARY_EMAIL": {
+            "LABEL": "电子邮箱通知",
+            "PLACEHOLDER": "输入电子邮箱",
+            "DESCRIPTION": "输入我们发送有关传送通知的电子邮箱地址"
+          },
+          "CONDITIONS_TITLE": "定义您想要确认您的\"实时\"状态的频率",
+          "CONFIRMATION_EVERY": {
+            "LABEL": "每个确认交易",
+            "DESCRIPTION": "您每次都需要从管理地址向合同发送交易。"
+          },
+          "CONTRACT_EXPIRATION": {
+            "LABEL": "将合同到期",
+            "DESCRIPTION": "在截止日期之后，如果所有的确认信息都及时收到，所有资金将被发送到管理地址。"
+          },
+          "CANCEL_VIA_MYWISH": {
+            "LABEL": "通过MyWish取消合同",
+            "DESCRIPTION": "如果\"开启\"，您将能够通过1-Click MyWish取消合约并获得所有资金。"
+          },
+          "CONFIRM_LIVE_VIA_MYWISH": {
+            "LABEL": "通过MyWish确认“生活” ",
+            "DESCRIPTION": "如果\"开启\"，您将能够通过在MyWish上单击确认“实时”状态。"
+          },
+          "BOTH_VIA_MYWISH_TEXT": {
+            "DESCRIPTION": "两种选项的关闭模式更安全，但使用起来不方便。 您将需要安装Metamask来管理合同。 通过选项，您可以通过MyWish管理合同。"
+          },
+          "CHECK_EVERY": {
+            "LABEL": "检查每一个："
+          },
+          "DUE_DATE": {
+            "LABEL": "截止日期："
+          }
+        }
+      },
+      "TOKEN": {
+        "TITLE": "代币合同",
+        "BUTTONS": {
+          "ADD_ADDRESS": "铸币代币"
+        },
+        "TOTAL_SUPPLY": "总供给：",
+        "FIELDS": {
+          "TOKEN_NAME": {
+            "LABEL": "代币名称：",
+            "DESCRIPTION": "输入无空格的项目名称，通常为5-25个符号。 可以使用大写和小写"
+          },
+          "TOKEN_SYMBOL": {
+            "LABEL": "代币符号：",
+            "DESCRIPTION": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。请在提交之前检查它是否是唯一的(<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_NEO": "该符号应该较短（建议使用3-8个字符），不得有空白字符或换行符，并应限制为大写拉丁字母（即英文中使用的26个字母）"
+          },
+          "DECIMALS": {
+            "LABEL": "小数点:",
+            "DESCRIPTION": "定义代币的小数位数. 0-{{max_decimals}}数字被接受。 {{default_decimals}}作为惯例"
+          },
+          "TOKEN_TYPE": {
+            "LABEL": "选择代币类型",
+            "DESCRIPTION_1": " ERC-20是推荐的选项。 被大多数交易所接受。",
+            "DESCRIPTION_2": " ERC-223与ERC-20几乎相同。 在代币传输期间提供额外安全性"
+          },
+          "TOKEN_OWNER": {
+            "LABEL": "代币所有者",
+            "DESCRIPTION": "{{blockchain}} 地址(不是交换地址). 该地址将是代币的所有者（售后结束日期）。 在提交之前仔细检查地址（并访问它）"
+          },
+          "RECIPIENT": {
+            "TITLE": "为代币定义地址（在完成后它将被发送到这个地址）",
+            "DESCRIPTION_BLOCK": "您可以为团队，奖金，赏金预留代币 - 这些代币将被创建，但在代币销售完成之前无法销售"
+          },
+          "RECIPIENT_ADDRESS": {
+            "LABEL": "地址",
+            "PLACEHOLDER": "输入收件人的钱包地址"
+          },
+          "RECIPIENT_NAME": {
+            "LABEL": "名字"
+          },
+          "RECIPIENT_AMOUNT": {
+            "LABEL": "代币数量"
+          },
+          "FROZEN_UNTIL": {
+            "LABEL": "直到日期冻结"
+          },
+          "FROZEN_UNTIL_SHORT": {
+            "LABEL": "冷冻直到"
+          },
+          "FUTURE_MINTING": {
+            "LABEL": "未来巨额",
+            "DESCRIPTION": "是的 - 您可以在将来创建更多的代币并为代币销售使用令代币。 <br/> 没有 - 将来不会再创建代币。 代币销售是不可能的",
+            "DESCRIPTION_NEO": "是的 - 您可以在将来创建更多的代币并为代币销售使用令代币。 <br/> 没有 - 将来不会再创建代币。 代币销售是不可能的"
+          }
+        }
+      },
+      "CROWD_SALE": {
+        "TITLE": "代币销售合约",
+        "BUTTONS": {
+          "ADD_NEW_TIME_BONUS": "添加奖励：时间/已售代币",
+          "ADD_OTHER_TIME_BONUS": "添加其他奖励：时间/已售代币",
+          "ADD_NEW_AMOUNT_BONUS": "添加金额奖金",
+          "ADD_OTHER_AMOUNT_BONUS": "添加其他金额奖金",
+          "ADD_EXTRA_ADDRESS": "添加额外的地址"
+        },
+        "CAP_NOTE": {
+          "TITLE": "注意！",
+          "TEXT": "如果softcap> 0，则所有投资都将存储在保险库合同中，直到众包终止。 <br/>如果你需要立即在你的地址上投资设置softcap = 0。"
+        },
+        "CHART_TOKEN_DISTRIBUTED_MESSAGE": "最大可能释放代币，不会再放置代币。",
+        "CHART_TEXTS": {
+          "AMOUNT": "销售代币的数量",
+          "DATE": "销售代币的日期/时间"
+        },
+        "FIELDS": {
+          "CHOOSE_TOKEN": {
+            "LABEL": "选择代币",
+            "ERRORS": {
+              "CLOSED": "你不能使用这个代币。 最终销售已经完成",
+              "RUNNING": "在以前的销售没有完成之前，您不能使用此代币"
+            },
+            "DESCRIPTION": "创建新的代币或选择现有的，如果你已经完成MyWish平台预售",
+            "DISTRIBUTED": "代币分布({{short_name}})",
+            "DISTRIBUTED_DESCRIPTION": "显示您在预售期间已经分配了多少代币（包括团队，赏金，奖金的预留代币）"
+          },
+          "CROWD_SALE_TYPE": {
+            "LABEL": "选择类型代币销售",
+            "VALUE_1": "预售",
+            "DESCRIPTION_1": "您可以根据需要进行尽可能多的预售",
+            "VALUE_2": "最终销售",
+            "DESCRIPTION_2": "最终销售后不可能销售。 结束日期后不能再创建代币"
+          },
+          "STORAGE_ADDRESS": {
+            "LABEL": "投资存储地址",
+            "DESCRIPTION": " ETH地址（不是交换地址）。 如果达到软顶限，所有的贡献将在完成日期后发送到该地址。 在进入之前仔细检查地址"
+          },
+          "TOKEN_RATE": {
+            "LABEL": "代币率",
+            "DESCRIPTION": "定义您的令牌的比率。 1-100000数字被接受。 通常500-5000代币每一{{blockchain}}",
+            "ADV_DESCRIPTION": "每一{{blockchain}}"
+          },
+          "HARD_CAP": {
+            "LABEL": "Hard cap 代币",
+            "DESCRIPTION": "定义可以销售多少令牌。 达到此数字后，销售将自动停止。 1-100,000,000,000,000个数字被接受。"
+          },
+          "SOFT_CAP": {
+            "LABEL": "Soft cap 代币",
+            "DESCRIPTION": "定义项目继续需要销售的最小代币数量。 如果没有达到软帽 - 贡献者获得他们的法衣，项目一无所获。 您可以将其设置为0（无SOFTCAP）"
+          },
+          "START_DATE": {
+            "LABEL": "开始日期",
+            "DESCRIPTION": "开始日期/时间待售。 在此之前没有任何捐款会被接受"
+          },
+          "FINISH_DATE": {
+            "LABEL": "完成日期",
+            "DESCRIPTION": "完成日期/时间。 在设定的时间之后将不接受捐款。 如果达到了硬帽，可以完成"
+          },
+          "TRANSFERABLE": {
+            "LABEL": "转让：",
+            "DESCRIPTION": "用户可以限制来自贡献者的代币传输，直到代币完成以减少猜测。 建议关闭"
+          },
+          "AUTO_FINALIZE": {
+            "LABEL": "完成自动：",
+            "DESCRIPTION": "我们的系统可以在结束日期后自动完成合约（使代币可以转让）（如果达到硬限额，您可以尽早完成）"
+          },
+          "CHANGING_DATES": {
+            "LABEL": "更改日期",
+            "DESCRIPTION": "开始/结束日期可以在合同部署后手动更改。 您可以延长销售时间或尽早完成销售。 否则，日期是硬编码的，不能改变。"
+          },
+          "MIN_MAX_INVESTMENTS": {
+            "LABEL": "最小和最大投资限制",
+            "DESCRIPTION": "您可以指定最小/最大接受贡献（在ETH中）。 例如，仅接受0.05 ETH至3000 ETH的供款"
+          },
+          "MIN_INVESTMENTS": {
+            "LABEL": "最少",
+            "DESCRIPTION": "最低金额被接受。 \"0 \"=没有最低限制"
+          },
+          "MAX_INVESTMENTS": {
+            "LABEL": "最少",
+            "DESCRIPTION": "最大金额接受。 它不能更高hard cap"
+          },
+          "TIME_BONUS": {
+            "LABEL": "奖金",
+            "DESCRIPTION": "通常为0.1-100％。 多少额外令代币将被发送给贡献者。"
+          },
+          "TIME_BONUS_TITLE": "请选择其中一个选项（或两者）进行奖励激活",
+          "DEPENDS_AMOUNT": {
+            "LABEL": "取决于销售代币的数量：",
+            "DESCRIPTION": "指定在激活奖励和奖励停用之前销售多少代币",
+            "AMOUNT_FROM": "从",
+            "AMOUNT_TO": "到"
+          },
+          "DEPENDS_DATE_TIME": {
+            "LABEL": "取决于日期/时间：",
+            "DESCRIPTION": "指定每个人活动奖金的时间范围",
+            "DATE_FROM": "日期从",
+            "DATE_TO": "日期至"
+          },
+          "TIME_BONUS_DESCRIPTION": "您可以根据销售代币数量和时间来定义奖金。 例如，为第一周的贡献者提供额外的10％",
+          "AMOUNT_BONUS": {
+            "LABEL": "Bonus",
+            "DESCRIPTION": "通常为0.1-100％。 多少额外代币将被发送给贡献者。"
+          },
+          "MIN_AMOUNT": {
+            "LABEL": "最小金额",
+            "DESCRIPTION": "获得指定奖金的最小贡献"
+          },
+          "MAX_AMOUNT": {
+            "LABEL": "最大金额",
+            "DESCRIPTION": "获得指定奖金的最大贡献{last ? ' (如果没有限制，您可以将其留空)' : ''}}"
+          },
+          "AMOUNT_BONUS_DESCRIPTION": "您可以根据贡献金额定义奖金。 例如，为10个以上的ETH贡献提供额外的5％代币"
+        }
+      }
+    },
+    "PREVIEW": {
+      "BUTTONS": {
+        "BACK_BUTTON": "我的合同"
+      },
+      "TABS": {
+        "INFO": "预览合约",
+        "SOURCE": "源代码"
+      },
+      "FREE_VERSION_MSG": "在免费版本（Test Net）中，源代码不可用于加载。",
+      "WILL_SOURCE_CODE": "您的源代码",
+      "DEFERRED_SOURCE_CODE": "您的延期付款合同源代码",
+      "LOST_KEY_SOURCE_CODE": "你丢失的关键源代码",
+      "TOKEN_SOURCE_CODE": "你的代币源代码",
+      "CROWDSALE_SOURCE_CODE": "您的代币销售源代码",
+      "HERE": "这里",
+      "ETHERSCAN_VERIFY_SUPPORT": "如果您需要验证Etherscan的合同，请与我们联系<a href=\"mailto:support@mywish.io\">email</a>",
+      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "如果您需要验证Etherscan的合同，请与我们联系<a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
+      "LIBRARIES_AND_FILES": "可以找到库和其他文件<a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
+      "VERIFY_INSTRUCTION": {
+        "ITEM_1": "打开合同地址<a target=\"_blank\" href=\"{{address_url}}\">etherscan</a>",
+        "ITEM_2": "在合同代码选项卡中选择\"验证并发布\"",
+        "ITEM_3": "输入合同名称：",
+        "ITEM_4": "输入合同地址：",
+        "ITEM_5": "填写编译器版本：",
+        "ITEM_6": "粘贴合同代码：",
+        "ITEM_7_1": "从构造函数参数字段ABI编码中删除参数",
+        "ITEM_7_2": "输入构造函数参数ABI编码：",
+        "ITEM_8": "其他领域不是必需的。 按\"验证并发布\""
+      },
+      "CONTRACT_CODE_FOR_FREE": "不提供免费版本",
+      "CONTRACT_CONDITIONS": "合同条件",
+      "HOW_TO_VERIFY": "如何验证etherscan？",
+      "CONTRACT_BALANCE": "合约余额：",
+      "CONTRACT_ADDRESS": "合同地址：",
+      "NEXT_CHECK": "下一步检查：",
+      "LAST_WILL": {
+        "CONFIRM_LIVE": {
+          "VARIANT_1": "请确认接下来检查之前，“活”的状态：{{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>最后的“现场”确认：{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_2": "资金已按照合同分配{{last_check ? (last_check|date:'yyyy-MM-dd HH:mm') : '--'}}<br/><br/>最后的“现场”确认：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_3": "合同被取消，所有资金都被发送给合同的所有者。<br/><br/>最后的“现场”确认：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_4": "合同已到期，合同的所有者应提取资金。<br/><br/>最后的“现场”确认： {{last_reset ? (last_reset|date:'yyyy-MM-dd') : '--'}}"
+        },
+        "LABELS": {
+          "HEIR": "他的",
+          "HEIRS": "她的"
+        }
+      },
+      "TOKEN": {
+        "TOKEN_ADDRESS": "代币地址",
+        "TOKEN_TYPE": "代币类型:",
+        "TOKEN_DISTRIBUTION": "代币分配"
+      },
+      "CROWD_SALE": {
+        "CROWD_SALE_CONTRACT": "代币销售合同（所有文稿均应发送到此地址）",
+        "VAULT_ADDRESS": "保险库合同（投资存储直到代币预售结束）",
+        "CROWD_SALE_TYPE": " 代币预销售类型：",
+        "TOKEN_SCRIPT_HASH": "Token contract script hash",
+        "CROWDSALE_SCRIPT_HASH": "Crowdsale contract script hash",
+        "TIME_BONUSES": {
+          "TITLE": "时间奖金",
+          "BONUS": "奖金：",
+          "TOKENS_FROM": "代币从",
+          "TOKENS_TO": "代币到",
+          "DATE_FROM": "日期从",
+          "DATE_TO": "日期至",
+          "SOLD_TOKENS_BONUS_TEXT": "出售的代币奖金",
+          "TIME_BONUS_TEXT": "时间奖金"
+        },
+        "AMOUNT_BONUSES": {
+          "TITLE": "金额奖金",
+          "BONUS": "奖金:",
+          "MIN_AMOUNT": "最小的金额",
+          "MAX_AMOUNT": "最大金额"
+        }
+      }
+    }
+  }
+}

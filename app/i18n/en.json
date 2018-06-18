@@ -732,7 +732,8 @@
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting:",
-            "DESCRIPTION": "Yes - you can create more tokens in the future {{!noCrowdsale ? '& use token for Crowdsale' : ''}}. <br/>No - no more tokens will be created in the future. {{!noCrowdsale ? 'Crowdsale is impossible' : ''}}"
+            "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible.",
+            "DESCRIPTION_NEO": "Yes - you can create more tokens in the future. <br/>No - no more tokens will be created in the future."
           }
         }
       },
@@ -911,6 +912,8 @@
         "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",
         "VAULT_ADDRESS": "Vault contract (Investments storage until the end of crowdsale)",
         "CROWD_SALE_TYPE": "Crowdsale type:",
+        "TOKEN_SCRIPT_HASH": "Token contract script hash",
+        "CROWDSALE_SCRIPT_HASH": "Crowdsale contract script hash",
         "TIME_BONUSES": {
           "TITLE": "Time bonuses",
           "BONUS": "Bonus:",

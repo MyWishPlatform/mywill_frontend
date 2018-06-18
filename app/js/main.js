@@ -32,6 +32,10 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         'en': {
             'name': 'English',
             'icon': 'us'
+        },
+        'zh': {
+            'name': '中国',
+            'icon': 'zh'
         }
     };
 

@@ -340,7 +340,7 @@
   },
   "POPUP_ERRORS": {
     "I_ALIVE_ERROR": {
-      "TEXT": "You can't call \"I Alive\" anymore today."
+      "TEXT": "You can't call \"{{'CONTRACTS_BUTTONS.I_ALIVE'|translate}}\" anymore today."
     },
     "LESS_BALANCE": {
       "TEXT": "Not enough tokens for contract deployment"
@@ -432,7 +432,7 @@
           "ITEM_4": "Specify how much ETH you want to send (Amount to Send field)",
           "ITEM_5": "Specify Gas limit 30000",
           "ITEM_6": "Click generate Transaction",
-          "ITEM_7": "Confirm the payment by pressing the button \"DONE\""
+          "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
         }
       },
       "FINALIZE": {

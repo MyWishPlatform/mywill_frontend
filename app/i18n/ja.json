@@ -340,7 +340,7 @@
   },
   "POPUP_ERRORS": {
     "I_ALIVE_ERROR": {
-      "TEXT": "今日はもう \"I Alive\"と呼ぶことはできません。"
+      "TEXT": "今日はもう \"{{'CONTRACTS_BUTTONS.I_ALIVE'|translate}}\"と呼ぶことはできません。"
     },
     "LESS_BALANCE": {
       "TEXT": "トークンがデプロイメントの契約のために十分ではない"

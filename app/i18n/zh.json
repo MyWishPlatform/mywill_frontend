@@ -340,7 +340,7 @@
   },
   "POPUP_ERRORS": {
     "I_ALIVE_ERROR": {
-      "TEXT": "今天你不能称之为“我活着”。"
+      "TEXT": "今天你不能称之为\"{{'CONTRACTS_BUTTONS.I_ALIVE'|translate}}\"。"
     },
     "LESS_BALANCE": {
       "TEXT": "没有足够的代币来进行合同部署"
@@ -432,7 +432,7 @@
           "ITEM_4": "指定要发送多少ETH（金额发送字段）",
           "ITEM_5": "指定GAS限制30000",
           "ITEM_6": "点击生成交易",
-          "ITEM_7": "按下按钮\"完成\""
+          "ITEM_7": "按下按钮\"{{'BUTTONS.DONE'|translate}}\""
         }
       },
       "FINALIZE": {

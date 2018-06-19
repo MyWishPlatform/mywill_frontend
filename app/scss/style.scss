@@ -1,4 +1,8 @@
 @import "common/awesome";
+.icon-padlock:before {
+  margin-left: 0.1em;
+}
+
 @import "common/base";
 @import "common/main";
 @import "common/menu";

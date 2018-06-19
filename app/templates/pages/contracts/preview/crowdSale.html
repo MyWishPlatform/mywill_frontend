@@ -481,6 +481,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix show-ls" ng-if="blockchain === 'ETH'"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="blockchain === 'ETH'">
+                    <div class="form-control-label">
+                        <i class="icon-note-list form-control-label-icon"></i>
+                        Whitelist
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.whitelist, 'icon-cancel': !details.whitelist}"></i>
+                            <span ng-if="details.whitelist" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.whitelist" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

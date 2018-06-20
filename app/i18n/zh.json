@@ -459,7 +459,7 @@
         "LIST": {
           "ITEM_1": "开放Parity",
           "ITEM_2": "输入设置并点击合同复选框。",
-          "ITEM_3": "进入文件夹\"Contracts\"并点击\"+ WATCH"",
+          "ITEM_3": "进入文件夹\"Contracts\"并点击\"+ WATCH\"",
           "ITEM_4": "在\"choose contract type\"中选择\"custom contracts\".",
           "ITEM_5": "在\"network address\"字段中，输入管理加载项（您的电子钱包地址）",
           "ITEM_5_1": "指定合同的名称（建议您在MyWish服务中指定的名称)",

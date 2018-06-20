@@ -893,7 +893,7 @@
       "NEXT_CHECK": "下一步检查：",
       "LAST_WILL": {
         "CONFIRM_LIVE": {
-          "VARIANT_1": "请确认接下来检查之前，“活”的状态：{{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>最后的“现场”确认：{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
+          "VARIANT_1": "请确认接下来检查之前，“活”的状态：{{next_check|date:'yyyy-MM-dd HH:mm'}}<br/><br/>最后的“现场”确认：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
           "VARIANT_2": "资金已按照合同分配{{last_check ? (last_check|date:'yyyy-MM-dd HH:mm') : '--'}}<br/><br/>最后的“现场”确认：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
           "VARIANT_3": "合同被取消，所有资金都被发送给合同的所有者。<br/><br/>最后的“现场”确认：{{last_reset ? (last_reset|date:'yyyy-MM-dd HH:mm') : '--'}}",
           "VARIANT_4": "合同已到期，合同的所有者应提取资金。<br/><br/>最后的“现场”确认： {{last_reset ? (last_reset|date:'yyyy-MM-dd') : '--'}}"

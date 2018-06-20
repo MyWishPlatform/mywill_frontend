@@ -446,7 +446,7 @@
         "NEXT_CHECK": "下次检查:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "MINT_FINALIZE": {
-        "TITLE": "Finalize",
+        "TITLE": "最终确定",
         "DESCRIPTION": "完成代币{{token_short_name}}请从代币所有者的地址进行以下交易(<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)"
       },
       "MINT": {

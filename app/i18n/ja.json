@@ -498,7 +498,7 @@
     },
     "NEO": {
       "MINT": {
-        "TITLE": "Mint",
+        "TITLE": "ミント",
         "DESCRIPTION": "トークンをミントするには、所有者トークンのアドレス(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)から次の取引を行ってください",
         "LIST": {
           "ITEM_0": "NEOLink財布をインストールする：<a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",
@@ -510,7 +510,7 @@
         }
       },
       "MINT_FINALIZE": {
-        "TITLE": "Finalize",
+        "TITLE": "完成させる",
         "DESCRIPTION": "トークン{{token_short_name}}を完成するために、所有者トークンのアドレス(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)から以下の取引をしてください",
         "LIST": {
           "ITEM_0": "NEOLink財布をインストールする：<a href=\"https://github.com/CityOfZion/NeoLink\" target=\"_blank\">https://github.com/CityOfZion/NeoLink</a>",

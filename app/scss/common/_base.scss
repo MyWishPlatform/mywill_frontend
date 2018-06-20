@@ -338,12 +338,12 @@ nav, main, footer, header {
     clear: both;
     display: block;
   }
-  padding-bottom: 2em;
   text-shadow: none;
   &-item {
     float: left;
     width: 50%;
     text-align: left;
+    margin-bottom: 2em;
     &.active &__name {
       font-weight: 700;
       text-decoration: none;
@@ -354,6 +354,7 @@ nav, main, footer, header {
     }
     &__icon {
       height: 2.2em;
+      width: 2.2em;
       margin-right: 0.3em;
       vertical-align: middle;
       border-radius: 50%;

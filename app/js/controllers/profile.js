@@ -4,6 +4,7 @@ angular.module('app').controller('profileController', function($scope, authServi
         template: '/templates/popups/confirmations/enable-2fa.html',
         newPopupContent: true,
         class: 'deleting-contract',
+        params: {},
         actions: {
             enable2fa: function(code, form) {
                 if (!form.$valid) return;
@@ -37,6 +38,7 @@ angular.module('app').controller('profileController', function($scope, authServi
         class: 'deleting-contract',
         template: '/templates/popups/confirmations/disable-2fa.html',
         newPopupContent: true,
+        params: {},
         actions: {
             disable2fa: function(code, form) {
                 if (!form.$valid) return;

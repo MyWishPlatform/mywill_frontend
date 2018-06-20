@@ -340,7 +340,7 @@
   },
   "POPUP_ERRORS": {
     "I_ALIVE_ERROR": {
-      "TEXT": "You can't call \"I Alive\" anymore today."
+      "TEXT": "You can't call \"{{'CONTRACTS_BUTTONS.I_ALIVE'|translate}}\" anymore today."
     },
     "LESS_BALANCE": {
       "TEXT": "Not enough tokens for contract deployment"
@@ -432,7 +432,7 @@
           "ITEM_4": "Specify how much ETH you want to send (Amount to Send field)",
           "ITEM_5": "Specify Gas limit 30000",
           "ITEM_6": "Click generate Transaction",
-          "ITEM_7": "Confirm the payment by pressing the button \"DONE\""
+          "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
         }
       },
       "FINALIZE": {
@@ -732,7 +732,8 @@
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting:",
-            "DESCRIPTION": "Yes - you can create more tokens in the future {{!noCrowdsale ? '& use token for Crowdsale' : ''}}. <br/>No - no more tokens will be created in the future. {{!noCrowdsale ? 'Crowdsale is impossible' : ''}}"
+            "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible.",
+            "DESCRIPTION_NEO": "Yes - you can create more tokens in the future. <br/>No - no more tokens will be created in the future."
           }
         }
       },
@@ -911,6 +912,8 @@
         "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",
         "VAULT_ADDRESS": "Vault contract (Investments storage until the end of crowdsale)",
         "CROWD_SALE_TYPE": "Crowdsale type:",
+        "TOKEN_SCRIPT_HASH": "Token contract script hash",
+        "CROWDSALE_SCRIPT_HASH": "Crowdsale contract script hash",
         "TIME_BONUSES": {
           "TITLE": "Time bonuses",
           "BONUS": "Bonus:",

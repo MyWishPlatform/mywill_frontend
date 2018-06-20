@@ -116,8 +116,8 @@
     "ADDRESS_NOT_CHECKSUMMED": "地址不是校验和"
   },
   "BLOCKCHAIN_NETWORKS": {
-    "ETH": "以太",
-    "BTC": "比特币",
+    "ETH": "ETH",
+    "BTC": "BTC",
     "NEO": "NEO"
   },
   "ALERTS": {
@@ -131,7 +131,7 @@
       "TEXT": "请登录/注册以补充您的帐户"
     },
     "PROMO_ACTIVATED": {
-      "TEXT": "促销代码已激活。<br/>新的价格: {{price}} 要."
+      "TEXT": "促销代码已激活。<br/>新的价格: {{price}} WISH."
     },
     "NEO_CROWDSALE_FINALIZED": {
       "TEXT": "您的合同已成功完成。"
@@ -148,7 +148,7 @@
       "TEXT": "你想删除它?"
     },
     "CONTRACT_PAY": {
-      "TEXT": "请确认合同启动({{price}} 要)"
+      "TEXT": "请确认合同启动({{price}} WISH)"
     }
   },
   "PAGES": {
@@ -242,7 +242,7 @@
           "LIST_ITEM_1": " Test Net中的合同可以免费使用（您可以创建并部署它以测试网络）",
           "LIST_ITEM_2": "请接受低速部署（最多3小时）",
           "LIST_ITEM_3": "测试/主网络中的合同具有相同的代码",
-          "LIST_ITEM_4": "请在处理合同时使用测试网地址（RTH代表ETH）"
+          "LIST_ITEM_4": "请在处理合同时使用测试网地址（Ropsten代表ETH）"
         }
       },
       "BTC_DISCLAIMER": {
@@ -378,7 +378,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "由于高的部署成本，<a href=\"mailto:support@mywish.io\"> support@mywish.io </a>您需要在MAIN NET中创建之前联系"
+          "ITEM_1": "由于高的部署成本，<a href=\"mailto:support@mywish.io\"> support@mywish.io </a>您需要在Main Net中创建之前联系"
         }
       }
     }
@@ -442,8 +442,8 @@
       "I_ALIVE": {
         "TITLE": "确认直播",
         "DESCRIPTION": "要确认您的实时状态，请执行以下操作：",
-        "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
-        "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+        "LAST_CHECK": "上次约会:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "下次检查:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
@@ -454,18 +454,18 @@
         "DESCRIPTION": "巨额{{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)"
       },
       "PARITY": {
-        "TITLE": "加入平价",
-        "DESCRIPTION": "添加合同奇偶丢失的钥匙",
+        "TITLE": "加入Parity",
+        "DESCRIPTION": "添加合同Parity的钥匙",
         "LIST": {
-          "ITEM_1": "开放奇偶校验",
+          "ITEM_1": "开放Parity",
           "ITEM_2": "输入设置并点击合同复选框。",
-          "ITEM_3": "进入文件夹\"合同\"并点击\"+ 查看 \"",
-          "ITEM_4": "在\"选择合约类型\"中选择\"自定义合约\".",
-          "ITEM_5": "在\"网络地址\"字段中，输入管理加载项（您的电子钱包地址）",
+          "ITEM_3": "进入文件夹\"Contracts\"并点击\"+ WATCH"",
+          "ITEM_4": "在\"choose contract type\"中选择\"custom contracts\".",
+          "ITEM_5": "在\"network address\"字段中，输入管理加载项（您的电子钱包地址）",
           "ITEM_5_1": "指定合同的名称（建议您在MyWish服务中指定的名称)",
           "ITEM_5_2": "输入合约说明（可选）",
           "ITEM_5_3": "从MyWish指令复制ABI合约",
-          "ITEM_6": "然后点击\"+ 加合约 \"",
+          "ITEM_6": "然后点击\"+Add contract\"",
           "ITEM_7": "现在这份合同可以在合同列表中找到，您可以从中转移资金。"
         }
       },
@@ -492,7 +492,7 @@
           "ITEM_1": "发送您的BTC到生成的地址（它是唯一的）",
           "ITEM_2": "获得BTC后，它将从MyWish白名单地址发送到RSK网络。",
           "ITEM_3": "在3-6小时内（需要10 BTC确认）您的RSK合约余额将被记入（1 BTC = 1 RSK），您将收到电子邮件确认。",
-          "ITEM_4": "如果您的BTC地址已被RSK社区列入白名单，您可以发送SBTC进行签约<a href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> directly."
+          "ITEM_4": "如果您的BTC地址已被RSK社区列入白名单，您可以发送SBTC进行签约<a href=\"{{ etherscan_url + '/' + contract_address}}\" target=\"_blank\">{{contract_address}}</a> 真."
         }
       }
     },
@@ -541,7 +541,7 @@
         "DESCRIPTION": "请填写下面的表格并指定您的意愿。 我们会在合同创建之前询问您的合作伙伴。",
         "FIELDS": {
           "USERNAME": {
-            "LABEL": "User&nbsp;name"
+            "LABEL": "用户名"
           },
           "EMAIL": {
             "LABEL": "电子邮箱"
@@ -643,7 +643,7 @@
             "LABEL": "受益人地址",
             "PLACEHOLDER": "输入{{networkName}}地址",
             "ETH_DESCRIPTION": "输入受益人的ETH地址。 合同执行后，资金将被发送到该地址。",
-            "RSK_DESCRIPTION": "输入受益人的RSK地址。 合同执行后，资金将被发送到该地址。 继承人可以通过创建它<a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> too."
+            "RSK_DESCRIPTION": "输入受益人的RSK地址。 合同执行后，资金将被发送到该地址。 继承人可以通过创建它<a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> 也是."
           },
           "SHARE": {
             "LABEL": "分享"
@@ -664,7 +664,7 @@
           },
           "CANCEL_VIA_MYWISH": {
             "LABEL": "通过MyWish取消合同",
-            "DESCRIPTION": "如果\"开启\"，您将能够通过1-Click MyWish取消合约并获得所有资金。"
+            "DESCRIPTION": "如果\"开启\"，您将能够通过1-点击 MyWish取消合约并获得所有资金。"
           },
           "CONFIRM_LIVE_VIA_MYWISH": {
             "LABEL": "通过MyWish确认“生活” ",
@@ -820,7 +820,7 @@
           },
           "MAX_INVESTMENTS": {
             "LABEL": "最少",
-            "DESCRIPTION": "最大金额接受。 它不能更高hard cap"
+            "DESCRIPTION": "最大金额接受。 它不能更高hardcap"
           },
           "TIME_BONUS": {
             "LABEL": "奖金",
@@ -864,7 +864,7 @@
         "INFO": "预览合约",
         "SOURCE": "源代码"
       },
-      "FREE_VERSION_MSG": "在免费版本（Test Net）中，源代码不可用于加载。",
+      "FREE_VERSION_MSG": "在免费版本（TestNet）中，源代码不可用于加载。",
       "WILL_SOURCE_CODE": "您的源代码",
       "DEFERRED_SOURCE_CODE": "您的延期付款合同源代码",
       "LOST_KEY_SOURCE_CODE": "你丢失的关键源代码",
@@ -876,14 +876,14 @@
       "LIBRARIES_AND_FILES": "可以找到库和其他文件<a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
       "VERIFY_INSTRUCTION": {
         "ITEM_1": "打开合同地址<a target=\"_blank\" href=\"{{address_url}}\">etherscan</a>",
-        "ITEM_2": "在合同代码选项卡中选择\"验证并发布\"",
+        "ITEM_2": "在合同代码选项卡中选择\"Verify And Publish \"",
         "ITEM_3": "输入合同名称：",
         "ITEM_4": "输入合同地址：",
-        "ITEM_5": "填写编译器版本：",
-        "ITEM_6": "粘贴合同代码：",
+        "ITEM_5": "填写编Compiler version：",
+        "ITEM_6": "粘贴SOLIDITY合同代码：",
         "ITEM_7_1": "从构造函数参数字段ABI编码中删除参数",
         "ITEM_7_2": "输入构造函数参数ABI编码：",
-        "ITEM_8": "其他领域不是必需的。 按\"验证并发布\""
+        "ITEM_8": "其他领域不是必需的。 按\"Verify And Publish\""
       },
       "CONTRACT_CODE_FOR_FREE": "不提供免费版本",
       "CONTRACT_CONDITIONS": "合同条件",
@@ -912,8 +912,8 @@
         "CROWD_SALE_CONTRACT": "代币销售合同（所有文稿均应发送到此地址）",
         "VAULT_ADDRESS": "保险库合同（投资存储直到代币预售结束）",
         "CROWD_SALE_TYPE": " 代币预销售类型：",
-        "TOKEN_SCRIPT_HASH": "Token contract script hash",
-        "CROWDSALE_SCRIPT_HASH": "Crowdsale contract script hash",
+        "TOKEN_SCRIPT_HASH": "代币合约脚本哈希",
+        "CROWDSALE_SCRIPT_HASH": "代币销售合约脚本哈希",
         "TIME_BONUSES": {
           "TITLE": "时间奖金",
           "BONUS": "奖金：",

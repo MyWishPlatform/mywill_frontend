@@ -145,6 +145,19 @@ $red-active-color: #bb0d2b;
   &.center-input-field {
     margin-top: 0.5em;
   }
+  &.btn-with-file {
+    position: relative;
+    overflow: hidden;
+    input[type="file"] {
+      position: absolute;
+      z-index: 2;
+      margin: 0;
+      opacity: 0;
+      left: -5px;
+      top: -5px;
+      font-size: 5em;
+    }
+  }
 }
 
 @keyframes refreshProgressElement {

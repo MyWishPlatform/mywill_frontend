@@ -1,0 +1,79 @@
+<div class="shadow-block" ng-controller="whitelistFormController">
+    <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-crowdsale"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
+
+    <form name="csvWhiteListForm" ng-if="!tableData"
+          class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-5 grid-cell-ps-1">
+                <div class="btn btn-submit btn-with-file">
+                    <span>Choose file</span>
+                    <input type="file" name="csvFile"
+                           accept=".csv"
+                           onchange="angular.element(this).scope().changeFile(this)">
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-1">
+                <div class="attention-text-container after-form-title">
+                    <div class="attention-text without-top">
+                        <div class="attention-text__title">
+                            <i class="icon-alert-circle"></i>Please note!
+                        </div>
+                        Для добавления в Whitelist за один раз может быть использовано <= 100 адресов
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1" ng-if="fileTypeError">
+                <span class="field-error" style="display: block">Выберите CSV файл</span>
+            </div>
+        </div>
+    </form>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="tableData">
+        <div class="form-control-label">
+            Список адресов, которые будут добавлены в Whitelist
+        </div>
+    </div>
+
+    <div class="csv-addresses-table" ng-if="tableData.result">
+        <div ng-repeat="address in tableData.result" class="shadow-block__content shadow-block__content_no-tb-padding">
+            <div class="form-control-label">
+                Line: {{address.row}}; {{address.address}}; ({{address.status}})
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info csv-errors-info__warnings no-border"
+         ng-if="tableData.warnings">
+        <div class="csv-errors-info--title">
+            <i class="icon-warning"></i>
+            <span>{{tableData.warnings.length}} warnings</span>
+        </div>
+        <div class="csv-errors-info--list">
+            <div ng-repeat="error in tableData.warnings" class="csv-errors-info--list_item">
+                Line: {{error.row}}; {{error.type}}: {{error.address}} ({{error.status}})<br/>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info csv-errors-info__errors no-border"
+         ng-if="tableData.errors">
+        <div class="csv-errors-info--title">
+            <i class="icon-error"></i>
+            <span>{{tableData.errors.length}} errors</span>
+        </div>
+        <div class="csv-errors-info--list">
+            <div ng-repeat="error in tableData.errors" class="csv-errors-info--list_item">
+                Line: {{error.row}}; {{error.type}}: {{error.address}} ({{error.status}})<br/>
+            </div>
+        </div>
+    </div>
+
+</div>

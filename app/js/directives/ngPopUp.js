@@ -113,6 +113,17 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 });
                 // $scope.$apply();
             };
+
+            $scope.$on('changeContent', function() {
+                var margin = (angular.element(window).height() - currentWindow.outerHeight()) / 2;
+                margin = Math.max(margin, 10);
+                currentWindow.css({
+                    'margin-top': Math.max(30, margin),
+                    'margin-bottom': 50,
+                    'visibility': ''
+                });
+            });
+
             $scope.closeCurrentPopup = function(noCallAction) {
                 if (isShowed) {
                     showedPopups--;

@@ -143,6 +143,21 @@
     <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>
 </button>
 
+<!-- Whitelist form button -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 4) && contract.contract_details.whitelist"
+        ng-pop-up="{
+            template: '/templates/popups/forms/eth/whitelist-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'page-size',
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>Whitelist</span>
+</button>
+
 
 <!-- Mint form button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting"

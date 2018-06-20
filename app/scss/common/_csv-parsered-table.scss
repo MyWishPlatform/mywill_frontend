@@ -1,0 +1,45 @@
+.csv-addresses-table {
+  background-color: #fff;
+}
+.csv-errors-info {
+  &__warnings {
+    color: #906705;
+    background-color: #ffe;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: #fff3cc;
+    i {
+      color: #d0b300;
+    }
+  }
+  &__errors {
+    color: #900c07;
+    background-color: #fffafa;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-color: #ffdada;
+    i {
+      color: #a00;
+    }
+  }
+  &--title {
+    font-size: 1.5em;
+    line-height: 1.4em;
+    i {
+      font-size: 1.2em;
+      margin-right: 0.1em;
+    }
+    i, span {
+      vertical-align: middle;
+    }
+  }
+  &--list {
+    display: none;
+    &_item {
+      font-size: 1.2em;
+    }
+  }
+  & + & {
+    border-top: 0 none;
+  }
+}

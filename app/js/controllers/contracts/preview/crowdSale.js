@@ -293,4 +293,124 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         }
 
     };
+}).controller('whitelistFormController', function($scope, $rootScope) {
+
+    var parsedData = [];
+    var errors = [];
+
+    var parseDataForTable = function(results) {
+        results.data.map(function(row, index) {
+            var address = row[0];
+            if (!address) {
+                if (index !== (results.data.length - 1)) {
+                    errors.push({
+                        status: 4,
+                        row: index + 1,
+                        type: 'error'
+                    });
+                }
+                return;
+            }
+
+            try {
+                var doubleRow;
+                if (parsedData.filter(function(addedRow, index) {
+                        if (addedRow.address.toLowerCase().replace(/^0x/, '') === address.toLowerCase().replace(/^0x/, '')) {
+                            doubleRow = {
+                                csvRow: addedRow.row,
+                                tableRow: index
+                            };
+                            return true;
+                        }
+                    }).length) {
+                    errors.push({
+                        address: address,
+                        status: 3,
+                        row: index + 1,
+                        doubleLine: doubleRow,
+                        type: 'warning'
+                    });
+                    return;
+                }
+                var isValidAddress = $rootScope.web3Utils.isAddress(address);
+                if (isValidAddress) {
+                    parsedData.push({
+                        address: address,
+                        status: 0,
+                        row: index + 1
+                    });
+                    return;
+                }
+                $rootScope.web3Utils.toChecksumAddress(address);
+                var rowObject = {
+                    address: address,
+                    status: 1,
+                    row: index + 1,
+                    type: 'warning'
+                };
+                parsedData.push(rowObject);
+                errors.push(rowObject);
+            } catch(e) {
+                errors.push({
+                    address: address,
+                    status: 2,
+                    row: index + 1,
+                    type: 'error'
+                });
+            }
+        });
+
+        return {
+            result: parsedData,
+            warnings: errors.filter(function(error) {
+                return error.type === 'warning';
+            }),
+            errors: errors.filter(function(error) {
+                return error.type === 'error';
+            })
+        };
+
+    };
+
+    var createResultData = function(csvData) {
+        $scope.tableData = parseDataForTable(csvData);
+        $scope.$apply();
+        $scope.$parent.$broadcast('changeContent');
+        // $rootScope.commonOpenedPopupParams = {
+        //     contract: $scope.$parent.ngPopUp.params.contract,
+        //     tableData: parseDataForTable(csvData)
+        // };
+        // $rootScope.commonOpenedPopup = 'forms/eth/whitelist-table';
+
+    };
+
+    $scope.changeFile = function(fileInput) {
+        var file = fileInput.files[0];
+        $scope.fileTypeError = false;
+
+        if (file.type !== 'text/csv') {
+            $scope.fileTypeError = true;
+            $scope.$apply();
+            return;
+        }
+
+        Papa.parse(file, {
+            complete: createResultData,
+            error: function(results, file) {
+                console.log("Parsing error:", results);
+                $scope.$apply();
+            }
+        });
+    };
 });
+
+
+
+
+
+
+
+
+
+
+

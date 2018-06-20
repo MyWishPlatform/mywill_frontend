@@ -137,7 +137,7 @@
       "TEXT": "您的合同已成功完成。"
     },
     "NEO_CROWDSALE_FINALIZE_ERR": {
-      "TEXT": "错误！ 最终只可以执行<br/>after {{stopDate|date:'yyyy-MM-dd HH:mm'}} "
+      "TEXT": "错误！ 最终只可以执行<br/>后{{stopDate|date:'yyyy-MM-dd HH:mm'}}"
     }
   },
   "CONFIRMATIONS": {

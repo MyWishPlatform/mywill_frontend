@@ -114,7 +114,9 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 // $scope.$apply();
             };
 
-            $scope.$on('changeContent', function() {
+
+            var changeContentHandler = $scope.$on('changeContent', function(event) {
+                if ($scope !== event.targetScope) return;
                 var margin = (angular.element(window).height() - currentWindow.outerHeight()) / 2;
                 margin = Math.max(margin, 10);
                 currentWindow.css({
@@ -122,6 +124,17 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                     'margin-bottom': 50,
                     'visibility': ''
                 });
+            });
+
+            var closePopUpsHandler = $scope.$on('$closePopUps', function(func) {
+                $scope.closeCurrentPopup();
+            });
+
+            var destroyHandler = $scope.$on('$destroy', function() {
+                changeContentHandler();
+                closePopUpsHandler();
+                destroyHandler();
+                $scope.closeCurrentPopup();
             });
 
             $scope.closeCurrentPopup = function(noCallAction) {
@@ -136,15 +149,12 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                     if ((noCallAction !== true) && $scope.ngPopUp.onClose) {
                         $scope.ngPopUp.onClose();
                     }
+                    $scope.$broadcast('$closePopUp');
                 }
             };
 
-            $scope.$on('$closePopUps', function() {
-                $scope.closeCurrentPopup();
-            });
-
-            $scope.$on('$destroy', function() {
-                $scope.closeCurrentPopup();
+            $scope.$parent.$on('$closePopUp', function() {
+                $scope.$broadcast('$destroy');
             });
 
             $scope.$watch('ngPopUp.template', function(newTpl, oldTpl) {

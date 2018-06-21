@@ -60,12 +60,13 @@
 
     <div class="csv-errors-info csv-errors-info__warnings"
          ng-if="tableData.warnings">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info--title">
-            <i class="icon-keyboard_arrow_right float-right arrow"></i>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info--title" ng-click="openErrors('warnings')">
+            <i class="float-right arrow"
+               ng-class="{'icon-keyboard_arrow_right': openedErrors != 'warnings', 'icon-keyboard_arrow_down': openedErrors == 'warnings'}"></i>
             <i class="icon-warning"></i>
             <span>{{tableData.warnings.length}} warnings</span>
         </div>
-        <div class="csv-errors-info--list">
+        <div class="csv-errors-info--list" ng-if="openedErrors == 'warnings'">
             <div ng-repeat="error in tableData.warnings"
                  class="shadow-block__content no-border csv-errors-info--list_item">
                 <div class="csv-errors-info--list_item_text">
@@ -79,12 +80,13 @@
 
     <div class="csv-errors-info csv-errors-info__errors"
          ng-if="tableData.errors">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title">
-            <i class="icon-keyboard_arrow_right float-right arrow"></i>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors('errors')">
+            <i class="float-right arrow"
+               ng-class="{'icon-keyboard_arrow_right': openedErrors != 'errors', 'icon-keyboard_arrow_down': openedErrors == 'errors'}"></i>
             <i class="icon-error"></i>
             <span>{{tableData.errors.length}} errors</span>
         </div>
-        <div class="csv-errors-info--list">
+        <div class="csv-errors-info--list" ng-if="openedErrors == 'errors'">
             <div ng-repeat="error in tableData.errors"
                  class="shadow-block__content no-border csv-errors-info--list_item">
                 <div class="csv-errors-info--list_item_text">
@@ -98,9 +100,27 @@
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color" ng-if="tableData.result">
-        <button class="btn btn-submit" type="button">
-            <span>&nbsp;&nbsp;&nbsp;Add {{tableData.result.length}} addresses&nbsp;&nbsp;&nbsp;</span>
-        </button>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2">
+                <button class="btn btn-submit" type="button"
+                        ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/whitelist-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: ngPopUp.params.contract,
+                                whitelist: tableData.result
+                            },
+                            class: 'page-size'
+                        }">
+                    <span>&nbsp;&nbsp;&nbsp;Add {{tableData.result.length}} addresses&nbsp;&nbsp;&nbsp;</span>
+                </button>
+            </div>
+            <div class="grid-cell grid-cell-1-2 text-right">
+                <button class="btn btn-transparent" type="button" ng-click="resetTable()">
+                    <span>&nbsp;&nbsp;&nbsp;Выбрать другой файл&nbsp;&nbsp;&nbsp;</span>
+                </button>
+            </div>
+        </div>
     </div>
 
 </div>

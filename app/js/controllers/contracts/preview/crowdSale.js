@@ -23,6 +23,9 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             break;
     }
 
+
+
+
     $scope.currencyPow = $scope.blockchain === 'NEO' ? 0 : 18;
 
     if (contractDetails.eth_contract_crowdsale && contractDetails.eth_contract_crowdsale.address) {
@@ -293,27 +296,37 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         }
 
     };
-}).controller('whitelistFormController', function($scope, $rootScope) {
+}).controller('whitelistFormController', function($scope, $rootScope, $timeout) {
 
+    $scope.openedErrors = false;
+    $scope.openErrors = function(chapter) {
+        $timeout(function() {
+            $scope.openedErrors = ($scope.openedErrors !== chapter) ? chapter : false;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
+
+    $scope.resetTable = function() {
+        $timeout(function() {
+            $scope.tableData = false;
+            $scope.openedErrors = false;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
 
     var parseDataForTable = function(results) {
-
         var parsedData = [];
         var errors = [];
-
         var lastParsedRow = 0;
-        var lastLineIsEmpty = 0;
-
-
         if (!results.data[results.data.length - 1][0]) {
             results.data = results.data.slice(0, results.data.length - 1);
         }
-
         while ((parsedData.length < 100) && (lastParsedRow < results.data.length)) {
             var index = lastParsedRow;
             var row = results.data[index];
             lastParsedRow++;
-
             var address = row[0];
             if (!address) {
                 errors.push({
@@ -323,7 +336,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                 });
                 continue;
             }
-
             try {
                 var doubleRow;
                 if (parsedData.filter(function(addedRow, index) {
@@ -374,7 +386,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             }
         }
 
-        console.log(errors);
         return {
             result: parsedData,
             firstRow: 0,
@@ -394,12 +405,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         $scope.tableData = parseDataForTable(csvData);
         $scope.$apply();
         $scope.$parent.$broadcast('changeContent');
-        // $rootScope.commonOpenedPopupParams = {
-        //     contract: $scope.$parent.ngPopUp.params.contract,
-        //     tableData: parseDataForTable(csvData)
-        // };
-        // $rootScope.commonOpenedPopup = 'forms/eth/whitelist-table';
-
     };
 
     $scope.changeFile = function(fileInput) {
@@ -420,15 +425,41 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             }
         });
     };
+}).controller('addWhiteListController', function($scope, web3Service, $rootScope) {
+    var contractData = $scope.ngPopUp.params.contract;
+
+    $scope.contract = contractData;
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+    var params = [];
+
+    $scope.ngPopUp.params.whitelist.map(function(item) {
+        params.push($rootScope.web3Utils.toChecksumAddress(item.address));
+    });
+
+    var methodName = 'addAddressesToWhitelist';
+
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+    try {
+        $scope.addWhiteListSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [params]);
+    } catch(err) {
+        console.log(err);
+    }
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+        }
+    });
+
+    $scope.sendTransaction = function() {
+        contract.methods[methodName](params).send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
 });
-
-
-
-
-
-
-
-
-
-
-

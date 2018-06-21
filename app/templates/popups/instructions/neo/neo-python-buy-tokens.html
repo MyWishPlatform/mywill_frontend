@@ -32,12 +32,12 @@
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
-                                text="'import token ' + ngPopUp.params.contract.neo_contract_token.script_hash"
+                                text="'import token ' + ngPopUp.params.contract.neo_contract_crowdsale.script_hash"
                                 ng-class="{copied: ngPopUp.params.contract.copied['code_1']}"
                                 on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'code_1')">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
-                        <div class="copy-block__text"><b>neo</b>> import token {{ngPopUp.params.contract.neo_contract_token.script_hash}}</div>
+                        <div class="copy-block__text"><b>neo</b>> import token {{ngPopUp.params.contract.neo_contract_crowdsale.script_hash}}</div>
                     </div>
                 </div>
             </li>
@@ -64,12 +64,12 @@
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
-                                text="'wallet tkn_mint ' + ngPopUp.params.contract.token_short_name + ' <PERSONAL NEO ADDRESS WITH NEO FOR CONTRIBUTION> --attach-neo=<AMOUNT OF NEO TO CONTRIBUTE>'"
+                                text="'wallet tkn_mint ' + ngPopUp.params.contract.token_short_name + ' <PERSONAL_NEO_ADDRESS_WITH_NEO_FOR_CONTRIBUTION> --attach-neo=<AMOUNT_OF_NEO_TO_CONTRIBUTE>'"
                                 ng-class="{copied: ngPopUp.params.contract.copied['code_3']}"
                                 on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'code_3')">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
-                        <div class="copy-block__text"><b>neo</b>> wallet tkn_mint {{ngPopUp.params.contract.token_short_name}} <b>PERSONAL NEO ADDRESS WITH NEO FOR CONTRIBUTION</b> --attach-neo=<b>AMOUNT OF NEO TO CONTRIBUTE</b></div>
+                        <div class="copy-block__text"><b>neo</b>> wallet tkn_mint {{ngPopUp.params.contract.token_short_name}} <b>PERSONAL_NEO_ADDRESS_WITH_NEO_FOR_CONTRIBUTION</b> --attach-neo=<b>AMOUNT_OF_NEO_TO_CONTRIBUTE</b></div>
                     </div>
                 </div>
             </li>

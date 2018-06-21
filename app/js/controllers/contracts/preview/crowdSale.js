@@ -295,21 +295,33 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     };
 }).controller('whitelistFormController', function($scope, $rootScope) {
 
-    var parsedData = [];
-    var errors = [];
 
     var parseDataForTable = function(results) {
-        results.data.map(function(row, index) {
+
+        var parsedData = [];
+        var errors = [];
+
+        var lastParsedRow = 0;
+        var lastLineIsEmpty = 0;
+
+
+        if (!results.data[results.data.length - 1][0]) {
+            results.data = results.data.slice(0, results.data.length - 1);
+        }
+
+        while ((parsedData.length < 100) && (lastParsedRow < results.data.length)) {
+            var index = lastParsedRow;
+            var row = results.data[index];
+            lastParsedRow++;
+
             var address = row[0];
             if (!address) {
-                if (index !== (results.data.length - 1)) {
-                    errors.push({
-                        status: 4,
-                        row: index + 1,
-                        type: 'error'
-                    });
-                }
-                return;
+                errors.push({
+                    status: 4,
+                    row: index + 1,
+                    type: 'error'
+                });
+                continue;
             }
 
             try {
@@ -328,20 +340,22 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                         status: 3,
                         row: index + 1,
                         doubleLine: doubleRow,
-                        type: 'warning'
+                        type: 'error'
                     });
-                    return;
+                    continue;
                 }
+
                 var isValidAddress = $rootScope.web3Utils.isAddress(address);
-                if (isValidAddress) {
+                var checkSumAddress = $rootScope.web3Utils.toChecksumAddress(address);
+
+                if (isValidAddress && (checkSumAddress === address)) {
                     parsedData.push({
                         address: address,
                         status: 0,
                         row: index + 1
                     });
-                    return;
+                    continue;
                 }
-                $rootScope.web3Utils.toChecksumAddress(address);
                 var rowObject = {
                     address: address,
                     status: 1,
@@ -358,10 +372,14 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                     type: 'error'
                 });
             }
-        });
+        }
 
+        console.log(errors);
         return {
             result: parsedData,
+            firstRow: 0,
+            lastRow: lastParsedRow,
+            amountRows: results.data.length,
             warnings: errors.filter(function(error) {
                 return error.type === 'warning';
             }),

@@ -40,40 +40,67 @@
         <div class="form-control-label">
             Список адресов, которые будут добавлены в Whitelist
         </div>
+        <span class="form-control-description__text">
+            Обработано {{tableData.lastRow}} из {{tableData.amountRows}} адресов.<br/>
+            Можете добавить {{tableData.result.length}} адресов в Whitelist
+        </span>
     </div>
 
     <div class="csv-addresses-table" ng-if="tableData.result">
-        <div ng-repeat="address in tableData.result" class="shadow-block__content shadow-block__content_no-tb-padding">
-            <div class="form-control-label">
-                Line: {{address.row}}; {{address.address}}; ({{address.status}})
+        <div ng-repeat="address in tableData.result" class="csv-addresses-table__row"
+             ng-class="'status-row-' + (address.type || 'success')">
+            <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                <div class="form-control-label">
+                    <div class="float-right">Line: {{address.row}}</div>
+                    <b>{{address.address}}</b>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info csv-errors-info__warnings no-border"
+    <div class="csv-errors-info csv-errors-info__warnings"
          ng-if="tableData.warnings">
-        <div class="csv-errors-info--title">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info--title">
+            <i class="icon-keyboard_arrow_right float-right arrow"></i>
             <i class="icon-warning"></i>
             <span>{{tableData.warnings.length}} warnings</span>
         </div>
         <div class="csv-errors-info--list">
-            <div ng-repeat="error in tableData.warnings" class="csv-errors-info--list_item">
-                Line: {{error.row}}; {{error.type}}: {{error.address}} ({{error.status}})<br/>
+            <div ng-repeat="error in tableData.warnings"
+                 class="shadow-block__content no-border csv-errors-info--list_item">
+                <div class="csv-errors-info--list_item_text">
+                    Line: {{error.row}}; <b>{{error.address}}</b><br/>
+                    <span ng-if="error.status == 1">Address is not checksummed</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info csv-errors-info__errors no-border"
+
+    <div class="csv-errors-info csv-errors-info__errors"
          ng-if="tableData.errors">
-        <div class="csv-errors-info--title">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title">
+            <i class="icon-keyboard_arrow_right float-right arrow"></i>
             <i class="icon-error"></i>
             <span>{{tableData.errors.length}} errors</span>
         </div>
         <div class="csv-errors-info--list">
-            <div ng-repeat="error in tableData.errors" class="csv-errors-info--list_item">
-                Line: {{error.row}}; {{error.type}}: {{error.address}} ({{error.status}})<br/>
+            <div ng-repeat="error in tableData.errors"
+                 class="shadow-block__content no-border csv-errors-info--list_item">
+                <div class="csv-errors-info--list_item_text">
+                    Line: {{error.row}}; <b>{{error.address}}</b><br/>
+                    <span ng-if="error.status == 2">не ETH адрес</span>
+                    <span ng-if="error.status == 3">дублируется адрес: Line {{error.doubleLine.csvRow}} </span>
+                    <span ng-if="error.status == 4">пустое значение</span>
+                </div>
             </div>
         </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color" ng-if="tableData.result">
+        <button class="btn btn-submit" type="button">
+            <span>&nbsp;&nbsp;&nbsp;Add {{tableData.result.length}} addresses&nbsp;&nbsp;&nbsp;</span>
+        </button>
     </div>
 
 </div>

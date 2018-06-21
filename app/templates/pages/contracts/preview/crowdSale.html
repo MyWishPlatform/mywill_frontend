@@ -202,7 +202,25 @@
 
         <!-- CrowdSale contract address -->
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractCrowdsaleInfo].address">
-            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CROWD_SALE.CROWD_SALE_CONTRACT"></div>
+            <div class="form-control-label"
+                 ng-if="blockchain === 'ETH'"
+                 translate="CONTRACTS.PREVIEW.CROWD_SALE.CROWD_SALE_CONTRACT"></div>
+            <div class="form-control-label"
+                 ng-if="blockchain === 'NEO'">
+                <span translate="CONTRACTS.PREVIEW.CROWD_SALE.CROWD_SALE_CONTRACT_NEO"></span>
+                (
+                <span class="as-link dotted"
+                        ng-pop-up="{
+                            template: '/templates/popups/instructions/neo/neo-python-buy-tokens.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: details
+                            },
+                            class: 'conditions'
+                        }"><span>{{'CONTRACTS.PREVIEW.CROWD_SALE.NEO_HOW_CONTRIBUTE'|translate}}</span></span>
+                )
+            </div>
+
             <br class="show-ls"/>
             <span class="identicon-container">
                 <img class="identicon-image" ng-src="{{details[contractCrowdsaleInfo].address|blockies}}"/>

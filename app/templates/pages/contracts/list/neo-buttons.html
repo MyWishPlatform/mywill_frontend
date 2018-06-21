@@ -24,7 +24,7 @@
 <!-- Mint form button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 6) && contract.contract_details.future_minting"
         ng-pop-up="{
-            template: '/templates/popups/instructions/neo/mint-instruction.html',
+            template: '/templates/popups/forms/neo/mint-tokens.html',
             newPopupContent: true,
             params: {
                 contract: contract
@@ -38,7 +38,7 @@
 
 <!-- Finalize token contract form button -->
 <button ng-pop-up="{
-            template: '/templates/popups/instructions/neo/mint-finalize-instruction.html',
+            template: '/templates/popups/instructions/neo/neo-python-finalize.html',
             newPopupContent: true,
             params: {
                 contract: contract

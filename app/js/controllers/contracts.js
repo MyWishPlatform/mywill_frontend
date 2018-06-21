@@ -4,7 +4,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 
-    $scope.contractsList = contractsList.data;
+    $scope.contractsList = contractsList.data.results;
 
     var url = 'https://www.myetherwallet.com/?';
     var params = [

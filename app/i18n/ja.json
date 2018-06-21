@@ -497,6 +497,59 @@
       }
     },
     "NEO": {
+      "HOW_INSTALL_NEO_PYTHON": "How to install it?",
+      "NEO_PYTHON": {
+        "TITLE": "How to install & use NEO wallet",
+        "LIST": {
+          "ITEM_1": "Install neo-python. Instruction: <a href=\"https://github.com/CityOfZion/neo-python#native-installation\" target=\"_blank\">https://github.com/CityOfZion/neo-python#native-installation</a>",
+          "ITEM_2": "After installation run neo-python: <a href=\"https://github.com/CityOfZion/neo-python#running\" target=\"_blank\">https://github.com/CityOfZion/neo-python#running</a> By default neo-python runs in Test net mode.",
+          "ITEM_3": "After client running you can create wallet file if you don’t have it (you will enter new password 2 times).<br/> Call:",
+          "ITEM_4": "You can open existing wallet by calling: ",
+          "ITEM_5": "You can import wif to opened wallet by calling:",
+          "ITEM_6": "Wait until your Client synchronized with the blockchain. You can check the state by calling: ",
+          "ITEM_7": "Check that your wallet is also synced by calling: ",
+          "ITEM_7_1": "<b>percent_synced</b> field shall be 100.",
+          "ITEM_8": "Now you are ready to manage the contacts & buy tokens!"
+        }
+      },
+      "NEO_PYTHON_BUY_TOKENS": {
+        "TITLE": "Buy tokens",
+        "DESCRIPTION": "How to buy {{tokenName}} tokens? Please share it to your investors.",
+        "LIST": {
+          "ITEM_1": "Open your wallet in neo-python",
+          "ITEM_2": "Import Token contract to the wallet:",
+          "ITEM_3": "Call",
+          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
+          "ITEM_4": "To make a contribution - call: ",
+          "ITEM_5": "Enter your password",
+          "ITEM_6": "Check your wallet - you will see {{tokenName}} tokens"
+        }
+      },
+      "NEO_PYTHON_MINT_TOKENS": {
+        "TITLE": "Mint",
+        "DESCRIPTION": "For Minting <b>{{amount|separateNumber}}</b> tokens to <b>{{address}}</b> address please do the following steps:",
+        "LIST": {
+          "ITEM_1": "Open your wallet in neo-python",
+          "ITEM_2": "Import Token contract to the wallet:",
+          "ITEM_3": "Call",
+          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
+          "ITEM_4": "To Mint tokens call: ",
+          "ITEM_5": "Enter your password"
+        }
+      },
+      "NEO_PYTHON_MINT_FINALIZE": {
+        "TITLE": "Finalize",
+        "DESCRIPTION": "For Finalization of the Contract please do the following steps:",
+        "LIST": {
+          "ITEM_1": "Open your wallet in neo-python",
+          "ITEM_2": "Import Token contract to the wallet:",
+          "ITEM_3": "Call",
+          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
+          "ITEM_4": "To Finalize the contract call:",
+          "ITEM_5": "Enter your password"
+        }
+      },
+
       "MINT": {
         "TITLE": "ミント",
         "DESCRIPTION": "トークンをミントするには、所有者トークンのアドレス(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)から次の取引を行ってください",
@@ -910,6 +963,8 @@
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "クラウドセール契約（すべての寄付はこの住所に送付するものとする）",
+        "CROWD_SALE_CONTRACT_NEO": "クラウドセール契約",
+        "NEO_HOW_CONTRIBUTE": "How to contribute?",
         "VAULT_ADDRESS": "金庫契約（クラウドセールの終わりまでの投資のストレージ）",
         "CROWD_SALE_TYPE": "クラウドセールタイプ",
         "TOKEN_SCRIPT_HASH": "トークン契約スクリプトハッシュ",

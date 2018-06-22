@@ -1,4 +1,4 @@
-<div class="shadow-block">
+<div class="shadow-block" ng-controller="whiteListPreview">
     <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
@@ -6,15 +6,17 @@
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span>Contract has {{ngPopUp.params.count}} whitelisted addresses</span>
+            <span>Contract has {{whiteListedAddresses.count}} whitelisted addresses</span>
         </div>
     </div>
 
     <div class="csv-addresses-table">
-        <div ng-repeat="address in ngPopUp.params.whitelist.results" class="csv-addresses-table__row">
-            <div class="shadow-block__content shadow-block__content_no-tb-padding">
-                <div class="form-control-label">
-                    <b>{{address.address}}</b>
+        <div ng-scroll-list="addressesListOptions">
+            <div ng-repeat="address in whitelist" class="csv-addresses-table__row">
+                <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                    <div class="form-control-label">
+                        <b>{{address.address}}</b>
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,7 +25,7 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2">
-                <button class="btn btn-submit" type="button" ng-click="ngPopUp.params.saveAsCSV()">
+                <button class="btn btn-submit" type="button" ng-click="saveWhiteList()">
                     <span>&nbsp;&nbsp;&nbsp;Download CSV&nbsp;&nbsp;&nbsp;</span>
                 </button>
             </div>

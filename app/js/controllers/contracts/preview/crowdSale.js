@@ -1,5 +1,5 @@
 angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
-                                                                        openedContract, $scope, $filter, FileSaver) {
+                                                                        openedContract, $scope, $filter) {
     $scope.contract = openedContract.data;
 
 
@@ -39,20 +39,11 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             });
         }
         if (contractDetails.whitelist) {
-            contractService.getWhiteList($scope.contract.id, {limit: 0}).then(function(response) {
+            contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
                 $scope.whiteListedAddresses = response.data;
             });
         }
     }
-
-    $scope.saveWhiteList = function() {
-        var data = '';
-        $scope.whiteListedAddresses.results.map(function(addressItem) {
-            data+= addressItem.address + "\n";
-        });
-        data = new Blob([data], { type: 'text/plain;charset=utf-8' });
-        FileSaver.saveAs(data, $scope.contract.name + '(whitelist).csv');
-    };
 
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];
     contractDetails.time_bonuses.map(function(bonus) {
@@ -460,7 +451,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         };
     };
 
-    var visibleCountPlus = 15;
+    var visibleCountPlus = 25;
 
     var errorsScrollProgress = false;
     $scope.visibleErrors = [];
@@ -507,17 +498,17 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.addressesListOptions = {
         parent: '.csv-addresses-table',
         updater: checkVisibleAddresses,
-        offset: 40
+        offset: 140
     };
     $scope.errorsListOptions = {
         parent: '.csv-errors-info--list',
         updater: checkVisibleErrors,
-        offset: 40
+        offset: 140
     };
     $scope.warningsListOptions = {
         parent: '.csv-errors-info--list',
         updater: checkVisibleWarnings,
-        offset: 40
+        offset: 140
     };
 
     var createResultData = function(csvData) {
@@ -587,4 +578,58 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
+}).controller('whiteListPreview', function($scope, contractService, FileSaver, $timeout) {
+
+    var contract = $scope.ngPopUp.params.contract;
+
+    $scope.saveWhiteList = function() {
+        contractService.getWhiteList(contract.id, {
+            limit: $scope.whiteListedAddresses.count
+        }).then(function(response) {
+            var data = '';
+            response.data.results.map(function(addressItem) {
+                data+= addressItem.address + "\n";
+            });
+            data = new Blob([data], { type: 'text/plain;charset=utf-8' });
+            FileSaver.saveAs(data, contract.name + '(whitelist).csv');
+        });
+
+
+    };
+
+    var limitStep = 25;
+    $scope.whitelist = [];
+
+    var whiteListLoadingInProgress = false;
+    var getNewWhitelistPage = function() {
+        if ($scope.whiteListedAddresses && ($scope.whitelist.length === $scope.whiteListedAddresses.count)) return;
+        if (whiteListLoadingInProgress) return;
+        whiteListLoadingInProgress = true;
+        contractService.getWhiteList(contract.id, {
+            limit: limitStep,
+            offset: $scope.whitelist.length
+        }).then(function(response) {
+            $scope.whiteListedAddresses = response.data;
+            $timeout(function() {
+                $scope.whitelist = $scope.whitelist.concat(response.data.results);
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+                whiteListLoadingInProgress = false;
+            });
+        });
+    };
+    getNewWhitelistPage();
+
+    $scope.addressesListOptions = {
+        parent: '.csv-addresses-table',
+        updater: getNewWhitelistPage,
+        offset: 140
+    };
+
 });
+
+
+
+
+
+

@@ -1,5 +1,5 @@
 angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
-                                                                        openedContract, $scope, $filter) {
+                                                                        openedContract, $scope, $filter, FileSaver) {
     $scope.contract = openedContract.data;
 
 
@@ -38,12 +38,21 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                 $scope.$apply();
             });
         }
-
-        if ($scope.contract.contract_details.whitelist) {
-            console.log(contract.methods);
+        if (contractDetails.whitelist) {
+            contractService.getWhiteList($scope.contract.id, {limit: 0}).then(function(response) {
+                $scope.whiteListedAddresses = response.data;
+            });
         }
-
     }
+
+    $scope.saveWhiteList = function() {
+        var data = '';
+        $scope.whiteListedAddresses.results.map(function(addressItem) {
+            data+= addressItem.address + "\n";
+        });
+        data = new Blob([data], { type: 'text/plain;charset=utf-8' });
+        FileSaver.saveAs(data, $scope.contract.name + '(whitelist).csv');
+    };
 
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];
     contractDetails.time_bonuses.map(function(bonus) {
@@ -301,7 +310,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         }
 
     };
-}).controller('whitelistFormController', function($scope, $rootScope, $timeout) {
+}).controller('whitelistFormController', function($scope, $rootScope, $timeout, contractService) {
 
     $scope.openedErrors = false;
     $scope.openErrors = function(chapter) {
@@ -320,6 +329,15 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             $scope.$parent.$broadcast('changeContent');
         });
     };
+
+
+    var contract = $scope.ngPopUp.params.contract;
+
+    if (contract.contract_details.whitelist) {
+        contractService.getWhiteList(contract.id, {limit: 1000000}).then(function(response) {
+            $scope.whiteListedAddresses = response.data.results;
+        });
+    }
 
     $scope.showInstruction = function() {
         $timeout(function() {
@@ -365,6 +383,20 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                         status: 3,
                         row: index + 1,
                         doubleLine: doubleRow,
+                        type: 'error'
+                    });
+                    continue;
+                }
+
+
+
+                if ($scope.whiteListedAddresses.filter(function(addressItem) {
+                        return addressItem.address.replace(/^0x/, '') === address.toLowerCase().replace(/^0x/, '');
+                    }).length) {
+                    errors.push({
+                        address: address,
+                        status: 5,
+                        row: index + 1,
                         type: 'error'
                     });
                     continue;
@@ -420,11 +452,13 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         $scope.$parent.$broadcast('changeContent');
     };
 
+    var fileFormats = ['text/csv', 'application/vnd.ms-excel'];
     $scope.changeFile = function(fileInput) {
         var file = fileInput.files[0];
         $scope.fileTypeError = false;
+        $scope.fileParsingError = false;
 
-        if (file.type !== 'text/csv') {
+        if (fileFormats.indexOf(file.type) === -1) {
             $scope.fileTypeError = true;
             $scope.$apply();
             return;
@@ -434,6 +468,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             complete: createResultData,
             error: function(results, file) {
                 console.log("Parsing error:", results);
+                $scope.fileParsingError = true;
                 $scope.$apply();
             }
         });

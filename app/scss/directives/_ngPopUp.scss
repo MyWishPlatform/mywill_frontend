@@ -35,6 +35,9 @@
   position: relative;
   &.popup-normalize {
     transform: scale(1) translateZ(0);
+    .popup-window-closer {
+      display: block;
+    }
   }
 }
 
@@ -62,6 +65,7 @@
   transition: all linear 0.1s;
   transform: scale(1);
   z-index: 2;
+  display: none;
   &:hover {
     transform: scale(1.1);
   }

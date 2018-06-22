@@ -101,12 +101,13 @@
   &--list {
     border-top: 1px solid;
     border-bottom: 1px solid;
-    max-height: 15em;
+    max-height: 14.5em;
     overflow: auto;
     &_item {
       font-size: 1.2em;
       padding-top: 0.75em;
       padding-bottom: 0.75em;
+      //visibility: hidden;
       &_text {
         line-height: 1.25em;
       }

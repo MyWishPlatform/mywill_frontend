@@ -154,7 +154,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
             };
 
             $scope.$parent.$on('$closePopUp', function() {
-                $scope.$broadcast('$destroy');
+                // $scope.$broadcast('$destroy');
             });
 
             $scope.$watch('ngPopUp.template', function(newTpl, oldTpl) {

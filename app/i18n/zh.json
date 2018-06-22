@@ -73,7 +73,9 @@
     "I_ACCEPT": "我接受",
     "CONFIRM": "确认",
     "BUY_TOKENS": "购买代币",
-    "CHECK": "检查"
+    "CHECK": "检查",
+
+    "BACK": "Back"
   },
   "AUTH_POPUP": {
     "FIELDS": {

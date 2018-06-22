@@ -38,6 +38,11 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                 $scope.$apply();
             });
         }
+
+        if ($scope.contract.contract_details.whitelist) {
+            console.log(contract.methods);
+        }
+
     }
 
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];
@@ -316,6 +321,14 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         });
     };
 
+    $scope.showInstruction = function() {
+        $timeout(function() {
+            $scope.showedInstruction = true;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
+
     var parseDataForTable = function(results) {
         var parsedData = [];
         var errors = [];
@@ -434,7 +447,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     var contractDetails = contractData.contract_details, contract;
     var params = [];
 
-    $scope.ngPopUp.params.whitelist.map(function(item) {
+    $scope.$parent.tableData.result.map(function(item) {
         params.push($rootScope.web3Utils.toChecksumAddress(item.address));
     });
 

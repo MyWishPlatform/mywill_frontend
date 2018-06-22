@@ -73,7 +73,9 @@
     "I_ACCEPT": "同意する",
     "CONFIRM": "確認する",
     "BUY_TOKENS": "トークンを購入する",
-    "CHECK": "確認する"
+    "CHECK": "確認する",
+
+    "BACK": "Back"
   },
   "AUTH_POPUP": {
     "FIELDS": {

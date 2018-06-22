@@ -73,7 +73,9 @@
     "I_ACCEPT": "I Accept",
     "CONFIRM": "Confirm",
     "BUY_TOKENS": "Buy tokens",
-    "CHECK": "Check"
+    "CHECK": "Check",
+
+    "BACK": "Back"
   },
   "AUTH_POPUP": {
     "FIELDS": {

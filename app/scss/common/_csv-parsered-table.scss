@@ -6,7 +6,7 @@
   border-bottom: 1px solid #ddd;
   position: relative;
   &__row {
-    padding: 0.8em 3em 0.8em 0;
+    padding: 0.8em 0;
     color: #aaa;
     position: relative;
     &:after {
@@ -18,25 +18,25 @@
       color: #000;
     }
     &.status-row-warning {
-      background-color: #ffe;
-      b {
-        color: #906705;
-      }
-      &:before {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        line-height: 1em;
-        margin-top: -0.5em;
-        margin-right: 0.5em;
-        font-size: 1.5em;
-        font-family: 'icomoon' !important;
-        content: "\e933";
-        color: #d0b300;
-      }
-      + .status-row-warning {
-        border-color: #fff3cc;
-      }
+      //background-color: #ffe;
+      //b {
+      //  color: #906705;
+      //}
+      //&:before {
+      //  position: absolute;
+      //  right: 0;
+      //  top: 50%;
+      //  line-height: 1em;
+      //  margin-top: -0.5em;
+      //  margin-right: 0.5em;
+      //  font-size: 1.5em;
+      //  font-family: 'icomoon' !important;
+      //  content: "\e933";
+      //  color: #d0b300;
+      //}
+      //+ .status-row-warning {
+      //  border-color: #fff3cc;
+      //}
     }
   }
   &__row + &__row {

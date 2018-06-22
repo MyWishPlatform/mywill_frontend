@@ -74,8 +74,8 @@
     "CONFIRM": "确认",
     "BUY_TOKENS": "购买代币",
     "CHECK": "检查",
-
-    "BACK": "Back"
+    "BACK": "Back",
+    "CHOOSE_FILE": "Choose file"
   },
   "AUTH_POPUP": {
     "FIELDS": {
@@ -106,7 +106,8 @@
     "DELETE": "删除",
     "EDIT": "编辑",
     "ADD_TO_PARITY": "+加入平价",
-    "CHANGE_DATES": "更改日期"
+    "CHANGE_DATES": "更改日期",
+    "WHITELIST": "Whitelist"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "字段是必需的",
@@ -316,6 +317,33 @@
     }
   },
   "POPUP_FORMS": {
+    "WHITELIST": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one address in Ethereum format",
+        "ITEM_3": "Only the first 100 addresses will be processed",
+        "ITEM_4": "You can add as many addresses as you need, but not more than 100 at a time<br/>Table example:"
+      },
+      "FILE_ERRORS": {
+        "WRONG_FORMAT": "Wrong file format",
+        "PARSE_ERROR": "File parsing error"
+      },
+      "TABLE": {
+        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
+        "PROCESSED_SUCCESSFULLY": "{{success}} out of {{amount}} addresses processed successfully",
+        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
+        "LINE_NUMBER": "Line: {{line}}",
+        "WARNINGS_COUNT": "{{count}} warnings",
+        "ERRORS_COUNT": "{{count}} errors",
+        "ERRORS": {
+          "WRONG_FORMAT": "Address has wrong format",
+          "DUPLICATE": "Duplicate address:",
+          "EMPTY_STRING": "Empty string",
+          "ALREADY_EXIST": "Address was already whitelisted"
+        },
+        "ADD_BUTTON": "Add {{length}} addresses"
+      }
+    },
     "MINT_TOKENS_FORM": {
       "DESCRIPTION": "为代币定义地址（在完成后它将被发送到这个地址）",
       "FIELDS": {
@@ -419,6 +447,10 @@
       "ACTIVATE": {
         "TITLE": "启用",
         "DESCRIPTION": "要激活众包，您需要将代币所有权转让给众包合约。 请从代币所有者地址呼叫相应的功能。"
+      },
+      "WHITELIST": {
+        "TITLE": "Whitelist",
+        "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
       },
       "CANCEL": {
         "TITLE": "取消",
@@ -551,8 +583,6 @@
           "ITEM_5": "Enter your password"
         }
       },
-
-
       "MINT": {
         "TITLE": "铸币",
         "DESCRIPTION": "要向铸币代币请来令牌所有者的地址进行以下交易(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)",
@@ -866,6 +896,10 @@
             "LABEL": "更改日期",
             "DESCRIPTION": "开始/结束日期可以在合同部署后手动更改。 您可以延长销售时间或尽早完成销售。 否则，日期是硬编码的，不能改变。"
           },
+          "WHITELIST": {
+            "LABEL": "Whitelist",
+            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+          },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小和最大投资限制",
             "DESCRIPTION": "您可以指定最小/最大接受贡献（在ETH中）。 例如，仅接受0.05 ETH至3000 ETH的供款"
@@ -972,6 +1006,7 @@
         "CROWD_SALE_TYPE": " 代币预销售类型：",
         "TOKEN_SCRIPT_HASH": "代币合约脚本哈希",
         "CROWDSALE_SCRIPT_HASH": "代币销售合约脚本哈希",
+        "SHOW_WHITELIST": "View whitelisted addresses ({{count}} addresses)",
         "TIME_BONUSES": {
           "TITLE": "时间奖金",
           "BONUS": "奖金：",
@@ -987,6 +1022,10 @@
           "BONUS": "奖金:",
           "MIN_AMOUNT": "最小的金额",
           "MAX_AMOUNT": "最大金额"
+        },
+        "WHITELIST": {
+          "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
+          "DOWNLOAD_CSV": "Download CSV"
         }
       }
     }

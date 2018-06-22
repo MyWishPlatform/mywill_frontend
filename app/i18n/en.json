@@ -74,7 +74,6 @@
     "CONFIRM": "Confirm",
     "BUY_TOKENS": "Buy tokens",
     "CHECK": "Check",
-
     "BACK": "Back",
     "CHOOSE_FILE": "Choose file"
   },
@@ -897,6 +896,10 @@
             "LABEL": "Changing dates",
             "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
           },
+          "WHITELIST": {
+            "LABEL": "Whitelist",
+            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+          },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "Min & Max investments limitations",
             "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
@@ -1003,6 +1006,7 @@
         "CROWD_SALE_TYPE": "Crowdsale type:",
         "TOKEN_SCRIPT_HASH": "Token contract script hash",
         "CROWDSALE_SCRIPT_HASH": "Crowdsale contract script hash",
+        "SHOW_WHITELIST": "View whitelisted addresses ({{count}} addresses)",
         "TIME_BONUSES": {
           "TITLE": "Time bonuses",
           "BONUS": "Bonus:",
@@ -1018,6 +1022,10 @@
           "BONUS": "Bonus:",
           "MIN_AMOUNT": "Min amount",
           "MAX_AMOUNT": "Max amount"
+        },
+        "WHITELIST": {
+          "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
+          "DOWNLOAD_CSV": "Download CSV"
         }
       }
     }

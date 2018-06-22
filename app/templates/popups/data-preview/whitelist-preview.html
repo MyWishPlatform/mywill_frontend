@@ -2,11 +2,12 @@
     <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name">
-                <span class="big-size">Whitelist&nbsp;</span>
+                <span class="big-size">{{'CONTRACTS_BUTTONS.WHITELIST'|translate}}&nbsp;</span>
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span>Contract has {{whiteListedAddresses.count}} whitelisted addresses</span>
+            <span translate-values="{count: whiteListedAddresses.count}"
+                  translate="CONTRACTS.PREVIEW.CROWD_SALE.WHITELIST.DESCRIPTION"></span>
         </div>
     </div>
 
@@ -26,7 +27,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2">
                 <button class="btn btn-submit" type="button" ng-click="saveWhiteList()">
-                    <span>&nbsp;&nbsp;&nbsp;Download CSV&nbsp;&nbsp;&nbsp;</span>
+                    <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS.PREVIEW.CROWD_SALE.WHITELIST.DOWNLOAD_CSV'|translate}}&nbsp;&nbsp;&nbsp;</span>
                 </button>
             </div>
         </div>

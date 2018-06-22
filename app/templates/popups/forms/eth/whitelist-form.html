@@ -22,7 +22,6 @@
                 <img src="/static/images/csv-whitelist.jpg" width="100%" alt="">
             </div>
             <form name="csvWhiteListForm"
-                  ng-show="whiteListedAddresses"
                   class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
                 <div class="btn btn-submit btn-with-file">
                     <span translate="BUTTONS.CHOOSE_FILE">&nbsp;&nbsp;{{'BUTTONS.CHOOSE_FILE'|translate}}&nbsp;&nbsp;</span>
@@ -53,16 +52,18 @@
         </div>
 
         <div class="csv-addresses-table" ng-if="tableData.result">
-            <div ng-repeat="address in tableData.result" class="csv-addresses-table__row"
-                 ng-class="'status-row-' + (address.type || 'success')">
-                <div class="shadow-block__content shadow-block__content_no-tb-padding">
-                    <div class="form-control-label">
-                        <div class="float-right"
-                             translate-values="{
-                                line: address.row
-                             }"
-                             translate="POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER"></div>
-                        <b>{{address.address}}</b>
+            <div ng-scroll-list="addressesListOptions">
+                <div ng-repeat="address in visibleAddresses" class="csv-addresses-table__row"
+                     ng-class="'status-row-' + (address.type || 'success')">
+                    <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                        <div class="form-control-label">
+                            <div class="float-right"
+                                 translate-values="{
+                                    line: address.row
+                                 }"
+                                 translate="POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER"></div>
+                            <b>{{address.address}}</b>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,11 +81,13 @@
                     translate="POPUP_FORMS.WHITELIST.TABLE.WARNINGS_COUNT"></span>
             </div>
             <div class="csv-errors-info--list" ng-if="openedErrors == 'warnings'">
-                <div ng-repeat="error in tableData.warnings"
-                     class="shadow-block__content no-border csv-errors-info--list_item">
-                    <div class="csv-errors-info--list_item_text">
-                        {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.row+'}'}}; <b>{{error.address}}</b><br/>
-                        <span ng-if="error.status == 1" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                <div ng-scroll-list="warningsListOptions">
+                    <div ng-repeat="error in visibleWarnings"
+                         class="shadow-block__content no-border csv-errors-info--list_item">
+                        <div class="csv-errors-info--list_item_text">
+                            {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.row+'}'}}; <b>{{error.address}}</b><br/>
+                            <span ng-if="error.status == 1" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -103,16 +106,18 @@
                     translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS_COUNT"></span>
             </div>
             <div class="csv-errors-info--list" ng-if="openedErrors == 'errors'">
-                <div ng-repeat="error in tableData.errors"
-                     class="shadow-block__content no-border csv-errors-info--list_item">
-                    <div class="csv-errors-info--list_item_text">
-                        {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.row+'}'}}; <b>{{error.address}}</b><br/>
-                        <span ng-if="error.status == 2" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.WRONG_FORMAT"></span>
-                        <span ng-if="error.status == 3">
-                            {{'POPUP_FORMS.WHITELIST.TABLE.ERRORS.DUPLICATE'|translate}}
-                            {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.doubleLine.csvRow+'}'}} </span>
-                        <span ng-if="error.status == 4" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.EMPTY_STRING"></span>
-                        <span ng-if="error.status == 5" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.ALREADY_EXIST"></span>
+                <div ng-scroll-list="errorsListOptions">
+                    <div ng-repeat="error in visibleErrors"
+                         class="shadow-block__content no-border csv-errors-info--list_item">
+                        <div class="csv-errors-info--list_item_text">
+                            {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.row+'}'}}; <b>{{error.address}}</b><br/>
+                            <span ng-if="error.status == 2" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.WRONG_FORMAT"></span>
+                            <span ng-if="error.status == 3">
+                                {{'POPUP_FORMS.WHITELIST.TABLE.ERRORS.DUPLICATE'|translate}}
+                                {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.doubleLine.csvRow+'}'}} </span>
+                            <span ng-if="error.status == 4" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.EMPTY_STRING"></span>
+                            <span ng-if="error.status == 5" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.ALREADY_EXIST"></span>
+                        </div>
                     </div>
                 </div>
             </div>

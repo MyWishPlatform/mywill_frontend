@@ -315,6 +315,18 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.openedErrors = false;
     $scope.openErrors = function(chapter) {
         $timeout(function() {
+            if ($scope.openedErrors) {
+                switch ($scope.openedErrors) {
+                    case 'errors':
+                        $scope.visibleErrors = [];
+                        checkVisibleErrors();
+                        break;
+                    case 'warnings':
+                        $scope.visibleWarnings = [];
+                        checkVisibleWarnings();
+                        break;
+                }
+            }
             $scope.openedErrors = ($scope.openedErrors !== chapter) ? chapter : false;
             $scope.$apply();
             $scope.$parent.$broadcast('changeContent');
@@ -323,8 +335,11 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     $scope.resetTable = function() {
         $timeout(function() {
+            $scope.visibleAddresses = [];
             $scope.tableData = false;
             $scope.openedErrors = false;
+            $scope.visibleErrors = [];
+            $scope.visibleWarnings = [];
             $scope.$apply();
             $scope.$parent.$broadcast('changeContent');
         });
@@ -443,11 +458,73 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                 return error.type === 'error';
             })
         };
+    };
 
+    var visibleCountPlus = 15;
+
+    var errorsScrollProgress = false;
+    $scope.visibleErrors = [];
+    var checkVisibleErrors = function() {
+        if (errorsScrollProgress) return;
+        if ($scope.visibleErrors.length === $scope.tableData.errors.length) return;
+        errorsScrollProgress = true;
+        var newPart = $scope.tableData.errors.slice($scope.visibleErrors.length, $scope.visibleErrors.length + visibleCountPlus);
+        $timeout(function() {
+            $scope.visibleErrors = $scope.visibleErrors.concat(newPart);
+            $scope.$apply();
+            errorsScrollProgress = false;
+        });
+    };
+
+    var warningsScrollProgress = false;
+    $scope.visibleWarnings = [];
+    var checkVisibleWarnings = function() {
+        if (warningsScrollProgress) return;
+        if ($scope.visibleWarnings.length === $scope.tableData.warnings.length) return;
+        warningsScrollProgress = true;
+        var newPart = $scope.tableData.warnings.slice($scope.visibleWarnings.length, $scope.visibleWarnings.length + visibleCountPlus);
+        $timeout(function() {
+            $scope.visibleWarnings = $scope.visibleWarnings.concat(newPart);
+            $scope.$apply();
+            warningsScrollProgress = false;
+        });
+    };
+
+    var addressesScrollProgress = false;
+    $scope.visibleAddresses = [];
+    var checkVisibleAddresses = function() {
+        if (addressesScrollProgress) return;
+        if ($scope.visibleAddresses.length === $scope.tableData.result.length) return;
+        addressesScrollProgress = true;
+        var newPart = $scope.tableData.result.slice($scope.visibleAddresses.length, $scope.visibleAddresses.length + visibleCountPlus);
+        $timeout(function() {
+            $scope.visibleAddresses = $scope.visibleAddresses.concat(newPart);
+            $scope.$apply();
+            addressesScrollProgress = false;
+        });
+    };
+
+    $scope.addressesListOptions = {
+        parent: '.csv-addresses-table',
+        updater: checkVisibleAddresses,
+        offset: 40
+    };
+    $scope.errorsListOptions = {
+        parent: '.csv-errors-info--list',
+        updater: checkVisibleErrors,
+        offset: 40
+    };
+    $scope.warningsListOptions = {
+        parent: '.csv-errors-info--list',
+        updater: checkVisibleWarnings,
+        offset: 40
     };
 
     var createResultData = function(csvData) {
         $scope.tableData = parseDataForTable(csvData);
+        checkVisibleErrors();
+        checkVisibleWarnings();
+        $scope.visibleAddresses = $scope.tableData.result.slice(0, visibleCountPlus);
         $scope.$apply();
         $scope.$parent.$broadcast('changeContent');
     };

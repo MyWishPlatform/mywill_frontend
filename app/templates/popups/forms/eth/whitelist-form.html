@@ -1,0 +1,141 @@
+<div class="shadow-block" ng-controller="whitelistFormController">
+    <div ng-if="showedInstruction" ng-include="'/templates/popups/instructions/eth/whitelist-instruction.html'"></div>
+    <div ng-show="!showedInstruction">
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-crowdsale"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding" ng-show="!tableData">
+            <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                <ul class="condition-text">
+                    <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_1"></li>
+                    <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_2"></li>
+                    <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_3"></li>
+                    <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_4"></li>
+                </ul>
+            </div>
+            <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding no-border">
+                <img src="/static/images/csv-whitelist.jpg" width="100%" alt="">
+            </div>
+            <form name="csvWhiteListForm"
+                  class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+                <div class="btn btn-submit btn-with-file">
+                    <span translate="BUTTONS.CHOOSE_FILE">&nbsp;&nbsp;{{'BUTTONS.CHOOSE_FILE'|translate}}&nbsp;&nbsp;</span>
+                    <input type="file" name="csvFile"
+                           accept=".csv"
+                           onchange="angular.element(this).scope().changeFile(this)">
+                </div>
+                <span class="field-error" ng-if="fileTypeError" style="display: block"
+                      translate="POPUP_FORMS.WHITELIST.FILE_ERRORS.WRONG_FORMAT"></span>
+                <span class="field-error" ng-if="fileParsingError" style="display: block"
+                      translate="POPUP_FORMS.WHITELIST.FILE_ERRORS.PARSE_ERROR"></span>
+            </form>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="tableData">
+            <div class="form-control-label" translate="POPUP_FORMS.WHITELIST.TABLE.SUCCESS_ADDRESSES"></div>
+            <span class="form-control-description__text">
+                <span translate-values="{
+                        success: tableData.lastRow,
+                        amount: tableData.amountRows
+                    }"
+                    translate="POPUP_FORMS.WHITELIST.TABLE.PROCESSED_SUCCESSFULLY"></span><br/>
+                <span translate-values="{
+                        errorsLength: tableData.errors.length
+                    }"
+                    translate="POPUP_FORMS.WHITELIST.TABLE.ERROR_ADDRESSES"></span>
+            </span>
+        </div>
+
+        <div class="csv-addresses-table" ng-if="tableData.result">
+            <div ng-scroll-list="addressesListOptions">
+                <div ng-repeat="address in visibleAddresses" class="csv-addresses-table__row"
+                     ng-class="'status-row-' + (address.type || 'success')">
+                    <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                        <div class="form-control-label">
+                            <div class="float-right"
+                                 translate-values="{
+                                    line: address.row
+                                 }"
+                                 translate="POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER"></div>
+                            <b>{{address.address}}</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="csv-errors-info csv-errors-info__warnings"
+             ng-if="tableData.warnings.length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info--title" ng-click="openErrors('warnings')">
+                <i class="float-right arrow"
+                   ng-class="{'icon-keyboard_arrow_right': openedErrors != 'warnings', 'icon-keyboard_arrow_down': openedErrors == 'warnings'}"></i>
+                <i class="icon-warning"></i>
+                <span translate-values="{
+                        count: tableData.warnings.length
+                    }"
+                    translate="POPUP_FORMS.WHITELIST.TABLE.WARNINGS_COUNT"></span>
+            </div>
+            <div class="csv-errors-info--list" ng-if="openedErrors == 'warnings'">
+                <div ng-scroll-list="warningsListOptions">
+                    <div ng-repeat="error in visibleWarnings"
+                         class="shadow-block__content no-border csv-errors-info--list_item">
+                        <div class="csv-errors-info--list_item_text">
+                            {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.row+'}'}}; <b>{{error.address}}</b><br/>
+                            <span ng-if="error.status == 1" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="csv-errors-info csv-errors-info__errors"
+             ng-if="tableData.errors.length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors('errors')">
+                <i class="float-right arrow"
+                   ng-class="{'icon-keyboard_arrow_right': openedErrors != 'errors', 'icon-keyboard_arrow_down': openedErrors == 'errors'}"></i>
+                <i class="icon-error"></i>
+                <span translate-values="{
+                        count: tableData.errors.length
+                    }"
+                    translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS_COUNT"></span>
+            </div>
+            <div class="csv-errors-info--list" ng-if="openedErrors == 'errors'">
+                <div ng-scroll-list="errorsListOptions">
+                    <div ng-repeat="error in visibleErrors"
+                         class="shadow-block__content no-border csv-errors-info--list_item">
+                        <div class="csv-errors-info--list_item_text">
+                            {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.row+'}'}}; <b>{{error.address}}</b><br/>
+                            <span ng-if="error.status == 2" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.WRONG_FORMAT"></span>
+                            <span ng-if="error.status == 3">
+                                {{'POPUP_FORMS.WHITELIST.TABLE.ERRORS.DUPLICATE'|translate}}
+                                {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.doubleLine.csvRow+'}'}} </span>
+                            <span ng-if="error.status == 4" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.EMPTY_STRING"></span>
+                            <span ng-if="error.status == 5" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.ALREADY_EXIST"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color" ng-if="tableData.result">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2">
+                    <button class="btn btn-submit" type="button" ng-click="showInstruction()">
+                        <span>&nbsp;&nbsp;&nbsp;{{'POPUP_FORMS.WHITELIST.TABLE.ADD_BUTTON'|translate:'{length:'+tableData.result.length+'}'}}&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+                <div class="grid-cell grid-cell-1-2 text-right">
+                    <button class="btn btn-transparent" type="button" ng-click="resetTable()">
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.BACK'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -94,7 +94,7 @@
        ng-click="removeRecipient(recipient); checkTokensAmount();"
        ng-if="token_holders.length"></i>
 </div>
-<div class="shadow-block__content" ng-if="token_holders.length < 5">
+<div class="shadow-block__content" ng-if="(token_holders.length < 5) || (blockchain === 'NEO')">
     <div class="grid-row">
         <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
             <span class="form-control-description__text"
@@ -102,7 +102,6 @@
         </div>
         <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
             <button class="btn btn-transparent with-icon mobile-width-100" type="button"
-                    ng-if="((blockchain === 'NEO') && (token_holders.length < 3)) || (blockchain !== 'NEO')"
                     ng-click="addRecipient(); checkTokensAmount();">
                 <i class="icon-create-contract"></i>
                 <span translate="CONTRACTS.FORMS.CROWD_SALE.BUTTONS.ADD_EXTRA_ADDRESS"></span>

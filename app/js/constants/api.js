@@ -36,6 +36,7 @@ angular.module('Constants').constant('API', {
     "CONTRACT_CANCEL": "cancel/",
     "NEO_ICO_FINALIZE": "neo_ico_finalize/",
     "SET_LNG": "set_lang/",
+    "WHITELIST": "whitelist_addresses/",
     "SOCIAL": {
         "FACEBOOK": "facebook/",
         "GOOGLE": "google/",

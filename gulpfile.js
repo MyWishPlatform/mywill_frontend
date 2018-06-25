@@ -135,6 +135,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
     return gulp.src(
         [
             path.join(folders['npm'], 'jquery', 'dist', 'jquery.min.js'),
+            path.join(folders['npm'], 'papaparse', 'papaparse.min.js'),
             path.join(folders['npm'], 'ua-parser-js', 'dist', 'ua-parser.min.js'),
             path.join(folders['npm'], 'qrious', 'dist', 'qrious.min.js'),
             path.join(folders['npm'], 'angular', 'angular.min.js'),

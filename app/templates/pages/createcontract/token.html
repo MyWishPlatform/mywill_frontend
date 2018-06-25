@@ -266,7 +266,7 @@
            ng-click="removeRecipient(recipient); checkTokensAmount();"
            ng-if="token_holders.length"></i>
     </div>
-    <div class="shadow-block__content" ng-if="((blockchain === 'NEO') && (token_holders.length < 3)) || ((blockchain !== 'NEO') && (token_holders.length < 5))">
+    <div class="shadow-block__content" ng-if="(token_holders.length < 5) || (blockchain === 'NEO')">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
                 <span class="form-control-description__text"

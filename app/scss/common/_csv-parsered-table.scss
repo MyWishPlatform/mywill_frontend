@@ -1,0 +1,123 @@
+.csv-addresses-table {
+  background-color: #fff;
+  max-height: 28em;
+  overflow: auto;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  &__row {
+    padding: 0.8em 0;
+    color: #aaa;
+    position: relative;
+    &:after {
+      clear: both;
+      display: table;
+      width: 100%;
+    }
+    b {
+      color: #000;
+    }
+    &.status-row-warning {
+      //background-color: #ffe;
+      //b {
+      //  color: #906705;
+      //}
+      //&:before {
+      //  position: absolute;
+      //  right: 0;
+      //  top: 50%;
+      //  line-height: 1em;
+      //  margin-top: -0.5em;
+      //  margin-right: 0.5em;
+      //  font-size: 1.5em;
+      //  font-family: 'icomoon' !important;
+      //  content: "\e933";
+      //  color: #d0b300;
+      //}
+      //+ .status-row-warning {
+      //  border-color: #fff3cc;
+      //}
+    }
+  }
+  &__row + &__row {
+    border-top: 1px solid #eee;
+  }
+}
+.csv-errors-info {
+  border-bottom: 1px solid #ddd;
+  &__warnings {
+    color: #906705;
+    i {
+      color: #d0b300;
+    }
+  }
+  &__errors {
+    color: #900c07;
+    i {
+      color: #a00;
+    }
+  }
+
+  i.arrow {
+    font-size: 2em;
+    color: #444;
+  }
+
+  &--title {
+    line-height: 2.1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    cursor: pointer;
+    &:hover {
+      background-color: #ededed;
+    }
+    i {
+      font-size: 1.8em;
+      margin-right: 0.1em;
+    }
+    i, span {
+      vertical-align: middle;
+    }
+    span {
+      font-size: 1.5em;
+      white-space: nowrap;
+      display: inline-block;
+    }
+  }
+  &__warnings &--list {
+    border-color: #fff3cc;
+    background-color: #ffe;
+  }
+  &__warnings &--list_item + &--list_item {
+    border-color: #fff3cc;
+  }
+  &__errors &--list {
+    background-color: #fffafa;
+    border-color: #ffeaea;
+  }
+  &__errors &--list_item + &--list_item {
+    border-color: #ffeaea;
+  }
+  &--list {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    max-height: 14.5em;
+    overflow: auto;
+    &_item {
+      font-size: 1.2em;
+      padding-top: 0.75em;
+      padding-bottom: 0.75em;
+      //visibility: hidden;
+      &_text {
+        line-height: 1.25em;
+      }
+    }
+    &_item + &_item {
+      border-top: 1px solid;
+    }
+  }
+  & + & {
+    border-top: 1px solid #ededed;
+    margin-top: -1px;
+  }
+}

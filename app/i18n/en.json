@@ -73,7 +73,9 @@
     "I_ACCEPT": "I Accept",
     "CONFIRM": "Confirm",
     "BUY_TOKENS": "Buy tokens",
-    "CHECK": "Check"
+    "CHECK": "Check",
+    "BACK": "Back",
+    "CHOOSE_FILE": "Choose file"
   },
   "AUTH_POPUP": {
     "FIELDS": {
@@ -104,7 +106,8 @@
     "DELETE": "Delete",
     "EDIT": "Edit",
     "ADD_TO_PARITY": "+ Add to parity",
-    "CHANGE_DATES": "Change Dates"
+    "CHANGE_DATES": "Change Dates",
+    "WHITELIST": "Whitelist"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -314,6 +317,33 @@
     }
   },
   "POPUP_FORMS": {
+    "WHITELIST": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one address in Ethereum format",
+        "ITEM_3": "Only the first 100 addresses will be processed",
+        "ITEM_4": "You can add as many addresses as you need, but not more than 100 at a time<br/>Table example:"
+      },
+      "FILE_ERRORS": {
+        "WRONG_FORMAT": "Wrong file format",
+        "PARSE_ERROR": "File parsing error"
+      },
+      "TABLE": {
+        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
+        "PROCESSED_SUCCESSFULLY": "{{success}} out of {{amount}} addresses processed successfully",
+        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
+        "LINE_NUMBER": "Line: {{line}}",
+        "WARNINGS_COUNT": "{{count}} warnings",
+        "ERRORS_COUNT": "{{count}} errors",
+        "ERRORS": {
+          "WRONG_FORMAT": "Address has wrong format",
+          "DUPLICATE": "Duplicate address:",
+          "EMPTY_STRING": "Empty string",
+          "ALREADY_EXIST": "Address was already whitelisted"
+        },
+        "ADD_BUTTON": "Add {{length}} addresses"
+      }
+    },
     "MINT_TOKENS_FORM": {
       "DESCRIPTION": "Define address for tokens (after minting it will be sent to this address)",
       "FIELDS": {
@@ -417,6 +447,10 @@
       "ACTIVATE": {
         "TITLE": "Activate",
         "DESCRIPTION": "To Activate the crowdsale you need to transfer token ownership to crowdsale contract. Please call the corresponding function from token owner address."
+      },
+      "WHITELIST": {
+        "TITLE": "Whitelist",
+        "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
       },
       "CANCEL": {
         "TITLE": "Cancel",
@@ -862,6 +896,10 @@
             "LABEL": "Changing dates",
             "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
           },
+          "WHITELIST": {
+            "LABEL": "Whitelist",
+            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+          },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "Min & Max investments limitations",
             "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
@@ -968,6 +1006,7 @@
         "CROWD_SALE_TYPE": "Crowdsale type:",
         "TOKEN_SCRIPT_HASH": "Token contract script hash",
         "CROWDSALE_SCRIPT_HASH": "Crowdsale contract script hash",
+        "SHOW_WHITELIST": "View whitelisted addresses ({{count}} addresses)",
         "TIME_BONUSES": {
           "TITLE": "Time bonuses",
           "BONUS": "Bonus:",
@@ -983,6 +1022,10 @@
           "BONUS": "Bonus:",
           "MIN_AMOUNT": "Min amount",
           "MAX_AMOUNT": "Max amount"
+        },
+        "WHITELIST": {
+          "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
+          "DOWNLOAD_CSV": "Download CSV"
         }
       }
     }

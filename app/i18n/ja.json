@@ -73,7 +73,9 @@
     "I_ACCEPT": "同意する",
     "CONFIRM": "確認する",
     "BUY_TOKENS": "トークンを購入する",
-    "CHECK": "確認する"
+    "CHECK": "確認する",
+    "BACK": "Back",
+    "CHOOSE_FILE": "Choose file"
   },
   "AUTH_POPUP": {
     "FIELDS": {
@@ -104,7 +106,8 @@
     "DELETE": "デリート",
     "EDIT": "エディット",
     "ADD_TO_PARITY": "+パリティに追加",
-    "CHANGE_DATES": "日付変更"
+    "CHANGE_DATES": "日付変更",
+    "WHITELIST": "Whitelist"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -314,6 +317,33 @@
     }
   },
   "POPUP_FORMS": {
+    "WHITELIST": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one address in Ethereum format",
+        "ITEM_3": "Only the first 100 addresses will be processed",
+        "ITEM_4": "You can add as many addresses as you need, but not more than 100 at a time<br/>Table example:"
+      },
+      "FILE_ERRORS": {
+        "WRONG_FORMAT": "Wrong file format",
+        "PARSE_ERROR": "File parsing error"
+      },
+      "TABLE": {
+        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
+        "PROCESSED_SUCCESSFULLY": "{{success}} out of {{amount}} addresses processed successfully",
+        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
+        "LINE_NUMBER": "Line: {{line}}",
+        "WARNINGS_COUNT": "{{count}} warnings",
+        "ERRORS_COUNT": "{{count}} errors",
+        "ERRORS": {
+          "WRONG_FORMAT": "Address has wrong format",
+          "DUPLICATE": "Duplicate address:",
+          "EMPTY_STRING": "Empty string",
+          "ALREADY_EXIST": "Address was already whitelisted"
+        },
+        "ADD_BUTTON": "Add {{length}} addresses"
+      }
+    },
     "MINT_TOKENS_FORM": {
       "DESCRIPTION": "トークンのアドレスを定義する（明記した後、このアドレスに送信されます）",
       "FIELDS": {
@@ -417,6 +447,10 @@
       "ACTIVATE": {
         "TITLE": "活性化する",
         "DESCRIPTION": "クラウドセールを有効にするには、クラウドセール契約にトークン所有権を譲渡する必要があります。 トークンの所有者のアドレスから対応する関数を呼び出してください。"
+      },
+      "WHITELIST": {
+        "TITLE": "Whitelist",
+        "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
       },
       "CANCEL": {
         "TITLE": "キャンセル",
@@ -549,7 +583,6 @@
           "ITEM_5": "Enter your password"
         }
       },
-
       "MINT": {
         "TITLE": "ミント",
         "DESCRIPTION": "トークンをミントするには、所有者トークンのアドレス(<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)から次の取引を行ってください",
@@ -863,6 +896,10 @@
             "LABEL": "日付の変更",
             "DESCRIPTION": "開始/終了日は、契約の展開後に手動で変更することができます。あなたは販売を延長したり、早期に完了することができます。それ以外の場合は、日付がハードコーディングされており、変更することができません。"
           },
+          "WHITELIST": {
+            "LABEL": "Whitelist",
+            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+          },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小＆最大の投資制限",
             "DESCRIPTION": "受け入れ可能な最小/最大受領額を指定することができます（ETH）。 たとえば、0.05 ETHから3000 ETHのみの寄付を受け入れます"
@@ -969,6 +1006,7 @@
         "CROWD_SALE_TYPE": "クラウドセールタイプ",
         "TOKEN_SCRIPT_HASH": "トークン契約スクリプトハッシュ",
         "CROWDSALE_SCRIPT_HASH": "クラウドセール契約スクリプトハッシュ",
+        "SHOW_WHITELIST": "View whitelisted addresses ({{count}} addresses)",
         "TIME_BONUSES": {
           "TITLE": "タイムボーナス",
           "BONUS": "ボーナス",
@@ -984,6 +1022,10 @@
           "BONUS": "ボーナス",
           "MIN_AMOUNT": "最小量",
           "MAX_AMOUNT": "最大量"
+        },
+        "WHITELIST": {
+          "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
+          "DOWNLOAD_CSV": "Download CSV"
         }
       }
     }

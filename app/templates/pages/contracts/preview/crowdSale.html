@@ -481,7 +481,41 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix show-ls" ng-if="blockchain === 'ETH'"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="blockchain === 'ETH'">
+                    <div class="form-control-label">
+                        <i class="icon-note-list form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.WHITELIST.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.whitelist, 'icon-cancel': !details.whitelist}"></i>
+                            <span ng-if="details.whitelist" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.whitelist" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="whiteListedAddresses.count">
+            <div class="form-control-label">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/whitelist-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            contract: contract
+                        }
+                   }">
+                    <span translate-values="{
+                        count: whiteListedAddresses.count
+                    }"
+                    translate="CONTRACTS.PREVIEW.CROWD_SALE.SHOW_WHITELIST"></span>
+                </a>
             </div>
         </div>
 

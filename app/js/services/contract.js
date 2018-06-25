@@ -144,6 +144,15 @@ angular.module('Services').service('contractService', function(requestService, A
                 }
             };
             return requestService.post(params);
+        },
+        getWhiteList: function(contractId, paginationParams) {
+            paginationParams = paginationParams || {};
+            paginationParams.contract = contractId;
+            var params = {
+                path: API.WHITELIST,
+                query: paginationParams
+            };
+            return requestService.get(params);
         }
     }
 });

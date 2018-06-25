@@ -23,6 +23,9 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             break;
     }
 
+
+
+
     $scope.currencyPow = $scope.blockchain === 'NEO' ? 0 : 18;
 
     if (contractDetails.eth_contract_crowdsale && contractDetails.eth_contract_crowdsale.address) {
@@ -33,6 +36,11 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
                 if (error) return;
                 contractDetails.eth_contract_crowdsale.vault = result;
                 $scope.$apply();
+            });
+        }
+        if (contractDetails.whitelist) {
+            contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
+                $scope.whiteListedAddresses = response.data;
             });
         }
     }
@@ -293,4 +301,335 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         }
 
     };
+}).controller('whitelistFormController', function($scope, $rootScope, $timeout, contractService) {
+
+    $scope.openedErrors = false;
+    $scope.openErrors = function(chapter) {
+        $timeout(function() {
+            if ($scope.openedErrors) {
+                switch ($scope.openedErrors) {
+                    case 'errors':
+                        $scope.visibleErrors = [];
+                        checkVisibleErrors();
+                        break;
+                    case 'warnings':
+                        $scope.visibleWarnings = [];
+                        checkVisibleWarnings();
+                        break;
+                }
+            }
+            $scope.openedErrors = ($scope.openedErrors !== chapter) ? chapter : false;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
+
+    $scope.resetTable = function() {
+        $timeout(function() {
+            $scope.visibleAddresses = [];
+            $scope.tableData = false;
+            $scope.openedErrors = false;
+            $scope.visibleErrors = [];
+            $scope.visibleWarnings = [];
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
+
+
+    var contract = $scope.ngPopUp.params.contract;
+
+    if (contract.contract_details.whitelist) {
+        contractService.getWhiteList(contract.id, {limit: 1000000}).then(function(response) {
+            $scope.whiteListedAddresses = response.data.results;
+        });
+    }
+
+    $scope.showInstruction = function() {
+        $timeout(function() {
+            $scope.showedInstruction = true;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
+
+    var parseDataForTable = function(results) {
+        var parsedData = [];
+        var errors = [];
+        var lastParsedRow = 0;
+        if (!results.data[results.data.length - 1][0]) {
+            results.data = results.data.slice(0, results.data.length - 1);
+        }
+        while ((parsedData.length < 100) && (lastParsedRow < results.data.length)) {
+            var index = lastParsedRow;
+            var row = results.data[index];
+            lastParsedRow++;
+            var address = row[0];
+            if (!address) {
+                errors.push({
+                    status: 4,
+                    row: index + 1,
+                    type: 'error'
+                });
+                continue;
+            }
+            try {
+                var doubleRow;
+                if (parsedData.filter(function(addedRow, index) {
+                        if (addedRow.address.toLowerCase().replace(/^0x/, '') === address.toLowerCase().replace(/^0x/, '')) {
+                            doubleRow = {
+                                csvRow: addedRow.row,
+                                tableRow: index
+                            };
+                            return true;
+                        }
+                    }).length) {
+                    errors.push({
+                        address: address,
+                        status: 3,
+                        row: index + 1,
+                        doubleLine: doubleRow,
+                        type: 'error'
+                    });
+                    continue;
+                }
+
+
+
+                if ($scope.whiteListedAddresses.filter(function(addressItem) {
+                        return addressItem.address.replace(/^0x/, '') === address.toLowerCase().replace(/^0x/, '');
+                    }).length) {
+                    errors.push({
+                        address: address,
+                        status: 5,
+                        row: index + 1,
+                        type: 'error'
+                    });
+                    continue;
+                }
+
+                var isValidAddress = $rootScope.web3Utils.isAddress(address);
+                var checkSumAddress = $rootScope.web3Utils.toChecksumAddress(address);
+
+                if (isValidAddress && (checkSumAddress === address)) {
+                    parsedData.push({
+                        address: address,
+                        status: 0,
+                        row: index + 1
+                    });
+                    continue;
+                }
+                var rowObject = {
+                    address: address,
+                    status: 1,
+                    row: index + 1,
+                    type: 'warning'
+                };
+                parsedData.push(rowObject);
+                errors.push(rowObject);
+            } catch(e) {
+                errors.push({
+                    address: address,
+                    status: 2,
+                    row: index + 1,
+                    type: 'error'
+                });
+            }
+        }
+
+        return {
+            result: parsedData,
+            firstRow: 0,
+            lastRow: lastParsedRow,
+            amountRows: results.data.length,
+            warnings: errors.filter(function(error) {
+                return error.type === 'warning';
+            }),
+            errors: errors.filter(function(error) {
+                return error.type === 'error';
+            })
+        };
+    };
+
+    var visibleCountPlus = 25;
+
+    var errorsScrollProgress = false;
+    $scope.visibleErrors = [];
+    var checkVisibleErrors = function() {
+        if (errorsScrollProgress) return;
+        if ($scope.visibleErrors.length === $scope.tableData.errors.length) return;
+        errorsScrollProgress = true;
+        var newPart = $scope.tableData.errors.slice($scope.visibleErrors.length, $scope.visibleErrors.length + visibleCountPlus);
+        $timeout(function() {
+            $scope.visibleErrors = $scope.visibleErrors.concat(newPart);
+            $scope.$apply();
+            errorsScrollProgress = false;
+        });
+    };
+
+    var warningsScrollProgress = false;
+    $scope.visibleWarnings = [];
+    var checkVisibleWarnings = function() {
+        if (warningsScrollProgress) return;
+        if ($scope.visibleWarnings.length === $scope.tableData.warnings.length) return;
+        warningsScrollProgress = true;
+        var newPart = $scope.tableData.warnings.slice($scope.visibleWarnings.length, $scope.visibleWarnings.length + visibleCountPlus);
+        $timeout(function() {
+            $scope.visibleWarnings = $scope.visibleWarnings.concat(newPart);
+            $scope.$apply();
+            warningsScrollProgress = false;
+        });
+    };
+
+    var addressesScrollProgress = false;
+    $scope.visibleAddresses = [];
+    var checkVisibleAddresses = function() {
+        if (addressesScrollProgress) return;
+        if ($scope.visibleAddresses.length === $scope.tableData.result.length) return;
+        addressesScrollProgress = true;
+        var newPart = $scope.tableData.result.slice($scope.visibleAddresses.length, $scope.visibleAddresses.length + visibleCountPlus);
+        $timeout(function() {
+            $scope.visibleAddresses = $scope.visibleAddresses.concat(newPart);
+            $scope.$apply();
+            addressesScrollProgress = false;
+        });
+    };
+
+    $scope.addressesListOptions = {
+        parent: '.csv-addresses-table',
+        updater: checkVisibleAddresses,
+        offset: 140
+    };
+    $scope.errorsListOptions = {
+        parent: '.csv-errors-info--list',
+        updater: checkVisibleErrors,
+        offset: 140
+    };
+    $scope.warningsListOptions = {
+        parent: '.csv-errors-info--list',
+        updater: checkVisibleWarnings,
+        offset: 140
+    };
+
+    var createResultData = function(csvData) {
+        $scope.tableData = parseDataForTable(csvData);
+        checkVisibleErrors();
+        checkVisibleWarnings();
+        $scope.visibleAddresses = $scope.tableData.result.slice(0, visibleCountPlus);
+        $scope.$apply();
+        $scope.$parent.$broadcast('changeContent');
+    };
+
+    var fileFormats = ['text/csv', 'application/vnd.ms-excel'];
+    $scope.changeFile = function(fileInput) {
+        var file = fileInput.files[0];
+        $scope.fileTypeError = false;
+        $scope.fileParsingError = false;
+
+        if (fileFormats.indexOf(file.type) === -1) {
+            $scope.fileTypeError = true;
+            $scope.$apply();
+            return;
+        }
+
+        Papa.parse(file, {
+            complete: createResultData,
+            error: function(results, file) {
+                console.log("Parsing error:", results);
+                $scope.fileParsingError = true;
+                $scope.$apply();
+            }
+        });
+    };
+}).controller('addWhiteListController', function($scope, web3Service, $rootScope) {
+    var contractData = $scope.ngPopUp.params.contract;
+
+    $scope.contract = contractData;
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+    var params = [];
+
+    $scope.$parent.tableData.result.map(function(item) {
+        params.push($rootScope.web3Utils.toChecksumAddress(item.address));
+    });
+
+    var methodName = 'addAddressesToWhitelist';
+
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+    try {
+        $scope.addWhiteListSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [params]);
+    } catch(err) {
+        console.log(err);
+    }
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+        }
+    });
+
+    $scope.sendTransaction = function() {
+        contract.methods[methodName](params).send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+}).controller('whiteListPreview', function($scope, contractService, FileSaver, $timeout) {
+
+    var contract = $scope.ngPopUp.params.contract;
+
+    $scope.saveWhiteList = function() {
+        contractService.getWhiteList(contract.id, {
+            limit: $scope.whiteListedAddresses.count
+        }).then(function(response) {
+            var data = '';
+            response.data.results.map(function(addressItem) {
+                data+= addressItem.address + "\n";
+            });
+            data = new Blob([data], { type: 'text/plain;charset=utf-8' });
+            FileSaver.saveAs(data, contract.name + '(whitelist).csv');
+        });
+
+
+    };
+
+    var limitStep = 25;
+    $scope.whitelist = [];
+
+    var whiteListLoadingInProgress = false;
+    var getNewWhitelistPage = function() {
+        if ($scope.whiteListedAddresses && ($scope.whitelist.length === $scope.whiteListedAddresses.count)) return;
+        if (whiteListLoadingInProgress) return;
+        whiteListLoadingInProgress = true;
+        contractService.getWhiteList(contract.id, {
+            limit: limitStep,
+            offset: $scope.whitelist.length
+        }).then(function(response) {
+            $scope.whiteListedAddresses = response.data;
+            $timeout(function() {
+                $scope.whitelist = $scope.whitelist.concat(response.data.results);
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+                whiteListLoadingInProgress = false;
+            });
+        });
+    };
+    getNewWhitelistPage();
+
+    $scope.addressesListOptions = {
+        parent: '.csv-addresses-table',
+        updater: getNewWhitelistPage,
+        offset: 140
+    };
+
 });
+
+
+
+
+
+

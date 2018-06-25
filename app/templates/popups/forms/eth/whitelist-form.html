@@ -126,7 +126,9 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color" ng-if="tableData.result">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2">
-                    <button class="btn btn-submit" type="button" ng-click="showInstruction()">
+                    <button class="btn btn-submit" type="button" ng-click="showInstruction()"
+                            ng-class="{'no-visibility': !tableData.result.length}"
+                            ng-disabled="!tableData.result.length">
                         <span>&nbsp;&nbsp;&nbsp;{{'POPUP_FORMS.WHITELIST.TABLE.ADD_BUTTON'|translate:'{length:'+tableData.result.length+'}'}}&nbsp;&nbsp;&nbsp;</span>
                     </button>
                 </div>

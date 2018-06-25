@@ -1,10 +1,11 @@
 angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope,
-                                                                 contractsList, $scope, $state) {
+                                                                 contractsList, $scope, $state, contractService) {
 
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 
-    $scope.contractsList = contractsList.data.results;
+    var contractsData = contractsList.data;
+    $scope.contractsList = contractsData.results;
 
     var url = 'https://www.myetherwallet.com/?';
     var params = [
@@ -45,7 +46,30 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     $scope.$on('$userUpdated', updateList);
 
     $scope.deleteContract = function(contract) {
-        $scope.$parent.deleteContract(contract, updateList);
+        $scope.$parent.deleteContract(contract, function() {
+            $scope.contractsList = $scope.contractsList.filter(function(contractItem) {
+                return contract !== contractItem;
+            });
+        });
+    };
+
+    var contractsUpdateProgress = false;
+    var getContracts = function() {
+        if (contractsUpdateProgress) return;
+        if (contractsData.count === $scope.contractsList.length) return;
+        contractsUpdateProgress = true;
+        contractService.getContractsList({
+            limit: 8,
+            offset: $scope.contractsList.length
+        }).then(function(response) {
+            contractsData = response.data;
+            $scope.contractsList = $scope.contractsList.concat(response.data.results);
+            contractsUpdateProgress = false;
+        });
+    };
+    $scope.contractsListParams = {
+        updater: getContracts,
+        offset: 100
     };
 
 }).controller('baseContractsController', function($scope, $state, $timeout, contractService, $rootScope, $interval) {

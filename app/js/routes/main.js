@@ -134,7 +134,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'contracts.html',
         resolve: {
             contractsList: function(contractService, $rootScope, currentUser) {
-                return !$rootScope.currentUser.is_ghost ? contractService.getContractsList() : [];
+                return !$rootScope.currentUser.is_ghost ? contractService.getContractsList({
+                    limit: 8
+                }) : [];
             }
         }
     }).state('main.contracts.preview', {

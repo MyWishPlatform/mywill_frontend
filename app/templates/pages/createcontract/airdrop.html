@@ -1,0 +1,197 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="contract-info__network"
+             ng-class="'contract-info__network_' + network">
+            <span>{{('CONTRACTS_NETWORKS.NETWORK_' + network)|translate}}</span>
+        </div>
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-deferred"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size" translate="CONTRACTS.FORMS.AIRDROP.TITLE"></span>
+            </div>
+        </div>
+    </div>
+    <form class="shadow-block__content shadow-block__content_no-tb-padding no-border" name="contractNameForm">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="contract-name" class="form-control-label"
+                           translate="CONTRACTS.FORMS.FIELDS.ENTER_CONTRACT_NAME.LABEL"></label>
+                    <input id="contract-name" type="text"
+                           ng-model="request.name"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+        </div><br/><br/>
+    </form>
+</div>
+
+
+<form class="shadow-block" name="managementAddressForm">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="wallet-key"
+                           class="form-control-label"
+                           translate="CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
+                    <input id="wallet-key" type="text"
+                           ng-model="request.contract_details.admin_address"
+                           required
+                           placeholder="{{'CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.PLACEHOLDER'|translate}}"
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="request.contract_details.admin_address ? !web3Utils.checkAddressChecksum(request.contract_details.admin_address) : false"
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="shadow-block" name="tokenAddressForm" ng-class="{'no-active': !managementAddressForm.$valid}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="token-key"
+                           class="form-control-label"
+                           translate="CONTRACTS.FORMS.AIRDROP.FIELDS.TOKEN_ADDR.LABEL"></label>
+                    <input id="token-key" type="text"
+                           name="token_address"
+                           ng-change="checkTokenAddress(tokenAddressForm.token_address)"
+                           ng-model="request.contract_details.token_address"
+                           required
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           ng-class="{'ng-invalid': tokenAddressError}"
+                           class="form-control-input"/>
+
+                    <span class="field-error form-field_error-contract-address">Не является адресом токен-контракта</span>
+
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="request.contract_details.token_address ? !web3Utils.checkAddressChecksum(request.contract_details.token_address) : false"
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.TOKEN_ADDR.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div class="shadow-block" ng-class="{'no-active': !(managementAddressForm.$valid && tokenAddressForm.$valid && checkedTokenAddress)}">
+    <div class="shadow-block__content">
+        <div class="form-control-label"
+             translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.LABEL"></div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="radio-button-decoration">
+                            <input type="radio" id="pre-sale-mode-radio" name="sale-mode" ng-model="request.contract_details.decimals" ng-value="true">
+                            <span ng-class="{'icon-radio-checked': request.contract_details.decimals, 'icon-radio-unchecked': !request.contract_details.decimals}"></span>
+                        </label>
+                        <label class="form-control-label inline-label" for="pre-sale-mode-radio"
+                               translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.VALUE_1"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.DESCRIPTION_1"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="radio-button-decoration">
+                            <input type="radio" id="sale-mode-radio" name="sale-mode" ng-model="request.contract_details.decimals" ng-value="false">
+                            <span ng-class="{'icon-radio-checked': !request.contract_details.decimals, 'icon-radio-unchecked': request.contract_details.decimals}"></span>
+                        </label>
+                        <label class="form-control-label inline-label" for="sale-mode-radio"
+                               translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.VALUE_2"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.DESCRIPTION_2"></span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                <div class="btn btn-submit btn-with-file">
+                    <span translate="BUTTONS.CHOOSE_FILE">&nbsp;&nbsp;{{'BUTTONS.CHOOSE_FILE'|translate}}&nbsp;&nbsp;</span>
+                    <input type="file" name="csvFile"
+                           accept=".csv"
+                           onchange="angular.element(this).scope().changeFile(this)">
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                <span class="form-control-description__text">Choose file Choose file Choose file Choose file Choose file Choose file </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="csv-errors-info csv-errors-info__warnings"
+         style="border-top: 1px solid #dadada"
+         ng-if="tableData.warnings.length">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info--title">
+            <i class="float-right arrow" ng-class="{'icon-keyboard_arrow_right': true}"></i>
+            <i class="icon-warning"></i>
+            <span class="ng-scope">{{tableData.warnings.length}} warnings</span>
+        </div>
+    </div>
+
+    <div class="csv-errors-info csv-errors-info__errors" ng-if="tableData.errors.length">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info--title">
+            <i class="float-right arrow" ng-class="{'icon-keyboard_arrow_right': true}"></i>
+            <i class="icon-error"></i>
+            <span class="ng-scope">{{tableData.errors.length}} errors</span>
+        </div>
+    </div>
+
+    <div class="shadow-block__content" ng-if="tableData.result.length">
+        <div class="form-control-label">
+            <a href="#" class="as-link dotted">
+                <span>Show preview of table</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<br/><br/><br/>
+
+<div class="grid-row">
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="uppercase btn btn-submit mobile-width-100"
+                type="button" ng-disabled="!checkedBalance || !hairsForm.$valid || !conditionsForm.$valid" ng-click="createContract()">
+            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+            <i class="icon-delete-button"></i>
+            <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
+            <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>
+        </button>
+    </div>
+</div>

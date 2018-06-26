@@ -45,6 +45,9 @@
 }
 .csv-errors-info {
   border-bottom: 1px solid #ddd;
+  .shadow-block__content {
+    border-radius: 0;
+  }
   &__warnings {
     color: #906705;
     i {

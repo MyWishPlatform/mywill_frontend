@@ -289,6 +289,17 @@
       }
     }
 
+    &.ng-invalid-contract-address {
+      ~ {
+        .form-field_error-contract-address {
+          display: block;
+          ~ .field-error {
+            display: none!important;
+          }
+        }
+      }
+    }
+
   }
 }
 

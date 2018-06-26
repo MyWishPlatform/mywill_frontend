@@ -224,6 +224,10 @@
         "TITLE": "Token contract",
         "DESCRIPTION": "Create a Token and distribute it yourself or with a Crowdsale Contract"
       },
+      "AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any ERC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+      },
       "LOST_KEY": {
         "TITLE": "Lost key",
         "DESCRIPTION": "The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
@@ -943,6 +947,28 @@
             "DESCRIPTION": "Maximum contribution for getting specified bonus{{last ? ' (you can left it empty if there is no limit)' : ''}}"
           },
           "AMOUNT_BONUS_DESCRIPTION": "You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions"
+        }
+      },
+      "AIRDROP": {
+        "TITLE": "Airdrop",
+        "BUTTONS": {},
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your ETH wallet address",
+            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+          },
+          "TOKEN_ADDR": {
+            "LABEL": "Token address",
+            "DESCRIPTION": "Token address Token address Token address Token address"
+          },
+          "WITH_DECIMALS": {
+            "LABEL": "Table format",
+            "VALUE_1": "With Decimals",
+            "VALUE_2": "No Decimals",
+            "DESCRIPTION_1": "With Decimals With Decimals With Decimals With Decimals",
+            "DESCRIPTION_2": "No Decimals No Decimals No Decimals No Decimals No Decimals No Decimals No Decimals"
+          }
         }
       }
     },

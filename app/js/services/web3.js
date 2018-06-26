@@ -1,4 +1,4 @@
-angular.module('Services').service('web3Service', function($q, $rootScope, APP_CONSTANTS) {
+angular.module('Services').service('web3Service', function($q, $rootScope, APP_CONSTANTS, $timeout) {
 
     var web3 = new Web3(), contract, _this = this;
 
@@ -89,21 +89,27 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         var defer = $q.defer();
         _this.setProvider(providerName, network);
 
-        web3.eth.getAccounts(function(err, addresses) {
-            if (!addresses) {
-                defer.resolve([]);
-                return;
-            }
-            var accountsList = [];
-            addresses.map(function(wallet) {
-                var walletModel = {
-                    type: providerName,
-                    wallet: wallet
-                };
-                accountsList.push(walletModel);
+        try {
+            web3.eth.getAccounts(function(err, addresses) {
+                if (!addresses) {
+                    defer.resolve([]);
+                    return;
+                }
+                var accountsList = [];
+                addresses.map(function(wallet) {
+                    var walletModel = {
+                        type: providerName,
+                        wallet: wallet
+                    };
+                    accountsList.push(walletModel);
+                });
+                defer.resolve(accountsList);
             });
-            defer.resolve(accountsList);
-        });
+        } catch(err) {
+            $timeout(function() {
+                defer.resolve([]);
+            });
+        }
         return defer.promise;
     };
 

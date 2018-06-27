@@ -33,7 +33,6 @@ angular.module('app').controller('airdropCreateController', function($scope, con
         });
         return true;
     };
-
     var createContract = function() {
         if (contractInProgress) return;
         var data = angular.copy($scope.request);
@@ -45,7 +44,6 @@ angular.module('app').controller('airdropCreateController', function($scope, con
             contractInProgress = false;
         });
     };
-
     var checkDraftContract = function(redirect) {
         if (localStorage.draftContract && !contract.id) {
             if (!contract.id) {
@@ -65,8 +63,10 @@ angular.module('app').controller('airdropCreateController', function($scope, con
 
     checkDraftContract();
 
+    var tableData;
+
     var parseDataForTable = function(results) {
-        var parsedData = [];
+        var parsedData = {};
         var errors = [];
         var lastParsedRow = 0;
         if (!results.data[results.data.length - 1][0]) {
@@ -96,6 +96,7 @@ angular.module('app').controller('airdropCreateController', function($scope, con
                 });
                 continue;
             }
+
             if (isNaN(amount)) {
                 errors.push({
                     status: 6,
@@ -106,37 +107,15 @@ angular.module('app').controller('airdropCreateController', function($scope, con
                 continue;
             }
 
-
             try {
-                var doubleRow;
-                if (parsedData.filter(function(addedRow, index) {
-                        if (addedRow.address.toLowerCase().replace(/^0x/, '') === address.toLowerCase().replace(/^0x/, '')) {
-                            doubleRow = {
-                                csvRow: addedRow.row,
-                                tableRow: index
-                            };
-                            return true;
-                        }
-                    }).length) {
-                    errors.push({
-                        address: address,
-                        status: 3,
-                        row: index + 1,
-                        doubleLine: doubleRow,
-                        type: 'error'
-                    });
-                    continue;
-                }
-
                 var isValidAddress = $rootScope.web3Utils.isAddress(address);
                 var checkSumAddress = $rootScope.web3Utils.toChecksumAddress(address);
-
                 if (isValidAddress && (checkSumAddress === address)) {
-                    parsedData.push({
+                    parsedData[address] = {
                         address: address,
                         status: 0,
                         row: index + 1
-                    });
+                    };
                     continue;
                 }
                 var rowObject = {
@@ -145,7 +124,7 @@ angular.module('app').controller('airdropCreateController', function($scope, con
                     row: index + 1,
                     type: 'warning'
                 };
-                parsedData.push(rowObject);
+                parsedData[address] = rowObject;
                 errors.push(rowObject);
             } catch(e) {
                 errors.push({
@@ -159,7 +138,6 @@ angular.module('app').controller('airdropCreateController', function($scope, con
 
         return {
             result: parsedData,
-            firstRow: 0,
             lastRow: lastParsedRow,
             amountRows: results.data.length,
             warnings: errors.filter(function(error) {
@@ -172,8 +150,8 @@ angular.module('app').controller('airdropCreateController', function($scope, con
     };
 
     var createResultData = function(csvData) {
-        $scope.tableData = parseDataForTable(csvData);
-        console.log($scope.tableData);
+        tableData = parseDataForTable(csvData);
+        console.log(tableData);
         // checkVisibleErrors();
         // checkVisibleWarnings();
         // $scope.visibleAddresses = $scope.tableData.result.slice(0, visibleCountPlus);
@@ -201,6 +179,12 @@ angular.module('app').controller('airdropCreateController', function($scope, con
         });
     };
 
+
+    $scope.checkTableDataWithDecimalParam = function() {
+        if (!tableData) return;
+        tableData.result.map();
+
+    };
 
     web3Service.setProviderByNumber($scope.network);
     var web3 = web3Service.web3();

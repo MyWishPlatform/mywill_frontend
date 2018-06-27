@@ -132,20 +132,25 @@
             </div>
         </div>
     </div>
-    <div class="shadow-block__content">
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
-                <div class="btn btn-submit btn-with-file">
-                    <span translate="BUTTONS.CHOOSE_FILE">&nbsp;&nbsp;{{'BUTTONS.CHOOSE_FILE'|translate}}&nbsp;&nbsp;</span>
-                    <input type="file" name="csvFile"
-                           accept=".csv"
-                           onchange="angular.element(this).scope().changeFile(this)">
-                </div>
-            </div>
 
-            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
-                <span class="form-control-description__text">Choose file Choose file Choose file Choose file Choose file Choose file </span>
-            </div>
+    <div class="shadow-block__content shadow-block__content_no-tb-padding">
+        <ul class="condition-text">
+            <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_1"></li>
+            <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_2"></li>
+            <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_3"></li>
+            <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_4"></li>
+        </ul>
+    </div>
+    <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding no-border">
+        <img src="/static/images/csv-whitelist.jpg" width="100%" alt="">
+    </div>
+
+    <div class="shadow-block__content">
+        <div class="btn btn-submit btn-with-file">
+            <span translate="BUTTONS.CHOOSE_FILE">&nbsp;&nbsp;{{'BUTTONS.CHOOSE_FILE'|translate}}&nbsp;&nbsp;</span>
+            <input type="file" name="csvFile"
+                   accept=".csv"
+                   onchange="angular.element(this).scope().changeFile(this)">
         </div>
     </div>
 

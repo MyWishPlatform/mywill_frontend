@@ -14,6 +14,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     var depositUrl = url + params.join('&');
     var killUrl = url + params.join('&');
 
+
+
     $scope.iniContract = function(contract) {
         if (!contract.contract_details.eth_contract) return;
         var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];

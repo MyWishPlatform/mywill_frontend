@@ -52,9 +52,11 @@
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(contract.stateValue == 4) && (tokenInfo.balance)">
             <span class="form-control-label">
-                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}} <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
+                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}}
+                <b>{{tokenInfo.balance|separateNumber}}&nbsp;{{tokenInfo.symbol}}&nbsp;&nbsp;</b>
             </span>
         </div>
 

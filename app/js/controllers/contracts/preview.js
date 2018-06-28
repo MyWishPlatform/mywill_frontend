@@ -23,6 +23,7 @@ angular.module('app').controller('contractsPreviewController', function($scope,
     var killUrl = url + params.join('&');
 
     $scope.setContract = function(contract) {
+
         $scope.contract = contract;
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];

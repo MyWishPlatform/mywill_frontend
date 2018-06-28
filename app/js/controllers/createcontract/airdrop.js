@@ -215,6 +215,9 @@ angular.module('app').controller('airdropCreateController', function($scope, con
         var address = web3.utils.toChecksumAddress($scope.request.contract_details.token_address);
         var web3Contract = web3Service.createContractFromAbi(address, window.abi);
 
+        web3Contract.methods.name().call(console.log);
+        web3Contract.methods.symbol().call(console.log);
+        web3Contract.methods.totalSupply().call(console.log);
         web3Contract.methods.decimals().call(function(err, result) {
             if (err === null) {
                 tokenContractDecimals = result;

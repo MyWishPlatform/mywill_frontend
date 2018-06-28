@@ -80,10 +80,24 @@
                     <span translate="CONTRACTS_BUTTONS.EDIT"></span>
                 </a><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8)">
                 <!-- Deposit instruction button -->
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/deposit-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+                </button><br/><br/>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
+                <!-- Airdrop deposit instruction button -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/airdrop-deposit-instruction.html',
                             newPopupContent: true,
                             params: {
                                 contract: contract

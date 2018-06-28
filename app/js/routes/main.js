@@ -266,7 +266,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             }
         },
         parent: 'main.createcontract'
-        // templateUrl: templatesPath + 'createcontract/contract-types.html'
     }).state('main.createcontract.edit', {
         url: '/contracts/edit/:id',
         controllerProvider: function(openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
@@ -294,6 +293,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     return contractService.getTokenContracts(openedContract.data.network || 1);
                 }
                 return undefined;
+            }
+        },
+        onEnter: function(openedContract, CONTRACT_STATUSES_CONSTANTS, $state) {
+            if (CONTRACT_STATUSES_CONSTANTS[openedContract.data.state]['value'] > 1) {
+                $state.go('main.contracts.preview.byId', {id: openedContract.data.id});
+                return;
             }
         },
         data: {

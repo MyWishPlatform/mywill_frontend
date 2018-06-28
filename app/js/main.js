@@ -6,7 +6,7 @@ angular.module('Constants', []);
 
 var module = angular.module('app', [
     'Constants', 'ui.router', 'Directives', 'Services', 'Filters', 'ngCookies', 'templates',
-    'datePicker', 'angular-clipboard', 'ngFileSaver', 'pascalprecht.translate']);
+    'datePicker', 'angular-clipboard', 'ngFileSaver', 'pascalprecht.translate', 'ngWebworker']);
 if (UAParser(window.navigator.userAgent).device.type === "mobile") {
     module.requires.push('ngTouch');
 }
@@ -274,7 +274,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         5: 'icon-token',
         6: 'icon-token',
         7: 'icon-crowdsale',
-        8: 'icon-crowdsale'
+        8: 'icon-airdrop'
     };
 
     $rootScope.deviceInfo = UAParser(window.navigator.userAgent);

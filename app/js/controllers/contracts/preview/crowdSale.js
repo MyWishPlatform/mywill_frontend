@@ -520,7 +520,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         $scope.$parent.$broadcast('changeContent');
     };
 
-    var fileFormats = ['text/csv', 'application/vnd.ms-excel'];
+    var fileFormats = ['text/csv', 'application/vnd.ms-excel', ''];
     $scope.changeFile = function(fileInput) {
         var file = fileInput.files[0];
         $scope.fileTypeError = false;

@@ -159,9 +159,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             openedContract: function(contractService, $stateParams) {
                 if (!$stateParams.id) return false;
                 return contractService.getContract($stateParams.id);
-            },
-            exRate: function(contractService) {
-                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
             }
         },
         data: {

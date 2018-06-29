@@ -37,7 +37,7 @@ $red-active-color: #bb0d2b;
     &:not(.only-icon) {
       &:hover, &:focus {
         box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
-        transform: translateY(-0.1em);
+        //transform: translateY(-0.1em);
       }
       &:active {
         box-shadow: 0 0 0 rgba(0, 0, 0, 0);

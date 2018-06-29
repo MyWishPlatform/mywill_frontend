@@ -600,7 +600,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             ctrl.$formatters.unshift(function (value) {
                 return ctrl.$modelValue;
             });
-            console.log(scope.ngChecksumAddressValidator);
+
             switch(scope.ngChecksumAddressValidator.network) {
                 case 'ETH':
                     elem.attr('placeholder', elem.attr('placeholder') || '0x1234567890adfbced543567acbedf34565437e8f');

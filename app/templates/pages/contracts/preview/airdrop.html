@@ -119,6 +119,40 @@
                 </button>
             </div>
         </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(contract.stateValue == 4) && contract.airdropState && !contract.airdropState.allAddresses">
+            <div class="form-control-label">
+                <span>Вы не добавили ни одного адреса</span>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.airdropState.allAddresses">
+            <div class="form-control-label">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/whitelist-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            contract: contract
+                        }
+                   }">
+                    <span>В Airdrop добавлено {{contract.airdropState.allAddresses}}</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(contract.airdrop_enabled !== undefined) && !contract.airdrop_enabled">
+            <div class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <div>
+                    Вы не можете совершить отправку токенов.<br/>
+                    Необходимо <b>{{allAmounts|separateNumber}}&nbsp;{{tokenInfo.symbol}}</b> на балансе контракта
+                </div>
+
+            </div>
+        </div>
     </div>
 
 

@@ -108,6 +108,42 @@
                 </button><br/><br/>
             </div>
 
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
+                <!-- Airdrop add addresses -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/airdrop-addresses-form.html',
+                            newPopupContent: true,
+                            actions: {
+                                updateBalanceInfo: updateBalanceInfo
+                            },
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Add addresses</span>
+                </button><br/><br/>
+            </div>
+
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && (contract.contract_details.next_addresses.length) && !contract.contract_details.processing_count">
+                <!-- Airdrop send transaction instruction button -->
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/airdrop-send-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        ng-disabled="!contract.airdrop_enabled"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Send {{contract.airdropState.nextRequest}}/{{contract.airdropState.allRequestsCount}}</span>
+                </button><br/><br/>
+            </div>
+
+
+
+
             <!-- Cancel instruction button (Deferred, Lost Key) -->
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && ((contract.contract_type == 1) || (contract.contract_type == 2))">

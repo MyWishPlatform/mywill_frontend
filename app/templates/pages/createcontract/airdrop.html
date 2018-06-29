@@ -91,106 +91,12 @@
     </div>
 </form>
 
-
-<div class="shadow-block" ng-class="{'no-active': !(managementAddressForm.$valid && tokenAddressForm.$valid && checkedTokenAddress)}">
-    <div class="shadow-block__content">
-        <div class="form-control-label"
-             translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.LABEL"></div>
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
-                <div class="form-control">
-                    <div class="checkbox-decoration">
-                        <label class="radio-button-decoration">
-                            <input type="radio"
-                                   id="pre-sale-mode-radio" name="sale-mode" ng-model="request.contract_details.decimals" ng-value="true">
-                            <span ng-class="{'icon-radio-checked': request.contract_details.decimals, 'icon-radio-unchecked': !request.contract_details.decimals}"></span>
-                        </label>
-                        <label class="form-control-label inline-label" for="pre-sale-mode-radio"
-                               translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.VALUE_1"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
-                <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.DESCRIPTION_1"></span>
-            </div>
-        </div>
-        <div class="grid-row">
-            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
-                <div class="form-control">
-                    <div class="checkbox-decoration">
-                        <label class="radio-button-decoration">
-                            <input type="radio"
-                                   id="sale-mode-radio" name="sale-mode" ng-model="request.contract_details.decimals" ng-value="false">
-                            <span ng-class="{'icon-radio-checked': !request.contract_details.decimals, 'icon-radio-unchecked': request.contract_details.decimals}"></span>
-                        </label>
-                        <label class="form-control-label inline-label" for="sale-mode-radio"
-                               translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.VALUE_2"></label>
-                    </div>
-                </div>
-            </div>
-            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
-                <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.DESCRIPTION_2"></span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="shadow-block" ng-class="{'no-active': !(managementAddressForm.$valid && tokenAddressForm.$valid && checkedTokenAddress)}">
-    <div ng-if="!(tableData || csvDataInitialize)">
-        <div class="shadow-block__content shadow-block__content_no-tb-padding">
-            <ul class="condition-text">
-                <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_1"></li>
-                <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_2"></li>
-                <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_3"></li>
-                <li class="condition-text-item" translate="POPUP_FORMS.WHITELIST.DISCLAIMER.ITEM_4"></li>
-            </ul>
-        </div>
-        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding no-border">
-            <img src="/static/images/csv-whitelist.jpg" width="100%" alt="">
-        </div>
-    </div>
-
-    <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding" ng-if="tableData">
-        <div class="csv-errors-info csv-errors-info__errors" ng-if="tableData.errors.length">
-            <div class="shadow-block__content shadow-block__content_min-tb-padding csv-errors-info--title">
-                <i class="float-right arrow" ng-class="{'icon-keyboard_arrow_right': true}"></i>
-                <i class="icon-error"></i>
-                <span class="ng-scope">{{tableData.errors.length}} errors</span>
-            </div>
-        </div>
-
-        <div class="shadow-block__content" ng-if="tableData.results.length">
-            <div class="form-control-label">
-                <a href="#" class="as-link dotted">
-                    <span>Show preview of table ({{tableData.results.length}} addresses)</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="shadow-block__content">
-        <div class="btn btn-submit btn-with-file" ng-if="!csvDataInitialize">
-            <span translate="BUTTONS.CHOOSE_FILE">&nbsp;&nbsp;{{'BUTTONS.CHOOSE_FILE'|translate}}&nbsp;&nbsp;</span>
-            <input type="file" name="csvFile"
-                   accept=".csv"
-                   onchange="angular.element(this).scope().changeFile(this)">
-        </div>
-        <div class="form-control-label" ng-if="csvDataInitialize">Please wait...</div>
-    </div>
-</div>
-
-
-
-
 <br/><br/><br/>
 
 <div class="grid-row">
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
-                type="button" ng-disabled="!(managementAddressForm.$valid && tokenAddressForm.$valid && checkedTokenAddress && tableData.results.length)" ng-click="createContract()">
+                type="button" ng-disabled="!(managementAddressForm.$valid && tokenAddressForm.$valid)" ng-click="createContract()">
             <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
             <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
         </button>

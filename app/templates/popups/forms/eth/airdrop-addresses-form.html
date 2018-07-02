@@ -64,9 +64,8 @@
         </form>
     </div>
 
-
-
-    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="tableData">
+    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData"
+         class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="form-control-label">Your file was processed:</div>
         <div class="form-control-description__text" ng-if="tableData.results.length">
             <span>{{tableData.results.length}} rows were processed successfully</span>
@@ -78,9 +77,8 @@
         </div>
     </div>
 
-
-
-    <div class="csv-addresses-table" ng-if="tableData.results.length">
+    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData.results.length"
+         class="csv-addresses-table">
         <div ng-scroll-list="addressesListOptions">
             <div ng-repeat="address in visibleAddresses" class="csv-addresses-table__row">
                 <div class="shadow-block__content shadow-block__content_no-tb-padding">
@@ -98,45 +96,48 @@
         </div>
     </div>
 
-    <div class="csv-errors-info csv-errors-info__errors"
-                 ng-if="tableData.errors.length">
-                <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors()">
-                    <i class="float-right arrow"
-                       ng-class="{'icon-keyboard_arrow_right': !openedErrors, 'icon-keyboard_arrow_down': openedErrors}"></i>
-                    <i class="icon-error"></i>
-                    <span translate-values="{
-                            count: tableData.errors.length
-                        }"
-                          translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS_COUNT"></span>
-                </div>
-                <div class="csv-errors-info--list" ng-if="openedErrors">
-                    <div ng-scroll-list="errorsListOptions">
-                        <div ng-repeat="error in visibleErrors"
-                             class="shadow-block__content no-border csv-errors-info--list_item">
-                            <div class="csv-errors-info--list_item_text">
-                                {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:' + error.line + '}'}}; <b>{{error.data[0]}} | {{error.data[1]}}</b><br/>
-                                <span ng-if="error.error.status == 2" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_FORMAT"></span>
-                                <span ng-if="error.error.status == 1" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.EMPTY_STRING"></span>
-                                <span ng-if="error.error.status == 3" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_VALUE"></span>
-                                <span ng-if="error.error.status == 4">
-                                    Реверное значение кол-ва токенов: <b>{{error.data[1]}}</b>
-                                </span>
-                            </div>
-                        </div>
+    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData.errors.length"
+         class="csv-errors-info csv-errors-info__errors">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors()">
+            <i class="float-right arrow"
+               ng-class="{'icon-keyboard_arrow_right': !openedErrors, 'icon-keyboard_arrow_down': openedErrors}"></i>
+            <i class="icon-error"></i>
+            <span translate-values="{
+                    count: tableData.errors.length
+                }"
+                  translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS_COUNT"></span>
+        </div>
+        <div class="csv-errors-info--list" ng-if="openedErrors">
+            <div ng-scroll-list="errorsListOptions">
+                <div ng-repeat="error in visibleErrors"
+                     class="shadow-block__content no-border csv-errors-info--list_item">
+                    <div class="csv-errors-info--list_item_text">
+                        {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:' + error.line + '}'}}; <b>{{error.data[0]}} | {{error.data[1]}}</b><br/>
+                        <span ng-if="error.error.status == 2" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_FORMAT"></span>
+                        <span ng-if="error.error.status == 1" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.EMPTY_STRING"></span>
+                        <span ng-if="error.error.status == 3" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_VALUE"></span>
+                        <span ng-if="error.error.status == 4">
+                            Реверное значение кол-ва токенов: <b>{{error.data[1]}}</b>
+                        </span>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
+    <div ng-if="csvDataInitialize || uploadAddressesProgress"
+         class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="form-control-label">Please wait...</div>
+    </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color"
-         ng-if="csvDataInitialize || tableData.results || uploadAddressesProgress">
-        <div class="form-control-label" ng-if="csvDataInitialize || uploadAddressesProgress">Please wait...</div>
-        <div class="grid-row" ng-if="!csvDataInitialize && tableData.results && !uploadAddressesProgress">
+    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData.results"
+         class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="grid-row" ng-if="tableData.results">
             <div class="grid-cell grid-cell-1-2">
                 <button class="btn btn-submit" type="button" ng-click="addAddresses()"
                         ng-class="{'no-visibility': !tableData.results.length}"
                         ng-disabled="!tableData.results.length">
-                    <span>&nbsp;&nbsp;&nbsp;{{'POPUP_FORMS.WHITELIST.TABLE.ADD_BUTTON'|translate:'{length:'+tableData.results.length+'}'}}&nbsp;&nbsp;&nbsp;</span>
+                    <span>&nbsp;&nbsp;&nbsp;{{'POPUP_FORMS.WHITELIST.TABLE.ADD_BUTTON'|translate:'{length:' + tableData.results.length + '}'}}&nbsp;&nbsp;&nbsp;</span>
                 </button>
             </div>
             <div class="grid-cell grid-cell-1-2 text-right">

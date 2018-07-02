@@ -7,9 +7,13 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
     var countLimit = 100;
 
-    $scope.allAmounts = new BigNumber(0);
+
+    var allAmounts;
 
     var createContractAddressesInfo = function() {
+
+        allAmounts = new BigNumber(0)
+
         var allAddressesCount = $scope.contract.contract_details.added_count +
             $scope.contract.contract_details.processing_count +
             $scope.contract.contract_details.sent_count;
@@ -26,7 +30,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             $scope.contract.contract_details.next_addresses = response.data.results;
             if ($scope.contract.contract_details.next_addresses.length) {
                 $scope.contract.contract_details.next_addresses.map(function(address) {
-                    $scope.allAmounts = $scope.allAmounts.plus(address.amount);
+                    allAmounts = allAmounts.plus(address.amount);
                 });
             }
             getAllTokensInfo();
@@ -44,20 +48,24 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var getTokenParamCallback = function(err, result, method) {
         requestsCount++;
         $scope.tokenInfo[method] = result;
+
         if (requestsCount === tokenInfoFields.length) {
             var decimalsValue = Math.pow(10, $scope.tokenInfo.decimals);
             $scope.tokenInfo.balance = new BigNumber($scope.tokenInfo.balanceOf);
             if ($scope.contract.contract_details.next_addresses.length) {
-                $scope.contract.airdrop_enabled = $scope.tokenInfo.balance.minus($scope.allAmounts) > 0;
+                $scope.contract.airdrop_enabled = $scope.tokenInfo.balance.minus(allAmounts) > 0;
             }
+
             $scope.tokenInfo.balance = $scope.tokenInfo.balance.div(decimalsValue).round(2).toString(10);
-            $scope.allAmounts = $scope.allAmounts.div(decimalsValue).round(2).toString(10);
+            $scope.allAmounts = allAmounts.div(decimalsValue).round(2).toString(10);
         }
         $scope.$apply();
     };
 
     var getAllTokensInfo = function() {
+        requestsCount = 0;
         var web3Contract = web3Service.createContractFromAbi($scope.contract.contract_details.token_address, window.abi);
+
         tokenInfoFields.map(function(method) {
             switch (method) {
                 case 'balanceOf':
@@ -66,9 +74,15 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                     });
                     break;
                 default:
-                    web3Contract.methods[method]().call(function(err, result) {
-                        getTokenParamCallback(err, result, method);
-                    });
+                    if ($scope.tokenInfo[method]) {
+                        $timeout(function() {
+                            getTokenParamCallback(null, $scope.tokenInfo[method], method);
+                        });
+                    } else {
+                        web3Contract.methods[method]().call(function(err, result) {
+                            getTokenParamCallback(err, result, method);
+                        });
+                    }
             }
         });
     };
@@ -235,7 +249,9 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         var airdropAddresses = $scope.tableData.results.map(function(addressRow) {
             return {
                 address: addressRow.data[0],
-                amount: addressRow.data[1]
+                amount: !$scope.csvFormat.decimals ?
+                    new BigNumber(addressRow.data[1]).times(Math.pow(10, tokenContractDecimals)).toString(10) :
+                    addressRow.data[1]
             };
         });
         contractService.loadAirdrop(contract.id, airdropAddresses).then(function() {
@@ -246,7 +262,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         }, function() {
             $scope.uploadAddressesProgress = false;
         });
-    }
+    };
 
 
     var errorsScrollProgress = false;

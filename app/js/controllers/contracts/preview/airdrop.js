@@ -10,9 +10,13 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
     var allAmounts;
 
+    if ($scope.contract.contract_details.processing_count) {
+        $scope.contract.state = 'SENDING_TOKENS';
+    }
+
     var createContractAddressesInfo = function() {
 
-        allAmounts = new BigNumber(0)
+        allAmounts = new BigNumber(0);
 
         var allAddressesCount = $scope.contract.contract_details.added_count +
             $scope.contract.contract_details.processing_count +

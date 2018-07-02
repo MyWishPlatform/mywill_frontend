@@ -51,5 +51,9 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
     'UNDER_CROWDSALE': {
         title: 'Under Crowdsale',
         value: 12
+    },
+    'SENDING_TOKENS': {
+        title: 'Sending',
+        value: 101
     }
 });

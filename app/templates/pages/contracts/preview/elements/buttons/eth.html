@@ -131,6 +131,7 @@
                 </button><br/><br/>
             </div>
 
+
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && (contract.contract_details.next_addresses.length) && !contract.contract_details.processing_count">
                 <!-- Airdrop send transaction instruction button -->
@@ -146,8 +147,6 @@
                     <span>Send {{contract.airdropState.nextRequest}}/{{contract.airdropState.allRequestsCount}}</span>
                 </button><br/><br/>
             </div>
-
-
 
 
             <!-- Cancel instruction button (Deferred, Lost Key) -->

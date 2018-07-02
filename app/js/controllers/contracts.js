@@ -23,6 +23,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         contract.depositUrl = depositUrl + '&' + depositParams.join('&');
         contract.killUrl = killUrl + '&' + killParams.join('&');
         contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
+
+        if ((contract.contract_type === 8) && contract.contract_details.processing_count) {
+            contract.state = 'SENDING_TOKENS';
+        }
+
     };
 
     $scope.goToContract = function(contract, $event) {

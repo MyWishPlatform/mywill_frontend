@@ -44,7 +44,8 @@
     "TRIGGERED": "Done",
     "WAITING_ACTIVATION": "Not Activated",
     "ENDED": "Done",
-    "UNDER_CROWDSALE": "Under Crowdsale"
+    "UNDER_CROWDSALE": "Under Crowdsale",
+    "SENDING_TOKENS": "Sending"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -480,6 +481,10 @@
       "WHITELIST": {
         "TITLE": "Whitelist",
         "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
+      },
+      "AIRDROP": {
+        "TITLE": "Tokens sending",
+        "DESCRIPTION": "To send tokens to addresses XXX - YYY please do the following steps (if you added many addresses it will take a lot of gas):"
       },
       "CANCEL": {
         "TITLE": "Cancel",

@@ -78,7 +78,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     $scope.csvFormat = {};
     var contract = $scope.ngPopUp.params.contract;
     var visibleCountPlus = 25;
-    var parseDataForTable = function(results, csvFormat, decimals) {
+    var parseDataForTable = function(results) {
         var addressRegExp = /^(0x)?[0-9a-f]{40}$/i;
         if (!results.data[results.data.length - 1][0]) {
             results.data = results.data.slice(0, results.data.length - 1);
@@ -114,11 +114,6 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 return resultRow;
             }
 
-            if (!csvFormat.decimals) {
-                resultRow.data[2] = amount * Math.pow(10, decimals);
-            } else {
-                resultRow.data[2] = amount;
-            }
             return resultRow;
         });
     };
@@ -158,7 +153,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var tableData;
     var createResultData = function(csvData) {
         var myWorker = Webworker.create(parseDataForTable);
-        myWorker.run(csvData, $scope.csvFormat, tokenContractDecimals).then(function(result) {
+        myWorker.run(csvData).then(function(result) {
             tableData = result;
             parseDecimalsErrors();
         });
@@ -209,7 +204,11 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var addressesScrollProgress = false;
     var convertAmount = function(part) {
         part.map(function(partItem) {
-            partItem.data[2] = new BigNumber(partItem.data[2]).div(Math.pow(10, tokenContractDecimals)).round(2).toString(10);
+            if ($scope.csvFormat.decimals) {
+                partItem.data[2] = new BigNumber(partItem.data[1]).div(Math.pow(10, tokenContractDecimals)).toString(10);
+            } else {
+                partItem.data[2] = partItem.data[1];
+            }
         });
     };
     var getNewAirdropPage = function() {

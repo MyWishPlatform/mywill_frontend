@@ -97,8 +97,13 @@
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
                 <!-- Airdrop deposit instruction button -->
                 <button ng-pop-up="{
-                            template: '/templates/popups/instructions/eth/airdrop-deposit-instruction.html',
+                            template: '/templates/popups/instructions/eth/deposit-instruction.html',
                             newPopupContent: true,
+                            instructionParams: {
+                                coinName: tokenInfo.symbol,
+                                gasLimit: 100000,
+                                specifyDescription: 'AIRDROP_DESCRIPTION'
+                            },
                             params: {
                                 contract: contract
                             }

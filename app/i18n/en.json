@@ -488,12 +488,13 @@
       "DEPOSIT": {
         "TITLE": "Deposit",
         "DESCRIPTION": "To make a deposit on the contract, follow the instructions.",
+        "AIRDROP_DESCRIPTION": "To make a deposit of {{coinName}} tokens to Airdrop contract, please do the following steps:",
         "LIST": {
           "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
           "ITEM_3": "Insert the following recipient's address:",
-          "ITEM_4": "Specify how much ETH you want to send (Amount to Send field)",
-          "ITEM_5": "Specify Gas limit 30000",
+          "ITEM_4": "Specify how much {{coinName || 'ETH'}} you want to send (Amount to Send field)",
+          "ITEM_5": "Specify Gas limit {{gasLimit || 30000}}",
           "ITEM_6": "Click generate Transaction",
           "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
         }

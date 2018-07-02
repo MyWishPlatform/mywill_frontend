@@ -34,9 +34,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     };
     $scope.updateBalanceInfo = createContractAddressesInfo;
 
-    if ($scope.contract.stateValue === 4) {
-        createContractAddressesInfo();
-    }
+    createContractAddressesInfo();
 
     var requestsCount = 0;
     var tokenInfoFields = ['decimals', 'symbol', 'balanceOf'];
@@ -54,8 +52,8 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             }
             $scope.tokenInfo.balance = $scope.tokenInfo.balance.div(decimalsValue).round(2).toString(10);
             $scope.allAmounts = $scope.allAmounts.div(decimalsValue).round(2).toString(10);
-            $scope.$apply();
         }
+        $scope.$apply();
     };
 
     var getAllTokensInfo = function() {
@@ -193,7 +191,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 if (cell === 1) {
                     if (!isNaN(value)) {
                         var n = new BigNumber(value);
-                        if ($scope.csvFormat.decimals) {
+                        if (!$scope.csvFormat.decimals) {
                             n = n.times(Math.pow(10, tokenContractDecimals));
                         }
                         return n.toString(10);

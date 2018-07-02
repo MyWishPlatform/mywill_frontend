@@ -321,6 +321,17 @@
     }
   },
   "POPUP_FORMS": {
+    "AIRDROP": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one address in Ethereum (column A) and amount of tokens to distribute (column B)",
+        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+      },
+      "FILE_ERRORS": {
+        "WRONG_FORMAT": "Wrong file format",
+        "PARSE_ERROR": "File parsing error"
+      }
+    },
     "WHITELIST": {
       "DISCLAIMER": {
         "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
@@ -959,15 +970,15 @@
             "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token address",
-            "DESCRIPTION": "Token address Token address Token address Token address"
+            "LABEL": "Token contract address",
+            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+          },
+          "ERRORS": {
+            "WRONG_TOKEN_ADDRESS": "Wrong Token contract address"
           },
           "WITH_DECIMALS": {
             "LABEL": "Table format",
-            "VALUE_1": "With Decimals",
-            "VALUE_2": "No Decimals",
-            "DESCRIPTION_1": "With Decimals With Decimals With Decimals With Decimals",
-            "DESCRIPTION_2": "No Decimals No Decimals No Decimals No Decimals No Decimals No Decimals No Decimals"
+            "VALUE_LABEL": "Decimals"
           }
         }
       }
@@ -986,6 +997,7 @@
       "LOST_KEY_SOURCE_CODE": "Your Lost Key source code",
       "TOKEN_SOURCE_CODE": "Your TOKEN source code",
       "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
+      "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
       "HERE": "here",
       "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
@@ -1053,6 +1065,9 @@
           "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
           "DOWNLOAD_CSV": "Download CSV"
         }
+      },
+      "AIRDROP": {
+        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution."
       }
     }
   }

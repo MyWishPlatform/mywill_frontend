@@ -64,25 +64,39 @@ angular.module('app').controller('airdropCreateController', function($scope, con
     var tokenContractDecimals = 0;
 
 
+    var tokenData = ['decimals', 'symbol'];
+
     $scope.checkTokenAddress = function(token_address) {
         tokenContractDecimals = false;
         $scope.checkedTokenAddress = false;
-        token_address.$setValidity('contract-address', true);
         if (!$scope.request.contract_details.token_address || !web3.utils.isAddress($scope.request.contract_details.token_address.toLowerCase())) {
             return;
         }
         var address = web3.utils.toChecksumAddress($scope.request.contract_details.token_address);
         var web3Contract = web3Service.createContractFromAbi(address, window.abi);
 
-        web3Contract.methods.decimals().call(function(err, result) {
-            if (err === null) {
-                token_address.$setValidity('contract-address', true);
-                $scope.checkedTokenAddress = true;
-            } else {
-                token_address.$setValidity('contract-address', false);
-            }
-            $scope.$apply();
-        });
+        var checkedTokenData = {};
+        var sch = 0;
+        for (var k = 0; k < tokenData.length; k++) {
+            web3Contract.methods[tokenData[k]]().call(function(err, result) {
+                if (err === null) {
+                    checkedTokenData[tokenData[sch]] = result;
+                    sch++;
+                    if (sch === tokenData.length) {
+                        $scope.checkedTokenAddress = checkedTokenData;
+                        token_address.$setValidity('contract-address', true);
+                        $scope.$apply();
+                    }
+                } else {
+                    token_address.$setValidity('contract-address', false);
+                    $scope.$apply();
+                }
+            });
+        }
+
+
+
+
     };
 
 });

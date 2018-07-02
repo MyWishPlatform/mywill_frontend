@@ -74,7 +74,7 @@
 
         <div class="form-control-description__text" ng-if="tableData.errors.length">
             <span translate-values="{errorsLength: tableData.errors.length}"
-                  translate="POPUP_FORMS.WHITELIST.TABLE.ERROR_ADDRESSES"></span>
+                  translate="POPUP_FORMS.AIRDROP.TABLE.ERROR_ADDRESSES"></span>
         </div>
     </div>
 
@@ -89,9 +89,9 @@
                              translate-values="{
                                 line: address.line
                              }"
-                             translate="POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER"></div>
+                             translate="POPUP_FORMS.AIRDROP.TABLE.LINE_NUMBER"></div>
                         <b>{{address.data[0]}}</b><br/>
-                        {{address.data[1]|separateNumber}}&nbsp;{{tokenSymbol}}
+                        {{address.data[2]|separateNumber}}&nbsp;{{tokenSymbol}}
                     </div>
                 </div>
             </div>
@@ -100,27 +100,27 @@
 
     <div class="csv-errors-info csv-errors-info__errors"
                  ng-if="tableData.errors.length">
-                <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors('errors')">
+                <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors()">
                     <i class="float-right arrow"
-                       ng-class="{'icon-keyboard_arrow_right': openedErrors != 'errors', 'icon-keyboard_arrow_down': openedErrors == 'errors'}"></i>
+                       ng-class="{'icon-keyboard_arrow_right': !openedErrors, 'icon-keyboard_arrow_down': openedErrors}"></i>
                     <i class="icon-error"></i>
                     <span translate-values="{
                             count: tableData.errors.length
                         }"
-                          translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS_COUNT"></span>
+                          translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS_COUNT"></span>
                 </div>
-                <div class="csv-errors-info--list" ng-if="openedErrors == 'errors'">
+                <div class="csv-errors-info--list" ng-if="openedErrors">
                     <div ng-scroll-list="errorsListOptions">
                         <div ng-repeat="error in visibleErrors"
                              class="shadow-block__content no-border csv-errors-info--list_item">
                             <div class="csv-errors-info--list_item_text">
-                                {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.row+'}'}}; <b>{{error.address}}</b><br/>
-                                <span ng-if="error.status == 2" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.WRONG_FORMAT"></span>
-                                <span ng-if="error.status == 3">
-                                    {{'POPUP_FORMS.WHITELIST.TABLE.ERRORS.DUPLICATE'|translate}}
-                                    {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:'+error.doubleLine.csvRow+'}'}} </span>
-                                <span ng-if="error.status == 4" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.EMPTY_STRING"></span>
-                                <span ng-if="error.status == 5" translate="POPUP_FORMS.WHITELIST.TABLE.ERRORS.ALREADY_EXIST"></span>
+                                {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:' + error.line + '}'}}; <b>{{error.data[0]}} | {{error.data[1]}}</b><br/>
+                                <span ng-if="error.error.status == 2" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_FORMAT"></span>
+                                <span ng-if="error.error.status == 1" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.EMPTY_STRING"></span>
+                                <span ng-if="error.error.status == 3" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_VALUE"></span>
+                                <span ng-if="error.error.status == 4">
+                                    Реверное значение кол-ва токенов: <b>{{error.data[1]}}</b>
+                                </span>
                             </div>
                         </div>
                     </div>

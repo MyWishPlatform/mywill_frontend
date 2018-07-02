@@ -74,17 +74,16 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     };
 
 
-}).controller('airdropAddressesFormController', function($scope, web3Service, Webworker, $timeout, contractService, $state) {
-    $scope.csvFormat = {
-        decimals: true
-    };
+}).controller('airdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state) {
+    $scope.csvFormat = {};
     var contract = $scope.ngPopUp.params.contract;
     var visibleCountPlus = 25;
-    var parseDataForTable = function(results) {
+    var parseDataForTable = function(results, csvFormat, decimals) {
         var addressRegExp = /^(0x)?[0-9a-f]{40}$/i;
         if (!results.data[results.data.length - 1][0]) {
             results.data = results.data.slice(0, results.data.length - 1);
         }
+
         return results.data.map(function(row, index) {
             var resultRow = {
                 data: row,
@@ -100,18 +99,25 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 };
                 return resultRow;
             }
-            if (!amount || (amount == 0)) {
-                resultRow.error = {
-                    status: 3
-                };
-                return resultRow;
-            }
 
             if (!addressRegExp.test(address)) {
                 resultRow.error = {
                     status: 2
                 };
                 return resultRow;
+            }
+
+            if (!amount || isNaN(amount)) {
+                resultRow.error = {
+                    status: 3
+                };
+                return resultRow;
+            }
+
+            if (!csvFormat.decimals) {
+                resultRow.data[2] = amount * Math.pow(10, decimals);
+            } else {
+                resultRow.data[2] = amount;
             }
             return resultRow;
         });
@@ -120,10 +126,10 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         var myWorker = Webworker.create(function(tableData) {
             var result = tableData.map(function(tableDataItem) {
                 if (tableDataItem.error) return tableDataItem;
-                var amountValueMod = tableDataItem.data[1]%1;
+                var amountValueMod = tableDataItem.data[3]%1;
                 if (amountValueMod > 0) {
                     tableDataItem.error = {
-                        status: 5
+                        status: 4
                     };
                 }
                 return tableDataItem;
@@ -152,7 +158,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var tableData;
     var createResultData = function(csvData) {
         var myWorker = Webworker.create(parseDataForTable);
-        myWorker.run(csvData).then(function(result) {
+        myWorker.run(csvData, $scope.csvFormat, tokenContractDecimals).then(function(result) {
             tableData = result;
             parseDecimalsErrors();
         });
@@ -160,6 +166,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var fileFormats = ['text/csv', 'application/vnd.ms-excel', ''];
     var resetCSVData = function() {
         $scope.tableData = undefined;
+        $scope.visibleErrors = [];
         $scope.fileTypeError = false;
         $scope.fileParsingError = false;
     };
@@ -170,10 +177,6 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             $scope.$parent.$broadcast('changeContent');
         });
     };
-    $scope.$watch('csvFormat.decimals', function(newValue, oldValue) {
-        if (newValue == oldValue) return;
-        resetCSVData();
-    });
     $scope.changeFile = function(fileInput) {
         resetCSVData();
         var file = fileInput.files[0];
@@ -187,20 +190,6 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         $scope.$parent.$broadcast('changeContent');
         Papa.parse(file, {
             complete: createResultData,
-            transform: function(value, cell) {
-                if (cell === 1) {
-                    if (!isNaN(value)) {
-                        var n = new BigNumber(value);
-                        if (!$scope.csvFormat.decimals) {
-                            n = n.times(Math.pow(10, tokenContractDecimals));
-                        }
-                        return n.toString(10);
-                    } else {
-                        return undefined;
-                    }
-                }
-                return value;
-            },
             error: function(results, file) {
                 console.log("Parsing error:", results);
                 $scope.fileParsingError = true;
@@ -213,24 +202,14 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     };
 
     /* Get token decimals */
-    var tokenContractDecimals = 0;
-    web3Service.setProviderByNumber(contract.network);
-    var web3 = web3Service.web3();
-    var address = web3.utils.toChecksumAddress(contract.contract_details.token_address);
-    var web3Contract = web3Service.createContractFromAbi(address, window.abi);
-    web3Contract.methods.decimals().call(function(err, result) {
-        tokenContractDecimals = result;
-        $scope.$apply();
-    });
-    web3Contract.methods.symbol().call(function(err, result) {
-        $scope.tokenSymbol = result;
-        $scope.$apply();
-    });
+
+    var tokenContractDecimals = $scope.ngPopUp.params.tokenInfo.decimals;
+    $scope.tokenSymbol = $scope.ngPopUp.params.tokenInfo.symbol;
 
     var addressesScrollProgress = false;
     var convertAmount = function(part) {
         part.map(function(partItem) {
-            partItem.data[1] = new BigNumber(partItem.data[1]).div(Math.pow(10, tokenContractDecimals)).round(2).toString(10);
+            partItem.data[2] = new BigNumber(partItem.data[2]).div(Math.pow(10, tokenContractDecimals)).round(2).toString(10);
         });
     };
     var getNewAirdropPage = function() {
@@ -269,6 +248,41 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             $scope.uploadAddressesProgress = false;
         });
     }
+
+
+    var errorsScrollProgress = false;
+    $scope.visibleErrors = [];
+    var checkVisibleErrors = function(checkHeight) {
+        if (errorsScrollProgress) return;
+        if ($scope.visibleErrors.length === $scope.tableData.errors.length) return;
+        var newPart = $scope.tableData.errors.slice($scope.visibleErrors.length, $scope.visibleErrors.length + visibleCountPlus);
+
+        if (checkHeight) {
+            $scope.visibleErrors = $scope.visibleErrors.concat(newPart);
+        } else {
+            $scope.visibleErrors = $scope.visibleErrors.concat(newPart);
+            $scope.$apply();
+        }
+    };
+
+    $scope.errorsListOptions = {
+        parent: '.csv-errors-info--list',
+        updater: checkVisibleErrors,
+        offset: 140
+    };
+
+    $scope.openedErrors = false;
+    $scope.openErrors = function(chapter) {
+        $timeout(function() {
+            $scope.openedErrors = !$scope.openedErrors;
+            $scope.visibleErrors = [];
+            if ($scope.openedErrors) {
+                checkVisibleErrors(true);
+            }
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
 
 }).controller('sendAirdropController', function($scope, web3Service, $rootScope) {
     var contractData = $scope.ngPopUp.params.contract;

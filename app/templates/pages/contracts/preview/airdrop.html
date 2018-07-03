@@ -139,11 +139,12 @@
             <div class="form-control-label">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
-                        template: '/templates/popups/data-preview/whitelist-preview.html',
+                        template: '/templates/popups/data-preview/airdrop-addresses-preview.html',
                         newPopupContent: true,
                         class: 'page-size',
                         params: {
-                            contract: contract
+                            contract: contract,
+                            tokenInfo: tokenInfo
                         }
                    }">
                     <span>You have added: {{contract.airdropState.allAddresses}} addresses</span>

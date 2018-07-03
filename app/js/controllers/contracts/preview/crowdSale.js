@@ -593,8 +593,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             data = new Blob([data], { type: 'text/plain;charset=utf-8' });
             FileSaver.saveAs(data, contract.name + '(whitelist).csv');
         });
-
-
     };
 
     var limitStep = 25;

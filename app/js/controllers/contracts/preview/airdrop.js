@@ -341,4 +341,69 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
+}).controller('airdropAddressesListPreview', function($scope, contractService, $timeout, FileSaver) {
+
+    $scope.airdropAddressesList = [];
+    var contract = $scope.ngPopUp.params.contract;
+    var countLimit = 25;
+    var page = 0;
+    var filter = undefined;
+    var getListPartProgress = false;
+    var latestRequestResult;
+    $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo;
+
+    var getNewPageAddresses = function() {
+        if (latestRequestResult && (latestRequestResult.count === $scope.airdropAddressesList.length)) return;
+        if (getListPartProgress) return;
+        getListPartProgress = true;
+        contractService.getAirdropAddresses(contract.id, {
+            limit: countLimit,
+            state: filter,
+            offset: page * countLimit
+        }).then(function(response) {
+            latestRequestResult = response.data;
+            getListPartProgress = false;
+
+            $timeout(function() {
+                response.data.results.map(function(resultItem) {
+                    resultItem.convertedAmount = new BigNumber(resultItem.amount).div(Math.pow(10, $scope.tokenInfo.decimals)).toString(10);
+                });
+                $scope.airdropAddressesList = $scope.airdropAddressesList.concat(response.data.results);
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            });
+
+        });
+    };
+    getNewPageAddresses();
+
+    $scope.addressesListOptions = {
+        updater: getNewPageAddresses,
+        parent: '.csv-addresses-table',
+        offset: 150
+    };
+
+    $scope.saveAirdropAddress = function() {
+        $timeout(function() {
+            $scope.downloadProgress = true;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+        contractService.getAirdropAddresses(contract.id, {
+            limit: latestRequestResult.count
+        }).then(function(response) {
+            var data = '';
+            response.data.results.map(function(addressItem) {
+                data+= addressItem.address + ',' + addressItem.amount + ',' + addressItem.state + "\n";
+            });
+            data = new Blob([data], { type: 'text/plain;charset=utf-8' });
+            FileSaver.saveAs(data, contract.name + '(addresses).csv');
+            $timeout(function() {
+                $scope.downloadProgress = false;
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            });
+        });
+    };
+
 });

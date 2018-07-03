@@ -2,12 +2,8 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                                                                       $scope, $rootScope, contractService, $http) {
     $scope.contract = openedContract.data;
     $scope.setContract($scope.contract);
-
     web3Service.setProviderByNumber($scope.contract.network);
-
     var countLimit = 100;
-
-
     var allAmounts;
 
     if ($scope.contract.contract_details.processing_count) {
@@ -15,7 +11,6 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     }
 
     var createContractAddressesInfo = function() {
-
         allAmounts = new BigNumber(0);
 
         var allAddressesCount = $scope.contract.contract_details.added_count +
@@ -23,10 +18,9 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             $scope.contract.contract_details.sent_count;
 
         $scope.contract.airdropState = {
-            allAddresses: allAddressesCount,
-            allRequestsCount: Math.ceil(allAddressesCount / countLimit),
-            nextRequest: Math.ceil($scope.contract.contract_details.sent_count / countLimit) + 1
+            allAddresses: allAddressesCount
         };
+
         contractService.getAirdropAddresses($scope.contract.id, {
             limit: countLimit,
             state: 'added'
@@ -40,6 +34,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             getAllTokensInfo();
         });
     };
+
     $scope.updateBalanceInfo = createContractAddressesInfo;
 
     createContractAddressesInfo();
@@ -49,27 +44,26 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
     $scope.tokenInfo = {};
 
+
     var getTokenParamCallback = function(err, result, method) {
         requestsCount++;
         $scope.tokenInfo[method] = result;
-
         if (requestsCount === tokenInfoFields.length) {
             var decimalsValue = Math.pow(10, $scope.tokenInfo.decimals);
             $scope.tokenInfo.balance = new BigNumber($scope.tokenInfo.balanceOf);
             if ($scope.contract.contract_details.next_addresses.length) {
-                $scope.contract.airdrop_enabled = $scope.tokenInfo.balance.minus(allAmounts) > 0;
+                $scope.contract.airdrop_enabled = $scope.tokenInfo.balance.minus(allAmounts) >= 0;
             }
-
             $scope.tokenInfo.balance = $scope.tokenInfo.balance.div(decimalsValue).round(2).toString(10);
             $scope.allAmounts = allAmounts.div(decimalsValue).round(2).toString(10);
         }
         $scope.$apply();
     };
 
+
     var getAllTokensInfo = function() {
         requestsCount = 0;
         var web3Contract = web3Service.createContractFromAbi($scope.contract.contract_details.token_address, window.abi);
-
         tokenInfoFields.map(function(method) {
             switch (method) {
                 case 'balanceOf':
@@ -117,81 +111,69 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         });
     });
 
-
-
-
-
     $scope.csvFormat = {};
     var contract = $scope.ngPopUp.params.contract;
     var visibleCountPlus = 25;
-    var parseDataForTable = function(results) {
+
+    var fileFormats = ['text/csv', 'application/vnd.ms-excel', ''];
+
+    // Check errors for values
+    var parseDataForTable = function(results, csvFormat, decimals) {
         var addressRegExp = /^(0x)?[0-9a-f]{40}$/i;
         if (!results.data[results.data.length - 1][0]) {
             results.data = results.data.slice(0, results.data.length - 1);
         }
-
-        return results.data.map(function(row, index) {
+        var changeAmountParam = 1;
+        if (!csvFormat.decimals) {
+            changeAmountParam = Math.pow(10, decimals);
+        }
+        var errorsData = [], resultsData = [];
+        results.data.forEach(function(row, index) {
             var resultRow = {
                 data: row,
                 line: index + 1
             };
-
             var address = row[0];
             var amount = row[1];
-
             if (!address) {
                 resultRow.error = {
                     status: 1
                 };
-                return resultRow;
+                errorsData.push(resultRow);
+                return;
             }
-
             if (!addressRegExp.test(address)) {
                 resultRow.error = {
                     status: 2
                 };
-                return resultRow;
+                errorsData.push(resultRow);
+                return;
             }
-
             if (!amount || isNaN(amount)) {
                 resultRow.error = {
                     status: 3
                 };
-                return resultRow;
+                errorsData.push(resultRow);
+                return;
             }
-
-            return resultRow;
+            if ((amount * changeAmountParam) % 1 > 0) {
+                resultRow.error = {
+                    status: 4
+                };
+                errorsData.push(resultRow);
+                return;
+            }
+            resultsData.push(resultRow);
         });
+        return {
+            errors: errorsData,
+            results: resultsData
+        }
     };
-    var parseDecimalsErrors = function() {
-        var myWorker = Webworker.create(function(tableData, csvFormat, decimals) {
-            var changeAmountParam = 1;
-            if (!csvFormat.decimals) {
-                changeAmountParam = Math.pow(10, decimals);
-            }
-            var result = tableData.map(function(tableDataItem) {
-                if (tableDataItem.error) return tableDataItem;
-                var amountValueMod = (tableDataItem.data[1]*changeAmountParam)%1;
 
-                if (amountValueMod > 0) {
-                    tableDataItem.error = {
-                        status: 4
-                    };
-                }
-                return tableDataItem;
-            });
-
-            return {
-                errors: result.filter(function (itemRow) {
-                    return !!itemRow.error;
-                }),
-                results: result.filter(function (itemRow) {
-                    return !itemRow.error;
-                })
-            }
-        });
-
-        myWorker.run(tableData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
+    var createResultData = function(csvData) {
+        var myWorker = Webworker.create(parseDataForTable);
+        myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
             $timeout(function() {
                 $scope.tableData = result;
                 $scope.visibleAddresses = angular.copy($scope.tableData.results.slice(0, visibleCountPlus));
@@ -202,15 +184,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             });
         });
     };
-    var tableData;
-    var createResultData = function(csvData) {
-        var myWorker = Webworker.create(parseDataForTable);
-        myWorker.run(csvData).then(function(result) {
-            tableData = result;
-            parseDecimalsErrors();
-        });
-    };
-    var fileFormats = ['text/csv', 'application/vnd.ms-excel', ''];
+
     var resetCSVData = function() {
         $scope.tableData = undefined;
         $scope.visibleErrors = [];
@@ -251,7 +225,6 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     $scope.changeFile = function(fileInput) {
         resetCSVData();
         var file = fileInput.files[0];
-
         var reader = new FileReader();
         reader.onload = function(evt) {
             var filecontent = evt.target.result;
@@ -269,10 +242,9 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             }, file);
         };
         reader.readAsText(file);
-
-
     };
 
+    /* Results of CSV data displaying */
     var addressesScrollProgress = false;
     var convertAmount = function(part) {
         part.map(function(partItem) {
@@ -301,27 +273,36 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         offset: 140
     };
 
+
+    /* upload addresses to airdrop contract */
     $scope.addAddresses = function() {
         if ($scope.formWaiting) return;
-        $scope.formWaiting = true;
-        var airdropAddresses = $scope.tableData.results.map(function(addressRow) {
-            return {
-                address: addressRow.data[0],
-                amount: !$scope.csvFormat.decimals ?
-                    new BigNumber(addressRow.data[1]).times(Math.pow(10, $scope.tokenInfo.decimals)).toString(10) :
-                    addressRow.data[1]
-            };
-        });
-        contractService.loadAirdrop(contract.id, airdropAddresses).then(function() {
-            contract.contract_details.added_count+= airdropAddresses.length;
-            $scope.formWaiting = false;
-            $scope.ngPopUp.actions.updateBalanceInfo();
-            $scope.closeCurrentPopup();
-        }, function() {
-            $scope.formWaiting = false;
+        $timeout(function() {
+            $scope.formWaiting = true;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+            var airdropAddresses = $scope.tableData.results.map(function(addressRow) {
+                return {
+                    address: addressRow.data[0],
+                    amount: !$scope.csvFormat.decimals ?
+                        new BigNumber(addressRow.data[1]).times(Math.pow(10, $scope.tokenInfo.decimals)).toString(10) :
+                        addressRow.data[1]
+                };
+            });
+            contractService.loadAirdrop(contract.id, airdropAddresses).then(function() {
+                contract.contract_details.added_count = airdropAddresses.length;
+                $scope.formWaiting = false;
+                $scope.closeCurrentPopup();
+                if ($scope.ngPopUp.actions.updateBalanceInfo) {
+                    $scope.ngPopUp.actions.updateBalanceInfo();
+                }
+            }, function() {
+                $scope.formWaiting = false;
+            });
         });
     };
 
+    /* Errors of CSV data displaying */
     var errorsScrollProgress = false;
     $scope.visibleErrors = [];
     var checkVisibleErrors = function(checkHeight) {
@@ -336,13 +317,11 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             $scope.$apply();
         }
     };
-
     $scope.errorsListOptions = {
         parent: '.csv-errors-info--list',
         updater: checkVisibleErrors,
         offset: 140
     };
-
     $scope.openedErrors = false;
     $scope.openErrors = function(chapter) {
         $timeout(function() {
@@ -406,8 +385,12 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo;
 
     var getNewPageAddresses = function() {
-        if (latestRequestResult && (latestRequestResult.count === $scope.airdropAddressesList.length)) return;
         if (getListPartProgress) return;
+
+        if (latestRequestResult && ($scope.maxCount && ($scope.airdropAddressesList.length === $scope.maxCount))) {
+            return;
+        }
+        if (latestRequestResult && (latestRequestResult.count === $scope.airdropAddressesList.length)) return;
         getListPartProgress = true;
         contractService.getAirdropAddresses(contract.id, {
             limit: countLimit,
@@ -416,8 +399,12 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         }).then(function(response) {
             latestRequestResult = response.data;
             getListPartProgress = false;
+            page++;
 
             $timeout(function() {
+                if ($scope.ngPopUp.params.maxCount) {
+                    $scope.maxCount = Math.min($scope.ngPopUp.params.maxCount, response.data.count);
+                }
                 response.data.results.map(function(resultItem) {
                     resultItem.convertedAmount = new BigNumber(resultItem.amount).div(Math.pow(10, $scope.tokenInfo.decimals)).toString(10);
                 });
@@ -441,22 +428,22 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             $scope.downloadProgress = true;
             $scope.$apply();
             $scope.$parent.$broadcast('changeContent');
-        });
-        contractService.getAirdropAddresses(contract.id, {
-            limit: latestRequestResult.count
-        }).then(function(response) {
-            var data = '';
-            response.data.results.map(function(addressItem) {
-                data+= addressItem.address + ',' + addressItem.amount + ',' + addressItem.state + "\n";
-            });
-            data = new Blob([data], { type: 'text/plain;charset=utf-8' });
-            FileSaver.saveAs(data, contract.name + '(addresses).csv');
-            $timeout(function() {
-                $scope.downloadProgress = false;
-                $scope.$apply();
-                $scope.$parent.$broadcast('changeContent');
+            contractService.getAirdropAddresses(contract.id, {
+                limit: latestRequestResult.count
+            }).then(function(response) {
+                var data = '';
+
+                response.data.results.map(function(addressItem) {
+                    data+= addressItem.address + ',' + addressItem.amount + ',' + addressItem.state + "\n";
+                });
+                data = new Blob([data], { type: 'text/plain;charset=utf-8' });
+                FileSaver.saveAs(data, contract.name + '(addresses).csv');
+                $timeout(function() {
+                    $scope.downloadProgress = false;
+                    $scope.$apply();
+                    $scope.$parent.$broadcast('changeContent');
+                });
             });
         });
     };
-
 });

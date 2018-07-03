@@ -120,10 +120,10 @@
             </div>
             <div class="grid-row" ng-if="tokenInfo.symbol && tokenInfo.decimals"><br/>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-ls-1">
-                    <div class="form-control-label">Token symbol: <b>{{tokenInfo.symbol}}</b></div>
+                    <div class="form-control-label">{{'CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL'|translate}} <b>{{tokenInfo.symbol}}</b></div>
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-ls-1">
-                    <div class="form-control-label">Decimals: <b>{{tokenInfo.decimals}}</b></div>
+                    <div class="form-control-label">{{'CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL'|translate}} <b>{{tokenInfo.decimals}}</b></div>
                 </div>
             </div>
         </div>
@@ -132,7 +132,7 @@
              ng-if="(contract.stateValue == 4) && contract.airdropState && !contract.airdropState.allAddresses">
             <div class="normal-text warning-text">
                 <i class="icon-warning"></i>
-                <div>No addresses were added</div>
+                <div translate="CONTRACTS.PREVIEW.AIRDROP.NO_ADDRESSES"></div>
             </div>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.airdropState.allAddresses">
@@ -144,13 +144,20 @@
                         class: 'page-size',
                         params: {
                             contract: contract,
-                            tokenInfo: tokenInfo
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.ADDED_ADDRESSES',
+                            titleParams: {
+                                count: contract.airdropState.allAddresses
+                            }
                         }
                    }">
-                    <span>You have added: {{contract.airdropState.allAddresses}} addresses</span>
+                    <span translate-values="{
+                          count: contract.airdropState.allAddresses
+                          }"
+                          translate="CONTRACTS.PREVIEW.AIRDROP.ADDED_ADDRESSES"></span>
                 </a>
             </div>
-            <div class="form-control-label">
+            <div class="form-control-label"  ng-if="contract.contract_details.sent_count">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
                         template: '/templates/popups/data-preview/airdrop-addresses-preview.html',
@@ -159,13 +166,20 @@
                         params: {
                             filter: 'sent',
                             contract: contract,
-                            tokenInfo: tokenInfo
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.SENT_ADDRESSES',
+                            titleParams: {
+                                count: contract.contract_details.sent_count
+                            }
                         }
                    }">
-                    <span>Отправлено на {{contract.contract_details.sent_count}} адресов</span>
+                    <span translate="CONTRACTS.PREVIEW.AIRDROP.SENT_ADDRESSES"
+                          translate-values="{
+                            count: contract.contract_details.sent_count
+                      }"></span>
                 </a>
             </div>
-            <div class="form-control-label">
+            <div class="form-control-label" ng-if="contract.contract_details.processing_count">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
                         template: '/templates/popups/data-preview/airdrop-addresses-preview.html',
@@ -174,10 +188,41 @@
                         params: {
                             filter: 'processing',
                             contract: contract,
-                            tokenInfo: tokenInfo
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.PROCESSING_ADDRESSES',
+                            titleParams: {
+                                from: contract.contract_details.sent_count + 1,
+                                to: contract.contract_details.sent_count + contract.contract_details.processing_count
+                            }
                         }
                    }">
-                    <span>Сейчас идет отправка на адреса с {{contract.contract_details.sent_count + 1}} по {{contract.contract_details.sent_count + contract.contract_details.processing_count}} адресов</span>
+                    <span translate="CONTRACTS.PREVIEW.AIRDROP.PROCESSING_ADDRESSES"
+                          translate-values="{
+                            from: contract.contract_details.sent_count + 1,
+                            to: contract.contract_details.sent_count + contract.contract_details.processing_count
+                          }"></span>
+                </a>
+            </div>
+            <div class="form-control-label" ng-if="contract.contract_details.added_count && (contract.airdropState.allAddresses !== contract.contract_details.added_count)">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/airdrop-addresses-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            filter: 'added',
+                            contract: contract,
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.NOT_SEND_ADDRESSES',
+                            titleParams: {
+                                count: contract.contract_details.added_count
+                            }
+                        }
+                   }">
+                    <span translate="CONTRACTS.PREVIEW.AIRDROP.NOT_SEND_ADDRESSES"
+                          translate-values="{
+                            count: contract.contract_details.added_count
+                          }"></span>
                 </a>
             </div>
         </div>
@@ -186,9 +231,11 @@
              ng-if="(contract.airdrop_enabled !== undefined) && !contract.airdrop_enabled">
             <div class="normal-text warning-text">
                 <i class="icon-warning"></i>
-                <div>
-                    Not enough tokens. <br/>
-                    Please deposit the contract (<b>{{allAmounts|separateNumber}}&nbsp;{{tokenInfo.symbol}}</b>) before the execution
+                <div translate="CONTRACTS.PREVIEW.AIRDROP.LOW_BALANCE"
+                     translate-values="{
+                        require: allAmounts,
+                        tokenSymbol: tokenInfo.symbol
+                     }">
                 </div>
             </div>
         </div>

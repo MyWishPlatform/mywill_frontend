@@ -108,7 +108,9 @@
     "EDIT": "Edit",
     "ADD_TO_PARITY": "+ Add to parity",
     "CHANGE_DATES": "Change Dates",
-    "WHITELIST": "Whitelist"
+    "WHITELIST": "Whitelist",
+    "SEND_AIRDROP_ADDRESSES": "Send To Group",
+    "ADD_ADDRESSES": "Add addresses"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -484,7 +486,7 @@
       },
       "AIRDROP": {
         "TITLE": "Tokens sending",
-        "DESCRIPTION": "To send tokens to addresses XXX - YYY please do the following steps (if you added many addresses it will take a lot of gas):"
+        "DESCRIPTION": "To send tokens to addresses {{from}} - {{to}} please do the following steps (if you added many addresses it will take a lot of gas):"
       },
       "CANCEL": {
         "TITLE": "Cancel",
@@ -1087,7 +1089,18 @@
         }
       },
       "AIRDROP": {
-        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution."
+        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution.",
+        "ADDED_ADDRESSES": "You have added {{count}} addresses",
+        "SENT_ADDRESSES": "Tokens sent to {{count}} addresses",
+        "PROCESSING_ADDRESSES": "Sending now to addresses #{{from}} - {{to}}",
+        "NOT_SEND_ADDRESSES": "Not sent to {{count}} addresses",
+        "LOW_BALANCE": "Not enough tokens. <br/>Please deposit the contract (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) before the execution",
+        "NO_ADDRESSES": "No addresses were added",
+        "SEND_TO_GROUP": {
+          "TITLE": "Send Tokens To",
+          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
+          "BUTTON": "Send Tokens"
+        }
       }
     }
   }

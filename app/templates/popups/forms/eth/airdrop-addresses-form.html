@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div ng-if="!(uploadAddressesProgress || csvDataInitialize) && !tableData"
+    <div ng-if="!formWaiting && !tableData"
          class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding">
 
         <!-- CSV format instruction -->
@@ -64,11 +64,14 @@
         </form>
     </div>
 
-    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData"
+    <div ng-if="!formWaiting && tableData"
          class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="form-control-label">Your file was processed:</div>
         <div class="form-control-description__text" ng-if="tableData.results.length">
-            <span>{{tableData.results.length}} rows were processed successfully</span>
+            <span translate-values="{
+                    success: tableData.results.length
+                  }"
+                  translate="POPUP_FORMS.AIRDROP.TABLE.PROCESSED_SUCCESSFULLY"></span>
         </div><br/>
 
         <div class="form-control-description__text" ng-if="tableData.errors.length">
@@ -77,7 +80,7 @@
         </div>
     </div>
 
-    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData.results.length"
+    <div ng-if="!formWaiting && tableData.results.length"
          class="csv-addresses-table">
         <div ng-scroll-list="addressesListOptions">
             <div ng-repeat="address in visibleAddresses" class="csv-addresses-table__row">
@@ -89,14 +92,14 @@
                              }"
                              translate="POPUP_FORMS.AIRDROP.TABLE.LINE_NUMBER"></div>
                         <b>{{address.data[0]}}</b><br/>
-                        {{address.data[2]|separateNumber}}&nbsp;{{tokenSymbol}}
+                        {{address.data[2]|separateNumber}}&nbsp;{{tokenInfo.symbol}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData.errors.length"
+    <div ng-if="!formWaiting && tableData.errors.length"
          class="csv-errors-info csv-errors-info__errors">
         <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors()">
             <i class="float-right arrow"
@@ -115,22 +118,20 @@
                         {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:' + error.line + '}'}}; <b>{{error.data[0]}} | {{error.data[1]}}</b><br/>
                         <span ng-if="error.error.status == 2" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_FORMAT"></span>
                         <span ng-if="error.error.status == 1" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.EMPTY_STRING"></span>
-                        <span ng-if="error.error.status == 3" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_VALUE"></span>
-                        <span ng-if="error.error.status == 4">
-                            Реверное значение кол-ва токенов: <b>{{error.data[1]}}</b>
-                        </span>
+                        <span ng-if="error.error.status == 3" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_FORMAT"></span>
+                        <span ng-if="error.error.status == 4" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_VALUE"></span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div ng-if="csvDataInitialize || uploadAddressesProgress"
+    <div ng-if="formWaiting"
          class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-        <div class="form-control-label">Please wait...</div>
+        <div class="form-control-label" translate="PLEASE_WAIT"></div>
     </div>
 
-    <div ng-if="!(csvDataInitialize || uploadAddressesProgress) && tableData.results"
+    <div ng-if="!formWaiting && tableData.results"
          class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
         <div class="grid-row" ng-if="tableData.results">
             <div class="grid-cell grid-cell-1-2">

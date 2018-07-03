@@ -53,8 +53,13 @@
 <!-- Deposit instruction button -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 8)"
         ng-pop-up="{
-            template: '/templates/popups/instructions/eth/airdrop-deposit-instruction.html',
+            template: '/templates/popups/instructions/eth/deposit-instruction.html',
             newPopupContent: true,
+            instructionParams: {
+                coinName: tokenInfo.symbol,
+                gasLimit: 100000,
+                specifyDescription: 'AIRDROP_DESCRIPTION'
+            },
             params: {
                 contract: contract
             },
@@ -64,6 +69,18 @@
     <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
 </button>
 
+<!-- Add addresses ti airdrop -->
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 8)"
+        ng-pop-up="{
+            template: '/templates/popups/forms/eth/airdrop-addresses-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent mobile-width-100">
+    <span>Add addresses</span>
+</button>
 
 <!-- Cancel instruction button (Deferred, Lost Key) -->
 <button ng-if="(statuses[contract.state]['value'] == 4) && ((contract.contract_type == 1) || (contract.contract_type == 2))"

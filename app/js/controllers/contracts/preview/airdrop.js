@@ -92,7 +92,35 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     };
 
 
-}).controller('airdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state) {
+}).controller('airdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state, web3Service) {
+
+    /* Get token decimals */
+
+    var requestsCount = 0;
+    var tokenInfoFields = ['decimals', 'symbol'];
+
+    $scope.formWaiting = true;
+    $scope.tokenInfo = {};
+
+    web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
+    var web3Contract = web3Service.createContractFromAbi($scope.ngPopUp.params.contract.contract_details.token_address, window.abi);
+
+    tokenInfoFields.map(function(field) {
+        web3Contract.methods[field]().call(function(err, result) {
+            requestsCount++;
+            $scope.tokenInfo[field] = result;
+            if (requestsCount === tokenInfoFields.length) {
+                $scope.formWaiting = false;
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            }
+        });
+    });
+
+
+
+
+
     $scope.csvFormat = {};
     var contract = $scope.ngPopUp.params.contract;
     var visibleCountPlus = 25;
@@ -136,10 +164,15 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         });
     };
     var parseDecimalsErrors = function() {
-        var myWorker = Webworker.create(function(tableData) {
+        var myWorker = Webworker.create(function(tableData, csvFormat, decimals) {
+            var changeAmountParam = 1;
+            if (!csvFormat.decimals) {
+                changeAmountParam = Math.pow(10, decimals);
+            }
             var result = tableData.map(function(tableDataItem) {
                 if (tableDataItem.error) return tableDataItem;
-                var amountValueMod = tableDataItem.data[3]%1;
+                var amountValueMod = (tableDataItem.data[1]*changeAmountParam)%1;
+
                 if (amountValueMod > 0) {
                     tableDataItem.error = {
                         status: 4
@@ -147,6 +180,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 }
                 return tableDataItem;
             });
+
             return {
                 errors: result.filter(function (itemRow) {
                     return !!itemRow.error;
@@ -157,12 +191,12 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             }
         });
 
-        myWorker.run(tableData).then(function(result) {
+        myWorker.run(tableData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
             $timeout(function() {
                 $scope.tableData = result;
                 $scope.visibleAddresses = angular.copy($scope.tableData.results.slice(0, visibleCountPlus));
                 convertAmount($scope.visibleAddresses);
-                $scope.csvDataInitialize = false;
+                $scope.formWaiting = false;
                 $scope.$apply();
                 $scope.$parent.$broadcast('changeContent');
             });
@@ -190,40 +224,60 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             $scope.$parent.$broadcast('changeContent');
         });
     };
-    $scope.changeFile = function(fileInput) {
-        resetCSVData();
-        var file = fileInput.files[0];
+
+    var parseFile = function(options, file) {
         if (fileFormats.indexOf(file.type) === -1) {
             $scope.fileTypeError = true;
             $scope.$apply();
             return;
         }
-        $scope.csvDataInitialize = true;
+        $scope.formWaiting = true;
         $scope.$apply();
         $scope.$parent.$broadcast('changeContent');
         Papa.parse(file, {
+            delimiter: options.delimiter,
+            newline: options.newline,
             complete: createResultData,
             error: function(results, file) {
                 console.log("Parsing error:", results);
                 $scope.fileParsingError = true;
-                $scope.csvDataInitialize = false;
+                $scope.formWaiting = false;
                 $scope.$apply();
                 $scope.$parent.$broadcast('changeContent');
             }
         });
         $scope.$apply();
     };
+    $scope.changeFile = function(fileInput) {
+        resetCSVData();
+        var file = fileInput.files[0];
 
-    /* Get token decimals */
+        var reader = new FileReader();
+        reader.onload = function(evt) {
+            var filecontent = evt.target.result;
+            /(0x)?[0-9a-f]{40}/ig.test(filecontent);
+            var lastMatch = RegExp.lastMatch;
+            var searchIndex = filecontent.indexOf(lastMatch);
+            var delimiter = filecontent[searchIndex + lastMatch.length];
+            var newLine = undefined;
+            if (searchIndex) {
+                newLine = filecontent[searchIndex - 1];
+            }
+            parseFile({
+                delimiter: delimiter || "",
+                newline: newLine || ""
+            }, file);
+        };
+        reader.readAsText(file);
 
-    var tokenContractDecimals = $scope.ngPopUp.params.tokenInfo.decimals;
-    $scope.tokenSymbol = $scope.ngPopUp.params.tokenInfo.symbol;
+
+    };
 
     var addressesScrollProgress = false;
     var convertAmount = function(part) {
         part.map(function(partItem) {
             if ($scope.csvFormat.decimals) {
-                partItem.data[2] = new BigNumber(partItem.data[1]).div(Math.pow(10, tokenContractDecimals)).toString(10);
+                partItem.data[2] = new BigNumber(partItem.data[1]).div(Math.pow(10, $scope.tokenInfo.decimals)).toString(10);
             } else {
                 partItem.data[2] = partItem.data[1];
             }
@@ -246,28 +300,27 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         updater: getNewAirdropPage,
         offset: 140
     };
-    $scope.uploadAddressesProgress = false;
+
     $scope.addAddresses = function() {
-        if ($scope.uploadAddressesProgress) return;
-        $scope.uploadAddressesProgress = true;
+        if ($scope.formWaiting) return;
+        $scope.formWaiting = true;
         var airdropAddresses = $scope.tableData.results.map(function(addressRow) {
             return {
                 address: addressRow.data[0],
                 amount: !$scope.csvFormat.decimals ?
-                    new BigNumber(addressRow.data[1]).times(Math.pow(10, tokenContractDecimals)).toString(10) :
+                    new BigNumber(addressRow.data[1]).times(Math.pow(10, $scope.tokenInfo.decimals)).toString(10) :
                     addressRow.data[1]
             };
         });
         contractService.loadAirdrop(contract.id, airdropAddresses).then(function() {
             contract.contract_details.added_count+= airdropAddresses.length;
-            $scope.uploadAddressesProgress = false;
+            $scope.formWaiting = false;
             $scope.ngPopUp.actions.updateBalanceInfo();
             $scope.closeCurrentPopup();
         }, function() {
-            $scope.uploadAddressesProgress = false;
+            $scope.formWaiting = false;
         });
     };
-
 
     var errorsScrollProgress = false;
     $scope.visibleErrors = [];
@@ -347,7 +400,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var contract = $scope.ngPopUp.params.contract;
     var countLimit = 25;
     var page = 0;
-    var filter = undefined;
+    var filter = $scope.ngPopUp.params.filter;
     var getListPartProgress = false;
     var latestRequestResult;
     $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo;

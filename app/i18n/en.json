@@ -334,15 +334,15 @@
       },
       "TABLE": {
         "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
-        "PROCESSED_SUCCESSFULLY": "{{success}} out of {{amount}} addresses processed successfully",
+        "PROCESSED_SUCCESSFULLY": "{{success}} rows were processed successfully",
         "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
         "LINE_NUMBER": "Line: {{line}}",
         "ERRORS_COUNT": "{{count}} errors",
         "ERRORS": {
           "WRONG_FORMAT": "Address has wrong format",
           "EMPTY_STRING": "Empty string",
-          "WRONG_AMOUNT_VALUE": "Не указано кол-во токенов или указано неверное значение",
-          "ALREADY_EXIST": "Address was already whitelisted"
+          "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
+          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
         },
         "ADD_BUTTON": "Add {{length}} addresses"
       }

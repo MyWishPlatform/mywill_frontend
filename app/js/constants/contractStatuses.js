@@ -48,6 +48,10 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
         title: 'Done',
         value: 11
     },
+    'DONE': {
+        title: 'Done',
+        value: 11
+    },
     'UNDER_CROWDSALE': {
         title: 'Under Crowdsale',
         value: 12

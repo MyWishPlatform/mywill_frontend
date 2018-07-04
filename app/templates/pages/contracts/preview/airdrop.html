@@ -129,13 +129,13 @@
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding"
-             ng-if="(contract.stateValue == 4) && contract.airdropState && !contract.airdropState.allAddresses">
+             ng-if="(contract.stateValue == 4) && (contract.contract_details.all_count === 0)">
             <div class="normal-text warning-text">
                 <i class="icon-warning"></i>
                 <div translate="CONTRACTS.PREVIEW.AIRDROP.NO_ADDRESSES"></div>
             </div>
         </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.airdropState.allAddresses">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.all_count">
             <div class="form-control-label">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
@@ -147,12 +147,12 @@
                             tokenInfo: tokenInfo,
                             title: 'CONTRACTS.PREVIEW.AIRDROP.ADDED_ADDRESSES',
                             titleParams: {
-                                count: contract.airdropState.allAddresses
+                                count: contract.contract_details.all_count
                             }
                         }
                    }">
                     <span translate-values="{
-                          count: contract.airdropState.allAddresses
+                          count: contract.contract_details.all_count
                           }"
                           translate="CONTRACTS.PREVIEW.AIRDROP.ADDED_ADDRESSES"></span>
                 </a>
@@ -203,7 +203,7 @@
                           }"></span>
                 </a>
             </div>
-            <div class="form-control-label" ng-if="contract.contract_details.added_count && (contract.airdropState.allAddresses !== contract.contract_details.added_count)">
+            <div class="form-control-label" ng-if="contract.contract_details.added_count && (contract.contract_details.all_count !== contract.contract_details.added_count)">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
                         template: '/templates/popups/data-preview/airdrop-addresses-preview.html',
@@ -227,18 +227,7 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding"
-             ng-if="(contract.airdrop_enabled !== undefined) && !contract.airdrop_enabled">
-            <div class="normal-text warning-text">
-                <i class="icon-warning"></i>
-                <div translate="CONTRACTS.PREVIEW.AIRDROP.LOW_BALANCE"
-                     translate-values="{
-                        require: allAmounts,
-                        tokenSymbol: tokenInfo.symbol
-                     }">
-                </div>
-            </div>
-        </div>
+
     </div>
 
 

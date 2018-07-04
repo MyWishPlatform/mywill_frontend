@@ -7,29 +7,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     var contractsData = contractsList.data;
     $scope.contractsList = contractsData.results;
 
-    var url = 'https://www.myetherwallet.com/?';
-    var params = [
-        'sendMode=ether'
-    ];
-    var depositUrl = url + params.join('&');
-    var killUrl = url + params.join('&');
-
-
-
-    $scope.iniContract = function(contract) {
-        if (!contract.contract_details.eth_contract) return;
-        var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];
-        var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
-        contract.depositUrl = depositUrl + '&' + depositParams.join('&');
-        contract.killUrl = killUrl + '&' + killParams.join('&');
-        contract.willCode = JSON.stringify(contract.contract_details.eth_contract.abi||{});
-
-        if ((contract.contract_type === 8) && contract.contract_details.processing_count) {
-            contract.state = 'SENDING_TOKENS';
-        }
-
-    };
-
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);
         if (target.is('.btn') || target.parents('.btn').length) return;
@@ -79,10 +56,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         offset: 100
     };
 
-}).controller('baseContractsController', function($scope, $state, $timeout, contractService, $rootScope, $interval) {
+}).controller('baseContractsController', function($scope, $state, $timeout, contractService, $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
     var deletingProgress;
     $scope.refreshInProgress = {};
     $scope.timeoutsForProgress = {};
+    $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
 
     /* (Click) Deleting contract */
     $scope.deleteContract = function(contract, callback) {
@@ -95,6 +73,15 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             deletingProgress = false;
             callback ? callback() : false;
         });
+    };
+
+    $scope.iniContract = function(contract) {
+        if (!contract.contract_details.eth_contract) return;
+        if ((contract.contract_type === 8) && contract.contract_details.processing_count) {
+            contract.state = 'SENDING_TOKENS';
+        }
+        contract.stateValue = $scope.statuses[contract.state]['value'];
+        contract.stateTitle = $scope.statuses[contract.state]['title'];
     };
 
     /* (Click) Contract refresh */
@@ -110,6 +97,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }, 1000);
         contractService.getContract(contractId).then(function(response) {
             angular.merge(contract, response.data);
+            $scope.iniContract(contract);
             $scope.refreshInProgress[contractId] = false;
         }, function() {
             $scope.refreshInProgress[contractId] = false;
@@ -117,7 +105,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
     var launchProgress = false;
-
     var launchContract = function(contract) {
         if (launchProgress) return;
         launchProgress = true;
@@ -159,6 +146,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     break;
                 case 7:
                     contractType = 'neo_crowdsale';
+                    break;
+                case 8:
+                    contractType = 'airdrop';
                     break;
                 default:
                     contractType = 'unknown';
@@ -206,7 +196,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
                 $rootScope.commonOpenedPopupParams = {
                     newPopupContent: true
-                }
+                };
                 return;
             }
             var openConditionsPopUp = function() {
@@ -241,7 +231,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         });
     };
-
     var showPriceLaunchContract = function(contract) {
         if (contract.cost.WISH == 0) {
             launchContract(contract);
@@ -281,7 +270,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             }
         });
     };
-
     $scope.neoCrowdSaleFinalize = function(contract) {
         contractService.neoICOFilnalize(contract.id).then(function(reponse) {
             $rootScope.commonOpenedPopup = 'alerts/neo-finalize-success';

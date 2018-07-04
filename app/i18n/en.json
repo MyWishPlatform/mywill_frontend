@@ -44,6 +44,7 @@
     "TRIGGERED": "Done",
     "WAITING_ACTIVATION": "Not Activated",
     "ENDED": "Done",
+    "DONE": "Done",
     "UNDER_CROWDSALE": "Under Crowdsale",
     "SENDING_TOKENS": "Sending"
   },
@@ -110,7 +111,7 @@
     "CHANGE_DATES": "Change Dates",
     "WHITELIST": "Whitelist",
     "SEND_AIRDROP_ADDRESSES": "Send To Group",
-    "ADD_ADDRESSES": "Add addresses"
+    "ADD_ADDRESSES": "Import data"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -999,9 +1000,10 @@
             "WRONG_TOKEN_ADDRESS": "Wrong Token contract address"
           },
           "WITH_DECIMALS": {
-            "LABEL": "Table format",
+            "LABEL": "Choose Table format:",
             "VALUE_LABEL": "Decimals"
-          }
+          },
+          "TABLE_EXAMPLE": "Table example:"
         }
       }
     },
@@ -1099,7 +1101,8 @@
         "SEND_TO_GROUP": {
           "TITLE": "Send Tokens To",
           "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
-          "BUTTON": "Send Tokens"
+          "BUTTON": "Send Tokens",
+          "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
         }
       }
     }

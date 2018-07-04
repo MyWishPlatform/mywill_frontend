@@ -94,8 +94,9 @@
                 </button><br/><br/>
             </div>
 
+
+            <!-- Airdrop deposit button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
-                <!-- Airdrop deposit instruction button -->
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/deposit-instruction.html',
                             newPopupContent: true,
@@ -113,8 +114,9 @@
                 </button><br/><br/>
             </div>
 
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
-                <!-- Airdrop add addresses -->
+            <!-- Airdrop add addresses button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && !contract.contract_details.sent_count">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/airdrop-addresses-form.html',
                             newPopupContent: true,
@@ -130,10 +132,9 @@
                 </button><br/><br/>
             </div>
 
-
             <!-- Airdrop send table instruction button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && (contract.contract_details.next_addresses.length) && !contract.contract_details.processing_count">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && contract.contract_details.added_count">
 
                 <button ng-pop-up="{
                             template: '/templates/popups/data-preview/airdrop-next-send-table.html',
@@ -142,11 +143,9 @@
                             params: {
                                 filter: 'added',
                                 contract: contract,
-                                tokenInfo: tokenInfo,
-                                maxCount: 100
+                                tokenInfo: tokenInfo
                             }
                         }"
-                        ng-disabled="!contract.airdrop_enabled"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
                 </button><br/><br/>

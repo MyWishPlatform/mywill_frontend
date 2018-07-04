@@ -70,7 +70,7 @@
 </button>
 
 <!-- Add addresses ti airdrop -->
-<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 8)"
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 8) && !contract.contract_details.sent_count"
         ng-pop-up="{
             template: '/templates/popups/forms/eth/airdrop-addresses-form.html',
             newPopupContent: true,
@@ -80,6 +80,22 @@
         }"
         class="btn btn-transparent">
     <span translate="CONTRACTS_BUTTONS.ADD_ADDRESSES"></span>
+</button>
+
+<!-- Airdrop send table instruction button -->
+
+<button ng-if="(statuses[contract.state]['value'] == 4) && (contract.contract_type == 8) && contract.contract_details.added_count"
+        ng-pop-up="{
+            template: '/templates/popups/data-preview/airdrop-next-send-table.html',
+            newPopupContent: true,
+            class: 'page-size',
+            params: {
+                filter: 'added',
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent">
+    <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
 </button>
 
 <!-- Cancel instruction button (Deferred, Lost Key) -->

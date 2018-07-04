@@ -1,4 +1,4 @@
-<div class="shadow-block" ng-controller="instructionsController">
+<div class="shadow-block" ng-controller="depositInstructionController">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
@@ -19,7 +19,7 @@
         <ul class="new-instruction-list">
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text"
-                     translate-values="{depositUrl: ngPopUp.params.contract.depositUrl}"
+                     translate-values="{depositUrl: depositUrl}"
                      translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_1"
                 ></div>
             </li>

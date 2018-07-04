@@ -26,11 +26,10 @@
 
         <!-- CSV format -->
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="form-control-label"
-                 translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.LABEL"></div>
-            <div class="form-control no-padding">
+            <div class="form-control no-padding nowrap">
                 <div class="checkbox-decoration">
                     <label class="form-control-label" for="table-decimals">
+                        <span translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.LABEL"></span>&nbsp;&nbsp;&nbsp;
                         <span translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.VALUE_LABEL"></span>&nbsp;&nbsp;&nbsp;
                     </label>
                 </div>
@@ -44,6 +43,9 @@
             </div>
         </div>
 
+        <div class="shadow-block__content shadow-block__content_no-tb-padding no-border"><br/>
+            <div class="form-control-label" translate="CONTRACTS.FORMS.AIRDROP.FIELDS.TABLE_EXAMPLE"></div>
+        </div>
         <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding no-border">
             <img ng-show="!csvFormat.decimals" src="/static/images/airdrop/no-decimals.gif" width="100%" alt="">
             <img ng-show="csvFormat.decimals" src="/static/images/airdrop/with-decimals.gif" width="100%" alt="">

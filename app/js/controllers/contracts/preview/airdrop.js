@@ -1,113 +1,36 @@
 angular.module('app').controller('airdropPreviewController', function($timeout, web3Service, openedContract,
                                                                       $scope, $rootScope, contractService, $http) {
     $scope.contract = openedContract.data;
-    $scope.setContract($scope.contract);
-    web3Service.setProviderByNumber($scope.contract.network);
-    var countLimit = 100;
-    var allAmounts;
 
-    if ($scope.contract.contract_details.processing_count) {
-        $scope.contract.state = 'SENDING_TOKENS';
-    }
+    $scope.iniContract($scope.contract);
 
-    var createContractAddressesInfo = function() {
-        allAmounts = new BigNumber(0);
+    var details = $scope.contract.contract_details;
 
-        var allAddressesCount = $scope.contract.contract_details.added_count +
-            $scope.contract.contract_details.processing_count +
-            $scope.contract.contract_details.sent_count;
+    details.all_count = details.added_count + details.processing_count + details.sent_count;
 
-        $scope.contract.airdropState = {
-            allAddresses: allAddressesCount
-        };
-
-        contractService.getAirdropAddresses($scope.contract.id, {
-            limit: countLimit,
-            state: 'added'
-        }).then(function(response) {
-            $scope.contract.contract_details.next_addresses = response.data.results;
-            if ($scope.contract.contract_details.next_addresses.length) {
-                $scope.contract.contract_details.next_addresses.map(function(address) {
-                    allAmounts = allAmounts.plus(address.amount);
-                });
-            }
-            getAllTokensInfo();
-        });
-    };
-
-    $scope.updateBalanceInfo = createContractAddressesInfo;
-
-    createContractAddressesInfo();
-
-    var requestsCount = 0;
-    var tokenInfoFields = ['decimals', 'symbol', 'balanceOf'];
-
-    $scope.tokenInfo = {};
-
-
-    var getTokenParamCallback = function(err, result, method) {
-        requestsCount++;
-        $scope.tokenInfo[method] = result;
-        if (requestsCount === tokenInfoFields.length) {
-            var decimalsValue = Math.pow(10, $scope.tokenInfo.decimals);
-            $scope.tokenInfo.balance = new BigNumber($scope.tokenInfo.balanceOf);
-            if ($scope.contract.contract_details.next_addresses.length) {
-                $scope.contract.airdrop_enabled = $scope.tokenInfo.balance.minus(allAmounts) >= 0;
-            }
-            $scope.tokenInfo.balance = $scope.tokenInfo.balance.div(decimalsValue).round(2).toString(10);
-            $scope.allAmounts = allAmounts.div(decimalsValue).round(2).toString(10);
-        }
-        $scope.$apply();
-    };
-
-
-    var getAllTokensInfo = function() {
-        requestsCount = 0;
-        var web3Contract = web3Service.createContractFromAbi($scope.contract.contract_details.token_address, window.abi);
-        tokenInfoFields.map(function(method) {
-            switch (method) {
-                case 'balanceOf':
-                    web3Contract.methods[method]($scope.contract.contract_details.eth_contract.address).call(function(err, result) {
-                        getTokenParamCallback(err, result, method);
-                    });
-                    break;
-                default:
-                    if ($scope.tokenInfo[method]) {
-                        $timeout(function() {
-                            getTokenParamCallback(null, $scope.tokenInfo[method], method);
-                        });
-                    } else {
-                        web3Contract.methods[method]().call(function(err, result) {
-                            getTokenParamCallback(err, result, method);
-                        });
-                    }
-            }
-        });
-    };
-
+    web3Service.getTokenInfo(
+        $scope.contract.network,
+        $scope.contract.contract_details.token_address,
+        $scope.contract.contract_details.eth_contract.address
+    ).then(function(result) {
+        $scope.tokenInfo = result;
+    });
 
 }).controller('airdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state, web3Service) {
 
     /* Get token decimals */
 
-    var requestsCount = 0;
-    var tokenInfoFields = ['decimals', 'symbol'];
-
     $scope.formWaiting = true;
-    $scope.tokenInfo = {};
 
-    web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
-    var web3Contract = web3Service.createContractFromAbi($scope.ngPopUp.params.contract.contract_details.token_address, window.abi);
-
-    tokenInfoFields.map(function(field) {
-        web3Contract.methods[field]().call(function(err, result) {
-            requestsCount++;
-            $scope.tokenInfo[field] = result;
-            if (requestsCount === tokenInfoFields.length) {
-                $scope.formWaiting = false;
-                $scope.$apply();
-                $scope.$parent.$broadcast('changeContent');
-            }
+    web3Service.getTokenInfo(
+        $scope.ngPopUp.params.contract.network,
+        $scope.ngPopUp.params.contract.contract_details.token_address
+    ).then(function(result) {
+        $timeout(function() {
+            $scope.tokenInfo = result;
+            $scope.formWaiting = false;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
         });
     });
 
@@ -291,11 +214,13 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             });
             contractService.loadAirdrop(contract.id, airdropAddresses).then(function() {
                 contract.contract_details.added_count = airdropAddresses.length;
+                contract.contract_details.all_count =
+                    contract.contract_details.added_count +
+                    contract.contract_details.processing_count +
+                    contract.contract_details.sent_count;
+
                 $scope.formWaiting = false;
                 $scope.closeCurrentPopup();
-                if ($scope.ngPopUp.actions.updateBalanceInfo) {
-                    $scope.ngPopUp.actions.updateBalanceInfo();
-                }
             }, function() {
                 $scope.formWaiting = false;
             });
@@ -335,16 +260,18 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         });
     };
 
-}).controller('sendAirdropController', function($scope, web3Service, $rootScope) {
+}).controller('sendAirdropController', function($scope, web3Service) {
     var contractData = $scope.ngPopUp.params.contract;
 
+    $scope.amount = $scope.ngPopUp.params.amount;
+    $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo;
+
     $scope.contract = contractData;
-    web3Service.setProviderByNumber(contractData.network);
 
     var contractDetails = contractData.contract_details, contract;
     var params = [[], []];
 
-    contractDetails.next_addresses.map(function(address) {
+    $scope.ngPopUp.params.next_addresses.map(function(address) {
         params[0].push(address.address);
         params[1].push(address.amount);
     });
@@ -359,6 +286,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     }
 
     web3Service.getAccounts(contractData.network).then(function(result) {
+        web3Service.setProviderByNumber(contractData.network);
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
         })[0];
@@ -434,7 +362,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 var data = '';
 
                 response.data.results.map(function(addressItem) {
-                    data+= addressItem.address + ',' + addressItem.amount + ',' + addressItem.state + "\n";
+                    data+= addressItem.address + ',' + addressItem.amount + "\n";
                 });
                 data = new Blob([data], { type: 'text/plain;charset=utf-8' });
                 FileSaver.saveAs(data, contract.name + '(addresses).csv');
@@ -446,4 +374,70 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             });
         });
     };
+}).controller('airdropSendAddressesPreview', function($scope, contractService, $timeout, web3Service, FileSaver) {
+    var countLimit = 100;
+    var contract = $scope.ngPopUp.params.contract;
+    $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo || false;
+
+    var createContractAddressesInfo = function() {
+        var allAmounts = new BigNumber(0);
+        var decimalsValue = Math.pow(10, $scope.tokenInfo.decimals);
+        contractService.getAirdropAddresses(contract.id, {
+            limit: countLimit,
+            state: 'added'
+        }).then(function(response) {
+            $scope.next_addresses = response.data.results;
+            $scope.maxCount = Math.min(100, response.data.count);
+            if ($scope.next_addresses.length) {
+                $scope.next_addresses.map(function(address) {
+                    allAmounts = allAmounts.plus(address.amount);
+                    address.converted_amount = new BigNumber(address.amount).div(decimalsValue)
+                });
+                $scope.totalAmount = allAmounts.toString(10);
+                $scope.allAmounts = new BigNumber(allAmounts).div(decimalsValue);
+                $scope.airdrop_enabled = new BigNumber($scope.tokenInfo.balance).minus($scope.allAmounts) >= 0;
+            }
+            $timeout(function() {
+                $scope.downloadProgress = false;
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            });
+        });
+    };
+
+
+    $scope.downloadProgress = true;
+
+    if ($scope.tokenInfo) {
+        createContractAddressesInfo();
+    } else {
+        web3Service.getTokenInfo(
+            contract.network,
+            contract.contract_details.token_address,
+            contract.contract_details.eth_contract.address
+        ).then(function(result) {
+            $scope.tokenInfo = result;
+            createContractAddressesInfo();
+        });
+    }
+
+    $scope.saveAirdropAddress = function() {
+        $timeout(function() {
+            $scope.downloadProgress = true;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+            var data = '';
+            $scope.next_addresses.map(function(addressItem) {
+                data+= addressItem.address + ',' + addressItem.amount + "\n";
+            });
+            data = new Blob([data], { type: 'text/plain;charset=utf-8' });
+            FileSaver.saveAs(data, contract.name + '(addresses).csv');
+            $timeout(function() {
+                $scope.downloadProgress = false;
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            });
+        });
+    };
+
 });

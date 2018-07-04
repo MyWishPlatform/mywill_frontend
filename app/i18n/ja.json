@@ -988,7 +988,7 @@
         "BUTTONS": {},
         "FIELDS": {
           "MANAGEMENT_ADDR": {
-            "LABEL": "Management address",
+            "LABEL": "管理アドレス",
             "PLACEHOLDER": "Enter your ETH wallet address",
             "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
           },

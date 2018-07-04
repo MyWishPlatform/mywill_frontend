@@ -145,6 +145,7 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(folders['npm'], 'angular-clipboard', 'angular-clipboard.js'),
             path.join(folders['npm'], 'angular-file-saver', 'dist', 'angular-file-saver.bundle.min.js'),
             path.join(folders['npm'], 'angular-touch', 'angular-touch.min.js'),
+            path.join(folders['npm'], 'ng-webworker', 'src', 'ng-webworker.min.js'),
             path.join(folders['npm'], 'angular-translate', 'dist', 'angular-translate.min.js'),
             path.join(folders['npm'], 'angular-translate', 'dist', 'angular-translate-loader-static-files', 'angular-translate-loader-static-files.min.js'),
             path.join(folders['npm'], 'moment', 'min', 'moment.min.js'),

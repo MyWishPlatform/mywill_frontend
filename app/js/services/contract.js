@@ -153,6 +153,25 @@ angular.module('Services').service('contractService', function(requestService, A
                 query: paginationParams
             };
             return requestService.get(params);
+        },
+        getAirdropAddresses: function(contractId, paginationParams) {
+            paginationParams = paginationParams || {};
+            paginationParams.contract = contractId;
+            var params = {
+                path: API.AIRDROP_ADDRESSES,
+                query: paginationParams
+            };
+            return requestService.get(params);
+        },
+        loadAirdrop: function(contractId, addresses) {
+            var params = {
+                path: API.LOAD_AIRDROP,
+                data: {
+                    id: contractId,
+                    addresses: addresses
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

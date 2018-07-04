@@ -252,6 +252,15 @@ nav, main, footer, header {
   + .normal-text {
     margin-top: 0.5em;
   }
+  &.warning-text {
+    padding-left: 1.5em;
+    color: #906705;
+    i {
+      float: left;
+      margin-left: -1.5em;
+      color: #d0b300;
+    }
+  }
 }
 .warning-page {
   background-color: rgba(203, 0, 8, 0.8);

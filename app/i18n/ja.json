@@ -44,7 +44,9 @@
     "TRIGGERED": "トリガーされた",
     "WAITING_ACTIVATION": "活性化されていません",
     "ENDED": "完了しました",
-    "UNDER_CROWDSALE": "クラウド セールの下"
+    "DONE": "完了しました",
+    "UNDER_CROWDSALE": "クラウド セールの下",
+    "SENDING_TOKENS": "Sending"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -107,7 +109,9 @@
     "EDIT": "エディット",
     "ADD_TO_PARITY": "+パリティに追加",
     "CHANGE_DATES": "日付変更",
-    "WHITELIST": "Whitelist"
+    "WHITELIST": "Whitelist",
+    "SEND_AIRDROP_ADDRESSES": "Send To Group",
+    "ADD_ADDRESSES": "Import data"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -224,6 +228,10 @@
         "TITLE": "トークン契約",
         "DESCRIPTION": "トークンを作成し、自分で配布するか、クラウドセールの契約で配布する"
       },
+      "AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any ERC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+      },
       "LOST_KEY": {
         "TITLE": "失われたキー",
         "DESCRIPTION": "スマート契約は、標準のEthereumウォレットと同じ機能を備えています。また、アクセス/秘密キーを失うと、資金をバックアップウォレットにリダイレクトします。"
@@ -317,6 +325,31 @@
     }
   },
   "POPUP_FORMS": {
+    "AIRDROP": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one address in Ethereum (column A) and amount of tokens to distribute (column B)",
+        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+      },
+      "FILE_ERRORS": {
+        "WRONG_FORMAT": "Wrong file format",
+        "PARSE_ERROR": "File parsing error"
+      },
+      "TABLE": {
+        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
+        "PROCESSED_SUCCESSFULLY": "{{success}} rows were processed successfully",
+        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
+        "LINE_NUMBER": "Line: {{line}}",
+        "ERRORS_COUNT": "{{count}} errors",
+        "ERRORS": {
+          "WRONG_FORMAT": "Address has wrong format",
+          "EMPTY_STRING": "Empty string",
+          "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
+          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
+        },
+        "ADD_BUTTON": "Add {{length}} addresses"
+      }
+    },
     "WHITELIST": {
       "DISCLAIMER": {
         "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
@@ -452,6 +485,10 @@
         "TITLE": "Whitelist",
         "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
       },
+      "AIRDROP": {
+        "TITLE": "Tokens sending",
+        "DESCRIPTION": "To send tokens to addresses {{from}} - {{to}} please do the following steps (if you added many addresses it will take a lot of gas):"
+      },
       "CANCEL": {
         "TITLE": "キャンセル",
         "DESCRIPTION": "契約を<span class=\"shadow-block__content__description__red uppercase\">停止する</span>には、指示の手順に従います。"
@@ -459,6 +496,7 @@
       "DEPOSIT": {
         "TITLE": "デポジット",
         "DESCRIPTION": "契約上のデポジットを作るために、指示に従ってください。",
+        "AIRDROP_DESCRIPTION": "To make a deposit of {{coinName}} tokens to Airdrop contract, please do the following steps:",
         "LIST": {
           "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "お財布にイーサ＆トークンタブを送る選択してください",
@@ -944,6 +982,29 @@
           },
           "AMOUNT_BONUS_DESCRIPTION": "あなたは寄付金額に応じたボーナスを定義することができます。たとえば、10+ ETHの貢献のための余分な5％のトークンを与えます"
         }
+      },
+      "AIRDROP": {
+        "TITLE": "Airdrop",
+        "BUTTONS": {},
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "管理アドレス",
+            "PLACEHOLDER": "あなたのETHの財布アドレスを入力してください",
+            "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
+          },
+          "TOKEN_ADDR": {
+            "LABEL": "Token contract address",
+            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+          },
+          "ERRORS": {
+            "WRONG_TOKEN_ADDRESS": "Wrong Token contract address"
+          },
+          "WITH_DECIMALS": {
+            "LABEL": "Choose Table format:",
+            "VALUE_LABEL": "Decimals"
+          },
+          "TABLE_EXAMPLE": "Table example:"
+        }
       }
     },
     "PREVIEW": {
@@ -960,6 +1021,7 @@
       "LOST_KEY_SOURCE_CODE": "失われたキーのソースコード",
       "TOKEN_SOURCE_CODE": "トークンのソースコード",
       "CROWDSALE_SOURCE_CODE": "クラウドセールのソースコード",
+      "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
       "HERE": "ここに",
       "ETHERSCAN_VERIFY_SUPPORT": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレスでご連絡ください</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレス</a>でご連絡いただくか、指示に従ってください：",
@@ -1026,6 +1088,21 @@
         "WHITELIST": {
           "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
           "DOWNLOAD_CSV": "Download CSV"
+        }
+      },
+      "AIRDROP": {
+        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution.",
+        "ADDED_ADDRESSES": "You have added {{count}} addresses",
+        "SENT_ADDRESSES": "Tokens sent to {{count}} addresses",
+        "PROCESSING_ADDRESSES": "Sending now to addresses #{{from}} - {{to}}",
+        "NOT_SEND_ADDRESSES": "Not sent to {{count}} addresses",
+        "LOW_BALANCE": "Not enough tokens. <br/>Please deposit the contract (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) before the execution",
+        "NO_ADDRESSES": "No addresses were added",
+        "SEND_TO_GROUP": {
+          "TITLE": "Send Tokens To",
+          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
+          "BUTTON": "Send Tokens",
+          "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
         }
       }
     }

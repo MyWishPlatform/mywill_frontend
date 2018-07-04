@@ -53,7 +53,7 @@
                         }"
                         class="btn btn-transparent mobile-width-100 text-center">
                     <span translate="CONTRACTS_BUTTONS.MINT"></span>
-                </button>
+                </button><br/><br/>
             </div>
 
             <!-- Finalize token contract form button -->
@@ -70,7 +70,7 @@
                         }"
                         class="btn btn-transparent mobile-width-100 text-center">
                     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
-                </button>
+                </button><br/><br/>
             </div>
 
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
@@ -80,7 +80,7 @@
                     <span translate="CONTRACTS_BUTTONS.EDIT"></span>
                 </a><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5)">
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8)">
                 <!-- Deposit instruction button -->
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/deposit-instruction.html',
@@ -93,6 +93,64 @@
                     <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
                 </button><br/><br/>
             </div>
+
+
+            <!-- Airdrop deposit button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+                            newPopupContent: true,
+                            instructionParams: {
+                                coinName: tokenInfo.symbol,
+                                gasLimit: 100000,
+                                specifyDescription: 'AIRDROP_DESCRIPTION'
+                            },
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Airdrop add addresses button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && !contract.contract_details.sent_count">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/airdrop-addresses-form.html',
+                            newPopupContent: true,
+                            actions: {
+                                updateBalanceInfo: updateBalanceInfo
+                            },
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.ADD_ADDRESSES"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Airdrop send table instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && contract.contract_details.added_count">
+
+                <button ng-pop-up="{
+                            template: '/templates/popups/data-preview/airdrop-next-send-table.html',
+                            newPopupContent: true,
+                            class: 'page-size',
+                            params: {
+                                filter: 'added',
+                                contract: contract,
+                                tokenInfo: tokenInfo
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
+                </button><br/><br/>
+            </div>
+
 
             <!-- Cancel instruction button (Deferred, Lost Key) -->
             <div class="grid-cell grid-cell-vs-1-2"
@@ -142,6 +200,7 @@
                     <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
                 </button><br/><br/>
             </div>
+
             <!-- Withdraw instruction button (Will | platform_cancel == false) -->
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 5) && (contract.contract_type == 0)">
@@ -158,8 +217,6 @@
                     <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>
                 </button><br/><br/>
             </div>
-
-
 
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 4)">
                 <button ng-pop-up="{
@@ -188,7 +245,7 @@
                         }"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>
-                </button>
+                </button><br/><br/>
             </div>
 
             <!-- Whitelist form button -->
@@ -205,9 +262,8 @@
                         }"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS_BUTTONS.WHITELIST"></span>
-                </button>
+                </button><br/><br/>
             </div>
-
 
         </div>
     </div>

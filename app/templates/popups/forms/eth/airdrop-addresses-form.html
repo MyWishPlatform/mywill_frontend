@@ -1,0 +1,169 @@
+<div class="shadow-block" ng-controller="airdropAddressesFormController">
+
+
+    <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-airdrop"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="!saveAddressesError && !formWaiting && !tableData"
+         class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding">
+
+        <!-- CSV format instruction -->
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding">
+            <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                <ul class="condition-text">
+                    <li class="condition-text-item" translate="POPUP_FORMS.AIRDROP.DISCLAIMER.ITEM_1"></li>
+                    <li class="condition-text-item" translate="POPUP_FORMS.AIRDROP.DISCLAIMER.ITEM_2"></li>
+                </ul>
+                <div class="normal-text" translate="POPUP_FORMS.AIRDROP.DISCLAIMER.ITEM_TEXT"></div><br/>
+            </div>
+        </div>
+
+        <!-- CSV format -->
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control no-padding nowrap">
+                <div class="checkbox-decoration">
+                    <label class="form-control-label" for="table-decimals">
+                        <span translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.LABEL"></span>&nbsp;&nbsp;&nbsp;
+                        <span translate="CONTRACTS.FORMS.AIRDROP.FIELDS.WITH_DECIMALS.VALUE_LABEL"></span>&nbsp;&nbsp;&nbsp;
+                    </label>
+                </div>
+                <label class="checkbox-decoration">
+                    <input type="checkbox" id="table-decimals" ng-model="csvFormat.decimals">
+                    <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding no-border"><br/>
+            <div class="form-control-label" translate="CONTRACTS.FORMS.AIRDROP.FIELDS.TABLE_EXAMPLE"></div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_no-tb-padding no-border">
+            <img ng-show="!csvFormat.decimals" src="/static/images/airdrop/no-decimals.gif" width="100%" alt="">
+            <img ng-show="csvFormat.decimals" src="/static/images/airdrop/with-decimals.gif" width="100%" alt="">
+        </div>
+
+        <form name="airdropForm"
+              class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <div class="btn btn-submit btn-with-file">
+                <span translate="BUTTONS.CHOOSE_FILE">&nbsp;&nbsp;{{'BUTTONS.CHOOSE_FILE'|translate}}&nbsp;&nbsp;</span>
+                <input type="file" name="csvFile"
+                       accept=".csv"
+                       onchange="angular.element(this).scope().changeFile(this)">
+            </div>
+            <span class="field-error" ng-if="fileTypeError" style="display: block"
+                  translate="POPUP_FORMS.WHITELIST.FILE_ERRORS.WRONG_FORMAT"></span>
+            <span class="field-error" ng-if="fileParsingError" style="display: block"
+                  translate="POPUP_FORMS.WHITELIST.FILE_ERRORS.PARSE_ERROR"></span>
+        </form>
+    </div>
+
+    <div ng-if="!saveAddressesError && !formWaiting && tableData"
+         class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="form-control-label">Your file was processed:</div>
+        <div class="form-control-description__text" ng-if="tableData.results.length">
+            <span translate-values="{
+                    success: tableData.results.length
+                  }"
+                  translate="POPUP_FORMS.AIRDROP.TABLE.PROCESSED_SUCCESSFULLY"></span>
+        </div><br/>
+
+        <div class="form-control-description__text" ng-if="tableData.errors.length">
+            <span translate-values="{errorsLength: tableData.errors.length}"
+                  translate="POPUP_FORMS.AIRDROP.TABLE.ERROR_ADDRESSES"></span>
+        </div>
+    </div>
+
+    <div ng-if="!saveAddressesError && !formWaiting && tableData.results.length"
+         class="csv-addresses-table">
+        <div ng-scroll-list="addressesListOptions">
+            <div ng-repeat="address in visibleAddresses" class="csv-addresses-table__row">
+                <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                    <div class="form-control-label">
+                        <div class="float-right"
+                             translate-values="{
+                                line: address.line
+                             }"
+                             translate="POPUP_FORMS.AIRDROP.TABLE.LINE_NUMBER"></div>
+                        <b>{{address.data[0]}}</b><br/>
+                        {{address.data[2]|separateNumber}}&nbsp;{{tokenInfo.symbol}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="!saveAddressesError && !formWaiting && tableData.errors.length"
+         class="csv-errors-info csv-errors-info__errors">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors()">
+            <i class="float-right arrow"
+               ng-class="{'icon-keyboard_arrow_right': !openedErrors, 'icon-keyboard_arrow_down': openedErrors}"></i>
+            <i class="icon-error"></i>
+            <span translate-values="{
+                    count: tableData.errors.length
+                }"
+                  translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS_COUNT"></span>
+        </div>
+        <div class="csv-errors-info--list" ng-if="openedErrors">
+            <div ng-scroll-list="errorsListOptions">
+                <div ng-repeat="error in visibleErrors"
+                     class="shadow-block__content no-border csv-errors-info--list_item">
+                    <div class="csv-errors-info--list_item_text">
+                        {{'POPUP_FORMS.WHITELIST.TABLE.LINE_NUMBER'|translate:'{line:' + error.line + '}'}}; <b>{{error.data[0]}} | {{error.data[1]}}</b><br/>
+                        <span ng-if="error.error.status == 2" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_FORMAT"></span>
+                        <span ng-if="error.error.status == 1" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.EMPTY_STRING"></span>
+                        <span ng-if="error.error.status == 3" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_FORMAT"></span>
+                        <span ng-if="error.error.status == 4" translate="POPUP_FORMS.AIRDROP.TABLE.ERRORS.WRONG_AMOUNT_VALUE"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="!saveAddressesError && formWaiting"
+         class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="form-control-label" translate="PLEASE_WAIT"></div>
+    </div>
+
+    <div ng-if="!saveAddressesError && !formWaiting && tableData.results"
+         class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="grid-row" ng-if="tableData.results">
+            <div class="grid-cell grid-cell-1-2">
+                <button class="btn btn-submit" type="button" ng-click="addAddresses()"
+                        ng-class="{'no-visibility': !tableData.results.length}"
+                        ng-disabled="!tableData.results.length">
+                    <span>&nbsp;&nbsp;&nbsp;{{'POPUP_FORMS.WHITELIST.TABLE.ADD_BUTTON'|translate:'{length:' + tableData.results.length + '}'}}&nbsp;&nbsp;&nbsp;</span>
+                </button>
+            </div>
+            <div class="grid-cell grid-cell-1-2 text-right">
+                <button class="btn btn-transparent" type="button" ng-click="resetTable()">
+                    <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.BACK'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="saveAddressesError">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <div>Timeout error</div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <div class="text-left">
+                <button class="btn btn-submit" type="button" ng-click="resetTimeOutError()">
+                    <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.BACK'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

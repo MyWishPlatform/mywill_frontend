@@ -146,4 +146,46 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         return web3;
     };
 
+
+    this.getTokenInfo = function(network, token, wallet, customFields) {
+        var defer = $q.defer();
+        var tokenInfoFields = customFields || ['decimals', 'symbol', 'balanceOf'];
+        var requestsCount = 0;
+        var tokenInfo = {};
+
+        this.setProviderByNumber(network);
+        var web3Contract = this.createContractFromAbi(token, window.abi);
+
+        var getTokenParamCallback = function(result, method) {
+            requestsCount--;
+            tokenInfo[method] = result;
+            if (!requestsCount) {
+                if (wallet) {
+                    var decimalsValue = Math.pow(10, tokenInfo.decimals);
+                    tokenInfo.balance = new BigNumber(tokenInfo.balanceOf).div(decimalsValue).round(2).toString(10);
+                }
+                defer.resolve(tokenInfo);
+            }
+        };
+
+        tokenInfoFields.map(function(method) {
+            switch (method) {
+                case 'balanceOf':
+                    if (wallet) {
+                        requestsCount++;
+                        web3Contract.methods[method](wallet).call(function(err, result) {
+                            getTokenParamCallback(result, method);
+                        });
+                    }
+                    break;
+                default:
+                    requestsCount++;
+                    web3Contract.methods[method]().call(function(err, result) {
+                        getTokenParamCallback(result, method);
+                    });
+            }
+        });
+
+        return defer.promise;
+    };
 });

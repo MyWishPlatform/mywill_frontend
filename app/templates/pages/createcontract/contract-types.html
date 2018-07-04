@@ -23,7 +23,7 @@
                     <input type="radio" class="hidden-input"
                            ng-model="blockChainNetwork.type"
                            value="rsk" name="blockchain-network">
-                    <img src="/static/images/blockchain/bitcoin.svg" width="20"  style="vertical-align: middle">
+                    <img src="/static/images/blockchain/bitcoin.png" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.BTC"></span>
                 </label>
@@ -199,6 +199,30 @@
                     </div>
                     <div class="shadow-block__content__text shadow-block__content__text_description">
                         <span translate="PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ui-sref="main.createcontract.form({selectedType: 'airdrop', network: blockChainNetwork.isTest ? 2 : 1})"
+         class="shadow-block shadow-block_hovered">
+        <div class="shadow-block__content">
+            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
+                <div class="contract-price-block_content">
+                    <span>{{allCosts[8]}}</span>
+                    <img src="/static/images/blockchain/ethereum.png">
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="icon-airdrop shadow-block__content__title__icon"></i>
+                        <span class="shadow-block__content__title__text"
+                              translate="PAGES.CREATE_CONTRACT.AIRDROP.TITLE"></span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION"></span>
                     </div>
                 </div>
             </div>

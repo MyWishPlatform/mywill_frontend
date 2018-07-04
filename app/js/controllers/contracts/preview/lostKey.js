@@ -1,4 +1,4 @@
-angular.module('app').controller('lostKeyPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, exRate, $state) {
+angular.module('app').controller('lostKeyPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, $state) {
     $scope.contract = openedContract.data;
     $scope.setContract($scope.contract);
 

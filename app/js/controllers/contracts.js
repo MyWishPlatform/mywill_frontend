@@ -77,6 +77,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     $scope.iniContract = function(contract) {
         if (!contract.contract_details.eth_contract) return;
+        if (contract.contract_type === 8) {
+            contract.balance = undefined;
+            contract.discount = 0;
+        }
+
         if ((contract.contract_type === 8) && contract.contract_details.processing_count) {
             contract.state = 'SENDING_TOKENS';
         }

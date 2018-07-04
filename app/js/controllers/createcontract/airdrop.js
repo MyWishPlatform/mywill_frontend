@@ -76,13 +76,13 @@ angular.module('app').controller('airdropCreateController', function($scope, con
         var web3Contract = web3Service.createContractFromAbi(address, window.abi);
 
         var checkedTokenData = {};
-        var sch = 0;
-        for (var k = 0; k < tokenData.length; k++) {
-            web3Contract.methods[tokenData[k]]().call(function(err, result) {
+        var sch = tokenData.length;
+        tokenData.map(function(method) {
+            web3Contract.methods[method]().call(function(err, result) {
                 if (err === null) {
-                    checkedTokenData[tokenData[sch]] = result;
-                    sch++;
-                    if (sch === tokenData.length) {
+                    checkedTokenData[method] = result;
+                    sch--;
+                    if (!sch) {
                         $scope.checkedTokenAddress = checkedTokenData;
                         token_address.$setValidity('contract-address', true);
                         $scope.$apply();
@@ -92,7 +92,7 @@ angular.module('app').controller('airdropCreateController', function($scope, con
                     $scope.$apply();
                 }
             });
-        }
+        });
 
 
 

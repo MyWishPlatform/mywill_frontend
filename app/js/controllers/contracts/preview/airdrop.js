@@ -242,7 +242,11 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
     $scope.saveAddressesError = false;
     $scope.resetTimeOutError = function() {
-        $scope.saveAddressesError = false;
+        $timeout(function() {
+            $scope.saveAddressesError = false;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
     };
 
     /* upload addresses to airdrop contract */

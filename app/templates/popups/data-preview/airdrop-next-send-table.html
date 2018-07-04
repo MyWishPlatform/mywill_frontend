@@ -18,7 +18,7 @@
     <div class="shadow-block__content" ng-show="!next_addresses.length || downloadProgress">
         <div class="normal-text" translate="PLEASE_WAIT"></div>
     </div>
-    <div class="csv-addresses-table" ng-show="next_addresses.length && !downloadProgress">
+    <div class="csv-addresses-table with-counter-line" ng-show="next_addresses.length && !downloadProgress">
         <div ng-repeat="address in next_addresses" class="csv-addresses-table__row">
             <div class="shadow-block__content shadow-block__content_no-tb-padding">
                 <div class="form-control-label">

@@ -23,12 +23,12 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             refreshContract();
         }
     };
-
     var timerContractUpdater;
     var refreshContract = function() {
         if (($scope.contract.stateValue === 4) || ($scope.contract.stateValue === 101)) {
             timerContractUpdater = $timeout(function() {
                 contractService.getContract($scope.contract.id).then(function(response) {
+                    if (!timerContractUpdater) return;
                     response.data.showedTab = $scope.contract.showedTab;
                     angular.merge($scope.contract, response.data);
                     checkContractPreview(true);
@@ -40,10 +40,16 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
     checkContractPreview();
 
+    var fieldsParams = ['decimals', 'symbol'];
+
+    if ($scope.contract.stateValue >= 4) {
+        fieldsParams = false;
+    }
     web3Service.getTokenInfo(
         $scope.contract.network,
         $scope.contract.contract_details.token_address,
-        $scope.contract.contract_details.eth_contract.address
+        $scope.contract.contract_details.eth_contract.address,
+        fieldsParams
     ).then(function(result) {
         $scope.tokenInfo = result;
     });
@@ -51,6 +57,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     $scope.$on('$destroy', function() {
         if (timerContractUpdater) {
             $timeout.cancel(timerContractUpdater);
+            timerContractUpdater = false;
         }
     });
 }).controller('airdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state, web3Service) {
@@ -79,7 +86,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
     // Check errors for values
     var parseDataForTable = function(results, csvFormat, decimals) {
-        var addressRegExp = /^(0x)?[0-9a-f]{40}$/i;
+        var addressRegExp = /^0x[0-9a-f]{40}$/i;
         if (!results.data[results.data.length - 1][0]) {
             results.data = results.data.slice(0, results.data.length - 1);
         }
@@ -428,10 +435,10 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             if ($scope.next_addresses.length) {
                 $scope.next_addresses.map(function(address) {
                     allAmounts = allAmounts.plus(address.amount);
-                    address.converted_amount = new BigNumber(address.amount).div(decimalsValue)
+                    address.converted_amount = new BigNumber(address.amount).div(decimalsValue).toString(10)
                 });
                 $scope.totalAmount = allAmounts.toString(10);
-                $scope.allAmounts = new BigNumber(allAmounts).div(decimalsValue);
+                $scope.allAmounts = new BigNumber(allAmounts).div(decimalsValue).toString(10);
                 $scope.airdrop_enabled = new BigNumber($scope.tokenInfo.balance).minus($scope.allAmounts) >= 0;
             }
             $timeout(function() {

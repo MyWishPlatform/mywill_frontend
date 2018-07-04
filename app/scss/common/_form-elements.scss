@@ -289,6 +289,17 @@
       }
     }
 
+    &.ng-invalid-contract-address {
+      ~ {
+        .form-field_error-contract-address {
+          display: block;
+          ~ .field-error {
+            display: none!important;
+          }
+        }
+      }
+    }
+
   }
 }
 
@@ -303,7 +314,15 @@
 
 .form-control {
   position: relative;
-  padding-bottom: 1em;
+  &:not(.no-padding) {
+    padding-bottom: 1em;
+  }
+  &.no-padding {
+    .checkbox-decoration {
+      margin-bottom: 0;
+    }
+  }
+
   .input-after {
     position: absolute;
     right: 1em;
@@ -465,6 +484,7 @@
   display: inline-block;
   position: relative;
   user-select: none;
+  vertical-align: middle;
   &.disabled {
     opacity: 0.5;
   }

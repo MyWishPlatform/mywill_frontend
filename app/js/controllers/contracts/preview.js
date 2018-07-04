@@ -15,14 +15,8 @@ angular.module('app').controller('contractsPreviewController', function($scope,
         FileSaver.saveAs(data, name + '.sol');
     };
 
-    var url = 'https://www.myetherwallet.com/?';
-    var params = [
-        'sendMode=ether'
-    ];
-    var depositUrl = url + params.join('&');
-    var killUrl = url + params.join('&');
-
     $scope.setContract = function(contract) {
+
         $scope.contract = contract;
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
@@ -30,10 +24,6 @@ angular.module('app').controller('contractsPreviewController', function($scope,
         $scope.contract.discount = 0;
 
         if (!contract.contract_details.eth_contract) return;
-        var depositParams = ['to=' + contract.contract_details.eth_contract.address, 'gaslimit=30000', 'value=0'];
-        var killParams = ['to=' + contract.contract_details.eth_contract.address, 'data=0x41c0e1b5', 'gaslimit=40000', 'value=0'];
-        contract.depositUrl = depositUrl + '&' + depositParams.join('&');
-        contract.killUrl = killUrl + '&' + killParams.join('&');
 
         contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
             ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
@@ -54,9 +44,28 @@ angular.module('app').controller('contractsPreviewController', function($scope,
     };
 
 
+}).controller('depositInstructionController', function($scope, web3Service) {
+    var contractDetails = $scope.ngPopUp.params.contract.contract_details;
+    if ($scope.ngPopUp.params.contract.contract_type === 8) {
+        web3Service.getTokenInfo(
+            $scope.ngPopUp.params.contract.network,
+            $scope.ngPopUp.params.contract.contract_details.token_address,
+            false,
+            ['symbol']
+        ).then(function(result) {
+            $scope.depositUrl =
+                'https://www.myetherwallet.com/?sendMode=token&to=' +
+                contractDetails.eth_contract.address + '&gaslimit=100000&value=0&symbol=' + result.symbol + '#send-transaction';
+        });
+    } else {
+        $scope.depositUrl =
+            'https://www.myetherwallet.com/?sendMode=ether&to=' +
+            contractDetails.eth_contract.address + '&gaslimit=30000&value=0#send-transaction';
+    }
 }).controller('instructionsController', function($scope, web3Service) {
     var web3 = web3Service.web3();
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
+
     var killInterfaceMethod = web3Service.getMethodInterface('kill', contractDetails.eth_contract.abi);
     if (killInterfaceMethod) {
         $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(killInterfaceMethod);

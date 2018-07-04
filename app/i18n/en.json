@@ -44,7 +44,9 @@
     "TRIGGERED": "Done",
     "WAITING_ACTIVATION": "Not Activated",
     "ENDED": "Done",
-    "UNDER_CROWDSALE": "Under Crowdsale"
+    "DONE": "Done",
+    "UNDER_CROWDSALE": "Under Crowdsale",
+    "SENDING_TOKENS": "Sending"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -107,7 +109,9 @@
     "EDIT": "Edit",
     "ADD_TO_PARITY": "+ Add to parity",
     "CHANGE_DATES": "Change Dates",
-    "WHITELIST": "Whitelist"
+    "WHITELIST": "Whitelist",
+    "SEND_AIRDROP_ADDRESSES": "Send To Group",
+    "ADD_ADDRESSES": "Import data"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -224,6 +228,10 @@
         "TITLE": "Token contract",
         "DESCRIPTION": "Create a Token and distribute it yourself or with a Crowdsale Contract"
       },
+      "AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any ERC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+      },
       "LOST_KEY": {
         "TITLE": "Lost key",
         "DESCRIPTION": "The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
@@ -317,6 +325,31 @@
     }
   },
   "POPUP_FORMS": {
+    "AIRDROP": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one address in Ethereum (column A) and amount of tokens to distribute (column B)",
+        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+      },
+      "FILE_ERRORS": {
+        "WRONG_FORMAT": "Wrong file format",
+        "PARSE_ERROR": "File parsing error"
+      },
+      "TABLE": {
+        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
+        "PROCESSED_SUCCESSFULLY": "{{success}} rows were processed successfully",
+        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
+        "LINE_NUMBER": "Line: {{line}}",
+        "ERRORS_COUNT": "{{count}} errors",
+        "ERRORS": {
+          "WRONG_FORMAT": "Address has wrong format",
+          "EMPTY_STRING": "Empty string",
+          "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
+          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
+        },
+        "ADD_BUTTON": "Add {{length}} addresses"
+      }
+    },
     "WHITELIST": {
       "DISCLAIMER": {
         "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
@@ -452,6 +485,10 @@
         "TITLE": "Whitelist",
         "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
       },
+      "AIRDROP": {
+        "TITLE": "Tokens sending",
+        "DESCRIPTION": "To send tokens to addresses {{from}} - {{to}} please do the following steps (if you added many addresses it will take a lot of gas):"
+      },
       "CANCEL": {
         "TITLE": "Cancel",
         "DESCRIPTION": "To <span class=\"shadow-block__content__description__red uppercase\">stop</span> the contract, follow the steps in the instruction."
@@ -459,12 +496,13 @@
       "DEPOSIT": {
         "TITLE": "Deposit",
         "DESCRIPTION": "To make a deposit on the contract, follow the instructions.",
+        "AIRDROP_DESCRIPTION": "To make a deposit of {{coinName}} tokens to Airdrop contract, please do the following steps:",
         "LIST": {
           "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
           "ITEM_3": "Insert the following recipient's address:",
-          "ITEM_4": "Specify how much ETH you want to send (Amount to Send field)",
-          "ITEM_5": "Specify Gas limit 30000",
+          "ITEM_4": "Specify how much {{coinName || 'ETH'}} you want to send (Amount to Send field)",
+          "ITEM_5": "Specify Gas limit {{gasLimit || 30000}}",
           "ITEM_6": "Click generate Transaction",
           "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
         }
@@ -944,6 +982,29 @@
           },
           "AMOUNT_BONUS_DESCRIPTION": "You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions"
         }
+      },
+      "AIRDROP": {
+        "TITLE": "Airdrop",
+        "BUTTONS": {},
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address",
+            "PLACEHOLDER": "Enter your ETH wallet address",
+            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+          },
+          "TOKEN_ADDR": {
+            "LABEL": "Token contract address",
+            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+          },
+          "ERRORS": {
+            "WRONG_TOKEN_ADDRESS": "Wrong Token contract address"
+          },
+          "WITH_DECIMALS": {
+            "LABEL": "Choose Table format:",
+            "VALUE_LABEL": "Decimals"
+          },
+          "TABLE_EXAMPLE": "Table example:"
+        }
       }
     },
     "PREVIEW": {
@@ -960,6 +1021,7 @@
       "LOST_KEY_SOURCE_CODE": "Your Lost Key source code",
       "TOKEN_SOURCE_CODE": "Your TOKEN source code",
       "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
+      "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
       "HERE": "here",
       "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
@@ -1026,6 +1088,21 @@
         "WHITELIST": {
           "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
           "DOWNLOAD_CSV": "Download CSV"
+        }
+      },
+      "AIRDROP": {
+        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution.",
+        "ADDED_ADDRESSES": "You have added {{count}} addresses",
+        "SENT_ADDRESSES": "Tokens sent to {{count}} addresses",
+        "PROCESSING_ADDRESSES": "Sending now to addresses #{{from}} - {{to}}",
+        "NOT_SEND_ADDRESSES": "Not sent to {{count}} addresses",
+        "LOW_BALANCE": "Not enough tokens. <br/>Please deposit the contract (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) before the execution",
+        "NO_ADDRESSES": "No addresses were added",
+        "SEND_TO_GROUP": {
+          "TITLE": "Send Tokens To",
+          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
+          "BUTTON": "Send Tokens",
+          "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
         }
       }
     }

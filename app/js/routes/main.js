@@ -134,7 +134,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'contracts.html',
         resolve: {
             contractsList: function(contractService, $rootScope, currentUser) {
-                return !$rootScope.currentUser.is_ghost ? contractService.getContractsList() : [];
+                return !$rootScope.currentUser.is_ghost ? contractService.getContractsList({
+                    limit: 8
+                }) : [];
             }
         }
     }).state('main.contracts.preview', {
@@ -157,9 +159,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             openedContract: function(contractService, $stateParams) {
                 if (!$stateParams.id) return false;
                 return contractService.getContract($stateParams.id);
-            },
-            exRate: function(contractService) {
-                return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'WISH'});
             }
         },
         data: {
@@ -264,7 +263,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             }
         },
         parent: 'main.createcontract'
-        // templateUrl: templatesPath + 'createcontract/contract-types.html'
     }).state('main.createcontract.edit', {
         url: '/contracts/edit/:id',
         controllerProvider: function(openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
@@ -292,6 +290,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     return contractService.getTokenContracts(openedContract.data.network || 1);
                 }
                 return undefined;
+            }
+        },
+        onEnter: function(openedContract, CONTRACT_STATUSES_CONSTANTS, $state) {
+            if (CONTRACT_STATUSES_CONSTANTS[openedContract.data.state]['value'] > 1) {
+                $state.go('main.contracts.preview.byId', {id: openedContract.data.id});
+                return;
             }
         },
         data: {

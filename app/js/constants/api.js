@@ -37,6 +37,8 @@ angular.module('Constants').constant('API', {
     "NEO_ICO_FINALIZE": "neo_ico_finalize/",
     "SET_LNG": "set_lang/",
     "WHITELIST": "whitelist_addresses/",
+    "AIRDROP_ADDRESSES": "airdrop_addresses/",
+    "LOAD_AIRDROP": "load_airdrop/",
     "SOCIAL": {
         "FACEBOOK": "facebook/",
         "GOOGLE": "google/",

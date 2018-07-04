@@ -5,10 +5,25 @@
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   position: relative;
+
+  &.with-counter-line &__row {
+    .form-control-label {
+      padding-left: 3em;
+      &:before {
+        display: block;
+        float: left;
+        margin-left: -3em;
+        content: '#'counter(tableRowCounter);
+        color: #777;
+        margin-bottom: 0.5em;
+      }
+    }
+  }
   &__row {
     padding: 0.8em 0;
     color: #aaa;
     position: relative;
+    counter-increment: tableRowCounter;
     &:after {
       clear: both;
       display: table;
@@ -45,6 +60,9 @@
 }
 .csv-errors-info {
   border-bottom: 1px solid #ddd;
+  .shadow-block__content {
+    border-radius: 0;
+  }
   &__warnings {
     color: #906705;
     i {

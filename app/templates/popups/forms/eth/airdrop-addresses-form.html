@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <div ng-if="!formWaiting && !tableData"
+    <div ng-if="!saveAddressesError && !formWaiting && !tableData"
          class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding">
 
         <!-- CSV format instruction -->
@@ -66,7 +66,7 @@
         </form>
     </div>
 
-    <div ng-if="!formWaiting && tableData"
+    <div ng-if="!saveAddressesError && !formWaiting && tableData"
          class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="form-control-label">Your file was processed:</div>
         <div class="form-control-description__text" ng-if="tableData.results.length">
@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    <div ng-if="!formWaiting && tableData.results.length"
+    <div ng-if="!saveAddressesError && !formWaiting && tableData.results.length"
          class="csv-addresses-table">
         <div ng-scroll-list="addressesListOptions">
             <div ng-repeat="address in visibleAddresses" class="csv-addresses-table__row">
@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    <div ng-if="!formWaiting && tableData.errors.length"
+    <div ng-if="!saveAddressesError && !formWaiting && tableData.errors.length"
          class="csv-errors-info csv-errors-info__errors">
         <div class="shadow-block__content shadow-block__content_min-tb-padding  csv-errors-info--title" ng-click="openErrors()">
             <i class="float-right arrow"
@@ -128,12 +128,12 @@
         </div>
     </div>
 
-    <div ng-if="formWaiting"
+    <div ng-if="!saveAddressesError && formWaiting"
          class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
         <div class="form-control-label" translate="PLEASE_WAIT"></div>
     </div>
 
-    <div ng-if="!formWaiting && tableData.results"
+    <div ng-if="!saveAddressesError && !formWaiting && tableData.results"
          class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
         <div class="grid-row" ng-if="tableData.results">
             <div class="grid-cell grid-cell-1-2">
@@ -151,4 +151,19 @@
         </div>
     </div>
 
+    <div ng-if="saveAddressesError">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <div>Timeout error</div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <div class="text-left">
+                <button class="btn btn-submit" type="button" ng-click="resetTimeOutError()">
+                    <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.BACK'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

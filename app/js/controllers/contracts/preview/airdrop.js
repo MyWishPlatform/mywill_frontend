@@ -240,6 +240,10 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         offset: 140
     };
 
+    $scope.saveAddressesError = false;
+    $scope.resetTimeOutError = function() {
+        $scope.saveAddressesError = false;
+    };
 
     /* upload addresses to airdrop contract */
     $scope.addAddresses = function() {
@@ -256,7 +260,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                         addressRow.data[1]
                 };
             });
-            contractService.loadAirdrop(contract.id, airdropAddresses).then(function() {
+            contractService.loadAirdrop(contract.id, airdropAddresses).then(function(response) {
                 contract.contract_details.added_count = airdropAddresses.length;
                 contract.contract_details.all_count =
                     contract.contract_details.added_count +
@@ -265,7 +269,12 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
                 $scope.formWaiting = false;
                 $scope.closeCurrentPopup();
-            }, function() {
+            }, function(response) {
+                switch (response.status) {
+                    case 502:
+                        $scope.saveAddressesError = true;
+                        break;
+                }
                 $scope.formWaiting = false;
             });
         });

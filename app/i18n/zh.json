@@ -989,8 +989,8 @@
         "FIELDS": {
           "MANAGEMENT_ADDR": {
             "LABEL": "管理地址",
-            "PLACEHOLDER": "Enter your ETH wallet address",
-            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+            "PLACEHOLDER": "输入您的ETH钱包地址",
+            "DESCRIPTION": "该地址的所有者将拥有该合约（唯一的）的管理权"
           },
           "TOKEN_ADDR": {
             "LABEL": "Token contract address",

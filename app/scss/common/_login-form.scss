@@ -26,6 +26,9 @@
     height: 4.8em;
     line-height: 4.8em;
     border-radius: 2.5em;
+    &-transparent {
+      line-height: 4.4em;
+    }
   }
 }
 .email-confirm-text {

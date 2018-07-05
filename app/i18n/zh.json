@@ -88,6 +88,17 @@
       "2FA": "2FA代码"
     },
     "CONFIRM_EMAIL": "请检查您的电子邮箱并确认注册。 谢谢！",
+    "CONFIRM_EMAIL_FORM": {
+      "TITLE": "电子邮箱激活",
+      "BASE_TEXT": "激活电子邮箱已发送至 <br/><b>{{currEmail}}</b>",
+      "NOTICE_TEXT": "如果您的电子邮箱地址为Gmail或长时间未收到，请检查邮箱垃圾邮件。",
+      "RESEND_BUTTON": "重新发送电子邮箱",
+      "TIMER": "我们可以重新发送电子邮箱{{timerMinutes}}:{{timerSeconds}}",
+      "ERRORS": {
+        "ERROR_1": "您的电子邮件尚未注册。 在电子邮件激活之前，请<a href=\"/auth/registration\">注册</a>.",
+        "ERROR_2": "你的电子邮箱已被核实。 请<a href=\"/auth\">签到</a>"
+      }
+    },
     "BUTTONS": {
       "LOG_IN": "登录",
       "FORGOT_PASSWORD": "忘记密码？",

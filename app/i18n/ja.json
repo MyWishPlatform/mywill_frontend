@@ -88,6 +88,17 @@
       "2FA": "2FAコード"
     },
     "CONFIRM_EMAIL": "あなたのメールアドレスを確認し、ご登録を確認してください。 ありがとうございました！",
+    "CONFIRM_EMAIL_FORM": {
+      "TITLE": "メールアドレスのアクティベーション",
+      "BASE_TEXT": "アクティベーションメールアドレスが<br/><b>{{currEmail}}</b>に送信されました",
+      "NOTICE_TEXT": "あなたのメールアドレスがGmailで、長時間受信していない場合は、メールボックスのゴミ箱/スパムをチェックしてください",
+      "RESEND_BUTTON": "もう一度メールを送る",
+      "TIMER": "私たちは{{timerMinutes}}:{{timerSeconds}}でメールを再送することができます",
+      "ERRORS": {
+        "ERROR_1": "あなたのメールアドレスは登録されていません。メールアドレスの活性化の前に<a href=\"/auth/registration\">サインアップ</a>してください。",
+        "ERROR_2": "あなたのメールアドレスはすでに確認されています。<a href=\"/auth\">サインイン</a>してください."
+      }
+    },
     "BUTTONS": {
       "LOG_IN": "ログイン",
       "FORGOT_PASSWORD": "パスワードを忘れましらか",

@@ -161,8 +161,32 @@
 
 
                 <div class="form-control contract-form-row" ng-if="ngPopUp.params.page === 'email-confirm'">
-                    <p class="email-confirm-text" translate="AUTH_POPUP.CONFIRM_EMAIL"></p>
+                    <p class="email-confirm-text">
+                        <span translate="AUTH_POPUP.CONFIRM_EMAIL_FORM.BASE_TEXT" translate-values="{currEmail: regRequest.email}"></span><br/><br/>
+                        <span class="red-color" translate="AUTH_POPUP.CONFIRM_EMAIL_FORM.NOTICE_TEXT"></span>
+                    </p>
+                    <br/>
+
+                    <div class="text-center" ng-if="!resendError && !emailConfirmProgress">
+                        <button class="btn btn-transparent" ng-click="getConfirmEmail()">
+                            <span translate="AUTH_POPUP.CONFIRM_EMAIL_FORM.RESEND_BUTTON"></span>
+                        </button>
+                    </div>
+
+                    <div ng-if="allTimerSeconds && (allTimerSeconds != 0)" class="email-confirm-timer-text text-center">
+                        <span class="email-confirm-text"
+                          translate="AUTH_POPUP.CONFIRM_EMAIL_FORM.TIMER"
+                          translate-values="{timerMinutes: timerMinutes, timerSeconds: timerSeconds}"></span>
+                    </div>
+
+                    <div ng-if="resendError == 1" class="email-confirm-timer-text">
+                        <span class="email-confirm-text red-color" translate="AUTH_POPUP.CONFIRM_EMAIL_FORM.ERRORS.ERROR_1"></span>
+                    </div>
+                    <div ng-if="resendError == 2" class="email-confirm-timer-text">
+                        <span class="email-confirm-text red-color" translate="AUTH_POPUP.CONFIRM_EMAIL_FORM.ERRORS.ERROR_2"></span>
+                    </div>
                 </div>
+
                 <form ng-if="(socialAuthError == '1032') || (socialAuthError == '1033')"
                       ng-submit="continueSocialAuth(socialContinueForm)" name="socialContinueForm" novalidate >
                     <div class="form-control contract-form-row">

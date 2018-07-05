@@ -88,6 +88,17 @@
       "2FA": "2FA code"
     },
     "CONFIRM_EMAIL": "Please check your email & confirm registration. Thank you!",
+    "CONFIRM_EMAIL_FORM": {
+      "TITLE": "Email Activation",
+      "BASE_TEXT": "An activation email has been sent to <br/><b>{{currEmail}}</b>",
+      "NOTICE_TEXT": "If your email address is gmail or not received for a long time, please check the mailbox trash/spam.",
+      "RESEND_BUTTON": "Resend an email",
+      "TIMER": "We can re-send email in {{timerMinutes}}:{{timerSeconds}}",
+      "ERRORS": {
+        "ERROR_1": "Your email was not registered. Please <a href=\"/auth/registration\">sign up</a> before email activation.",
+        "ERROR_2": "Your email has already been verified. Please <a href=\"/auth\">sign in</a>"
+      }
+    },
     "BUTTONS": {
       "LOG_IN": "Log in",
       "FORGOT_PASSWORD": "Forgot your password?",

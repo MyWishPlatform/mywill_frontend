@@ -364,7 +364,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             var index = lastParsedRow;
             var row = results.data[index];
             lastParsedRow++;
-            var address = row[0];
+            var address = row[0].replace(/^[^\S]*([\s]+)[^\S]*$/g, '$1');
             if (!address) {
                 errors.push({
                     status: 4,

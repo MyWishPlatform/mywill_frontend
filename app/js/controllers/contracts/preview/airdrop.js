@@ -100,7 +100,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 data: row,
                 line: index + 1
             };
-            var address = row[0];
+            var address = row[0].replace(/^[^\S]*([\s]+)[^\S]*$/g, '$1');
             var amount = row[1];
             if (!address) {
                 resultRow.error = {

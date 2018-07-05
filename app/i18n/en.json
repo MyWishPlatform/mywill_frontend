@@ -241,7 +241,7 @@
       },
       "AIRDROP": {
         "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any ERC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+        "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
       "LOST_KEY": {
         "TITLE": "Lost key",

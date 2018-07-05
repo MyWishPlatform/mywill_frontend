@@ -5,7 +5,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     $scope.stateData  = $state.current.data;
 
     var contractsData = contractsList.data;
-    $scope.contractsList = contractsData.results;
+    $scope.contractsList = contractsData ? contractsData.results : [];
 
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);

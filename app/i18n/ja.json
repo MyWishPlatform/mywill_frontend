@@ -77,7 +77,7 @@
     "BUY_TOKENS": "トークンを購入する",
     "CHECK": "確認する",
     "BACK": "Back",
-    "CHOOSE_FILE": "Choose file"
+    "CHOOSE_FILE": "ファイルを選ぶ"
   },
   "AUTH_POPUP": {
     "FIELDS": {
@@ -104,12 +104,12 @@
     "I_ALIVE": "私は生きている",
     "WITHDRAW": "撤退",
     "FINALIZE": "ファイナライズ",
-    "MINT": "鑄る",
+    "MINT": "ミント",
     "DELETE": "デリート",
     "EDIT": "エディット",
     "ADD_TO_PARITY": "+パリティに追加",
     "CHANGE_DATES": "日付変更",
-    "WHITELIST": "Whitelist",
+    "WHITELIST": "ホワイトリスト",
     "SEND_AIRDROP_ADDRESSES": "Send To Group",
     "ADD_ADDRESSES": "Import data"
   },
@@ -174,7 +174,7 @@
             "TITLE": "2FAコードを有効にする",
             "LIST_STEPS": {
               "STEP_1": "QRコードをスキャンする",
-              "STEP_2": "Google認証システムまたは同様なアプリにMywishアプリを追加します。",
+              "STEP_2": "Google認証システムまたは同様なアプリにMyWishアプリを追加します。",
               "STEP_3": "MyWishアップルにログインする時、毎回コードを使用する必要があります。"
             }
           },
@@ -352,29 +352,29 @@
     },
     "WHITELIST": {
       "DISCLAIMER": {
-        "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one address in Ethereum format",
-        "ITEM_3": "Only the first 100 addresses will be processed",
-        "ITEM_4": "You can add as many addresses as you need, but not more than 100 at a time<br/>Table example:"
+        "ITEM_1": "ホワイトリストに登録されたアドレスを追加するために *.csv 形式でテーブルをアップロードする必要があります",
+        "ITEM_2": "すべての行は1つのアドレスを Ethereum 形式で含んでいなければなりません",
+        "ITEM_3": "最初の100個のアドレスのみが処理されます",
+        "ITEM_4": "必要なだけアドレスを追加できますが、一度に100を超えないようにしてください。<br/>表の例："
       },
       "FILE_ERRORS": {
-        "WRONG_FORMAT": "Wrong file format",
-        "PARSE_ERROR": "File parsing error"
+        "WRONG_FORMAT": "間違ったファイル形式",
+        "PARSE_ERROR": "ファイル解析エラー"
       },
       "TABLE": {
-        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
-        "PROCESSED_SUCCESSFULLY": "{{success}} out of {{amount}} addresses processed successfully",
-        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
-        "LINE_NUMBER": "Line: {{line}}",
-        "WARNINGS_COUNT": "{{count}} warnings",
-        "ERRORS_COUNT": "{{count}} errors",
+        "SUCCESS_ADDRESSES": "次のアドレスはクラウドセール契約のホワイトリストに登録される準備ができています：",
+        "PROCESSED_SUCCESSFULLY": "{{success}}は{{amount}}からのアドレスが正常に処理された",
+        "ERROR_ADDRESSES": "{{errorsLength}}の行にエラーがあります",
+        "LINE_NUMBER": "ライン：{{line}}",
+        "WARNINGS_COUNT": "{{count}}の警告",
+        "ERRORS_COUNT": "{{count}}のエラー",
         "ERRORS": {
-          "WRONG_FORMAT": "Address has wrong format",
-          "DUPLICATE": "Duplicate address:",
-          "EMPTY_STRING": "Empty string",
-          "ALREADY_EXIST": "Address was already whitelisted"
+          "WRONG_FORMAT": "アドレスの形式が間違っています",
+          "DUPLICATE": "重複アドレス：",
+          "EMPTY_STRING": "空の文字列",
+          "ALREADY_EXIST": "アドレスは既にホワイトリストに登録されています"
         },
-        "ADD_BUTTON": "Add {{length}} addresses"
+        "ADD_BUTTON": "{{length}}アドレスを追加する"
       }
     },
     "MINT_TOKENS_FORM": {
@@ -409,7 +409,7 @@
       "TEXT": "トークンがデプロイメントの契約のために十分ではない"
     },
     "FREEZE_DATE": {
-      "TEXT": "トークンのUn-Freezeの期限が切れています。<br/>変更してもう一度お試しください。"
+      "TEXT": "トークンのアンフリーズの期限が切れています。<br/>変更してもう一度お試しください。"
     },
     "CONTRACT_START_DATE": {
       "TEXT": "契約開始日が正しくありません。<br/>変更してもう一度お試しください。"
@@ -475,15 +475,15 @@
       "ANY_TRANSACTION": {
         "PART_1": "管理アドレスからトランザクション ({{amount||'0'}} ETH) を送信する",
         "PART_2": "契約アドレスに",
-        "PART_3": "data フィールド付き"
+        "PART_3": "データ フィールド付き"
       },
       "ACTIVATE": {
         "TITLE": "活性化する",
         "DESCRIPTION": "クラウドセールを有効にするには、クラウドセール契約にトークン所有権を譲渡する必要があります。 トークンの所有者のアドレスから対応する関数を呼び出してください。"
       },
       "WHITELIST": {
-        "TITLE": "Whitelist",
-        "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
+        "TITLE": "ホワイトリスト",
+        "DESCRIPTION": "クラウドセール契約にすべてのアドレスをホワイトリストに追加するには、次のトランザクションを実行してください。<br/>（たくさんのアドレスを追加すると、たくさんのガスが必要になります）："
       },
       "AIRDROP": {
         "TITLE": "Tokens sending",
@@ -569,56 +569,56 @@
       }
     },
     "NEO": {
-      "HOW_INSTALL_NEO_PYTHON": "How to install it?",
+      "HOW_INSTALL_NEO_PYTHON": "どのようにそれをインストールするには？",
       "NEO_PYTHON": {
-        "TITLE": "How to install & use NEO wallet",
+        "TITLE": "NEOウォレットのインストールと使用方法",
         "LIST": {
-          "ITEM_1": "Install neo-python. Instruction: <a href=\"https://github.com/CityOfZion/neo-python#native-installation\" target=\"_blank\">https://github.com/CityOfZion/neo-python#native-installation</a>",
-          "ITEM_2": "After installation run neo-python: <a href=\"https://github.com/CityOfZion/neo-python#running\" target=\"_blank\">https://github.com/CityOfZion/neo-python#running</a> By default neo-python runs in Test net mode.",
-          "ITEM_3": "After client running you can create wallet file if you don’t have it (you will enter new password 2 times).<br/> Call:",
-          "ITEM_4": "You can open existing wallet by calling: ",
-          "ITEM_5": "You can import wif to opened wallet by calling:",
-          "ITEM_6": "Wait until your Client synchronized with the blockchain. You can check the state by calling: ",
-          "ITEM_7": "Check that your wallet is also synced by calling: ",
-          "ITEM_7_1": "<b>percent_synced</b> field shall be 100.",
-          "ITEM_8": "Now you are ready to manage the contacts & buy tokens!"
+          "ITEM_1": "neo-pythonをインストールする。命令：<a href=\"https://github.com/CityOfZion/neo-python#native-installation\" target=\"_blank\">https://github.com/CityOfZion/neo-python#native-installation</a>",
+          "ITEM_2": "インストール後、neo-pythonを実行します：<a href=\"https://github.com/CityOfZion/neo-python#running\" target=\"_blank\">https://github.com/CityOfZion/neo-python#running</a>　デフォルトでは、neo-pythonはTestネットモードで動作します。",
+          "ITEM_3": "クライアントの実行する後でウォレットファイルを持っていない場合、それを作成することができます（新しいパスワードを2回入力します）。<br/>電話してください：",
+          "ITEM_4": "あなたは電話することにより、既存のウォレットを開くことができます。",
+          "ITEM_5": "あなたは呼び出すことによって開かれたウォレットにWIFをインポートすることができます。",
+          "ITEM_6": "ライアントがブロックチェーンと同期するまで待ちます。 あなたは電話することで状態を確認することができます。",
+          "ITEM_7": "あなたのウォレットが電話しても同期していることを確認してください： ",
+          "ITEM_7_1": "<b>パーセント同期する</b>フィールドは100でなければなりません。",
+          "ITEM_8": "今はあなたが連絡先を管理＆トークンを購入する準備が整いました！"
         }
       },
       "NEO_PYTHON_BUY_TOKENS": {
-        "TITLE": "Buy tokens",
-        "DESCRIPTION": "How to buy {{tokenName}} tokens? Please share it to your investors.",
+        "TITLE": "トークンを購入する",
+        "DESCRIPTION": "{{tokenName}}トークンを購入するには？あなたの投資家にそれを分けてください。",
         "LIST": {
-          "ITEM_1": "Open your wallet in neo-python",
-          "ITEM_2": "Import Token contract to the wallet:",
-          "ITEM_3": "Call",
-          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
-          "ITEM_4": "To make a contribution - call: ",
-          "ITEM_5": "Enter your password",
-          "ITEM_6": "Check your wallet - you will see {{tokenName}} tokens"
+          "ITEM_1": "neo-pythonでフィールドを開きます",
+          "ITEM_2": "トークン契約をウォレットにインポートする：",
+          "ITEM_3": "電話する",
+          "ITEM_3_1": "ウォレットのトークンセクションにトークンが追加されたことを確認する",
+          "ITEM_4": "貢献をするには電話してください：",
+          "ITEM_5": "パスワードを入力してください",
+          "ITEM_6": "あなたのウォレットをチェックする　ー　{{tokenName}}トークンが表示されます"
         }
       },
       "NEO_PYTHON_MINT_TOKENS": {
-        "TITLE": "Mint",
-        "DESCRIPTION": "For Minting <b>{{amount|separateNumber}}</b> tokens to <b>{{address}}</b> address please do the following steps:",
+        "TITLE": "ミント",
+        "DESCRIPTION": "<b>{{address}}</b> アドレスに<b>{{amount|separateNumber}}</b>トークンをミントするのため、次の手順を実行してください。",
         "LIST": {
-          "ITEM_1": "Open your wallet in neo-python",
-          "ITEM_2": "Import Token contract to the wallet:",
-          "ITEM_3": "Call",
-          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
-          "ITEM_4": "To Mint tokens call: ",
-          "ITEM_5": "Enter your password"
+          "ITEM_1": "neo-pythonでフィールドを開きます",
+          "ITEM_2": "トークン契約をウォレットにインポートする：",
+          "ITEM_3": "電話する",
+          "ITEM_3_1": "ウォレットのトークンセクションにトークンが追加されたことを確認する",
+          "ITEM_4": "ミントするには電話してください：",
+          "ITEM_5": "パスワードを入力してください"
         }
       },
       "NEO_PYTHON_MINT_FINALIZE": {
-        "TITLE": "Finalize",
-        "DESCRIPTION": "For Finalization of the Contract please do the following steps:",
+        "TITLE": "ファイナライズ",
+        "DESCRIPTION": "契約をファイナライズするため、次の手順を実行してください。",
         "LIST": {
-          "ITEM_1": "Open your wallet in neo-python",
-          "ITEM_2": "Import Token contract to the wallet:",
-          "ITEM_3": "Call",
-          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
-          "ITEM_4": "To Finalize the contract call:",
-          "ITEM_5": "Enter your password"
+          "ITEM_1": "neo-pythonでフィールドを開きます",
+          "ITEM_2": "トークン契約をウォレットにインポートする：",
+          "ITEM_3": "電話する",
+          "ITEM_3_1": "ウォレットのトークンセクションにトークンが追加されたことを確認する",
+          "ITEM_4": "契約をファイナライズするには電話してください:",
+          "ITEM_5": "パスワードを入力してください"
         }
       },
       "MINT": {
@@ -935,8 +935,8 @@
             "DESCRIPTION": "開始/終了日は、契約の展開後に手動で変更することができます。あなたは販売を延長したり、早期に完了することができます。それ以外の場合は、日付がハードコーディングされており、変更することができません。"
           },
           "WHITELIST": {
-            "LABEL": "Whitelist",
-            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+            "LABEL": "ホワイトリスト",
+            "DESCRIPTION": "契約は唯一の定義されたアドレスからの寄付を受け付けます。 あなたはいつでもアドレスを追加することができます。"
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小＆最大の投資制限",
@@ -1063,12 +1063,12 @@
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "クラウドセール契約（すべての寄付はこの住所に送付するものとする）",
         "CROWD_SALE_CONTRACT_NEO": "クラウドセール契約",
-        "NEO_HOW_CONTRIBUTE": "How to contribute?",
+        "NEO_HOW_CONTRIBUTE": "貢献する方法？",
         "VAULT_ADDRESS": "金庫契約（クラウドセールの終わりまでの投資のストレージ）",
         "CROWD_SALE_TYPE": "クラウドセールタイプ",
         "TOKEN_SCRIPT_HASH": "トークン契約スクリプトハッシュ",
         "CROWDSALE_SCRIPT_HASH": "クラウドセール契約スクリプトハッシュ",
-        "SHOW_WHITELIST": "View whitelisted addresses ({{count}} addresses)",
+        "SHOW_WHITELIST": "ホワイトリストに登録されたアドレスを表示する　({{count}} アドレス)",
         "TIME_BONUSES": {
           "TITLE": "タイムボーナス",
           "BONUS": "ボーナス",
@@ -1086,8 +1086,8 @@
           "MAX_AMOUNT": "最大量"
         },
         "WHITELIST": {
-          "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
-          "DOWNLOAD_CSV": "Download CSV"
+          "DESCRIPTION": "契約には{{count}}個のホワイトリストに登録されたアドレスがあります",
+          "DOWNLOAD_CSV": "CSVをダウンロードする"
         }
       },
       "AIRDROP": {

@@ -204,7 +204,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         maxForStart: $scope.newDatesFields.stop_date - 300
     };
 
-    $scope.startDateIsEnable = !contract.contract_details.time_bonuses.length && (contract.contract_details.start_date >= $scope.minStartDate.format('X') * 1);
+    $scope.startDateIsEnable = !(contract.contract_details.time_bonuses && contract.contract_details.time_bonuses.length) && (contract.contract_details.start_date >= $scope.minStartDate.format('X') * 1);
     $scope.endDateIsEnable = contract.contract_details.stop_date >= $scope.minStartDate.format('X') * 1;
 
     /* Управление датой и временем начала/окончания ICO (begin) */
@@ -274,7 +274,8 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     }
     var methodName = (!startDateIdent && !endDateIdent) ? 'setTimes' : (!startDateIdent ? 'setStartTime' : 'setEndTime');
 
-    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+    var contractInfo = contractDetails[$scope.ngPopUp.params.contract.contract_type !== 4 ? 'eth_contract' : 'eth_contract_crowdsale'];
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
     if (!interfaceMethod) return;
 
     $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
@@ -284,7 +285,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         })[0];
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractData.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
         }
     });
 
@@ -556,7 +557,9 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var methodName = 'addAddressesToWhitelist';
 
-    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+    var contractInfo = contractDetails[$scope.ngPopUp.params.contract.contract_type !== 4 ? 'eth_contract' : 'eth_contract_crowdsale'];
+
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
     try {
         $scope.addWhiteListSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [params]);
     } catch(err) {
@@ -569,7 +572,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         })[0];
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractData.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
         }
     });
 

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?z6p88m');
-  src:  url('fonts/icomoon.eot?z6p88m#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?z6p88m') format('truetype'),
-  url('fonts/icomoon.woff?z6p88m') format('woff'),
-  url('fonts/icomoon.svg?z6p88m#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?xez4zu');
+  src:  url('fonts/icomoon.eot?xez4zu#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?xez4zu') format('truetype'),
+  url('fonts/icomoon.woff?xez4zu') format('woff'),
+  url('fonts/icomoon.svg?xez4zu#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-investment-pool:before {
+  content: "\e947";
+}
 .icon-airdrop:before {
   content: "\e946";
 }

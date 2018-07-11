@@ -244,8 +244,8 @@
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
       "INVESTMENT_POOL": {
-        "TITLE": "Investment Pool",
-        "DESCRIPTION": "Investment Pool Investment Pool Investment Pool Investment Pool Investment Pool Investment Pool"
+        "TITLE": "Investment's pool",
+        "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
       },
       "LOST_KEY": {
         "TITLE": "Lost key",
@@ -727,7 +727,7 @@
         "TITLE": "Investment Pool",
         "FIELDS": {
           "MANAGEMENT_ADDR": {
-            "LABEL": "Management address",
+            "LABEL": "Management address:",
             "PLACEHOLDER": "Enter your ETH wallet address",
             "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
           },
@@ -736,16 +736,16 @@
             "DESCRIPTION": "Specify the token which will be distributed after investment. Choose Off if you would like to set it after Contract creation. It CAN'T be changed after setting up."
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token contract address",
+            "LABEL": "Token contract address:",
             "DESCRIPTION": "Specify the address of the token which you would like to distribute"
           },
           "HARD_CAP": {
-            "LABEL": "Hard cap tokens",
-            "DESCRIPTION": "Defines how many tokens can be sold. After reaching this number sale will be stopped automatically. 1-100,000,000,000,000 Numerals are accepted."
+            "LABEL": "Pool volume (maximum)",
+            "DESCRIPTION": "Defines maximum volume for the pool. After reaching maximum no more contributions to pool are accepted."
           },
           "SOFT_CAP": {
-            "LABEL": "Soft cap tokens",
-            "DESCRIPTION": "Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their vestments back, project gets nothing. You can set it to 0 (no soft cap)"
+            "LABEL": "Pool volume (minimum)",
+            "DESCRIPTION": "Defines minimum ETH needed for investments. If minimum is not reached - contributors get their ETHs back. You can set it to 0 (no minimum)."
           },
           "START_DATE": {
             "LABEL": "Start date",
@@ -779,20 +779,20 @@
             "DESCRIPTION": " Set Destination for the investments. Choose Off Choose Off if you would like to set it after Contract creation. It CAN'T be changed after setting up."
           },
           "INVESTMENT_ADDRESS": {
-            "LABEL": "Destination address",
+            "LABEL": "Destination address:",
             "DESCRIPTION": "ETH address for sending all funds from the pool. It can be Contract address. Double check it before the submission."
           },
           "BONUS": {
-            "LABEL": "Bonus",
-            "DESCRIPTION": "Usually 0.1-100%.  How many extra tokens will be sent to contributor."
+            "LABEL": "Personal bonus (in Tokens) for the pool's owner:",
+            "DESCRIPTION": "Usually 0.1-1%. How many tokens after successfull investments will be sent to pool's owner."
           },
           "HARD_CAP_INVEST": {
-            "LABEL": "Hard cap инвестиции",
-            "DESCRIPTION": "кто может отправить средства при достижении хард кеп - Только автор/ ВСЕ"
+            "LABEL": "Everyone after MAX",
+            "DESCRIPTION": "Everyone can initiate investment after MAX reaching. Off - only contract's owner can do it."
           },
           "SOFT_CAP_INVEST": {
-            "LABEL": "Soft cap инвестиции",
-            "DESCRIPTION": "кто может отправить средства при достижении soft кеп - Только автор/ ВСЕ"
+            "LABEL": "Everyone after MIN",
+            "DESCRIPTION": "Everyone can initiate investment after MIN reaching. Off - only contract's owner can do it."
           }
         }
       },

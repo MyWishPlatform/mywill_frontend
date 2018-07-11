@@ -229,6 +229,30 @@
         </div>
     </div>
 
+    <div ui-sref="main.createcontract.form({selectedType: 'investmentPull', network: blockChainNetwork.isTest ? 2 : 1})"
+         class="shadow-block shadow-block_hovered">
+        <div class="shadow-block__content">
+            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
+                <div class="contract-price-block_content">
+                    <span>{{allCosts[9]}}</span>
+                    <img src="/static/images/blockchain/ethereum.png">
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="icon-investment-pool shadow-block__content__title__icon"></i>
+                        <span class="shadow-block__content__title__text"
+                              translate="PAGES.CREATE_CONTRACT.INVESTMENT_POOL.TITLE"></span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="PAGES.CREATE_CONTRACT.INVESTMENT_POOL.DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div ui-sref="main.createcontract.form({selectedType: 'lostKey', network: blockChainNetwork.isTest ? 2 : 1})"
          class="shadow-block shadow-block_hovered">
         <div class="shadow-block__content">

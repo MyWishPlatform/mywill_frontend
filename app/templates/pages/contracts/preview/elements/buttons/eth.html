@@ -17,6 +17,8 @@
                     <span translate="CONTRACTS_BUTTONS.DELETE"></span>
                 </button><br/><br/>
             </div>
+
+            <!-- Launch button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
                 <button class="btn btn-transparent mobile-width-100 text-center"
                         ng-click="payContract(contract)">
@@ -25,6 +27,7 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Activate button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
                 <button class="btn btn-transparent mobile-width-100 text-center"
                         ng-pop-up="{
@@ -73,15 +76,16 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Edit button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
-                <!-- Edit button -->
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
                     <i class="icon-edit"></i>
                     <span translate="CONTRACTS_BUTTONS.EDIT"></span>
                 </a><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8)">
-                <!-- Deposit instruction button -->
+
+            <!-- Deposit instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8) && (contract.contract_type != 9)">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/deposit-instruction.html',
                             newPopupContent: true,
@@ -93,7 +97,6 @@
                     <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
                 </button><br/><br/>
             </div>
-
 
             <!-- Airdrop deposit button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
@@ -150,7 +153,6 @@
                     <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
                 </button><br/><br/>
             </div>
-
 
             <!-- Cancel instruction button (Deferred, Lost Key) -->
             <div class="grid-cell grid-cell-vs-1-2"
@@ -218,6 +220,7 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Finalize button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 4)">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/finalize-instruction.html',
@@ -233,7 +236,7 @@
 
             <!-- Date changing form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates">
+                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.allow_change_dates">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/change-dates-form.html',
                             newPopupContent: true,
@@ -250,7 +253,7 @@
 
             <!-- Whitelist form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.whitelist">
+                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.whitelist">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/whitelist-form.html',
                             newPopupContent: true,
@@ -262,6 +265,40 @@
                         }"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS_BUTTONS.WHITELIST"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool add investment address -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/whitelist-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Set Destination</span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool add token address -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.token_address">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/whitelist-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span>Set Token address</span>
                 </button><br/><br/>
             </div>
 

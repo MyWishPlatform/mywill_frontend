@@ -1,0 +1,571 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="contract-info__network"
+             ng-class="'contract-info__network_' + network">
+            <span>{{('CONTRACTS_NETWORKS.NETWORK_' + network)|translate}}</span>
+        </div>
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-investment-pool"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size" translate="CONTRACTS.FORMS.INVESTMENT_POOL.TITLE"></span>
+            </div>
+        </div>
+    </div>
+    <form class="shadow-block__content shadow-block__content_no-tb-padding no-border" name="contractNameForm">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="contract-name" class="form-control-label"
+                           translate="CONTRACTS.FORMS.FIELDS.ENTER_CONTRACT_NAME.LABEL"></label>
+                    <input id="contract-name" type="text"
+                           ng-model="request.name"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+        </div><br/><br/>
+    </form>
+</div>
+
+
+<form class="shadow-block" name="managementAddressForm">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="wallet-key"
+                           class="form-control-label"
+                           translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
+                    <input id="wallet-key" type="text"
+                           ng-model="request.contract_details.admin_address"
+                           placeholder="{{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}"
+                           required
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="request.contract_details.admin_address ? !web3Utils.checkAddressChecksum(request.contract_details.admin_address) : false"
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MANAGEMENT_ADDR.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="shadow-block" name="tokenAddressForm" ng-class="{'no-active': !managementAddressForm.$valid}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="form-control-label-checkbox">
+                            <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="additionalParams.tokenAddress">
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="token-wallet-key"
+                           class="form-control-label" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.LABEL"></label>
+                    <input id="token-wallet-key" type="text"
+                           ng-model="request.contract_details.token_address"
+                           ng-required="additionalParams.tokenAddress"
+                           ng-disabled="!additionalParams.tokenAddress"
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           name="token_address"
+                           ng-change="checkTokenAddress()"
+                           class="form-control-input"/>
+
+                    <span class="field-error form-field_error-contract-address"
+                          translate="CONTRACTS.FORMS.AIRDROP.FIELDS.ERRORS.WRONG_TOKEN_ADDRESS"></span>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="(tokenInfo && request.contract_details.token_address) ? !web3Utils.checkAddressChecksum(request.contract_details.token_address) : false"
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row" ng-if="tokenInfo">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-ls-1">
+                <div class="form-control-label">{{'CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL'|translate}} {{tokenInfo.symbol}}</div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-ls-1">
+                <div class="form-control-label">{{'CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL'|translate}} {{tokenInfo.decimals}}</div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="shadow-block" name="investAddressForm" ng-class="{'no-active': !(managementAddressForm.$valid && (tokenAddressForm.$valid || !additionalParams.tokenAddress))}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="form-control-label-checkbox">
+                            <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="additionalParams.investmentAddress">
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="invests-wallet-key"
+                           class="form-control-label" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.LABEL"></label>
+                    <input id="invests-wallet-key" type="text"
+                           ng-model="request.contract_details.investment_address"
+                           ng-required="additionalParams.investmentAddress"
+                           ng-disabled="!additionalParams.investmentAddress"
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="request.contract_details.investment_address ? !web3Utils.checkAddressChecksum(request.contract_details.investment_address) : false"
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<form class="shadow-block" ng-class="{'no-active': !(managementAddressForm.$valid && (investAddressForm.$valid || !additionalParams.investmentAddress) && (tokenAddressForm.$valid || !additionalParams.tokenAddress))}" name="datesForm">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="start-date" class="form-control-label">
+                        <i class="icon-waiting-2 form-control-label-icon floated"></i>
+                        <span  class="after-floated">{{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.START_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span></span>
+                    </label>
+                    <input class="input-for-group-fields"
+                           readonly
+                           name="checkStartDate"
+                           ng-model="request.contract_details.start_date"
+                           tabindex="-1"
+                           type="number"
+                           ng-attr-min="{{minStartDate.format('X')}}"
+                           ng-attr-max="{{dates.endDate.clone().add(-5, 'minutes').format('X')}}"/>
+
+                    <input type="datetime" required
+                           id="start-date"
+                           ng-model="dates.startDate"
+                           date-change="onChangeStartDate"
+                           auto-close="true"
+                           min-date="minStartDate"
+                           readonly
+                           date-time
+                           min-view="date"
+                           view="year"
+                           format="YYYY-MM-DD"
+                           position="fixed"
+                           ng-attr-invalid="{{!datesForm.checkStartDate.$valid}}"
+                           class="form-control-input form-control-input-date"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="start-date" class="form-control-label hide-vs">&nbsp;</label>
+                    <div class="form-control-input"
+                         ng-model="timesForStarting.start" ng-time-picker
+                         ng-attr-invalid="{{!datesForm.checkStartDate.$valid}}"
+                         ng-change="onChangeStartTime">&nbsp;</div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 form-control-description grid-cell-ps-4-5 grid-cell-ls-1">
+                <label for="start-date" class="form-control-label hide-ps">&nbsp;</label>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.START_DATE.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="end-date" class="form-control-label">
+                        <i class="icon-waiting-1 form-control-label-icon floated"></i>
+                        <span  class="after-floated">{{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.FINISH_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span></span>
+                    </label>
+
+                    <input class="input-for-group-fields"
+                           tabindex="-1"
+                           readonly
+                           name="checkStopDate"
+                           ng-model="request.contract_details.stop_date"
+                           type="number"
+                           step="1"
+                           ng-attr-min="{{dates.startDate.clone().add(5, 'minutes').format('X')}}"/>
+
+                    <input type="datetime" required
+                           id="end-date"
+                           ng-model="dates.endDate"
+                           date-change="onChangeEndDate"
+                           auto-close="true"
+                           min-date="minStartDate"
+                           readonly
+                           date-time
+                           min-view="date"
+                           view="year"
+                           format="YYYY-MM-DD"
+                           position="fixed"
+                           ng-attr-invalid="{{!datesForm.checkStopDate.$valid}}"
+                           class="form-control-input form-control-input-date"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="end-date" class="form-control-label hide-vs">&nbsp;</label>
+                    <div class="form-control-input"
+                         ng-time-picker
+                         ng-attr-invalid="{{!datesForm.checkStopDate.$valid}}"
+                         ng-change="onChangeStopTime"
+                         ng-model="timesForStarting.stop">&nbsp;</div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <label for="start-date" class="form-control-label hide-ps">&nbsp;</label>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.FINISH_DATE.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="hard-cap" class="form-control-label">
+                        <i class="icon-hard-cap form-control-label-icon floated"></i>
+                        <span  class="after-floated">{{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP.LABEL'|translate}}</span>
+                    </label>
+                    <input id="hard-cap" type="text"
+                           commaseparator="{
+                                regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'
+                           }"
+                           ng-model="request.contract_details.hard_cap"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="soft-cap" class="form-control-label">
+                        <i class="icon-soft-cap form-control-label-icon floated"></i>
+                        <span  class="after-floated">{{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP.LABEL'|translate}}</span>
+                    </label>
+                    <input id="soft-cap" type="text"
+                           ng-model="request.contract_details.soft_cap"
+                           required
+                           commaseparator="{
+                                regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', max: request.contract_details.hard_cap
+                           }"
+                           class="form-control-input"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<form class="shadow-block"
+      name="investmentLimitationsForm"
+      ng-class="{'no-active': !(managementAddressForm.$valid && datesForm.$valid  && (investAddressForm.$valid || !additionalParams.investmentAddress) && (tokenAddressForm.$valid || !additionalParams.tokenAddress))}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="form-control-label-checkbox">
+                            <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MIN_MAX_INVESTMENTS.LABEL"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="additionalParams.investsLimit">
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MIN_MAX_INVESTMENTS.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="min-invest" class="form-control-label"
+                           translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MIN_INVESTMENTS.LABEL"></label>
+                    <input id="min-invest"
+                           ng-disabled="!additionalParams.investsLimit"
+                           ng-required="additionalParams.investsLimit"
+                           type="text"
+                           placeholder="0"
+                           commaseparator="{
+                            regexp: '^((0)|([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]{0,2})?$',
+                                max: request.contract_details.max_wei,
+                                min: 0
+                            }"
+                           ng-model="request.contract_details.min_wei" class="form-control-input">
+                    <div class="input-after">ETH</div>
+                </div>
+            </div>
+            <div class="form-control-description grid-cell grid-cell-2-3 grid-cell-ps-3-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MIN_INVESTMENTS.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="max-invest" class="form-control-label"
+                           translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MAX_INVESTMENTS.LABEL"></label>
+                    <input id="max-invest" type="text"
+                           placeholder="{{request.contract_details.hard_cap}}"
+                           ng-disabled="!additionalParams.investsLimit"
+                           ng-required="additionalParams.investsLimit"
+                           commaseparator="{
+                            regexp: '^((0)|([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]{0,2})?$',
+                                max: request.contract_details.hard_cap,
+                                min: request.contract_details.min_wei || 0
+                           }"
+                           ng-model="request.contract_details.max_wei" class="form-control-input">
+                    <div class="input-after">ETH</div>
+                </div>
+            </div>
+            <div class="form-control-description grid-cell grid-cell-2-3 grid-cell-ps-3-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MAX_INVESTMENTS.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<form class="shadow-block"
+      name="bonusForm"
+      ng-class="{'no-active': !(managementAddressForm.$valid && datesForm.$valid && investmentLimitationsForm.$valid && (investAddressForm.$valid || !additionalParams.investmentAddress) && (tokenAddressForm.$valid || !additionalParams.tokenAddress))}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-1-4 grid-cell-vs-1-3">
+                <div class="form-control">
+                    <label class="form-control-label ng-scope" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.BONUS.LABEL"></label>
+                    <input class="form-control-input"
+                           type="number"
+                           placeholder="50" step="0.1" min="0.1" required="" ng-model="request.contract_details.admin_percent">
+                    <div class="input-after">%</div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
+                <div class="form-control-label hide-vs">&nbsp;</div>
+                <span class="form-control-description__text ng-scope" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.BONUS.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<form class="shadow-block" ng-class="{'no-active': !(managementAddressForm.$valid && datesForm.$valid && investmentLimitationsForm.$valid && bonusForm.$valid && (investAddressForm.$valid || !additionalParams.investmentAddress) && (tokenAddressForm.$valid || !additionalParams.tokenAddress))}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label for="changing_dates" class="form-control-label inline-label">
+                            <i class="icon-note-list form-control-label-icon floated"></i>
+                            <span class="after-floated" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.WHITELIST.LABEL"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="request.contract_details.whitelist" id="whitelist"/>
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.WHITELIST.DESCRIPTION"></span>
+            </div>
+        </div>
+
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label for="changing_dates" class="form-control-label inline-label">
+                            <i class="icon-calendar form-control-label-icon floated"></i>
+                            <span class="after-floated">{{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.CHANGING_DATES.LABEL'|translate}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="request.contract_details.allow_change_dates" id="changing_dates"/>
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.CHANGING_DATES.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label for="is_transferable_at_once" class="form-control-label inline-label">
+                            <i class="icon-hard-cap form-control-label-icon floated"></i>
+                            <span class="after-floated"
+                                  translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP_INVEST.LABEL"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" id="is_transferable_at_once" ng-model="request.contract_details.send_tokens_hard_cap"/>
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP_INVEST.DESCRIPTION">
+                </span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label for="auto_finalize" class="form-control-label inline-label">
+                            <i class="icon-soft-cap form-control-label-icon floated"></i>
+                            <span class="after-floated"
+                                  translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP_INVEST.LABEL"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox" ng-model="request.contract_details.send_tokens_soft_cap" id="auto_finalize"/>
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP_INVEST.DESCRIPTION">
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br/><br/><br/>
+
+
+<div class="grid-row">
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="uppercase btn btn-submit mobile-width-100"
+                type="button" ng-disabled="!(managementAddressForm.$valid && datesForm.$valid && investmentLimitationsForm.$valid && bonusForm.$valid && (investAddressForm.$valid || !additionalParams.investmentAddress) && (tokenAddressForm.$valid || !additionalParams.tokenAddress))" ng-click="createContract()">
+            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+            <i class="icon-delete-button"></i>
+            <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
+            <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>
+        </button>
+    </div>
+</div>

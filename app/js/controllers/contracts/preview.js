@@ -99,4 +99,82 @@ angular.module('app').controller('contractsPreviewController', function($scope,
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
+}).controller('setAddressController', function($scope, $rootScope, web3Service, $timeout) {
+
+    $scope.showInstruction = function() {
+        createSignature();
+        $timeout(function() {
+            $scope.showedInstruction  = true;
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
+    $scope.hideInstruction = function() {
+        $scope.showedInstruction  = false;
+    };
+
+    var contractData = $scope.ngPopUp.params.contract;
+
+    $scope.contract = contractData;
+
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+
+    var methodName = $scope.ngPopUp.params.web3Method;
+    var contractInfo = contractDetails.eth_contract;
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
+
+    $scope.request = {
+        address: ''
+    };
+
+    var createSignature = function() {
+        $scope.request.address = $scope.request.address;
+        try {
+            $scope.setAddressSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [$scope.request.address.toLowerCase()]);
+        } catch(err) {
+            console.log(err);
+        }
+    };
+
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
+        }
+    });
+
+    $scope.sendTransaction = function() {
+        contract.methods[methodName]($scope.request.address).send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+
+    $scope.checkTokenAddress = function(addressForm) {
+        if (!$scope.ngPopUp.params.isToken) return;
+        $scope.tokenInfo = false;
+        addressForm.address.$setValidity('contract-address', true);
+        if (!addressForm.$valid) return;
+        addressForm.address.$setValidity('required', false);
+        web3Service.getTokenInfo(
+            $scope.contract.network,
+            $scope.request.address.toLowerCase(),
+            false,
+            ['decimals', 'symbol']
+        ).then(function(result) {
+            addressForm.address.$setValidity('required', true);
+            if (!(result.symbol && result.decimals)) {
+                addressForm.address.$setValidity('contract-address', false);
+                return;
+            }
+            addressForm.address.$setValidity('contract-address', true);
+            $scope.tokenInfo = result;
+        });
+    };
+
 });

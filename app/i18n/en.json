@@ -1203,6 +1203,9 @@
           "BUTTON": "Send Tokens",
           "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
         }
+      },
+      "INVESTMENTS_POOL": {
+        "SHARE_LINK": "You can share your contract to contributors by this link:"
       }
     }
   }

@@ -1,5 +1,4 @@
-angular.module('app').controller('contractsPreviewController', function($scope,
-                                                                        CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
+angular.module('app').controller('contractsPreviewController', function($scope, $rootScope, CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
 

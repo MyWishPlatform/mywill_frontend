@@ -236,7 +236,7 @@
 
             <!-- Date changing form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.allow_change_dates">
+                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && ((contract.contract_type == 4)||((contract.contract_type == 9) && isAuthor)) && contract.contract_details.allow_change_dates">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/change-dates-form.html',
                             newPopupContent: true,
@@ -251,9 +251,10 @@
                 </button><br/><br/>
             </div>
 
+
             <!-- Whitelist form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.whitelist">
+                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 4)||((contract.contract_type == 9) && isAuthor)) && contract.contract_details.whitelist">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/whitelist-form.html',
                             newPopupContent: true,
@@ -270,7 +271,7 @@
 
             <!-- Investment pool add investment address -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address && isAuthor">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/add-address-form.html',
                             newPopupContent: true,
@@ -291,7 +292,7 @@
 
             <!-- Investment pool add token address -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.token_address">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.token_address && isAuthor">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/add-address-form.html',
                             newPopupContent: true,

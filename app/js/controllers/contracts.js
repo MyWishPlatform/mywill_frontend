@@ -76,10 +76,14 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
     $scope.iniContract = function(contract) {
+
+        console.log(contract.user, $rootScope.currentUser.id);
+        $scope.isAuthor = contract.user === $rootScope.currentUser.id;
+
         if (!contract.contract_details.eth_contract) return;
+        contract.discount = 0;
         if (contract.contract_type === 8) {
             contract.balance = undefined;
-            contract.discount = 0;
         }
 
         if ((contract.contract_type === 8) && contract.contract_details.processing_count) {

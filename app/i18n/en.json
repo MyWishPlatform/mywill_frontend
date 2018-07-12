@@ -244,7 +244,7 @@
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
       "INVESTMENT_POOL": {
-        "TITLE": "Investment's pool",
+        "TITLE": "Investment pool",
         "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
       },
       "LOST_KEY": {
@@ -569,6 +569,16 @@
       "CHANGE_DATES": {
         "TITLE": "Change Dates",
         "DESCRIPTION": "To change start date to {{newStartDate|date:'yyyy-MM-dd HH:mm'}} / finish date to {{newFinishDate|date:'yyyy-MM-dd HH:mm'}} please do the following steps:"
+      },
+      "SET_ADDRESS": {
+        "DESTINATION_ADDRESS": {
+          "TITLE": "",
+          "DESCRIPTION": "To Set Destination to {{address}} for your Investment pool please do the following steps:"
+        },
+        "TOKEN_ADDRESS": {
+          "TITLE": "",
+          "DESCRIPTION": "To Set Token {{address}} for your Investment pool please do the following steps:"
+        }
       }
     },
     "RSK": {
@@ -733,7 +743,7 @@
           },
           "TOKEN_ADDRESS_ON_OFF": {
             "LABEL": "Set Token",
-            "DESCRIPTION": "Specify the token which will be distributed after investment. Choose Off if you would like to set it after Contract creation. It CAN'T be changed after setting up."
+            "DESCRIPTION": "Specify the token which shall be distributed after the investment. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
           },
           "TOKEN_ADDR": {
             "LABEL": "Token contract address:",
@@ -749,12 +759,13 @@
           },
           "START_DATE": {
             "LABEL": "Start date",
-            "DESCRIPTION": "Start date/time for sale. No contributions will be accepted before that time"
+            "DESCRIPTION": "Start date/time for opening the pool. No contributions to the pool will be accepted before that time"
           },
           "FINISH_DATE": {
             "LABEL": "Finish date",
-            "DESCRIPTION": "Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached"
-          },"CHANGING_DATES": {
+            "DESCRIPTION": "Finish date/time for closing the pool. No contributions to the pool will be accepted after that time."
+          },
+          "CHANGING_DATES": {
             "LABEL": "Changing dates",
             "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
           },
@@ -776,7 +787,7 @@
           },
           "INVESTMENT_ADDRESS_ON_OFF": {
             "LABEL": "Set Destination",
-            "DESCRIPTION": " Set Destination for the investments. Choose Off Choose Off if you would like to set it after Contract creation. It CAN'T be changed after setting up."
+            "DESCRIPTION": "Set Destination for the investments. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
           },
           "INVESTMENT_ADDRESS": {
             "LABEL": "Destination address:",
@@ -784,7 +795,7 @@
           },
           "BONUS": {
             "LABEL": "Personal bonus (in Tokens) for the pool's owner:",
-            "DESCRIPTION": "Usually 0.1-1%. How many tokens after successfull investments will be sent to pool's owner."
+            "DESCRIPTION": "Usually 0.1-1%. % of pool's tokens (after successfull investment) will be sent to pool's owner."
           },
           "HARD_CAP_INVEST": {
             "LABEL": "Everyone after MAX",

@@ -272,13 +272,17 @@
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address">
                 <button ng-pop-up="{
-                            template: '/templates/popups/forms/eth/whitelist-form.html',
+                            template: '/templates/popups/forms/eth/add-address-form.html',
                             newPopupContent: true,
                             params: {
-                                contract: contract
+                                contract: contract,
+                                web3Method: 'setInvestmentAddress',
+                                labelField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.LABEL'|translate),
+                                descriptionField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.DESCRIPTION'|translate),
+                                instructionTitle: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL'|translate),
+                                instructionDescription: 'CONTRACTS_INSTRUCTIONS.ETH.SET_ADDRESS.DESTINATION_ADDRESS.DESCRIPTION'
                             },
-                            class: 'page-size',
-                            onClose: returnToList
+                            class: 'page-size'
                         }"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL"></span>
@@ -289,13 +293,18 @@
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.token_address">
                 <button ng-pop-up="{
-                            template: '/templates/popups/forms/eth/whitelist-form.html',
+                            template: '/templates/popups/forms/eth/add-address-form.html',
                             newPopupContent: true,
                             params: {
-                                contract: contract
+                                contract: contract,
+                                web3Method: 'setInvestmentAddress',
+                                labelField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.LABEL'|translate),
+                                descriptionField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.DESCRIPTION'|translate),
+                                instructionTitle: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL'|translate),
+                                instructionDescription: 'CONTRACTS_INSTRUCTIONS.ETH.SET_ADDRESS.TOKEN_ADDRESS.DESCRIPTION',
+                                isToken: true
                             },
-                            class: 'page-size',
-                            onClose: returnToList
+                            class: 'page-size'
                         }"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL"></span>

@@ -52,18 +52,19 @@
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="normal-text visible-text">
-                {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.SHARE_LINK'|translate}}
-                <div class="copy-block">
-                    <button class="copy-block__button relative"
-                            clipboard supported="supported"
-                            text="contractUrl"
-                            ng-class="{copied: contract.copied['link']}"
-                            on-copied="$root.successCodeCopy(contract, 'link')">&nbsp;
-                        <i class="icon-content_copy"></i>
-                    </button>
-                    <div class="copy-block__text">{{contractUrl}}</div>
-                </div>
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.SHARE_LINK"></div>
+            <br class="show-ls"/>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ contractUrl }}"
+                   target="_blank"
+                   ng-bind="contractUrl"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['link']}"
+                        text="contractUrl"
+                        on-copied="$root.successCodeCopy(contract, 'link')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
             </div>
         </div>
 
@@ -84,6 +85,52 @@
                         on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-hard-cap form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{details.hard_cap_eth|separateNumber}} ETH
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-soft-cap form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{details.soft_cap_eth|separateNumber}} ETH
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1" ng-if="contract.contract_details.raised_amount"><br/><br/>
+                    <div class="form-control-label">Raised progress</div>
+                    <div class="form-control-label">
+                        <div class="investment-progress">
+                            <div class="investment-progress__max">max</div>
+                            <div class="investment-progress__min"
+                                 ng-style="{'margin-left': bigNumber(details.soft_cap).div(details.hard_cap).times(100).toString(10) + '%'}">
+                                <span>min</span>
+                            </div>
+                            <div class="investment-progress__raised"
+                                 ng-style="{'width': bigNumber(details.raised_amount).div(details.hard_cap).times(100).toString(10) + '%'}"></div>
+                        </div>
+                    </div>
+                    <div class="form-control-label">
+                        Total raised: {{$root.web3Utils.fromWei(contract.contract_details.raised_amount, 'ether')}} ETH
+                        (Day: +10%)
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -160,49 +207,7 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="form-control-label">
-                        <i class="icon-hard-cap form-control-label-icon"></i>
-                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP.LABEL'|translate}}
-                    </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
-                        <div class="contract-preview-base-value-string">
-                            {{details.hard_cap_eth|separateNumber}} ETH
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix show-ls"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="form-control-label">
-                        <i class="icon-soft-cap form-control-label-icon"></i>
-                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP.LABEL'|translate}}
-                    </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
-                        <div class="contract-preview-base-value-string">
-                            {{details.soft_cap_eth|separateNumber}} ETH
-                        </div>
-                    </div>
-                </div>
-                <div class="grid-cell grid-cell-1" ng-if="contract.contract_details.raised_amount"><br/><br/>
-                    <div class="form-control-label">Raised progress</div>
-                    <div class="form-control-label">
-                        <div class="investment-progress">
-                            <div class="investment-progress__max">max</div>
-                            <div class="investment-progress__min">
-                                <span>min</span>
-                            </div>
-                            <div class="investment-progress__raised"></div>
-                        </div>
-                    </div>
-                    <div class="form-control-label">
-                        Total raised: {{$root.web3Utils.fromWei(contract.contract_details.raised_amount, 'ether')}} ETH
-                        (Day: +10%)
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
 

@@ -77,11 +77,42 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
+    var web3ContractList = [];
+    var contractGettingInfoProgress = false;
+
+    var getContractInfo = function() {
+
+        if (contractGettingInfoProgress || !web3ContractList.length) return;
+
+        contractGettingInfoProgress = true;
+        var contract = web3ContractList.shift();
+
+        console.log('Contract ID: ' + contract.id);
+
+        console.log('Network: ' + contract.network);
+
+        web3Service.setProviderByNumber(contract.network);
+        var web3Contract = web3Service.createContractFromAbi(
+            contract.contract_details.eth_contract.address,
+            contract.contract_details.eth_contract.abi
+        );
+        web3Contract.methods.weiRaised().call(function(error, result) {
+            contract.contract_details.raised_amount = result;
+            contractGettingInfoProgress = false;
+            getContractInfo();
+            $scope.$apply();
+        });
+    };
+
     $scope.iniContract = function(contract) {
 
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
+        contract.stateValue = $scope.statuses[contract.state]['value'];
+        contract.stateTitle = $scope.statuses[contract.state]['title'];
+
         if (!contract.contract_details.eth_contract) return;
+
         contract.discount = 0;
         if (contract.contract_type === 8) {
             contract.balance = undefined;
@@ -91,20 +122,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             contract.state = 'SENDING_TOKENS';
         }
 
-        if (contract.contract_type === 9) {
-            web3Service.setProviderByNumber(contract.network);
-            var web3Contract = web3Service.createContractFromAbi(
-                contract.contract_details.eth_contract.address,
-                contract.contract_details.eth_contract.abi
-            );
-            web3Contract.methods.weiRaised().call(function(error, result) {
-                contract.contract_details.raised_amount = result;
-                $scope.$apply();
-            });
+        if ((contract.contract_type === 9) && ((contract.stateValue === 4) || (contract.stateValue === 11))) {
+            web3ContractList.push(contract);
+            getContractInfo();
         }
 
-        contract.stateValue = $scope.statuses[contract.state]['value'];
-        contract.stateTitle = $scope.statuses[contract.state]['title'];
     };
 
     /* (Click) Contract refresh */

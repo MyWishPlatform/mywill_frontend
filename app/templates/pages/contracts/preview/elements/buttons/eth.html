@@ -85,7 +85,8 @@
             </div>
 
             <!-- Deposit instruction button -->
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8) && (contract.contract_type != 9)">
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8) && (contract.contract_type != 9)">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/deposit-instruction.html',
                             newPopupContent: true,
@@ -234,6 +235,21 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Deposit instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && (getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (getNowDateTime(true).format('X') * 1 > contract.contract_details.start_date)">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+                </button><br/><br/>
+            </div>
+
             <!-- Date changing form button -->
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && ((contract.contract_type == 4)||((contract.contract_type == 9) && isAuthor)) && contract.contract_details.allow_change_dates">
@@ -269,6 +285,26 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Investment pool send funds instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) &&
+                 (
+                    ((bigNumber(contract.contract_details.raised_amount).minus(contract.contract_details.soft_cap) >= 0) && (isAuthor || contract.contract_details.send_tokens_soft_cap)) ||
+                    ((bigNumber(contract.contract_details.raised_amount).minus(contract.contract_details.hard_cap) >= 0) && contract.contract_details.send_tokens_hard_cap)
+                 )">
+
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>
+                </button><br/><br/>
+            </div>
+
             <!-- Investment pool add investment address -->
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address && isAuthor">
@@ -298,7 +334,7 @@
                             newPopupContent: true,
                             params: {
                                 contract: contract,
-                                web3Method: 'setInvestmentAddress',
+                                web3Method: 'setTokenAddress',
                                 labelField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.LABEL'|translate),
                                 descriptionField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.DESCRIPTION'|translate),
                                 instructionTitle: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL'|translate),
@@ -309,6 +345,21 @@
                         }"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool cancel instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && isAuthor">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
                 </button><br/><br/>
             </div>
 

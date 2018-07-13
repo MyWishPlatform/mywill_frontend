@@ -56,7 +56,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         offset: 100
     };
 
-}).controller('baseContractsController', function($scope, $state, $timeout, contractService, $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
+}).controller('baseContractsController', function($scope, $state, $timeout, contractService,
+                                                  web3Service,
+                                                  $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
     var deletingProgress;
     $scope.refreshInProgress = {};
     $scope.timeoutsForProgress = {};
@@ -77,7 +79,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     $scope.iniContract = function(contract) {
 
-        console.log(contract.user, $rootScope.currentUser.id);
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
         if (!contract.contract_details.eth_contract) return;
@@ -89,6 +90,19 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         if ((contract.contract_type === 8) && contract.contract_details.processing_count) {
             contract.state = 'SENDING_TOKENS';
         }
+
+        if (contract.contract_type === 9) {
+            web3Service.setProviderByNumber(contract.network);
+            var web3Contract = web3Service.createContractFromAbi(
+                contract.contract_details.eth_contract.address,
+                contract.contract_details.eth_contract.abi
+            );
+            web3Contract.methods.weiRaised().call(function(error, result) {
+                contract.contract_details.raised_amount = result;
+                $scope.$apply();
+            });
+        }
+
         contract.stateValue = $scope.statuses[contract.state]['value'];
         contract.stateTitle = $scope.statuses[contract.state]['title'];
     };

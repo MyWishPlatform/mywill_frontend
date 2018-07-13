@@ -122,7 +122,8 @@
     "CHANGE_DATES": "Change Dates",
     "WHITELIST": "Whitelist",
     "SEND_AIRDROP_ADDRESSES": "Send To Group",
-    "ADD_ADDRESSES": "Import data"
+    "ADD_ADDRESSES": "Import data",
+    "SEND_FUNDS": "Send Funds"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -579,6 +580,10 @@
           "TITLE": "",
           "DESCRIPTION": "To Set Token {{address}} for your Investment pool please do the following steps:"
         }
+      },
+      "SEND_FUNDS": {
+        "TITLE": "Send Funds",
+        "DESCRIPTION": "Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds"
       }
     },
     "RSK": {

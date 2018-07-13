@@ -160,7 +160,7 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
@@ -169,7 +169,7 @@
                     </div>
                     <div class="contract-preview-base-font contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
-                            {{details.hard_cap|separateNumber}} ETH
+                            {{details.hard_cap_eth|separateNumber}} ETH
                         </div>
                     </div>
                 </div>
@@ -181,12 +181,31 @@
                     </div>
                     <div class="contract-preview-base-font contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
-                            {{details.soft_cap|separateNumber}} ETH
+                            {{details.soft_cap_eth|separateNumber}} ETH
                         </div>
                     </div>
                 </div>
+                <div class="grid-cell grid-cell-1" ng-if="contract.contract_details.raised_amount"><br/><br/>
+                    <div class="form-control-label">Raised progress</div>
+                    <div class="form-control-label">
+                        <div class="investment-progress">
+                            <div class="investment-progress__max">max</div>
+                            <div class="investment-progress__min">
+                                <span>min</span>
+                            </div>
+                            <div class="investment-progress__raised"></div>
+                        </div>
+                    </div>
+                    <div class="form-control-label">
+                        Total raised: {{$root.web3Utils.fromWei(contract.contract_details.raised_amount, 'ether')}} ETH
+                        (Day: +10%)
+                    </div>
+                </div>
             </div>
-            <div class="clearfix"><br></div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
@@ -273,6 +292,25 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="whiteListedAddresses.count">
+            <div class="form-control-label">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/whitelist-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            contract: contract
+                        }
+                   }">
+                    <span translate-values="{
+                        count: whiteListedAddresses.count
+                    }"
+                          translate="CONTRACTS.PREVIEW.CROWD_SALE.SHOW_WHITELIST"></span>
+                </a>
             </div>
         </div>
 

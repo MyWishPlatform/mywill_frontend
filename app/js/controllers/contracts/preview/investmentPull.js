@@ -3,8 +3,8 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
     $scope.contract = openedContract.data;
     $scope.details = $scope.contract.contract_details;
 
-    $scope.details.hard_cap = $rootScope.web3Utils.fromWei($scope.details.hard_cap, 'ether');
-    $scope.details.soft_cap = $rootScope.web3Utils.fromWei($scope.details.soft_cap, 'ether');
+    $scope.details.hard_cap_eth = $rootScope.web3Utils.fromWei($scope.details.hard_cap, 'ether');
+    $scope.details.soft_cap_eth = $rootScope.web3Utils.fromWei($scope.details.soft_cap, 'ether');
 
     $scope.details.min_wei = $scope.details.min_wei ? $rootScope.web3Utils.fromWei($scope.details.min_wei, 'ether') : false;
     $scope.details.max_wei = $scope.details.max_wei ? $rootScope.web3Utils.fromWei($scope.details.max_wei, 'ether') : false;
@@ -22,7 +22,80 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
         });
     }
 
-    $scope.contractUrl = $window.location.origin + $state.href('main.contracts.preview.public', {key: $scope.details.link});
-    console.log($state.href('main.contracts.preview.public', {key: $scope.details.link}));
+    if (($scope.contract.stateValue == 4) && $scope.details.whitelist) {
+        contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
+            $scope.whiteListedAddresses = response.data;
+        });
+    }
 
+    $scope.contractUrl = $window.location.origin + $state.href('main.contracts.preview.public', {key: $scope.details.link});
+
+}).controller('investmentPoolCancelController', function($scope, web3Service) {
+
+    var contractData = $scope.ngPopUp.params.contract;
+    $scope.contract = contractData;
+
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+
+    var methodName = 'cancel';
+    var contractInfo = contractDetails.eth_contract;
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
+
+    try {
+        $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+    } catch(err) {
+        console.log(err);
+    }
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
+        }
+    });
+
+    $scope.sendTransaction = function() {
+        contract.methods[methodName]($scope.request.address).send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+}).controller('investmentPoolSendFundsController', function($scope, web3Service) {
+
+    var contractData = $scope.ngPopUp.params.contract;
+    $scope.contract = contractData;
+
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+
+    var methodName = 'finalize';
+    var contractInfo = contractDetails.eth_contract;
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
+
+    try {
+        $scope.sendFundsSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+    } catch(err) {
+        console.log(err);
+    }
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
+        }
+    });
+
+    $scope.sendTransaction = function() {
+        contract.methods[methodName]($scope.request.address).send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
 });

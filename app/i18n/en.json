@@ -583,7 +583,7 @@
       },
       "SEND_FUNDS": {
         "TITLE": "Send Funds",
-        "DESCRIPTION": "Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds Send Funds"
+        "DESCRIPTION": "To send all funds ({{amount}}) to {{address}} please do the following steps:"
       }
     },
     "RSK": {

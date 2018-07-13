@@ -35,7 +35,6 @@
     left: 0;
     top: 0;
     bottom: 0;
-    width: 30%;
     border-radius: inherit;
     background: -moz-linear-gradient(left, rgba(32,110,255,0.22) 0%, rgba(32,110,255,1) 100%);
     background: -webkit-linear-gradient(left, rgba(32,110,255,0.22) 0%,rgba(32,110,255,1) 100%);
@@ -45,7 +44,6 @@
   &__min {
     float: left;
     width: 1px;
-    margin-left: 30%;
     height: 100%;
     position: relative;
     span {

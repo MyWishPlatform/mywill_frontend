@@ -94,7 +94,41 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
     });
 
     $scope.sendTransaction = function() {
-        contract.methods[methodName]($scope.request.address).send({
+        contract.methods[methodName]().send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+}).controller('investmentPoolGetTokensController', function($scope, web3Service) {
+
+    var contractData = $scope.ngPopUp.params.contract;
+    $scope.contract = contractData;
+
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+
+    var methodName = 'withdrawTokens';
+    var contractInfo = contractDetails.eth_contract;
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
+
+    try {
+        $scope.sendFundsSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+    } catch(err) {
+        console.log(err);
+    }
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
+        }
+    });
+
+    $scope.sendTransaction = function() {
+        contract.methods[methodName]().send({
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };

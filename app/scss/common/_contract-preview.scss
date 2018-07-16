@@ -82,3 +82,66 @@
     }
   }
 }
+
+.btn {
+  .with-list {
+    position: relative;
+  }
+}
+.btn-wallets {
+  position: absolute;
+  background-color: #F4F4F4;
+  box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.25);
+  color: #000;
+  border-radius: 0.9em;
+  overflow: visible;
+  margin: 4px 0 0 0;
+  left: 0;
+  text-align: left;
+  &:before {
+    content: '';
+    display: block;
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: #F4F4F4;
+    transform: rotate(-45deg);
+    margin-top: -4px;
+    width: 0;
+    height: 0;
+    margin-left: 41px;
+    margin-bottom: -5px;
+    box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.25);
+  }
+  &-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    max-height: 150px;
+    overflow: auto;
+    background-color: #F4F4F4;
+    position: relative;
+    z-index: 11;
+    li {
+      display: block;
+      padding: 0 2em;
+      cursor: pointer;
+      &:first-child {
+        border-top-left-radius: 0.9em;
+        border-top-right-radius: 0.9em;
+      }
+      &:last-child {
+        border-bottom-left-radius: 0.9em;
+        border-bottom-right-radius: 0.9em;
+      }
+      &:hover {
+        background-color: #EEE;
+      }
+      + li {
+        border-top: 1px solid #ddd;
+      }
+      span {
+        font-size: 1.4em;
+      }
+    }
+  }
+}

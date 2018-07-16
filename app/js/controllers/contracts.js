@@ -99,10 +99,21 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.contract_type) {
             case 9:
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
+
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
+
+                var balance = new BigNumber(contract.contract_details.raised_amount);
+
+                if (contract.contract_details.last_balance * 1) {
+                    contract.contract_details.raised_percent = balance.minus(contract.contract_details.last_balance).div(contract.contract_details.last_balance) * 100;
+                } else if (balance > 0) {
+                    contract.contract_details.raised_percent = 100;
+                } else {
+                    contract.contract_details.raised_percent = undefined;
+                }
+
                 switch (contract.stateValue) {
                     case 4:
-                        var balance = new BigNumber(contract.contract_details.raised_amount);
                         buttons.investment_pool_deposit = (nowDateTime < contract.contract_details.stop_date) && (nowDateTime > contract.contract_details.start_date);
                         buttons.send_funds = contract.contract_details.token_address && contract.contract_details.investment_address &&
                             (
@@ -121,7 +132,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         }
                         break;
                     case 11:
-
                         break;
                 }
                 break;

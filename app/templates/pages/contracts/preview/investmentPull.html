@@ -114,21 +114,23 @@
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1" ng-if="contract.contract_details.raised_amount"><br/><br/>
-                    <div class="form-control-label">Raised progress</div>
+                    <div class="form-control-label" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.PROGRESS"></div>
                     <div class="form-control-label">
                         <div class="investment-progress">
-                            <div class="investment-progress__max">max</div>
+                            <div class="investment-progress__max" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.MAX">max</div>
                             <div class="investment-progress__min"
                                  ng-style="{'margin-left': bigNumber(details.soft_cap).div(details.hard_cap).times(100).toString(10) + '%'}">
-                                <span>min</span>
+                                <span translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.MIN">min</span>
                             </div>
                             <div class="investment-progress__raised"
                                  ng-style="{'width': bigNumber(details.raised_amount).div(details.hard_cap).times(100).toString(10) + '%'}"></div>
                         </div>
                     </div>
                     <div class="form-control-label">
-                        Total raised: {{$root.web3Utils.fromWei(contract.contract_details.raised_amount, 'ether')}} ETH
-                        (Day: +10%)
+                        {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.TOTAL'|translate:'{amount:' + $root.web3Utils.fromWei(contract.contract_details.raised_amount, 'ether') + '}'}}
+                        <span ng-if="contract.contract_details.raised_percent !== undefined">
+                            {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.DAY'|translate:'{percent:' + contract.contract_details.raised_percent + '}'}}
+                        </span>
                     </div>
                 </div>
             </div>

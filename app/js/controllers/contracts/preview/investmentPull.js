@@ -112,24 +112,29 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
 
     try {
-        $scope.sendFundsSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+        $scope.withdrawTokensSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
     } catch(err) {
         console.log(err);
     }
 
+    $scope.wallets = {};
+
     web3Service.getAccounts(contractData.network).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, contractData.network);
-            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
-        }
+        result.map(function(wallet) {
+            $scope.wallets[wallet.type] = $scope.wallets[wallet.type] || [];
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
     });
 
-    $scope.sendTransaction = function() {
+    $scope.showedParityWallets = false;
+    $scope.showParityWallets = function() {
+        $scope.showedParityWallets = !$scope.showedParityWallets;
+    };
+    $scope.sendTransaction = function(walletType, wallet) {
+        web3Service.setProvider(walletType, contractData.network);
+        contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
         contract.methods[methodName]().send({
-            from: $scope.currentWallet.wallet
+            from: wallet
         }).then(console.log);
     };
 });

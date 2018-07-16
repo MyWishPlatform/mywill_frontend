@@ -588,7 +588,7 @@
       },
       "SEND_FUNDS": {
         "TITLE": "Send Funds",
-        "DESCRIPTION": "To send all funds ({{amount}}) to {{address}} please do the following steps:"
+        "DESCRIPTION": "To send all funds ({{amount}} ETH) to {{address}} please do the following steps:"
       }
     },
     "RSK": {
@@ -1215,7 +1215,8 @@
         }
       },
       "INVESTMENTS_POOL": {
-        "SHARE_LINK": "You can share your contract to contributors by this link:"
+        "SHARE_LINK": "You can share your contract to contributors by this link:",
+        "SEN_FUNDS_TX": "Send funds transaction:"
       }
     }
   }

@@ -77,30 +77,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
-    var web3ContractList = [];
-    var contractGettingInfoProgress = false;
-
-    var getContractInfo = function() {
-
-        if (contractGettingInfoProgress || !web3ContractList.length) return;
-
-        contractGettingInfoProgress = true;
-        var contract = web3ContractList.shift();
-        web3Service.setProviderByNumber(contract.network);
-        var web3Contract = web3Service.createContractFromAbi(
-            contract.contract_details.eth_contract.address,
-            contract.contract_details.eth_contract.abi
-        );
-        web3Contract.methods.weiRaised().call(function(error, result) {
-            contract.contract_details.raised_amount = result;
-            contractGettingInfoProgress = false;
-            getContractInfo();
-            $scope.$apply();
-        });
-    };
-
     $scope.iniContract = function(contract) {
-
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
         contract.stateValue = $scope.statuses[contract.state]['value'];
@@ -117,11 +94,38 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             contract.state = 'SENDING_TOKENS';
         }
 
-        if ((contract.contract_type === 9) && ((contract.stateValue === 4) || (contract.stateValue === 11))) {
-            web3ContractList.push(contract);
-            getContractInfo();
-        }
+        var buttons = contract.contract_details.buttons = {};
 
+        switch (contract.contract_type) {
+            case 9:
+                var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
+                contract.contract_details.raised_amount = contract.contract_details.balance || '0';
+                switch (contract.stateValue) {
+                    case 4:
+                        var balance = new BigNumber(contract.contract_details.raised_amount);
+                        buttons.investment_pool_deposit = (nowDateTime < contract.contract_details.stop_date) && (nowDateTime > contract.contract_details.start_date);
+                        buttons.send_funds = contract.contract_details.token_address && contract.contract_details.investment_address &&
+                            (
+                                ((balance.minus(contract.contract_details.soft_cap) >= 0) && ($scope.isAuthor || contract.contract_details.send_tokens_soft_cap)) ||
+                                ((balance.minus(contract.contract_details.hard_cap) >= 0) && contract.contract_details.send_tokens_hard_cap)
+                            );
+                        if ($scope.isAuthor) {
+                            buttons.change_date = (nowDateTime < contract.contract_details.stop_date) && contract.contract_details.allow_change_dates;
+                            buttons.whitelist = contract.contract_details.whitelist;
+                            buttons.set_token = !contract.contract_details.token_address;
+                            buttons.set_investment = !contract.contract_details.investment_address;
+                            buttons.cancel = true;
+                            buttons.settings =
+                                buttons.change_date || buttons.whitelist || buttons.set_token || buttons.set_investment;
+
+                        }
+                        break;
+                    case 11:
+
+                        break;
+                }
+                break;
+        }
     };
 
     /* (Click) Contract refresh */

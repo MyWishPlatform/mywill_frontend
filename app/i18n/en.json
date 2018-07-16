@@ -123,7 +123,9 @@
     "WHITELIST": "Whitelist",
     "SEND_AIRDROP_ADDRESSES": "Send To Group",
     "ADD_ADDRESSES": "Import data",
-    "SEND_FUNDS": "Send Funds"
+    "SEND_FUNDS": "Send Funds",
+    "SETTINGS": "Settings",
+    "GET_TOKENS": "Get tokens"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -415,6 +417,9 @@
     "CHANGE_DATES_FORM": {
       "CURRENT_DATES": "Current start / finish dates",
       "SET_NEW_DATES": "You can set new dates for start & finish. Start date can't be changed after Sale start and for contracts with time bonuses."
+    },
+    "SETTINGS_POPUP": {
+      "TITLE": "Change settings"
     }
   },
   "POPUP_ERRORS": {

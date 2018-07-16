@@ -86,11 +86,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         contractGettingInfoProgress = true;
         var contract = web3ContractList.shift();
-
-        console.log('Contract ID: ' + contract.id);
-
-        console.log('Network: ' + contract.network);
-
         web3Service.setProviderByNumber(contract.network);
         var web3Contract = web3Service.createContractFromAbi(
             contract.contract_details.eth_contract.address,

@@ -250,9 +250,12 @@
                 </button><br/><br/>
             </div>
 
+
+
+
             <!-- Date changing form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && ((contract.contract_type == 4)||((contract.contract_type == 9) && isAuthor)) && contract.contract_details.allow_change_dates">
+                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.allow_change_dates">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/change-dates-form.html',
                             newPopupContent: true,
@@ -267,10 +270,26 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Settings form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.contract_type == 9) && isAuthor">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/contract-settings.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'language-switcher-popup',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SETTINGS"></span>
+                </button><br/><br/>
+            </div>
 
             <!-- Whitelist form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 4)||((contract.contract_type == 9) && isAuthor)) && contract.contract_details.whitelist">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.whitelist">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/whitelist-form.html',
                             newPopupContent: true,
@@ -305,48 +324,6 @@
                 </button><br/><br/>
             </div>
 
-            <!-- Investment pool add investment address -->
-            <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address && isAuthor">
-                <button ng-pop-up="{
-                            template: '/templates/popups/forms/eth/add-address-form.html',
-                            newPopupContent: true,
-                            params: {
-                                contract: contract,
-                                web3Method: 'setInvestmentAddress',
-                                labelField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.LABEL'|translate),
-                                descriptionField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.DESCRIPTION'|translate),
-                                instructionTitle: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL'|translate),
-                                instructionDescription: 'CONTRACTS_INSTRUCTIONS.ETH.SET_ADDRESS.DESTINATION_ADDRESS.DESCRIPTION'
-                            },
-                            class: 'page-size'
-                        }"
-                        class="btn btn-transparent mobile-width-100">
-                    <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL"></span>
-                </button><br/><br/>
-            </div>
-
-            <!-- Investment pool add token address -->
-            <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.token_address && isAuthor">
-                <button ng-pop-up="{
-                            template: '/templates/popups/forms/eth/add-address-form.html',
-                            newPopupContent: true,
-                            params: {
-                                contract: contract,
-                                web3Method: 'setTokenAddress',
-                                labelField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.LABEL'|translate),
-                                descriptionField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.DESCRIPTION'|translate),
-                                instructionTitle: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL'|translate),
-                                instructionDescription: 'CONTRACTS_INSTRUCTIONS.ETH.SET_ADDRESS.TOKEN_ADDRESS.DESCRIPTION',
-                                isToken: true
-                            },
-                            class: 'page-size'
-                        }"
-                        class="btn btn-transparent mobile-width-100">
-                    <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL"></span>
-                </button><br/><br/>
-            </div>
 
             <!-- Investment pool cancel instruction -->
             <div class="grid-cell grid-cell-vs-1-2"
@@ -375,7 +352,7 @@
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span>Get Tokens</span>
+                    <span translate="CONTRACTS_BUTTONS.GET_TOKENS"></span>
                 </button><br/><br/>
             </div>
         </div>

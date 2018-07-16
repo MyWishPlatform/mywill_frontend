@@ -1,0 +1,77 @@
+<div ng-init="contract = ngPopUp.params.contract">
+
+    <div class="shadow-block__content shadow-block__content_no-lr-padding">
+        <div class="alert-window-title" translate="POPUP_FORMS.SETTINGS_POPUP.TITLE"></div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_no-tb-padding no-border text-center settings-buttons-popup">
+        <!-- Investment pool add investment address -->
+        <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address"
+                ng-pop-up="{
+                            template: '/templates/popups/forms/eth/add-address-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract,
+                                web3Method: 'setInvestmentAddress',
+                                labelField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.LABEL'|translate),
+                                descriptionField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.DESCRIPTION'|translate),
+                                instructionTitle: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL'|translate),
+                                instructionDescription: 'CONTRACTS_INSTRUCTIONS.ETH.SET_ADDRESS.DESTINATION_ADDRESS.DESCRIPTION'
+                            },
+                            class: 'page-size'
+                        }"
+                class="btn btn-transparent mobile-width-100">
+            <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL"></span>
+        </button>
+
+        <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.token_address"
+                ng-pop-up="{
+                            template: '/templates/popups/forms/eth/add-address-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract,
+                                web3Method: 'setTokenAddress',
+                                labelField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.LABEL'|translate),
+                                descriptionField: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.DESCRIPTION'|translate),
+                                instructionTitle: ('CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL'|translate),
+                                instructionDescription: 'CONTRACTS_INSTRUCTIONS.ETH.SET_ADDRESS.TOKEN_ADDRESS.DESCRIPTION',
+                                isToken: true
+                            },
+                            class: 'page-size'
+                        }"
+                class="btn btn-transparent mobile-width-100">
+            <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDRESS_ON_OFF.LABEL"></span>
+        </button>
+
+        <!-- Date changing form button -->
+        <button ng-if="($root.getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.allow_change_dates"
+                ng-pop-up="{
+                            template: '/templates/popups/forms/eth/change-dates-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                class="btn btn-transparent mobile-width-100">
+            <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>
+        </button>
+
+        <!-- Whitelist form button -->
+        <button ng-if="(contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.whitelist"
+                ng-pop-up="{
+                            template: '/templates/popups/forms/eth/whitelist-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                class="btn btn-transparent mobile-width-100">
+            <span translate="CONTRACTS_BUTTONS.WHITELIST"></span>
+        </button>
+
+    </div><br/><br/>
+</div>

@@ -22,7 +22,7 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
         });
     }
 
-    if (($scope.contract.stateValue == 4) && $scope.details.whitelist) {
+    if ((($scope.contract.stateValue == 4) || ($scope.contract.stateValue == 11)) && $scope.details.whitelist) {
         contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
             $scope.whiteListedAddresses = response.data;
         });

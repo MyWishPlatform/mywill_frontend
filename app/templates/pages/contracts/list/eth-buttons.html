@@ -37,7 +37,7 @@
 </button>
 
 <!-- Deposit instruction button -->
-<button ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8)"
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8) && (contract.contract_type != 9)"
         ng-pop-up="{
             template: '/templates/popups/instructions/eth/deposit-instruction.html',
             newPopupContent: true,
@@ -69,7 +69,7 @@
     <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
 </button>
 
-<!-- Add addresses ti airdrop -->
+<!-- Add addresses to airdrop -->
 <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 8) && !contract.contract_details.sent_count"
         ng-pop-up="{
             template: '/templates/popups/forms/eth/airdrop-addresses-form.html',
@@ -190,9 +190,39 @@
     <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>
 </button>
 
+<!-- Whitelist form button -->
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.whitelist"
+        ng-pop-up="{
+            template: '/templates/popups/forms/eth/whitelist-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'page-size',
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.WHITELIST"></span>
+</button>
 
-<!-- Date changing form button -->
-<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && isAuthor"
+
+
+<!-- Investment pool deposit instruction button -->
+<button ng-if="contract.contract_details.buttons.investment_pool_deposit"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+</button>
+
+<!-- Settings changing form button -->
+<button ng-if="contract.contract_details.buttons.settings"
         ng-pop-up="{
             template: '/templates/popups/forms/eth/contract-settings.html',
             newPopupContent: true,
@@ -207,11 +237,7 @@
 </button>
 
 <!-- Investment pool send funds instruction -->
-<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) &&
-         (
-            ((bigNumber(contract.contract_details.raised_amount).minus(contract.contract_details.soft_cap) >= 0) && (isAuthor || contract.contract_details.send_tokens_soft_cap)) ||
-            ((bigNumber(contract.contract_details.raised_amount).minus(contract.contract_details.hard_cap) >= 0) && contract.contract_details.send_tokens_hard_cap)
-         )"
+<button ng-if="contract.contract_details.buttons.send_funds"
         ng-pop-up="{
           template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',
                 newPopupContent: true,
@@ -224,7 +250,7 @@
 </button>
 
 <!-- Investment pool cancel instruction -->
-<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && isAuthor"
+<button ng-if="contract.contract_details.buttons.cancel"
         ng-pop-up="{
             template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
             newPopupContent: true,
@@ -250,21 +276,6 @@
     <span translate="CONTRACTS_BUTTONS.GET_TOKENS"></span>
 </button>
 
-
-<!-- Whitelist form button -->
-<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 4) && contract.contract_details.whitelist"
-        ng-pop-up="{
-            template: '/templates/popups/forms/eth/whitelist-form.html',
-            newPopupContent: true,
-            params: {
-                contract: contract
-            },
-            class: 'page-size',
-            onClose: returnToList
-        }"
-        class="btn btn-transparent hide-ps">
-    <span translate="CONTRACTS_BUTTONS.WHITELIST"></span>
-</button>
 
 
 <!-- Mint form button -->

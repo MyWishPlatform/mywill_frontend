@@ -342,7 +342,14 @@
                 </div>
             </div>
         </div>
-
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.investment_tx_hash">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.SEN_FUNDS_TX"></div>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ getEtherscanUrl(contract, 'tx') + '/' + contract.contract_details.investment_tx_hash}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.investment_tx_hash"></a>
+            </div>
+        </div>
     </div>
 
 

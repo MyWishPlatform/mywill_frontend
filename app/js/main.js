@@ -250,11 +250,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 networkUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
                 addressPaths.address = 'address';
                 addressPaths.token = 'token';
+                addressPaths.tx = 'tx';
                 break;
             case 2:
                 networkUrl = APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
                 addressPaths.address = 'address';
                 addressPaths.token = 'token';
+                addressPaths.tx = 'tx';
                 break;
             case 3:
                 networkUrl = APP_CONSTANTS.RSK_ADDRESS;

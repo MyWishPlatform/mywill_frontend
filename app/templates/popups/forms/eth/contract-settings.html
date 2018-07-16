@@ -6,7 +6,7 @@
 
     <div class="shadow-block__content shadow-block__content_no-tb-padding no-border text-center settings-buttons-popup">
         <!-- Investment pool add investment address -->
-        <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.investment_address"
+        <button ng-if="contract.contract_details.buttons.set_investment"
                 ng-pop-up="{
                             template: '/templates/popups/forms/eth/add-address-form.html',
                             newPopupContent: true,
@@ -24,7 +24,7 @@
             <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS_ON_OFF.LABEL"></span>
         </button>
 
-        <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 9) && !contract.contract_details.token_address"
+        <button ng-if="contract.contract_details.buttons.set_token"
                 ng-pop-up="{
                             template: '/templates/popups/forms/eth/add-address-form.html',
                             newPopupContent: true,
@@ -44,7 +44,7 @@
         </button>
 
         <!-- Date changing form button -->
-        <button ng-if="($root.getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.allow_change_dates"
+        <button ng-if="contract.contract_details.buttons.change_date"
                 ng-pop-up="{
                             template: '/templates/popups/forms/eth/change-dates-form.html',
                             newPopupContent: true,
@@ -59,7 +59,7 @@
         </button>
 
         <!-- Whitelist form button -->
-        <button ng-if="(contract.stateValue == 4) && ((contract.contract_type == 4)||(contract.contract_type == 9)) && contract.contract_details.whitelist"
+        <button ng-if="contract.contract_details.buttons.whitelist"
                 ng-pop-up="{
                             template: '/templates/popups/forms/eth/whitelist-form.html',
                             newPopupContent: true,

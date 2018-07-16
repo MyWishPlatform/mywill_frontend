@@ -496,7 +496,8 @@
       "ANY_TRANSACTION": {
         "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
         "PART_2": "To contract address",
-        "PART_3": "With Data field"
+        "PART_3": "With Data field",
+        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address"
       },
       "ACTIVATE": {
         "TITLE": "Activate",
@@ -1216,7 +1217,14 @@
       },
       "INVESTMENTS_POOL": {
         "SHARE_LINK": "You can share your contract to contributors by this link:",
-        "SEN_FUNDS_TX": "Send funds transaction:"
+        "SEN_FUNDS_TX": "Send funds transaction:",
+        "RAISED": {
+          "PROGRESS": "Raised progress",
+          "MIN": "min",
+          "MAX": "max",
+          "TOTAL": "Total raised: {{amount}} ETH",
+          "DAY": "(Day: +{{percent}}%)"
+        }
       }
     }
   }

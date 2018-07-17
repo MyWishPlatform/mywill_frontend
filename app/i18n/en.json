@@ -125,7 +125,8 @@
     "ADD_ADDRESSES": "Import data",
     "SEND_FUNDS": "Send Funds",
     "SETTINGS": "Settings",
-    "GET_TOKENS": "Get tokens"
+    "GET_TOKENS": "Get tokens",
+    "REFUND": "Refund"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -594,6 +595,10 @@
       "GET_TOKENS": {
         "TITLE": "Get tokens",
         "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+      },
+      "INVESTMENT_REFUND": {
+        "TITLE": "Refund",
+        "DESCRIPTION": "To refund your investments please make the following steps under your investment address:"
       }
     },
     "RSK": {

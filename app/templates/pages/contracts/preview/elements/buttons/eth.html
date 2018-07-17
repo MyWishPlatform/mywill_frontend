@@ -319,18 +319,19 @@
                 </button><br/><br/>
             </div>
 
-            <!-- Investment pool cancel instruction -->
+
+            <!-- Investment pool refund instruction -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="contract.contract_details.buttons.cancel">
+                 ng-if="contract.contract_details.buttons.investment_refund">
                 <button ng-pop-up="{
-                            template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
+                            template: '/templates/popups/instructions/eth/investment-pool-refund-instruction.html',
                             newPopupContent: true,
                             params: {
                                 contract: contract
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
+                    <span translate="CONTRACTS_BUTTONS.REFUND"></span>
                 </button><br/><br/>
             </div>
 
@@ -348,6 +349,23 @@
                     <span translate="CONTRACTS_BUTTONS.GET_TOKENS"></span>
                 </button><br/><br/>
             </div>
+
+
+            <!-- Investment pool cancel instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.cancel">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
+                </button><br/><br/>
+            </div>
+
         </div>
     </div>
 </div>

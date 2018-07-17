@@ -133,6 +133,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         break;
                     case 11:
                         break;
+                    case 6:
+                        buttons.investment_refund = true;
+                        break;
                 }
                 break;
         }

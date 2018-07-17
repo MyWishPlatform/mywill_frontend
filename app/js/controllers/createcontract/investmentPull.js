@@ -89,7 +89,20 @@ angular.module('app').controller('investmentPullCreateController', function($sco
         contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
-        }, function() {
+        }, function(data) {
+            switch(data.status) {
+                case 400:
+                    switch(data.data.result) {
+                        case '1':
+                        case 1:
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/contract_date_incorrect';
+                            break;
+                    }
+                    break;
+            }
             contractInProgress = false;
         });
     };

@@ -12,13 +12,21 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
     $scope.iniContract($scope.contract);
 
     if ($scope.contract.contract_details.token_address) {
+        var infoData = ['decimals', 'symbol'];
+        if ($scope.contract.stateValue === 11) {
+            infoData.push('balanceOf');
+        }
+
         web3Service.getTokenInfo(
             $scope.contract.network,
             $scope.contract.contract_details.token_address,
-            false,
-            ['decimals', 'symbol']
+            $scope.contract.contract_details.eth_contract.address,
+            infoData
         ).then(function(result) {
             $scope.tokenInfo = result;
+            if (result.balance * 1) {
+                $scope.contract.balance = result.balance;
+            }
         });
     }
 

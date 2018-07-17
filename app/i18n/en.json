@@ -1137,6 +1137,7 @@
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
       "WILL_SOURCE_CODE": "Your Will source code",
       "DEFERRED_SOURCE_CODE": "Your Deferred payment contract source code",
+      "INVESTMENT_POOL_SOURCE_CODE": "Your Investment Pool contract source code",
       "LOST_KEY_SOURCE_CODE": "Your Lost Key source code",
       "TOKEN_SOURCE_CODE": "Your TOKEN source code",
       "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",

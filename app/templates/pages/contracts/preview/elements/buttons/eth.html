@@ -337,7 +337,7 @@
 
             <!-- Investment pool get tokens instruction -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 9)">
+                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 9) && contract.balance">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/investment-pool-get-tokens-instruction.html',
                             newPopupContent: true,

@@ -160,8 +160,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             requestsCount--;
             tokenInfo[method] = result;
             if (!requestsCount) {
-                if (wallet) {
-                    var decimalsValue = Math.pow(10, tokenInfo.decimals);
+                if (wallet && tokenInfo['balanceOf']) {
+                    var decimalsValue = tokenInfo.decimals ? Math.pow(10, tokenInfo.decimals) : 1;
                     tokenInfo.balance = new BigNumber(tokenInfo.balanceOf).div(decimalsValue).round(2).toString(10);
                 }
                 defer.resolve(tokenInfo);

@@ -100,6 +100,14 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.contract_type) {
             case 9:
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
+
+                if ((nowDateTime > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
+                    contract.state = 'CANCELLED';
+                    contract.stateValue = $scope.statuses[contract.state]['value'];
+                    contract.stateTitle = $scope.statuses[contract.state]['title'];
+
+                }
+
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
                 var balance = new BigNumber(contract.contract_details.raised_amount);
                 if (contract.contract_details.last_balance * 1) {

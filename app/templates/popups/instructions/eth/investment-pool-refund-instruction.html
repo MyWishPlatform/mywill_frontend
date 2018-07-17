@@ -53,7 +53,7 @@
             <div class="copy-block">
                 <button class="copy-block__button relative"
                         clipboard supported="supported"
-                        text="instructionData.contractAddress|toCheckSum"
+                        text="ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum"
                         ng-class="{copied: contract.copied['address']}"
                         on-copied="$root.successCodeCopy(contract, 'address')">&nbsp;
                     <i class="icon-content_copy"></i>
@@ -66,7 +66,7 @@
             <div class="copy-block">
                 <button class="copy-block__button relative"
                         clipboard supported="supported"
-                        text="instructionData.dataField"
+                        text="sendFundsSignature"
                         ng-class="{copied: contract.copied['dataField']}"
                         on-copied="$root.successCodeCopy(contract, 'dataField')">&nbsp;
                     <i class="icon-content_copy"></i>

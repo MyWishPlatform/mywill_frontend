@@ -590,6 +590,10 @@
       "SEND_FUNDS": {
         "TITLE": "Send Funds",
         "DESCRIPTION": "To send all funds ({{amount}} ETH) to {{address}} please do the following steps:"
+      },
+      "GET_TOKENS": {
+        "TITLE": "Get tokens",
+        "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
       }
     },
     "RSK": {
@@ -1217,7 +1221,7 @@
       },
       "INVESTMENTS_POOL": {
         "SHARE_LINK": "You can share your contract to contributors by this link:",
-        "SEN_FUNDS_TX": "Send funds transaction:",
+        "SEN_FUNDS_TX": "Sending transaction on <a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>",
         "RAISED": {
           "PROGRESS": "Raised progress",
           "MIN": "min",

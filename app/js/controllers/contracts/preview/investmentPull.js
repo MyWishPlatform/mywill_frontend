@@ -42,7 +42,6 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
     var methodName = 'cancel';
     var contractInfo = contractDetails.eth_contract;
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
-
     try {
         $scope.killSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
     } catch(err) {
@@ -60,7 +59,7 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
     });
 
     $scope.sendTransaction = function() {
-        contract.methods[methodName]($scope.request.address).send({
+        contract.methods[methodName]().send({
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
@@ -74,6 +73,45 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
     var contractDetails = contractData.contract_details, contract;
 
     var methodName = 'finalize';
+    var contractInfo = contractDetails.eth_contract;
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
+
+    try {
+        $scope.sendFundsSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+    } catch(err) {
+        console.log(err);
+    }
+
+    $scope.wallets = {};
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        result.map(function(wallet) {
+            $scope.wallets[wallet.type] = $scope.wallets[wallet.type] || [];
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
+    });
+
+    $scope.showedParityWallets = false;
+    $scope.showParityWallets = function() {
+        $scope.showedParityWallets = !$scope.showedParityWallets;
+    };
+    $scope.sendTransaction = function(walletType, wallet) {
+        web3Service.setProvider(walletType, contractData.network);
+        contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
+        contract.methods[methodName]().send({
+            from: wallet
+        }).then(console.log);
+    };
+}).controller('investmentPoolRefundController', function($scope, web3Service) {
+
+    var contractData = $scope.ngPopUp.params.contract;
+    $scope.contract = contractData;
+
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+
+    var methodName = 'claimRefund';
     var contractInfo = contractDetails.eth_contract;
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
 

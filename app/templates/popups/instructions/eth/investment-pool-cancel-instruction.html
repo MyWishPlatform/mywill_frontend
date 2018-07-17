@@ -18,13 +18,13 @@
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
-        <button ng-click="killContract()"
+        <button ng-click="sendTransaction()"
                 ng-if="currentWallet && (currentWallet.type === 'parity')"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
-        <button  ng-click="killContract()"
+        <button  ng-click="sendTransaction()"
                  ng-if="currentWallet && (currentWallet.type === 'metamask')"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;

@@ -249,19 +249,6 @@
     <span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>
 </button>
 
-<!-- Investment pool cancel instruction -->
-<button ng-if="contract.contract_details.buttons.cancel"
-        ng-pop-up="{
-            template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
-            newPopupContent: true,
-            params: {
-                contract: contract
-            }
-        }"
-        class="btn btn-transparent hide-ps">
-    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
-</button>
-
 
 <!-- Investment pool get tokens instruction -->
 <button ng-if="(contract.stateValue == 11) && (contract.contract_type == 9)"
@@ -276,6 +263,32 @@
     <span translate="CONTRACTS_BUTTONS.GET_TOKENS"></span>
 </button>
 
+<!-- Investment pool refund instruction -->
+<button ng-if="contract.buttons.investment_refund"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/investment-pool-refund-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.REFUND"></span>
+</button>
+
+
+<!-- Investment pool cancel instruction -->
+<button ng-if="contract.contract_details.buttons.cancel"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
+</button>
 
 
 <!-- Mint form button -->

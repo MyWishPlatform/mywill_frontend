@@ -77,6 +77,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
+
     $scope.iniContract = function(contract) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
@@ -99,17 +100,34 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.contract_type) {
             case 9:
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
-
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
-
                 var balance = new BigNumber(contract.contract_details.raised_amount);
-
                 if (contract.contract_details.last_balance * 1) {
                     contract.contract_details.raised_percent = balance.minus(contract.contract_details.last_balance).div(contract.contract_details.last_balance) * 100;
                 } else if (balance > 0) {
                     contract.contract_details.raised_percent = 100;
                 } else {
                     contract.contract_details.raised_percent = undefined;
+                }
+
+                if (contract.contract_details.token_address && (($state.current.name === 'main.contracts.preview.byId')||(contract.stateValue === 11))) {
+
+                    var infoData = ($state.current.name === 'main.contracts.preview.byId') ? ['decimals', 'symbol'] : [];
+                    if (contract.stateValue === 11) {
+                        infoData.push('balanceOf');
+                    }
+
+                    web3Service.getTokenInfo(
+                        contract.network,
+                        contract.contract_details.token_address,
+                        contract.contract_details.eth_contract.address,
+                        infoData
+                    ).then(function(result) {
+                        contract.tokenInfo = result;
+                        if (result.balance * 1) {
+                            contract.balance = result.balance;
+                        }
+                    });
                 }
 
                 switch (contract.stateValue) {

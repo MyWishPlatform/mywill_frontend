@@ -251,7 +251,7 @@
 
 
 <!-- Investment pool get tokens instruction -->
-<button ng-if="(contract.stateValue == 11) && (contract.contract_type == 9)"
+<button ng-if="(contract.stateValue == 11) && (contract.contract_type == 9) && contract.balance"
         ng-pop-up="{
             template: '/templates/popups/instructions/eth/investment-pool-get-tokens-instruction.html',
             newPopupContent: true,

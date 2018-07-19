@@ -7,6 +7,7 @@ angular.module('app').controller('investmentPullCreateController', function($sco
         contract_type: CONTRACT_TYPES_CONSTANTS.INVESTMENT_PULL,
         network: $stateParams.network,
         contract_details: {
+            platform_as_admin: false
         }
     };
     $scope.network = contract.network;

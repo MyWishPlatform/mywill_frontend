@@ -94,8 +94,10 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
 
     web3Service.getAccounts(contractData.network).then(function(result) {
         result.map(function(wallet) {
-            $scope.wallets[wallet.type] = $scope.wallets[wallet.type] || [];
-            $scope.wallets[wallet.type].push(wallet.wallet);
+            if (!contractData.contract_details.buttons.send_funds_only_author || (wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase())) {
+                $scope.wallets[wallet.type] = $scope.wallets[wallet.type] || [];
+                $scope.wallets[wallet.type].push(wallet.wallet);
+            }
         });
     });
 

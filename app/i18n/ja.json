@@ -125,7 +125,8 @@
     "ADD_ADDRESSES": "Import data",
     "SEND_FUNDS": "Send Funds",
     "SETTINGS": "Settings",
-    "GET_TOKENS": "Get tokens"
+    "GET_TOKENS": "Get tokens",
+    "REFUND": "Refund"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -594,6 +595,10 @@
       "GET_TOKENS": {
         "TITLE": "Get tokens",
         "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+      },
+      "INVESTMENT_REFUND": {
+        "TITLE": "Refund",
+        "DESCRIPTION": "To refund your investments please make the following steps under your investment address:"
       }
     },
     "RSK": {
@@ -819,6 +824,10 @@
           "SOFT_CAP_INVEST": {
             "LABEL": "Everyone after MIN",
             "DESCRIPTION": "Everyone can initiate investment after MIN reaching. Off - only contract's owner can do it."
+          },
+          "PLATFORM_AS_ADMIN": {
+            "LABEL": "Control by MyWish:",
+            "DESCRIPTION": "ON is recommended - after sending the funds, you will be able to call the destination contract via MyWish.<br/>If Off - only the owner of the contract can do it."
           }
         }
       },
@@ -1132,6 +1141,7 @@
       "FREE_VERSION_MSG": "（テストネット）フリーバージョンのコードがローディングのために利用できない源を含みます。",
       "WILL_SOURCE_CODE": "ごウィルのソースコード",
       "DEFERRED_SOURCE_CODE": "遅延支払い契約のソースコード",
+      "INVESTMENT_POOL_SOURCE_CODE": "Your Investment Pool contract source code",
       "LOST_KEY_SOURCE_CODE": "失われたキーのソースコード",
       "TOKEN_SOURCE_CODE": "トークンのソースコード",
       "CROWDSALE_SOURCE_CODE": "クラウドセールのソースコード",

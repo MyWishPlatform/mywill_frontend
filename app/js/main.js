@@ -706,7 +706,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 if (!valid) {
                     ctrl.$setViewValue(oldValue);
                     elem.val(commaSeparateNumber(oldValue));
-                    return oldValue;
+                    return plainNumber;
                 } else {
                     ctrl.$setViewValue(plainNumber);
                     elem.val(commaSeparateNumber(plainNumber));

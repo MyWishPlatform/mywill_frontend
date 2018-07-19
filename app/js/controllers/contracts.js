@@ -121,7 +121,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 if (contract.contract_details.token_address && (($state.current.name === 'main.contracts.preview.byId')||(contract.stateValue === 11))) {
 
                     var infoData = ($state.current.name === 'main.contracts.preview.byId') ? ['decimals', 'symbol'] : [];
-                    if (contract.stateValue === 11) {
+
+                    if ((contract.stateValue === 11) || (contract.stateValue === 6)) {
                         infoData.push('balanceOf');
                     }
 
@@ -134,6 +135,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         contract.tokenInfo = result;
                         if (result.balance * 1) {
                             contract.balance = result.balance;
+                            if (contract.stateValue === 6) {
+                                buttons.investment_refund = true;
+                            }
                         }
                     });
                 }
@@ -169,9 +173,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         }
                         break;
                     case 11:
-                        break;
-                    case 6:
-                        buttons.investment_refund = true;
                         break;
                 }
                 break;

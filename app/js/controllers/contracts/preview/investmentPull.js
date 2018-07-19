@@ -36,7 +36,8 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
         });
     }
 
-    $scope.contractUrl = $window.location.origin + $state.href('main.contracts.preview.public', {key: $scope.details.link});
+    $scope.contractUrl = $scope.details.link ?
+        $window.location.origin + $state.href('main.contracts.preview.public', {key: $scope.details.link}) : false;
 
 }).controller('investmentPoolCancelController', function($scope, web3Service) {
 

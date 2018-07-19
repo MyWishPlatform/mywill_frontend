@@ -826,7 +826,7 @@
             "DESCRIPTION": "Everyone can initiate investment after MIN reaching. Off - only contract's owner can do it."
           },
           "PLATFORM_AS_ADMIN": {
-            "LABEL": "Control by MyWish",
+            "LABEL": "Control by MyWish:",
             "DESCRIPTION": "ON is recommended - after sending the funds, you will be able to call the destination contract via MyWish.<br/>If Off - only the owner of the contract can do it."
           }
         }

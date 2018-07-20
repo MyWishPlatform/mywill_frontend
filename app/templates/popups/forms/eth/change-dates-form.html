@@ -2,7 +2,6 @@
     <form name="changeDateForm">
         <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
             <div class="shadow-block__content__blue-title">
-                <i class="shadow-block__content__blue-title__icon icon-crowdsale"></i>
                 <div class="shadow-block__content__blue-title__name">
                     <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
                 </div>
@@ -61,7 +60,7 @@
                                type="number"
                                ng-attr-min="{{validationDates.minForStart}}"
                                ng-if="startDateIsEnable"
-                               ng-attr-max="{{dates.endDate.format('X')}}"/>
+                               ng-attr-max="{{validationDates.maxForStart}}"/>
 
                         <input type="datetime" required
                                id="start-date"
@@ -97,22 +96,22 @@
                 </div>
             </div>
 
-            <div class="grid-row" ng-class="{'no-active': contract.contract_details.stop_date < minStartDate.format('X')}">
+            <div class="grid-row" ng-class="{'no-active': contract.contract_details.stop_date < minStartDate.format('X') * 1}">
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
                     <div class="form-control">
                         <label for="end-date" class="form-control-label">
                             <i class="icon-waiting-1 form-control-label-icon floated"></i>
                             <span  class="after-floated">{{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span></span>
                         </label>
+
                         <input class="input-for-group-fields"
                                tabindex="-1"
                                readonly
                                name="checkStopDate"
                                ng-model="newDatesFields.stop_date"
                                type="number"
-                               step="1"
                                ng-if="endDateIsEnable"
-                               ng-attr-min="{{$root.max(validationDates.minForFinish, dates.startDate.format('X') * 1)}}"/>
+                               ng-attr-min="{{validationDates.minForFinish}}"/>
 
                         <input type="datetime" required
                                id="end-date"
@@ -126,6 +125,7 @@
                                view="year"
                                format="YYYY-MM-DD"
                                position="fixed"
+                               ng-attr-min-date="{{endDateIsEnable ? 'minStartDate' : false}}"
                                ng-attr-invalid="{{changeDateForm.checkStopDate && !changeDateForm.checkStopDate.$valid}}"
                                ng-disabled="!endDateIsEnable"
                                class="form-control-input form-control-input-date"/>

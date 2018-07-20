@@ -1,0 +1,84 @@
+<div class="shadow-block" ng-controller="investmentPoolRefundController">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title static-width">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="uppercase"
+                      translate="CONTRACTS_INSTRUCTIONS.ETH.INVESTMENT_REFUND.TITLE"></span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description">
+            <span translate-values="{
+                    amount: ($root.web3Utils.fromWei(ngPopUp.params.contract.contract_details.balance, 'ether')|separateNumber),
+                    address: ngPopUp.params.contract.contract_details.investment_address
+                  }"
+                  translate="CONTRACTS_INSTRUCTIONS.ETH.INVESTMENT_REFUND.DESCRIPTION"></span>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <a ng-attr-href="{{
+                'https://www.myetherwallet.com/?data=' + sendFundsSignature +
+                '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}#send-transaction"
+           target="_blank" class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>MyEtherwallet</span>
+        </a>
+        <div ng-click="wallets['parity'].length > 1 ? showParityWallets() : sendTransaction('parity', wallets['parity'][0])"
+             ng-if="wallets['parity']"
+             class="btn btn-gray with-icon nowrap with-list">
+            <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Parity</span>
+            <div class="btn-wallets" ng-show="showedParityWallets">
+                <ul class="btn-wallets-list">
+                    <li ng-repeat="wallet in wallets['parity']" ng-click="sendTransaction('parity', wallet)">
+                        <span>{{wallet}}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <button  ng-click="sendTransaction('metamask', wallets['metamask'][0])"
+                 ng-if="wallets['metamask']"
+                 class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Metamask</span>
+        </button>
+    </div>
+
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="normal-text visible-text">
+            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_GUEST'|translate}}
+            <div class="copy-block">
+                <button class="copy-block__button relative"
+                        clipboard supported="supported"
+                        text="ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum"
+                        ng-class="{copied: contract.copied['address']}"
+                        on-copied="$root.successCodeCopy(contract, 'address')">&nbsp;
+                    <i class="icon-content_copy"></i>
+                </button>
+                <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}</div>
+            </div>
+        </div>
+        <div class="normal-text visible-text">
+            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_3'|translate}}
+            <div class="copy-block">
+                <button class="copy-block__button relative"
+                        clipboard supported="supported"
+                        text="sendFundsSignature"
+                        ng-class="{copied: contract.copied['dataField']}"
+                        on-copied="$root.successCodeCopy(contract, 'dataField')">&nbsp;
+                    <i class="icon-content_copy"></i>
+                </button>
+                <div class="copy-block__text">{{sendFundsSignature}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>

@@ -177,54 +177,59 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         address: $filter('translate')('CONTRACTS.FOR_SALE')
     });
 
-}).controller('changeDateFormController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
-
+}).controller('changeDateFormController', function($scope, $interval, APP_CONSTANTS, web3Service, $filter, $rootScope, $timeout) {
     var contract = angular.copy($scope.ngPopUp.params.contract);
     $scope.contract = contract;
-    $scope.date_type = false;
-
 
     $scope.newDatesFields = {
         start_date: contract.contract_details.start_date,
         stop_date: contract.contract_details.stop_date
     };
 
-    var startSeconds = contract.contract_details.start_date % 60;
-    var stopSeconds = contract.contract_details.stop_date % 60;
+    //** Current date/time
+    $scope.minStartDate = $rootScope.getNowDateTime(true).add(5, 'minutes');
 
-    $scope.minStartDate = moment().add(5, 'minutes').second(0);
 
-    var currentStartDate = $scope.newDatesFields.start_date + 300;
+    /* Update validator for real time */
+    var setMinimalDateTimes = function() {
+        var nowDateTime = $rootScope.getNowDateTime(true).add(5, 'minutes');
+        //** Minimum for finish date
+        var minForFinish = Math.max($scope.newDatesFields.start_date + 300, nowDateTime.format('X') * 1);
+        $scope.validationDates = {
+            minForFinish: minForFinish,
+            minForStart: contract.contract_details.start_date,
+            maxForStart: $scope.newDatesFields.stop_date - 300
+        };
+        $scope.startDateIsEnable = !(contract.contract_details.time_bonuses && contract.contract_details.time_bonuses.length) &&
+            (contract.contract_details.start_date >= nowDateTime.format('X') * 1);
+        $scope.endDateIsEnable = contract.contract_details.stop_date >= nowDateTime.format('X') * 1;
 
-    var minForFinish = Math.max(currentStartDate, $scope.minStartDate.format('X')*1);
-
-    $scope.validationDates = {
-        minForFinish: minForFinish,
-        minForStart: contract.contract_details.start_date,
-        maxForStart: $scope.newDatesFields.stop_date - 300
     };
 
-    $scope.startDateIsEnable = !contract.contract_details.time_bonuses.length && (contract.contract_details.start_date >= $scope.minStartDate.format('X') * 1);
-    $scope.endDateIsEnable = contract.contract_details.stop_date >= $scope.minStartDate.format('X') * 1;
+    setMinimalDateTimes();
+
+    var checkMinDateTime = $interval(setMinimalDateTimes, 5000);
+    $scope.$on('$destroy', function() {
+        $interval.cancel(checkMinDateTime);
+    });
+
 
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
-        if (!$scope.dates.startDate) {
-            $scope.dates.startDate = moment($scope.newDatesFields.start_date * 1000);
-        }
-        $scope.dates.startDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes).second(startSeconds);
-        $scope.newDatesFields.start_date = $scope.dates.startDate.clone().format('X') * 1;
+        var currentSelectedDate = $scope.dates.startDate || moment($scope.newDatesFields.start_date * 1000);
+        $scope.dates.startDate = currentSelectedDate.hours($scope.timesForStarting.start.hours).minutes($scope.timesForStarting.start.minutes);
+        $scope.newDatesFields.start_date = $scope.dates.startDate.format('X') * 1;
+        $scope.validationDates.minForFinish = $scope.newDatesFields.start_date + 300;
         $timeout(function() {
             $scope.$broadcast('pickerUpdate', ['start-date'], {});
         });
     };
 
     var setStopTimestamp = function() {
-        if (!$scope.dates.endDate) {
-            $scope.dates.endDate = moment($scope.newDatesFields.stop_date * 1000);
-        }
-        $scope.dates.endDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes).second(stopSeconds);
-        $scope.newDatesFields.stop_date = $scope.dates.endDate.clone().format('X') * 1;
+        var currentSelectedDate = $scope.dates.endDate || moment($scope.newDatesFields.stop_date * 1000);
+        $scope.dates.endDate = currentSelectedDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes);
+        $scope.newDatesFields.stop_date = $scope.dates.endDate.format('X') * 1;
+        $scope.validationDates.maxForStart = $scope.newDatesFields.stop_date - 300;
         $timeout(function() {
             $scope.$broadcast('pickerUpdate', ['end-date'], {});
         });
@@ -235,6 +240,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.onChangeStartDate = setStartTimestamp;
     $scope.onChangeEndDate = setStopTimestamp;
 
+    /** Set start values for dates **/
     $scope.dates = {
         startDate: moment($scope.newDatesFields.start_date * 1000),
         endDate: moment($scope.newDatesFields.stop_date * 1000)
@@ -274,17 +280,19 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     }
     var methodName = (!startDateIdent && !endDateIdent) ? 'setTimes' : (!startDateIdent ? 'setStartTime' : 'setEndTime');
 
-    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+    var contractInfo = contractDetails[$scope.ngPopUp.params.contract.contract_type !== 4 ? 'eth_contract' : 'eth_contract_crowdsale'];
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
     if (!interfaceMethod) return;
 
     $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
+
     web3Service.getAccounts(contractData.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
         })[0];
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractData.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
         }
     });
 
@@ -556,7 +564,9 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var methodName = 'addAddressesToWhitelist';
 
-    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract_crowdsale.abi);
+    var contractInfo = contractDetails[$scope.ngPopUp.params.contract.contract_type !== 4 ? 'eth_contract' : 'eth_contract_crowdsale'];
+
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
     try {
         $scope.addWhiteListSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [params]);
     } catch(err) {
@@ -569,7 +579,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         })[0];
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractData.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
+            contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
         }
     });
 

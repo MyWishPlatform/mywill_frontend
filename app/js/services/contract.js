@@ -68,6 +68,16 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
+        getContractForLink: function(contractKey) {
+            var params = {
+                path: API.CONTRACT_BY_LINK,
+                query: {
+                    link: contractKey
+                }
+            };
+            return requestService.get(params);
+        },
+
         patchParams: function(id, data) {
             var params = {
                 path: API.CONTRACTS + id + '/',

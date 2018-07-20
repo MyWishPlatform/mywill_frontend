@@ -250,11 +250,13 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 networkUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
                 addressPaths.address = 'address';
                 addressPaths.token = 'token';
+                addressPaths.tx = 'tx';
                 break;
             case 2:
                 networkUrl = APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
                 addressPaths.address = 'address';
                 addressPaths.token = 'token';
+                addressPaths.tx = 'tx';
                 break;
             case 3:
                 networkUrl = APP_CONSTANTS.RSK_ADDRESS;
@@ -316,7 +318,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         5: 'icon-token',
         6: 'icon-token',
         7: 'icon-crowdsale',
-        8: 'icon-airdrop'
+        8: 'icon-airdrop',
+        9: 'icon-investment-pool'
     };
 
     $rootScope.deviceInfo = UAParser(window.navigator.userAgent);
@@ -660,7 +663,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 }
                 var validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);
                 ctrl.$setValidity('valid-address', validAddress);
-                return value;
+                return validAddress ? value : false;
             });
         }
     }
@@ -682,12 +685,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             });
             ctrl.$parsers.unshift(function(viewValue) {
                 var plainNumber = viewValue.replace(/[\,\-\+]/g, '');
-                var valid = new RegExp(scope.commaseparator.regexp).test(plainNumber);
-                if (!valid) {
-                    if (viewValue) {
-                        ctrl.$setViewValue(oldValue);
-                    }
-                }
+
+                var valid = plainNumber ? new RegExp(scope.commaseparator.regexp).test(plainNumber) : true;
 
                 if (plainNumber && !isNaN(plainNumber) && ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined))) {
                     var val = new BigNumber(plainNumber);
@@ -704,22 +703,17 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                     ctrl.$setValidity('min-max', minMaxValidation);
                 }
 
-                if (valid || !plainNumber) {
-                    oldValue = plainNumber;
-                    if (valid) {
-                        elem.val(commaSeparateNumber(plainNumber));
-                    } else {
-                        elem.val('');
-                    }
+                if (!valid) {
+                    ctrl.$setViewValue(oldValue);
+                    elem.val(commaSeparateNumber(oldValue));
                     return plainNumber;
                 } else {
-                    if (oldValue) {
-                        elem.val(commaSeparateNumber(oldValue));
-                    } else {
-                        elem.val('');
-                    }
-                    return oldValue;
+                    ctrl.$setViewValue(plainNumber);
+                    elem.val(commaSeparateNumber(plainNumber));
+                    oldValue = plainNumber;
+                    return plainNumber;
                 }
+
             });
 
             if ((scope.commaseparator.min !== undefined) || (scope.commaseparator.max !== undefined)) {

@@ -1,0 +1,384 @@
+<div class="contract-preview-tabs" ng-init="contract.showedTab = 'info'">
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'info'}"
+         ng-click="contract.showedTab = 'info'">
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
+    </div>
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'code'}"
+         ng-click="contract.showedTab = 'code'"
+         ng-show="contract.contract_details.eth_contract.address && (isAuthor !== false)">
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
+    </div>
+</div>
+
+<div ng-show="contract.showedTab == 'code'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text">
+                <span>{{'CONTRACTS.PREVIEW.INVESTMENT_POOL_SOURCE_CODE'|translate}}
+                    <span class="as-link dotted"
+                          ng-if="(contract.network == 1) || (contract.network == 3)"
+                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(deferred)')">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                </span>
+            </p>
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/investment-pool'}"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT"></p>
+        </div>
+    </div>
+</div>
+
+<div ng-show="contract.showedTab == 'info'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
+             ng-include="'/templates/common/contracts/preview-title.html'">
+        </div>
+
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.balance && (contract.stateValue == 11)">
+            <span class="form-control-label">
+                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}} <b>{{contract.balance|separateNumber}}&nbsp;{{contract.tokenInfo.symbol}}&nbsp;&nbsp;</b>
+            </span>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contractUrl">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.SHARE_LINK"></div>
+            <br class="show-ls"/>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ contractUrl }}"
+                   target="_blank"
+                   ng-bind="contractUrl"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['link']}"
+                        text="contractUrl"
+                        on-copied="$root.successCodeCopy(contract, 'link')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
+            <br class="show-ls"/>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
+            </span>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['address']}"
+                        text="contract.contract_details.eth_contract.address"
+                        on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-hard-cap form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{details.hard_cap_eth|separateNumber}} ETH
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-soft-cap form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{details.soft_cap_eth|separateNumber}} ETH
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1" ng-if="contract.contract_details.raised_amount"><br/><br/>
+                    <div class="form-control-label" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.PROGRESS"></div>
+                    <div class="form-control-label">
+                        <div class="investment-progress">
+                            <div class="investment-progress__max" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.MAX">max</div>
+                            <div class="investment-progress__min"
+                                 ng-style="{'margin-left': bigNumber(details.soft_cap).div(details.hard_cap).times(100).toString(10) + '%'}">
+                                <span translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.MIN">min</span>
+                            </div>
+                            <div class="investment-progress__raised"
+                                 ng-style="{'width': bigNumber(details.raised_amount).div(details.hard_cap).times(100).toString(10) + '%'}"></div>
+                        </div>
+                    </div>
+                    <div class="form-control-label">
+                        {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.TOTAL'|translate:'{amount:' + $root.web3Utils.fromWei(contract.contract_details.raised_amount, 'ether') + '}'}}
+                        <span ng-if="contract.contract_details.raised_percent !== undefined">
+                            {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.DAY'|translate:'{percent:' + contract.contract_details.raised_percent + '}'}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control-label" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MANAGEMENT_ADDR.LABEL"></div>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{contract.contract_details.admin_address|blockies}}"/>
+            </span>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{contract.contract_details.admin_address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.admin_address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['admin_address']}"
+                        text="contract.contract_details.admin_address|toCheckSum"
+                        on-copied="$root.successCodeCopy(contract, 'admin_address')"
+                        on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.investment_address">
+            <div class="form-control-label" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.INVESTMENT_ADDRESS.LABEL"></div>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{details.investment_address|blockies}}"/>
+            </span>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{details.investment_address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="details.investment_address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['investment_address']}"
+                        text="details.investment_address|toCheckSum"
+                        on-copied="$root.successCodeCopy(contract, 'investment_address')"
+                        on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.token_address">
+            <div class="form-control-label" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.TOKEN_ADDR.LABEL"></div>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{details.token_address|blockies}}"/>
+            </span>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{getEtherscanUrl(contract, 'token')}}/{{details.token_address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="details.token_address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['token_address']}"
+                        text="details.token_address|toCheckSum"
+                        on-copied="$root.successCodeCopy(contract, 'token_address')"
+                        on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+
+            <div class="grid-row" ng-if="contract.tokenInfo.symbol && contract.tokenInfo.decimals"><br/>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">{{'CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL'|translate}} <b>{{contract.tokenInfo.symbol}}</b></div>
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">{{'CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL'|translate}} <b>{{contract.tokenInfo.decimals}}</b></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="normal-text">
+                {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.BONUS.LABEL'|translate}} {{details.admin_percent}}%
+            </div>
+        </div>
+
+
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-waiting-2 form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.START_DATE.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-waiting-1 form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.FINISH_DATE.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-calendar form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.CHANGING_DATES.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.allow_change_dates, 'icon-cancel': !details.allow_change_dates}"></i>
+                            <span ng-if="details.allow_change_dates" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.allow_change_dates" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-note-list form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.WHITELIST.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.whitelist, 'icon-cancel': !details.whitelist}"></i>
+                            <span ng-if="details.whitelist" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.whitelist" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"><br/></div>
+
+
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-hard-cap form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP_INVEST.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.send_tokens_hard_cap, 'icon-cancel': !details.send_tokens_hard_cap}"></i>
+                            <span ng-if="details.send_tokens_hard_cap" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.send_tokens_hard_cap" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix show-ls"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="icon-soft-cap form-control-label-icon"></i>
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP_INVEST.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.send_tokens_soft_cap, 'icon-cancel': !details.send_tokens_soft_cap}"></i>
+                            <span ng-if="details.send_tokens_soft_cap" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.send_tokens_soft_cap" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"><br/></div>
+
+
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.PLATFORM_AS_ADMIN.LABEL'|translate}}
+                    </div>
+                    <div class="contract-preview-base-font contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.platform_as_admin, 'icon-cancel': !details.platform_as_admin}"></i>
+                            <span ng-if="details.platform_as_admin" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.platform_as_admin" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="whiteListedAddresses.count">
+            <div class="form-control-label">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/whitelist-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            contract: contract
+                        }
+                   }">
+                    <span translate-values="{
+                        count: whiteListedAddresses.count
+                    }"
+                          translate="CONTRACTS.PREVIEW.CROWD_SALE.SHOW_WHITELIST"></span>
+                </a>
+            </div>
+        </div>
+
+
+        <!-- Min/max investments-->
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.min_wei || details.max_wei">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MIN_MAX_INVESTMENTS.LABEL"></div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="details.min_wei">
+                    <div class="form-control-label">
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MIN_INVESTMENTS.LABEL'|translate}}<br/>
+                        {{details.min_wei|separateNumber}} ETH
+                    </div>
+                </div>
+                <div class="clearfix show-ls"  ng-if="details.min_wei && details.max_wei"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="details.max_wei">
+                    <div class="form-control-label">
+                        {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MAX_INVESTMENTS.LABEL'|translate}}<br/>
+                        {{details.max_wei|separateNumber}} ETH
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.investment_tx_hash">
+            <div class="form-control-label"
+                 translate-values="{etherscan_url: '{{ getEtherscanUrl(contract, 'tx') + '/' + contract.contract_details.investment_tx_hash}}'}"
+                 translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.SEN_FUNDS_TX"></div>
+        </div>
+    </div>
+
+
+    <div class="shadow-block"
+         ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
+         ng-include="'/templates/common/contracts/promocode-field.html'"></div>
+    <div class="main-section-chapter-fieldset"
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
+
+</div>

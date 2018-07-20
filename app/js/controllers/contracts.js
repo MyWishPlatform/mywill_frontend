@@ -56,7 +56,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         offset: 100
     };
 
-}).controller('baseContractsController', function($scope, $state, $timeout, contractService, $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
+}).controller('baseContractsController', function($scope, $state, $timeout, contractService,
+                                                  web3Service,
+                                                  $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
     var deletingProgress;
     $scope.refreshInProgress = {};
     $scope.timeoutsForProgress = {};
@@ -75,18 +77,106 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
+
     $scope.iniContract = function(contract) {
+        $scope.isAuthor = contract.user === $rootScope.currentUser.id;
+
+        contract.stateValue = $scope.statuses[contract.state]['value'];
+        contract.stateTitle = $scope.statuses[contract.state]['title'];
+
         if (!contract.contract_details.eth_contract) return;
+
+        contract.discount = 0;
         if (contract.contract_type === 8) {
             contract.balance = undefined;
-            contract.discount = 0;
         }
 
         if ((contract.contract_type === 8) && contract.contract_details.processing_count) {
             contract.state = 'SENDING_TOKENS';
         }
-        contract.stateValue = $scope.statuses[contract.state]['value'];
-        contract.stateTitle = $scope.statuses[contract.state]['title'];
+
+        var buttons = contract.contract_details.buttons = {};
+
+        switch (contract.contract_type) {
+            case 9:
+                var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
+
+                if ((nowDateTime > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
+                    contract.state = 'CANCELLED';
+                    contract.stateValue = $scope.statuses[contract.state]['value'];
+                    contract.stateTitle = $scope.statuses[contract.state]['title'];
+
+                }
+
+                contract.contract_details.raised_amount = contract.contract_details.balance || '0';
+                var balance = new BigNumber(contract.contract_details.raised_amount);
+                if (contract.contract_details.last_balance * 1) {
+                    contract.contract_details.raised_percent = balance.minus(contract.contract_details.last_balance).div(contract.contract_details.last_balance) * 100;
+                } else if (balance > 0) {
+                    contract.contract_details.raised_percent = 100;
+                } else {
+                    contract.contract_details.raised_percent = undefined;
+                }
+
+                if (contract.contract_details.token_address && (($state.current.name === 'main.contracts.preview.byId')||(contract.stateValue === 11))) {
+
+                    var infoData = ($state.current.name === 'main.contracts.preview.byId') ? ['decimals', 'symbol'] : [];
+
+                    if ((contract.stateValue === 11) || (contract.stateValue === 6)) {
+                        infoData.push('balanceOf');
+                    }
+
+                    web3Service.getTokenInfo(
+                        contract.network,
+                        contract.contract_details.token_address,
+                        contract.contract_details.eth_contract.address,
+                        infoData
+                    ).then(function(result) {
+                        contract.tokenInfo = result;
+                        if (result.balance * 1) {
+                            contract.balance = result.balance;
+                            if (contract.stateValue === 6) {
+                                buttons.investment_refund = true;
+                            }
+                        }
+                    });
+                }
+
+                switch (contract.stateValue) {
+                    case 4:
+                        buttons.investment_pool_deposit = (nowDateTime < contract.contract_details.stop_date) && (nowDateTime > contract.contract_details.start_date);
+
+                        var softCapCompleted = balance.minus(contract.contract_details.soft_cap) >= 0;
+                        var hardCapCompleted = balance.minus(contract.contract_details.hard_cap) >= 0;
+
+                        var isSoftCapSendFunds = softCapCompleted && contract.contract_details.send_tokens_soft_cap;
+                        var isHardCapSendFunds = hardCapCompleted && contract.contract_details.send_tokens_soft_cap;
+
+
+                        buttons.send_funds = contract.contract_details.token_address && contract.contract_details.investment_address &&
+                            (nowDateTime > contract.contract_details.start_date) &&
+                            (
+                                ((softCapCompleted && $scope.isAuthor) || isSoftCapSendFunds) ||
+                                ((hardCapCompleted && $scope.isAuthor) || isHardCapSendFunds)
+                            );
+
+                        buttons.send_funds_only_author = buttons.send_funds && !(isSoftCapSendFunds || isHardCapSendFunds);
+
+                        if ($scope.isAuthor) {
+                            buttons.change_date = (nowDateTime < contract.contract_details.stop_date) && contract.contract_details.allow_change_dates;
+                            buttons.whitelist = contract.contract_details.whitelist;
+                            buttons.set_token = !contract.contract_details.token_address;
+                            buttons.set_investment = !contract.contract_details.investment_address;
+                            buttons.cancel = true;
+                            buttons.settings =
+                                buttons.change_date || buttons.whitelist || buttons.set_token || buttons.set_investment;
+                        }
+                        break;
+                    case 11:
+                        break;
+                }
+                break;
+        }
     };
 
     /* (Click) Contract refresh */

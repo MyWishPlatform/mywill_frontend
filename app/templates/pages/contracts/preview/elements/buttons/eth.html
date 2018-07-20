@@ -17,6 +17,8 @@
                     <span translate="CONTRACTS_BUTTONS.DELETE"></span>
                 </button><br/><br/>
             </div>
+
+            <!-- Launch button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
                 <button class="btn btn-transparent mobile-width-100 text-center"
                         ng-click="payContract(contract)">
@@ -25,6 +27,7 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Activate button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
                 <button class="btn btn-transparent mobile-width-100 text-center"
                         ng-pop-up="{
@@ -73,15 +76,17 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Edit button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
-                <!-- Edit button -->
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
                     <i class="icon-edit"></i>
                     <span translate="CONTRACTS_BUTTONS.EDIT"></span>
                 </a><br/><br/>
             </div>
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8)">
-                <!-- Deposit instruction button -->
+
+            <!-- Deposit instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8) && (contract.contract_type != 9)">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/deposit-instruction.html',
                             newPopupContent: true,
@@ -93,7 +98,6 @@
                     <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
                 </button><br/><br/>
             </div>
-
 
             <!-- Airdrop deposit button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 8)">
@@ -150,7 +154,6 @@
                     <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
                 </button><br/><br/>
             </div>
-
 
             <!-- Cancel instruction button (Deferred, Lost Key) -->
             <div class="grid-cell grid-cell-vs-1-2"
@@ -218,6 +221,7 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Finalize button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 4)">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/finalize-instruction.html',
@@ -230,6 +234,7 @@
                     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
                 </button><br/><br/>
             </div>
+
 
             <!-- Date changing form button -->
             <div class="grid-cell grid-cell-vs-1-2"
@@ -262,6 +267,102 @@
                         }"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS_BUTTONS.WHITELIST"></span>
+                </button><br/><br/>
+            </div>
+
+
+            <!-- Investment pool deposit instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.investment_pool_deposit">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Settings form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.settings">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/contract-settings.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'language-switcher-popup',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SETTINGS"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool send funds instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.send_funds">
+
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>
+                </button><br/><br/>
+            </div>
+
+
+            <!-- Investment pool refund instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.investment_refund">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-refund-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.REFUND"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool get tokens instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 9) && contract.balance">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-get-tokens-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.GET_TOKENS"></span>
+                </button><br/><br/>
+            </div>
+
+
+            <!-- Investment pool cancel instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.cancel">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
                 </button><br/><br/>
             </div>
 

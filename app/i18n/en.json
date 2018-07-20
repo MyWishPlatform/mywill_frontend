@@ -122,7 +122,11 @@
     "CHANGE_DATES": "Change Dates",
     "WHITELIST": "Whitelist",
     "SEND_AIRDROP_ADDRESSES": "Send To Group",
-    "ADD_ADDRESSES": "Import data"
+    "ADD_ADDRESSES": "Import data",
+    "SEND_FUNDS": "Send Funds",
+    "SETTINGS": "Settings",
+    "GET_TOKENS": "Get tokens",
+    "REFUND": "Refund"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -242,6 +246,10 @@
       "AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+      },
+      "INVESTMENT_POOL": {
+        "TITLE": "Investment pool",
+        "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
       },
       "LOST_KEY": {
         "TITLE": "Lost key",
@@ -410,6 +418,9 @@
     "CHANGE_DATES_FORM": {
       "CURRENT_DATES": "Current start / finish dates",
       "SET_NEW_DATES": "You can set new dates for start & finish. Start date can't be changed after Sale start and for contracts with time bonuses."
+    },
+    "SETTINGS_POPUP": {
+      "TITLE": "Change settings"
     }
   },
   "POPUP_ERRORS": {
@@ -486,7 +497,8 @@
       "ANY_TRANSACTION": {
         "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
         "PART_2": "To contract address",
-        "PART_3": "With Data field"
+        "PART_3": "With Data field",
+        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address"
       },
       "ACTIVATE": {
         "TITLE": "Activate",
@@ -565,6 +577,28 @@
       "CHANGE_DATES": {
         "TITLE": "Change Dates",
         "DESCRIPTION": "To change start date to {{newStartDate|date:'yyyy-MM-dd HH:mm'}} / finish date to {{newFinishDate|date:'yyyy-MM-dd HH:mm'}} please do the following steps:"
+      },
+      "SET_ADDRESS": {
+        "DESTINATION_ADDRESS": {
+          "TITLE": "",
+          "DESCRIPTION": "To Set Destination to {{address}} for your Investment pool please do the following steps:"
+        },
+        "TOKEN_ADDRESS": {
+          "TITLE": "",
+          "DESCRIPTION": "To Set Token {{address}} for your Investment pool please do the following steps:"
+        }
+      },
+      "SEND_FUNDS": {
+        "TITLE": "Send Funds",
+        "DESCRIPTION": "To send all funds ({{amount}} ETH) to {{address}} please do the following steps:"
+      },
+      "GET_TOKENS": {
+        "TITLE": "Get tokens",
+        "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+      },
+      "INVESTMENT_REFUND": {
+        "TITLE": "Refund",
+        "DESCRIPTION": "To refund your investments please make the following steps under your investment address:"
       }
     },
     "RSK": {
@@ -716,6 +750,84 @@
             "LABEL": "Date of transfer",
             "PLACEHOLDER": "",
             "DESCRIPTION": "Enter the contract's conditions - specify when it will make the transfer."
+          }
+        }
+      },
+      "INVESTMENT_POOL": {
+        "TITLE": "Investment Pool",
+        "FIELDS": {
+          "MANAGEMENT_ADDR": {
+            "LABEL": "Management address:",
+            "PLACEHOLDER": "Enter your ETH wallet address",
+            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+          },
+          "TOKEN_ADDRESS_ON_OFF": {
+            "LABEL": "Set Token",
+            "DESCRIPTION": "Specify the token which shall be distributed after the investment. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+          },
+          "TOKEN_ADDR": {
+            "LABEL": "Token contract address:",
+            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+          },
+          "HARD_CAP": {
+            "LABEL": "Pool volume (maximum)",
+            "DESCRIPTION": "Defines maximum volume for the pool. After reaching maximum no more contributions to pool are accepted."
+          },
+          "SOFT_CAP": {
+            "LABEL": "Pool volume (minimum)",
+            "DESCRIPTION": "Defines minimum ETH needed for investments. If minimum is not reached - contributors get their ETHs back. You can set it to 0 (no minimum)."
+          },
+          "START_DATE": {
+            "LABEL": "Start date",
+            "DESCRIPTION": "Start date/time for opening the pool. No contributions to the pool will be accepted before that time"
+          },
+          "FINISH_DATE": {
+            "LABEL": "Finish date",
+            "DESCRIPTION": "Finish date/time for closing the pool. No contributions to the pool will be accepted after that time."
+          },
+          "CHANGING_DATES": {
+            "LABEL": "Changing dates",
+            "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
+          },
+          "WHITELIST": {
+            "LABEL": "Whitelist",
+            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+          },
+          "MIN_MAX_INVESTMENTS": {
+            "LABEL": "Min & Max investments limitations",
+            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+          },
+          "MIN_INVESTMENTS": {
+            "LABEL": "Minimum",
+            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+          },
+          "MAX_INVESTMENTS": {
+            "LABEL": "Maximum",
+            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+          },
+          "INVESTMENT_ADDRESS_ON_OFF": {
+            "LABEL": "Set Destination",
+            "DESCRIPTION": "Set Destination for the investments. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+          },
+          "INVESTMENT_ADDRESS": {
+            "LABEL": "Destination address:",
+            "DESCRIPTION": "ETH address for sending all funds from the pool. It can be Contract address. Double check it before the submission."
+          },
+          "BONUS": {
+            "LABEL": "Personal bonus (in Tokens) for the pool's owner:",
+            "DESCRIPTION": "Usually 0.1-1%. % of pool's tokens (after successfull investment) will be sent to pool's owner."
+          },
+          "HARD_CAP_INVEST": {
+            "LABEL": "Everyone after MAX",
+            "DESCRIPTION": "Everyone can initiate investment after MAX reaching. Off - only contract's owner can do it."
+          },
+          "SOFT_CAP_INVEST": {
+            "LABEL": "Everyone after MIN",
+            "DESCRIPTION": "Everyone can initiate investment after MIN reaching. Off - only contract's owner can do it."
+          },
+          "PLATFORM_AS_ADMIN": {
+            "LABEL": "Control by MyWish:",
+            "DESCRIPTION": "ON is recommended - after sending the funds, you will be able to call the destination contract via MyWish.<br/>If Off - only the owner of the contract can do it."
           }
         }
       },
@@ -1029,6 +1141,7 @@
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
       "WILL_SOURCE_CODE": "Your Will source code",
       "DEFERRED_SOURCE_CODE": "Your Deferred payment contract source code",
+      "INVESTMENT_POOL_SOURCE_CODE": "Your Investment Pool contract source code",
       "LOST_KEY_SOURCE_CODE": "Your Lost Key source code",
       "TOKEN_SOURCE_CODE": "Your TOKEN source code",
       "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
@@ -1114,6 +1227,17 @@
           "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
           "BUTTON": "Send Tokens",
           "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
+        }
+      },
+      "INVESTMENTS_POOL": {
+        "SHARE_LINK": "You can share your contract to contributors by this link:",
+        "SEN_FUNDS_TX": "Sending transaction on <a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>",
+        "RAISED": {
+          "PROGRESS": "Raised progress",
+          "MIN": "min",
+          "MAX": "max",
+          "TOTAL": "Total raised: {{amount}} ETH",
+          "DAY": "(Day: +{{percent}}%)"
         }
       }
     }

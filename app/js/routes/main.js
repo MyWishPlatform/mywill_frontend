@@ -164,6 +164,25 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         data: {
             top: 'main.contracts.list'
         }
+    }).state('main.contracts.preview.public', {
+        controllerProvider: function(openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
+            var contractTpl = CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type];
+            return contractTpl + 'PreviewController';
+        },
+        templateProvider: function ($templateCache, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
+            var contractTpl = CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type];
+            return $templateCache.get(templatesPath + 'contracts/preview/' + contractTpl + '.html');
+        },
+        url: '/contracts/public/:key',
+        resolve: {
+            openedContract: function(contractService, $stateParams) {
+                if (!$stateParams.key) return false;
+                return contractService.getContractForLink($stateParams.key);
+            }
+        },
+        data: {
+            top: 'main.contracts.list'
+        }
     }).state('main.createcontract', {
         abstract: true,
         templateUrl: templatesPath + 'createcontract.html',

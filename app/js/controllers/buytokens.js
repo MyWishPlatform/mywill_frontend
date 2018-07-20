@@ -4,6 +4,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.wallets = {metamask: [], parity: []};
 
     $scope.getProvider = function(name) {
+        web3Service.setProvider(name, 1);
         return web3Service.web3();
     };
 

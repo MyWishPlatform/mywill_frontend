@@ -108,8 +108,14 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
                 }
 
+
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
                 var balance = new BigNumber(contract.contract_details.raised_amount);
+
+                if ((contract.stateValue === 6) &&  (balance > 0)) {
+                    buttons.investment_refund = true;
+                }
+
                 if (contract.contract_details.last_balance * 1) {
                     contract.contract_details.raised_percent = balance.minus(contract.contract_details.last_balance).div(contract.contract_details.last_balance) * 100;
                 } else if (balance > 0) {
@@ -117,6 +123,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 } else {
                     contract.contract_details.raised_percent = undefined;
                 }
+
 
                 if (contract.contract_details.token_address && (($state.current.name === 'main.contracts.preview.byId')||(contract.stateValue === 11))) {
 
@@ -135,9 +142,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         contract.tokenInfo = result;
                         if (result.balance * 1) {
                             contract.balance = result.balance;
-                            if (contract.stateValue === 6) {
-                                buttons.investment_refund = true;
-                            }
                         }
                     });
                 }
@@ -150,7 +154,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         var hardCapCompleted = balance.minus(contract.contract_details.hard_cap) >= 0;
 
                         var isSoftCapSendFunds = softCapCompleted && contract.contract_details.send_tokens_soft_cap;
-                        var isHardCapSendFunds = hardCapCompleted && contract.contract_details.send_tokens_soft_cap;
+                        var isHardCapSendFunds = hardCapCompleted && contract.contract_details.send_tokens_hard_cap;
 
 
                         buttons.send_funds = contract.contract_details.token_address && contract.contract_details.investment_address &&

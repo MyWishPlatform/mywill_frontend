@@ -104,12 +104,12 @@
         margin-left: -1.4em;
         font-size: 5em;
         width: 1.3em;
-        color: #206EFF;
+        color: $main-blue-color;
       }
     }
     &__blue-title {
       float: left;
-      background-color: #206EFF;
+      background-color: $main-blue-color;
       line-height: 3.25em;
       padding: 1.1em 2.5em 1.1em 2em;
       border-top-right-radius: 2.9em;

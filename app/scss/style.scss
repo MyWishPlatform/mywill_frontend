@@ -1,9 +1,5 @@
-@import "common/awesome";
-.icon-padlock:before {
-  margin-left: 0.1em;
-}
-
 @import "common/base";
+@import "common/awesome";
 @import "common/main";
 @import "common/menu";
 @import "common/header";
@@ -24,3 +20,7 @@
 @import "directives";
 @import "popups";
 @import "pages";
+
+.icon-padlock:before {
+  margin-left: 0.1em;
+}

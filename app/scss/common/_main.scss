@@ -61,8 +61,8 @@ main.main-content-holder {
   }
   &:after {
     display: block;
-    background-color: #206EFF;
-    box-shadow: 0 0 1px #206EFF;
+    background-color: $main-blue-color;
+    box-shadow: 0 0 1px $main-blue-color;
     height: 2px;
     margin-bottom: -3px;
     border-radius: 2px;

@@ -80,7 +80,7 @@ a img {
 }
 .field-error {
   display: none;
-  color: #206EFF;
+  color: $main-blue-color;
 }
 .field-success {
   display: block;
@@ -107,7 +107,7 @@ a img {
   outline: none;
   form.ng-submitted &, &.ng-touched {
     &.ng-invalid {
-      border-color: #206EFF;
+      border-color: $main-blue-color;
       ~ {
         .field-label {
           //color: #ffa2a8;
@@ -189,10 +189,10 @@ a img {
     padding-bottom: 0.225em;
     border-bottom: 2px solid transparent;
     &.active {
-      border-bottom: 2px solid #206EFF;
+      border-bottom: 2px solid $main-blue-color;
       a {
         cursor: default;
-        color: #206EFF;
+        color: $main-blue-color;
       }
     }
     + li {
@@ -206,7 +206,7 @@ a img {
         text-decoration: none;
       }
       &:hover {
-        color: #206EFF;
+        color: $main-blue-color;
       }
     }
   }
@@ -221,7 +221,7 @@ a img {
 }
 .restore-link {
   font-size: 1.3em;
-  color: #206EFF;
+  color: $main-blue-color;
   line-height: 1.2em;
   cursor: pointer;
   display: block;

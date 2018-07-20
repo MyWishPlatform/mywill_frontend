@@ -193,12 +193,12 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     /* Update validator for real time */
     var setMinimalDateTimes = function() {
         var nowDateTime = $rootScope.getNowDateTime(true).add(5, 'minutes');
+
         //** Minimum for finish date
         var minForFinish = Math.max($scope.newDatesFields.start_date + 300, nowDateTime.format('X') * 1);
         $scope.validationDates = {
             minForFinish: minForFinish,
-            minForStart: contract.contract_details.start_date,
-            maxForStart: $scope.newDatesFields.stop_date - 300
+            minForStart: contract.contract_details.start_date
         };
         $scope.startDateIsEnable = !(contract.contract_details.time_bonuses && contract.contract_details.time_bonuses.length) &&
             (contract.contract_details.start_date >= nowDateTime.format('X') * 1);
@@ -229,7 +229,6 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         var currentSelectedDate = $scope.dates.endDate || moment($scope.newDatesFields.stop_date * 1000);
         $scope.dates.endDate = currentSelectedDate.hours($scope.timesForStarting.stop.hours).minutes($scope.timesForStarting.stop.minutes);
         $scope.newDatesFields.stop_date = $scope.dates.endDate.format('X') * 1;
-        $scope.validationDates.maxForStart = $scope.newDatesFields.stop_date - 300;
         $timeout(function() {
             $scope.$broadcast('pickerUpdate', ['end-date'], {});
         });

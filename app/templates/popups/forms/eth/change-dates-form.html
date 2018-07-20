@@ -60,7 +60,7 @@
                                type="number"
                                ng-attr-min="{{validationDates.minForStart}}"
                                ng-if="startDateIsEnable"
-                               ng-attr-max="{{validationDates.maxForStart}}"/>
+                               ng-attr-max="{{newDatesFields.stop_date - 300}}"/>
 
                         <input type="datetime" required
                                id="start-date"

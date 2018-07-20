@@ -121,7 +121,7 @@
 }
 .form-fieldset-info-button {
   font-size: 2em;
-  color: #206EFF;
+  color: $main-blue-color;
   position: absolute;
   right: 0.3em;
   top: 0.3em;
@@ -542,7 +542,7 @@
     background-color: #c2c2c2;
     transition: all 0.1s linear;
     input:checked ~ & {
-      background-color: #206eff;
+      background-color: $main-blue-color;
     }
     input:disabled ~ & {
       opacity: 0.5;

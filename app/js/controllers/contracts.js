@@ -127,7 +127,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
                 if (contract.contract_details.token_address && (($state.current.name === 'main.contracts.preview.byId')||(contract.stateValue === 11))) {
 
-                    var infoData = ($state.current.name === 'main.contracts.preview.byId') ? ['decimals', 'symbol'] : [];
+                    var infoData = (($state.current.name === 'main.contracts.preview.byId') || ($state.current.name === 'main.contracts.preview.public')) ? ['decimals', 'symbol'] : [];
 
                     if ((contract.stateValue === 11) || (contract.stateValue === 6)) {
                         infoData.push('balanceOf');

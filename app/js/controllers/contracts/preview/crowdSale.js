@@ -285,6 +285,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     if (!interfaceMethod) return;
 
     $scope.changeDateSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
+
     web3Service.getAccounts(contractData.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {
             return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();

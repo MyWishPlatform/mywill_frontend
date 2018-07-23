@@ -46,7 +46,7 @@
     "ENDED": "完了しました",
     "DONE": "完了しました",
     "UNDER_CROWDSALE": "クラウド セールの下",
-    "SENDING_TOKENS": "Sending"
+    "SENDING_TOKENS": "送信"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -121,8 +121,8 @@
     "ADD_TO_PARITY": "+パリティに追加",
     "CHANGE_DATES": "日付変更",
     "WHITELIST": "ホワイトリスト",
-    "SEND_AIRDROP_ADDRESSES": "Send To Group",
-    "ADD_ADDRESSES": "Import data",
+    "SEND_AIRDROP_ADDRESSES": "グループに送信する",
+    "ADD_ADDRESSES": "データのインポート",
     "SEND_FUNDS": "Send Funds",
     "SETTINGS": "Settings",
     "GET_TOKENS": "Get tokens",
@@ -245,7 +245,7 @@
       },
       "AIRDROP": {
         "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+        "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
       },
       "INVESTMENT_POOL": {
         "TITLE": "Investment pool",
@@ -346,27 +346,27 @@
   "POPUP_FORMS": {
     "AIRDROP": {
       "DISCLAIMER": {
-        "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one address in Ethereum (column A) and amount of tokens to distribute (column B)",
-        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+        "ITEM_1": "アドレスとトークンの量を追加するには、テーブルを* .csv形式でアップロードする必要があります",
+        "ITEM_2": "すべての行には、Ethereum（列A）に1つのアドレスと、配布するトークンの量（列B）が含まれている必要があります。",
+        "ITEM_TEXT": "トークンフィールドの量の形式には2種類あります。例えばトークンに18小数点があり、26.5トークンを誰かに送信したいとします。「小数点なし」を選択した場合は、B列に26.5を入力する必要があります。「小数点付き」 - 26500000000000000000（26.5 * 10 ^ 18）を入力する必要があります。"
       },
       "FILE_ERRORS": {
-        "WRONG_FORMAT": "Wrong file format",
-        "PARSE_ERROR": "File parsing error"
+        "WRONG_FORMAT": "間違ったファイル形式",
+        "PARSE_ERROR": "ファイルの解析エラー"
       },
       "TABLE": {
-        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
-        "PROCESSED_SUCCESSFULLY": "{{success}} rows were processed successfully",
-        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
-        "LINE_NUMBER": "Line: {{line}}",
-        "ERRORS_COUNT": "{{count}} errors",
+        "SUCCESS_ADDRESSES": "次のアドレスはクラウドセール契約のホワイトリストに登録される準備ができています：",
+        "PROCESSED_SUCCESSFULLY": "{{success}}行が正常に処理されました",
+        "ERROR_ADDRESSES": "{{errorsLength}}行はエラーを含みます",
+        "LINE_NUMBER": "ライン：{{line}}",
+        "ERRORS_COUNT": "{{count}}エラー",
         "ERRORS": {
-          "WRONG_FORMAT": "Address has wrong format",
-          "EMPTY_STRING": "Empty string",
-          "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
-          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
+          "WRONG_FORMAT": "アドレスが間違った形式になってい",
+          "EMPTY_STRING": "空の文字列",
+          "WRONG_AMOUNT_FORMAT": "トークンの量が不在または違います",
+          "WRONG_AMOUNT_VALUE": "トークンの間違った量 - 小数の矛盾"
         },
-        "ADD_BUTTON": "Add {{length}} addresses"
+        "ADD_BUTTON": "{{length}}アドレスを追加する"
       }
     },
     "WHITELIST": {
@@ -509,8 +509,8 @@
         "DESCRIPTION": "クラウドセール契約にすべてのアドレスをホワイトリストに追加するには、次のトランザクションを実行してください。<br/>（たくさんのアドレスを追加すると、たくさんのガスが必要になります）："
       },
       "AIRDROP": {
-        "TITLE": "Tokens sending",
-        "DESCRIPTION": "To send tokens to addresses {{from}} - {{to}} please do the following steps (if you added many addresses it will take a lot of gas):"
+        "TITLE": "トークンの送信",
+        "DESCRIPTION": "{{from}} - {{to}}アドレスにトークンを送るには、以下の手順を実行してください　（多くのアドレスを追加した場合、それはたくさんのガスを取るでしょう）："
       },
       "CANCEL": {
         "TITLE": "キャンセル",
@@ -519,7 +519,7 @@
       "DEPOSIT": {
         "TITLE": "デポジット",
         "DESCRIPTION": "契約上のデポジットを作るために、指示に従ってください。",
-        "AIRDROP_DESCRIPTION": "To make a deposit of {{coinName}} tokens to Airdrop contract, please do the following steps:",
+        "AIRDROP_DESCRIPTION": "Airdrop契約に{{coinName}}トークンを入金するには、以下の手順を実行してください：",
         "LIST": {
           "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "お財布にイーサ＆トークンタブを送る選択してください",
@@ -1116,17 +1116,17 @@
             "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token contract address",
-            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+            "LABEL": "トークン契約のアドレス",
+            "DESCRIPTION": "配布したいトークンのアドレスを指定します"
           },
           "ERRORS": {
-            "WRONG_TOKEN_ADDRESS": "Wrong Token contract address"
+            "WRONG_TOKEN_ADDRESS": "間違ったトークン契約アドレス"
           },
           "WITH_DECIMALS": {
-            "LABEL": "Choose Table format:",
-            "VALUE_LABEL": "Decimals"
+            "LABEL": "テーブル形式を選択：",
+            "VALUE_LABEL": "小数"
           },
-          "TABLE_EXAMPLE": "Table example:"
+          "TABLE_EXAMPLE": "表の例："
         }
       }
     },
@@ -1145,7 +1145,7 @@
       "LOST_KEY_SOURCE_CODE": "失われたキーのソースコード",
       "TOKEN_SOURCE_CODE": "トークンのソースコード",
       "CROWDSALE_SOURCE_CODE": "クラウドセールのソースコード",
-      "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
+      "AIRDROP_SOURCE_CODE": "あなたのAirdrop契約のソースコード",
       "HERE": "ここに",
       "ETHERSCAN_VERIFY_SUPPORT": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレスでご連絡ください</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレス</a>でご連絡いただくか、指示に従ってください：",
@@ -1215,18 +1215,18 @@
         }
       },
       "AIRDROP": {
-        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution.",
-        "ADDED_ADDRESSES": "You have added {{count}} addresses",
-        "SENT_ADDRESSES": "Tokens sent to {{count}} addresses",
-        "PROCESSING_ADDRESSES": "Sending now to addresses #{{from}} - {{to}}",
-        "NOT_SEND_ADDRESSES": "Not sent to {{count}} addresses",
-        "LOW_BALANCE": "Not enough tokens. <br/>Please deposit the contract (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) before the execution",
-        "NO_ADDRESSES": "No addresses were added",
+        "PREVIEW_DESCRIPTION": "契約の展開後、配布するアドレスのリストを追加することができます。",
+        "ADDED_ADDRESSES": "あなたは{{count}}のアドレスを追加しました",
+        "SENT_ADDRESSES": "トークンは{{count}}のアドレスに送信されました",
+        "PROCESSING_ADDRESSES": "今は#{{from}} - {{to}}のアドレスへ送ります",
+        "NOT_SEND_ADDRESSES": "{{count}}のアドレスには送信されません",
+        "LOW_BALANCE": "トークンが足りません。<br/>実行前に契約書(<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) を堆積してください",
+        "NO_ADDRESSES": "アドレスが追加されていません",
         "SEND_TO_GROUP": {
-          "TITLE": "Send Tokens To",
-          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
-          "BUTTON": "Send Tokens",
-          "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
+          "TITLE": "トークンを送信先",
+          "DESCRIPTION": "次(#{{from}} - {{to}})のアドレスは、次の送信グループに含まれます",
+          "BUTTON": "トークンを送る",
+          "TOTAL_TOKENS": "<b>送信される合計トークン：</b> {{total}} {{symbol}}"
         }
       },
       "INVESTMENTS_POOL": {

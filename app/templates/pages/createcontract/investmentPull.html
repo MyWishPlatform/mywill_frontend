@@ -38,7 +38,6 @@
                            translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
                     <input id="wallet-key" type="text"
                            ng-model="request.contract_details.admin_address"
-                           placeholder="{{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}"
                            required
                            ng-checksum-address-validator="{'network': 'ETH'}"
                            class="form-control-input"/>
@@ -553,7 +552,8 @@
                 <div class="form-control">
                     <div class="checkbox-decoration">
                         <label for="as_admin" class="form-control-label inline-label">
-                            <span translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.PLATFORM_AS_ADMIN.LABEL"></span>
+                            <i class="icon-settings form-control-label-icon floated"></i>
+                            <span class="after-floated" translate="CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.PLATFORM_AS_ADMIN.LABEL"></span>
                         </label>
                     </div>
                 </div>

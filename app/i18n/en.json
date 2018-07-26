@@ -779,7 +779,7 @@
           },
           "START_DATE": {
             "LABEL": "Start date",
-            "DESCRIPTION": "Start date/time for opening the pool. No contributions to the pool will be accepted before that time"
+            "DESCRIPTION": "Start date/time for opening the pool. No contributions to the pool will be accepted before that time."
           },
           "FINISH_DATE": {
             "LABEL": "Finish date",

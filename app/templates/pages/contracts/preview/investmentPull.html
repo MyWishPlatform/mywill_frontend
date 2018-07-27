@@ -83,7 +83,7 @@
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
                    target="_blank"
                    ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -150,7 +150,7 @@
                 <img class="identicon-image" ng-src="{{contract.contract_details.admin_address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{contract.contract_details.admin_address|toCheckSum}}"
+                <a ng-attr-href="{{contract.network|etherscanUrl:'address'}}/{{contract.contract_details.admin_address|toCheckSum}}"
                    target="_blank"
                    ng-bind="contract.contract_details.admin_address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -169,7 +169,7 @@
                 <img class="identicon-image" ng-src="{{details.investment_address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{details.investment_address|toCheckSum}}"
+                <a ng-attr-href="{{contract.network|etherscanUrl:'address'}}/{{details.investment_address|toCheckSum}}"
                    target="_blank"
                    ng-bind="details.investment_address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -188,7 +188,7 @@
                 <img class="identicon-image" ng-src="{{details.token_address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract, 'token')}}/{{details.token_address|toCheckSum}}"
+                <a ng-attr-href="{{contract.network|etherscanUrl:'token'}}/{{details.token_address|toCheckSum}}"
                    target="_blank"
                    ng-bind="details.token_address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -369,7 +369,7 @@
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.investment_tx_hash">
             <div class="form-control-label"
-                 translate-values="{etherscan_url: '{{ getEtherscanUrl(contract, 'tx') + '/' + contract.contract_details.investment_tx_hash}}'}"
+                 translate-values="{etherscan_url: '{{ (contract.network|etherscanUrl:'tx') + '/' + contract.contract_details.investment_tx_hash}}'}"
                  translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.SEN_FUNDS_TX"></div>
         </div>
     </div>

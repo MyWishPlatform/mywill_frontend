@@ -98,8 +98,9 @@ gulp.task('app:templates-clean', function () {
     return del([path.join(input, 'static', 'tpl', 'templates*')]);
 });
 gulp.task('app:templates', ['app:templates-clean'], function () {
+    console.log(path.join(output, folders['templates'], '*.html'));
     return gulp
-        .src([path.join(output, folders['templates'], '**/*.html'), path.join(output, folders['templates'], '*.html')])
+        .src([path.join(output, folders['templates'], '*.html'), path.join(output, folders['templates'], '**/*.html')])
         .pipe(angularTemplatecache('templates.tpl.js', {
             standalone: true,
             root: "/templates/"

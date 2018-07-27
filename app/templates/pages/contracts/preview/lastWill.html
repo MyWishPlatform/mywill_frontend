@@ -36,7 +36,7 @@
             </p>
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: $root.gitHubLink}"></span>
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/contracts/tree/develop'}"></span>
             </p>
         </div>
 
@@ -101,7 +101,7 @@
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (contract.contract_details.eth_contract.address|toCheckSum)}}"
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + (contract.contract_details.eth_contract.address|toCheckSum)}}"
                    target="_blank"
                    ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -127,7 +127,7 @@
                         <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
                     </span>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
-                        <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (contract.contract_details.user_address|toCheckSum)}}"
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + (contract.contract_details.user_address|toCheckSum)}}"
                            target="_blank"
                            ng-bind="contract.contract_details.user_address|toCheckSum"></a>
                     </div>
@@ -147,7 +147,7 @@
                         <img class="identicon-image" ng-src="{{heir.address|blockies}}"/>
                     </span>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
-                        <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (heir.address|toCheckSum)}}"
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + (heir.address|toCheckSum)}}"
                            target="_blank"
                            ng-bind="heir.address|toCheckSum"></a>
                     </div>

@@ -2,7 +2,7 @@ var module = angular.module('Directives');
 module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScope, $timeout) {
 
     var body = angular.element('body:first');
-    var popupHolder = angular.element('<div>').addClass('popup-window-holder');
+    var popupHolder = angular.element('<div>').addClass('popup-window-holder').appendTo(body);
     var popupWindowWrapper = angular.element('<div>').addClass('popup-window-wrapper');
     var popupWindow = angular.element('<div>').addClass('popup-window');
     var popupWindowCloser = angular.element('<div>').addClass('popup-window-closer');
@@ -26,14 +26,12 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
 
             $scope.$parent.popupScope = $scope;
 
-            var currentHolder;
-            var currentWindow;
+            var currentWindow, currentWindowWrapper;
             var isShowed = false;
 
             var createPopup = function() {
                 element.focus();
-                currentHolder = popupHolder.clone();
-                var currentWindowWrapper = popupWindowWrapper.clone().appendTo(currentHolder).addClass($scope.ngPopUp.class + '-wrapper');
+                currentWindowWrapper = popupWindowWrapper.clone().appendTo(popupHolder).addClass($scope.ngPopUp.class + '-wrapper');
                 currentWindow = popupWindow.clone().appendTo(currentWindowWrapper).addClass($scope.ngPopUp.class);
                 var currentCloser = popupCloser.clone().appendTo(currentWindowWrapper);
                 var currentPopupContent = popupContent.clone();
@@ -43,18 +41,10 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 }
                 currentPopupContent.appendTo(currentWindow);
 
-                if (!($scope.ngPopUp.params && $scope.ngPopUp.params.withoutCloser)) {
-                    var currentPopupWindowCloser = popupWindowCloser.clone().appendTo(currentPopupContent).on('click', function() {
-                        $scope.closeCurrentPopup();
-                        $scope.$apply();
-                    });
-                }
-
                 if ($scope.ngPopUp.noShadow) {
                     currentCloser.removeClass('ng-popup-closer');
                 }
-
-                currentHolder.appendTo(body);
+                popupHolder.appendTo(body);
 
                 if (!showedPopups) {
                     body.addClass('popup-showed');
@@ -63,7 +53,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 isShowed = true;
                 if ($scope.ngPopUp.closer) {
                     var closeLine = angular.element('<div>').addClass('map-closer-line').
-                    appendTo(currentHolder);
+                    appendTo(popupHolder);
                 } else if (!$scope.ngPopUp.noBackgroundCloser) {
                     currentCloser.on('click', function() {
                         $scope.closeCurrentPopup();
@@ -144,7 +134,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                         body.removeClass('popup-showed');
                     }
                     isShowed = false;
-                    currentHolder ? currentHolder.empty().remove() : false;
+                    currentWindowWrapper ? currentWindowWrapper.empty().remove() : false;
 
                     if ((noCallAction !== true) && $scope.ngPopUp.onClose) {
                         $scope.ngPopUp.onClose();
@@ -159,7 +149,7 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
 
             $scope.$watch('ngPopUp.template', function(newTpl, oldTpl) {
                 if (isShowed && (newTpl !== oldTpl)) {
-                    currentHolder ? currentHolder.empty().remove() : false;
+                    currentWindowWrapper ? currentWindowWrapper.empty().remove() : false;
                     showedPopups--;
                     createPopup();
                 }

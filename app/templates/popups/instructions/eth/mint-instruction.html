@@ -12,7 +12,7 @@
                     tokenName: ngPopUp.params.contract.contract_details.token_short_name,
                     recipient: ngPopUp.params.recipient.address,
                     admin: ngPopUp.params.contract.contract_details.admin_address,
-                    etherscanUrl: $root.getEtherscanUrl(ngPopUp.params.contract)
+                    etherscanUrl: (ngPopUp.params.contract.network|etherscanUrl:'address')
                 }">
             </span>
         </div>

@@ -75,49 +75,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         return ((network == 1) || (network == 2)) ? 'eth' : ((network == 3) || (network == 4) ? 'rsk' : 'neo');
     };
 
-    $rootScope.getEtherscanUrl = function(contract, path) {
-        var networkType = (contract.network || 1) * 1;
-        var addressPaths = {}, networkUrl;
-
-        switch(networkType) {
-            case 1:
-                networkUrl = APP_CONSTANTS.ETHERSCAN_ADDRESS;
-                addressPaths.address = 'address';
-                addressPaths.token = 'token';
-                addressPaths.tx = 'tx';
-                break;
-            case 2:
-                networkUrl = APP_CONSTANTS.ROPSTEN_ETHERSCAN_ADDRESS;
-                addressPaths.address = 'address';
-                addressPaths.token = 'token';
-                addressPaths.tx = 'tx';
-                break;
-            case 3:
-                networkUrl = APP_CONSTANTS.RSK_ADDRESS;
-                addressPaths.address = 'addr';
-                break;
-            case 4:
-                networkUrl = APP_CONSTANTS.RSK_TESTNET_ADDRESS;
-                addressPaths.address = 'addr';
-                break;
-
-            case 5:
-                networkUrl = APP_CONSTANTS.NEO_MAINNET_ADDRESS;
-                addressPaths.address = 'address/info';
-                addressPaths.token = 'address/info';
-                break;
-            case 6:
-                networkUrl = APP_CONSTANTS.NEO_TESTNET_ADDRESS;
-                addressPaths.address = 'address/info';
-                addressPaths.token = 'address/info';
-                break;
-
-        }
-        return networkUrl + (addressPaths[path] || '');
-    };
-
     $rootScope.max = Math.max;
     $rootScope.min = Math.min;
+    $rootScope.web3Utils = Web3.utils;
+
+
 
     var loginWatcherInProgress;
 
@@ -140,9 +102,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.globalProgress = false;
     $rootScope.finishGlobalProgress = false;
 
-    $rootScope.gitHubLink = 'https://github.com/MyWishPlatform/contracts/tree/develop';
     $rootScope.$state = $state;
-    $rootScope.numberReplacer = /,/g;
 
     var defaultLng = (navigator.language||navigator.browserLanguage).split('-')[0];
     $rootScope.setCurrentUser = function(profile) {
@@ -154,13 +114,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             $rootScope.setLanguage(lng);
         }
 
-
-        if (!profile) {
-            $state.go('exit');
-            return;
-        }
-        var userBalance = new BigNumber(profile.balance);
-        profile.visibleBalance = userBalance.div(Math.pow(10, 18)).toFormat(2);
+        profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 18)).toFormat(2);
         profile.balanceInRefresh = $rootScope.currentUser ? $rootScope.currentUser.balanceInRefresh : false;
         $rootScope.currentUser = profile;
         return profile;
@@ -168,10 +122,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.getTemplate = function(template) {
         return APP_CONSTANTS.TEMPLATES.PATH + '/' + template + '.html';
-    };
-
-    var createDefer = function() {
-        $rootScope.currentUserDefer = $q.defer();
     };
 
     var dateRange = 0;
@@ -265,7 +215,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
         return true;
     };
-    createDefer();
+
+    $rootScope.currentUserDefer = $q.defer();
 
     var showProgress = function(newLocation) {
         if (newLocation.resolve) {
@@ -313,17 +264,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.bigNumber = function(value) {
         return ((value != 0) && !isNaN(value)) ? new BigNumber(value) : new BigNumber('0');
-    };
-
-    $rootScope.web3Utils = Web3.utils;
-
-    $rootScope.openAuthWindow = function(page) {
-        $rootScope.commonOpenedPopup = 'login';
-        $rootScope.commonOpenedPopupParams = {
-            newPopupContent: true,
-            'class': 'login-form',
-            'page': page
-        };
     };
 
     $rootScope.hideGlobalError = function() {

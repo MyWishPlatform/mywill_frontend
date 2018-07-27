@@ -48,7 +48,7 @@
                 <li class="new-instruction-list__item">
                     <div class="new-instruction-list__item__text"
                          translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_1"
-                         translate-values="{address_url: getEtherscanUrl(contract, 'address')+'/'+(contract.contract_details[selectedContract].address|toCheckSum)+'#code'}">
+                         translate-values="{address_url: (contract.network|etherscanUrl:'address')+'/'+(contract.contract_details[selectedContract].address|toCheckSum)+'#code'}">
                     </div>
                 </li>
                 <li class="new-instruction-list__item">
@@ -153,7 +153,7 @@
                 <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract, 'token')}}/{{details[contractInfo].address|toCheckSum}}"
+                <a ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address|toCheckSum}}"
                    target="_blank"
                    ng-bind="details[contractInfo].address|toCheckSum"></a>
 
@@ -255,7 +255,7 @@
                         <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
                     </span>
                     <div class="contract-wallet-information-wallet">
-                        <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{details.admin_address}}"
+                        <a ng-attr-href="{{(contract.network|etherscanUrl:'address')}}/{{details.admin_address}}"
                            target="_blank"
                            ng-bind="details.admin_address|toCheckSum"></a>
 
@@ -291,7 +291,7 @@
                 <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{getEtherscanUrl(contract, 'address')}}/{{holder.address}}"
+                <a ng-attr-href="{{(contract.network|etherscanUrl:'address')}}/{{holder.address}}"
                    target="_blank"
                    ng-bind="holder.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"

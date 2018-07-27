@@ -249,6 +249,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 case 8:
                     contractType = 'airdrop';
                     break;
+                case 9:
+                    contractType = 'invest';
+                    break;
                 default:
                     contractType = 'unknown';
             }

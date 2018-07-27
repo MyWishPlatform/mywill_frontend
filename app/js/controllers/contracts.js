@@ -59,6 +59,20 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 }).controller('baseContractsController', function($scope, $state, $timeout, contractService,
                                                   web3Service,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
+
+    $scope.contractTypesIcons = {
+        0: 'icon-lastwill',
+        1: 'icon-key',
+        2: 'icon-deferred',
+        3: '',
+        4: 'icon-crowdsale',
+        5: 'icon-token',
+        6: 'icon-token',
+        7: 'icon-crowdsale',
+        8: 'icon-airdrop',
+        9: 'icon-investment-pool'
+    };
+
     var deletingProgress;
     $scope.refreshInProgress = {};
     $scope.timeoutsForProgress = {};

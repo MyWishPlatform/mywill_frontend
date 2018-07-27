@@ -99,7 +99,7 @@ gulp.task('app:templates-clean', function () {
 });
 gulp.task('app:templates', ['app:templates-clean'], function () {
     return gulp
-        .src(path.join(output, folders['templates'], '**/*.html'))
+        .src([path.join(output, folders['templates'], '**/*.html'), path.join(output, folders['templates'], '*.html')])
         .pipe(angularTemplatecache('templates.tpl.js', {
             standalone: true,
             root: "/templates/"
@@ -175,6 +175,13 @@ gulp.task('all:js-start', ['app:js', 'login:js'], function() {
 
 gulp.task('all:templates-start', ['app:templates'], function() {
     return gulp.start('app:revision');
+});
+
+
+gulp.task('app:ws', function() {
+    return gulp.src(path.join(output, 'ws', 'socket-client.js'))
+        .pipe(browserify())
+        .pipe(gulp.dest(path.join(input, 'static', 'ws')));
 });
 
 
@@ -304,7 +311,7 @@ gulp.task('watcher',function() {
 
 
 
-gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', /*'app:landing-build',*/ 'app:web3'],
+gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', /*'app:landing-build',*/ 'app:web3', 'app:ws'],
     function() {
         if (!isProduction) {
             return gulp.start('serve');

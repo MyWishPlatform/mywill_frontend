@@ -126,7 +126,8 @@
     "SEND_FUNDS": "Send Funds",
     "SETTINGS": "Settings",
     "GET_TOKENS": "Get tokens",
-    "REFUND": "Refund"
+    "REFUND": "Refund",
+    "SEND_TOKENS": "Send Tokens"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -595,6 +596,10 @@
       "GET_TOKENS": {
         "TITLE": "トークンを取得する",
         "DESCRIPTION": "トークンを取得するには、あなたの投資アドレスから取引を行う必要があります："
+      },
+      "SEND_TOKENS": {
+        "TITLE": "Send tokens",
+        "DESCRIPTION": "Send tokens Send tokens Send tokens Send tokens Send tokens Send tokens Send tokens:"
       },
       "INVESTMENT_REFUND": {
         "TITLE": "払い戻し",

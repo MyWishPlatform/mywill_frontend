@@ -126,7 +126,8 @@
     "SEND_FUNDS": "Send Funds",
     "SETTINGS": "Settings",
     "GET_TOKENS": "Get tokens",
-    "REFUND": "Refund"
+    "REFUND": "Refund",
+    "SEND_TOKENS": "Send Tokens"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -595,6 +596,10 @@
       "GET_TOKENS": {
         "TITLE": "Get tokens",
         "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+      },
+      "SEND_TOKENS": {
+        "TITLE": "Send tokens",
+        "DESCRIPTION": "Send tokens Send tokens Send tokens Send tokens Send tokens Send tokens Send tokens:"
       },
       "INVESTMENT_REFUND": {
         "TITLE": "Refund",

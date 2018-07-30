@@ -1,22 +1,18 @@
-<div class="shadow-block" ng-controller="investmentPoolSendFundsController">
+<div class="shadow-block" ng-controller="investmentPoolSendTokensController">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
                 <span class="uppercase"
-                      translate="CONTRACTS_INSTRUCTIONS.ETH.SEND_FUNDS.TITLE"></span>
+                      translate="CONTRACTS_INSTRUCTIONS.ETH.SEND_TOKENS.TITLE"></span>
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span translate-values="{
-                    amount: ($root.web3Utils.fromWei(ngPopUp.params.contract.contract_details.balance, 'ether')|separateNumber),
-                    address: ngPopUp.params.contract.contract_details.investment_address
-                  }"
-                  translate="CONTRACTS_INSTRUCTIONS.ETH.SEND_FUNDS.DESCRIPTION"></span>
+            <span translate="CONTRACTS_INSTRUCTIONS.ETH.SEND_TOKENS.DESCRIPTION"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <a ng-attr-href="{{
-                'https://www.myetherwallet.com/?data=' + sendFundsSignature +
+                'https://www.myetherwallet.com/?data=' + batchTransferTokensSignature +
                 '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}#send-transaction"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
@@ -48,34 +44,8 @@
     <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
-        <div class="normal-text visible-text" ng-if="!contract.contract_details.buttons.send_funds_only_author">
+        <div class="normal-text visible-text">
             {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_GUEST'|translate}}
-            <div class="copy-block">
-                <button class="copy-block__button relative"
-                        clipboard supported="supported"
-                        text="ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum"
-                        ng-class="{copied: contract.copied['address']}"
-                        on-copied="$root.successCodeCopy(contract, 'address')">&nbsp;
-                    <i class="icon-content_copy"></i>
-                </button>
-                <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract.address|toCheckSum}}</div>
-            </div>
-        </div>
-        <div class="normal-text visible-text" ng-if="contract.contract_details.buttons.send_funds_only_author">
-            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_1'|translate}}
-            <div class="copy-block">
-                <button class="copy-block__button relative"
-                        clipboard supported="supported"
-                        text="ngPopUp.params.contract.contract_details.admin_address|toCheckSum"
-                        ng-class="{copied: contract.copied['admin_address']}"
-                        on-copied="$root.successCodeCopy(contract, 'admin_address')">&nbsp;
-                    <i class="icon-content_copy"></i>
-                </button>
-                <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.admin_address|toCheckSum}}</div>
-            </div>
-        </div>
-        <div class="normal-text visible-text" ng-if="contract.contract_details.buttons.send_funds_only_author">
-            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_2'|translate}}
             <div class="copy-block">
                 <button class="copy-block__button relative"
                         clipboard supported="supported"
@@ -92,12 +62,12 @@
             <div class="copy-block">
                 <button class="copy-block__button relative"
                         clipboard supported="supported"
-                        text="sendFundsSignature"
+                        text="batchTransferTokensSignature"
                         ng-class="{copied: contract.copied['dataField']}"
                         on-copied="$root.successCodeCopy(contract, 'dataField')">&nbsp;
                     <i class="icon-content_copy"></i>
                 </button>
-                <div class="copy-block__text">{{sendFundsSignature}}</div>
+                <div class="copy-block__text">{{batchTransferTokensSignature}}</div>
             </div>
         </div>
     </div>

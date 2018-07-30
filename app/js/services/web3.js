@@ -146,6 +146,21 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         return web3;
     };
 
+    this.callMethod = function(contract, method) {
+        var defer = $q.defer();
+
+        contract.methods[method] ? contract.methods[method]().call(function(error, result) {
+            if (!error) {
+                defer.resolve(result);
+            } else {
+                defer.reject(error);
+            }
+        }) : $timeout(function() {
+            defer.reject('Method not defined');
+        });
+        return defer.promise;
+    };
+
 
     this.getTokenInfo = function(network, token, wallet, customFields) {
         var defer = $q.defer();

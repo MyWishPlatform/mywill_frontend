@@ -177,6 +177,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         }
                         break;
                     case 11:
+                        var iPoolContract = web3Service.createContractFromAbi(contract.contract_details.eth_contract.address, contract.contract_details.eth_contract.abi);
+                        web3Service.callMethod(iPoolContract, 'getPage').then(function(page) {
+                            buttons.send_tokens = page;
+                        });
                         break;
                 }
                 break;

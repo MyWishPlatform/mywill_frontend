@@ -291,6 +291,21 @@
 </button>
 
 
+<!-- Investment pool send tokens -->
+<button ng-if="contract.contract_details.buttons.send_tokens && contract.balance"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/investment-pool-send-tokens-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract,
+                page: contract.contract_details.buttons.send_tokens
+            }
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.SEND_TOKENS"></span>
+</button>
+
+
 <!-- Mint form button -->
 <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting"
         ng-pop-up="{

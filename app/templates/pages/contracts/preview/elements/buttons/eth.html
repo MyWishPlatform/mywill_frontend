@@ -366,6 +366,22 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Investment pool cancel instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.send_tokens && contract.balance">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-send-tokens-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract,
+                                page: contract.contract_details.buttons.send_tokens
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_TOKENS"></span>
+                </button><br/><br/>
+            </div>
+
         </div>
     </div>
 </div>

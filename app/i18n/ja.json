@@ -76,7 +76,7 @@
     "CONFIRM": "確認する",
     "BUY_TOKENS": "トークンを購入する",
     "CHECK": "確認する",
-    "BACK": "Back",
+    "BACK": "背後に",
     "CHOOSE_FILE": "ファイルを選ぶ"
   },
   "AUTH_POPUP": {
@@ -248,8 +248,8 @@
         "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
       },
       "INVESTMENT_POOL": {
-        "TITLE": "Investment pool",
-        "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
+        "TITLE": "投資プール",
+        "DESCRIPTION": "ETHの蓄積のための契約は、投資の前にあります。それを作成し、そのアドレスを他の人と共有する。"
       },
       "LOST_KEY": {
         "TITLE": "失われたキー",
@@ -581,24 +581,24 @@
       "SET_ADDRESS": {
         "DESTINATION_ADDRESS": {
           "TITLE": "",
-          "DESCRIPTION": "To Set Destination to {{address}} for your Investment pool please do the following steps:"
+          "DESCRIPTION": "投資プールの目的地{{address}}をに設定するには、以下の手順を実行してください。"
         },
         "TOKEN_ADDRESS": {
           "TITLE": "",
-          "DESCRIPTION": "To Set Token {{address}} for your Investment pool please do the following steps:"
+          "DESCRIPTION": "投資プールのトークン{{address}}を設定するには、以下の手順を実行してください。"
         }
       },
       "SEND_FUNDS": {
-        "TITLE": "Send Funds",
-        "DESCRIPTION": "To send all funds ({{amount}} ETH) to {{address}} please do the following steps:"
+        "TITLE": "資金を送る",
+        "DESCRIPTION": "すべての資金（{{ amount }} ETH）を{{ address }}に送付するには、以下の手順を実行してください："
       },
       "GET_TOKENS": {
-        "TITLE": "Get tokens",
-        "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+        "TITLE": "トークンを取得する",
+        "DESCRIPTION": "トークンを取得するには、あなたの投資アドレスから取引を行う必要があります："
       },
       "INVESTMENT_REFUND": {
-        "TITLE": "Refund",
-        "DESCRIPTION": "To refund your investments please make the following steps under your investment address:"
+        "TITLE": "払い戻し",
+        "DESCRIPTION": "投資を払い戻すには、投資先住所の下で次の手順を実行してください："
       }
     },
     "RSK": {
@@ -754,80 +754,80 @@
         }
       },
       "INVESTMENT_POOL": {
-        "TITLE": "Investment Pool",
+        "TITLE": "投資プール",
         "FIELDS": {
           "MANAGEMENT_ADDR": {
-            "LABEL": "Management address:",
-            "PLACEHOLDER": "Enter your ETH wallet address",
-            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+            "LABEL": "管理アドレス：",
+            "PLACEHOLDER": "ETHウォレットのアドレスを入力してください",
+            "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
           },
           "TOKEN_ADDRESS_ON_OFF": {
-            "LABEL": "Set Token",
-            "DESCRIPTION": "Specify the token which shall be distributed after the investment. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+            "LABEL": "トークンを設定する",
+            "DESCRIPTION": "投資後に配布されなければならないトークンを指定します。後で設定する場合は、\"オフ\"を選択してください。<br/>設定後は変更できません。"
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token contract address:",
-            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+            "LABEL": "トークン契約のアドレス",
+            "DESCRIPTION": "配布したいトークンのアドレスを指定してください"
           },
           "HARD_CAP": {
-            "LABEL": "Pool volume (maximum)",
-            "DESCRIPTION": "Defines maximum volume for the pool. After reaching maximum no more contributions to pool are accepted."
+            "LABEL": "プール容量（最大）",
+            "DESCRIPTION": "プールの最大容量を定義します。最大に達した後、プールへの貢献はそれ以上受け入れられません。"
           },
           "SOFT_CAP": {
-            "LABEL": "Pool volume (minimum)",
-            "DESCRIPTION": "Defines minimum ETH needed for investments. If minimum is not reached - contributors get their ETHs back. You can set it to 0 (no minimum)."
+            "LABEL": "プール容量（最小）",
+            "DESCRIPTION": "投資のために必要なETH最小容量を定義します。最小に達していない場合、寄稿者はETHを取り戻します。 あなたは0に（最低なし）設定することができます"
           },
           "START_DATE": {
-            "LABEL": "Start date",
-            "DESCRIPTION": "Start date/time for opening the pool. No contributions to the pool will be accepted before that time"
+            "LABEL": "開始日",
+            "DESCRIPTION": "開始日時はプールを開くためのものです。プールに何の貢献は、その時間の前に受け入れられません"
           },
           "FINISH_DATE": {
-            "LABEL": "Finish date",
-            "DESCRIPTION": "Finish date/time for closing the pool. No contributions to the pool will be accepted after that time."
+            "LABEL": "終了日",
+            "DESCRIPTION": "終了日時はプールを閉じるためのものです。プールに何の貢献は、その時間後に受け付けられません。"
           },
           "CHANGING_DATES": {
-            "LABEL": "Changing dates",
-            "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
+            "LABEL": "変更日付",
+            "DESCRIPTION": "開始/終了日は、契約の展開後に手動で変更することができます。販売を延長するも、早期に終了することもできます。<BR/>それ以外の場合は、日付がハードコーディングされており、変更できません。"
           },
           "WHITELIST": {
-            "LABEL": "Whitelist",
-            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+            "LABEL": "ホワイトリスト",
+            "DESCRIPTION": "契約は唯一の定義されたアドレスからの寄付を受け付けます。 いつでもアドレスを追加できます。"
           },
           "MIN_MAX_INVESTMENTS": {
-            "LABEL": "Min & Max investments limitations",
-            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+            "LABEL": "投資の最小/最大限度",
+            "DESCRIPTION": "（ETHで）最小/最大受け入れ貢献を指定することができます。 例えば、0.05 ETHから3000 ETHのみの寄付を受け入れます。"
           },
           "MIN_INVESTMENTS": {
-            "LABEL": "Minimum",
-            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+            "LABEL": "最小",
+            "DESCRIPTION": "最小量は受け入れました。\"0\" =最小限の制限はありません"
           },
           "MAX_INVESTMENTS": {
-            "LABEL": "Maximum",
-            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+            "LABEL": "最大",
+            "DESCRIPTION": "最大量は受け入れました。 それはハードキャップより高くすることはできません"
           },
           "INVESTMENT_ADDRESS_ON_OFF": {
-            "LABEL": "Set Destination",
-            "DESCRIPTION": "Set Destination for the investments. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+            "LABEL": "目的地を設定する",
+            "DESCRIPTION": "投資の目的地を設定してください。後で設定する場合は、\"オフ\"を選択してください。<br/>設定後は変更できません。"
           },
           "INVESTMENT_ADDRESS": {
-            "LABEL": "Destination address:",
-            "DESCRIPTION": "ETH address for sending all funds from the pool. It can be Contract address. Double check it before the submission."
+            "LABEL": "目的地のアドレス：",
+            "DESCRIPTION": "ETHアドレスはプールからすべての資金を送信するためです。 契約アドレスにすることもできます。提出前にダブルチェックをしてください。"
           },
           "BONUS": {
-            "LABEL": "Personal bonus (in Tokens) for the pool's owner:",
-            "DESCRIPTION": "Usually 0.1-1%. % of pool's tokens (after successfull investment) will be sent to pool's owner."
+            "LABEL": "プールの所有者のための個人のボーナス（トークンで）：",
+            "DESCRIPTION": "通常0.1〜1％。 プールトークンの％（成功した投資後）がプールの所有者に送信されます。"
           },
           "HARD_CAP_INVEST": {
             "LABEL": "Everyone after MAX",
-            "DESCRIPTION": "Everyone can initiate investment after MAX reaching. Off - only contract's owner can do it."
+            "DESCRIPTION": "誰も最大に到達した後に投資を開始することができます。唯一の契約の所有者は‘オフ‘ を行うことができます。"
           },
           "SOFT_CAP_INVEST": {
             "LABEL": "Everyone after MIN",
-            "DESCRIPTION": "Everyone can initiate investment after MIN reaching. Off - only contract's owner can do it."
+            "DESCRIPTION": "誰も最小に到達した後に投資を開始することができます。唯一の契約の所有者は‘オフ‘ を行うことができます。"
           },
           "PLATFORM_AS_ADMIN": {
-            "LABEL": "Control by MyWish:",
-            "DESCRIPTION": "ON is recommended - after sending the funds, you will be able to call the destination contract via MyWish.<br/>If Off - only the owner of the contract can do it."
+            "LABEL": "MyWishによる制御：",
+            "DESCRIPTION": "ONが推奨されます。資金を送った後、あなたはMyWish経由で目的地契約に電話することができます。<BR/>OFFの場合、契約の所有者のみがそれを行うことができます"
           }
         }
       },
@@ -1141,7 +1141,7 @@
       "FREE_VERSION_MSG": "（テストネット）フリーバージョンのコードがローディングのために利用できない源を含みます。",
       "WILL_SOURCE_CODE": "ごウィルのソースコード",
       "DEFERRED_SOURCE_CODE": "遅延支払い契約のソースコード",
-      "INVESTMENT_POOL_SOURCE_CODE": "Your Investment Pool contract source code",
+      "INVESTMENT_POOL_SOURCE_CODE": "ご投資プール契約のソースコード",
       "LOST_KEY_SOURCE_CODE": "失われたキーのソースコード",
       "TOKEN_SOURCE_CODE": "トークンのソースコード",
       "CROWDSALE_SOURCE_CODE": "クラウドセールのソースコード",
@@ -1230,14 +1230,14 @@
         }
       },
       "INVESTMENTS_POOL": {
-        "SHARE_LINK": "You can share your contract to contributors by this link:",
-        "SEN_FUNDS_TX": "Sending transaction on <a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>",
+        "SHARE_LINK": "あなたはこのリンクによって寄稿者とご契約を共有することができます：",
+        "SEN_FUNDS_TX": "<a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>でトランザクションを送信する",
         "RAISED": {
-          "PROGRESS": "Raised progress",
-          "MIN": "min",
-          "MAX": "max",
-          "TOTAL": "Total raised: {{amount}} ETH",
-          "DAY": "(Day: +{{percent}}%)"
+          "PROGRESS": "進捗が上がった",
+          "MIN": "最小",
+          "MAX": "最大",
+          "TOTAL": "総獲得額：{{amount}} ETH",
+          "DAY": "日：＋{{percent}}%)"
         }
       }
     }

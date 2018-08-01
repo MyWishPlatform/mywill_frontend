@@ -143,7 +143,8 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
-    "NEO": "NEO"
+    "NEO": "NEO",
+    "EOS": "EOS"
   },
   "ALERTS": {
     "FORM_REQUEST_SUCCESS": {
@@ -269,6 +270,10 @@
       "WEDDING": {
         "TITLE": "Wedding contract",
         "DESCRIPTION": "Wallet with Multisig function & distribution of funds between the owners after/during specified period of time."
+      },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "Create account in EOS blockchain for storing EOS / operating with the blockchain"
       },
       "TEST_NET_DISCLAIMER": {
         "LIST": {

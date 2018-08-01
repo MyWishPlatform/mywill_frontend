@@ -67,7 +67,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     angular.element('body').on('click', bodyClickHandler);
 
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
-                MENU_CONSTANTS, $interval, $cookies, WebSocketService) {
+                MENU_CONSTANTS, $interval, $cookies, WebSocketService, ENV_VARS) {
 
     Eos.modules.ecc.randomKey().then(function(privateKey) {
         console.log({
@@ -75,7 +75,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             public: Eos.modules.ecc.privateToPublic(privateKey)
         })
     });
-
 
     $rootScope.sitemode = ENV_VARS.mode;
     $rootScope.getNetworkPath = function(network) {

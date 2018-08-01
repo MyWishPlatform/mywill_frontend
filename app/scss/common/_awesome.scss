@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?7vtbc3');
-  src:  url('fonts/icomoon.eot?7vtbc3#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?7vtbc3') format('truetype'),
-  url('fonts/icomoon.woff?7vtbc3') format('woff'),
-  url('fonts/icomoon.svg?7vtbc3#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?asj5o8');
+  src:  url('fonts/icomoon.eot?asj5o8#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?asj5o8') format('truetype'),
+  url('fonts/icomoon.woff?asj5o8') format('woff'),
+  url('fonts/icomoon.svg?asj5o8#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -26,6 +26,9 @@
 
 .icon-token-eos:before {
   content: "\e948";
+}
+.icon-eos-wallet:before {
+  content: "\e949";
 }
 .icon-investment-pool:before {
   content: "\e947";

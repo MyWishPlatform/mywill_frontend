@@ -133,8 +133,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: 'contractsController',
         templateUrl: templatesPath + 'contracts.html',
         resolve: {
-            contractsList: function(contractService, $rootScope, currentUser) {
+            contractsList: function(contractService, $rootScope, currentUser, ENV_VARS) {
                 return !$rootScope.currentUser.is_ghost ? contractService.getContractsList({
+                    eos: ENV_VARS.mode === 'eos' ? 1 : 0,
                     limit: 8
                 }) : [];
             }
@@ -233,14 +234,22 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getAllCosts();
             }
         },
-        controller: function($scope, allCosts) {
-            $scope.blockChainNetwork = {
-                type: 'ethereum'
-            };
+        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS) {
+            $scope.blockChainNetwork = {};
+            switch (ENV_VARS.mode) {
+                case 'eos':
+                    $scope.blockChainNetwork.type = 'EOS';
+                    break;
+                default:
+                    $scope.blockChainNetwork.type = 'ETH';
+                    break;
+            }
+
             for (var key in allCosts.data) {
                 allCosts.data[key] = new BigNumber(allCosts.data[key]).round(3).toString(10);
             }
             $scope.allCosts = allCosts.data;
+            $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;
         },
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 

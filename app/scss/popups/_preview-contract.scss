@@ -31,7 +31,7 @@
 }
 .contract-information-icon {
   font-size: 2.5em;
-  color: $main-blue-color;
+  color: $main-color;
   float: left;
 }
 .contract-wallet-information {
@@ -65,7 +65,7 @@
     margin-top: 0.3125em;
   }
   a {
-    color: $main-blue-color;
+    color: $main-color;
     &, &:hover {
       text-decoration: none;
     }

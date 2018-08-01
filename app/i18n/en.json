@@ -54,7 +54,9 @@
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet",
     "NETWORK_5": "NEO MainNet",
-    "NETWORK_6": "NEO TestNet"
+    "NETWORK_6": "NEO TestNet",
+    "NETWORK_10": "EOS MainNet",
+    "NETWORK_11": "EOS TestNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",

@@ -17,7 +17,7 @@
     vertical-align: middle;
   }
   &-icon {
-    color: $main-blue-color;
+    color: $main-color;
     display: inline-block;
     vertical-align: middle;
     font-size: 1.2em;
@@ -121,7 +121,7 @@
 }
 .form-fieldset-info-button {
   font-size: 2em;
-  color: $main-blue-color;
+  color: $main-color;
   position: absolute;
   right: 0.3em;
   top: 0.3em;
@@ -193,7 +193,7 @@
   transition: box-shadow linear 0.1s;
   &:focus {
     box-shadow: 0 0 0.2em rgba(32, 110, 255, 0.4);
-    border-color: $main-blue-color;
+    border-color: $main-color;
   }
   &[readonly="readonly"] {
     background-color: transparent;
@@ -404,7 +404,7 @@
 .contact-remove-btn {
   background: none;
   border: 0 none;
-  color: $main-blue-color;
+  color: $main-color;
   cursor: pointer;
   padding: 0;
   outline: none;
@@ -466,7 +466,7 @@
   cursor: pointer;
   span {
     font-size: 2em;
-    color: $main-blue-color;
+    color: $main-color;
   }
   input {
     position: absolute;
@@ -542,7 +542,7 @@
     background-color: #c2c2c2;
     transition: all 0.1s linear;
     input:checked ~ & {
-      background-color: $main-blue-color;
+      background-color: $main-color;
     }
     input:disabled ~ & {
       opacity: 0.5;

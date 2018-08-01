@@ -14,8 +14,6 @@ if (UAParser(window.navigator.userAgent).device.type === "mobile") {
 module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
 }).controller('baseController', function($scope, $rootScope, $translate, $timeout, $cookies, authService) {
-
-
     $rootScope.showedMenu = false;
 
     $rootScope.toggleMenu = function(state, event) {
@@ -71,6 +69,15 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, $cookies, WebSocketService) {
 
+    Eos.modules.ecc.randomKey().then(function(privateKey) {
+        console.log({
+            private: privateKey,
+            public: Eos.modules.ecc.privateToPublic(privateKey)
+        })
+    });
+
+
+    $rootScope.sitemode = ENV_VARS.mode;
     $rootScope.getNetworkPath = function(network) {
         return ((network == 1) || (network == 2)) ? 'eth' : ((network == 3) || (network == 4) ? 'rsk' : 'neo');
     };

@@ -13,7 +13,7 @@
   left: 0;
   bottom: 0;
   width: 25.5em;
-  background-color: $main-blue-color;
+  background-color: $main-color;
   transition: margin-left 0.2s;
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.2);
 }
@@ -77,11 +77,11 @@
 
     &:not(.no-active) {
       &:hover {
-        background-color: #4d97f4;
+        background-color: $menu-hover-color;
       }
       &:hover + .active {
         &:after {
-          background-color: #4d97f4;
+          background-color: $menu-hover-color;
         }
       }
     }
@@ -98,7 +98,7 @@
         display: block;
         width: 1.8em;
         height: 1.8em;
-        background-color: $main-blue-color;
+        background-color: $main-color;
         right: 0;
         z-index: 2;
       }
@@ -113,7 +113,7 @@
 
 
       a, .as_menu_link {
-        color: $main-blue-color;
+        color: $main-color;
         margin-right: 1.8em;
         box-shadow: inset 1px 0 2px rgba(0, 0, 0, 0.15);
         text-shadow: initial;

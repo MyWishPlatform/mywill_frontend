@@ -321,7 +321,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.LABEL"></span><br/>
                         {{ contract.contract_details.token_name }}
@@ -329,7 +329,7 @@
                 </div>
                 <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></span><br/>
                         {{ contract.contract_details.token_short_name }}
@@ -337,7 +337,7 @@
                 </div>
                 <div class="clearfix"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></span><br/>
                         {{ contract.contract_details.decimals }}
@@ -345,7 +345,7 @@
                 </div>
                 <div class="clearfix show-ls" ng-if="blockchain === 'ETH'"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="blockchain === 'ETH'">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_TYPE"></span><br/>
                         {{ contract.contract_details.token_type }}
@@ -373,7 +373,7 @@
                         <i class="icon-bitcoin-exchange-rate-symbol form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.TOKEN_RATE.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         {{details.rate|separateNumber}}
                         {{details.token_short_name}} = 1{{blockchain}}
                     </div>
@@ -385,7 +385,7 @@
                         <i class="icon-hard-cap form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.HARD_CAP.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.hard_cap|separateNumber}}
                             {{details.token_short_name}}
@@ -401,7 +401,7 @@
                         <i class="icon-soft-cap form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.SOFT_CAP.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.soft_cap|separateNumber}}
                             {{details.token_short_name}}
@@ -419,7 +419,7 @@
                         <i class="icon-waiting-2 form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.START_DATE.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                         </div>
@@ -431,7 +431,7 @@
                         <i class="icon-waiting-1 form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.FINISH_DATE.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                         </div>
@@ -444,7 +444,7 @@
                         <i class="icon-padlock form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.TRANSFERABLE.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string te">
                             <i ng-class="{'icon-check_circle': details.is_transferable_at_once, 'icon-cancel': !details.is_transferable_at_once}"></i>
                             <span ng-if="details.is_transferable_at_once" translate="YES" class="uppercase"></span>
@@ -458,7 +458,7 @@
                         <i class="icon-settings form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.AUTO_FINALIZE.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.platform_as_admin, 'icon-cancel': !details.platform_as_admin}"></i>
                             <span ng-if="details.platform_as_admin" translate="YES" class="uppercase"></span>
@@ -473,7 +473,7 @@
                         <i class="icon-calendar form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.CHANGING_DATES.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.allow_change_dates, 'icon-cancel': !details.allow_change_dates}"></i>
                             <span ng-if="details.allow_change_dates" translate="YES" class="uppercase"></span>
@@ -487,7 +487,7 @@
                         <i class="icon-note-list form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.WHITELIST.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.whitelist, 'icon-cancel': !details.whitelist}"></i>
                             <span ng-if="details.whitelist" translate="YES" class="uppercase"></span>

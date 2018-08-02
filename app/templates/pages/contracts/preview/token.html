@@ -196,7 +196,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.LABEL"></span><br/>
                         {{ contract.contract_details.token_name }}
@@ -204,7 +204,7 @@
                 </div>
                 <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></span><br/>
                         {{ contract.contract_details.token_short_name }}
@@ -212,7 +212,7 @@
                 </div>
                 <div class="clearfix"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></span><br/>
                         {{ contract.contract_details.decimals }}
@@ -220,7 +220,7 @@
                 </div>
                 <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="contract.contract_details.token_type">
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_TYPE"></span><br/>
                         {{ contract.contract_details.token_type }}
@@ -235,7 +235,7 @@
                 <i class="icon-feature-minting form-control-label-icon"></i>
                 {{'CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.LABEL'|translate}}
             </span>
-            <div class="contract-preview-base-font contract-preview-base-value">
+            <div class="normal-text contract-preview-base-value">
                 <div class="contract-preview-base-value-string">
                     <i ng-class="{'icon-check_circle': details.future_minting, 'icon-cancel': !details.future_minting}"></i>
                     <span ng-if="details.future_minting" translate="YES" class="uppercase"></span>

@@ -103,7 +103,7 @@
                         <i class="icon-hard-cap form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.hard_cap_eth|separateNumber}} ETH
                         </div>
@@ -115,7 +115,7 @@
                         <i class="icon-soft-cap form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.soft_cap_eth|separateNumber}} ETH
                         </div>
@@ -227,7 +227,7 @@
                         <i class="icon-waiting-2 form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.START_DATE.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.start_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                         </div>
@@ -239,7 +239,7 @@
                         <i class="icon-waiting-1 form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.FINISH_DATE.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             {{details.stop_date * 1000 | date : 'yyyy-MM-dd&nbsp;&nbsp;HH:mm'}}
                         </div>
@@ -255,7 +255,7 @@
                         <i class="icon-calendar form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.CHANGING_DATES.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.allow_change_dates, 'icon-cancel': !details.allow_change_dates}"></i>
                             <span ng-if="details.allow_change_dates" translate="YES" class="uppercase"></span>
@@ -269,7 +269,7 @@
                         <i class="icon-note-list form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.WHITELIST.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.whitelist, 'icon-cancel': !details.whitelist}"></i>
                             <span ng-if="details.whitelist" translate="YES" class="uppercase"></span>
@@ -285,7 +285,7 @@
                         <i class="icon-hard-cap form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.HARD_CAP_INVEST.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.send_tokens_hard_cap, 'icon-cancel': !details.send_tokens_hard_cap}"></i>
                             <span ng-if="details.send_tokens_hard_cap" translate="YES" class="uppercase"></span>
@@ -299,7 +299,7 @@
                         <i class="icon-soft-cap form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.SOFT_CAP_INVEST.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.send_tokens_soft_cap, 'icon-cancel': !details.send_tokens_soft_cap}"></i>
                             <span ng-if="details.send_tokens_soft_cap" translate="YES" class="uppercase"></span>
@@ -314,7 +314,7 @@
                     <div class="form-control-label">
                         {{'CONTRACTS.FORMS.INVESTMENT_POOL.FIELDS.PLATFORM_AS_ADMIN.LABEL'|translate}}
                     </div>
-                    <div class="contract-preview-base-font contract-preview-base-value">
+                    <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': details.platform_as_admin, 'icon-cancel': !details.platform_as_admin}"></i>
                             <span ng-if="details.platform_as_admin" translate="YES" class="uppercase"></span>

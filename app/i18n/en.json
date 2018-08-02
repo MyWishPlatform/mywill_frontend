@@ -1140,6 +1140,44 @@
           },
           "TABLE_EXAMPLE": "Table example:"
         }
+      },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
+        "FIELDS": {
+          "ACCOUNT_NAME": {
+            "TITLE": "Set name of your account",
+            "DESCRIPTION": "In EOS name of the account is the main identifier. It shall be unique, contains letters and/or digits, and has 12 symbols.",
+            "SUCCESS_TEXT": "Alias is available",
+            "ALREADY_NAME_TEXT": "Alias is already taken"
+          },
+          "HAVE_PUBLIC_KEY": {
+            "TITLE": "Do you have public key?"
+          },
+          "ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Enter your active public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "OWNER_PUBLIC_KEY": {
+            "TITLE": "Enter your owner public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "GENERATED_ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Your active public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_OWNER_PUBLIC_KEY": {
+            "TITLE": "Your owner public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_ACTIVE_PRIVATE_KEY": {
+            "TITLE": "Your active private key",
+            "DESCRIPTION": ""
+          },
+          "GENERATED_OWNER_PRIVATE_KEY": {
+            "TITLE": "Your owner private key"
+          }
+        }
       }
     },
     "PREVIEW": {

@@ -69,13 +69,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, $cookies, WebSocketService, ENV_VARS) {
 
-    Eos.modules.ecc.randomKey().then(function(privateKey) {
-        console.log({
-            private: privateKey,
-            public: Eos.modules.ecc.privateToPublic(privateKey)
-        })
-    });
-
     $rootScope.sitemode = ENV_VARS.mode;
     $rootScope.getNetworkPath = function(network) {
         return ((network == 1) || (network == 2)) ? 'eth' : ((network == 3) || (network == 4) ? 'rsk' : 'neo');
@@ -166,6 +159,25 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     };
     $rootScope.getCurrentUser = getCurrentUser;
 
+    var balanceLoaded = false;
+    $rootScope.getCurrentBalance = function() {
+
+        if ($rootScope.currentUser.balanceInRefresh) return;
+        balanceLoaded = false;
+
+        $rootScope.currentUser.balanceInRefresh = $interval(function() {
+            if (balanceLoaded) {
+                $interval.cancel($rootScope.currentUser.balanceInRefresh);
+                $rootScope.currentUser.balanceInRefresh = false;
+            }
+        }, 1000);
+
+        getCurrentUser().then(function() {
+            balanceLoaded = true;
+        }, function() {
+            balanceLoaded = true;
+        });
+    };
 
     $rootScope.$on("$locationChangeSuccess", function(event, newLocation, oldLocation) {
         $rootScope.currentState = $location.state() || {};
@@ -200,7 +212,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             }, 400);
         }, 350);
     });
-
     $rootScope.closeCommonPopup = function() {
         $rootScope.commonOpenedPopup = false;
         $rootScope.commonOpenedPopupParams = false;

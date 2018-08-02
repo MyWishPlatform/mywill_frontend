@@ -162,7 +162,7 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <span class="form-control-label" translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CANCEL_VIA_MYWISH.LABEL"></span>
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': contract.contract_details.platform_cancel, 'icon-cancel': !contract.contract_details.platform_cancel}"></i>
                             <span ng-if="contract.contract_details.platform_cancel" translate="YES" class="uppercase"></span>
@@ -172,7 +172,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <span class="form-control-label" translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONFIRM_LIVE_VIA_MYWISH.LABEL"></span>
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': contract.contract_details.platform_alive, 'icon-cancel': !contract.contract_details.platform_alive}"></i>
                             <span ng-if="contract.contract_details.platform_alive" translate="YES" class="uppercase"></span>
@@ -190,7 +190,7 @@
                     <i class="icon-conditions form-control-label-icon"></i>
                     {{'CONTRACTS.PREVIEW.CONTRACT_CONDITIONS'|translate}}
                 </div>
-                <div class="contract-preview-base-font contract-preview-base-value">
+                <div class="normal-text contract-preview-base-value">
                     <div>
                         {{'CONTRACTS.FORMS.LAST_WILL.FIELDS.DUE_DATE.LABEL'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.active_to|date:'yyyy-MM-dd'}}

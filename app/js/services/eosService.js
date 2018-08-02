@@ -8,8 +8,18 @@ module.service('EOSService', function($q) {
 
     var eos;
     this.createEosChain = function(network) {
+        network = network * 1;
+        var networkName;
+        switch(network) {
+            case 10:
+                networkName = 'MAINNET';
+                break;
+            case 11:
+                networkName = 'TESTNET';
+                break;
+        }
         eos = Eos({
-            httpEndpoint: EOSNetworks[network],
+            httpEndpoint: EOSNetworks[networkName],
             verbose: false
         });
     };

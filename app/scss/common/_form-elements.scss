@@ -1,5 +1,6 @@
 .form-control-label-checkbox {
   line-height: 2.9em;
+  padding-left: 0.2em;
 }
 .form-control-label, .form-control-label-checkbox span {
   text-shadow: 0 1px 0 #fff;
@@ -10,7 +11,7 @@
   display: inline-block;
 }
 .form-control-label {
-  padding: 0.4em 0;
+  padding: 0.4em 0.2em;
   display: block;
   &.inline-label {
     display: inline-block;
@@ -67,6 +68,7 @@
     display: inline-block;
     line-height: 1.2em;
     vertical-align: middle;
+    padding-left: 0.2em;
   }
 }
 
@@ -134,12 +136,12 @@
   display: none;
   color: #f91c1c;
   font-size: 1.2em;
-  padding: 0.5em 0;
+  padding: 0.5em 0.2em;
 }
 .field-success {
   color: #06b01f;
   font-size: 1.2em;
-  padding: 0.5em 0;
+  padding: 0.5em 0.2em;
   display: block;
 }
 .field-advanced-description {
@@ -172,7 +174,7 @@
     padding-bottom: 0.3em;
     line-height: 1.95em;
   }
-  &:disabled, &[disabled] {
+  &:disabled, &[disabled], &[readonly] {
     background-color: #f0f0f0;
   }
   &:not(&_short) {
@@ -204,7 +206,7 @@
   &:-ms-input-placeholder      {color:#999;}
 
   form.ng-submitted &.ng-invalid, &.ng-invalid:focus, &.ng-touched.ng-invalid, &[invalid="true"] {
-    &:not(:disabled), &:not([disabled]) {
+    &:not(:disabled), &:not([disabled]), &:not([readonly]) {
       border-color: #f91c1c;
     }
     &:focus {

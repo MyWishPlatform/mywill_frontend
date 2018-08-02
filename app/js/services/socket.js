@@ -60,5 +60,5 @@ angular.module('Services').service('WebSocketService', function() {
         client.close();
     };
 
-    this.connect();
+    // this.connect();
 });

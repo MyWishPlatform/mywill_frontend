@@ -1172,11 +1172,16 @@
           },
           "GENERATED_ACTIVE_PRIVATE_KEY": {
             "TITLE": "Your active private key",
-            "DESCRIPTION": ""
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
           },
           "GENERATED_OWNER_PRIVATE_KEY": {
-            "TITLE": "Your owner private key"
-          }
+            "TITLE": "Your owner private key",
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+          },
+          "COPY_KEYS": "Copy keys pairs",
+          "GENERATE_KEYS": "Generate keys pairs",
+          "REGENERATE_KEYS": "Generate new pairs",
+          "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, It generates in your browser only."
         }
       }
     },
@@ -1289,6 +1294,11 @@
           "TOTAL": "Total raised: {{amount}} ETH",
           "DAY": "(Day: +{{percent}}%)"
         }
+      },
+      "EOS_WALLET": {
+        "ACCOUNT_NAME": "Account name",
+        "ACTIVE_PUBLIC_KEY": "Active public key",
+        "OWNER_PUBLIC_KEY": "Owner public key"
       }
     }
   }

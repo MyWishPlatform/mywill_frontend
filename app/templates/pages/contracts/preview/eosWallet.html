@@ -1,0 +1,110 @@
+<div class="contract-preview-tabs" ng-init="contract.showedTab = 'info'">
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'info'}"
+         ng-click="contract.showedTab = 'info'">
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
+    </div>
+    <div class="contract-preview-one-tab"
+         ng-class="{active: contract.showedTab == 'code'}"
+         ng-click="contract.showedTab = 'code'"
+         ng-show="contract.contract_details.eth_contract.address">
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
+    </div>
+</div>
+
+
+<div ng-show="contract.showedTab == 'code'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text">
+                <span>{{'CONTRACTS.PREVIEW.DEFERRED_SOURCE_CODE'|translate}}
+                    <span class="as-link dotted"
+                          ng-if="(contract.network == 1) || (contract.network == 3)"
+                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(deferred)')">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                </span>
+            </p>
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/contracts/tree/develop'}"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT"></p>
+        </div>
+    </div>
+</div>
+
+<div ng-show="contract.showedTab == 'info'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
+             ng-include="'/templates/common/contracts/preview-title.html'">
+        </div>
+
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_WALLET.ACCOUNT_NAME"></div>
+            <br class="show-ls"/>
+            <div class="contract-wallet-information-wallet">
+                {{contract.contract_details.account_name}}
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['account_name']}"
+                        text="contract.contract_details.account_name"
+                        on-copied="$root.successCodeCopy(contract, 'account_name')">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_WALLET.ACTIVE_PUBLIC_KEY"></div>
+            <br class="show-ls"/>
+            <div class="contract-wallet-information-wallet">
+                {{contract.contract_details.active_public_key}}
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['active_key']}"
+                        text="contract.contract_details.active_public_key"
+                        on-copied="$root.successCodeCopy(contract, 'active_key')">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_WALLET.OWNER_PUBLIC_KEY"></div>
+            <br class="show-ls"/>
+            <div class="contract-wallet-information-wallet">
+                {{contract.contract_details.owner_public_key}}
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['owner_key']}"
+                        text="contract.contract_details.owner_public_key"
+                        on-copied="$root.successCodeCopy(contract, 'owner_key')">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="shadow-block"
+         ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
+         ng-include="'/templates/common/contracts/promocode-field.html'"></div>
+    <div class="main-section-chapter-fieldset"
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
+
+</div>

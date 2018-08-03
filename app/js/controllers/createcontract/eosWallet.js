@@ -3,7 +3,6 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
 
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
-        name:  'MyEOSWallet' + ($rootScope.currentUser.contracts + 1),
         contract_type: CONTRACT_TYPES_CONSTANTS.EOS_WALLET,
         network: $stateParams.network,
         contract_details: {}
@@ -48,6 +47,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         if (contractInProgress) return;
 
         contractInProgress = true;
+        contractData.name = contractData.contract_details.account_name;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](contractData).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
@@ -96,6 +96,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     $scope.generated_keys = {};
     $scope.copiedText = '';
 
+    $scope.copiedKeys = false;
     $scope.generateTextForCopy = function() {
         var lines = [
             "Private active key: " + $scope.generated_keys.active_private_key,
@@ -103,9 +104,11 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
             "Public active key: " + $scope.generated_keys.active_public_key,
             "Public owner key: " + $scope.generated_keys.owner_public_key
         ];
+        $scope.copiedKeys = true;
         $scope.copiedText = lines.join("\n");
     };
     $scope.generateKeysPairs = function() {
+        $scope.copiedKeys = false;
         Eos.modules.ecc.randomKey().then(function(privateKey) {
             $scope.generated_keys.active_public_key = Eos.modules.ecc.privateToPublic(privateKey);
             $scope.generated_keys.active_private_key = privateKey;

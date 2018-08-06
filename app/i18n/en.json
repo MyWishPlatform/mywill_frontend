@@ -591,7 +591,7 @@
       },
       "SEND_FUNDS": {
         "TITLE": "Send Funds",
-        "DESCRIPTION": "To send all funds ({{amount}} ETH) to {{address}} please do the following steps:"
+        "DESCRIPTION": "For sending ({{amount}} ETH) to Destination address ({{address}}) please make the following steps:"
       },
       "GET_TOKENS": {
         "TITLE": "Get tokens",
@@ -599,7 +599,7 @@
       },
       "SEND_TOKENS": {
         "TITLE": "Send tokens",
-        "DESCRIPTION": "Send tokens Send tokens Send tokens Send tokens Send tokens Send tokens Send tokens:"
+        "DESCRIPTION": "For sending the tokens (50 addresses per call) please make the following steps:"
       },
       "INVESTMENT_REFUND": {
         "TITLE": "Refund",

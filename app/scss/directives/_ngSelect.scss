@@ -90,6 +90,7 @@
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  margin-left: -0.2em;
   &.hidden-select {
     height: 0;
     overflow: hidden;
@@ -138,6 +139,7 @@
     -ms-user-select: none;
     user-select: none;
     @extend .text-field;
+    margin-left: 0;
     &.disabled-value {
       color: #fff;
     }

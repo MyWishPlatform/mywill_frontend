@@ -292,7 +292,7 @@
 
 
 <!-- Investment pool send tokens -->
-<button ng-if="contract.contract_details.buttons.send_tokens && contract.balance"
+<button ng-if="(contract.contract_details.buttons.send_tokens !== undefined)"
         ng-pop-up="{
             template: '/templates/popups/instructions/eth/investment-pool-send-tokens-instruction.html',
             newPopupContent: true,

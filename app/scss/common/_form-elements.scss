@@ -172,7 +172,7 @@
     padding-bottom: 0.3em;
     line-height: 1.95em;
   }
-  &:disabled, &[disabled], &[readonly] {
+  &:disabled, &[disabled], &[readonly]:not([type="datetime"]) {
     background-color: #f0f0f0;
   }
   &:not(&_short) {

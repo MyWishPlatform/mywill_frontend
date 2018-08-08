@@ -1,4 +1,4 @@
-angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams,
+angular.module('app').controller('crowdSaleCreateController', function($scope, currencyRate, contractService, $location, tokensList, APP_CONSTANTS, $stateParams, web3Service,
                                                                        $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS, NETWORKS_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
@@ -28,7 +28,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     } else {
         $scope.token.selectedToken = {};
     }
-
     $scope.changeToken = function() {
         if (!$scope.token.selectedToken.id) {
             $timeout(function () {
@@ -36,10 +35,12 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
             });
             return;
         }
-        var contract = new web3.eth.Contract(abi);
-        contract.options.address = $scope.token.selectedToken.address;
+
+        var web3Contract = web3Service.createContractFromAbi($scope.token.selectedToken.address, abi);
+
         var selectedToken = $scope.token.selectedToken;
-        contract.methods.totalSupply().call(function(error, result) {
+        web3Contract.methods.totalSupply().call(function(error, result) {
+            console.log(arguments);
             if (error) {
                 result = 0;
             }
@@ -55,6 +56,8 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     };
 
     $scope.network = contract.network;
+    web3Service.setProviderByNumber($scope.network);
+
 
     switch ($scope.network) {
         case 1:

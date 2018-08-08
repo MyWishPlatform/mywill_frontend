@@ -97,6 +97,19 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     $scope.iniContract = function(contract) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
+        switch (contract.contract_type) {
+            case 11:
+                switch (contract.state) {
+                    case 'CREATED':
+                        contract.state = 'DRAFT';
+                        break;
+                    case 'WAITING_FOR_DEPLOYMENT':
+                        contract.state = 'CREATING';
+                        break;
+                }
+                break;
+        }
+
         contract.stateValue = $scope.statuses[contract.state]['value'];
         contract.stateTitle = $scope.statuses[contract.state]['title'];
 

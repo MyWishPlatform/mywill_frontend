@@ -3,12 +3,16 @@ angular.module('app').controller('authController', function (authService, $rootS
     $scope.request = {};
 
     $scope.$parent.socialAuthError = false;
-    $scope.sendLoginForm = function(authForm, reloadPage) {
+    $scope.sendLoginForm = function(authForm, reloadPage, inService) {
         if (!authForm.$valid) return;
         $scope.serverErrors = undefined;
         authService.auth({
             data: $scope.request
         }).then(function (response) {
+            if (inService) {
+                onAuth();
+                return;
+            }
             if (!reloadPage) {
                 window.location = '/';
             } else {

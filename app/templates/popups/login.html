@@ -13,7 +13,7 @@
 
                 <div ng-if="((ngPopUp.params.page === 'registration') || (ngPopUp.params.page === 'auth')) && !socialAuthError">
                     <div ng-if="ngPopUp.params.page === 'auth'">
-                        <form class="login-form" ng-submit="sendLoginForm(loginForm)" name="loginForm" novalidate ng-if="!socialAuthError">
+                        <form class="login-form" ng-submit="sendLoginForm(loginForm, false, true)" name="loginForm" novalidate ng-if="!socialAuthError">
                             <div class="form-control contract-form-row">
                                 <div class="form-control-label" translate="AUTH_POPUP.FIELDS.EMAIL"></div>
                                 <input type="email"

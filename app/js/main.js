@@ -71,7 +71,25 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.sitemode = ENV_VARS.mode;
     $rootScope.getNetworkPath = function(network) {
-        return ((network == 1) || (network == 2)) ? 'eth' : ((network == 3) || (network == 4) ? 'rsk' : 'neo');
+        network *= 1;
+        switch (network) {
+            case 1:
+            case 2:
+                return 'eth';
+                break;
+            case 3:
+            case 4:
+                return 'rsk';
+                break;
+            case 5:
+            case 6:
+                return 'neo';
+                break;
+            case 10:
+            case 11:
+                return 'eos';
+                break;
+        }
     };
 
     $rootScope.max = Math.max;

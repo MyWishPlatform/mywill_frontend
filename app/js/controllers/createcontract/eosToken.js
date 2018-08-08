@@ -17,7 +17,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
     $scope.network = contract.network * 1;
 
     EOSService.createEosChain($scope.network);
-    EOSService.getInfo().then(console.log);
+    // EOSService.getInfo().then(console.log);
 
     var checkAddressTimeout;
     $scope.checkAddress = function(addressField) {

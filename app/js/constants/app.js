@@ -27,6 +27,9 @@ module.constant('APP_CONSTANTS', {
     "NEO_TESTNET_ADDRESS": 'http://testnet.antcha.in/',
     "NEO_MAINNET_ADDRESS": 'http://antcha.in/',
 
+    "EOS_MAINNET_ADDRESS": "https://eosflare.io/",
+    "EOS_TESTNET_ADDRESS": "https://eospark.com/Jungle/",
+
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

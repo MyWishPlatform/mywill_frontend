@@ -16,17 +16,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
     $scope.contract = contract;
     $scope.network = contract.network * 1;
 
-    var networkType;
-    switch ($scope.network) {
-        case 10:
-            networkType = 'MAINNET';
-            break;
-        case 11:
-            networkType = 'TESTNET';
-            break;
-    }
-
-    EOSService.createEosChain(networkType);
+    EOSService.createEosChain($scope.network);
     EOSService.getInfo().then(console.log);
 
     var checkAddressTimeout;

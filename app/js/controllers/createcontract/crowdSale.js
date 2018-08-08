@@ -40,7 +40,6 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
         var selectedToken = $scope.token.selectedToken;
         web3Contract.methods.totalSupply().call(function(error, result) {
-            console.log(arguments);
             if (error) {
                 result = 0;
             }

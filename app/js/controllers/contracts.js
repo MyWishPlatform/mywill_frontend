@@ -138,6 +138,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     if ((contract.stateValue === 11) || (contract.stateValue === 6)) {
                         infoData.push('balanceOf');
                     }
+                    web3Service.setProviderByNumber(contract.network);
                     web3Service.getTokenInfo(
                         contract.network,
                         contract.contract_details.token_address,
@@ -182,6 +183,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         }
                         break;
                     case 11:
+                        web3Service.setProviderByNumber(contract.network);
                         var iPoolContract = web3Service.createContractFromAbi(contract.contract_details.eth_contract.address, contract.contract_details.eth_contract.abi);
 
                         var contractInvestmentsParams = ['investorsCount', 'BATCH_SIZE'];
@@ -195,6 +197,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
                             var currentPage = 0;
                             var getTokensOnPage = function() {
+                                web3Service.setProviderByNumber(contract.network);
                                 iPoolContract.methods['pageTokenAmount'](currentPage).call(function(error, result) {
                                     var intResult = result * 1;
                                     if (!intResult) {
@@ -209,6 +212,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         };
 
                         var getParamData = function(methodName) {
+                            web3Service.setProviderByNumber(contract.network);
                             web3Service.callMethod(iPoolContract, methodName).then(function(result) {
                                 contractInvestmentsData[methodName] = result;
                                 allMethodsCount--;

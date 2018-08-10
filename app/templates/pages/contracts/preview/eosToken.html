@@ -145,39 +145,9 @@
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
 
-        <!-- Token contract address -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractInfo].address">
-            <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
-            <br class="show-ls"/>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
-            </span>
-            <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="#/{{details[contractInfo].address}}"
-                   target="_blank"
-                   ng-bind="details[contractInfo].address"></a>
-
-                <button class="instruction-for-copy-button relative"
-                        clipboard supported="supported"
-                        ng-class="{copied: contract.copied['token_address']}"
-                        text="details[contractInfo].address"
-                        on-copied="$root.successCodeCopy(contract, 'token_address')">
-                    <i class="icon-content_copy"></i>
-                </button>
-            </div>
-        </div>
-
-
         <!-- Token info -->
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="normal-text">
-                        <span class="contract-preview-grey-font-color"
-                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.LABEL"></span><br/>
-                        {{ contract.contract_details.token_name }}
-                    </div>
-                </div>
                 <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="normal-text">
@@ -186,7 +156,7 @@
                         {{ contract.contract_details.token_short_name }}
                     </div>
                 </div>
-                <div class="clearfix"><br/></div>
+                <div class="clearfix show-ls"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
@@ -213,11 +183,8 @@
                     <div class="form-control-label"
                          translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></div>
                     <br class="show-ls"/>
-                    <span class="identicon-container">
-                        <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
-                    </span>
                     <div class="contract-wallet-information-wallet">
-                        <a ng-attr-href="#/{{details.admin_address}}"
+                        <a ng-attr-href="{{contract.network|etherscanUrl:'account'}}/{{details.admin_address}}"
                            target="_blank"
                            ng-bind="details.admin_address"></a>
 
@@ -233,77 +200,12 @@
             </div>
         </div>
 
-        <!-- Distribution info -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color"
-             ng-if="details.token_holders.length">
-            <div class="shadow-block__content__blue-title">
-                <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
-                <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_DISTRIBUTION"></span>
-                </div>
-            </div>
-        </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
-             ng-class="{'no-border': !$index}"
-             ng-repeat="holder in details.token_holders">
-            <div class="form-control-label bold"
-                 translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"></div>
-            <br class="show-ls"/>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
-            </span>
-            <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="#/{{holder.address}}"
-                   target="_blank"
-                   ng-bind="holder.address"></a>
-                <button class="instruction-for-copy-button relative"
-                        clipboard supported="supported"
-                        ng-class="{copied: contract.copied['holder_address_' + $index]}"
-                        text="holder.address"
-                        on-copied="$root.successCodeCopy(contract, 'holder_address_' + $index)">
-                    <i class="icon-content_copy"></i>
-                </button>
-            </div><br/>
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_NAME.LABEL"></div>
-                    <div class="form-control-preview-value">{{holder.name || '-'}}</div>
-                </div>
-                <div class="clearfix show-vs"><br/></div>
-                <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></div>
-                    <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
-                </div>
-
-            </div>
-        </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
-                        {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}}
-                        {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
-                    <div class="form-control-description one-line without-padding" ng-if="!details.future_minting">
-                        <span class="form-control-description__text" translate="CONTRACTS.FORMS.CROWD_SALE.CHART_TOKEN_DISTRIBUTED_MESSAGE"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-row" ng-if="chartData.length">
-                <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
-                    <div class="chart-container" style="height: 240px"
-                         ng-chart
-                         ng-chart-data="chartData"
-                         ng-chart-options="chartOptions"></div>
-                </div>
-                <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
-                    <div class="chart-legend">
-                        <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
-                            <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
-                            <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
-                        </div>
+                        {{'CONTRACTS.FORMS.TOKEN.MAXIMUM_SUPPLY'|translate}}
+                        {{details.maximum_supply|separateNumber}} {{details.token_short_name}}
                     </div>
                 </div>
             </div>

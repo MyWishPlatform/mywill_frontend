@@ -111,8 +111,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         }
     }).state('main.buytokens', {
         url: '/buy',
-        controller: 'buytokensController',
-        templateUrl: templatesPath + 'buytokens.html',
+        controllerProvider: function(ENV_VARS) {
+            return (ENV_VARS.mode === 'eos') ? 'eosBuytokensController' : 'buytokensController'
+        },
+        templateProvider: function ($templateCache, ENV_VARS) {
+            var buyTokensTpl = (ENV_VARS.mode === 'eos') ? 'eos-buytokens' : 'buytokens';
+            return $templateCache.get(templatesPath + buyTokensTpl + '.html');
+        },
         data: {
             notAccess: 'is_ghost'
         },

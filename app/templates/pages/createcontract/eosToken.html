@@ -43,6 +43,8 @@
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
                     <input id="token-symbol" type="text"
                            placeholder="NEW"
+                           name="token_field"
+                           ng-change="checkTokenName(contractParamsForm.token_field)"
                            pattern='[a-zA-Z0-9]+'
                            ng-model="request.token_short_name"
                            maxlength="7"
@@ -67,6 +69,7 @@
                            placeholder="4"
                            ng-model="request.decimals"
                            pattern="^[0-9]+$"
+                           ng-change="checkMaxTokenSupply()"
                            commaseparator="{
                                 min: 0,
                                 max: 15
@@ -122,7 +125,10 @@
                     <label for="max-supply" class="form-control-label">Maximum supply</label>
                     <input id="max-supply" type="text"
                            ng-model="request.maximum_supply"
-                           commaseparator="{}"
+                           commaseparator="{
+                                min: 1,
+                                max: maxSupply
+                           }"
                            required
                            class="form-control-input"/>
                 </div>

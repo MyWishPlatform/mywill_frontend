@@ -1,5 +1,5 @@
 angular.module('app').controller('eosTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, EOSService) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, EOSService, APP_CONSTANTS) {
 
 
 
@@ -17,7 +17,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
     $scope.network = contract.network * 1;
 
     EOSService.createEosChain($scope.network);
-    // EOSService.getInfo().then(console.log);
+
 
     var checkAddressTimeout;
     $scope.checkAddress = function(addressField) {
@@ -29,6 +29,21 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
         checkAddressTimeout = $timeout(function() {
             EOSService.checkAddress(addressField.$viewValue).then(function(addressInfo) {
                 addressField.$setValidity('not-checked', true);
+            });
+        }, 500);
+    };
+
+    var checkTokenTimeout;
+    $scope.checkTokenName = function(tokenShortName) {
+        if ($scope.network === 11) return;
+        tokenShortName.$setValidity('not-checked', false);
+        if (!tokenShortName.$viewValue) {
+            return;
+        }
+        checkTokenTimeout ? $timeout.cancel(checkAddressTimeout) : false;
+        checkTokenTimeout = $timeout(function() {
+            EOSService.coinInfo(APP_CONSTANTS.EOS_ADDRESS.TOKEN, 'TEST').then(function() {
+                tokenShortName.$setValidity('not-checked', true);
             });
         }, 500);
     };
@@ -89,6 +104,9 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
     };
     $scope.editContractMode = !!contract.id;
 
+    $scope.checkMaxTokenSupply = function() {
+        $scope.maxSupply = Math.round(4611686018427387903 / Math.pow(10, $scope.request.decimals));
+    };
 
     var checkDraftContract = function(redirect) {
         if (localStorage.draftContract) {

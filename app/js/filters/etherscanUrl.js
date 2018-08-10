@@ -41,7 +41,7 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 break;
             case 11:
                 networkUrl = APP_CONSTANTS.EOS_TESTNET_ADDRESS;
-                addressPaths.account = 'bp';
+                addressPaths.account = 'account';
                 addressPaths.token = 'address/info';
                 break;
 

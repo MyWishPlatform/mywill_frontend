@@ -97,7 +97,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.web3Utils = Web3.utils;
 
 
-
     var loginWatcherInProgress;
 
     $rootScope.checkProfile = function(event, requestData) {

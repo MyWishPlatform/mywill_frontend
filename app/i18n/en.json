@@ -46,7 +46,8 @@
     "ENDED": "Done",
     "DONE": "Done",
     "UNDER_CROWDSALE": "Under Crowdsale",
-    "SENDING_TOKENS": "Sending"
+    "SENDING_TOKENS": "Sending",
+    "CREATING": "Creating"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -129,7 +130,8 @@
     "SETTINGS": "Settings",
     "GET_TOKENS": "Get tokens",
     "REFUND": "Refund",
-    "SEND_TOKENS": "Send Tokens"
+    "SEND_TOKENS": "Send Tokens",
+    "CREATE": "Create"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -277,7 +279,7 @@
       },
       "TEST_NET_DISCLAIMER": {
         "LIST": {
-          "LIST_ITEM_1": "Contracts in Test Net are free for use (you can create & deploy it to test network)",
+          "LIST_ITEM_1": "Contracts/Accounts in Test Net are free for use (you can create & deploy it to test network)",
           "LIST_ITEM_2": "Please accept low speed for deployment (up to 3 hours)",
           "LIST_ITEM_3": "Contracts in Test/ Main network have identical code",
           "LIST_ITEM_4": "Please use Test Net addresses (Ropsten for ETH) while working with contracts"
@@ -946,6 +948,7 @@
           "ADD_ADDRESS": "Mint tokens"
         },
         "TOTAL_SUPPLY": "Total supply:",
+        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "Token name:",
@@ -1147,7 +1150,7 @@
         "FIELDS": {
           "ACCOUNT_NAME": {
             "TITLE": "Set name of your account",
-            "DESCRIPTION": "In EOS name of the account is the main identifier. It shall be unique, contains letters and/or digits, and has 12 symbols.",
+            "DESCRIPTION": "In EOS name of the account is the main identifier. It shall be unique, contains letters and/or digits (1-5), and has 12 symbols.",
             "SUCCESS_TEXT": "Alias is available",
             "ALREADY_NAME_TEXT": "Alias is already taken"
           },
@@ -1191,6 +1194,7 @@
       },
       "TABS": {
         "INFO": "Preview contract",
+        "ACCOUNT_INFO": "Preview account",
         "SOURCE": "Source code"
       },
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",

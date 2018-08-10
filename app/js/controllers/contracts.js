@@ -210,6 +210,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
                             var currentPage = 0;
                             var getTokensOnPage = function() {
+                                console.log(currentPage);
                                 web3Service.setProviderByNumber(contract.network);
                                 iPoolContract.methods['pageTokenAmount'](currentPage).call(function(error, result) {
                                     var intResult = result * 1;
@@ -217,6 +218,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                                         currentPage++;
                                         (currentPage < pagesLength) ? getTokensOnPage() : callback();
                                     } else {
+                                        console.log(currentPage);
                                         callback(currentPage)
                                     }
                                 });

@@ -73,6 +73,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     };
 
     var getTotalSupply = function() {
+        web3Service.setProviderByNumber(contract.network);
         web3Contract.methods.totalSupply().call(function(error, result) {
             if (error) {
                 result = 0;

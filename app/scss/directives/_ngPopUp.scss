@@ -7,12 +7,31 @@
   bottom: 0;
   overflow: auto;
   min-width: 32em;
+  display: none;
+  .popup-showed & {
+    display: block;
+  }
 }
 .popup-window-wrapper {
   position: relative;
   float: left;
-  width: 100%;
-  min-height: 100%;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  .popup-window {
+    transition: opacity linear 0.1s;
+    opacity: 0;
+  }
+
+  &:last-child {
+    width: 100%;
+    min-height: 100%;
+    opacity: 1;
+    .popup-window {
+      opacity: 1;
+    }
+  }
 }
 .popup-window {
   width: 90%;
@@ -59,7 +78,7 @@
   position: absolute;
   top: -0.5em;
   right: -0.5em;
-  color: $main-blue-color;
+  color: $main-color;
   cursor: pointer;
   font-size: 4em;
   transition: all linear 0.1s;

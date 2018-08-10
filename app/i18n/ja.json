@@ -46,7 +46,8 @@
     "ENDED": "完了しました",
     "DONE": "完了しました",
     "UNDER_CROWDSALE": "クラウド セールの下",
-    "SENDING_TOKENS": "Sending"
+    "SENDING_TOKENS": "送信",
+    "CREATING": "Creating"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -54,7 +55,9 @@
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet",
     "NETWORK_5": "NEO MainNet",
-    "NETWORK_6": "NEO TestNet"
+    "NETWORK_6": "NEO TestNet",
+    "NETWORK_10": "EOS MainNet",
+    "NETWORK_11": "EOS TestNet"
   },
   "BUTTONS": {
     "ENABLE": "有効にする",
@@ -76,7 +79,7 @@
     "CONFIRM": "確認する",
     "BUY_TOKENS": "トークンを購入する",
     "CHECK": "確認する",
-    "BACK": "Back",
+    "BACK": "背後に",
     "CHOOSE_FILE": "ファイルを選ぶ"
   },
   "AUTH_POPUP": {
@@ -121,12 +124,14 @@
     "ADD_TO_PARITY": "+パリティに追加",
     "CHANGE_DATES": "日付変更",
     "WHITELIST": "ホワイトリスト",
-    "SEND_AIRDROP_ADDRESSES": "Send To Group",
-    "ADD_ADDRESSES": "Import data",
+    "SEND_AIRDROP_ADDRESSES": "グループに送信する",
+    "ADD_ADDRESSES": "データのインポート",
     "SEND_FUNDS": "Send Funds",
     "SETTINGS": "Settings",
     "GET_TOKENS": "Get tokens",
-    "REFUND": "Refund"
+    "REFUND": "Refund",
+    "SEND_TOKENS": "Send Tokens",
+    "CREATE": "Create"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -140,7 +145,8 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
-    "NEO": "NEO"
+    "NEO": "NEO",
+    "EOS": "EOS"
   },
   "ALERTS": {
     "FORM_REQUEST_SUCCESS": {
@@ -245,11 +251,11 @@
       },
       "AIRDROP": {
         "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+        "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
       },
       "INVESTMENT_POOL": {
-        "TITLE": "Investment pool",
-        "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
+        "TITLE": "投資プール",
+        "DESCRIPTION": "ETHの蓄積のための契約は、投資の前にあります。それを作成し、そのアドレスを他の人と共有する。"
       },
       "LOST_KEY": {
         "TITLE": "失われたキー",
@@ -266,6 +272,10 @@
       "WEDDING": {
         "TITLE": "ウェディング契約",
         "DESCRIPTION": "指定された期間の後/間に所有者の間でMultisig財布が機能し、資金の配分です。"
+      },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "Create an account on EOS blockchain"
       },
       "TEST_NET_DISCLAIMER": {
         "LIST": {
@@ -346,27 +356,27 @@
   "POPUP_FORMS": {
     "AIRDROP": {
       "DISCLAIMER": {
-        "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one address in Ethereum (column A) and amount of tokens to distribute (column B)",
-        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+        "ITEM_1": "アドレスとトークンの量を追加するには、テーブルを* .csv形式でアップロードする必要があります",
+        "ITEM_2": "すべての行には、Ethereum（列A）に1つのアドレスと、配布するトークンの量（列B）が含まれている必要があります。",
+        "ITEM_TEXT": "トークンフィールドの量の形式には2種類あります。例えばトークンに18小数点があり、26.5トークンを誰かに送信したいとします。「小数点なし」を選択した場合は、B列に26.5を入力する必要があります。「小数点付き」 - 26500000000000000000（26.5 * 10 ^ 18）を入力する必要があります。"
       },
       "FILE_ERRORS": {
-        "WRONG_FORMAT": "Wrong file format",
-        "PARSE_ERROR": "File parsing error"
+        "WRONG_FORMAT": "間違ったファイル形式",
+        "PARSE_ERROR": "ファイルの解析エラー"
       },
       "TABLE": {
-        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
-        "PROCESSED_SUCCESSFULLY": "{{success}} rows were processed successfully",
-        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
-        "LINE_NUMBER": "Line: {{line}}",
-        "ERRORS_COUNT": "{{count}} errors",
+        "SUCCESS_ADDRESSES": "次のアドレスはクラウドセール契約のホワイトリストに登録される準備ができています：",
+        "PROCESSED_SUCCESSFULLY": "{{success}}行が正常に処理されました",
+        "ERROR_ADDRESSES": "{{errorsLength}}行はエラーを含みます",
+        "LINE_NUMBER": "ライン：{{line}}",
+        "ERRORS_COUNT": "{{count}}エラー",
         "ERRORS": {
-          "WRONG_FORMAT": "Address has wrong format",
-          "EMPTY_STRING": "Empty string",
-          "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
-          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
+          "WRONG_FORMAT": "アドレスが間違った形式になってい",
+          "EMPTY_STRING": "空の文字列",
+          "WRONG_AMOUNT_FORMAT": "トークンの量が不在または違います",
+          "WRONG_AMOUNT_VALUE": "トークンの間違った量 - 小数の矛盾"
         },
-        "ADD_BUTTON": "Add {{length}} addresses"
+        "ADD_BUTTON": "{{length}}アドレスを追加する"
       }
     },
     "WHITELIST": {
@@ -454,8 +464,8 @@
     "ALL": {
       "LAUNCH": {
         "LIST": {
-          "ITEM_1": "MyWishは契約の使用に責任を負いません",
-          "ITEM_2": "MyWishはEthereum / RSKネットワーク上での作成と起動のみを担当します",
+          "ITEM_1": "MyWish is NOT responsible for the use of the contract/account",
+          "ITEM_2": "MyWishは、ネットワーク上での作成と起動のみを担当します",
           "ITEM_3": "MyWishは、ユーザーが入力した間違ったパラメータの場合、間違った契約の行動の責任を負いません",
           "ITEM_4": "MyWishは、コード内の誤りについて責任を負いませんが、彼らが検出された場合、それをできるだけ早く排除するために全力を尽くします",
           "ITEM_5": "MyWishは契約の管理機能にアクセスすることはできず、終了日後のファイナライゼーションを除き、契約を停止したり、何か他のことをすることはできません"
@@ -509,8 +519,8 @@
         "DESCRIPTION": "クラウドセール契約にすべてのアドレスをホワイトリストに追加するには、次のトランザクションを実行してください。<br/>（たくさんのアドレスを追加すると、たくさんのガスが必要になります）："
       },
       "AIRDROP": {
-        "TITLE": "Tokens sending",
-        "DESCRIPTION": "To send tokens to addresses {{from}} - {{to}} please do the following steps (if you added many addresses it will take a lot of gas):"
+        "TITLE": "トークンの送信",
+        "DESCRIPTION": "{{from}} - {{to}}アドレスにトークンを送るには、以下の手順を実行してください　（多くのアドレスを追加した場合、それはたくさんのガスを取るでしょう）："
       },
       "CANCEL": {
         "TITLE": "キャンセル",
@@ -519,7 +529,7 @@
       "DEPOSIT": {
         "TITLE": "デポジット",
         "DESCRIPTION": "契約上のデポジットを作るために、指示に従ってください。",
-        "AIRDROP_DESCRIPTION": "To make a deposit of {{coinName}} tokens to Airdrop contract, please do the following steps:",
+        "AIRDROP_DESCRIPTION": "Airdrop契約に{{coinName}}トークンを入金するには、以下の手順を実行してください：",
         "LIST": {
           "ITEM_1": "お財布を開きます　（パリティ, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "お財布にイーサ＆トークンタブを送る選択してください",
@@ -581,24 +591,28 @@
       "SET_ADDRESS": {
         "DESTINATION_ADDRESS": {
           "TITLE": "",
-          "DESCRIPTION": "To Set Destination to {{address}} for your Investment pool please do the following steps:"
+          "DESCRIPTION": "投資プールの目的地{{address}}をに設定するには、以下の手順を実行してください。"
         },
         "TOKEN_ADDRESS": {
           "TITLE": "",
-          "DESCRIPTION": "To Set Token {{address}} for your Investment pool please do the following steps:"
+          "DESCRIPTION": "投資プールのトークン{{address}}を設定するには、以下の手順を実行してください。"
         }
       },
       "SEND_FUNDS": {
-        "TITLE": "Send Funds",
-        "DESCRIPTION": "To send all funds ({{amount}} ETH) to {{address}} please do the following steps:"
+        "TITLE": "資金を送る",
+        "DESCRIPTION": "For sending ({{amount}} ETH) to Destination address ({{address}}) please make the following steps:"
       },
       "GET_TOKENS": {
-        "TITLE": "Get tokens",
-        "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+        "TITLE": "トークンを取得する",
+        "DESCRIPTION": "トークンを取得するには、あなたの投資アドレスから取引を行う必要があります："
+      },
+      "SEND_TOKENS": {
+        "TITLE": "Send tokens",
+        "DESCRIPTION": "For sending the tokens (50 addresses per call) please make the following steps:"
       },
       "INVESTMENT_REFUND": {
-        "TITLE": "Refund",
-        "DESCRIPTION": "To refund your investments please make the following steps under your investment address:"
+        "TITLE": "払い戻し",
+        "DESCRIPTION": "投資を払い戻すには、投資先住所の下で次の手順を実行してください："
       }
     },
     "RSK": {
@@ -754,80 +768,80 @@
         }
       },
       "INVESTMENT_POOL": {
-        "TITLE": "Investment Pool",
+        "TITLE": "投資プール",
         "FIELDS": {
           "MANAGEMENT_ADDR": {
-            "LABEL": "Management address:",
-            "PLACEHOLDER": "Enter your ETH wallet address",
-            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+            "LABEL": "管理アドレス：",
+            "PLACEHOLDER": "ETHウォレットのアドレスを入力してください",
+            "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
           },
           "TOKEN_ADDRESS_ON_OFF": {
-            "LABEL": "Set Token",
-            "DESCRIPTION": "Specify the token which shall be distributed after the investment. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+            "LABEL": "トークンを設定する",
+            "DESCRIPTION": "投資後に配布されなければならないトークンを指定します。後で設定する場合は、\"オフ\"を選択してください。<br/>設定後は変更できません。"
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token contract address:",
-            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+            "LABEL": "トークン契約のアドレス",
+            "DESCRIPTION": "配布したいトークンのアドレスを指定してください"
           },
           "HARD_CAP": {
-            "LABEL": "Pool volume (maximum)",
-            "DESCRIPTION": "Defines maximum volume for the pool. After reaching maximum no more contributions to pool are accepted."
+            "LABEL": "プール容量（最大）",
+            "DESCRIPTION": "プールの最大容量を定義します。最大に達した後、プールへの貢献はそれ以上受け入れられません。"
           },
           "SOFT_CAP": {
-            "LABEL": "Pool volume (minimum)",
-            "DESCRIPTION": "Defines minimum ETH needed for investments. If minimum is not reached - contributors get their ETHs back. You can set it to 0 (no minimum)."
+            "LABEL": "プール容量（最小）",
+            "DESCRIPTION": "投資のために必要なETH最小容量を定義します。最小に達していない場合、寄稿者はETHを取り戻します。 あなたは0に（最低なし）設定することができます"
           },
           "START_DATE": {
-            "LABEL": "Start date",
-            "DESCRIPTION": "Start date/time for opening the pool. No contributions to the pool will be accepted before that time"
+            "LABEL": "開始日",
+            "DESCRIPTION": "開始日時はプールを開くためのものです。プールに何の貢献は、その時間の前に受け入れられません"
           },
           "FINISH_DATE": {
-            "LABEL": "Finish date",
-            "DESCRIPTION": "Finish date/time for closing the pool. No contributions to the pool will be accepted after that time."
+            "LABEL": "終了日",
+            "DESCRIPTION": "終了日時はプールを閉じるためのものです。プールに何の貢献は、その時間後に受け付けられません。"
           },
           "CHANGING_DATES": {
-            "LABEL": "Changing dates",
-            "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
+            "LABEL": "変更日付",
+            "DESCRIPTION": "開始/終了日は、契約の展開後に手動で変更することができます。販売を延長するも、早期に終了することもできます。<BR/>それ以外の場合は、日付がハードコーディングされており、変更できません。"
           },
           "WHITELIST": {
-            "LABEL": "Whitelist",
-            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+            "LABEL": "ホワイトリスト",
+            "DESCRIPTION": "契約は唯一の定義されたアドレスからの寄付を受け付けます。 いつでもアドレスを追加できます。"
           },
           "MIN_MAX_INVESTMENTS": {
-            "LABEL": "Min & Max investments limitations",
-            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+            "LABEL": "投資の最小/最大限度",
+            "DESCRIPTION": "（ETHで）最小/最大受け入れ貢献を指定することができます。 例えば、0.05 ETHから3000 ETHのみの寄付を受け入れます。"
           },
           "MIN_INVESTMENTS": {
-            "LABEL": "Minimum",
-            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+            "LABEL": "最小",
+            "DESCRIPTION": "最小量は受け入れました。\"0\" =最小限の制限はありません"
           },
           "MAX_INVESTMENTS": {
-            "LABEL": "Maximum",
-            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+            "LABEL": "最大",
+            "DESCRIPTION": "最大量は受け入れました。 それはハードキャップより高くすることはできません"
           },
           "INVESTMENT_ADDRESS_ON_OFF": {
-            "LABEL": "Set Destination",
-            "DESCRIPTION": "Set Destination for the investments. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+            "LABEL": "目的地を設定する",
+            "DESCRIPTION": "投資の目的地を設定してください。後で設定する場合は、\"オフ\"を選択してください。<br/>設定後は変更できません。"
           },
           "INVESTMENT_ADDRESS": {
-            "LABEL": "Destination address:",
-            "DESCRIPTION": "ETH address for sending all funds from the pool. It can be Contract address. Double check it before the submission."
+            "LABEL": "目的地のアドレス：",
+            "DESCRIPTION": "ETHアドレスはプールからすべての資金を送信するためです。 契約アドレスにすることもできます。提出前にダブルチェックをしてください。"
           },
           "BONUS": {
-            "LABEL": "Personal bonus (in Tokens) for the pool's owner:",
-            "DESCRIPTION": "Usually 0.1-1%. % of pool's tokens (after successfull investment) will be sent to pool's owner."
+            "LABEL": "プールの所有者のための個人のボーナス（トークンで）：",
+            "DESCRIPTION": "通常0.1〜1％。 プールトークンの％（成功した投資後）がプールの所有者に送信されます。"
           },
           "HARD_CAP_INVEST": {
             "LABEL": "Everyone after MAX",
-            "DESCRIPTION": "Everyone can initiate investment after MAX reaching. Off - only contract's owner can do it."
+            "DESCRIPTION": "誰も最大に到達した後に投資を開始することができます。唯一の契約の所有者は‘オフ‘ を行うことができます。"
           },
           "SOFT_CAP_INVEST": {
             "LABEL": "Everyone after MIN",
-            "DESCRIPTION": "Everyone can initiate investment after MIN reaching. Off - only contract's owner can do it."
+            "DESCRIPTION": "誰も最小に到達した後に投資を開始することができます。唯一の契約の所有者は‘オフ‘ を行うことができます。"
           },
           "PLATFORM_AS_ADMIN": {
-            "LABEL": "Control by MyWish:",
-            "DESCRIPTION": "ON is recommended - after sending the funds, you will be able to call the destination contract via MyWish.<br/>If Off - only the owner of the contract can do it."
+            "LABEL": "MyWishによる制御：",
+            "DESCRIPTION": "ONが推奨されます。資金を送った後、あなたはMyWish経由で目的地契約に電話することができます。<BR/>OFFの場合、契約の所有者のみがそれを行うことができます"
           }
         }
       },
@@ -934,6 +948,7 @@
           "ADD_ADDRESS": "アドレスを追加する"
         },
         "TOTAL_SUPPLY": "総供給：",
+        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "トークン名",
@@ -1116,17 +1131,60 @@
             "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token contract address",
-            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+            "LABEL": "トークン契約のアドレス",
+            "DESCRIPTION": "配布したいトークンのアドレスを指定します"
           },
           "ERRORS": {
-            "WRONG_TOKEN_ADDRESS": "Wrong Token contract address"
+            "WRONG_TOKEN_ADDRESS": "間違ったトークン契約アドレス"
           },
           "WITH_DECIMALS": {
-            "LABEL": "Choose Table format:",
-            "VALUE_LABEL": "Decimals"
+            "LABEL": "テーブル形式を選択：",
+            "VALUE_LABEL": "小数"
           },
-          "TABLE_EXAMPLE": "Table example:"
+          "TABLE_EXAMPLE": "表の例："
+        }
+      },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
+        "FIELDS": {
+          "ACCOUNT_NAME": {
+            "TITLE": "Choose a name for your account",
+            "DESCRIPTION": "The EOS account name is the main identifier it has to be unique. Contains letters and/or digits (1-5), and has 12 symbols.",
+            "SUCCESS_TEXT": "Alias is available",
+            "ALREADY_NAME_TEXT": "Alias is already taken"
+          },
+          "HAVE_PUBLIC_KEY": {
+            "TITLE": "Do you have a public key?"
+          },
+          "ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Enter your active public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "OWNER_PUBLIC_KEY": {
+            "TITLE": "Enter your owner public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "GENERATED_ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Your active public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_OWNER_PUBLIC_KEY": {
+            "TITLE": "Your owner public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_ACTIVE_PRIVATE_KEY": {
+            "TITLE": "Your active private key",
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+          },
+          "GENERATED_OWNER_PRIVATE_KEY": {
+            "TITLE": "Your owner private key",
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+          },
+          "COPY_KEYS": "Copy keys pairs",
+          "GENERATE_KEYS": "Generate keys pairs",
+          "REGENERATE_KEYS": "Generate new pairs",
+          "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, it generates it only."
         }
       }
     },
@@ -1141,11 +1199,11 @@
       "FREE_VERSION_MSG": "（テストネット）フリーバージョンのコードがローディングのために利用できない源を含みます。",
       "WILL_SOURCE_CODE": "ごウィルのソースコード",
       "DEFERRED_SOURCE_CODE": "遅延支払い契約のソースコード",
-      "INVESTMENT_POOL_SOURCE_CODE": "Your Investment Pool contract source code",
+      "INVESTMENT_POOL_SOURCE_CODE": "ご投資プール契約のソースコード",
       "LOST_KEY_SOURCE_CODE": "失われたキーのソースコード",
       "TOKEN_SOURCE_CODE": "トークンのソースコード",
       "CROWDSALE_SOURCE_CODE": "クラウドセールのソースコード",
-      "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
+      "AIRDROP_SOURCE_CODE": "あなたのAirdrop契約のソースコード",
       "HERE": "ここに",
       "ETHERSCAN_VERIFY_SUPPORT": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレスでご連絡ください</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレス</a>でご連絡いただくか、指示に従ってください：",
@@ -1215,30 +1273,35 @@
         }
       },
       "AIRDROP": {
-        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution.",
-        "ADDED_ADDRESSES": "You have added {{count}} addresses",
-        "SENT_ADDRESSES": "Tokens sent to {{count}} addresses",
-        "PROCESSING_ADDRESSES": "Sending now to addresses #{{from}} - {{to}}",
-        "NOT_SEND_ADDRESSES": "Not sent to {{count}} addresses",
-        "LOW_BALANCE": "Not enough tokens. <br/>Please deposit the contract (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) before the execution",
-        "NO_ADDRESSES": "No addresses were added",
+        "PREVIEW_DESCRIPTION": "契約の展開後、配布するアドレスのリストを追加することができます。",
+        "ADDED_ADDRESSES": "あなたは{{count}}のアドレスを追加しました",
+        "SENT_ADDRESSES": "トークンは{{count}}のアドレスに送信されました",
+        "PROCESSING_ADDRESSES": "今は#{{from}} - {{to}}のアドレスへ送ります",
+        "NOT_SEND_ADDRESSES": "{{count}}のアドレスには送信されません",
+        "LOW_BALANCE": "トークンが足りません。<br/>実行前に契約書(<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) を堆積してください",
+        "NO_ADDRESSES": "アドレスが追加されていません",
         "SEND_TO_GROUP": {
-          "TITLE": "Send Tokens To",
-          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
-          "BUTTON": "Send Tokens",
-          "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
+          "TITLE": "トークンを送信先",
+          "DESCRIPTION": "次(#{{from}} - {{to}})のアドレスは、次の送信グループに含まれます",
+          "BUTTON": "トークンを送る",
+          "TOTAL_TOKENS": "<b>送信される合計トークン：</b> {{total}} {{symbol}}"
         }
       },
       "INVESTMENTS_POOL": {
-        "SHARE_LINK": "You can share your contract to contributors by this link:",
-        "SEN_FUNDS_TX": "Sending transaction on <a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>",
+        "SHARE_LINK": "あなたはこのリンクによって寄稿者とご契約を共有することができます：",
+        "SEN_FUNDS_TX": "<a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>でトランザクションを送信する",
         "RAISED": {
-          "PROGRESS": "Raised progress",
-          "MIN": "min",
-          "MAX": "max",
-          "TOTAL": "Total raised: {{amount}} ETH",
-          "DAY": "(Day: +{{percent}}%)"
+          "PROGRESS": "進捗が上がった",
+          "MIN": "最小",
+          "MAX": "最大",
+          "TOTAL": "総獲得額：{{amount}} ETH",
+          "DAY": "日：＋{{percent}}%)"
         }
+      },
+      "EOS_WALLET": {
+        "ACCOUNT_NAME": "Account name",
+        "ACTIVE_PUBLIC_KEY": "Active public key",
+        "OWNER_PUBLIC_KEY": "Owner public key"
       }
     }
   }

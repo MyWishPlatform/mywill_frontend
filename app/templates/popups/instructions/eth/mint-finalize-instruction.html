@@ -8,7 +8,7 @@
         <div class="shadow-block__content__description">
             <span translate-values="{
                 token_short_name: ngPopUp.params.contract.contract_details.token_short_name,
-                etherscan_url: $root.getEtherscanUrl(ngPopUp.params.contract),
+                etherscan_url: (ngPopUp.params.contract.network|etherscanUrl:'address'),
                 admin_address: ngPopUp.params.contract.contract_details.admin_address
             }" translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.DESCRIPTION"></span>
         </div>

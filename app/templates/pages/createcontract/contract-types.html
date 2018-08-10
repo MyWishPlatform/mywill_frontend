@@ -6,34 +6,45 @@
             </div>
         </div>
     </div>
-    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="sitemode === 'default'">
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2">
-                <label class="btn btn-gray with-icon width-100 nowrap" ng-class="{'active': blockChainNetwork.type === 'ethereum'}">
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+                <label class="btn btn-gray with-icon width-100 nowrap" ng-class="{'active': blockChainNetwork.type === 'ETH'}">
                     <input type="radio" class="hidden-input"
                            ng-model="blockChainNetwork.type"
-                           value="ethereum" name="blockchain-network">
+                           value="ETH" name="blockchain-network">
                     <img src="/static/images/blockchain/ethereum.png" width="20"  style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.ETH"></span>
                 </label>
             </div>
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2">
-                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'rsk'}">
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'EOS'}">
                     <input type="radio" class="hidden-input"
                            ng-model="blockChainNetwork.type"
-                           value="rsk" name="blockchain-network">
+                           value="EOS" name="blockchain-network">
+                    <img src="/static/images/blockchain/eos.svg" width="18" style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.EOS"></span>
+                </label>
+            </div>
+            <div class="show-ps clearfix"><br/></div>
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'RSK'}">
+                    <input type="radio" class="hidden-input"
+                           ng-model="blockChainNetwork.type"
+                           value="RSK" name="blockchain-network">
                     <img src="/static/images/blockchain/bitcoin.png" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.BTC"></span>
                 </label>
             </div>
-            <div class="show-vs clearfix"><br/></div>
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2">
-                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'neo'}">
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'NEO'}">
                     <input type="radio" class="hidden-input"
                            ng-model="blockChainNetwork.type"
-                           value="neo" name="blockchain-network">
+                           value="NEO" name="blockchain-network">
                     <img src="/static/images/blockchain/neo.png" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.NEO"></span>
@@ -55,20 +66,20 @@
             <div class="grid-cell">
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
-                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'neo')"
-                           ng-disabled="blockChainNetwork.type === 'neo'">
+                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'EOS')"
+                           ng-disabled="(blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'EOS')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>
                         <span class="checkbox-decoration-val checkbox-decoration-val_off"
                               translate="NO"></span>
                     </span>
-                    <div ng-if="blockChainNetwork.type == 'neo'"
+                    <div ng-if="blockChainNetwork.type == 'NEO'"
                          class="disclaimer-btn"
                          ng-pop-up="{
-                        newPopupContent: true,
-                        template: '/templates/popups/disclaimers/neo-network.html'
-                    }"></div>
+                            newPopupContent: true,
+                            template: '/templates/popups/disclaimers/neo-network.html'
+                        }"></div>
                 </label>
             </div>
 
@@ -78,7 +89,7 @@
                 newPopupContent: true,
                 template: '/templates/popups/disclaimers/all/test-net-disclaimer.html'
             }"></div>
-            <div ng-if="blockChainNetwork.type == 'rsk'" ng-pop-up="{
+            <div ng-if="blockChainNetwork.type == 'RSK'" ng-pop-up="{
                 opened: true,
                 newPopupContent: true,
                 template: '/templates/popups/disclaimers/btc-how-it-works.html',
@@ -100,243 +111,27 @@
 </div><br/><br/>
 
 
-<div class="" ng-if="blockChainNetwork.type === 'rsk'">
-    <div ui-sref="main.createcontract.form({selectedType: 'lastWill', network: blockChainNetwork.isTest ? 4 : 3})"
+<div ng-repeat="(key, blockChainData) in contractsTypes" ng-if="blockChainNetwork.type === key">
+    <div ng-repeat="contractForCreate in blockChainData.list"
+            ui-sref="main.createcontract.form({selectedType: contractForCreate.type, network: blockChainData.networks[!blockChainNetwork.isTest ? 0 : 1]})"
          class="shadow-block shadow-block_hovered">
         <div class="shadow-block__content">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-lastwill shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.WILL.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.WILL.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="" ng-if="blockChainNetwork.type === 'neo'">
-    <div ui-sref="main.createcontract.form({selectedType: 'token', network: blockChainNetwork.isTest ? 6 : 6})"
-          class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-token shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.TOKEN.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div ui-sref="main.createcontract.form({selectedType: 'crowdSale', network: blockChainNetwork.isTest ? 6 : 6})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-crowdsale shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.CROWDSALE.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="" ng-if="blockChainNetwork.type === 'ethereum'">
-    <div ui-sref="main.createcontract.form({selectedType: 'crowdSale', network: blockChainNetwork.isTest ? 2 : 1})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
+            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
                 <div class="contract-price-block_content">
-                    <span>{{allCosts[4]}}</span>
+                    <span>{{allCosts[contractForCreate.typeNumber]}}</span>
                     <img src="/static/images/blockchain/ethereum.png">
                 </div>
             </div>
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="shadow-block__content__title">
-                        <i class="icon-crowdsale shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.CROWDSALE.TITLE"></span>
+                        <i class="shadow-block__content__title__icon" ng-class="contractForCreate.icon"></i>
+                        <span class="shadow-block__content__title__text">
+                            {{contractForCreate.title | translate}}
+                        </span>
                     </div>
                     <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div ui-sref="main.createcontract.form({selectedType: 'token', network: blockChainNetwork.isTest ? 2 : 1})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
-                <div class="contract-price-block_content">
-                    <span>{{allCosts[5]}}</span>
-                    <img src="/static/images/blockchain/ethereum.png">
-                </div>
-            </div>
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-token shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.TOKEN.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div ui-sref="main.createcontract.form({selectedType: 'airdrop', network: blockChainNetwork.isTest ? 2 : 1})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
-                <div class="contract-price-block_content">
-                    <span>{{allCosts[8]}}</span>
-                    <img src="/static/images/blockchain/ethereum.png">
-                </div>
-            </div>
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-airdrop shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.AIRDROP.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div ui-sref="main.createcontract.form({selectedType: 'investmentPull', network: blockChainNetwork.isTest ? 2 : 1})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <div class="contract-price-block" ng-if="!blockChainNetwork.isTest">
-                <div class="contract-price-block_content">
-                    <span>{{allCosts[9]}}</span>
-                    <img src="/static/images/blockchain/ethereum.png">
-                </div>
-            </div>
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-investment-pool shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.INVESTMENT_POOL.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.INVESTMENT_POOL.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div ui-sref="main.createcontract.form({selectedType: 'lostKey', network: blockChainNetwork.isTest ? 2 : 1})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <!--<div class="contract-price-block" ng-if="!blockChainNetwork.isTest" ng-attr-data-from="{{'FROM'|translate}}">-->
-                <!--<div class="contract-price-block_content">-->
-                    <!--<span>{{allCosts[1]}}</span>-->
-                    <!--<img src="/static/images/blockchain/ethereum.png">-->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-key shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.LOST_KEY.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.LOST_KEY.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div ui-sref="main.createcontract.form({selectedType: 'deferred', network: blockChainNetwork.isTest ? 2 : 1})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <!--<div class="contract-price-block" ng-if="!blockChainNetwork.isTest">-->
-                <!--<div class="contract-price-block_content">-->
-                    <!--<span>{{allCosts[2]}}</span>-->
-                    <!--<img src="/static/images/blockchain/ethereum.png">-->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-deferred shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.DEFERRED.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.DEFERRED.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div ui-sref="main.createcontract.form({selectedType: 'lastWill', network: blockChainNetwork.isTest ? 2 : 1})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <!--<div class="contract-price-block" ng-if="!blockChainNetwork.isTest" ng-attr-data-from="{{'FROM'|translate}}">-->
-                <!--<div class="contract-price-block_content">-->
-                    <!--<span>{{allCosts[0]}}</span>-->
-                    <!--<img src="/static/images/blockchain/ethereum.png">-->
-                <!--</div>-->
-            <!--</div>-->
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-lastwill shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.WILL.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.WILL.DESCRIPTION"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div ui-sref="main.createcontract.form({selectedType: 'wedding'})"
-         class="shadow-block shadow-block_hovered">
-        <div class="shadow-block__content">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="shadow-block__content__title">
-                        <i class="icon-wedding shadow-block__content__title__icon"></i>
-                        <span class="shadow-block__content__title__text"
-                              translate="PAGES.CREATE_CONTRACT.WEDDING.TITLE"></span>
-                    </div>
-                    <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="PAGES.CREATE_CONTRACT.WEDDING.DESCRIPTION"></span>
+                        <span>{{contractForCreate.description | translate}}</span>
                     </div>
                 </div>
             </div>

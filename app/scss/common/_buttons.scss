@@ -37,7 +37,6 @@ $red-active-color: #bb0d2b;
     &:not(.only-icon) {
       &:hover, &:focus {
         box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0.2);
-        //transform: translateY(-0.1em);
       }
       &:active {
         box-shadow: 0 0 0 rgba(0, 0, 0, 0);
@@ -60,7 +59,7 @@ $red-active-color: #bb0d2b;
   }
   span, i {}
   &.btn-submit {
-    background: $main-blue-color;
+    background: $main-color;
     color: $white-color;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
   }
@@ -81,7 +80,7 @@ $red-active-color: #bb0d2b;
   &.btn-transparent {
     border: 0.2em solid;
     line-height: 3.6em;
-    color: $main-blue-color;
+    color: $main-color;
     background: none;
     transition: all 0.05s linear;
     //text-shadow: 0 0.4em 0.2em rgba(0, 0, 0, 0);
@@ -126,14 +125,13 @@ $red-active-color: #bb0d2b;
   }
   &.only-icon {
     background: none;
-    color: $main-blue-color;
+    color: $main-color;
     padding: 0 0 0 1.5em;
     transition: text-shadow 0.1s linear;
     box-shadow: initial;
     text-shadow: 0 0 0 rgba(0, 0, 0, 0);
     &:hover, &:focus {
       text-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.2);
-      transform: translateY(-0.1em);
     }
     &:active {
       text-shadow: 0 0 0 rgba(0, 0, 0, 0);

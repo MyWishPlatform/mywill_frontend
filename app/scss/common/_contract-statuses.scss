@@ -30,7 +30,7 @@
       margin-left: 1em;
     }
   }
-  &.contract-status-1 {
+  &.contract-status-0, &.contract-status-1 {
     &:before {
       background-color: #fff;
     }
@@ -40,7 +40,7 @@
       background-color: #f7ec45;
     }
   }
-  &.contract-status-3, &.contract-status-10, &.contract-status-12, &.contract-status-101 {
+  &.contract-status-3, &.contract-status-10, &.contract-status-12, &.contract-status-101, &.contract-status-102 {
     &:before {
       background-color: #fd821a;
     }

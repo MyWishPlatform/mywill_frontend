@@ -1,4 +1,4 @@
-$main-blue-color: #206EFF;
+$main-color: #206EFF;
 $white-color: #fff;
 
 @import 'common/awesome.scss';
@@ -80,7 +80,7 @@ a img {
 }
 .field-error {
   display: none;
-  color: $main-blue-color;
+  color: $main-color;
 }
 .field-success {
   display: block;
@@ -107,7 +107,7 @@ a img {
   outline: none;
   form.ng-submitted &, &.ng-touched {
     &.ng-invalid {
-      border-color: $main-blue-color;
+      border-color: $main-color;
       ~ {
         .field-label {
           //color: #ffa2a8;
@@ -189,10 +189,10 @@ a img {
     padding-bottom: 0.225em;
     border-bottom: 2px solid transparent;
     &.active {
-      border-bottom: 2px solid $main-blue-color;
+      border-bottom: 2px solid $main-color;
       a {
         cursor: default;
-        color: $main-blue-color;
+        color: $main-color;
       }
     }
     + li {
@@ -206,7 +206,7 @@ a img {
         text-decoration: none;
       }
       &:hover {
-        color: $main-blue-color;
+        color: $main-color;
       }
     }
   }
@@ -221,7 +221,7 @@ a img {
 }
 .restore-link {
   font-size: 1.3em;
-  color: $main-blue-color;
+  color: $main-color;
   line-height: 1.2em;
   cursor: pointer;
   display: block;

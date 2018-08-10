@@ -1,6 +1,12 @@
 $blocks-background: #F4F4F4;
 $dark-block-background: #F0F0F0;
-$main-blue-color: #206EFF;
+$main-color: #206EFF!default;
+$menu-hover-color: #4d97f4!default;
+
+@if($env == 'eos') {
+  $main-color: #006212;
+  $menu-hover-color: #00931c;
+}
 $white-color: #fff;
 $black-color: #000;
 $info-color: #f5a623;
@@ -90,7 +96,7 @@ button, input, textarea {
   font-family: inherit;
 }
 a, .as-link {
-  color: $main-blue-color;
+  color: $main-color;
   text-decoration: underline;
   &.dotted, &:hover, &:focus {
     text-decoration: none;
@@ -126,7 +132,13 @@ strong {
   font-size: 0.9em;
 }
 .main-blue-color, .pay-count {
-  color: $main-blue-color;
+  color: $main-color;
+}
+
+.important-warning-text {
+  font-size: 1.2em;
+  color: #a00;
+  font-weight: bold;
 }
 
 .identicon-container {
@@ -177,7 +189,7 @@ nav, main, footer, header {
 }
 .restore-link {
   font-size: 1.3em;
-  color: $main-blue-color;
+  color: $main-color;
   line-height: 1.2em;
   cursor: pointer;
   display: block;
@@ -200,7 +212,7 @@ nav, main, footer, header {
   }
   i {
     font-size: 1.9em;
-    color: $main-blue-color;
+    color: $main-color;
     vertical-align: middle;
     margin-right: 0.75em;
   }
@@ -391,7 +403,7 @@ nav, main, footer, header {
       text-decoration: none;
     }
     &__name {
-      color: $main-blue-color;
+      color: $main-color;
       vertical-align: middle;
       text-decoration: underline;
       cursor: pointer;

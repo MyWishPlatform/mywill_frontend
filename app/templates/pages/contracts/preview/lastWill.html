@@ -36,7 +36,7 @@
             </p>
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: $root.gitHubLink}"></span>
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/contracts/tree/develop'}"></span>
             </p>
         </div>
 
@@ -101,7 +101,7 @@
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (contract.contract_details.eth_contract.address|toCheckSum)}}"
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + (contract.contract_details.eth_contract.address|toCheckSum)}}"
                    target="_blank"
                    ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -127,7 +127,7 @@
                         <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
                     </span>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
-                        <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (contract.contract_details.user_address|toCheckSum)}}"
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + (contract.contract_details.user_address|toCheckSum)}}"
                            target="_blank"
                            ng-bind="contract.contract_details.user_address|toCheckSum"></a>
                     </div>
@@ -147,7 +147,7 @@
                         <img class="identicon-image" ng-src="{{heir.address|blockies}}"/>
                     </span>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
-                        <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + (heir.address|toCheckSum)}}"
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + (heir.address|toCheckSum)}}"
                            target="_blank"
                            ng-bind="heir.address|toCheckSum"></a>
                     </div>
@@ -162,7 +162,7 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <span class="form-control-label" translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CANCEL_VIA_MYWISH.LABEL"></span>
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': contract.contract_details.platform_cancel, 'icon-cancel': !contract.contract_details.platform_cancel}"></i>
                             <span ng-if="contract.contract_details.platform_cancel" translate="YES" class="uppercase"></span>
@@ -172,7 +172,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <span class="form-control-label" translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONFIRM_LIVE_VIA_MYWISH.LABEL"></span>
-                    <div class="contract-preview-base-font">
+                    <div class="normal-text">
                         <div class="contract-preview-base-value-string">
                             <i ng-class="{'icon-check_circle': contract.contract_details.platform_alive, 'icon-cancel': !contract.contract_details.platform_alive}"></i>
                             <span ng-if="contract.contract_details.platform_alive" translate="YES" class="uppercase"></span>
@@ -190,7 +190,7 @@
                     <i class="icon-conditions form-control-label-icon"></i>
                     {{'CONTRACTS.PREVIEW.CONTRACT_CONDITIONS'|translate}}
                 </div>
-                <div class="contract-preview-base-font contract-preview-base-value">
+                <div class="normal-text contract-preview-base-value">
                     <div>
                         {{'CONTRACTS.FORMS.LAST_WILL.FIELDS.DUE_DATE.LABEL'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.active_to|date:'yyyy-MM-dd'}}

@@ -2,15 +2,18 @@ require('./gulp.server.js');
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
     path = require('path'),
+    argv = require('yargs').argv,
+    sassVariables = require('gulp-sass-variables'),
     concat = require('gulp-concat'),
     uglifyjs = require('gulp-uglifyjs'),
     runSequence = require('run-sequence'),
     angularTemplatecache = require('gulp-angular-templatecache'),
-    uglifycss = require('gulp-uglifycss'),
     rev = require('gulp-rev'),
     del = require('del'),
+    ngConfig = require('gulp-ng-config'),
     browserify = require('gulp-browserify'),
-    // autoprefixer = require('gulp-autoprefixer'),
+    fs = require('fs'),
+    config = require('./config.js'),
     revReplace = require("gulp-rev-replace"),
     sourcemaps = require("gulp-sourcemaps");
 
@@ -34,46 +37,6 @@ var folders = {
     'i18n': 'i18n'
 };
 
-
-/* Landing */
-gulp.task('app:landing-clean', function() {
-    return del([path.join(input, 'landing')]);
-});
-gulp.task('app:landing', ['app:landing-clean'], function() {
-    return gulp.src(path.join(output, 'landing', '**/*'))
-        .pipe(gulp.dest(path.join(input, 'landing')));
-});
-
-gulp.task('app:js-rev-landing', function() {
-    return gulp.src(path.join(input, 'landing', 'js', '*.js'))
-        .pipe(rev())
-        .pipe(gulp.dest(path.join(input, 'landing', 'js')))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest(path.join(input, 'landing', 'js')));
-});
-
-gulp.task('app:css-rev-landing', function() {
-    return gulp.src(path.join(input, 'landing', 'css', '*.css'))
-        .pipe(rev())
-        .pipe(gulp.dest(path.join(input, 'landing', 'css')))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest(path.join(input, 'landing', 'css')));
-});
-
-/* Landing manifests */
-gulp.task('app:landing-revision', ['app:js-rev-landing', 'app:css-rev-landing'], function() {
-    var manifestCSS = gulp.src(path.join(input, 'landing', 'css', 'rev-manifest.json'));
-    var manifestJS = gulp.src(path.join(input, 'landing', 'js', 'rev-manifest.json'));
-    return gulp.src(path.join(output, 'index.html'))
-        .pipe(revReplace({manifest: manifestCSS}))
-        .pipe(revReplace({manifest: manifestJS}))
-        .pipe(gulp.dest(input))
-});
-
-/* Landing manifests */
-gulp.task('app:landing-build', ['app:landing'], function() {
-    return gulp.start('app:landing-revision');
-});
 
 
 /* Favicon */
@@ -99,7 +62,7 @@ gulp.task('app:templates-clean', function () {
 });
 gulp.task('app:templates', ['app:templates-clean'], function () {
     return gulp
-        .src(path.join(output, folders['templates'], '**/*.html'))
+        .src([path.join(output, folders['templates'], '*.html'), path.join(output, folders['templates'], '**/*.html')])
         .pipe(angularTemplatecache('templates.tpl.js', {
             standalone: true,
             root: "/templates/"
@@ -117,9 +80,11 @@ gulp.task('app:css-clean', function () {
 /* Styles collection */
 gulp.task('app:css', ['app:css-clean'], function() {
     return gulp.src(path.join(output, folders['scss'], '*.scss'))
+        .pipe(sassVariables({
+            $env: argv.eos ? 'eos' : 'default'
+        }))
         .pipe(sass())
         .pipe(gulp.dest(path.join(input, 'static', folders['css'])))
-        //.pipe(uglifycss())
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', folders['css'])))
         .pipe(rev.manifest())
@@ -130,14 +95,14 @@ gulp.task('app:vendors-clean', function () {
     return del([path.join(input, 'static', 'vendors', '**/*')]);;
 });
 /* Vendors scripts collection */
-gulp.task('app:vendors', ['app:vendors-clean'], function() {
-
-    return gulp.src(
+gulp.task('app:vendors', ['app:vendors-clean', 'app:web3'], function() {
+    var js = gulp.src(
         [
             path.join(folders['npm'], 'jquery', 'dist', 'jquery.min.js'),
             path.join(folders['npm'], 'papaparse', 'papaparse.min.js'),
             path.join(folders['npm'], 'ua-parser-js', 'dist', 'ua-parser.min.js'),
             path.join(folders['npm'], 'qrious', 'dist', 'qrious.min.js'),
+            path.join(folders['npm'], 'eosjs', 'lib', 'eos.min.js'),
             path.join(folders['npm'], 'angular', 'angular.min.js'),
             path.join(folders['npm'], 'angular-resource', 'angular-resource.min.js'),
             path.join(folders['npm'], 'angular-cookies', 'angular-cookies.min.js'),
@@ -154,15 +119,20 @@ gulp.task('app:vendors', ['app:vendors-clean'], function() {
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'pie.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'themes', 'light.js'),
             path.join(folders['npm'], 'bignumber.js', 'bignumber.min.js'),
+            path.join(input, 'static', 'web3', 'web3.js'),
             path.join(output, 'vendors', '**/*')
         ])
         .pipe(concat('vendors.js'))
         .pipe(sourcemaps.init({
             loadMaps: true
         }))
-        .pipe(sourcemaps.write())
-        //.pipe(uglifyjs({mangle: false}))
-        .pipe(rev())
+        .pipe(sourcemaps.write());
+
+    if (argv.production) {
+        js = js.pipe(uglifyjs({mangle: false}));
+    }
+
+    return js.pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', 'vendors')))
         .pipe(rev.manifest())
         .pipe(gulp.dest(path.join(input, 'static', 'vendors')));
@@ -178,6 +148,13 @@ gulp.task('all:templates-start', ['app:templates'], function() {
 });
 
 
+gulp.task('app:ws', function() {
+    return gulp.src(path.join(output, 'ws', 'socket-client.js'))
+        .pipe(browserify())
+        .pipe(gulp.dest(path.join(input, 'static', 'ws')));
+});
+
+
 gulp.task('app:web3', function() {
     return gulp.src(path.join(output, 'web3.js'))
         .pipe(browserify())
@@ -189,18 +166,20 @@ gulp.task('app:js-clean', function () {
     return del([path.join(input, 'static', 'js', 'main*')]);
 });
 /* Scripts collection */
-gulp.task('app:js', ['app:js-clean'], function() {
-    return gulp.src([
+gulp.task('app:js', ['app:js-clean', 'ng-config'], function() {
+    var js = gulp.src([
         path.join(output, folders['js'], '**/*'),
+        path.join(input, 'config.js'),
         '!' + path.join(output, folders['js'], 'login.js')])
         .pipe(concat('main.js'))
-        .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
-        //.pipe(uglifyjs({mangle: false}))
         .pipe(sourcemaps.init({
             loadMaps: true
         }))
-        .pipe(sourcemaps.write())
-        .pipe(rev())
+        .pipe(sourcemaps.write());
+    if (argv.production) {
+        js = js.pipe(uglifyjs({mangle: false}));
+    }
+    return js.pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
         .pipe(rev.manifest('main.json'))
         .pipe(gulp.dest(path.join(input, 'static', folders['js'])));
@@ -209,9 +188,10 @@ gulp.task('app:js', ['app:js-clean'], function() {
 gulp.task('login:js-clean', function () {
     return del([path.join(input, 'static', 'js', 'login*')]);
 });
+
 /* Scripts collection */
 gulp.task('login:js', ['login:js-clean'], function() {
-    return gulp.src(
+    var js = gulp.src(
         [
             path.join(folders['npm'], 'angular', 'angular.min.js'),
             path.join(folders['npm'], 'angular-resource', 'angular-resource.min.js'),
@@ -227,15 +207,19 @@ gulp.task('login:js', ['login:js-clean'], function() {
             path.join(output, folders['js'], 'constants', 'api.js')
         ])
         .pipe(concat('login.js'))
-        //.pipe(uglifyjs({mangle: false}))
         .pipe(sourcemaps.init({
             loadMaps: true
         }))
-        .pipe(sourcemaps.write())
-        .pipe(rev())
-        .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
-        .pipe(rev.manifest('login.json'))
-        .pipe(gulp.dest(path.join(input, 'static', folders['js'])));
+        .pipe(sourcemaps.write());
+
+    if (argv.production) {
+        js = js.pipe(uglifyjs({mangle: false}));
+    }
+
+    return js.pipe(rev())
+    .pipe(gulp.dest(path.join(input, 'static', folders['js'])))
+    .pipe(rev.manifest('login.json'))
+    .pipe(gulp.dest(path.join(input, 'static', folders['js'])));
 });
 
 
@@ -259,8 +243,7 @@ gulp.task('app:revision', function() {
     var manifestVendors = gulp.src(path.join(input, 'static', 'vendors', 'rev-manifest.json'));
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
 
-    return gulp.src([path.join(output, '*.html'),
-        '!' + path.join(output, 'index-landing.html')])
+    return gulp.src([path.join(output, '*.html')])
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
         .pipe(revReplace({manifest: manifestLoginJS}))
@@ -269,6 +252,20 @@ gulp.task('app:revision', function() {
         .pipe(gulp.dest(input))
 });
 
+gulp.task('ng-config', function() {
+    if (!fs.existsSync(input)) {
+        fs.mkdirSync(input);
+    }
+    fs.writeFileSync(path.join(input, 'config.js'),
+        JSON.stringify(config[argv.eos ? 'eos' : 'default']));
+    return gulp.src(path.join(input, 'config.js'))
+        .pipe(
+            ngConfig('app', {
+                createModule: false
+            })
+        )
+        .pipe(gulp.dest(input))
+});
 
 
 gulp.task('app:rev', ['app:css', 'app:vendors', 'all:js-start', 'app:templates'], function() {
@@ -282,7 +279,6 @@ gulp.task('i18n:watcher', ['app:i18n'], function() {
 });
 
 gulp.task('watcher',function() {
-
     gulp.watch(path.join(output, folders['i18n'], '**/*'), function() {
         gulp.start('i18n:watcher');
     });
@@ -295,16 +291,9 @@ gulp.task('watcher',function() {
     gulp.watch(path.join(output, folders['templates'], '**/*'), function() {
         runSequence('all:templates-start');
     });
-    // gulp.watch(path.join(output, '*.html'), function() {
-    //     runSequence('app:revision');
-    // });
 });
 
-
-
-
-
-gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', /*'app:landing-build',*/ 'app:web3'],
+gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:ws'],
     function() {
         if (!isProduction) {
             return gulp.start('serve');

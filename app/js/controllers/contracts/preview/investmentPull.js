@@ -191,4 +191,44 @@ angular.module('app').controller('investmentPullPreviewController', function($ti
             from: wallet
         }).then(console.log);
     };
+}).controller('investmentPoolSendTokensController', function($scope, web3Service) {
+    var contractData = $scope.ngPopUp.params.contract;
+    var page = $scope.ngPopUp.params.page;
+
+    $scope.contract = contractData;
+
+    web3Service.setProviderByNumber(contractData.network);
+
+    var contractDetails = contractData.contract_details, contract;
+
+    var methodName = 'batchTransferFromPage';
+    var contractInfo = contractDetails.eth_contract;
+    var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
+
+    try {
+        $scope.batchTransferTokensSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [page]);
+    } catch(err) {
+        console.log(err);
+    }
+
+    $scope.wallets = {};
+
+    web3Service.getAccounts(contractData.network).then(function(result) {
+        result.map(function(wallet) {
+            $scope.wallets[wallet.type] = $scope.wallets[wallet.type] || [];
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
+    });
+
+    $scope.showedParityWallets = false;
+    $scope.showParityWallets = function() {
+        $scope.showedParityWallets = !$scope.showedParityWallets;
+    };
+    $scope.sendTransaction = function(walletType, wallet) {
+        web3Service.setProvider(walletType, contractData.network);
+        contract = web3Service.createContractFromAbi(contractInfo.address, contractInfo.abi);
+        contract.methods[methodName](page).send({
+            from: wallet
+        }).then(console.log);
+    };
 });

@@ -54,7 +54,9 @@
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet",
     "NETWORK_5": "NEO MainNet",
-    "NETWORK_6": "NEO TestNet"
+    "NETWORK_6": "NEO TestNet",
+    "NETWORK_10": "EOS MainNet",
+    "NETWORK_11": "EOS TestNet"
   },
   "BUTTONS": {
     "ENABLE": "启用",
@@ -104,7 +106,8 @@
       "FORGOT_PASSWORD": "忘记密码？",
       "LOGIN_FACEBOOK": "通过Facebook登录",
       "LOGIN_GOOGLE": "通过Google登录",
-      "CREATE_ACCOUNT": "创建帐号"
+      "CREATE_ACCOUNT": "创建帐号",
+      "CREATING": "Creating"
     }
   },
   "CONTRACTS_BUTTONS": {
@@ -126,7 +129,9 @@
     "SEND_FUNDS": "Send Funds",
     "SETTINGS": "Settings",
     "GET_TOKENS": "Get tokens",
-    "REFUND": "Refund"
+    "REFUND": "Refund",
+    "SEND_TOKENS": "Send Tokens",
+    "CREATE": "Create"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "该字段必填",
@@ -140,7 +145,8 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "ETH",
     "BTC": "BTC",
-    "NEO": "NEO"
+    "NEO": "NEO",
+    "EOS": "EOS"
   },
   "ALERTS": {
     "FORM_REQUEST_SUCCESS": {
@@ -266,6 +272,10 @@
       "WEDDING": {
         "TITLE": "婚约",
         "DESCRIPTION": "在指定时间段之后/期间在所有者之间分配资金的具有多重签名的钱包。"
+      },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "Create an account on EOS blockchain"
       },
       "TEST_NET_DISCLAIMER": {
         "LIST": {
@@ -590,11 +600,15 @@
       },
       "SEND_FUNDS": {
         "TITLE": "Send Funds",
-        "DESCRIPTION": "To send all funds ({{amount}} ETH) to {{address}} please do the following steps:"
+        "DESCRIPTION": "For sending ({{amount}} ETH) to Destination address ({{address}}) please make the following steps:"
       },
       "GET_TOKENS": {
         "TITLE": "Get tokens",
         "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+      },
+      "SEND_TOKENS": {
+        "TITLE": "Send tokens",
+        "DESCRIPTION": "For sending the tokens (50 addresses per call) please make the following steps:"
       },
       "INVESTMENT_REFUND": {
         "TITLE": "Refund",
@@ -934,6 +948,7 @@
           "ADD_ADDRESS": "铸币"
         },
         "TOTAL_SUPPLY": "总供给：",
+        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "代币名称：",
@@ -1128,6 +1143,49 @@
           },
           "TABLE_EXAMPLE": "Table example:"
         }
+      },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
+        "FIELDS": {
+          "ACCOUNT_NAME": {
+            "TITLE": "Choose a name for your account",
+            "DESCRIPTION": "The EOS account name is the main identifier it has to be unique. Contains letters and/or digits (1-5), and has 12 symbols.",
+            "SUCCESS_TEXT": "Alias is available",
+            "ALREADY_NAME_TEXT": "Alias is already taken"
+          },
+          "HAVE_PUBLIC_KEY": {
+            "TITLE": "Do you have a public key?"
+          },
+          "ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Enter your active public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "OWNER_PUBLIC_KEY": {
+            "TITLE": "Enter your owner public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "GENERATED_ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Your active public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_OWNER_PUBLIC_KEY": {
+            "TITLE": "Your owner public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_ACTIVE_PRIVATE_KEY": {
+            "TITLE": "Your active private key",
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+          },
+          "GENERATED_OWNER_PRIVATE_KEY": {
+            "TITLE": "Your owner private key",
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+          },
+          "COPY_KEYS": "Copy keys pairs",
+          "GENERATE_KEYS": "Generate keys pairs",
+          "REGENERATE_KEYS": "Generate new pairs",
+          "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, it generates it only."
+        }
       }
     },
     "PREVIEW": {
@@ -1239,6 +1297,11 @@
           "TOTAL": "Total raised: {{amount}} ETH",
           "DAY": "(Day: +{{percent}}%)"
         }
+      },
+      "EOS_WALLET": {
+        "ACCOUNT_NAME": "Account name",
+        "ACTIVE_PUBLIC_KEY": "Active public key",
+        "OWNER_PUBLIC_KEY": "Owner public key"
       }
     }
   }

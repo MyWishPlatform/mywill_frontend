@@ -46,6 +46,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     var currentProvider;
 
     this.setProviderByNumber = function(networkId) {
+
         networkId = networkId * 1;
         switch (networkId) {
             case 1:
@@ -146,7 +147,22 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         return web3;
     };
 
+    this.callMethod = function(contract, method) {
+        var defer = $q.defer();
 
+        contract.methods[method] ? contract.methods[method]().call(function(error, result) {
+            if (!error) {
+                defer.resolve(result);
+            } else {
+                defer.reject(error);
+            }
+        }) : $timeout(function() {
+            defer.reject('Method not defined');
+        });
+        return defer.promise;
+    };
+
+    var _this = this;
     this.getTokenInfo = function(network, token, wallet, customFields) {
         var defer = $q.defer();
         var tokenInfoFields = customFields || ['decimals', 'symbol', 'balanceOf'];
@@ -173,6 +189,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 case 'balanceOf':
                     if (wallet) {
                         requestsCount++;
+                        _this.setProviderByNumber(network);
                         web3Contract.methods[method](wallet).call(function(err, result) {
                             getTokenParamCallback(result, method);
                         });
@@ -180,6 +197,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                     break;
                 default:
                     requestsCount++;
+                    _this.setProviderByNumber(network);
                     web3Contract.methods[method]().call(function(err, result) {
                         getTokenParamCallback(result, method);
                     });

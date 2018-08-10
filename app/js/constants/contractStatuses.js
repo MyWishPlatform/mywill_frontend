@@ -59,5 +59,9 @@ module.constant('CONTRACT_STATUSES_CONSTANTS', {
     'SENDING_TOKENS': {
         title: 'Sending',
         value: 101
+    },
+    'CREATING': {
+        title: 'Sending',
+        value: 102
     }
 });

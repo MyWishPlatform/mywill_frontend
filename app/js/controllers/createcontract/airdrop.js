@@ -93,10 +93,5 @@ angular.module('app').controller('airdropCreateController', function($scope, con
                 }
             });
         });
-
-
-
-
     };
-
 });

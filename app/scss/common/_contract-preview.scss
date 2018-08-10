@@ -1,6 +1,6 @@
-.contract-preview-base-font {
-  font-size: 1.5em;
-}
+//.normal-text {
+//  font-size: 1.5em;
+//}
 .contract-preview-grey-font-color {
   color: #B8B8B8;
 }
@@ -13,7 +13,7 @@
   }
   i {
     &.icon-check_circle {
-      color: $main-blue-color;
+      color: $main-color;
     }
     &.icon-cancel {
       color: $red-hover-color;

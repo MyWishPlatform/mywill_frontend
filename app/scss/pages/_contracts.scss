@@ -70,6 +70,25 @@
       background: #e37700;
     }
   }
+
+  &_10, &_11 {
+    &:before {
+      transform: rotate(45deg);
+    }
+  }
+
+  &_10 {
+    color: $main-color;
+    &:before {
+      background: $main-color;
+    }
+  }
+  &_11 {
+    color: #e37700;
+    &:before {
+      background: #e37700;
+    }
+  }
 }
 
 
@@ -90,7 +109,7 @@
 }
 .contract-name-block {
   float: left;
-  background-color: $main-blue-color;
+  background-color: $main-color;
   line-height: 2.85em;
   padding: 1.05em 1.05em 1.05em 1.875em;
   border-top-right-radius: 2.475em;

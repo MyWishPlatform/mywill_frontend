@@ -36,7 +36,7 @@
             </p>
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: $root.gitHubLink}"></span>
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/contracts/tree/develop'}"></span>
             </p>
         </div>
 
@@ -66,7 +66,7 @@
                 <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ getEtherscanUrl(contract, 'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
                    target="_blank"
                    ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
@@ -132,7 +132,7 @@
                     <i class="icon-conditions form-control-label-icon"></i>
                     {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.WALLETS_ACTIVITY.LIST.ITEM_1'|translate}}
                 </div>
-                <div class="contract-preview-base-font contract-preview-base-value">
+                <div class="normal-text contract-preview-base-value">
                     <div>
                         {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.DUE_DATE.LABEL'|translate}}&nbsp;&nbsp;
                         {{contract.contract_details.active_to|date:'yyyy-MM-dd'}}

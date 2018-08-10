@@ -40,7 +40,7 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <p class="normal-text">
             <span translate-values="{
-                etherscan_url: $root.getEtherscanUrl(ngPopUp.params.contract, 'address'),
+                etherscan_url: (ngPopUp.params.contract.network|etherscanUrl:'address'),
                 contract_address: ngPopUp.params.contract.contract_details.eth_contract.address
             }" translate="CONTRACTS_INSTRUCTIONS.RSK.DEPOSIT.LIST.ITEM_4">
             </span>

@@ -40,8 +40,8 @@ angular.module('app').controller('deferredCreateController', function($scope, co
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
             web3Service.getBalance($scope.request.contract_details.user_address).then(function(balance) {
-                balance = Web3.utils.fromWei(balance, 'ether');
-                $scope.checkedBalance = isNaN(balance) ? false : balance;
+                balance = new BigNumber(Web3.utils.fromWei(balance, 'ether')).round(2).toString(10);
+                $scope.checkedBalance = balance;
                 balanceTimer = false;
                 $scope.balanceInProgress = false;
             })

@@ -1,0 +1,41 @@
+<div class="contract-form-fieldset without-padding">
+    <div class="contract-form-information-btns">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-vs-1-2 float-right"
+                 ng-if="(contract.stateValue == 0) || (contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-red with-icon mobile-width-100 with-icon initial-padding text-center"
+                        ng-pop-up="{
+                            template: '/templates/popups/confirmations/delete-contract.html',
+                            newPopupContent: true,
+                            params: contract,
+                            class: 'deleting-contract',
+                            actions: {
+                                deleteContract: deleteContract
+                            }
+                        }">
+                    <i class="icon-trash"></i>
+                    <span translate="CONTRACTS_BUTTONS.DELETE"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Launch button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 0) || (contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-transparent mobile-width-100 text-center"
+                        ng-click="payContract(contract)">
+                    <i class="icon-rocket-ship"></i>
+                    <span translate="CONTRACTS_BUTTONS.LAUNCH" ng-if="contract.stateValue != 0"></span>
+                    <span translate="CONTRACTS_BUTTONS.CREATE" ng-if="contract.stateValue == 0"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Edit button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 0) || (contract.stateValue == 1)">
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
+                    <i class="icon-edit"></i>
+                    <span translate="CONTRACTS_BUTTONS.EDIT"></span>
+                </a><br/><br/>
+            </div>
+
+        </div>
+    </div>
+</div>

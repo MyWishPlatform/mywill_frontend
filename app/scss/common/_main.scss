@@ -5,7 +5,7 @@ main.main-content-holder {
 }
 .main-content-holder {
   margin-left: 25.5em;
-  color: $main-blue-color;
+  color: $main-color;
   padding-top: 5.6em;
   max-width: 72em;
   position: relative;
@@ -61,8 +61,8 @@ main.main-content-holder {
   }
   &:after {
     display: block;
-    background-color: $main-blue-color;
-    box-shadow: 0 0 1px $main-blue-color;
+    background-color: $main-color;
+    box-shadow: 0 0 1px $main-color;
     height: 2px;
     margin-bottom: -3px;
     border-radius: 2px;

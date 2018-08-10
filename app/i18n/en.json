@@ -46,7 +46,8 @@
     "ENDED": "Done",
     "DONE": "Done",
     "UNDER_CROWDSALE": "Under Crowdsale",
-    "SENDING_TOKENS": "Sending"
+    "SENDING_TOKENS": "Sending",
+    "CREATING": "Creating"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -54,7 +55,9 @@
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet",
     "NETWORK_5": "NEO MainNet",
-    "NETWORK_6": "NEO TestNet"
+    "NETWORK_6": "NEO TestNet",
+    "NETWORK_10": "EOS MainNet",
+    "NETWORK_11": "EOS TestNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -127,7 +130,8 @@
     "SETTINGS": "Settings",
     "GET_TOKENS": "Get tokens",
     "REFUND": "Refund",
-    "SEND_TOKENS": "Send Tokens"
+    "SEND_TOKENS": "Send Tokens",
+    "CREATE": "Create"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",
@@ -141,7 +145,8 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
-    "NEO": "NEO"
+    "NEO": "NEO",
+    "EOS": "EOS"
   },
   "ALERTS": {
     "FORM_REQUEST_SUCCESS": {
@@ -268,9 +273,13 @@
         "TITLE": "Wedding contract",
         "DESCRIPTION": "Wallet with Multisig function & distribution of funds between the owners after/during specified period of time."
       },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "Create an account on EOS blockchain"
+      },
       "TEST_NET_DISCLAIMER": {
         "LIST": {
-          "LIST_ITEM_1": "Contracts in Test Net are free for use (you can create & deploy it to test network)",
+          "LIST_ITEM_1": "Contracts/Accounts in Test Net are free for use (you can create & deploy it to test network)",
           "LIST_ITEM_2": "Please accept low speed for deployment (up to 3 hours)",
           "LIST_ITEM_3": "Contracts in Test/ Main network have identical code",
           "LIST_ITEM_4": "Please use Test Net addresses (Ropsten for ETH) while working with contracts"
@@ -455,8 +464,8 @@
     "ALL": {
       "LAUNCH": {
         "LIST": {
-          "ITEM_1": "MyWish is NOT responsible for the use of the contract",
-          "ITEM_2": "MyWish is ONLY responsible for creation & launch it on Ethereum/RSK network",
+          "ITEM_1": "MyWish is NOT responsible for the use of the contract/account",
+          "ITEM_2": "MyWish is ONLY responsible for creation & launch it on network",
           "ITEM_3": "MyWish is NOT responsible for incorrect contract behaviour in case of wrong parameters entered by users",
           "ITEM_4": "MyWish is NOT responsible for errors in the code, but will do everything to eliminate it asap if they are detected",
           "ITEM_5": "MyWish does NOT have access to the management functions of the contract and will not be able to stop it, continue and do anything else, except of finalisation after end date"
@@ -939,6 +948,7 @@
           "ADD_ADDRESS": "Mint tokens"
         },
         "TOTAL_SUPPLY": "Total supply:",
+        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "Token name:",
@@ -1133,6 +1143,49 @@
           },
           "TABLE_EXAMPLE": "Table example:"
         }
+      },
+      "EOS_WALLET": {
+        "TITLE": "Create EOS Address",
+        "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
+        "FIELDS": {
+          "ACCOUNT_NAME": {
+            "TITLE": "Choose a name for your account",
+            "DESCRIPTION": "The EOS account name is the main identifier it has to be unique. Contains letters and/or digits (1-5), and has 12 symbols.",
+            "SUCCESS_TEXT": "Alias is available",
+            "ALREADY_NAME_TEXT": "Alias is already taken"
+          },
+          "HAVE_PUBLIC_KEY": {
+            "TITLE": "Do you have a public key?"
+          },
+          "ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Enter your active public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "OWNER_PUBLIC_KEY": {
+            "TITLE": "Enter your owner public key",
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+          },
+          "GENERATED_ACTIVE_PUBLIC_KEY": {
+            "TITLE": "Your active public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_OWNER_PUBLIC_KEY": {
+            "TITLE": "Your owner public key",
+            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+          },
+          "GENERATED_ACTIVE_PRIVATE_KEY": {
+            "TITLE": "Your active private key",
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+          },
+          "GENERATED_OWNER_PRIVATE_KEY": {
+            "TITLE": "Your owner private key",
+            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+          },
+          "COPY_KEYS": "Copy keys pairs",
+          "GENERATE_KEYS": "Generate keys pairs",
+          "REGENERATE_KEYS": "Generate new pairs",
+          "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, it generates it only."
+        }
       }
     },
     "PREVIEW": {
@@ -1141,6 +1194,7 @@
       },
       "TABS": {
         "INFO": "Preview contract",
+        "ACCOUNT_INFO": "Preview account",
         "SOURCE": "Source code"
       },
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
@@ -1244,6 +1298,11 @@
           "TOTAL": "Total raised: {{amount}} ETH",
           "DAY": "(Day: +{{percent}}%)"
         }
+      },
+      "EOS_WALLET": {
+        "ACCOUNT_NAME": "Account name",
+        "ACTIVE_PUBLIC_KEY": "Active public key",
+        "OWNER_PUBLIC_KEY": "Owner public key"
       }
     }
   }

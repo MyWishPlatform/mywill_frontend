@@ -1,0 +1,1 @@
+W3CWebSocket = require('websocket').w3cwebsocket;

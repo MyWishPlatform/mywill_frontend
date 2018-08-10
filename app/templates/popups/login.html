@@ -1,4 +1,4 @@
-<div class="shadow-block" ng-controller="authorizationController">
+<div class="shadow-block" ng-controller="authController">
     <div class="shadow-block__content">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1">
@@ -13,12 +13,12 @@
 
                 <div ng-if="((ngPopUp.params.page === 'registration') || (ngPopUp.params.page === 'auth')) && !socialAuthError">
                     <div ng-if="ngPopUp.params.page === 'auth'">
-                        <form class="login-form" ng-submit="sendLoginForm(loginForm)" name="loginForm" novalidate ng-if="!socialAuthError">
+                        <form class="login-form" ng-submit="sendLoginForm(loginForm, false, true)" name="loginForm" novalidate ng-if="!socialAuthError">
                             <div class="form-control contract-form-row">
                                 <div class="form-control-label" translate="AUTH_POPUP.FIELDS.EMAIL"></div>
                                 <input type="email"
                                        required
-                                       ng-model="logInRequest.username"
+                                       ng-model="request.username"
                                        ng-class="{'ng-invalid ng-invalid-server': logInServerErrors.username}"
                                        class="form-control-input">
                                 <span class="field-error form-field_error-required"
@@ -31,7 +31,7 @@
                                 <div class="form-control-label" translate="AUTH_POPUP.FIELDS.PASSWORD"></div>
                                 <input type="password"
                                        required
-                                       ng-model="logInRequest.password"
+                                       ng-model="request.password"
                                        ng-class="{'ng-invalid ng-invalid-server': logInServerErrors.password}"
                                        class="form-control-input">
                                 <span class="field-error form-field_error-required"
@@ -43,7 +43,7 @@
                                 <div class="form-control-label" translate="AUTH_POPUP.FIELDS.2FA"></div>
                                 <input type="text"
                                        required
-                                       ng-model="logInRequest.totp"
+                                       ng-model="request.totp"
                                        ng-class="{'ng-invalid ng-invalid-server': logInServerErrors.totp}"
                                        class="form-control-input">
                                 <span class="field-error form-field_error-required"

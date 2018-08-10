@@ -59,6 +59,22 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 }).controller('baseContractsController', function($scope, $state, $timeout, contractService,
                                                   web3Service,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
+
+    $scope.contractTypesIcons = {
+        0: 'icon-lastwill',
+        1: 'icon-key',
+        2: 'icon-deferred',
+        3: '',
+        4: 'icon-crowdsale',
+        5: 'icon-token',
+        6: 'icon-token',
+        7: 'icon-crowdsale',
+        8: 'icon-airdrop',
+        9: 'icon-investment-pool',
+        10: 'icon-token-eos',
+        11: 'icon-eos-wallet'
+    };
+
     var deletingProgress;
     $scope.refreshInProgress = {};
     $scope.timeoutsForProgress = {};
@@ -81,12 +97,25 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     $scope.iniContract = function(contract) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
+        switch (contract.contract_type) {
+            case 11:
+                switch (contract.state) {
+                    case 'CREATED':
+                        contract.state = 'DRAFT';
+                        break;
+                    case 'WAITING_FOR_DEPLOYMENT':
+                        contract.state = 'CREATING';
+                        break;
+                }
+                break;
+        }
+
         contract.stateValue = $scope.statuses[contract.state]['value'];
         contract.stateTitle = $scope.statuses[contract.state]['title'];
+        contract.discount = 0;
 
         if (!contract.contract_details.eth_contract) return;
 
-        contract.discount = 0;
         if (contract.contract_type === 8) {
             contract.balance = undefined;
         }
@@ -100,22 +129,16 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.contract_type) {
             case 9:
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
-
                 if ((nowDateTime > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
                     contract.state = 'CANCELLED';
                     contract.stateValue = $scope.statuses[contract.state]['value'];
                     contract.stateTitle = $scope.statuses[contract.state]['title'];
-
                 }
-
-
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
                 var balance = new BigNumber(contract.contract_details.raised_amount);
-
                 if ((contract.stateValue === 6) &&  (balance > 0)) {
                     buttons.investment_refund = true;
                 }
-
                 if (contract.contract_details.last_balance * 1) {
                     contract.contract_details.raised_percent = balance.minus(contract.contract_details.last_balance).div(contract.contract_details.last_balance) * 100;
                 } else if (balance > 0) {
@@ -123,16 +146,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 } else {
                     contract.contract_details.raised_percent = undefined;
                 }
-
-
                 if (contract.contract_details.token_address && (($state.current.name === 'main.contracts.preview.byId')||(contract.stateValue === 11))) {
-
                     var infoData = (($state.current.name === 'main.contracts.preview.byId') || ($state.current.name === 'main.contracts.preview.public')) ? ['decimals', 'symbol'] : [];
-
                     if ((contract.stateValue === 11) || (contract.stateValue === 6)) {
                         infoData.push('balanceOf');
                     }
-
+                    web3Service.setProviderByNumber(contract.network);
                     web3Service.getTokenInfo(
                         contract.network,
                         contract.contract_details.token_address,
@@ -177,10 +196,54 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         }
                         break;
                     case 11:
+                        web3Service.setProviderByNumber(contract.network);
                         var iPoolContract = web3Service.createContractFromAbi(contract.contract_details.eth_contract.address, contract.contract_details.eth_contract.abi);
-                        web3Service.callMethod(iPoolContract, 'getPage').then(function(page) {
-                            buttons.send_tokens = page * 1;
-                        });
+
+                        var contractInvestmentsParams = ['investorsCount', 'BATCH_SIZE'];
+                        var contractInvestmentsData = {};
+                        var allMethodsCount = contractInvestmentsParams.length;
+
+                        var checkActivePage = function(callback) {
+                            var pagesLength = Math.ceil(
+                                contractInvestmentsData['investorsCount']/contractInvestmentsData['BATCH_SIZE']
+                            );
+
+                            var currentPage = 0;
+                            var getTokensOnPage = function() {
+                                console.log(currentPage);
+                                web3Service.setProviderByNumber(contract.network);
+                                iPoolContract.methods['pageTokenAmount'](currentPage).call(function(error, result) {
+                                    var intResult = result * 1;
+                                    if (!intResult) {
+                                        currentPage++;
+                                        (currentPage < pagesLength) ? getTokensOnPage() : callback();
+                                    } else {
+                                        console.log(currentPage);
+                                        callback(currentPage)
+                                    }
+                                });
+                            };
+                            getTokensOnPage();
+                        };
+
+                        var getParamData = function(methodName) {
+                            web3Service.setProviderByNumber(contract.network);
+                            web3Service.callMethod(iPoolContract, methodName).then(function(result) {
+                                contractInvestmentsData[methodName] = result;
+                                allMethodsCount--;
+                                if (!allMethodsCount) {
+                                    checkActivePage(function(page) {
+                                        buttons.send_tokens = page;
+                                        $scope.$apply();
+                                    });
+                                }
+                            });
+                        };
+
+                        while (contractInvestmentsParams.length) {
+                            getParamData(contractInvestmentsParams.pop());
+                        }
+
                         break;
                 }
                 break;
@@ -207,6 +270,19 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
+    var contractsTypesForLayer = {
+        0: 'will',
+        1: 'lost_key',
+        2: 'deferred',
+        4: 'crowdsale',
+        5: 'token',
+        6: 'neo_token',
+        7: 'neo_crowdsale',
+        8: 'airdrop',
+        9: 'invest',
+        10: 'eos_wallet'
+    };
+
     var launchProgress = false;
     var launchContract = function(contract) {
         if (launchProgress) return;
@@ -215,52 +291,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             launchProgress = false;
             $rootScope.closeCommonPopup();
 
-            var testNetwork = false;
-            switch (contract.network) {
-                case 1:
-                case 3:
-                case 5:
-                    break;
-                case 2:
-                case 4:
-                case 6:
-                    testNetwork = true;
-                    break;
-            }
-            var contractType;
-            switch (contract.contract_type) {
-                case 0:
-                    contractType = 'will';
-                    break;
-                case 1:
-                    contractType = 'lost_key';
-                    break;
-                case 2:
-                    contractType = 'deferred';
-                    break;
-                case 4:
-                    contractType = 'crowdsale';
-                    break;
-                case 5:
-                    contractType = 'token';
-                    break;
-                case 6:
-                    contractType = 'neo_token';
-                    break;
-                case 7:
-                    contractType = 'neo_crowdsale';
-                    break;
-                case 8:
-                    contractType = 'airdrop';
-                    break;
-                case 9:
-                    contractType = 'invest';
-                    break;
-                default:
-                    contractType = 'unknown';
-            }
-
+            // add event to GTM
+            var testNetwork = [2, 4, 6, 11].indexOf(contract.network) > -1;
+            var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
             dataLayer.push({'event': contractType + '_contract_launch_success' + (testNetwork ? '_test' : '')});
+
 
             if ($state.current.name === 'main.contracts.list') {
                 $scope.refreshContract(contract);
@@ -376,6 +411,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             }
         });
     };
+
     $scope.neoCrowdSaleFinalize = function(contract) {
         contractService.neoICOFilnalize(contract.id).then(function(reponse) {
             $rootScope.commonOpenedPopup = 'alerts/neo-finalize-success';

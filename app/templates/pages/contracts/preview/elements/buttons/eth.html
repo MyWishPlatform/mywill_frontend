@@ -368,7 +368,7 @@
 
             <!-- Investment pool cancel instruction -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="contract.contract_details.buttons.send_tokens && contract.balance">
+                 ng-if="(contract.contract_details.buttons.send_tokens !== undefined)">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/investment-pool-send-tokens-instruction.html',
                             newPopupContent: true,

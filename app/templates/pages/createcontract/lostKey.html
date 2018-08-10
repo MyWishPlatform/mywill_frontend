@@ -35,14 +35,13 @@
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <div class="form-control-label float-right"
-                         ng-bind="checkedBalance ? ('BALANCE'|translate) +': ' + (checkedBalance | number).replace(numberReplacer, ' ') + ' ETH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
+                         ng-bind="checkedBalance ? ('BALANCE'|translate) +': ' + (checkedBalance|separateNumber) + ' ETH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
                     <label for="wallet-key" class="form-control-label"
                            translate="CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
                     <input id="wallet-key" type="text"
                            ng-model="walletAddress"
-                           placeholder="{{'CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.PLACEHOLDER'|translate}}"
                            required
-                           ng-pattern="/^0x[0-9a-f]{40}$/i"
+                           ng-checksum-address-validator="{'network': 'ETH'}"
                            ng-change="getBalance()"
                            class="form-control-input"/>
                     <span class="field-error form-field_error-check-sum"

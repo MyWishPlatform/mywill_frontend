@@ -112,10 +112,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         contract.stateValue = $scope.statuses[contract.state]['value'];
         contract.stateTitle = $scope.statuses[contract.state]['title'];
+        contract.discount = 0;
 
         if (!contract.contract_details.eth_contract) return;
 
-        contract.discount = 0;
         if (contract.contract_type === 8) {
             contract.balance = undefined;
         }

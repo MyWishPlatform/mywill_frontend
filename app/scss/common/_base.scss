@@ -4,8 +4,8 @@ $main-color: #206EFF!default;
 $menu-hover-color: #4d97f4!default;
 
 @if($env == 'eos') {
-  $main-color: #006212;
-  $menu-hover-color: #00931c;
+  $main-color: #567;
+  $menu-hover-color: #999;
 }
 $white-color: #fff;
 $black-color: #000;

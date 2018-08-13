@@ -317,6 +317,16 @@
         }
       }
     },
+    "EOS_BUY_TOKENS": {
+      "MYWISH_ACCOUNT": {
+        "LABEL": "Send EOS to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"https://contracts.mywish.io/createAccount\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "MEMO_FIELD": {
+        "LABEL": "Fill MEMO field:",
+        "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
+      }
+    },
     "BUY_TOKENS": {
       "TITLE": "Buy Tokens",
       "NOTE": {

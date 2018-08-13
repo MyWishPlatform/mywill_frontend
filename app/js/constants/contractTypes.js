@@ -111,7 +111,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     };
 
     var eos = {
-        'networks': [11, 11],
+        'networks': [10, 11],
         'list': [{
             'icon': 'icon-token-eos',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
@@ -122,7 +122,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     };
 
     var eosDefault = {
-        'networks': [11, 11],
+        'networks': [10, 11],
         'list': [{
             'icon': 'icon-eos-wallet',
             'title': 'PAGES.CREATE_CONTRACT.EOS_WALLET.TITLE',

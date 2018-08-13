@@ -274,7 +274,7 @@
         "DESCRIPTION": "Wallet with Multisig function & distribution of funds between the owners after/during specified period of time."
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "Create an account on EOS blockchain"
       },
       "TEST_NET_DISCLAIMER": {
@@ -1145,7 +1145,7 @@
         }
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
         "FIELDS": {
           "ACCOUNT_NAME": {

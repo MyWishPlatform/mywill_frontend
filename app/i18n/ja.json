@@ -274,7 +274,7 @@
         "DESCRIPTION": "指定された期間の後/間に所有者の間でMultisig財布が機能し、資金の配分です。"
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "Create an account on EOS blockchain"
       },
       "TEST_NET_DISCLAIMER": {
@@ -1145,7 +1145,7 @@
         }
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
         "FIELDS": {
           "ACCOUNT_NAME": {

@@ -21,19 +21,24 @@
                 <div class="form-control">
                     <label for="contract-name" class="form-control-label"
                            translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.TITLE"></label>
-                    <input id="contract-name" type="text"
-                           ng-change="checkAccountName(accountNameForm)"
-                           placeholder="qwertyuiopas"
-                           pattern="[a-z1-5]{12}"
-                           name="account-name"
-                           ng-model="request.contract_details.account_name"
-                           required
-                           class="form-control-input"/>
-                    <span class="field-success"
-                          ng-if="accountNameForm.$valid"
-                          translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.SUCCESS_TEXT"></span>
-                    <span class="field-error form-field_error-check-sum"
-                          translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.ALREADY_NAME_TEXT"></span>
+                    <div class="form-control-input-container">
+                        <input id="contract-name" type="text"
+                               ng-change="checkAccountName(accountNameForm)"
+                               placeholder="qwertyuiopas"
+                               pattern="[a-z1-5]{12}"
+                               maxlength="12"
+                               name="account-name"
+                               ng-model="request.contract_details.account_name"
+                               required
+                               class="form-control-input"/>
+                        <div class="input-after dynamic-info">{{accountNameForm['account-name'].$viewValue.length||0}}/12</div>
+                        <span class="field-success"
+                              ng-if="accountNameForm.$valid"
+                              translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.SUCCESS_TEXT"></span>
+                        <span class="field-error form-field_error-check-sum"
+                              translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.ALREADY_NAME_TEXT"></span>
+                    </div>
+
 
                 </div>
             </div>

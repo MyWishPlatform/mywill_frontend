@@ -274,7 +274,7 @@
         "DESCRIPTION": "在指定时间段之后/期间在所有者之间分配资金的具有多重签名的钱包。"
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "Create an account on EOS blockchain"
       },
       "TEST_NET_DISCLAIMER": {
@@ -1145,7 +1145,7 @@
         }
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
         "FIELDS": {
           "ACCOUNT_NAME": {

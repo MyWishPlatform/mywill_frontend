@@ -140,7 +140,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         resolve: {
             contractsList: function(contractService, $rootScope, currentUser, ENV_VARS) {
                 return !$rootScope.currentUser.is_ghost ? contractService.getContractsList({
-                    eos: ENV_VARS.mode === 'eos' ? 1 : 0,
+                    eos: ENV_VARS.mode === 'eos' ? 1 : undefined,
                     limit: 8
                 }) : [];
             }

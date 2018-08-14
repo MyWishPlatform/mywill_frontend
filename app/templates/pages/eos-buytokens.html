@@ -51,46 +51,62 @@
                     </div>
                 </div>
             </div><br/>
-            <form class="grid-row" name="userAddressForm">
+
+            <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                     <div class="form-control">
-                        <label class="form-control-label">
-                            Enter your account for payment:
-                        </label>
-                        <input ng-change="checkAddress(userAddressForm['user_address'])"
-                               ng-model="user_address"
-                               name="user_address"
-                               required
-                               pattern="[a-z1-5]{12}"
-                               type="text" class="form-control-input">
-                        <span class="field-error form-field_error-check-sum">No such EOS account</span>
-                        <div class="form-control-label" ng-if="userBalance">
-                            Balance: {{userBalance|separateNumber}} EOS
+                        <label class="form-control-label" translate="PAGES.EOS_BUY_TOKENS.MYWISH_ACCOUNT.LABEL"></label>
+                        <div class="form-control-input-container">
+                            <input ng-model="wishAddress"
+                                   disabled="disabled"
+                                   type="text" class="form-control-input">
+
+                            <div class="input-after dynamic-info">
+                                <button class="instruction-for-copy-button relative"
+                                        clipboard supported="supported"
+                                        ng-class="{copied: formData.copied['mywish-account']}"
+                                        text="wishAddress"
+                                        on-copied="$root.successCodeCopy(formData, 'mywish-account')">
+                                    <i class="icon-content_copy"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1 form-control-description">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span class="form-control-description__text">
-                        Your EOS account which has EOS tokens for payment.
-                        You can create an account by our service: <a href="#">ссылка</a>
-                    </span>
+                    <span class="form-control-description__text"
+                          translate="PAGES.EOS_BUY_TOKENS.MYWISH_ACCOUNT.DESCRIPTION"></span>
                 </div>
-            </form>
-            <div class="grid-row" ng-show="checkedAddress">
+            </div>
+
+            <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                     <div class="form-control">
-                        <label class="form-control-label">Send to address:</label>
-                        <input type="text" class="form-control-input"
-                               ng-model="wishAddress"
-                               readonly>
+                        <label class="form-control-label"
+                               translate="PAGES.EOS_BUY_TOKENS.MEMO_FIELD.LABEL"></label>
+                        <div class="form-control-input-container">
+                            <input disabled="disabled"
+                                   value="AHJKFDJA"
+                                   type="text" class="form-control-input">
+
+                            <div class="input-after dynamic-info">
+                                <button class="instruction-for-copy-button relative"
+                                        clipboard supported="supported"
+                                        ng-class="{copied: formData.copied['memo']}"
+                                        text="'AHJKFDJA'"
+                                        on-copied="$root.successCodeCopy(formData, 'memo')">
+                                    <i class="icon-content_copy"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1 form-control-description">
                     <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span class="form-control-description__text">
-                        It’s MyWish EOS address.
-                        You can send your EOS by Scatter wallet: <a href="#">ссылка</a>
+                    <span class="form-control-description__text"
+                          translate="PAGES.EOS_BUY_TOKENS.MEMO_FIELD.DESCRIPTION">
+                        Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform.
                     </span>
                 </div>
             </div>

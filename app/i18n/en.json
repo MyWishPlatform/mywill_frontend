@@ -177,6 +177,9 @@
     },
     "CONTRACT_PAY": {
       "TEXT": "Please confirm contract launch ({{price}} WISH)"
+    },
+    "ACCOUNT_CREATION": {
+      "TEXT": "Please confirm account creation ({{price}} WISH)"
     }
   },
   "PAGES": {
@@ -274,7 +277,7 @@
         "DESCRIPTION": "Wallet with Multisig function & distribution of funds between the owners after/during specified period of time."
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "Create an account on EOS blockchain"
       },
       "TEST_NET_DISCLAIMER": {
@@ -315,6 +318,16 @@
         "DESCRIPTION": {
           "PLACEHOLDER": "Contract description"
         }
+      }
+    },
+    "EOS_BUY_TOKENS": {
+      "MYWISH_ACCOUNT": {
+        "LABEL": "Send EOS to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"https://contracts.mywish.io/createAccount\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "MEMO_FIELD": {
+        "LABEL": "Fill MEMO field:",
+        "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
       }
     },
     "BUY_TOKENS": {
@@ -942,13 +955,29 @@
           }
         }
       },
+      "EOS_TOKEN": {
+        "FIELDS": {
+          "TOKEN_SYMBOL": {
+            "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES)."
+          },
+          "DECIMALS": {
+            "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as common."
+          },
+          "TOKEN_OWNER": {
+            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
+          },
+          "MAXIMUM_SUPPLY": {
+            "LABEL": "Maximum supply:",
+            "DESCRIPTION": "Total supply of the Token. No more tokens can be created."
+          }
+        }
+      },
       "TOKEN": {
         "TITLE": "Token contract",
         "BUTTONS": {
           "ADD_ADDRESS": "Mint tokens"
         },
         "TOTAL_SUPPLY": "Total supply:",
-        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "Token name:",
@@ -1145,7 +1174,7 @@
         }
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
         "FIELDS": {
           "ACCOUNT_NAME": {

@@ -163,6 +163,10 @@
   margin-top: 0.2em;
   border-radius: 0.3em;
   outline: none;
+  &.as-link {
+    display: inline-block;
+    color: $main-color;
+  }
   &.with-currency {
     padding-right: 3.5em;
   }

@@ -18,10 +18,10 @@
             <div class="form-control">
                 <div class="form-control-label"
                        translate="CONTRACTS.PREVIEW.EOS_WALLET.ACCOUNT_NAME"></div>
-                <div class="form-control-input-container">
-                    <input type="text" disabled
-                           class="form-control-input"
-                           ng-model="contract.contract_details.account_name">
+                <a href="{{contract.network|etherscanUrl:'account'}}/{{contract.contract_details.account_name}}"
+                   target="_blank" class="form-control-input-container" style="display: block">
+                    <div disabled
+                         class="form-control-input as-link">{{contract.contract_details.account_name}}</div>
                     <div class="input-after dynamic-info">
                         <button class="instruction-for-copy-button relative"
                                 clipboard supported="supported"
@@ -31,7 +31,7 @@
                             <i class="icon-content_copy"></i>
                         </button>
                     </div>
-                </div>
+                </a>
             </div>
 
 

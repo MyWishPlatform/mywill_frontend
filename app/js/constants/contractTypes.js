@@ -117,7 +117,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 10,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[10]
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
+            'price': true
         }]
     };
 

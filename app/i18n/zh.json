@@ -177,6 +177,9 @@
     },
     "CONTRACT_PAY": {
       "TEXT": "请确认发布合约({{price}} WISH)"
+    },
+    "ACCOUNT_CREATION": {
+      "TEXT": "Please confirm account creation ({{price}} WISH)"
     }
   },
   "PAGES": {
@@ -315,6 +318,16 @@
         "DESCRIPTION": {
           "PLACEHOLDER": "合约描述"
         }
+      }
+    },
+    "EOS_BUY_TOKENS": {
+      "MYWISH_ACCOUNT": {
+        "LABEL": "Send EOS to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"https://contracts.mywish.io/createAccount\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "MEMO_FIELD": {
+        "LABEL": "Fill MEMO field:",
+        "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
       }
     },
     "BUY_TOKENS": {
@@ -939,6 +952,23 @@
           },
           "DUE_DATE": {
             "LABEL": "截止日期："
+          }
+        }
+      },
+      "EOS_TOKEN": {
+        "FIELDS": {
+          "TOKEN_SYMBOL": {
+            "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES)."
+          },
+          "DECIMALS": {
+            "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as common."
+          },
+          "TOKEN_OWNER": {
+            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
+          },
+          "MAXIMUM_SUPPLY": {
+            "LABEL": "Maximum supply:",
+            "DESCRIPTION": "Total supply of the Token. No more tokens can be created."
           }
         }
       },

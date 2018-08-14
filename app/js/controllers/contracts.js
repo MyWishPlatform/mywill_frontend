@@ -377,7 +377,19 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             launchContract(contract);
             return;
         }
-        $rootScope.commonOpenedPopup = 'confirmations/contract-confirm-pay';
+
+        var contractConfirmTpl;
+        switch (contract.contract_type) {
+            case 11:
+                contractConfirmTpl = 'confirmations/account-confirm-pay';
+                break;
+            default:
+                contractConfirmTpl = 'confirmations/contract-confirm-pay';
+                break;
+
+        }
+
+        $rootScope.commonOpenedPopup = contractConfirmTpl;
         $rootScope.commonOpenedPopupParams = {
             newPopupContent: true,
             class: 'deleting-contract',

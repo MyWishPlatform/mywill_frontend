@@ -177,6 +177,9 @@
     },
     "CONTRACT_PAY": {
       "TEXT": "Please confirm contract launch ({{price}} WISH)"
+    },
+    "ACCOUNT_CREATION": {
+      "TEXT": "Please confirm account creation ({{price}} WISH)"
     }
   },
   "PAGES": {
@@ -952,7 +955,6 @@
           }
         }
       },
-
       "EOS_TOKEN": {
         "FIELDS": {
           "TOKEN_SYMBOL": {
@@ -968,7 +970,6 @@
             "LABEL": "Maximum supply:",
             "DESCRIPTION": "Total supply of the Token. No more tokens can be created."
           }
-
         }
       },
       "TOKEN": {

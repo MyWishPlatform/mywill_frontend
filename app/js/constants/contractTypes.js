@@ -127,8 +127,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'icon': 'icon-eos-wallet',
             'title': 'PAGES.CREATE_CONTRACT.EOS_WALLET.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.EOS_WALLET.DESCRIPTION',
-            'typeNumber': 10,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[11]
+            'typeNumber': 11,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[11],
+            'price': true
         }]
     };
 
@@ -142,6 +143,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             };
             break;
         default:
+            eosDefault.list = eosDefault.list.concat(eos.list);
             return {
                 ETH: eth,
                 NEO: neo,

@@ -952,13 +952,31 @@
           }
         }
       },
+
+      "EOS_TOKEN": {
+        "FIELDS": {
+          "TOKEN_SYMBOL": {
+            "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES)."
+          },
+          "DECIMALS": {
+            "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as common."
+          },
+          "TOKEN_OWNER": {
+            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
+          },
+          "MAXIMUM_SUPPLY": {
+            "LABEL": "Maximum supply:",
+            "DESCRIPTION": "Total supply of the Token. No more tokens can be created."
+          }
+
+        }
+      },
       "TOKEN": {
         "TITLE": "Token contract",
         "BUTTONS": {
           "ADD_ADDRESS": "Mint tokens"
         },
         "TOTAL_SUPPLY": "Total supply:",
-        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "Token name:",

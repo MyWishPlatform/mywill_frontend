@@ -13,7 +13,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
     });
 
     var eos;
-    var isProduction = location.host.indexOf('eos.mywish.io') > -1;
+    var isProduction = (location.host.indexOf('eos.mywish.io') > -1) || (location.host.indexOf('contracts.mywish.io') > -1);
     var _this = this;
 
     this.getMywishAddress = function(network) {

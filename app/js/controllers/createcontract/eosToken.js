@@ -73,7 +73,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
-
+        contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
         return {
             name: contract.name,
             network: contract.network,

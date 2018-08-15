@@ -21,3 +21,19 @@
     <span translate="CONTRACTS_BUTTONS.LAUNCH" ng-if="contract.stateValue != 0"></span>
     <span translate="CONTRACTS_BUTTONS.CREATE" ng-if="contract.stateValue == 0"></span>
 </button>
+
+
+<!-- Mint form button -->
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 10)"
+        ng-pop-up="{
+            template: '/templates/popups/forms/eos/mint-token-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'page-size',
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.MINT"></span>
+</button>

@@ -28,6 +28,22 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Mint form button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 10)">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eos/mint-token-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.MINT"></span>
+                </button><br/><br/>
+            </div>
+
             <!-- Edit button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 0) || (contract.stateValue == 1)">
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">

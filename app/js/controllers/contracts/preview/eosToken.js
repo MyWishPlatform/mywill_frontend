@@ -33,4 +33,6 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             break;
     }
 
+}).controller('eosTokenMintController', function() {
+
 });

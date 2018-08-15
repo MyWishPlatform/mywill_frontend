@@ -7,7 +7,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         network: $stateParams.network,
         contract_details: {}
     };
-    $scope.network = contract.network;
+    $scope.network = contract.network * 1;
     $scope.havePublicKeys = true;
 
     $scope.editContractMode = !!contract.id;

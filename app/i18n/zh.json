@@ -958,7 +958,8 @@
       "EOS_TOKEN": {
         "FIELDS": {
           "TOKEN_SYMBOL": {
-            "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES)."
+            "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES).",
+            "ALREADY_NAME_TEXT": "Token name is already in use"
           },
           "DECIMALS": {
             "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as common."

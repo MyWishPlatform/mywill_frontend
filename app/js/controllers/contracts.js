@@ -280,7 +280,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         7: 'neo_crowdsale',
         8: 'airdrop',
         9: 'invest',
-        10: 'eos_wallet'
+        10: 'eos_token',
+        11: 'eos_wallet'
     };
 
     var launchProgress = false;

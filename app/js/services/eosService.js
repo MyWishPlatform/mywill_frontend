@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
+module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS) {
 
     var EOSNetworks = {
         'MAINNET': [],
@@ -8,7 +8,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
 
     EOS_NETWORKS_CONSTANTS.map(function(networkType) {
         networkType.endpoints.map(function(networkItem) {
-            EOSNetworks[networkType.name].push(networkItem.protocol + '://' + networkItem.url + ':' + networkItem.port);
+            networkItem.chainId = networkType.chainId;
+            EOSNetworks[networkType.name].push({
+                url: networkItem.protocol + '://' + networkItem.url + ':' + networkItem.port,
+                params: networkItem
+            });
         });
     });
 
@@ -16,15 +20,10 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
     var isProduction = (location.host.indexOf('eos.mywish.io') > -1) || (location.host.indexOf('contracts.mywish.io') > -1);
     var _this = this;
 
-    this.getMywishAddress = function(network) {
-        switch (network) {
-            case 11:
-                return isProduction ? 'mywishprod1' : 'mywishtoken3';
-                break;
-            case 10:
-                return isProduction ? 'mywishprod1' : 'mywishtoken4';
-                break;
-        }
+    var eosAccounts = APP_CONSTANTS.EOS_ADDRESSES[isProduction ? 'PRODUCTION' : 'DEVELOPMENT'];
+
+    this.getComingAddress = function() {
+        return eosAccounts['COMING'];
     };
 
     var currentNetworks = {
@@ -32,35 +31,33 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         'TESTNET': 0
     };
 
-    var currentNetwork, currentNetworkName;
+    var currentNetwork, currentNetworkName, currentEndPoint, displayingNetwork;
 
-    this.createEosChain = function(network) {
-        network = isProduction ? network * 1 : 11;
-        var networkName;
+    this.createEosChain = function(network, callback) {
         switch(network) {
             case 10:
-                networkName = 'MAINNET';
+                displayingNetwork = 'MAINNET';
+                currentNetworkName = isProduction ? 'MAINNET' : 'TESTNET';
                 break;
             case 11:
-                networkName = 'TESTNET';
+                displayingNetwork = 'TESTNET';
+                currentNetworkName = 'TESTNET';
                 break;
         }
-
         currentNetwork = network;
-        currentNetworkName = networkName;
-
+        currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
         eos = Eos({
-            httpEndpoint: EOSNetworks[networkName][currentNetworks[networkName]],
+            httpEndpoint: EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['url'],
             verbose: false
         });
-        checkNetwork();
+        checkNetwork(callback);
     };
 
     var checkNetwork = function(callback) {
         _this.getInfo().then(callback, function(error) {
             currentNetworks[currentNetworkName]++;
             currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
-            _this.createEosChain(currentNetwork);
+            _this.createEosChain(currentNetwork, callback);
         });
     };
 
@@ -90,10 +87,10 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         return defer.promise;
     };
 
-    this.coinInfo = function(name, short_name) {
+    this.coinInfo = function(short_name) {
         var defer = $q.defer();
         checkNetwork(function() {
-            eos.getCurrencyStats(name, short_name, function (error, response) {
+            eos.getCurrencyStats(eosAccounts[displayingNetwork]['TOKEN'], short_name, function (error, response) {
                 if (error) {
                     defer.reject(error);
                 } else {

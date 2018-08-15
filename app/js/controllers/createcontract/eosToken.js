@@ -35,14 +35,20 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
 
     var checkTokenTimeout;
     $scope.checkTokenName = function(tokenShortName) {
-        if ($scope.network === 11) return;
         tokenShortName.$setValidity('not-checked', false);
+        tokenShortName.$setValidity('check-sum', true);
         if (!tokenShortName.$viewValue) {
             return;
         }
-        checkTokenTimeout ? $timeout.cancel(checkAddressTimeout) : false;
+        checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
         checkTokenTimeout = $timeout(function() {
-            EOSService.coinInfo(APP_CONSTANTS.EOS_ADDRESS.TOKEN, 'TEST').then(function() {
+            var symbol = tokenShortName.$viewValue.toUpperCase();
+            EOSService.coinInfo(symbol).then(function(result) {
+                if (result[symbol]) {
+                    tokenShortName.$setValidity('check-sum', false);
+                }
+                tokenShortName.$setValidity('not-checked', true);
+            }, function() {
                 tokenShortName.$setValidity('not-checked', true);
             });
         }, 500);

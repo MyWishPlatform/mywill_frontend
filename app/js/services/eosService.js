@@ -20,13 +20,26 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
     var isProduction = (location.host.indexOf('eos.mywish.io') > -1) || (location.host.indexOf('contracts.mywish.io') > -1);
     var _this = this;
 
+
+    var eosAccounts = {
+        'MAINNET': {
+            'TOKEN': isProduction ? 'deploymywish' : 'mywishtoken4',
+            'ACCOUNT': isProduction ? 'deploymywish' : 'mywishtoken4'
+        },
+        'TESTNET': {
+            'TOKEN': isProduction ? 'deploymywish' : 'mywishtoken3',
+            'ACCOUNT': isProduction ? 'deploymywish' : 'mywishtoken3'
+        }
+    };
+
+
     this.getMywishAddress = function(network) {
         switch (network) {
             case 11:
-                return isProduction ? 'mywishprod1' : 'mywishtoken3';
+                return isProduction ? 'deploymywish' : 'mywishtoken3';
                 break;
             case 10:
-                return isProduction ? 'mywishprod1' : 'mywishtoken4';
+                return isProduction ? 'deploymywish' : 'mywishtoken4';
                 break;
         }
     };
@@ -85,10 +98,10 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
                     ]
                 };
 
-                setTimeout(function() {
-                    eos.getCurrencyStats('mywishio', 'DT', console.log);
+                // setTimeout(function() {
+                    // eos.contract('eosio.token').then(console.log);
                     // eos.contract('mywishtoken3').then(console.log);
-                    // _this.coinInfo('dimankovalev', 'DT').then(console.log);
+                    // _this.coinInfo('mywishtoken3', 'DT').then(console.log);
 
                     // scatter.getIdentity(requiredFields).then(function(identity) {
                     //     scatter.authenticate().then(function (sign) {
@@ -114,7 +127,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
                     //         }).then(console.log);
                     //     });
                     // });
-                }, 2000);
+                // }, 2000);
             }
         });
         return defer.promise;
@@ -133,10 +146,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         });
         return defer.promise;
     };
-    this.coinInfo = function(name, short_name) {
+
+    this.coinInfo = function(short_name) {
         var defer = $q.defer();
         checkNetwork(function() {
-            eos.getCurrencyStats(name, short_name, function (error, response) {
+            eos.getCurrencyStats(eosAccounts[currentNetworkName]['TOKEN'], short_name, function (error, response) {
                 if (error) {
                     defer.reject(error);
                 } else {
@@ -146,6 +160,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         });
         return defer.promise;
     };
+
     this.getBalance = function(code, account, symbol) {
         var defer = $q.defer();
         checkNetwork(function() {

@@ -8,7 +8,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
 
     EOS_NETWORKS_CONSTANTS.map(function(networkType) {
         networkType.endpoints.map(function(networkItem) {
-            EOSNetworks[networkType.name].push(networkItem.protocol + '://' + networkItem.url + ':' + networkItem.port);
+            networkItem.chainId = networkType.chainId;
+            EOSNetworks[networkType.name].push({
+                url: networkItem.protocol + '://' + networkItem.url + ':' + networkItem.port,
+                params: networkItem
+            });
         });
     });
 
@@ -32,35 +36,32 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         'TESTNET': 0
     };
 
-    var currentNetwork, currentNetworkName;
+    var currentNetwork, currentNetworkName, currentEndPoint;
 
-    this.createEosChain = function(network) {
+    this.createEosChain = function(network, callback) {
         network = isProduction ? network * 1 : 11;
-        var networkName;
         switch(network) {
             case 10:
-                networkName = 'MAINNET';
+                currentNetworkName = 'MAINNET';
                 break;
             case 11:
-                networkName = 'TESTNET';
+                currentNetworkName = 'TESTNET';
                 break;
         }
-
         currentNetwork = network;
-        currentNetworkName = networkName;
-
+        currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
         eos = Eos({
-            httpEndpoint: EOSNetworks[networkName][currentNetworks[networkName]],
+            httpEndpoint: EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['url'],
             verbose: false
         });
-        checkNetwork();
+        checkNetwork(callback);
     };
 
     var checkNetwork = function(callback) {
         _this.getInfo().then(callback, function(error) {
             currentNetworks[currentNetworkName]++;
             currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
-            _this.createEosChain(currentNetwork);
+            _this.createEosChain(currentNetwork, callback);
         });
     };
 
@@ -71,6 +72,49 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
                 defer.reject(error);
             } else {
                 defer.resolve(response);
+
+                var requiredFields = {
+                    accounts: [
+                        {
+                            blockchain: 'eos',
+                            chainId: currentEndPoint.chainId,
+                            host: currentEndPoint.url,
+                            port: currentEndPoint.port,
+                            protocol: currentEndPoint.protocol
+                        }
+                    ]
+                };
+
+                setTimeout(function() {
+                    eos.getCurrencyStats('mywishio', 'DT', console.log);
+                    // eos.contract('mywishtoken3').then(console.log);
+                    // _this.coinInfo('dimankovalev', 'DT').then(console.log);
+
+                    // scatter.getIdentity(requiredFields).then(function(identity) {
+                    //     scatter.authenticate().then(function (sign) {
+                    //         var eos = scatter.eos(requiredFields.accounts[0], Eos, {});
+                    //         eos.transaction({
+                    //             actions: [
+                    //                 {
+                    //                     account: 'mywishtoken3',
+                    //                     name: 'issue',
+                    //                     authorization: [{
+                    //                         actor: 'dimankovalev',
+                    //                         permission: 'active'
+                    //                     }],
+                    //                     data: {
+                    //                         from: 'dimankovalev',
+                    //                         to: 'dimankovalev',
+                    //                         quantity: '7000 DT',
+                    //                         memo: ''
+                    //                     }
+                    //                 }
+                    //             ],
+                    //             "signatures": [sign]
+                    //         }).then(console.log);
+                    //     });
+                    // });
+                }, 2000);
             }
         });
         return defer.promise;
@@ -89,7 +133,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         });
         return defer.promise;
     };
-
     this.coinInfo = function(name, short_name) {
         var defer = $q.defer();
         checkNetwork(function() {
@@ -103,7 +146,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         });
         return defer.promise;
     };
-
     this.getBalance = function(code, account, symbol) {
         var defer = $q.defer();
         checkNetwork(function() {
@@ -118,4 +160,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS) {
         return defer.promise;
     };
 
+    var scatter;
+    document.addEventListener('scatterLoaded', function() {
+        scatter = window.scatter;
+    });
+
+
 });
+

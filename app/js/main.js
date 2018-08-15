@@ -328,3 +328,4 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         });
 
     });
+

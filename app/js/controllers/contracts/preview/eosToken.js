@@ -33,6 +33,37 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             break;
     }
 
-}).controller('eosTokenMintController', function() {
+}).controller('eosTokenMintController', function(EOSService, $scope, $timeout) {
+
+    var contract = $scope.ngPopUp.params.contract.contract_details;
+
+    $scope.toAddress = '';
+    $scope.amount = '';
+
+    EOSService.createEosChain($scope.ngPopUp.params.contract.network);
+
+    $scope.mintTokens = function() {
+        EOSService.mintTokens(
+            contract.admin_address,
+            $scope.toAddress,
+            contract.token_short_name,
+            $scope.amount
+        );
+    };
+
+    var checkAddressTimeout;
+
+    $scope.checkAddress = function(addressField) {
+        addressField.$setValidity('not-checked', false);
+        if (!addressField.$viewValue) {
+            return;
+        }
+        checkAddressTimeout ? $timeout.cancel(checkAddressTimeout) : false;
+        checkAddressTimeout = $timeout(function() {
+            EOSService.checkAddress(addressField.$viewValue).then(function(addressInfo) {
+                addressField.$setValidity('not-checked', true);
+            });
+        }, 200);
+    };
 
 });

@@ -2,7 +2,7 @@
     <form name="mintForm">
         <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
             <div class="shadow-block__content__blue-title">
-                <i class="shadow-block__content__blue-title__icon icon-token"></i>
+                <i class="shadow-block__content__blue-title__icon icon-token-eos"></i>
                 <div class="shadow-block__content__blue-title__name">
                     <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
                 </div>
@@ -19,15 +19,13 @@
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.LABEL"
                                class="form-control-label"></label>
                         <input id="out-wallet-key" type="text"
-                               placeholder="{{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.PLACEHOLDER'|translate}}"
-                               ng-pattern="/^0x[0-9a-f]{40}$/i"
-                               ng-model="recipient.address"
-                               ng-change="!recipient.name ? checkTokensAmount() : false"
+                               ng-change="checkAddress(mintForm['out-wallet-key'])"
+                               pattern="[a-z1-5]{12}"
+                               maxlength="12"
+                               ng-model="toAddress"
+                               name="out-wallet-key"
                                required
                                class="form-control-input"/>
-                        <span class="field-error form-field_error-check-sum"
-                              ng-if="recipient.address ? !$root.web3Utils.checkAddressChecksum(recipient.address) : false"
-                              style="display: block" TRANSLATE="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
                     </div>
                 </div>
 
@@ -41,12 +39,12 @@
                                commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
                                required
                                ng-change="checkTokensAmount()"
-                               ng-model="recipient.amount"/>
+                               ng-model="amount"/>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <!-- div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
@@ -73,24 +71,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div -->
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
             <button class="btn btn-submit" type="button"
-                    ng-pop-up="{
-                        template: '/templates/popups/instructions/eth/mint-instruction.html',
-                        newPopupContent: true,
-                        params: {
-                            contract: contract,
-                            recipient: recipient,
-                            mintSignature: mintSignature,
-                            currentWallet: currentWallet
-                        },
-                        actions: {
-                            sendMintTransaction: sendMintTransaction
-                        },
-                        onClose: returnToList
-                    }"
-                    ng-disabled="!mintForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
+                    ng-disabled="!mintForm.$valid" ng-click="mintTokens();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.MINT'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>

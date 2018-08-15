@@ -68,6 +68,49 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                 defer.reject(error);
             } else {
                 defer.resolve(response);
+
+                var requiredFields = {
+                    accounts: [
+                        {
+                            blockchain: 'eos',
+                            chainId: currentEndPoint.chainId,
+                            host: currentEndPoint.url,
+                            port: currentEndPoint.port,
+                            protocol: currentEndPoint.protocol
+                        }
+                    ]
+                };
+
+                // setTimeout(function() {
+                    // eos.contract('eosio.token').then(console.log);
+                    // eos.contract('mywishtoken3').then(console.log);
+                    // _this.coinInfo('mywishtoken3', 'DT').then(console.log);
+
+                    // scatter.getIdentity(requiredFields).then(function(identity) {
+                    //     scatter.authenticate().then(function (sign) {
+                    //         var eos = scatter.eos(requiredFields.accounts[0], Eos, {});
+                    //         eos.transaction({
+                    //             actions: [
+                    //                 {
+                    //                     account: 'mywishtoken3',
+                    //                     name: 'issue',
+                    //                     authorization: [{
+                    //                         actor: 'dimankovalev',
+                    //                         permission: 'active'
+                    //                     }],
+                    //                     data: {
+                    //                         from: 'dimankovalev',
+                    //                         to: 'dimankovalev',
+                    //                         quantity: '7000 DT',
+                    //                         memo: ''
+                    //                     }
+                    //                 }
+                    //             ],
+                    //             "signatures": [sign]
+                    //         }).then(console.log);
+                    //     });
+                    // });
+                // }, 2000);
             }
         });
         return defer.promise;
@@ -114,5 +157,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         });
         return defer.promise;
     };
+
+    var scatter;
+    document.addEventListener('scatterLoaded', function() {
+        scatter = window.scatter;
+    });
+
 
 });

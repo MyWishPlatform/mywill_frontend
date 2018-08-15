@@ -51,7 +51,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
             }, function() {
                 tokenShortName.$setValidity('not-checked', true);
             });
-        }, 500);
+        }, 200);
     };
 
     $scope.resetFormData = function() {

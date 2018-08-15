@@ -42,8 +42,9 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
         }
         checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
         checkTokenTimeout = $timeout(function() {
-            EOSService.coinInfo(tokenShortName.$viewValue).then(function(result) {
-                if (result[tokenShortName.$viewValue]) {
+            var symbol = tokenShortName.$viewValue.toUpperCase();
+            EOSService.coinInfo(symbol).then(function(result) {
+                if (result[symbol]) {
                     tokenShortName.$setValidity('check-sum', false);
                 }
                 tokenShortName.$setValidity('not-checked', true);

@@ -18,23 +18,16 @@
             <div class="form-control">
                 <div class="form-control-label"
                        translate="CONTRACTS.PREVIEW.EOS_WALLET.ACCOUNT_NAME"></div>
-                <a href="{{contract.network|etherscanUrl:'account'}}/{{contract.contract_details.account_name}}"
-                   ng-if="contract.stateValue == 4"
-                   target="_blank" class="form-control-input-container" style="display: block">
-                    <div disabled
-                         class="form-control-input as-link">{{contract.contract_details.account_name}}</div>
-                    <div class="input-after dynamic-info">
-                        <button class="instruction-for-copy-button relative"
-                                clipboard supported="supported"
-                                ng-class="{copied: contract.copied['account_name']}"
-                                text="contract.contract_details.account_name"
-                                on-copied="$root.successCodeCopy(contract, 'account_name')">
-                            <i class="icon-content_copy"></i>
-                        </button>
-                    </div>
-                </a>
-                <div class="form-control-input-container" ng-if="contract.stateValue != 4">
-                    <div disabled class="form-control-input">{{contract.contract_details.account_name}}</div>
+                <div class="form-control-input-container" style="display: block">
+                    <a ng-if="contract.stateValue == 4"
+                       target="_blank"
+                       href="{{contract.network|etherscanUrl:'account'}}/{{contract.contract_details.account_name}}"
+                       disabled
+                       class="form-control-input as-link">{{contract.contract_details.account_name}}</a>
+                    <div ng-if="contract.stateValue != 4"
+                       disabled
+                       class="form-control-input">{{contract.contract_details.account_name}}</div>
+
                     <div class="input-after dynamic-info">
                         <button class="instruction-for-copy-button relative"
                                 clipboard supported="supported"

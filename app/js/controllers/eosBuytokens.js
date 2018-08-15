@@ -35,6 +35,6 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         $scope.formData.amount = $scope.formData.eosAmount;
     };
 
-    $scope.wishAddress = EOSService.getMywishAddress(10);
+    $scope.wishAddress = EOSService.getComingAddress();
 
 });

@@ -24,15 +24,24 @@
                         <label for="out-wallet-key"
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.LABEL"
                                class="form-control-label"></label>
-                        <input id="out-wallet-key" type="text"
-                               ng-change="checkAddress(mintForm['out-wallet-key'])"
-                               pattern="[a-z1-5]{12}"
-                               maxlength="12"
-                               ng-model="recipient.address"
-                               name="out-wallet-key"
-                               required
-                               class="form-control-input"/>
+                        <div class="form-control-input-container">
+                            <input id="out-wallet-key" type="text"
+                                   ng-change="checkAddress(mintForm['out-wallet-key'])"
+                                   pattern="[a-z1-5]{12}"
+                                   maxlength="12"
+                                   ng-model="recipient.address"
+                                   name="out-wallet-key"
+                                   required
+                                   class="form-control-input"/>
+                            <div class="input-after dynamic-info">{{mintForm['out-wallet-key'].$viewValue.length||0}}/12</div>
+                        </div>
                     </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control-label hide-ps">&nbsp;</div>
+                    <span class="form-control-description__text">
+                        EOS account (not an exchange account). This account will receive the tokens
+                    </span>
                 </div>
 
                 <div class="clearfix show-full hide-ps show-vs"><br/></div>

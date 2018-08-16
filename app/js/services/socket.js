@@ -1,64 +1,74 @@
 angular.module('Services').service('WebSocketService', function() {
 
 
-    var eventsHandlers = {};
-
     var watchMessages = function(e) {
         var data = JSON.parse(e.data);
+        switch (data.msg) {
+            case 'update_contract':
+                callUpdateContractHandler(data.data);
+                break;
+            default:
+                break;
+        }
+    };
 
-        if (eventsHandlers[data.message]) {
-            eventsHandlers[data.msg].map(function(handler) {
+    var updateContractHandlers = {};
+    var callUpdateContractHandler = function(data) {
+        updateContractHandlers[data.id] ?
+            updateContractHandlers[data.id].map(function(handler) {
                 handler(data);
+            }) : false;
+    };
+
+    this.onUpdateContract = function(id, handler) {
+        updateContractHandlers[id] = updateContractHandlers[id] || [];
+        updateContractHandlers[id].push(handler);
+    };
+
+    this.offUpdateContract = function(id, handler) {
+        if (updateContractHandlers[id]) {
+            updateContractHandlers[id].filter(function(func) {
+                return func !== handler;
             });
         }
     };
 
+    this.addHandler = function(handlerName, handler) {
 
-    this.addHandler = function(handlerName, handler, unique) {
-        var handlersList = eventsHandlers[handlerName] || [];
-        if (unique && handlersList.length) return;
-        handlersList.push(handler);
-        eventsHandlers[handlerName] = handlersList;
     };
 
     this.removeHandler = function(handlerName, handler) {
-        if (!eventsHandlers[handlerName]) return;
-        eventsHandlers[handlerName] = eventsHandlers[handlerName].filter(function(handlerCallback) {
-            return handlerCallback !== handler;
-        });
+
     };
 
 
 
 
-    var client;
-
-    var onOpenConnection = function(cb) {
-        // handlers['open'] ? handlers['open']() : false;
-    };
-
+    var client, status;
 
     var openConnection = function() {
         var socketUrl = 'ws://dev.mywish.io/ws/';
         client = new W3CWebSocket(socketUrl);
     };
 
-
     this.connect = function(cb) {
         openConnection();
         client.onopen = function() {
-            onOpenConnection(cb);
+            status = true;
         };
         client.binaryType = "blob";
         client.onmessage = watchMessages;
         client.onclose = function() {
-            // onCloseConnection();
+            status = false;
         }
     };
 
-    this.destroyConnection = function() {
+    this.disconnect = function() {
         client.close();
     };
 
-    // this.connect();
+    this.status = function() {
+        return status;
+    };
+
 });

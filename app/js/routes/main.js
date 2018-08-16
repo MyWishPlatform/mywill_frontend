@@ -233,20 +233,22 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             };
         }
     }).state('main.createcontract.types', {
-        url: '/create',
+        url: '/create?:blockchain?&:isTestNet?',
         resolve: {
             allCosts: function(contractService) {
                 return contractService.getAllCosts();
             }
         },
-        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS) {
+        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS, $stateParams) {
             $scope.blockChainNetwork = {};
             switch (ENV_VARS.mode) {
                 case 'eos':
-                    $scope.blockChainNetwork.type = 'EOS';
+                    $scope.blockChainNetwork.type =
+                        CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'EOS';
                     break;
                 default:
-                    $scope.blockChainNetwork.type = 'ETH';
+                    $scope.blockChainNetwork.type =
+                        CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'ETH';
                     break;
             }
 
@@ -256,6 +258,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             $scope.allCosts = allCosts.data;
             $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;
         },
+        reloadOnSearch: false,
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {

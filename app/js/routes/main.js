@@ -239,24 +239,33 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getAllCosts();
             }
         },
-        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS, $stateParams) {
+        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS, $stateParams, $location) {
             $scope.blockChainNetwork = {};
-            switch (ENV_VARS.mode) {
-                case 'eos':
-                    $scope.blockChainNetwork.type =
-                        CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'EOS';
-                    break;
-                default:
-                    $scope.blockChainNetwork.type =
-                        CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'ETH';
-                    break;
-            }
-            $scope.blockChainNetwork.isTest = !!$stateParams.isTestNet;
+            var iniListParams = function() {
+                switch (ENV_VARS.mode) {
+                    case 'eos':
+                        $scope.blockChainNetwork.type =
+                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'EOS';
+                        break;
+                    default:
+                        $scope.blockChainNetwork.type =
+                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'ETH';
+                        break;
+                }
+                $scope.blockChainNetwork.isTest = !!$stateParams.isTestNet;
+            };
+
             for (var key in allCosts.data) {
                 allCosts.data[key] = new BigNumber(allCosts.data[key]).round(3).toString(10);
             }
             $scope.allCosts = allCosts.data;
             $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;
+            iniListParams();
+
+            $scope.$on('$locationChangeSuccess', function(event, oldLocation, newLocation) {
+                if (oldLocation == newLocation) return;
+                iniListParams();
+            });
         },
         reloadOnSearch: false,
         templateUrl: templatesPath + 'createcontract/contract-types.html'

@@ -1,4 +1,4 @@
-angular.module('app').controller('eosTokenPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope) {
+angular.module('app').controller('eosTokenPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, $filter, EOSService) {
     $scope.contract = openedContract.data;
 
     $scope.setContract($scope.contract);
@@ -22,8 +22,6 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
         itemValue: 'amount',
         itemLabel: 'address'
     };
-    $scope.chartData = angular.copy(contractDetails.token_holders);
-
 
     switch ($scope.contract.network) {
         case 10:
@@ -32,6 +30,30 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             $scope.contractInfo = 'eos_contract_token';
             break;
     }
+
+    $scope.chartData = [
+        {
+            amount: '',
+            address: $filter('translate')('POPUP_FORMS.MINT_TOKENS_FORM.CHART.EOS_DISTRIBUTED_BEFORE')
+        }, {
+            amount: '',
+            address: $filter('translate')('POPUP_FORMS.MINT_TOKENS_FORM.CHART.EOS_DISTRIBUTE_AVAILABLE')
+        }
+    ];
+    $scope.tokenInfo = {};
+
+    EOSService.createEosChain($scope.contract.network, function() {
+        var symbol = $scope.contract.contract_details.token_short_name;
+        EOSService.coinInfo(symbol).then(function(result) {
+            var totalSupply = result[symbol].supply.split(' ')[0];
+            $scope.chartData[0].amount = totalSupply;
+
+            var maximumSupply = result[symbol].max_supply.split(' ')[0];
+            $scope.chartData[1].amount = new BigNumber(maximumSupply).minus(totalSupply).toString(10);
+            $scope.tokenInfo['totalSupply'] = totalSupply;
+            $scope.tokenInfo['maximumSupply'] = maximumSupply;
+        });
+    });
 
 }).controller('eosTokenMintController', function(EOSService, $scope, $timeout, $filter) {
 
@@ -52,6 +74,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
                 $scope.$apply();
                 $scope.$parent.$broadcast('changeContent');
                 beforeDistributed.amount = $scope.tokenInfo['totalSupply'];
+                $scope.totalSupply = $scope.tokenInfo['totalSupply'];
                 if ($scope.tokenInfo['totalSupply'] == 0) {
                     beforeDistributed.address = '';
                 } else {

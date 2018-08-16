@@ -68,18 +68,18 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "network": "eos",
         "endpoints": [
             {
-                "name": "EOS Costa Rica",
-                "protocol": "https",
-                "port": 443,
-                "url": "jungle.eosio.cr",
-                "description": "Public node provided by EOS Costa Rica"
-            },
-            {
                 "name": "EOSMetal",
                 "protocol": "https",
                 "port": 443,
                 "url": "junglenodes.eosmetal.io",
                 "description": "HA Proxy node provided by EOSMetal"
+            },
+            {
+                "name": "EOS Costa Rica",
+                "protocol": "https",
+                "port": 443,
+                "url": "jungle.eosio.cr",
+                "description": "Public node provided by EOS Costa Rica"
             }
         ]
     }

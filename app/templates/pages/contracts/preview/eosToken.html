@@ -199,8 +199,46 @@
                 </div>
             </div>
         </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="tokenInfo.maximumSupply">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="form-control-label">
+                        {{'CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.LABEL'|translate}}
+                        {{tokenInfo.maximumSupply|separateNumber}}
+                        {{ngPopUp.params.contract.contract_details.token_short_name}}
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="form-control-label">
+                        {{'POPUP_FORMS.MINT_TOKENS_FORM.CHART.TOTAL_SUPPLY'|translate}}
+                        {{tokenInfo.totalSupply|separateNumber}}
+                        {{ngPopUp.params.contract.contract_details.token_short_name}}
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
+                    <div id="chartdiv" class="chart-container" ng-hide="totalSupply == 0"
+                         ng-chart
+                         ng-chart-data="chartData"
+                         ng-chart-options="chartOptions"></div>
+                    <div class="chart-placeholder" ng-hide="totalSupply != 0">
+                        <img src="/static/images/chart_placeholder.svg"/>
+                    </div>
+                    &nbsp;
+                </div>
+                <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
+                    <div class="chart-legend">
+                        <div class="chart-legend-item"
+                             ng-repeat="chartDataItem in chartData"
+                             ng-if="chartDataItem.address">
+                            <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                            <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <!-- div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
@@ -209,7 +247,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div -->
     </div>
 
     <div class="shadow-block"

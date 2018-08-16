@@ -80,7 +80,6 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             $scope.recipient.amount
         ).then(function(result) {
             $scope.successTransaction = result;
-            console.log($scope.successTransaction);
         }, function(error) {
             switch(error.code) {
                 case 1:
@@ -140,6 +139,10 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
 
     $scope.dataChanged = function() {
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
+    };
+
+    $scope.closeMintingForm = function() {
+        $scope.$parent.$broadcast('$closePopUps');
     };
 
 });

@@ -135,7 +135,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                 return;
             }
             var eos = window.scatter.eos(network, Eos, {});
-            console.log(123);
             eos.transaction({
                 actions: [{
                     account: eosAccounts[displayingNetwork]['TOKEN'],

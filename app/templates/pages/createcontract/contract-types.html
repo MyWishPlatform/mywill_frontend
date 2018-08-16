@@ -62,6 +62,7 @@
             <div class="grid-cell">
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
+                           ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
                            ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO')"
                            ng-disabled="(blockChainNetwork.type === 'NEO')">
                     <span class="checkbox-decoration-displaying for-buttons-height">

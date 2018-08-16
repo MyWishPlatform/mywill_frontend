@@ -251,7 +251,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'ETH';
                     break;
             }
-
+            $scope.blockChainNetwork.isTest = !!$stateParams.isTestNet;
             for (var key in allCosts.data) {
                 allCosts.data[key] = new BigNumber(allCosts.data[key]).round(3).toString(10);
             }

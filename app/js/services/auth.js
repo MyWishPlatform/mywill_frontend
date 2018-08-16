@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('authService', function(requestService, API, $q, $timeout, $cookies) {
+module.service('authService', function(requestService, API, $q, $timeout, $cookies, WebSocketService) {
     return {
         registration: function(params) {
             params.API_PATH = API.HOSTS.AUTH_PATH;
@@ -18,9 +18,14 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
             var promise = requestService.get(params);
             promise.then(function(response) {
                 if (response.data.id) {
+                    !WebSocketService.status() ? WebSocketService.connect() : false;
                     $cookies.put('UserID', response.data.id);
+                } else {
+                    WebSocketService.status() ? WebSocketService.disconnect() : false;
+                    $cookies.put('UserID', undefined);
                 }
             }, function() {
+                WebSocketService.status() ? WebSocketService.disconnect() : false;
                 $cookies.put('UserID', undefined);
             });
             return promise;

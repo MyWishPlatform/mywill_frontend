@@ -140,7 +140,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         resolve: {
             contractsList: function(contractService, $rootScope, currentUser, ENV_VARS) {
                 return !$rootScope.currentUser.is_ghost ? contractService.getContractsList({
-                    eos: ENV_VARS.mode === 'eos' ? 1 : 0,
+                    eos: ENV_VARS.mode === 'eos' ? 1 : undefined,
                     limit: 8
                 }) : [];
             }
@@ -233,29 +233,41 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             };
         }
     }).state('main.createcontract.types', {
-        url: '/create',
+        url: '/create?:blockchain?&:isTestNet?',
         resolve: {
             allCosts: function(contractService) {
                 return contractService.getAllCosts();
             }
         },
-        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS) {
+        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS, $stateParams, $location) {
             $scope.blockChainNetwork = {};
-            switch (ENV_VARS.mode) {
-                case 'eos':
-                    $scope.blockChainNetwork.type = 'EOS';
-                    break;
-                default:
-                    $scope.blockChainNetwork.type = 'ETH';
-                    break;
-            }
+            var iniListParams = function() {
+                switch (ENV_VARS.mode) {
+                    case 'eos':
+                        $scope.blockChainNetwork.type =
+                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'EOS';
+                        break;
+                    default:
+                        $scope.blockChainNetwork.type =
+                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'ETH';
+                        break;
+                }
+                $scope.blockChainNetwork.isTest = !!$stateParams.isTestNet;
+            };
 
             for (var key in allCosts.data) {
                 allCosts.data[key] = new BigNumber(allCosts.data[key]).round(3).toString(10);
             }
             $scope.allCosts = allCosts.data;
             $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;
+            iniListParams();
+
+            $scope.$on('$locationChangeSuccess', function(event, oldLocation, newLocation) {
+                if (oldLocation == newLocation) return;
+                iniListParams();
+            });
         },
+        reloadOnSearch: false,
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {

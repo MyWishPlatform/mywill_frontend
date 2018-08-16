@@ -21,19 +21,24 @@
                 <div class="form-control">
                     <label for="contract-name" class="form-control-label"
                            translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.TITLE"></label>
-                    <input id="contract-name" type="text"
-                           ng-change="checkAccountName(accountNameForm)"
-                           placeholder="qwertyuiopas"
-                           pattern="[a-z1-5]{12}"
-                           name="account-name"
-                           ng-model="request.contract_details.account_name"
-                           required
-                           class="form-control-input"/>
-                    <span class="field-success"
-                          ng-if="accountNameForm.$valid"
-                          translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.SUCCESS_TEXT"></span>
-                    <span class="field-error form-field_error-check-sum"
-                          translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.ALREADY_NAME_TEXT"></span>
+                    <div class="form-control-input-container">
+                        <input id="contract-name" type="text"
+                               ng-change="checkAccountName(accountNameForm)"
+                               placeholder="qwertyuiopas"
+                               pattern="[a-z1-5]{12}"
+                               maxlength="12"
+                               name="account-name"
+                               ng-model="request.contract_details.account_name"
+                               required
+                               class="form-control-input"/>
+                        <div class="input-after dynamic-info">{{accountNameForm['account-name'].$viewValue.length||0}}/12</div>
+                        <span class="field-success"
+                              ng-if="accountNameForm.$valid"
+                              translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.SUCCESS_TEXT"></span>
+                        <span class="field-error form-field_error-check-sum"
+                              translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.ALREADY_NAME_TEXT"></span>
+                    </div>
+
 
                 </div>
             </div>
@@ -113,9 +118,9 @@
 
         <div ng-if="!havePublicKeys">
             <div class="grid-row">
-                <div class="grid-cell grid-cell-1-3">
+                <div class="grid-cell grid-cell-1-3  grid-cell-ps-1">
                     <div class="form-control">
-                        <button class="btn btn-submit mobile-width-100" type="button" ng-click="generateKeysPairs()">
+                        <button class="btn btn-submit" type="button" ng-click="generateKeysPairs()">
                             <span ng-if="!(generated_keys.active_public_key && generated_keys.owner_public_key)"
                                   translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.GENERATE_KEYS"></span>
                             <span ng-if="generated_keys.active_public_key && generated_keys.owner_public_key"
@@ -123,7 +128,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-2-3">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-1">
                     <div class="form-control">
                         <span class="form-control-description__text"
                               translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.GENERATE_KEYS_DESCRIPTION"></span>

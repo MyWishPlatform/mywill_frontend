@@ -1,13 +1,14 @@
 angular.module('app').controller('authController', function (authService, $rootScope, $scope, SocialAuthService, $timeout, $cookies) {
     $scope.twoFAEnabled = false;
     $scope.request = {};
+    $scope.loginRequest = {};
 
     $scope.$parent.socialAuthError = false;
     $scope.sendLoginForm = function(authForm, reloadPage, inService) {
         if (!authForm.$valid) return;
-        $scope.serverErrors = undefined;
+        $scope.logInServerErrors = undefined;
         authService.auth({
-            data: $scope.request
+            data: $scope.loginRequest
         }).then(function (response) {
             if (inService) {
                 onAuth();
@@ -25,7 +26,7 @@ angular.module('app').controller('authController', function (authService, $rootS
         }, function (response) {
             switch (response.status) {
                 case 400:
-                    $scope.serverErrors = response.data;
+                    $scope.logInServerErrors = response.data;
                     break;
                 case 403:
                     switch (response.data.detail) {
@@ -33,7 +34,7 @@ angular.module('app').controller('authController', function (authService, $rootS
                             $scope.twoFAEnabled = true;
                             break;
                         case '1020':
-                            $scope.serverErrors = {totp: 'Invalid code'};
+                            $scope.logInServerErrors = {totp: 'Invalid code'};
                             break;
                     }
                     break;
@@ -159,11 +160,11 @@ angular.module('app').controller('authController', function (authService, $rootS
         }
     };
 
-    $scope.getConfirmEmail = function() {
+    $scope.getConfirmEmail = function(email) {
         if (sentConfirmProgress) return;
         sentConfirmProgress = true;
 
-        authService.resendConfirmEmail($scope.regRequest.email).then(function() {
+        authService.resendConfirmEmail(email || $scope.regRequest.email).then(function() {
             startTimerTime = (new Date()).getTime();
             $cookies.put('latest-email-request', startTimerTime);
             $scope.emailConfirmProgress = true;

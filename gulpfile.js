@@ -200,6 +200,7 @@ gulp.task('login:js', ['login:js-clean'], function() {
             path.join(output, folders['js'], 'services', 'request.js'),
             path.join(output, folders['js'], 'services', 'auth.js'),
             path.join(output, folders['js'], 'services', 'socialAuth.js'),
+            path.join(output, folders['js'], 'services', 'socket.js'),
             path.join(output, folders['js'], 'constants', 'app.js'),
             path.join(output, folders['js'], 'constants', 'githubIssuer.js'),
             path.join(output, folders['js'], 'controllers', 'auth.js'),

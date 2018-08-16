@@ -163,6 +163,10 @@
   margin-top: 0.2em;
   border-radius: 0.3em;
   outline: none;
+  &.as-link {
+    display: inline-block;
+    color: $main-color;
+  }
   &.with-currency {
     padding-right: 3.5em;
   }
@@ -330,6 +334,27 @@
     line-height: 1em;
     display: block;
     bottom: 1.7em;
+    &.dynamic-info {
+      color: #aaa;
+      font-size: 1.3em;
+      line-height: 1em;
+    }
+  }
+  &-input-container {
+    position: relative;
+    .input-after {
+      top: 50%;
+      margin-top: -0.5em;
+      &.dynamic-info {
+        margin-top: 0;
+        bottom: auto;
+        top: 1.5em;
+      }
+      .instruction-for-copy-button {
+        margin-right: 0;
+        margin-top: -3px;
+      }
+    }
   }
   &_label {
     line-height: 4.9em;

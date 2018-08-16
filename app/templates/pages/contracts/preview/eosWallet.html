@@ -14,54 +14,72 @@
 
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_WALLET.ACCOUNT_NAME"></div>
-            <br class="show-ls"/>
-            <div class="contract-wallet-information-wallet">
-                <span ng-if="contract.stateValue != 4">{{contract.contract_details.account_name}}</span>
-                <a  ng-if="contract.stateValue == 4"
-                    target="_blank"
-                    href="{{contract.network|etherscanUrl:'account'}}/{{contract.contract_details.account_name}}">
-                    {{contract.contract_details.account_name}}
-                </a>
-                <button class="instruction-for-copy-button relative"
-                        clipboard supported="supported"
-                        ng-class="{copied: contract.copied['account_name']}"
-                        text="contract.contract_details.account_name"
-                        on-copied="$root.successCodeCopy(contract, 'account_name')">
-                    <i class="icon-content_copy"></i>
-                </button>
+
+            <div class="form-control">
+                <div class="form-control-label"
+                       translate="CONTRACTS.PREVIEW.EOS_WALLET.ACCOUNT_NAME"></div>
+                <div class="form-control-input-container" style="display: block">
+                    <a ng-if="contract.stateValue == 4"
+                       target="_blank"
+                       href="{{contract.network|etherscanUrl:'account'}}/{{contract.contract_details.account_name}}"
+                       disabled
+                       class="form-control-input as-link">{{contract.contract_details.account_name}}</a>
+                    <div ng-if="contract.stateValue != 4"
+                       disabled
+                       class="form-control-input">{{contract.contract_details.account_name}}</div>
+
+                    <div class="input-after dynamic-info">
+                        <button class="instruction-for-copy-button relative"
+                                clipboard supported="supported"
+                                ng-class="{copied: contract.copied['account_name']}"
+                                text="contract.contract_details.account_name"
+                                on-copied="$root.successCodeCopy(contract, 'account_name')">
+                            <i class="icon-content_copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-control">
+                <div class="form-control-label"
+                     translate="CONTRACTS.PREVIEW.EOS_WALLET.ACTIVE_PUBLIC_KEY"></div>
+                <div class="form-control-input-container">
+                    <input type="text" disabled
+                           class="form-control-input"
+                           ng-model="contract.contract_details.active_public_key">
+                    <div class="input-after dynamic-info">
+                        <button class="instruction-for-copy-button relative"
+                                clipboard supported="supported"
+                                ng-class="{copied: contract.copied['active_public_key']}"
+                                text="contract.contract_details.active_public_key"
+                                on-copied="$root.successCodeCopy(contract, 'active_public_key')">
+                            <i class="icon-content_copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-control">
+                <div class="form-control-label"
+                     translate="CONTRACTS.PREVIEW.EOS_WALLET.OWNER_PUBLIC_KEY"></div>
+                <div class="form-control-input-container">
+                    <input type="text" disabled
+                           class="form-control-input"
+                           ng-model="contract.contract_details.owner_public_key">
+                    <div class="input-after dynamic-info">
+                        <button class="instruction-for-copy-button relative"
+                                clipboard supported="supported"
+                                ng-class="{copied: contract.copied['owner_public_key']}"
+                                text="contract.contract_details.owner_public_key"
+                                on-copied="$root.successCodeCopy(contract, 'owner_public_key')">
+                            <i class="icon-content_copy"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
-            <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_WALLET.ACTIVE_PUBLIC_KEY"></div>
-            <br class="show-ls"/>
-            <div class="contract-wallet-information-wallet">
-                {{contract.contract_details.active_public_key}}
-                <button class="instruction-for-copy-button relative"
-                        clipboard supported="supported"
-                        ng-class="{copied: contract.copied['active_key']}"
-                        text="contract.contract_details.active_public_key"
-                        on-copied="$root.successCodeCopy(contract, 'active_key')">
-                    <i class="icon-content_copy"></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
-            <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_WALLET.OWNER_PUBLIC_KEY"></div>
-            <br class="show-ls"/>
-            <div class="contract-wallet-information-wallet">
-                {{contract.contract_details.owner_public_key}}
-                <button class="instruction-for-copy-button relative"
-                        clipboard supported="supported"
-                        ng-class="{copied: contract.copied['owner_key']}"
-                        text="contract.contract_details.owner_public_key"
-                        on-copied="$root.successCodeCopy(contract, 'owner_key')">
-                    <i class="icon-content_copy"></i>
-                </button>
-            </div>
-        </div>
     </div>
 
 

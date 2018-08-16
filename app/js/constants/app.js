@@ -6,31 +6,46 @@ module.constant('APP_CONSTANTS', {
     'WISH': {
         'ADDRESS': '0x1b22c32cd936cb97c28c5690a0695a82abf688e6'
     },
-    'EOS_ADDRESS': {
-        'TOKEN': 'mywishtoken3'
+    'EOS_ADDRESSES': {
+        'DEVELOPMENT': {
+            'MAINNET': {
+                'TOKEN': 'mywishtoken4',
+                'ACCOUNT': 'mywishtoken4'
+            },
+            'TESTNET': {
+                'TOKEN': 'mywishtoken3',
+                'ACCOUNT': 'mywishtoken3'
+            },
+            'COMING': 'mywishcoming'
+        },
+        'PRODUCTION': {
+            'MAINNET': {
+                'TOKEN': 'mywishtokens',
+                'ACCOUNT': 'deploymywish'
+            },
+            'TESTNET': {
+                'TOKEN': 'mywishtokens',
+                'ACCOUNT': 'mywishiotest'
+            },
+            'COMING': undefined
+        }
     },
     'INFURA_ADDRESS': "https://mainnet.infura.io/MEDIUMTUTORIAL",
-    // 'INFURA_ADDRESS': "https://ropsten.infura.io/MEDIUMTUTORIAL",
     'ROPSTEN_INFURA_ADDRESS': 'https://ropsten.infura.io/MEDIUMTUTORIAL',
 
-    // 'ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
     'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
     'ROPSTEN_ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',
 
-
-    // 'RSK_ADDRESS': 'https://explorer.testnet.rsk.co/',
     'RSK_ADDRESS': 'https://explorer.rsk.co/',
     'RSK_TESTNET_ADDRESS': 'https://explorer.testnet.rsk.co/',
 
-
-    // 'RSK_NET_ADDRESS': '/endpoint/rsk-testnet',
     'RSK_NET_ADDRESS': '/endpoint/rsk',
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
     "NEO_TESTNET_ADDRESS": 'http://testnet.antcha.in/',
     "NEO_MAINNET_ADDRESS": 'http://antcha.in/',
 
-    "EOS_MAINNET_ADDRESS": "https://eosflare.io/",
+    "EOS_MAINNET_ADDRESS": "https://eospark.com/",
     "EOS_TESTNET_ADDRESS": "https://eospark.com/Jungle/",
 
     'EMPTY_PROFILE': {

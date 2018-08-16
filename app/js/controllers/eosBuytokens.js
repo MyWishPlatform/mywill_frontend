@@ -35,40 +35,6 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         $scope.formData.amount = $scope.formData.eosAmount;
     };
 
-
-    EOSService.createEosChain(10);
-
-    $scope.user_address = '';
-    var checkAddressTimeout;
-    $scope.userBalance = '';
-
-    $scope.wishAddress = EOSService.getMywishAddress(10);
-
-    $scope.checkAddress = function(addressField) {
-        $scope.checkedAddress = false;
-        addressField.$setValidity('check-sum', true);
-        addressField.$setValidity('not-checked', true);
-        if (!addressField.$valid) return;
-        addressField.$setValidity('not-checked', false);
-        if (!addressField.$viewValue) {
-            return;
-        }
-
-        $scope.userBalance = false;
-
-        checkAddressTimeout ? $timeout.cancel(checkAddressTimeout) : false;
-        checkAddressTimeout = $timeout(function() {
-            EOSService.checkAddress(addressField.$viewValue).then(function(addressInfo) {
-                addressField.$setValidity('not-checked', true);
-                $scope.checkedAddress = true;
-                EOSService.getBalance('eosio.token', addressField.$viewValue, 'EOS').then(function(result) {
-                    $scope.userBalance = result.length ? result[0].split(' ')[0] : '0';
-                });
-            }, function() {
-                addressField.$setValidity('check-sum', false);
-            });
-        }, 500);
-    };
-
+    $scope.wishAddress = EOSService.getComingAddress();
 
 });

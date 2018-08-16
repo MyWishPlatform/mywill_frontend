@@ -149,6 +149,15 @@
     "EOS": "EOS"
   },
   "ALERTS": {
+    "SCATTER_INSTALL": {
+      "TEXT": "Please Install Scatter application & Try again"
+    },
+    "SCATTER_ACCOUNT_NOT_FOUND": {
+      "TEXT": "Owner account is not found in Scatter. Please add & try again."
+    },
+    "SCATTER_MINTING_SUCCESS": {
+      "TEXT": "Transaction was sent successfully"
+    },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "ありがとうございました！ あなたのメッセージが送信されました、私たちはメールアドレスで連絡します"
     },
@@ -177,6 +186,9 @@
     },
     "CONTRACT_PAY": {
       "TEXT": "契約打ち上げ({{price}} WISH)を確認してください"
+    },
+    "ACCOUNT_CREATION": {
+      "TEXT": "Please confirm account creation ({{price}} WISH)"
     }
   },
   "PAGES": {
@@ -274,7 +286,7 @@
         "DESCRIPTION": "指定された期間の後/間に所有者の間でMultisig財布が機能し、資金の配分です。"
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "Create an account on EOS blockchain"
       },
       "TEST_NET_DISCLAIMER": {
@@ -315,6 +327,16 @@
         "DESCRIPTION": {
           "PLACEHOLDER": "契約の説明"
         }
+      }
+    },
+    "EOS_BUY_TOKENS": {
+      "MYWISH_ACCOUNT": {
+        "LABEL": "Send EOS to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"https://contracts.mywish.io/createAccount\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "MEMO_FIELD": {
+        "LABEL": "Fill MEMO field:",
+        "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
       }
     },
     "BUY_TOKENS": {
@@ -411,7 +433,8 @@
       "FIELDS": {
         "ADDRESS": {
           "PLACEHOLDER": "受信者の財布のアドレスを入力します。",
-          "LABEL": "アドレス"
+          "LABEL": "アドレス",
+          "EOS_DESCRIPTION": "EOS account (not an exchange account). This account will receive the tokens"
         },
         "AMOUNT": {
           "LABEL": "トークン額"
@@ -942,6 +965,24 @@
           }
         }
       },
+      "EOS_TOKEN": {
+        "FIELDS": {
+          "TOKEN_SYMBOL": {
+            "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES).",
+            "ALREADY_NAME_TEXT": "Token name is already in use"
+          },
+          "DECIMALS": {
+            "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as common."
+          },
+          "TOKEN_OWNER": {
+            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
+          },
+          "MAXIMUM_SUPPLY": {
+            "LABEL": "Maximum supply:",
+            "DESCRIPTION": "Total supply of the Token. No more tokens can be created."
+          }
+        }
+      },
       "TOKEN": {
         "TITLE": "トークン契約",
         "BUTTONS": {
@@ -1145,7 +1186,7 @@
         }
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Address",
+        "TITLE": "Create EOS Account",
         "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
         "FIELDS": {
           "ACCOUNT_NAME": {
@@ -1240,7 +1281,8 @@
       "TOKEN": {
         "TOKEN_ADDRESS": "トークンアドレス",
         "TOKEN_TYPE": "トークンタイプ",
-        "TOKEN_DISTRIBUTION": "トークン配布"
+        "TOKEN_DISTRIBUTION": "トークン配布",
+        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab."
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "クラウドセール契約（すべての寄付はこの住所に送付するものとする）",

@@ -10,45 +10,41 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="sitemode === 'default'">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
-                <label class="btn btn-gray with-icon width-100 nowrap" ng-class="{'active': blockChainNetwork.type === 'ETH'}">
-                    <input type="radio" class="hidden-input"
-                           ng-model="blockChainNetwork.type"
-                           value="ETH" name="blockchain-network">
+                <a ui-sref="main.createcontract.types({blockchain: 'ETH'})"
+                   ng-click="blockChainNetwork.type = 'ETH'"
+                   class="btn btn-gray with-icon width-100 nowrap" ng-class="{'active': blockChainNetwork.type === 'ETH'}">
                     <img src="/static/images/blockchain/ethereum.png" width="20"  style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.ETH"></span>
-                </label>
+                </a>
             </div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
-                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'EOS'}">
-                    <input type="radio" class="hidden-input"
-                           ng-model="blockChainNetwork.type"
-                           value="EOS" name="blockchain-network">
+                <a ui-sref="main.createcontract.types({blockchain: 'EOS'})"
+                   ng-click="blockChainNetwork.type = 'EOS'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'EOS'}">
                     <img src="/static/images/blockchain/eos.svg" width="18" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.EOS"></span>
-                </label>
+                </a>
             </div>
             <div class="show-ps clearfix"><br/></div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
-                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'RSK'}">
-                    <input type="radio" class="hidden-input"
-                           ng-model="blockChainNetwork.type"
-                           value="RSK" name="blockchain-network">
+                <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"
+                   ng-click="blockChainNetwork.type = 'RSK'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'RSK'}">
                     <img src="/static/images/blockchain/bitcoin.png" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.BTC"></span>
-                </label>
+                </a>
             </div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
-                <label class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'NEO'}">
-                    <input type="radio" class="hidden-input"
-                           ng-model="blockChainNetwork.type"
-                           value="NEO" name="blockchain-network">
+                <a ui-sref="main.createcontract.types({blockchain: 'NEO'})"
+                   ng-click="blockChainNetwork.type = 'NEO'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'NEO'}">
                     <img src="/static/images/blockchain/neo.png" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.NEO"></span>
-                </label>
+                </a>
             </div>
         </div>
     </div>
@@ -66,8 +62,9 @@
             <div class="grid-cell">
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
-                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'EOS')"
-                           ng-disabled="(blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'EOS')">
+                           ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
+                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO')"
+                           ng-disabled="(blockChainNetwork.type === 'NEO')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>

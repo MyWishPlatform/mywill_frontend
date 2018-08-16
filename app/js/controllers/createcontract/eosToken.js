@@ -35,17 +35,23 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
 
     var checkTokenTimeout;
     $scope.checkTokenName = function(tokenShortName) {
-        if ($scope.network === 11) return;
         tokenShortName.$setValidity('not-checked', false);
+        tokenShortName.$setValidity('check-sum', true);
         if (!tokenShortName.$viewValue) {
             return;
         }
-        checkTokenTimeout ? $timeout.cancel(checkAddressTimeout) : false;
+        checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
         checkTokenTimeout = $timeout(function() {
-            EOSService.coinInfo(APP_CONSTANTS.EOS_ADDRESS.TOKEN, 'TEST').then(function() {
+            var symbol = tokenShortName.$viewValue.toUpperCase();
+            EOSService.coinInfo(symbol).then(function(result) {
+                if (result[symbol]) {
+                    tokenShortName.$setValidity('check-sum', false);
+                }
+                tokenShortName.$setValidity('not-checked', true);
+            }, function() {
                 tokenShortName.$setValidity('not-checked', true);
             });
-        }, 500);
+        }, 200);
     };
 
     $scope.resetFormData = function() {
@@ -73,7 +79,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
-
+        contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
         return {
             name: contract.name,
             network: contract.network,
@@ -112,7 +118,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
         if (localStorage.draftContract) {
             if (!contract.id) {
                 var draftContract = JSON.parse(localStorage.draftContract);
-                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.EOS_TOKEN) {
                     contract = draftContract;
                 }
             }

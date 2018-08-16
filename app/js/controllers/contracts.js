@@ -57,7 +57,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
 }).controller('baseContractsController', function($scope, $state, $timeout, contractService,
-                                                  web3Service,
+                                                  web3Service, WebSocketService,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
 
     $scope.contractTypesIcons = {
@@ -113,6 +113,19 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         contract.stateValue = $scope.statuses[contract.state]['value'];
         contract.stateTitle = $scope.statuses[contract.state]['title'];
         contract.discount = 0;
+
+        var updateContract = function(newContractData) {
+            angular.merge(contract, newContractData);
+            WebSocketService.offUpdateContract(contract.id, updateContract);
+            $scope.iniContract(contract);
+            $scope.$apply();
+        };
+
+        WebSocketService.onUpdateContract(contract.id, updateContract);
+
+        $scope.$on('$destroy', function() {
+            WebSocketService.offUpdateContract(contract.id, updateContract);
+        });
 
         if (!contract.contract_details.eth_contract) return;
 
@@ -280,7 +293,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         7: 'neo_crowdsale',
         8: 'airdrop',
         9: 'invest',
-        10: 'eos_wallet'
+        10: 'eos_token',
+        11: 'eos_wallet'
     };
 
     var launchProgress = false;
@@ -377,7 +391,19 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             launchContract(contract);
             return;
         }
-        $rootScope.commonOpenedPopup = 'confirmations/contract-confirm-pay';
+
+        var contractConfirmTpl;
+        switch (contract.contract_type) {
+            case 11:
+                contractConfirmTpl = 'confirmations/account-confirm-pay';
+                break;
+            default:
+                contractConfirmTpl = 'confirmations/contract-confirm-pay';
+                break;
+
+        }
+
+        $rootScope.commonOpenedPopup = contractConfirmTpl;
         $rootScope.commonOpenedPopupParams = {
             newPopupContent: true,
             class: 'deleting-contract',

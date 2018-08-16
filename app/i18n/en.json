@@ -433,7 +433,8 @@
       "FIELDS": {
         "ADDRESS": {
           "PLACEHOLDER": "Enter the address of the recipient's wallet",
-          "LABEL": "Address"
+          "LABEL": "Address",
+          "EOS_DESCRIPTION": "EOS account (not an exchange account). This account will receive the tokens"
         },
         "AMOUNT": {
           "LABEL": "Token amount"
@@ -1283,7 +1284,7 @@
         "TOKEN_ADDRESS": "Token address",
         "TOKEN_TYPE": "Token type:",
         "TOKEN_DISTRIBUTION": "Token distribution",
-        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose {{token_symbol}} in Token Transfer tab."
+        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab."
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",

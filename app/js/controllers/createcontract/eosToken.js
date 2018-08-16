@@ -118,7 +118,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
         if (localStorage.draftContract) {
             if (!contract.id) {
                 var draftContract = JSON.parse(localStorage.draftContract);
-                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) {
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.EOS_TOKEN) {
                     contract = draftContract;
                 }
             }

@@ -116,7 +116,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
     };
 
     this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo) {
-
+        var defer = $q.defer();
         this.connectScatter(function(accounts, signature) {
             var network = {
                 blockchain: 'eos',
@@ -129,9 +129,13 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                 return account['name'] === tokenOwner;
             })[0];
             if (!tokenOwnerAccount) {
+                defer.reject({
+                    code: 1
+                });
                 return;
             }
             var eos = window.scatter.eos(network, Eos, {});
+            console.log(123);
             eos.transaction({
                 actions: [{
                     account: eosAccounts[displayingNetwork]['TOKEN'],
@@ -148,8 +152,13 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                     }
                 }],
                 "signatures": [signature]
-            }).then(console.log);
+            }).then(defer.resolve).catch(function(result) {
+                defer.reject({
+                    code: 2
+                });
+            });
         });
+        return defer.promise;
     };
 
     this.connectScatter = function(callback) {
@@ -166,5 +175,8 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         });
     };
 
+    this.checkScatter = function() {
+        return window.scatter;
+    };
 
 });

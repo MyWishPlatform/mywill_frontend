@@ -7,9 +7,9 @@
   bottom: 0;
   overflow: auto;
   min-width: 32em;
-  display: none;
+  visibility: hidden;
   .popup-showed & {
-    display: block;
+    visibility: visible;
   }
 }
 .popup-window-wrapper {
@@ -142,5 +142,3 @@
     top: 0;
   }
 }
-
-

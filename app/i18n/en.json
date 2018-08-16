@@ -149,6 +149,15 @@
     "EOS": "EOS"
   },
   "ALERTS": {
+    "SCATTER_INSTALL": {
+      "TEXT": "Please Install Scatter application & Try again"
+    },
+    "SCATTER_ACCOUNT_NOT_FOUND": {
+      "TEXT": "Owner account is not found in Scatter. Please add & try again."
+    },
+    "SCATTER_MINTING_SUCCESS": {
+      "TEXT": "Transaction was sent successfully"
+    },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "Thank you! Your message has been sent, we will contact you by Email."
     },
@@ -435,7 +444,9 @@
       },
       "CHART": {
         "TOTAL_SUPPLY": "Total supply:",
-        "DISTRIBUTED_BEFORE": "Total Distributed (before)"
+        "DISTRIBUTED_BEFORE": "Total Distributed (before)",
+        "EOS_DISTRIBUTED_BEFORE": "Minted before",
+        "EOS_DISTRIBUTE_AVAILABLE": "Available for Minting"
       }
     },
     "CHANGE_DATES_FORM": {

@@ -1,4 +1,5 @@
 <div class="shadow-block" ng-controller="eosTokenMintController">
+
     <form name="mintForm">
         <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
             <div class="shadow-block__content__blue-title">
@@ -8,12 +9,17 @@
                 </div>
             </div>
         </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="!tokenInfo.maximumSupply">
+            <div class="normal-text" translate="PLEASE_WAIT"></div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-show="tokenInfo.maximumSupply">
             <div class="form-control">
                 <div class="form-control-label" translate="POPUP_FORMS.MINT_TOKENS_FORM.DESCRIPTION"></div>
             </div>
             <div class="grid-row contract-form-row">
-                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-3 grid-cell-ls-1">
                     <div class="form-control">
                         <label for="out-wallet-key"
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.LABEL"
@@ -22,7 +28,7 @@
                                ng-change="checkAddress(mintForm['out-wallet-key'])"
                                pattern="[a-z1-5]{12}"
                                maxlength="12"
-                               ng-model="toAddress"
+                               ng-model="recipient.address"
                                name="out-wallet-key"
                                required
                                class="form-control-input"/>
@@ -30,53 +36,98 @@
                 </div>
 
                 <div class="clearfix show-full hide-ps show-vs"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-3 grid-cell-vs-1">
                     <div class="form-control">
                         <label for="address-amount" class="form-control-label"
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.AMOUNT.LABEL"></label>
                         <input class="form-control-input"
                                id="address-amount"
-                               commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               commaseparator="{
+                                    regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$',
+                                    max: maximumMint
+                               }"
                                required
                                ng-change="checkTokensAmount()"
-                               ng-model="amount"/>
+                               ng-model="recipient.amount"/>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="tokenInfo.totalSupply">
             <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                     <div class="form-control-label">
-                        {{'POPUP_FORMS.MINT_TOKENS_FORM.CHART.TOTAL_SUPPLY'|translate}} {{totalSupply.tokens|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}}
+                        {{'CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.LABEL'|translate}}
+                        {{tokenInfo.maximumSupply|separateNumber}}
+                        {{ngPopUp.params.contract.contract_details.token_short_name}}
                     </div>
                 </div>
-
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="form-control-label">
+                        {{'POPUP_FORMS.MINT_TOKENS_FORM.CHART.TOTAL_SUPPLY'|translate}}
+                        {{totalSupply|separateNumber}}
+                        {{ngPopUp.params.contract.contract_details.token_short_name}}
+                    </div>
+                </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
-                    <div id="chartdiv" class="chart-container" ng-hide="totalSupply.tokens == 0"
+                    <div id="chartdiv" class="chart-container" ng-hide="totalSupply == 0"
                          ng-chart
                          ng-chart-data="chartData"
                          ng-chart-options="chartOptions"></div>
-                    <div class="chart-placeholder" ng-hide="totalSupply.tokens != 0">
+                    <div class="chart-placeholder" ng-hide="totalSupply != 0">
                         <img src="/static/images/chart_placeholder.svg"/>
                     </div>
                     &nbsp;
                 </div>
                 <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
                     <div class="chart-legend">
-                        <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
+                        <div class="chart-legend-item"
+                             ng-repeat="chartDataItem in chartData"
+                             ng-if="chartDataItem.address">
                             <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
                             <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color" ng-show="tokenInfo.maximumSupply">
             <button class="btn btn-submit" type="button"
                     ng-disabled="!mintForm.$valid" ng-click="mintTokens();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.MINT'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>
     </form>
+
+    <div ng-if="scatterNotInstalled" ng-pop-up="{
+        template: '/templates/popups/alerts/scatter-install.html',
+        class: 'deleting-contract',
+        params: {},
+        opened: true,
+        onClose: closeScatterAlert,
+        newPopupContent: true
+    }"></div>
+
+    <div ng-if="accountNotFinded" ng-pop-up="{
+        template: '/templates/popups/alerts/scatter-account-found.html',
+        class: 'deleting-contract',
+        params: {},
+        opened: true,
+        onClose: closeScatterAlert,
+        newPopupContent: true
+    }"></div>
+
+
+    <div ng-if="successTransaction" ng-pop-up="{
+        template: '/templates/popups/alerts/minting-success.html',
+        class: 'deleting-contract',
+        params: {
+            contract: ngPopUp.params.contract,
+            tx: successTransaction
+        },
+        opened: true,
+        onClose: closeScatterAlert,
+        newPopupContent: true
+    }"></div>
+
 </div>

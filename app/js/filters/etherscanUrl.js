@@ -38,11 +38,13 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 networkUrl = APP_CONSTANTS.EOS_MAINNET_ADDRESS;
                 addressPaths.account = 'account';
                 addressPaths.token = 'address/info';
+                addressPaths.tx = 'tx';
                 break;
             case 11:
                 networkUrl = APP_CONSTANTS.EOS_TESTNET_ADDRESS;
                 addressPaths.account = 'account';
                 addressPaths.token = 'address/info';
+                addressPaths.tx = 'tx';
                 break;
 
         }

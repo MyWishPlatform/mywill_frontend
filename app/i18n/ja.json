@@ -1280,7 +1280,8 @@
       "TOKEN": {
         "TOKEN_ADDRESS": "トークンアドレス",
         "TOKEN_TYPE": "トークンタイプ",
-        "TOKEN_DISTRIBUTION": "トークン配布"
+        "TOKEN_DISTRIBUTION": "トークン配布",
+        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose {{token_symbol}} in Token Transfer tab."
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "クラウドセール契約（すべての寄付はこの住所に送付するものとする）",

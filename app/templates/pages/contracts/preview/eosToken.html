@@ -4,139 +4,6 @@
          ng-class="{'active': showedTab == 'info'}">
         <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
-    <div class="contract-preview-one-tab"
-         ng-click="goTo('code', contractInfo)"
-         ng-show="details[contractInfo].address"
-         ng-class="{'active': showedTab == 'code'}">
-        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
-    </div>
-</div>
-
-<div ng-show="showedTab == 'code'">
-    <div class="shadow-block after-tabs">
-        <div class="shadow-block__content" ng-if="contract.network == 11">
-            <p class="normal-text">
-                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
-            </p>
-        </div>
-
-        <div class="shadow-block__content">
-            <p class="normal-text">
-                <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
-                    <span class="as-link dotted"
-                          ng-if="contract.network == 10"
-                          ng-click="saveAsFile(contract.contract_details[contractInfo].source_code, contract.name + '(token)')">
-                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
-                    </span>
-                    <span class="grey-text-color"
-                          ng-if="contract.network == 11">
-                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
-                    </span>
-                </span>
-            </p>
-
-            <p class="normal-text">
-                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: 'link'}"></span>
-            </p>
-        </div>
-        <div class="shadow-block__content">
-            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"></p>
-        </div>
-        <div class="shadow-block__content" ng-if="selectedContract == 'token'">
-            <ul class="new-instruction-list">
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text"
-                         translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_1"
-                         translate-values="{address_url: 'address'}">
-                    </div>
-                </li>
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text"
-                         translate="CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_2"></div>
-                </li>
-
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_3'|translate}}
-                        <div class="copy-block">
-                            <button class="copy-block__button relative"
-                                    clipboard supported="supported"
-                                    text="'MainToken'"
-                                    ng-class="{copied: contract.copied['contractName']}"
-                                    on-copied="$root.successCodeCopy(contract, 'contractName')">&nbsp;
-                                <i class="icon-content_copy"></i>
-                            </button>
-                            <div class="copy-block__text">MainToken</div>
-                        </div>
-                    </div>
-                </li>
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_4'|translate}}
-                        <div class="copy-block">
-                            <button class="copy-block__button relative"
-                                    clipboard supported="supported"
-                                    text="contract.contract_details[selectedContract].address|toCheckSum"
-                                    ng-class="{copied: contract.copied['address']}"
-                                    on-copied="$root.successCodeCopy(contract, 'address')">&nbsp;
-                                <i class="icon-content_copy"></i>
-                            </button>
-                            <div class="copy-block__text">{{contract.contract_details[selectedContract].address}}</div>
-                        </div>
-                    </div>
-                </li>
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_5'|translate}}
-                        <div class="copy-block">
-                            <button class="copy-block__button relative"
-                                    clipboard supported="supported"
-                                    text="contract.contract_details[selectedContract].compiler_version|compilerVersion"
-                                    ng-class="{copied: contract.copied['compiler_version']}"
-                                    on-copied="$root.successCodeCopy(contract, 'compiler_version')">&nbsp;
-                                <i class="icon-content_copy"></i>
-                            </button>
-                            <div class="copy-block__text">{{contract.contract_details[selectedContract].compiler_version|compilerVersion}}</div>
-                        </div>
-                    </div>
-                </li>
-                <li class="new-instruction-list__item" ng-if="(contract.network == 2) || (contract.network == 4)|| (contract.network == 6)">
-                    <div class="new-instruction-list__item__text">
-                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_6'|translate}}
-                        <div class="copy-block">
-                            <div class="copy-block__text" translate="CONTRACTS.PREVIEW.CONTRACT_CODE_FOR_FREE"></div>
-                        </div>
-                    </div>
-                </li>
-                <li class="new-instruction-list__item" ng-if="(contract.network == 1)">
-                    <div class="new-instruction-list__item__text">
-                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_6'|translate}}
-                        <div class="copy-block">
-                            <button class="copy-block__button relative"
-                                    clipboard supported="supported"
-                                    text="contract.contract_details[selectedContract].source_code"
-                                    ng-class="{copied: contract.copied['source_code']}"
-                                    on-copied="$root.successCodeCopy(contract, 'source_code')">&nbsp;
-                                <i class="icon-content_copy"></i>
-                            </button>
-                            <div class="copy-block__text json-text">{{contract.contract_details[selectedContract].source_code}}</div>
-                        </div>
-                    </div>
-                </li>
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_7_1'|translate}}
-                    </div>
-                </li>
-                <li class="new-instruction-list__item">
-                    <div class="new-instruction-list__item__text">
-                        {{'CONTRACTS.PREVIEW.VERIFY_INSTRUCTION.ITEM_8'|translate}}
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 
 <div ng-show="showedTab == 'info'">
@@ -205,14 +72,14 @@
                     <div class="form-control-label">
                         {{'CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.LABEL'|translate}}
                         {{tokenInfo.maximumSupply|separateNumber}}
-                        {{ngPopUp.params.contract.contract_details.token_short_name}}
+                        {{contract.contract_details.token_short_name}}
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                     <div class="form-control-label">
                         {{'POPUP_FORMS.MINT_TOKENS_FORM.CHART.TOTAL_SUPPLY'|translate}}
                         {{tokenInfo.totalSupply|separateNumber}}
-                        {{ngPopUp.params.contract.contract_details.token_short_name}}
+                        {{contract.contract_details.token_short_name}}
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
@@ -238,16 +105,16 @@
             </div>
         </div>
 
-        <!-- div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="form-control-label">
-                        {{'CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.LABEL'|translate}}
-                        {{details.maximum_supply|separateNumber}} {{details.token_short_name}}
-                    </div>
-                </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
+            <div class="normal-text"
+                 translate-values="{
+                    token_owner_link: '<a href=\'{{contract.network|etherscanUrl:'account'}}/{{details.admin_address}}\' target=\'_blank\'>{{details.admin_address}}</a>',
+                    token_symbol: details.token_short_name
+                 }"
+                 translate="CONTRACTS.PREVIEW.TOKEN.EOS_TOKEN_INFO">
+
             </div>
-        </div -->
+        </div>
     </div>
 
     <div class="shadow-block"

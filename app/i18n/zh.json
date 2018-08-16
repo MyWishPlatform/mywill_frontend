@@ -1280,7 +1280,8 @@
       "TOKEN": {
         "TOKEN_ADDRESS": "代币地址",
         "TOKEN_TYPE": "代币类型:",
-        "TOKEN_DISTRIBUTION": "代币分发"
+        "TOKEN_DISTRIBUTION": "代币分发",
+        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose {{token_symbol}} in Token Transfer tab."
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "ICO合约（所有贡献均应发送到此地址）",

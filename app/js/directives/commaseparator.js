@@ -26,8 +26,9 @@ angular.module('Directives').directive('commaseparator', function($filter, $time
                     rate.min = rate.min || 1;
                     rate.max = rate.max || 1;
 
-                    var minValue = scope.commaseparator.min ? new BigNumber(scope.commaseparator.min).div(rate.min) : false;
-                    var maxValue = scope.commaseparator.max ? new BigNumber(scope.commaseparator.max).div(rate.max) : false;
+
+                    var minValue = scope.commaseparator.min ? new BigNumber(scope.commaseparator.min.toString()).div(rate.min) : false;
+                    var maxValue = scope.commaseparator.max ? new BigNumber(scope.commaseparator.max.toString()).div(rate.max) : false;
 
                     var minMaxValidation = (minValue ? val.minus(minValue) >= 0 : true) && (maxValue ? val.minus(maxValue) <= 0 : true);
 

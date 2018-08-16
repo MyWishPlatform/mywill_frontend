@@ -115,4 +115,67 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
+    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo) {
+        var defer = $q.defer();
+        this.connectScatter(function(accounts, signature) {
+            var network = {
+                blockchain: 'eos',
+                chainId: currentEndPoint.chainId,
+                host: currentEndPoint.url,
+                port: currentEndPoint.port,
+                protocol: currentEndPoint.protocol
+            };
+            var tokenOwnerAccount = accounts.filter(function(account) {
+                return account['name'] === tokenOwner;
+            })[0];
+            if (!tokenOwnerAccount) {
+                defer.reject({
+                    code: 1
+                });
+                return;
+            }
+            var eos = window.scatter.eos(network, Eos, {});
+            eos.transaction({
+                actions: [{
+                    account: eosAccounts[displayingNetwork]['TOKEN'],
+                    name: 'issue',
+                    authorization: [{
+                        actor: tokenOwnerAccount['name'],
+                        permission: tokenOwnerAccount['authority']
+                    }],
+                    data: {
+                        from: tokenOwner,
+                        to: tokensTo,
+                        quantity: amount + ' ' + tokenSymbol,
+                        memo: memo || ''
+                    }
+                }],
+                "signatures": [signature]
+            }).then(defer.resolve).catch(function(result) {
+                defer.reject({
+                    code: 2
+                });
+            });
+        });
+        return defer.promise;
+    };
+
+    this.connectScatter = function(callback) {
+        var requiredFields = {
+            accounts: [{
+                blockchain: 'eos',
+                chainId: currentEndPoint.chainId
+            }]
+        };
+        window.scatter.getIdentity(requiredFields).then(function(identity) {
+            window.scatter.authenticate().then(function (sign) {
+                callback(identity.accounts, sign);
+            });
+        });
+    };
+
+    this.checkScatter = function() {
+        return window.scatter;
+    };
+
 });

@@ -149,6 +149,15 @@
     "EOS": "EOS"
   },
   "ALERTS": {
+    "SCATTER_INSTALL": {
+      "TEXT": "Please Install Scatter application & Try again"
+    },
+    "SCATTER_ACCOUNT_NOT_FOUND": {
+      "TEXT": "Owner account is not found in Scatter. Please add & try again."
+    },
+    "SCATTER_MINTING_SUCCESS": {
+      "TEXT": "Transaction was sent successfully"
+    },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "ありがとうございました！ あなたのメッセージが送信されました、私たちはメールアドレスで連絡します"
     },

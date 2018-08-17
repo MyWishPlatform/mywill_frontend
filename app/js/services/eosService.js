@@ -117,20 +117,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
     this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer) {
         defer = defer || $q.defer();
-
         window.scatter.authenticate().then(function (sign) {
-            checkIdentity(function(identity) {
-                var accounts = identity.accounts;
-                var tokenOwnerAccount = accounts.filter(function(account) {
-                    return account['name'] === tokenOwner;
-                })[0];
-                if (!tokenOwnerAccount) {
-                    window.scatter.forgetIdentity().then(function() {
-                        _this.mintTokens(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer);
-                    });
-                } else {
-                    createTransaction(accounts, sign);
-                }
+            window.scatter.forgetIdentity().then(function() {
+                _this.mintTokens(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer);
             });
         }).catch(function() {
             _this.connectScatter(createTransaction);

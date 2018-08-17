@@ -259,7 +259,7 @@
       },
       "TOKEN": {
         "TITLE": "Token contract",
-        "DESCRIPTION": "Create a Token and distribute it yourself or with a Crowdsale Contract"
+        "DESCRIPTION": "Create a Token and distribute it yourself or by our Crowdsale Contract"
       },
       "AIRDROP": {
         "TITLE": "Airdrop",
@@ -761,7 +761,7 @@
       },
       "FIELDS": {
         "ENTER_CONTRACT_NAME": {
-          "LABEL": "Enter contract name:"
+          "LABEL": "Enter the contract name:"
         }
       },
       "BUTTONS": {
@@ -978,6 +978,9 @@
           },
           "TOKEN_OWNER": {
             "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
+          },
+          "DEFINE_TOKENS": {
+            "DESCRIPTION": "Define the amount of tokens which shall be minted to EOS address. It must be less (or equal) than (Maximum-Total) supply."
           },
           "MAXIMUM_SUPPLY": {
             "LABEL": "Maximum supply:",

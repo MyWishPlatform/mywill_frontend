@@ -977,6 +977,9 @@
           "TOKEN_OWNER": {
             "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
           },
+          "DEFINE_TOKENS": {
+            "DESCRIPTION": "Define the amount of tokens which shall be minted to EOS address. It must be less (or equal) than (Maximum-Total) supply."
+          },
           "MAXIMUM_SUPPLY": {
             "LABEL": "Maximum supply:",
             "DESCRIPTION": "Total supply of the Token. No more tokens can be created."

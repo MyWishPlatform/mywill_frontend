@@ -115,9 +115,28 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo) {
-        var defer = $q.defer();
-        this.connectScatter(function(accounts, signature) {
+    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer) {
+        defer = defer || $q.defer();
+
+        window.scatter.authenticate().then(function (sign) {
+            checkIdentity(function(identity) {
+                var accounts = identity.accounts;
+                var tokenOwnerAccount = accounts.filter(function(account) {
+                    return account['name'] === tokenOwner;
+                })[0];
+                if (!tokenOwnerAccount) {
+                    window.scatter.forgetIdentity().then(function() {
+                        _this.mintTokens(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer);
+                    });
+                } else {
+                    createTransaction(accounts, sign);
+                }
+            });
+        }).catch(function() {
+            _this.connectScatter(createTransaction);
+        });
+
+        var createTransaction = function(accounts, signature) {
             var network = {
                 blockchain: 'eos',
                 chainId: currentEndPoint.chainId,
@@ -156,18 +175,26 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                     code: 2
                 });
             });
-        });
+        };
+
         return defer.promise;
     };
 
-    this.connectScatter = function(callback) {
+    var checkIdentity = function(success, error) {
         var requiredFields = {
             accounts: [{
                 blockchain: 'eos',
                 chainId: currentEndPoint.chainId
             }]
         };
-        window.scatter.getIdentity(requiredFields).then(function(identity) {
+
+        window.scatter.getIdentity(requiredFields)
+            .then(success)
+            .catch(error);
+    };
+
+    this.connectScatter = function(callback) {
+        checkIdentity(function(identity) {
             window.scatter.authenticate().then(function (sign) {
                 callback(identity.accounts, sign);
             });

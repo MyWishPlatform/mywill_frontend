@@ -68,9 +68,13 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
 
     EOSService.createEosChain($scope.ngPopUp.params.contract.network, function() {
         EOSService.coinInfo(contract.token_short_name).then(function(result) {
+            result[contract.token_short_name] = result[contract.token_short_name] || {
+                    supply: '0',
+                    max_supply: '0'
+                };
             $timeout(function() {
-                $scope.tokenInfo['totalSupply'] = result[contract.token_short_name].supply.split(' ')[0];
-                $scope.tokenInfo['maximumSupply'] = result[contract.token_short_name].max_supply.split(' ')[0];
+                $scope.tokenInfo['totalSupply'] = result[contract.token_short_name].supply.split(' ')[0] || 0;
+                $scope.tokenInfo['maximumSupply'] = result[contract.token_short_name].max_supply.split(' ')[0] || 0;
                 $scope.$apply();
                 $scope.$parent.$broadcast('changeContent');
                 beforeDistributed.amount = $scope.tokenInfo['totalSupply'];

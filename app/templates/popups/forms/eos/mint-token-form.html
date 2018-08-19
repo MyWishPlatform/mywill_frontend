@@ -142,4 +142,13 @@
         newPopupContent: true
     }"></div>
 
+    <div ng-if="mintServerError" ng-pop-up="{
+        template: '/templates/popups/alerts/transaction-error.html',
+        class: 'deleting-contract',
+        params: {},
+        opened: true,
+        onClose: closeScatterAlert,
+        newPopupContent: true
+    }"></div>
+
 </div>

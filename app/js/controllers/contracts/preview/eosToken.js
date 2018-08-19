@@ -93,6 +93,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
     $scope.closeScatterAlert = function() {
         $scope.scatterNotInstalled = false;
         $scope.accountNotFinded = false;
+        $scope.mintServerError = false;
     };
 
     $scope.mintTokens = function() {
@@ -111,6 +112,9 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             switch(error.code) {
                 case 1:
                     $scope.accountNotFinded = true;
+                    break;
+                case 2:
+                    $scope.mintServerError = true;
                     break;
             }
         });

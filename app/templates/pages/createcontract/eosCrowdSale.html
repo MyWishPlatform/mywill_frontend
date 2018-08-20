@@ -39,26 +39,34 @@
     <div class="shadow-block__content" ng-include="getTemplate('pages/createcontract/eosCrowdSale/token_info')"></div>
 </form>
 
-<form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}" ng-show="blockchain !== 'NEO'">
-    <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/type_of_crowdsale')"></div>
-</form>
+<!--<form class="shadow-block"-->
+      <!--ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}">-->
+    <!--<div ng-include="getTemplate('pages/createcontract/eosCrowdSale/type_of_crowdsale')"></div>-->
+<!--</form>-->
+
 <form class="shadow-block"
       ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}" name="tokenOwnerForm">
-    <div ng-include="getTemplate('pages/createcontract/crowdSale/token_owner')"></div>
-</form>
-<form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}"
-      name="storageForm" ng-show="blockchain !== 'NEO'">
-    <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/token_storage')"></div>
+    <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/token_owner')"></div>
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && (storageForm.$valid || (blockchain === 'NEO')))}"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}"
       name="saleTokensParamsForm">
     <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/crowdsale_params')"></div>
 </form>
 
+<form class="shadow-block"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && saleTokensParamsForm.$valid)}"
+      name="minMaxInvestmentsForm">
+    <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/min_max_investments')"></div>
+</form>
+
+<form class="shadow-block"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid)}"
+      name="distributionForm">
+    <div ng-controller="eosCrowdSaleHoldersController"
+         ng-include="getTemplate('pages/createcontract/eosCrowdSale/holders')"></div>
+</form>
 
 <br/><br/><br/>
 
@@ -66,7 +74,7 @@
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
                 type="button"
-                ng-disabled="!(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid  && saleTokensParamsForm.$valid && distributionForm.$valid && ((storageForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid) || (blockchain === 'NEO')))"
+                ng-disabled="!(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid && distributionForm.$valid)"
                 ng-click="createContract()">
             <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
             <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>

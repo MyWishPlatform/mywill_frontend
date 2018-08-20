@@ -291,6 +291,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     case '6':
                         curencyValue = 'NEO';
                         break;
+                    case 10:
+                    case '10':
+                    case 11:
+                    case '11':
+                        curencyValue = 'EOS';
+                        break;
                     default:
                         curencyValue = 'ETH';
                         break;

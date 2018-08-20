@@ -14,7 +14,7 @@
                 <div class="grid-row" ng-if="request.rate">
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description"
-                             translate-values="{blockchain: blockchain}"
+                             translate-values="{blockchain: 'EOS'}"
                              translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TOKEN_RATE.ADV_DESCRIPTION">
                         </div>
                     </div>
@@ -29,7 +29,7 @@
         <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
             <div class="form-control-label hide-ps">&nbsp;</div>
             <span class="form-control-description__text"
-                  translate-values="{blockchain: blockchain}"
+                  translate-values="{blockchain: 'EOS'}"
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TOKEN_RATE.DESCRIPTION"></span>
         </div>
     </div>
@@ -43,8 +43,8 @@
                 <input id="hard-cap" type="text"
                        ng-change="checkTokensAmount(); checkHardCapEth()"
                        commaseparator="{
-                        regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$',
-                        min: blockchain !== 'NEO' ? false : bigNumber(request.rate).times(10)
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$',
+                            max: maxSupply * 1
                        }"
                        ng-model="request.hard_cap"
                        required
@@ -53,7 +53,7 @@
                 <div class="grid-row" ng-if="request.hard_cap && request.rate">
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
-                            {{blockchain}} {{additionalParams.ethHardCap|number:2}}
+                            EOS {{additionalParams.ethHardCap|number:2}}
                         </div>
                     </div>
                     <div class="grid-cell grid-cell-1-2">
@@ -70,7 +70,7 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.HARD_CAP.DESCRIPTION"></span>
         </div>
     </div>
-    <div class="grid-row" ng-show="blockchain !== 'NEO'">
+    <div class="grid-row">
         <div class="grid-cell grid-cell-1"><br/>
             <div class="attention-text-container after-form-title">
                 <div class="attention-text without-top">
@@ -90,15 +90,15 @@
                 <input id="soft-cap" type="text"
                        ng-model="request.soft_cap"
                        ng-change="checkTokensAmount()"
-                       ng-required="blockchain === 'ETH'"
+                       required
                        commaseparator="{
-                       regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', max: request.hard_cap
+                       regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', max: request.hard_cap * 1
                        }"
                        class="form-control-input"/>
 
                 <div class="grid-row" ng-if="request.soft_cap && request.rate">
                     <div class="grid-cell grid-cell-1-2">
-                        <div class="field-advanced-description">ETH {{(request.soft_cap / request.rate)| number:2}}</div>
+                        <div class="field-advanced-description">EOS {{(request.soft_cap / request.rate)| number:2}}</div>
                     </div>
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
@@ -214,7 +214,7 @@
         </div>
     </div><br/><br/>
 
-    <div class="grid-row" ng-show="blockchain !== 'NEO'">
+    <div class="grid-row">
         <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
@@ -241,7 +241,7 @@
         </div>
     </div>
 
-    <div class="grid-row" ng-show="blockchain !== 'NEO'">
+    <div class="grid-row">
         <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
@@ -268,7 +268,7 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.CHANGING_DATES.DESCRIPTION"></span>
         </div>
     </div>
-    <div class="grid-row" ng-show="blockchain !== 'NEO'">
+    <div class="grid-row">
         <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
             <div class="form-control">
                 <div class="checkbox-decoration">
@@ -295,32 +295,6 @@
                   translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.TRANSFERABLE.DESCRIPTION"></span>
         </div>
     </div>
-    <!-- div class="grid-row" ng-show="blockchain !== 'NEO'">
-        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
-            <div class="form-control">
-                <div class="checkbox-decoration">
-                    <label for="auto_finalize" class="form-control-label inline-label">
-                        <i class="icon-settings form-control-label-icon floated"></i>
-                        <span class="after-floated">{{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.AUTO_FINALIZE.LABEL'|translate}}</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
-            <div class="form-control">
-                <label class="checkbox-decoration">
-                    <input type="checkbox" ng-model="request.platform_as_admin" id="auto_finalize"/>
-                    <span class="checkbox-decoration-displaying">
-                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
-                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
-                    </span>
-                </label>
-            </div>
-        </div>
-        <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
-            <span class="form-control-description__text"
-                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.AUTO_FINALIZE.DESCRIPTION"></span>
-        </div>
-    </div -->
+
 
 </div>

@@ -6,18 +6,24 @@ angular.module('app').controller('eosCrowdSaleCreateController', function($scope
     $scope.additionalParams.investsLimit = false;
 
     $scope.token = {};
-
+    $scope.additionalParams = {};
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
         network: $stateParams.network * 1,
-        contract_details: {}
+        contract_details: {
+            token_holders: []
+        }
     };
 
     $scope.network = contract.network;
     
-    $scope.currencyPow = $scope.blockchain === 'NEO' ? 0 : 18;
-    
+    $scope.currencyPow = 4;
+
+    $scope.checkMaxTokenSupply = function() {
+        $scope.maxSupply = Math.round(4611686018427387903 / Math.pow(10, $scope.request.decimals));
+    };
+
     /* Управление датой и временем начала/окончания ICO (begin) */
     var setStartTimestamp = function() {
         if (!$scope.dates.startDate) {
@@ -193,4 +199,75 @@ angular.module('app').controller('eosCrowdSaleCreateController', function($scope
         $scope.checkHardCapEth();
     }
 
+}).controller('eosCrowdSaleHoldersController', function($scope, $timeout, $filter) {
+
+    $scope.addRecipient = function() {
+        $scope.token_holders.push({});
+    };
+
+    $scope.removeRecipient = function(recipient) {
+        $scope.token_holders = $scope.token_holders.filter(function(rec) {
+            return rec !== recipient;
+        });
+    };
+
+    $scope.checkTokensAmount = function() {
+        var holdersSum = $scope.token_holders.reduce(function (val, item) {
+            var value = new BigNumber(item.amount || 0);
+            return value.plus(val);
+        }, new BigNumber(0));
+
+        var stringValue = holdersSum.toString(10);
+
+        $scope.tokensAmountError = isNaN($scope.request.hard_cap) || isNaN(stringValue) || isNaN($scope.request.rate);
+
+        if (!$scope.tokensAmountError) {
+            var ethSum = holdersSum.plus($scope.request.hard_cap);
+
+            $scope.totalSupply = {
+                eth: ethSum.div($scope.request.rate).round(2).toString(10),
+                tokens: ethSum.round(2).toString(10)
+            };
+            $timeout(function() {
+                $scope.dataChanged();
+                $scope.$apply();
+            });
+        }
+    };
+    $scope.chartOptions = {
+        itemValue: 'amount',
+        itemLabel: 'address'
+    };
+    $scope.chartData = [];
+    $scope.dataChanged = function() {
+        $scope.chartData = angular.copy($scope.token_holders);
+        $scope.chartData.unshift({
+            amount: $scope.request.hard_cap,
+            address: $filter('translate')('CONTRACTS.FOR_SALE')
+        });
+        $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
+    };
+
+    var resetFormData = function() {
+        $scope.token_holders = angular.copy($scope.request.token_holders);
+        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        $scope.token_holders.map(function(holder) {
+            holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+        });
+    };
+    var createdContractData = function() {
+        $scope.request.token_holders = [];
+        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        $scope.token_holders.map(function(holder, index) {
+            $scope.request.token_holders.push({
+                amount: new BigNumber(holder.amount).times(powerNumber).toString(10),
+                address: holder.address,
+                name: holder.name || null
+            });
+        });
+    };
+    resetFormData();
+    $scope.$on('resetForm', resetFormData);
+    $scope.$on('createContract', createdContractData);
+    $scope.$on('tokensCapChanged', $scope.checkTokensAmount);
 });

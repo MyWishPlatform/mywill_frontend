@@ -11,7 +11,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'AIRDROP': 8,
     'INVESTMENT_PULL': 9,
     'EOS_TOKEN': 10,
-    'EOS_WALLET': 11
+    'EOS_WALLET': 11,
+    'CROWDSALE_EOS': 11
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',
@@ -24,7 +25,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     8: 'airdrop',
     9: 'investmentPull',
     10: 'eosToken',
-    11: 'eosWallet'
+    11: 'eosWallet',
+    12: 'eosCrowdSale'
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
     var eth = {
         'networks': [1, 2],
@@ -110,17 +112,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         }]
     };
 
-    var eos = {
-        'networks': [10, 11],
-        'list': [{
-            'icon': 'icon-token-eos',
-            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
-            'typeNumber': 10,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
-            'price': true
-        }]
-    };
 
     var eosDefault = {
         'networks': [10, 11],
@@ -131,6 +122,20 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 11,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[11],
             'price': true
+        }, {
+            'icon': 'icon-token-eos',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'typeNumber': 10,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
+            'price': true
+        }, {
+            'icon': 'icon-crowdsale',
+            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
+            'typeNumber': 12,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[12],
+            'price': true
         }]
     };
 
@@ -138,13 +143,11 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     switch (ENV_VARS.mode) {
         case 'eos':
-            eosDefault.list = eosDefault.list.concat(eos.list);
             return {
                 EOS: eosDefault
             };
             break;
         default:
-            eosDefault.list = eosDefault.list.concat(eos.list);
             return {
                 ETH: eth,
                 NEO: neo,

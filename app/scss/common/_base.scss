@@ -275,11 +275,14 @@ nav, main, footer, header {
   }
 }
 .warning-page {
-  background-color: rgba(203, 0, 8, 0.8);
-  color: #fff;
+  //background-color: rgba(203, 0, 8, 0.8);
+  background-color: #f4f4f4;
+  text-shadow: 0 1px 1px rgba(255,255,255,1);
+  color: #000;
   &__icon {
     float: left;
     width: 5em;
+    color: #bd9d00;
     i {
       font-size: 4em;
     }

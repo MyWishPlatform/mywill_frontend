@@ -92,12 +92,13 @@ gulp.task('app:css', ['app:css-clean'], function() {
 });
 
 gulp.task('app:vendors-clean', function () {
-    return del([path.join(input, 'static', 'vendors', '**/*')]);;
+    return del([path.join(input, 'static', 'vendors', '**/*')]);
 });
 /* Vendors scripts collection */
-gulp.task('app:vendors', ['app:vendors-clean', 'app:web3'], function() {
+gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:polyfills'], function() {
     var js = gulp.src(
         [
+            path.join(input, 'static', 'polyfills', 'polyfills.js'),
             path.join(folders['npm'], 'jquery', 'dist', 'jquery.min.js'),
             path.join(folders['npm'], 'papaparse', 'papaparse.min.js'),
             path.join(folders['npm'], 'ua-parser-js', 'dist', 'ua-parser.min.js'),
@@ -159,6 +160,11 @@ gulp.task('app:web3', function() {
     return gulp.src(path.join(output, 'web3.js'))
         .pipe(browserify())
         .pipe(gulp.dest(path.join(input, 'static', 'web3')));
+});
+gulp.task('app:polyfills', function() {
+    return gulp.src(path.join(output, 'polyfills', 'polyfills.js'))
+        .pipe(browserify())
+        .pipe(gulp.dest(path.join(input, 'static', 'polyfills')));
 });
 
 

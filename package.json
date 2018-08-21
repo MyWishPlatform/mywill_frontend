@@ -55,6 +55,7 @@
     "moment-timezone": "^0.5.13",
     "ng-webworker": "^0.2.3",
     "node-sass": "^4.9.0",
+    "object-assign": "^4.1.1",
     "papaparse": "^4.5.0",
     "qrious": "^4.0.2",
     "ua-parser-js": "^0.7.17",

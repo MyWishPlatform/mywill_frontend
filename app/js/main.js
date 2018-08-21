@@ -130,7 +130,18 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             $rootScope.setLanguage(lng);
         }
 
-        profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 18)).toFormat(2);
+
+
+        switch (ENV_VARS.mode) {
+            case 'eos':
+                profile.balance = profile.eos_balance;
+                profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 4)).toFormat(2);
+                break;
+            default:
+                profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 18)).toFormat(2);
+                break;
+        }
+
         profile.balanceInRefresh = $rootScope.currentUser ? $rootScope.currentUser.balanceInRefresh : false;
         $rootScope.currentUser = profile;
         return profile;

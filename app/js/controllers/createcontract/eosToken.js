@@ -56,9 +56,11 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
 
     $scope.resetFormData = function() {
         $scope.request = angular.copy(contract.contract_details);
+        if ($scope.request.maximum_supply) {
+            $scope.request.maximum_supply = new BigNumber($scope.request.maximum_supply).div(Math.pow(10, $scope.request.decimals)).toString(10);
+        }
         $scope.contractName = contract.name;
     };
-
 
     var storage = window.localStorage || {};
     $scope.createContract = function() {
@@ -79,7 +81,15 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
-        contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
+
+        if (contractDetails.token_short_name) {
+            contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
+        }
+
+        if (contractDetails.maximum_supply) {
+            contractDetails.maximum_supply = new BigNumber(contractDetails.maximum_supply).times(Math.pow(10, contractDetails.decimals)).toString(10);
+        }
+
         return {
             name: contract.name,
             network: contract.network,
@@ -131,5 +141,12 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
         }
     };
     checkDraftContract();
+
+
+    $scope.checkMaxSupply = function(maxSupplyField) {
+        if ($scope.request.maximum_supply) {
+            maxSupplyField.$setValidity('number', !($scope.request.maximum_supply * Math.pow(10, $scope.request.decimals) % 1));
+        }
+    }
 
 });

@@ -9,6 +9,9 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });
 
+
+    contractDetails.maximum_supply = new BigNumber(contractDetails.maximum_supply).div(Math.pow(10, contractDetails.decimals)).toString(10);
+
     var holdersSum = contractDetails.token_holders.reduce(function (val, item) {
         var value = new BigNumber(item.amount || 0);
         return value.plus(val);

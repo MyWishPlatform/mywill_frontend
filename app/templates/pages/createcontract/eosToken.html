@@ -98,6 +98,7 @@
                     <div class="form-control-input-container">
                         <input id="owner-address" type="text"
                                pattern="[a-z1-5]{12}"
+                               maxlength="12"
                                ng-change="checkAddress(tokenOwnerForm['owner_address'])"
                                ng-model="request.admin_address"
                                name="owner_address"
@@ -124,8 +125,11 @@
                 <div class="form-control">
                     <label for="max-supply" class="form-control-label" translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.LABEL"></label>
                     <input id="max-supply" type="text"
+                           name="max-supply"
                            ng-model="request.maximum_supply"
+                           pattern="[0-9,]+(\.[0-9]{0,{{request.decimals}}})?$"
                            commaseparator="{
+                                regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
                                 min: 1,
                                 max: maxSupply
                            }"

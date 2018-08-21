@@ -1,12 +1,15 @@
-angular.module('app').controller('eosCrowdSaleCreateController', function($scope, currencyRate, contractService, $location, APP_CONSTANTS, $stateParams,
-                                                                       $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+angular.module('app').controller('eosCrowdSaleCreateController', function(
+    $scope, currencyRate, contractService, $location, APP_CONSTANTS, $stateParams,
+    EOSService, $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
     $scope.additionalParams = {};
     $scope.additionalParams.investsLimit = false;
 
     $scope.token = {};
-    $scope.additionalParams = {};
+    $scope.additionalParams = {
+        havePublicKeys: true
+    };
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyCrowdSale' + ($rootScope.currentUser.contracts + 1),
@@ -90,7 +93,12 @@ angular.module('app').controller('eosCrowdSaleCreateController', function($scope
 
     var generateContractData = function() {
         var contractDetails = angular.copy($scope.request);
-        
+
+        if (!$scope.additionalParams.havePublicKeys) {
+            contractDetails.active_public_key = $scope.generated_keys.active_public_key;
+            contractDetails.owner_public_key = $scope.generated_keys.owner_public_key;
+        }
+
         contractDetails.eos_contract_crowdsale = undefined;
 
         contractDetails.rate = contractDetails.rate * 1;
@@ -99,6 +107,22 @@ angular.module('app').controller('eosCrowdSaleCreateController', function($scope
         contractDetails.stop_date = contractDetails.stop_date * 1;
 
         contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
+        contractDetails.admin_address = contractDetails.admin_address.toLowerCase();
+
+
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
+
+        if (contractDetails.soft_cap) {
+            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
+        }
+
+        if (!$scope.additionalParams.investsLimit) {
+            contractDetails.min_wei = null;
+            contractDetails.max_wei = null;
+        } else {
+            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
+            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
+        }
 
         return {
             name: $scope.contractName,
@@ -146,6 +170,10 @@ angular.module('app').controller('eosCrowdSaleCreateController', function($scope
     $scope.resetForms = function() {
         $scope.request = angular.copy(contract.contract_details);
 
+        $timeout(function () {
+            $scope.$broadcast('tokensCapChanged');
+        });
+
         $scope.contractName = contract.name;
         $scope.minStartDate = moment();
         $scope.dates = {
@@ -163,6 +191,12 @@ angular.module('app').controller('eosCrowdSaleCreateController', function($scope
                 minutes: $scope.dates.endDate.minutes()
             }
         };
+
+        $scope.additionalParams.investsLimit = !!contract.contract_details.min_wei;
+        if ($scope.additionalParams.investsLimit) {
+            $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,$scope.currencyPow)).round(2).toString(10);
+            $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,$scope.currencyPow)).round(2).toString(10);
+        }
 
         if ($scope.request.hard_cap) {
             $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
@@ -198,6 +232,51 @@ angular.module('app').controller('eosCrowdSaleCreateController', function($scope
     if (contract.id) {
         $scope.checkHardCapEth();
     }
+
+
+    EOSService.createEosChain($scope.network);
+    $scope.checkAccountName = function(accountNameForm) {
+        accountNameForm.$setValidity('check-sum', true);
+        if (!accountNameForm.$valid) return;
+        accountNameForm.$setValidity('checked-address', false);
+        EOSService.checkAddress(accountNameForm.$viewValue).then(function() {
+            accountNameForm.$setValidity('checked-address', true);
+            accountNameForm.$setValidity('check-sum', false);
+        }, function() {
+            accountNameForm.$setValidity('checked-address', true);
+            accountNameForm.$setValidity('check-sum', true);
+        });
+    };
+
+    $scope.checkPublicKey = function(keysForm, field) {
+        keysForm[field].$setValidity('public-key', Eos.modules.ecc.isValidPublic(keysForm[field].$viewValue));
+    };
+
+    $scope.generated_keys = {};
+    $scope.copiedText = '';
+
+    $scope.copiedKeys = false;
+    $scope.generateTextForCopy = function() {
+        var lines = [
+            "Private active key: " + $scope.generated_keys.active_private_key,
+            "Private owner key: " + $scope.generated_keys.owner_private_key,
+            "Public active key: " + $scope.generated_keys.active_public_key,
+            "Public owner key: " + $scope.generated_keys.owner_public_key
+        ];
+        $scope.copiedKeys = true;
+        $scope.copiedText = lines.join("\n");
+    };
+    $scope.generateKeysPairs = function() {
+        $scope.copiedKeys = false;
+        Eos.modules.ecc.randomKey().then(function(privateKey) {
+            $scope.generated_keys.active_public_key = Eos.modules.ecc.privateToPublic(privateKey);
+            $scope.generated_keys.active_private_key = privateKey;
+        });
+        Eos.modules.ecc.randomKey().then(function(privateKey) {
+            $scope.generated_keys.owner_public_key = Eos.modules.ecc.privateToPublic(privateKey);
+            $scope.generated_keys.owner_private_key = privateKey;
+        });
+    };
 
 }).controller('eosCrowdSaleHoldersController', function($scope, $timeout, $filter) {
 

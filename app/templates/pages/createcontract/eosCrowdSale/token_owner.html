@@ -6,16 +6,21 @@
                        translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></label>
                 <div class="form-control-input-container">
                     <input id="owner-address" type="text"
-                           pattern="[a-z1-5]{12}"
+                           pattern="[a-zA-Z1-5]{12}"
                            placeholder="qwertyuiopas"
-                           ng-change="checkAddress(tokenOwnerForm['owner_address'])"
+                           ng-change="checkAccountName(tokenOwnerForm['owner_address'])"
                            ng-model="request.admin_address"
                            name="owner_address"
                            required
-                           class="form-control-input"/>
+                           class="form-control-input lowercase"/>
                     <div class="input-after dynamic-info">
                         {{tokenOwnerForm['owner_address'].$viewValue.length||0}}/12
                     </div>
+                    <span class="field-success"
+                          ng-if="tokenOwnerForm.$valid"
+                          translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.SUCCESS_TEXT"></span>
+                    <span class="field-error form-field_error-check-sum"
+                          translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ACCOUNT_NAME.ALREADY_NAME_TEXT"></span>
                 </div>
             </div>
         </div>

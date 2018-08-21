@@ -12,7 +12,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'INVESTMENT_PULL': 9,
     'EOS_TOKEN': 10,
     'EOS_WALLET': 11,
-    'CROWDSALE_EOS': 11
+    'CROWDSALE_EOS': 12
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',

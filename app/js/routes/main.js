@@ -332,10 +332,25 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getContract($stateParams.id);
             },
             currencyRate: function(contractService, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
-                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {
-                    return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
+                var curencyValue;
+                switch(openedContract.data.network) {
+                    case 5:
+                    case '5':
+                    case 6:
+                    case '6':
+                        curencyValue = 'NEO';
+                        break;
+                    case 10:
+                    case '10':
+                    case 11:
+                    case '11':
+                        curencyValue = 'EOS';
+                        break;
+                    default:
+                        curencyValue = 'ETH';
+                        break;
                 }
-                return undefined;
+                return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
             tokensList: function($stateParams, contractService, CONTRACT_TYPES_NAMES_CONSTANTS, openedContract) {
                 if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {

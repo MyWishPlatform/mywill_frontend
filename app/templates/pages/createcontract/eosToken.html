@@ -98,6 +98,7 @@
                     <div class="form-control-input-container">
                         <input id="owner-address" type="text"
                                pattern="[a-z1-5]{12}"
+                               maxlength="12"
                                ng-change="checkAddress(tokenOwnerForm['owner_address'])"
                                ng-model="request.admin_address"
                                name="owner_address"

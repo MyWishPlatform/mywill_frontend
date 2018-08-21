@@ -1,7 +1,6 @@
 angular.module('app').controller('eosBuytokensController', function($scope, $timeout, $rootScope, $state, exRate, APP_CONSTANTS, EOSService) {
 
     $scope.exRate = exRate.data;
-    $scope.wallets = {metamask: [], parity: []};
 
     var resetForm = function() {
         $scope.formData = {
@@ -21,7 +20,7 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
     };
 
-    var rate = $scope.exRate.ETH;
+    var rate = $scope.exRate.EOS;
 
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);

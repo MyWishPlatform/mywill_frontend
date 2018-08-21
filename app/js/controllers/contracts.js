@@ -1,4 +1,4 @@
-angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope,
+angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope, ENV_VARS,
                                                                  contractsList, $scope, $state, contractService) {
 
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
@@ -44,7 +44,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         contractsUpdateProgress = true;
         contractService.getContractsList({
             limit: 8,
-            offset: $scope.contractsList.length
+            offset: $scope.contractsList.length,
+            eos: ENV_VARS.mode === 'eos' ? 1 : undefined
         }).then(function(response) {
             contractsData = response.data;
             $scope.contractsList = $scope.contractsList.concat(response.data.results);

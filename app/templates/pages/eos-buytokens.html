@@ -87,14 +87,14 @@
                                translate="PAGES.EOS_BUY_TOKENS.MEMO_FIELD.LABEL"></label>
                         <div class="form-control-input-container">
                             <input disabled="disabled"
-                                   value="AHJKFDJA"
+                                   ng-value="currentUser.memo"
                                    type="text" class="form-control-input">
 
                             <div class="input-after dynamic-info">
                                 <button class="instruction-for-copy-button relative"
                                         clipboard supported="supported"
                                         ng-class="{copied: formData.copied['memo']}"
-                                        text="'AHJKFDJA'"
+                                        text="currentUser.memo"
                                         on-copied="$root.successCodeCopy(formData, 'memo')">
                                     <i class="icon-content_copy"></i>
                                 </button>

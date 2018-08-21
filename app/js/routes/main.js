@@ -125,8 +125,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             currentUser: function(usersService, $rootScope) {
                 return $rootScope.currentUserDefer.promise;
             },
-            exRate: function(contractService) {
-                return contractService.getCurrencyRate({fsym: 'WISH', tsyms: 'ETH,BTC'});
+            exRate: function(contractService, ENV_VARS) {
+                var tsyms = (ENV_VARS.mode === 'eos') ? 'EOS' : 'ETH,BTC';
+                return contractService.getCurrencyRate({fsym: 'WISH', tsyms: tsyms});
             }
         }
     }).state('main.contracts', {

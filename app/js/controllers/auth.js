@@ -4,25 +4,30 @@ angular.module('app').controller('authController', function (authService, $rootS
     $scope.loginRequest = {};
 
     $scope.$parent.socialAuthError = false;
+
+    var checkLoginAction = function(reloadPage, inService) {
+        if (inService) {
+            onAuth();
+            return;
+        }
+        if (!reloadPage) {
+            window.location = '/';
+        } else {
+            $state.transitionTo($state.current, {}, {
+                reload: true,
+                inherit: false,
+                notify: true
+            });
+        }
+    };
+
     $scope.sendLoginForm = function(authForm, reloadPage, inService) {
         if (!authForm.$valid) return;
         $scope.logInServerErrors = undefined;
         authService.auth({
             data: $scope.loginRequest
         }).then(function (response) {
-            if (inService) {
-                onAuth();
-                return;
-            }
-            if (!reloadPage) {
-                window.location = '/';
-            } else {
-                $state.transitionTo($state.current, {}, {
-                    reload: true,
-                    inherit: false,
-                    notify: true
-                });
-            }
+            checkLoginAction(reloadPage, inService);
         }, function (response) {
             switch (response.status) {
                 case 400:
@@ -75,20 +80,24 @@ angular.module('app').controller('authController', function (authService, $rootS
         }
     };
 
-    $scope.fbLogin = function(advancedData) {
-        SocialAuthService.facebookAuth(onAuth, errorSocialAuth, advancedData);
+    $scope.fbLogin = function(advancedData, reloadPage, inService) {
+        SocialAuthService.facebookAuth(function(response) {
+            checkLoginAction(reloadPage, inService);
+        }, errorSocialAuth, advancedData);
     };
-    $scope.googleLogin = function(advancedData) {
-        SocialAuthService.googleAuth(onAuth, errorSocialAuth, advancedData);
+    $scope.googleLogin = function(advancedData, reloadPage, inService) {
+        SocialAuthService.googleAuth(function(response) {
+            checkLoginAction(reloadPage, inService);
+        }, errorSocialAuth, advancedData);
     };
-    $scope.continueSocialAuth = function(form) {
+    $scope.continueSocialAuth = function(form, reloadPage, inService) {
         if (!form.$valid) return;
         switch ($scope.socialAuthInfo.network) {
             case 'google':
-                $scope.googleLogin($scope.socialAuthInfo.request);
+                $scope.googleLogin($scope.socialAuthInfo.request, reloadPage, inService);
                 break;
             case 'facebook':
-                $scope.fbLogin($scope.socialAuthInfo.request);
+                $scope.fbLogin($scope.socialAuthInfo.request, reloadPage, inService);
                 break;
         }
     };

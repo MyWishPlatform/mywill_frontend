@@ -44,51 +44,6 @@ module.controller('baseController', function($scope, $translate, $cookies) {
         abstract: true,
         template: "<div ui-view class='main-wrapper-section'></div>",
         controller: function(authService, $rootScope, $scope, SocialAuthService) {
-            $scope.advancedSocialRequest = {};
-            $scope.serverErrors = false;
-            $scope.socialAuthError = false;
-            var onSocialAuth = function(response) {
-                window.location = window.location.href;
-            };
-            var errorSocialAuth = function(response, request, type) {
-                $scope.socialAuthInfo = {
-                    network: type,
-                    request: request
-                };
-                switch (response.status) {
-                    case 403:
-                        $scope.socialAuthError = response.data.detail;
-                        switch ($scope.socialAuthError) {
-                            case '1030':
-                                break;
-                            case '1031':
-                                break;
-                            case '1032':
-                                break;
-                            case '1033':
-                                $scope.serverErrors = {totp: 'Invalid code'};
-                                break;
-                        }
-                        break;
-                }
-            };
-            $scope.fbLogin = function(advancedData) {
-                SocialAuthService.facebookAuth(onSocialAuth, errorSocialAuth, advancedData);
-            };
-            $scope.googleLogin = function(advancedData) {
-                SocialAuthService.googleAuth(onSocialAuth, errorSocialAuth, advancedData);
-            };
-            $scope.continueSocialAuth = function(form) {
-                if (!form.$valid) return;
-                switch ($scope.socialAuthInfo.network) {
-                    case 'google':
-                        $scope.googleLogin($scope.socialAuthInfo.request);
-                        break;
-                    case 'facebook':
-                        $scope.fbLogin($scope.socialAuthInfo.request);
-                        break;
-                }
-            };
             authService.profile().then(function(response) {
                 var profile = response.data;
                 if (!profile.is_ghost) {

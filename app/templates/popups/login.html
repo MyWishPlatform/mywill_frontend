@@ -119,11 +119,11 @@
                     </form>
                 </div>
                     <div class="network-auth-buttons">
-                        <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin();">
+                        <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-click="fbLogin(undefined, false, true);">
                             <i class="icon-network-facebook"></i>
                             <span translate="AUTH_POPUP.BUTTONS.LOGIN_FACEBOOK"></span>
                         </a>
-                        <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin();">
+                        <a href="#" class="network-auth-button network-auth-button-g width-100" ng-click="googleLogin(undefined, false, true);">
                             <i class="icon-network-google"></i>
                             <span translate="AUTH_POPUP.BUTTONS.LOGIN_GOOGLE"></span>
                         </a>
@@ -131,7 +131,7 @@
                 </div>
 
                 <div ng-if="ngPopUp.params.page === 'forgot-password'">
-                    <form class="login-form" ng-submit="sendResetPassForm(resetForm)" name="resetForm" novalidate>
+                    <form class="login-form" ng-submit="sendResetPassForm(resetForm, false, true)" name="resetForm" novalidate>
                         <div class="form-control contract-form-row">
                             <div class="form-control-label" translate="AUTH_POPUP.FIELDS.RESET_EMAIL"></div>
                             <input type="email"

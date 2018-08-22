@@ -130,7 +130,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
             'price': true
         }, {
-            'icon': 'icon-crowdsale',
+            'icon': 'icon-eos-ico',
             'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
             'typeNumber': 12,
@@ -138,7 +138,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'price': true
         }]
     };
-
 
 
     switch (ENV_VARS.mode) {

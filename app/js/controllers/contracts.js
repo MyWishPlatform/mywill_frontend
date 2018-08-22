@@ -73,7 +73,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         8: 'icon-airdrop',
         9: 'icon-investment-pool',
         10: 'icon-token-eos',
-        11: 'icon-eos-wallet'
+        11: 'icon-eos-wallet',
+        12: 'icon-eos-ico'
     };
 
     var deletingProgress;

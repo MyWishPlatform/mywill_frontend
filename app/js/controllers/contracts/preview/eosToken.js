@@ -108,7 +108,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             contract.admin_address,
             $scope.recipient.address,
             contract.token_short_name,
-            $scope.recipient.amount
+            new BigNumber($scope.recipient.amount).toFormat(contract.decimals).toString(10).replace(/,/g, '')
         ).then(function(result) {
             $scope.successTransaction = result;
         }, function(error) {

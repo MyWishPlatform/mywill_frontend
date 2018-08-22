@@ -2,7 +2,12 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title">
             <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
-                <span class="big-size" translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TITLE"></span>
+                <span class="big-size"
+                      ng-if="sitemode === 'default'"
+                      translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TITLE"></span>
+                <span class="big-size"
+                      ng-if="sitemode === 'eos'"
+                      translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.EOS_TITLE"></span>
             </div>
         </div>
     </div>
@@ -48,6 +53,7 @@
             </div>
         </div>
     </div>
+
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell">
@@ -116,7 +122,8 @@
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
                 <div class="contract-price-block_content">
                     <span>{{allCosts[contractForCreate.typeNumber]}}</span>
-                    <img src="/static/images/blockchain/ethereum.png">
+                    <img src="/static/images/blockchain/ethereum.png" ng-if="sitemode === 'default'">
+                    <img src="/static/images/blockchain/eos-counter.svg" style="width: 1.2em" ng-if="sitemode === 'eos'">
                 </div>
             </div>
             <div class="grid-row">

@@ -12,12 +12,12 @@
    width="210mm"
    height="297mm"
    viewBox="0 0 744.09448819 1052.3622047"
-   id="svg2"
+   id="svg4157"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="eos.svg">
+   sodipodi:docname="eos-counter.svg">
   <defs
-     id="defs4" />
+     id="defs4159" />
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.175"
-     inkscape:cx="-524.99734"
-     inkscape:cy="566.13739"
+     inkscape:zoom="0.35"
+     inkscape:cx="-212.14286"
+     inkscape:cy="520"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -37,7 +37,7 @@
      inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
-     id="metadata7">
+     id="metadata4162">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -53,10 +53,9 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#000000;fill-opacity:0.66666669"
-       d="m 373.40351,1002.257 -46.92843,-164.3515 93.91512,0 z M 66.410164,839.26006 280.39953,837.9055 330.12388,997.29024 Z M 417.85561,998.64476 466.4705,837.9055 682.30675,838.52921 Z M 44.689133,801.65357 189.77966,546.35011 272.01177,798.88009 Z M 319.54535,794.52233 232.13671,516.38904 373.42183,270.76479 514.94652,513.6799 427.31994,794.52222 Z M 473.01426,801.75739 551.8614,545.2969 698.55863,799.90587 Z M 26.979402,724.19972 110.99307,349.60168 158.84154,495.63605 Z M 708.6681,723.42975 577.00655,497.83828 623.42378,351.78402 Z M 204.0829,463.40157 154.44957,302.10243 344.00396,31.867678 l 1.3546,190.524162 z m 336.61414,-2 -141.19029,-242.07473 0,-189.573642 190.8508,270.166122 z"
-       id="path4201"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccccccccc" />
+       style="fill:#000000;fill-opacity:0.66666669"
+       d="M 372.28574,3.2927107 125.87275,341.29291 21.201071,838.47991 372.28574,1050.0031 723.37039,838.47991 618.6987,339.11175 372.28574,3.2927107 Z M 182.56904,350.01501 372.28574,90.517622 562.00244,350.01501 372.28574,919.16388 182.56904,350.01501 Z M 588.16876,435.06004 666.67157,814.49219 409.35534,969.31791 588.16876,435.06004 Z M 77.897327,814.49219 156.40017,435.06004 335.21358,969.31791 77.897327,814.49219 Z"
+       id="path9" />
   </g>
 </svg>

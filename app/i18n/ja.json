@@ -250,6 +250,7 @@
     "CREATE_CONTRACT": {
       "BLOCKCHAIN_BLOCK": {
         "TITLE": "ブロックチェーンを選択",
+        "EOS_TITLE": "EOS network",
         "TEST_NETWORK_LABEL": "テストネットワーク",
         "TEST_NETWORK_DESCRIPTION": "無料! 支払う前に、あなたは契約をテストすることができます"
       },

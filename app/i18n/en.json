@@ -250,6 +250,7 @@
     "CREATE_CONTRACT": {
       "BLOCKCHAIN_BLOCK": {
         "TITLE": "Choose Blockchain",
+        "EOS_TITLE": "EOS network",
         "TEST_NETWORK_LABEL": "Test Network",
         "TEST_NETWORK_DESCRIPTION": "Free of charge - for testing your contract before paying for it"
       },

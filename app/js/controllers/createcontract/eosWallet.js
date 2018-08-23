@@ -18,7 +18,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
 
     $scope.resetForms = resetForm;
 
-    var contractInProgress = false;
+    $scope.contractInProgress = false;
 
     var storage = window.localStorage || {};
 
@@ -44,14 +44,14 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     };
 
     var createContract = function(contractData) {
-        if (contractInProgress) return;
+        if ($scope.contractInProgress) return;
 
-        contractInProgress = true;
+        $scope.contractInProgress = true;
         contractData.name = contractData.contract_details.account_name;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](contractData).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
-            contractInProgress = false;
+            $scope.contractInProgress = false;
         });
     };
 

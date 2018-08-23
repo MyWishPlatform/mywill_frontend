@@ -149,7 +149,7 @@
   }
   &.active {
     //background-color: $main-blue-color;
-    background-color: #f4f4f4;
+    background-color: $blocks-background;
     color: #000;
     box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.25);
     position: relative;
@@ -160,7 +160,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      background-color: #f4f4f4;
+      background-color: $blocks-background;
       display: block;
       z-index: 3;
       border-top-left-radius: 0.9em;

@@ -134,12 +134,12 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     };
 
     /* Управление датой и временем начала/окончания ICO (end) */
-    var contractInProgress = false;
+    $scope.contractInProgress = false;
     var createContract = function() {
-        if (contractInProgress) return;
+        if ($scope.contractInProgress) return;
         $scope.$broadcast('createContract');
         var data = generateContractData();
-        contractInProgress = true;
+        $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
@@ -163,7 +163,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
                     }
                     break;
             }
-            contractInProgress = false;
+            $scope.contractInProgress = false;
         });
     };
     $scope.editContractMode = !!contract.id;

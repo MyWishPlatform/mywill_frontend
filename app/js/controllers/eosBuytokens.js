@@ -34,6 +34,35 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         $scope.formData.amount = $scope.formData.eosAmount;
     };
 
-    $scope.wishAddress = EOSService.getComingAddress();
 
+    $scope.closeScatterAlert = function() {
+        $scope.scatterNotInstalled = false;
+        $scope.accountNotFinded = false;
+        $scope.mintServerError = false;
+    };
+
+    $scope.wishAddress = EOSService.getComingAddress();
+    $scope.sendTransaction = function() {
+
+        $scope.scatterNotInstalled = !EOSService.checkScatter();
+        if ($scope.scatterNotInstalled) return;
+
+        EOSService.createEosChain(10, function() {
+            EOSService.buyTokens(
+                new BigNumber($scope.formData.amount).toFormat(4).toString(10),
+                $scope.currentUser.memo
+            ).then(function(result) {
+                $scope.successTransaction = result;
+            }, function(error) {
+                switch(error.code) {
+                    case 1:
+                        $scope.accountNotFinded = true;
+                        break;
+                    case 2:
+                        $scope.mintServerError = true;
+                        break;
+                }
+            });
+        });
+    };
 });

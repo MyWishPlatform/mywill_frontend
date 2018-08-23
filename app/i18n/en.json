@@ -1110,6 +1110,10 @@
             "LABEL": "Transferable:",
             "DESCRIPTION": "User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended"
           },
+          "PROTECTED_MODE": {
+            "LABEL": "Protected mode:",
+            "DESCRIPTION": "Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode"
+          },
           "AUTO_FINALIZE": {
             "LABEL": "Finalize auto:",
             "DESCRIPTION": "Our system can finalize the contract (to make tokens transferable) automatically after end date (you can do it early if hard cap reached)"

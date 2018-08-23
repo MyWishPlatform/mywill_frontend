@@ -1109,6 +1109,10 @@
             "LABEL": "可转帐：",
             "DESCRIPTION": "用户可以限制投资者的代币转账额直到代币发售完成，以减少投机行为。 建议关闭"
           },
+          "PROTECTED_MODE": {
+            "LABEL": "Protected mode:",
+            "DESCRIPTION": "Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode"
+          },
           "AUTO_FINALIZE": {
             "LABEL": "自动完成：",
             "DESCRIPTION": "我们的系统可以在结束日期后自动完成合约（此后可进行代币转账）（如果达到硬封顶也可提前结束））"

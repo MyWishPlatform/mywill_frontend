@@ -122,14 +122,6 @@
         newPopupContent: true
     }"></div>
 
-    <div ng-if="accountNotFinded" ng-pop-up="{
-        template: '/templates/popups/alerts/scatter-account-found.html',
-        class: 'deleting-contract',
-        params: {},
-        opened: true,
-        onClose: closeScatterAlert,
-        newPopupContent: true
-    }"></div>
 
 
     <div ng-if="successTransaction" ng-pop-up="{
@@ -146,6 +138,15 @@
 
     <div ng-if="mintServerError" ng-pop-up="{
         template: '/templates/popups/alerts/transaction-error.html',
+        class: 'deleting-contract',
+        params: {},
+        opened: true,
+        onClose: closeScatterAlert,
+        newPopupContent: true
+    }"></div>
+
+    <div ng-if="accountNotFinded" ng-pop-up="{
+        template: '/templates/popups/alerts/scatter-account-found.html',
         class: 'deleting-contract',
         params: {},
         opened: true,

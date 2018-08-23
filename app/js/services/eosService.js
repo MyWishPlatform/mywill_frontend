@@ -115,6 +115,58 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
+
+    this.buyTokens = function(amount, memo, defer) {
+        defer = defer || $q.defer();
+        window.scatter.authenticate().then(function (sign) {
+            window.scatter.forgetIdentity().then(function() {
+                _this.buyTokens(amount, memo, defer);
+            });
+        }).catch(function() {
+            _this.connectScatter(createTransaction);
+        });
+
+        var createTransaction = function(accounts, signature) {
+            var network = {
+                blockchain: 'eos',
+                chainId: currentEndPoint.chainId,
+                host: currentEndPoint.url,
+                port: currentEndPoint.port,
+                protocol: currentEndPoint.protocol
+            };
+            var tokenOwnerAccount = accounts[0];
+
+            var eos = window.scatter.eos(network, Eos, {});
+
+            var options = {
+                actions: [{
+                    account: 'eosio.token',
+                    name: 'transfer',
+                    authorization: [{
+                        actor: tokenOwnerAccount['name'],
+                        permission: tokenOwnerAccount['authority']
+                    }],
+                    data: {
+                        from: tokenOwnerAccount['name'],
+                        to: eosAccounts['COMING'],
+                        quantity: amount + ' EOS',
+                        memo: memo || ''
+                    }
+                }],
+                "signatures": [signature]
+            };
+
+            eos.transaction(options).then(defer.resolve).catch(function(result) {
+                defer.reject({
+                    code: 2
+                });
+            });
+
+        };
+
+        return defer.promise;
+    };
+
     this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer) {
         defer = defer || $q.defer();
         window.scatter.authenticate().then(function (sign) {

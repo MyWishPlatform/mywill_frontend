@@ -1109,6 +1109,10 @@
             "LABEL": "譲渡可能なこと",
             "DESCRIPTION": "ユーザーは憶測を減らすためにトークンが完了するまでの貢献者からのトークンの転送を制限することができます。 オフをお勧めします"
           },
+          "PROTECTED_MODE": {
+            "LABEL": "Protected mode:",
+            "DESCRIPTION": "Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode"
+          },
           "AUTO_FINALIZE": {
             "LABEL": "自動的にファイナライズ",
             "DESCRIPTION": "当社のシステムは、終了日後自動的に契約（トークンを転送可能にする）を確定することができます （あなたがハードキャップに達すると早くそれをすることができます）"

@@ -278,6 +278,27 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         });
     };
 
+    var checkTokenTimeout;
+    $scope.checkTokenName = function(tokenShortName) {
+        tokenShortName.$setValidity('not-checked', false);
+        tokenShortName.$setValidity('check-sum', true);
+        if (!tokenShortName.$viewValue) {
+            return;
+        }
+        checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
+        checkTokenTimeout = $timeout(function() {
+            var symbol = tokenShortName.$viewValue.toUpperCase();
+            EOSService.coinInfo(symbol).then(function(result) {
+                if (result[symbol]) {
+                    tokenShortName.$setValidity('check-sum', false);
+                }
+                tokenShortName.$setValidity('not-checked', true);
+            }, function() {
+                tokenShortName.$setValidity('not-checked', true);
+            });
+        }, 200);
+    };
+
 }).controller('eosCrowdSaleHoldersController', function($scope, $timeout, $filter) {
 
     $scope.addRecipient = function() {

@@ -75,6 +75,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
         },
         title: 'start'
+    }).state('main.funny', {
+        url: '/😉',
+        title: '😉',
+        controller: function($rootScope, $state) {
+            $rootScope.funny = true;
+            $state.go('main.base');
+        }
     }).state('main.profile', {
         url: '/profile',
         controller: 'profileController',

@@ -45,29 +45,34 @@
 <!--</form>-->
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}" name="tokenOwnerForm">
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid)}" name="issuerForm">
+    <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/issuer')"></div>
+</form>
+
+<form class="shadow-block"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && issuerForm.$valid)}" name="tokenOwnerForm">
     <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/token_owner')"></div>
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}" name="accountKeysForm">
+      ng-class="{'no-active': !(tokenInfoForm.$valid && issuerForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}" name="accountKeysForm">
     <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/public-keys')"></div>
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid)}"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && issuerForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid)}"
       name="saleTokensParamsForm">
     <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/crowdsale_params')"></div>
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid && saleTokensParamsForm.$valid)}"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && issuerForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid && saleTokensParamsForm.$valid)}"
       name="minMaxInvestmentsForm">
     <div ng-include="getTemplate('pages/createcontract/eosCrowdSale/min_max_investments')"></div>
 </form>
 
 <form class="shadow-block"
-      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid)}"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && issuerForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid)}"
       name="distributionForm">
     <div ng-controller="eosCrowdSaleHoldersController"
          ng-include="getTemplate('pages/createcontract/eosCrowdSale/holders')"></div>
@@ -79,7 +84,7 @@
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
                 type="button"
-                ng-disabled="!(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid && distributionForm.$valid)"
+                ng-disabled="!(tokenInfoForm.$valid && issuerForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && accountKeysForm.$valid && saleTokensParamsForm.$valid && minMaxInvestmentsForm.$valid && distributionForm.$valid)"
                 ng-click="createContract()">
             <span class="lds-ellipsis" ng-if="contractInProgress">
                 <span class="lds-ellipsis-container">

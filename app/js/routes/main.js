@@ -243,8 +243,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.createcontract.types', {
         url: '/create?:blockchain?&:isTestNet?',
         resolve: {
-            allCosts: function(contractService) {
-                return contractService.getAllCosts();
+            allCosts: function(contractService, ENV_VARS) {
+                return contractService.getAllCosts((ENV_VARS.mode !== 'default') ? ENV_VARS.mode : undefined);
             }
         },
         controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS, $stateParams, $location) {

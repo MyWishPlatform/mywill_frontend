@@ -17,10 +17,15 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
-        getAllCosts: function () {
+        getAllCosts: function (type) {
+            var data = {};
             var params = {
                 path: API.GET_ALL_COSTS
             };
+            if (type) {
+                data[type] = true;
+                params.query = data;
+            }
             return requestService.get(params);
         },
         createContract: function (data) {

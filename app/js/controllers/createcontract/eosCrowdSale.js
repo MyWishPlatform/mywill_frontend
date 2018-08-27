@@ -235,16 +235,17 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
 
 
     EOSService.createEosChain($scope.network);
-    $scope.checkAccountName = function(accountNameForm) {
+    $scope.checkAccountName = function(accountNameForm, invert) {
+        invert = invert || false;
         accountNameForm.$setValidity('check-sum', true);
         if (!accountNameForm.$valid) return;
         accountNameForm.$setValidity('checked-address', false);
         EOSService.checkAddress(accountNameForm.$viewValue).then(function() {
             accountNameForm.$setValidity('checked-address', true);
-            accountNameForm.$setValidity('check-sum', false);
+            accountNameForm.$setValidity('check-sum', invert);
         }, function() {
             accountNameForm.$setValidity('checked-address', true);
-            accountNameForm.$setValidity('check-sum', true);
+            accountNameForm.$setValidity('check-sum', !invert);
         });
     };
 

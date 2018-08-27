@@ -263,9 +263,9 @@
                     <br class="show-ls"/>
 
                     <div class="contract-wallet-information-wallet">
-                        <a ng-attr-href="{{(contract.network|etherscanUrl:'address')}}/{{details.admin_address}}"
+                        <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.admin_address}}"
                            target="_blank"
-                           ng-bind="details.admin_address|toCheckSum"></a>
+                           ng-bind="details.admin_address"></a>
 
                         <button class="instruction-for-copy-button relative"
                                 clipboard supported="supported"
@@ -298,9 +298,9 @@
             <br class="show-ls"/>
 
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{contract.network|etherscanUrl:'address'}}/{{holder.address}}"
+                <a ng-attr-href="{{contract.network|etherscanUrl:'account'}}/{{holder.address}}"
                    target="_blank"
-                   ng-bind="holder.address|toCheckSum"></a>
+                   ng-bind="holder.address"></a>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['holder_address_' + $index]}"

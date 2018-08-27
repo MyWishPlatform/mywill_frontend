@@ -94,10 +94,10 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     var generateContractData = function() {
         var contractDetails = angular.copy($scope.request);
 
-        if (!$scope.additionalParams.havePublicKeys) {
-            contractDetails.active_public_key = $scope.generated_keys.active_public_key;
-            contractDetails.owner_public_key = $scope.generated_keys.owner_public_key;
-        }
+        // if (!$scope.additionalParams.havePublicKeys) {
+        //     contractDetails.active_public_key = $scope.generated_keys.active_public_key;
+        //     contractDetails.owner_public_key = $scope.generated_keys.owner_public_key;
+        // }
 
         contractDetails.eos_contract_crowdsale = undefined;
 
@@ -257,28 +257,28 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     $scope.copiedText = '';
 
     $scope.copiedKeys = false;
-    $scope.generateTextForCopy = function() {
-        var lines = [
-            "Private active key: " + $scope.generated_keys.active_private_key,
-            "Private owner key: " + $scope.generated_keys.owner_private_key,
-            "Public active key: " + $scope.generated_keys.active_public_key,
-            "Public owner key: " + $scope.generated_keys.owner_public_key
-        ];
-        $scope.copiedKeys = true;
-        $scope.copiedText = lines.join("\n");
-    };
-    $scope.generateKeysPairs = function() {
-        $scope.copiedKeys = false;
-        $scope.copiedText = '';
-        Eos.modules.ecc.randomKey().then(function(privateKey) {
-            $scope.generated_keys.active_public_key = Eos.modules.ecc.privateToPublic(privateKey);
-            $scope.generated_keys.active_private_key = privateKey;
-        });
-        Eos.modules.ecc.randomKey().then(function(privateKey) {
-            $scope.generated_keys.owner_public_key = Eos.modules.ecc.privateToPublic(privateKey);
-            $scope.generated_keys.owner_private_key = privateKey;
-        });
-    };
+    // $scope.generateTextForCopy = function() {
+    //     var lines = [
+    //         "Private active key: " + $scope.generated_keys.active_private_key,
+    //         "Private owner key: " + $scope.generated_keys.owner_private_key,
+    //         "Public active key: " + $scope.generated_keys.active_public_key,
+    //         "Public owner key: " + $scope.generated_keys.owner_public_key
+    //     ];
+    //     $scope.copiedKeys = true;
+    //     $scope.copiedText = lines.join("\n");
+    // };
+    // $scope.generateKeysPairs = function() {
+    //     $scope.copiedKeys = false;
+    //     $scope.copiedText = '';
+    //     Eos.modules.ecc.randomKey().then(function(privateKey) {
+    //         $scope.generated_keys.active_public_key = Eos.modules.ecc.privateToPublic(privateKey);
+    //         $scope.generated_keys.active_private_key = privateKey;
+    //     });
+    //     Eos.modules.ecc.randomKey().then(function(privateKey) {
+    //         $scope.generated_keys.owner_public_key = Eos.modules.ecc.privateToPublic(privateKey);
+    //         $scope.generated_keys.owner_private_key = privateKey;
+    //     });
+    // };
 
     var checkTokenTimeout;
     $scope.checkTokenName = function(tokenShortName) {

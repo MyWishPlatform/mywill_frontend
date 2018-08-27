@@ -303,7 +303,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     var launchContract = function(contract) {
         if (launchProgress) return;
         launchProgress = true;
-        contractService.deployContract(contract.id, contract.promo).then(function() {
+        contractService.deployContract(contract.id, contract.promo, ($rootScope.sitemode === 'eos') ? true : undefined).then(function() {
             launchProgress = false;
             $rootScope.closeCommonPopup();
 
@@ -357,7 +357,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 return;
             }
             var openConditionsPopUp = function() {
-                var originalCost = new BigNumber(contract.cost.WISH);
+                var originalCost = new BigNumber(($rootScope.sitemode === 'eos') ? contract.cost.EOSISH : contract.cost.WISH);
                 var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
                 if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
                     $rootScope.commonOpenedPopupParams = {
@@ -411,7 +411,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             class: 'deleting-contract',
             contract: contract,
             confirmPayment: launchContract,
-            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether')
+            contractCost: ($rootScope.sitemode !== 'eos') ?
+                Web3.utils.fromWei(contract.cost.WISH, 'ether') : (contract.cost.EOSISH / 10000)
         };
     };
 

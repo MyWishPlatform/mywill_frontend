@@ -185,7 +185,7 @@
       "TEXT": "你确认删除操作吗？"
     },
     "CONTRACT_PAY": {
-      "TEXT": "请确认发布合约({{price}} WISH)"
+      "TEXT": "请确认发布合约({{price|separateNumber}} {{currency || 'WISH'}})"
     },
     "ACCOUNT_CREATION": {
       "TEXT": "Please confirm account creation ({{price}} WISH)"

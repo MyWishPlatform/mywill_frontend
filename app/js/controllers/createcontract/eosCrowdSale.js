@@ -268,6 +268,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     };
     $scope.generateKeysPairs = function() {
         $scope.copiedKeys = false;
+        $scope.copiedText = '';
         Eos.modules.ecc.randomKey().then(function(privateKey) {
             $scope.generated_keys.active_public_key = Eos.modules.ecc.privateToPublic(privateKey);
             $scope.generated_keys.active_private_key = privateKey;

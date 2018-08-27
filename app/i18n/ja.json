@@ -185,7 +185,7 @@
       "TEXT": "あなたはこの契約を削除しますか？"
     },
     "CONTRACT_PAY": {
-      "TEXT": "契約打ち上げ({{price}} WISH)を確認してください"
+      "TEXT": "契約打ち上げ({{price|separateNumber}} {{currency || 'WISH'}})を確認してください"
     },
     "ACCOUNT_CREATION": {
       "TEXT": "Please confirm account creation ({{price}} WISH)"

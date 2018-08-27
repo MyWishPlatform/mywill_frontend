@@ -185,7 +185,7 @@
       "TEXT": "Do you want to remove it?"
     },
     "CONTRACT_PAY": {
-      "TEXT": "Please confirm contract launch ({{price}} WISH)"
+      "TEXT": "Please confirm contract launch ({{price|separateNumber}} {{currency || 'WISH'}})"
     },
     "ACCOUNT_CREATION": {
       "TEXT": "Please confirm account creation ({{price}} WISH)"

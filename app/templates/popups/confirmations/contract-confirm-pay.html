@@ -1,7 +1,10 @@
 <div class="shadow-block">
     <div class="shadow-block__content shadow-block__content_no-lr-padding">
         <div class="alert-window-title"
-             translate-values="{price: - $root.bigNumber(ngPopUp.params.contractCost).times(ngPopUp.params.contract.discount / 100).minus(ngPopUp.params.contractCost).round(2)}"
+             translate-values="{
+                price: - $root.bigNumber(ngPopUp.params.contractCost).times(ngPopUp.params.contract.discount / 100).minus(ngPopUp.params.contractCost).round(2),
+                currency: ($root.sitemode !== 'eos') ? 'WISH' : 'EOSISH'
+             }"
              translate="CONFIRMATIONS.CONTRACT_PAY.TEXT"></div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">

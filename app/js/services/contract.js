@@ -106,12 +106,13 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
-        deployContract: function(id, promo) {
+        deployContract: function(id, promo, eos) {
             var params = {
                 path: API.DEPLOY,
                 data: {
                     id: id,
-                    promo: promo
+                    promo: promo,
+                    eos: eos
                 }
             };
             return requestService.post(params);

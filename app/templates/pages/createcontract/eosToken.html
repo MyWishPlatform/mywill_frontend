@@ -134,7 +134,7 @@
                     <input id="max-supply" type="text"
                            name="max-supply"
                            ng-model="request.maximum_supply"
-                           pattern="[0-9,]+(\.[0-9]{0,{{request.decimals}}})?$"
+                           pattern="[0-9,]+{{(request.decimals*1 > 0) ? '(\.[0-9]{1,'+request.decimals+'})?' : ''}}$"
                            commaseparator="{
                                 regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
                                 min: 1,

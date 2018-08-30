@@ -43,9 +43,11 @@
                 </label>
                 <input id="hard-cap" type="text"
                        ng-change="checkTokensAmount(); checkHardCapEth()"
+                       pattern="[0-9,]+{{(request.decimals*1 > 0) ? '(\.[0-9]{1,'+request.decimals+'})?' : ''}}$"
                        commaseparator="{
-                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$',
-                            max: maxSupply * 1
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
+                            min: 1,
+                            max: maxSupply
                        }"
                        ng-model="request.hard_cap"
                        required
@@ -89,12 +91,15 @@
                     <span  class="after-floated">{{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.SOFT_CAP.LABEL'|translate}}</span>
                 </label>
                 <input id="soft-cap" type="text"
+                       pattern="[0-9,]+{{(request.decimals*1 > 0) ? '(\.[0-9]{1,'+request.decimals+'})?' : ''}}$"
+                       commaseparator="{
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
+                            min: 1,
+                            max: maxSupply
+                       }"
                        ng-model="request.soft_cap"
                        ng-change="checkTokensAmount()"
                        required
-                       commaseparator="{
-                       regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$', max: request.hard_cap * 1
-                       }"
                        class="form-control-input"/>
 
                 <div class="grid-row" ng-if="request.soft_cap && request.rate">

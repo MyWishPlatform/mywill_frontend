@@ -35,7 +35,7 @@
         </div>
 
         <!-- Token contract address -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractTokenInfo].address">
+        <!-- div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractTokenInfo].address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
             <br class="show-ls"/>
 
@@ -52,7 +52,7 @@
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
-        </div>
+        </div -->
 
         <!-- Token info -->
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
@@ -89,6 +89,7 @@
                         {{details.token_short_name}} = 1 EOS
                     </div>
                 </div>
+                <div class="clearfix"><br></div>
 
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
@@ -178,7 +179,7 @@
                     </div>
                 </div>
                 <div class="clearfix"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                <!-- div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-note-list form-control-label-icon"></i>
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.WHITELIST.LABEL'|translate}}
@@ -191,12 +192,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="clearfix show-ls"><br/></div>
+                <div class="clearfix show-ls"><br/></div-->
 
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="form-control-label">
                         <i class="icon-settings form-control-label-icon"></i>
-                        {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.PROTECTED_MODE.LABEL'|translate}}
+                        {{'CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.PROTECTED_MODE.LABEL'|translate}}
                     </div>
                     <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
@@ -210,7 +211,7 @@
         </div>
 
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="whiteListedAddresses.count">
+        <!-- div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="whiteListedAddresses.count">
             <div class="form-control-label">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
@@ -227,7 +228,7 @@
                     translate="CONTRACTS.PREVIEW.CROWD_SALE.SHOW_WHITELIST"></span>
                 </a>
             </div>
-        </div>
+        </div -->
 
         <!-- Min/max investments-->
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.min_wei || details.max_wei">
@@ -259,7 +260,32 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></div>
+                         translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.ADMIN_ACCOUNT.TITLE"></div>
+                    <br class="show-ls"/>
+
+                    <div class="contract-wallet-information-wallet">
+                        <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.issuer}}"
+                           target="_blank"
+                           ng-bind="details.issuer"></a>
+
+                        <button class="instruction-for-copy-button relative"
+                                clipboard supported="supported"
+                                ng-class="{copied: contract.copied['issuer']}"
+                                text="details.issuer"
+                                on-copied="$root.successCodeCopy(contract, 'issuer')"
+                                on-error="failCodeCopy(err)">
+                            <i class="icon-content_copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.CROWDSALE_ACCOUNT.TITLE"></div>
                     <br class="show-ls"/>
 
                     <div class="contract-wallet-information-wallet">

@@ -46,7 +46,8 @@
     "ENDED": "完成",
     "DONE": "完成",
     "UNDER_CROWDSALE": "在代币销售下",
-    "SENDING_TOKENS": "Sending"
+    "SENDING_TOKENS": "Sending",
+    "CREATING": "Creating"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -106,8 +107,7 @@
       "FORGOT_PASSWORD": "忘记密码？",
       "LOGIN_FACEBOOK": "通过Facebook登录",
       "LOGIN_GOOGLE": "通过Google登录",
-      "CREATE_ACCOUNT": "创建帐号",
-      "CREATING": "Creating"
+      "CREATE_ACCOUNT": "创建帐号"
     }
   },
   "CONTRACTS_BUTTONS": {
@@ -446,7 +446,9 @@
       },
       "CHART": {
         "TOTAL_SUPPLY": "总供给：",
-        "DISTRIBUTED_BEFORE": "（日期）之前的总分发量"
+        "DISTRIBUTED_BEFORE": "（日期）之前的总分发量",
+        "EOS_DISTRIBUTED_BEFORE": "Minted before",
+        "EOS_DISTRIBUTE_AVAILABLE": "Available for Minting"
       }
     },
     "CHANGE_DATES_FORM": {
@@ -832,8 +834,8 @@
             "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
           },
           "MIN_MAX_INVESTMENTS": {
-            "LABEL": "Min & Max investments limitations",
-            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+            "LABEL": "最小和最大投资限制",
+            "DESCRIPTION": "您可以指定可接受的最小/最大投资额/（{{currency||'ETH'}}）。 例如，接受0.05 {{currency||'ETH'}}至3000 {{currency||'ETH'}}区间的投资额"
           },
           "MIN_INVESTMENTS": {
             "LABEL": "Minimum",
@@ -993,7 +995,6 @@
           "ADD_ADDRESS": "铸币"
         },
         "TOTAL_SUPPLY": "总供给：",
-        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "代币名称：",
@@ -1109,10 +1110,6 @@
             "LABEL": "可转帐：",
             "DESCRIPTION": "用户可以限制投资者的代币转账额直到代币发售完成，以减少投机行为。 建议关闭"
           },
-          "PROTECTED_MODE": {
-            "LABEL": "Protected mode:",
-            "DESCRIPTION": "Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode"
-          },
           "AUTO_FINALIZE": {
             "LABEL": "自动完成：",
             "DESCRIPTION": "我们的系统可以在结束日期后自动完成合约（此后可进行代币转账）（如果达到硬封顶也可提前结束））"
@@ -1127,7 +1124,7 @@
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小和最大投资限制",
-            "DESCRIPTION": "您可以指定可接受的最小/最大投资额/（ETH）。 例如，接受0.05 ETH至3000 ETH区间的投资额"
+            "DESCRIPTION": "您可以指定可接受的最小/最大投资额/（{{currency||'ETH'}}）。 例如，接受0.05 {{currency||'ETH'}}至3000 {{currency||'ETH'}}区间的投资额"
           },
           "MIN_INVESTMENTS": {
             "LABEL": "投资额下限",
@@ -1235,6 +1232,32 @@
           "REGENERATE_KEYS": "Generate new pairs",
           "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, it generates it only."
         }
+      },
+      "EOS_CROWDSALE": {
+        "CAP_NOTE": {
+          "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
+        },
+        "FIELDS": {
+          "ADMIN_ACCOUNT": {
+            "TITLE": "Admin account",
+            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the Crowdsale. Double check the account (and the access to it) before the submission."
+          },
+          "CROWDSALE_ACCOUNT": {
+            "TITLE": "Crowdsale EOS account",
+            "DESCRIPTION": "This EOS account shall be new. All contributors will be sent to contract under this account, the name should be connected with the project. For example, \"mynewproject\"."
+          },
+          "PROTECTED_MODE": {
+            "LABEL": "Withdraw before completion",
+            "DESCRIPTION": "Withdraw works only if soft cap reached. If On - the admin will be able to withdraw the contributions before making tokens transferable & sale completion. Off - no withdraw until tokens are not transferable."
+          },
+          "HOLDERS": {
+            "ACCOUNT": {
+              "TITLE": "Account name:",
+              "NAME_PLACEHOLDER": "Team",
+              "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
+            }
+          }
+        }
       }
     },
     "PREVIEW": {
@@ -1243,6 +1266,7 @@
       },
       "TABS": {
         "INFO": "预览合约",
+        "ACCOUNT_INFO": "Preview account",
         "SOURCE": "源代码"
       },
       "FREE_VERSION_MSG": "在免费版本（TestNet）中，源代码不可用于加载。",

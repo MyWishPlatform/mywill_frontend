@@ -835,15 +835,15 @@
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "Min & Max investments limitations",
-            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in {{currency||'ETH'}}). For example, accept contributions from 0.05 {{currency||'ETH'}} to 3000 {{currency||'ETH'}} only"
           },
           "MIN_INVESTMENTS": {
             "LABEL": "Minimum",
-            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+            "DESCRIPTION": "Minimum accepted amount. \"0\" = No minimum limitation"
           },
           "MAX_INVESTMENTS": {
             "LABEL": "Maximum",
-            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+            "DESCRIPTION": "Maximum accepted amount. it can not be higher than the hard cap"
           },
           "INVESTMENT_ADDRESS_ON_OFF": {
             "LABEL": "Set Destination",
@@ -975,7 +975,7 @@
             "ALREADY_NAME_TEXT": "Token name is already in use"
           },
           "DECIMALS": {
-            "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as common."
+            "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as a standard value."
           },
           "TOKEN_OWNER": {
             "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
@@ -1096,7 +1096,7 @@
           },
           "SOFT_CAP": {
             "LABEL": "Soft cap tokens",
-            "DESCRIPTION": "Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their vestments back, project gets nothing. You can set it to 0 (no soft cap)"
+            "DESCRIPTION": "Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their investments back, project gets nothing. You can set it to 0 (no soft cap)"
           },
           "START_DATE": {
             "LABEL": "Start date",
@@ -1124,7 +1124,7 @@
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "Min & Max investments limitations",
-            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in {{currency||'ETH'}}). For example, accept contributions from 0.05 {{currency||'ETH'}} to 3000 {{currency||'ETH'}}{{currency||'ETH'}} only."
+            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in {{currency||'ETH'}}). For example, accept contributions from 0.05 {{currency||'ETH'}} to 3000 {{currency||'ETH'}} only."
           },
           "MIN_INVESTMENTS": {
             "LABEL": "Minimum",

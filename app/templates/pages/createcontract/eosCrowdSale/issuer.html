@@ -7,6 +7,7 @@
                 <div class="form-control-input-container">
                     <input id="issuer-address" type="text"
                            pattern="[a-zA-Z1-5]{12}"
+                           maxlength="12"
                            placeholder="qwertyuiopas"
                            ng-change="checkAccountName(issuerForm['issuer'], true)"
                            ng-model="request.issuer"

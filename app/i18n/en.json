@@ -1087,7 +1087,7 @@
           },
           "TOKEN_RATE": {
             "LABEL": "Token rate",
-            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 {{blockchain}}",
+            "DESCRIPTION": "Defines the rate of your token. 1-100000 numerals are accepted. Usually 500-5000 tokens per 1 {{blockchain}}.",
             "ADV_DESCRIPTION": "per 1 {{blockchain}}"
           },
           "HARD_CAP": {
@@ -1100,19 +1100,15 @@
           },
           "START_DATE": {
             "LABEL": "Start date",
-            "DESCRIPTION": "Start date/time for sale. No contributions will be accepted before that time"
+            "DESCRIPTION": "Start date/time for sale. No contributions will be accepted before that time."
           },
           "FINISH_DATE": {
             "LABEL": "Finish date",
-            "DESCRIPTION": "Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached"
+            "DESCRIPTION": "Finish date/time. No contributions will be accepted after the set time. Can be finished before if hard cap is reached."
           },
           "TRANSFERABLE": {
             "LABEL": "Transferable:",
-            "DESCRIPTION": "User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended"
-          },
-          "PROTECTED_MODE": {
-            "LABEL": "Protected mode:",
-            "DESCRIPTION": "Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode Protected mode"
+            "DESCRIPTION": "User can limit transfer of tokens from Contributors until token completion to reduce the speculations. Off is recommended."
           },
           "AUTO_FINALIZE": {
             "LABEL": "Finalize auto:",
@@ -1128,7 +1124,7 @@
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "Min & Max investments limitations",
-            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in ETH). For example, accept contributions from 0.05 ETH to 3000 ETH only"
+            "DESCRIPTION": "You can specify minimum/maximum accepted contributions (in {{currency||'ETH'}}). For example, accept contributions from 0.05 {{currency||'ETH'}} to 3000 {{currency||'ETH'}}{{currency||'ETH'}} only."
           },
           "MIN_INVESTMENTS": {
             "LABEL": "Minimum",
@@ -1235,6 +1231,32 @@
           "GENERATE_KEYS": "Generate keys pairs",
           "REGENERATE_KEYS": "Generate new pairs",
           "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, it generates it only."
+        }
+      },
+      "EOS_CROWDSALE": {
+        "CAP_NOTE": {
+          "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
+        },
+        "FIELDS": {
+          "ADMIN_ACCOUNT": {
+            "TITLE": "Admin account",
+            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the Crowdsale. Double check the account (and the access to it) before the submission."
+          },
+          "CROWDSALE_ACCOUNT": {
+            "TITLE": "Crowdsale EOS account",
+            "DESCRIPTION": "This EOS account shall be new. All contributors will be sent to contract under this account, the name should be connected with the project. For example, \"mynewproject\"."
+          },
+          "PROTECTED_MODE": {
+            "LABEL": "Withdraw before completion",
+            "DESCRIPTION": "Withdraw works only if soft cap reached. If On - the admin will be able to withdraw the contributions before making tokens transferable & sale completion. Off - no withdraw until tokens are not transferable."
+          },
+          "HOLDERS": {
+            "ACCOUNT": {
+              "TITLE": "Account name:",
+              "NAME_PLACEHOLDER": "Team",
+              "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
+            }
+          }
         }
       }
     },

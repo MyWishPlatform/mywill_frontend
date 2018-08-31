@@ -20,6 +20,8 @@
                     <div class="input-after dynamic-info">
                         {{distributionForm['out-wallet-key-' + $index].$viewValue.length||0}}/12
                     </div>
+                    <span class="field-error form-field_error-check-sum"
+                          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.ACCOUNT_DOES_NOT_EXIST"></span>
                 </div>
 
             </div>
@@ -28,7 +30,7 @@
         <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
             <div class="form-control">
                 <label for="address-name-{{$index}}" class="form-control-label"
-                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_NAME.LABEL"></label>
+                       translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.HOLDERS.ACCOUNT.INTERNAL_NAME"></label>
                 <input id="address-name-{{$index}}" type="text"
                        ng-change="checkTokensAmount()"
                        ng-attr-placeholder="{{'CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.HOLDERS.ACCOUNT.NAME_PLACEHOLDER'|translate}}"
@@ -36,8 +38,6 @@
                        class="form-control-input"/>
             </div>
         </div>
-
-
         <div class="clearfix show-full hide-ps show-vs"><br/></div>
         <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
             <div class="form-control">

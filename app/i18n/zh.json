@@ -1234,6 +1234,9 @@
         }
       },
       "EOS_CROWDSALE": {
+        "ERRORS": {
+          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist"
+        },
         "CAP_NOTE": {
           "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
         },
@@ -1253,6 +1256,7 @@
           "HOLDERS": {
             "ACCOUNT": {
               "TITLE": "Account name:",
+              "INTERNAL_NAME": "Internal Name",
               "NAME_PLACEHOLDER": "Team",
               "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
             }

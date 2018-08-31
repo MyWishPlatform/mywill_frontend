@@ -1020,7 +1020,7 @@
           },
           "RECIPIENT": {
             "TITLE": "Define address for tokens (after minting it will be sent to this address)",
-            "DESCRIPTION_BLOCK": "You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion"
+            "DESCRIPTION_BLOCK": "You can reserve the tokens for Team, Bonuses, Bounties - these tokens will be created, but can’t be sold until token sale completion."
           },
           "RECIPIENT_ADDRESS": {
             "LABEL": "Address",
@@ -1096,7 +1096,7 @@
           },
           "SOFT_CAP": {
             "LABEL": "Soft cap tokens",
-            "DESCRIPTION": "Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their investments back, project gets nothing. You can set it to 0 (no soft cap)"
+            "DESCRIPTION": "Defines the minimum number of tokens that needs to be sold for the project continuation. If soft cap is not reached - contributors get their investments back, project gets nothing. You can set it to 0 (no soft cap)."
           },
           "START_DATE": {
             "LABEL": "Start date",
@@ -1128,11 +1128,11 @@
           },
           "MIN_INVESTMENTS": {
             "LABEL": "Minimum",
-            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation."
           },
           "MAX_INVESTMENTS": {
             "LABEL": "Maximum",
-            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap."
           },
           "TIME_BONUS": {
             "LABEL": "Bonus",
@@ -1234,6 +1234,9 @@
         }
       },
       "EOS_CROWDSALE": {
+        "ERRORS": {
+          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist"
+        },
         "CAP_NOTE": {
           "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
         },
@@ -1253,6 +1256,7 @@
           "HOLDERS": {
             "ACCOUNT": {
               "TITLE": "Account name:",
+              "INTERNAL_NAME": "Internal Name",
               "NAME_PLACEHOLDER": "Team",
               "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
             }

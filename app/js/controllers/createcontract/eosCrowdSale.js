@@ -112,6 +112,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
 
         contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
         contractDetails.admin_address = contractDetails.admin_address.toLowerCase();
+        contractDetails.crowdsale_address = contractDetails.crowdsale_address.toLowerCase();
 
 
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).round().toString(10);

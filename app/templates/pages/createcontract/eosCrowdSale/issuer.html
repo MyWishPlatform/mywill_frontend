@@ -9,13 +9,13 @@
                            pattern="[a-zA-Z1-5]{12}"
                            maxlength="12"
                            placeholder="qwertyuiopas"
-                           ng-change="checkAccountName(issuerForm['issuer'], true)"
-                           ng-model="request.issuer"
-                           name="issuer"
+                           ng-change="checkAccountName(issuerForm['admin_address'], true)"
+                           ng-model="request.admin_address"
+                           name="admin_address"
                            required
                            class="form-control-input lowercase"/>
                     <div class="input-after dynamic-info">
-                        {{issuerForm['issuer'].$viewValue.length||0}}/12
+                        {{issuerForm['admin_address'].$viewValue.length||0}}/12
                     </div>
                 </div>
             </div>

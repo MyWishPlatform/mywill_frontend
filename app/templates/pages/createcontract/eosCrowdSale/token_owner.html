@@ -9,13 +9,13 @@
                            pattern="[a-zA-Z1-5]{12}"
                            maxlength="12"
                            placeholder="qwertyuiopas"
-                           ng-change="checkAccountName(tokenOwnerForm['owner_address'])"
-                           ng-model="request.admin_address"
-                           name="owner_address"
+                           ng-change="checkAccountName(tokenOwnerForm['crowdsale_address'])"
+                           ng-model="request.crowdsale_address"
+                           name="crowdsale_address"
                            required
                            class="form-control-input lowercase"/>
                     <div class="input-after dynamic-info">
-                        {{tokenOwnerForm['owner_address'].$viewValue.length||0}}/12
+                        {{tokenOwnerForm['crowdsale_address'].$viewValue.length||0}}/12
                     </div>
                     <span class="field-success"
                           ng-if="tokenOwnerForm.$valid"

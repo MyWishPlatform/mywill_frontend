@@ -264,15 +264,15 @@
                     <br class="show-ls"/>
 
                     <div class="contract-wallet-information-wallet">
-                        <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.issuer}}"
+                        <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.admin_address}}"
                            target="_blank"
-                           ng-bind="details.issuer"></a>
+                           ng-bind="details.admin_address"></a>
 
                         <button class="instruction-for-copy-button relative"
                                 clipboard supported="supported"
-                                ng-class="{copied: contract.copied['issuer']}"
-                                text="details.issuer"
-                                on-copied="$root.successCodeCopy(contract, 'issuer')"
+                                ng-class="{copied: contract.copied['admin_address']}"
+                                text="details.admin_address"
+                                on-copied="$root.successCodeCopy(contract, 'admin_address')"
                                 on-error="failCodeCopy(err)">
                             <i class="icon-content_copy"></i>
                         </button>
@@ -289,15 +289,15 @@
                     <br class="show-ls"/>
 
                     <div class="contract-wallet-information-wallet">
-                        <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.admin_address}}"
+                        <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.crowdsale_address}}"
                            target="_blank"
-                           ng-bind="details.admin_address"></a>
+                           ng-bind="details.crowdsale_address"></a>
 
                         <button class="instruction-for-copy-button relative"
                                 clipboard supported="supported"
-                                ng-class="{copied: contract.copied['admin_address']}"
-                                text="details.admin_address"
-                                on-copied="$root.successCodeCopy(contract, 'admin_address')"
+                                ng-class="{copied: contract.copied['crowdsale_address']}"
+                                text="details.crowdsale_address"
+                                on-copied="$root.successCodeCopy(contract, 'crowdsale_address')"
                                 on-error="failCodeCopy(err)">
                             <i class="icon-content_copy"></i>
                         </button>

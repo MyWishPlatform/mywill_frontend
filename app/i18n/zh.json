@@ -1242,11 +1242,11 @@
         },
         "FIELDS": {
           "ADMIN_ACCOUNT": {
-            "TITLE": "Admin account",
+            "TITLE": "Admin account:",
             "DESCRIPTION": "EOS account (not an exchange account). This account will manage the Crowdsale. Double check the account (and the access to it) before the submission."
           },
           "CROWDSALE_ACCOUNT": {
-            "TITLE": "Crowdsale EOS account",
+            "TITLE": "Crowdsale EOS account:",
             "DESCRIPTION": "This EOS account shall be new. All contributors will be sent to contract under this account, the name should be connected with the project. For example, \"mynewproject\"."
           },
           "PROTECTED_MODE": {
@@ -1380,6 +1380,10 @@
         "ACCOUNT_NAME": "Account name",
         "ACTIVE_PUBLIC_KEY": "Active public key",
         "OWNER_PUBLIC_KEY": "Owner public key"
+      },
+      "EOS_CROWDSALE": {
+        "TOKEN_ACCOUNT": "Token EOS account",
+        "CROWDSALE_ACCOUNT": "Crowdsale EOS account (All contributions shall be sent to this address)"
       }
     }
   }

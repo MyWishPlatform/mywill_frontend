@@ -278,6 +278,15 @@ nav, main, footer, header {
       color: #d0b300;
     }
   }
+  &.error-text {
+    color: #901900;
+    i {
+      float: left;
+      font-size: 1.2em;
+      color: #d01c00;
+      margin-right: 0.4em;
+    }
+  }
 }
 .warning-page {
   //background-color: rgba(203, 0, 8, 0.8);

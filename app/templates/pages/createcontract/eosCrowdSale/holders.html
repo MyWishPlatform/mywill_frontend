@@ -83,6 +83,12 @@
     </div>
 </div>
 
+<div class="shadow-block__content grey-color" ng-if="tokensAmountError === 'maxSupply'">
+    <div class="normal-text error-text">
+        <i class="icon-error"></i>
+        <div>Total token supply is exceeded Max possible supply.</div>
+    </div>
+</div>
 <div class="shadow-block__content grey-color" ng-if="!tokensAmountError">
     <div class="grid-row">
         <div class="grid-cell grid-cell-1">

@@ -24,7 +24,11 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     $scope.currencyPow = 4;
 
     $scope.checkMaxTokenSupply = function() {
-        $scope.maxSupply = Math.round(4611686018427387903 / Math.pow(10, $scope.request.decimals));
+        $scope.maxSupply = 4611686018427387903 / Math.pow(10, $scope.request.decimals||0);
+        checkTokensAmountTimeout ? $timeout.cancel(checkTokensAmountTimeout)  : false;
+        checkTokensAmountTimeout = $timeout(function() {
+            $scope.$broadcast('tokensCapChanged');
+        }, 300);
     };
 
     /* Управление датой и временем начала/окончания ICO (begin) */
@@ -253,32 +257,6 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         keysForm[field].$setValidity('public-key', Eos.modules.ecc.isValidPublic(keysForm[field].$viewValue));
     };
 
-    $scope.generated_keys = {};
-    $scope.copiedText = '';
-
-    $scope.copiedKeys = false;
-    // $scope.generateTextForCopy = function() {
-    //     var lines = [
-    //         "Private active key: " + $scope.generated_keys.active_private_key,
-    //         "Private owner key: " + $scope.generated_keys.owner_private_key,
-    //         "Public active key: " + $scope.generated_keys.active_public_key,
-    //         "Public owner key: " + $scope.generated_keys.owner_public_key
-    //     ];
-    //     $scope.copiedKeys = true;
-    //     $scope.copiedText = lines.join("\n");
-    // };
-    // $scope.generateKeysPairs = function() {
-    //     $scope.copiedKeys = false;
-    //     $scope.copiedText = '';
-    //     Eos.modules.ecc.randomKey().then(function(privateKey) {
-    //         $scope.generated_keys.active_public_key = Eos.modules.ecc.privateToPublic(privateKey);
-    //         $scope.generated_keys.active_private_key = privateKey;
-    //     });
-    //     Eos.modules.ecc.randomKey().then(function(privateKey) {
-    //         $scope.generated_keys.owner_public_key = Eos.modules.ecc.privateToPublic(privateKey);
-    //         $scope.generated_keys.owner_private_key = privateKey;
-    //     });
-    // };
 
     var checkTokenTimeout;
     $scope.checkTokenName = function(tokenShortName) {
@@ -300,6 +278,8 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
             });
         }, 200);
     };
+
+    $scope.checkMaxTokenSupply();
 
 }).controller('eosCrowdSaleHoldersController', function($scope, $timeout, $filter) {
 
@@ -325,6 +305,9 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
 
         if (!$scope.tokensAmountError) {
             var ethSum = holdersSum.plus($scope.request.hard_cap);
+            $scope.tokensAmountError = ethSum.minus($scope.maxSupply + '') > 0 ? 'maxSupply' : false;
+
+            if ($scope.tokensAmountError) return;
 
             $scope.totalSupply = {
                 eth: ethSum.div($scope.request.rate).round(2).toString(10),

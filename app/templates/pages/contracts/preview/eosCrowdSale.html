@@ -39,20 +39,18 @@
         </div>
 
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractCrowdsaleInfo].address">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.eos_contract_crowdsale.address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_CROWDSALE.TOKEN_ACCOUNT"></div>
-
-
             <br class="show-ls"/>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details[contractCrowdsaleInfo].address|toCheckSum}}"
+                <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.eos_contract_crowdsale.address|toCheckSum}}"
                    target="_blank"
-                   ng-bind="details[contractCrowdsaleInfo].address|toCheckSum"></a>
+                   ng-bind="details.eos_contract_crowdsale.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
-                        ng-class="{copied: contract.copied['crowdsale_address']}"
-                        text="details[contractCrowdsaleInfo].address|toCheckSum"
-                        on-copied="$root.successCodeCopy(contract, 'crowdsale_address')"
+                        ng-class="{copied: contract.copied['token_address']}"
+                        text="details.eos_contract_crowdsale.address|toCheckSum"
+                        on-copied="$root.successCodeCopy(contract, 'token_address')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>

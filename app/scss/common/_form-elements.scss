@@ -345,7 +345,7 @@
       line-height: 1em;
     }
   }
-  input:disabled {
+  [disabled], input:disabled {
     ~ .input-after {
       background: -moz-linear-gradient(left, rgba(240,240,240,0) 0%, rgba(240,240,240,0.78) 15%, rgba(240,240,240,1) 100%);
       background: -webkit-linear-gradient(left, rgba(240,240,240,0) 0%,rgba(240,240,240,0.78) 15%,rgba(240,240,240,1) 100%);
@@ -364,6 +364,7 @@
         bottom: auto;
         top: 1.5em;
         padding: 0 1em;
+        background: none;
       }
       .instruction-for-copy-button {
         margin-right: 0;

@@ -1,4 +1,4 @@
-angular.module('app').controller('eosCrowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
+angular.module('app').controller('eosCrowdSalePreviewController', function($timeout, $rootScope, contractService,
                                                                         openedContract, $scope, $filter) {
     $scope.contract = openedContract.data;
 
@@ -15,15 +15,6 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
     $scope.currencyPow = 4;
 
     if (contractDetails.eth_contract_crowdsale && contractDetails.eth_contract_crowdsale.address) {
-        web3Service.setProvider('infura');
-        var contract = web3Service.createContractFromAbi(contractDetails.eth_contract_crowdsale.address, contractDetails.eth_contract_crowdsale.abi);
-        if (typeof contract.methods.vault === 'function') {
-            contract.methods.vault().call(function(error, result) {
-                if (error) return;
-                contractDetails.eth_contract_crowdsale.vault = result;
-                $scope.$apply();
-            });
-        }
         if (contractDetails.whitelist) {
             contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
                 $scope.whiteListedAddresses = response.data;
@@ -67,10 +58,71 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
         address: $filter('translate')('CONTRACTS.FOR_SALE')
     });
 
+}).controller('eosChangeDateController', function($scope, EOSService) {
+
+    EOSService.createEosChain($scope.contract.network);
+
+    var actions = [];
+
+    var contractDetails = $scope.contract.contract_details;
+
+    var createTxData = function() {
+        var startDate = $scope.dates.startDate.format('X'),
+            endDate = $scope.dates.endDate.format('X');
+
+        if (startDate != contractDetails.start_date) {
+            actions.push({
+                account: contractDetails.crowdsale_address,
+                name: 'setstart',
+                data: {
+                    'start': startDate * 1
+                }
+            });
+        }
+
+        if (endDate != contractDetails.stop_date) {
+            actions.push({
+                account: contractDetails.crowdsale_address,
+                name: 'setfinish',
+                data: {
+                    'finish': startDate * 1
+                }
+            });
+        }
+    };
+
+    $scope.scatterNotInstalled = false;
+    $scope.closeScatterAlert = function() {
+        $scope.scatterNotInstalled = false;
+        $scope.accountNotFinded = false;
+        $scope.changeDatesServerError = false;
+    };
+
+    $scope.generateScatterTx = function() {
+
+        $scope.scatterNotInstalled = !EOSService.checkScatter();
+        if ($scope.scatterNotInstalled) return;
+
+        createTxData();
+
+        if (!actions.length) return;
+
+        EOSService.sendTx({
+            actions: actions,
+            owner: $scope.contract.contract_details.admin_address
+        }).then(function(result) {
+            $scope.successChangeDates = result;
+        }, function(error) {
+            switch(error.code) {
+                case 1:
+                    $scope.accountNotFinded = true;
+                    break;
+                case 2:
+                    $scope.changeDatesServerError = true;
+                    break;
+            }
+        });
+    };
+
+
 });
-
-
-
-
-
-

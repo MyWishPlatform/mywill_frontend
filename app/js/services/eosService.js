@@ -167,59 +167,73 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer) {
+    var getNetwork = function() {
+        return {
+            blockchain: 'eos',
+            chainId: currentEndPoint.chainId,
+            host: currentEndPoint.url,
+            port: currentEndPoint.port,
+            protocol: currentEndPoint.protocol
+        }
+    };
+
+    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo) {
+        return _this.sendTx({
+            owner: tokenOwner,
+            actions: [{
+                account: eosAccounts[displayingNetwork]['TOKEN'],
+                name: 'issue',
+                data: {
+                    from: tokenOwner,
+                    to: tokensTo,
+                    quantity: amount + ' ' + tokenSymbol,
+                    memo: memo || ''
+                }
+            }]
+        });
+    };
+
+    this.sendTx = function(params, defer) {
         defer = defer || $q.defer();
-        window.scatter.authenticate().then(function (sign) {
+        window.scatter.authenticate().then(function() {
             window.scatter.forgetIdentity().then(function() {
-                _this.mintTokens(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer);
+                _this.sendTx(params, defer);
             });
         }).catch(function() {
             _this.connectScatter(createTransaction);
         });
-
         var createTransaction = function(accounts, signature) {
-            var network = {
-                blockchain: 'eos',
-                chainId: currentEndPoint.chainId,
-                host: currentEndPoint.url,
-                port: currentEndPoint.port,
-                protocol: currentEndPoint.protocol
-            };
-            var tokenOwnerAccount = accounts.filter(function(account) {
-                return account['name'] === tokenOwner;
-            })[0];
+            var tokenOwnerAccount = params['owner'] ? accounts.filter(function(account) {
+                return account['name'] === params['owner'];
+            })[0] : accounts[0];
             if (!tokenOwnerAccount) {
                 defer.reject({
-                    code: 1
+                    "code": 1
                 });
                 return;
             }
-            var eos = window.scatter.eos(network, Eos, {});
+            params['actions'].map(function(action) {
+                action.authorization = [{
+                    "actor": tokenOwnerAccount['name'],
+                    "permission": tokenOwnerAccount['authority']
+                }];
+            });
+
+            var eos = window.scatter.eos(getNetwork(), Eos, {});
+
             eos.transaction({
-                actions: [{
-                    account: eosAccounts[displayingNetwork]['TOKEN'],
-                    name: 'issue',
-                    authorization: [{
-                        actor: tokenOwnerAccount['name'],
-                        permission: tokenOwnerAccount['authority']
-                    }],
-                    data: {
-                        from: tokenOwner,
-                        to: tokensTo,
-                        quantity: amount + ' ' + tokenSymbol,
-                        memo: memo || ''
-                    }
-                }],
+                "actions": params.actions,
                 "signatures": [signature]
-            }).then(defer.resolve).catch(function(result) {
+            }).then(defer.resolve).catch(function() {
                 defer.reject({
                     code: 2
                 });
             });
         };
-
         return defer.promise;
     };
+
+
 
     var checkIdentity = function(success, error) {
         var requiredFields = {

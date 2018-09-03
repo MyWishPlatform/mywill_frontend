@@ -87,6 +87,26 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
+    this.getTableRows = function(scope, table, code, network) {
+        var defer = $q.defer();
+        checkNetwork(function() {
+            network  ? _this.createEosChain(network) : false;
+            eos.getTableRows({
+                code: code || eosAccounts[displayingNetwork]['TOKEN'],
+                scope: scope,
+                table:table || 'stat',
+                json: true
+            }, function (error, response) {
+                if (error) {
+                    defer.reject(error);
+                } else {
+                    defer.resolve(response);
+                }
+            });
+        });
+        return defer.promise;
+    };
+
     this.coinInfo = function(short_name) {
         var defer = $q.defer();
         checkNetwork(function() {
@@ -221,6 +241,10 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
             var eos = window.scatter.eos(getNetwork(), Eos, {});
 
+            console.log({
+                "actions": params.actions,
+                "signatures": [signature]
+            });
             eos.transaction({
                 "actions": params.actions,
                 "signatures": [signature]

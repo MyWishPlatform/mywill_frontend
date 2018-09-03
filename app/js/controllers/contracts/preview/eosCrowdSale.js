@@ -4,6 +4,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
 
 
     $scope.setContract($scope.contract);
+    $scope.iniEOSContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
 
@@ -24,8 +25,8 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
     contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
     contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
 
-    contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).toString(10);
-    contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).toString(10);
+    contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,$scope.currencyPow)).toString(10);
+    contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,$scope.currencyPow)).toString(10);
 
     contractDetails.min_wei = contractDetails.min_wei !== null ? new BigNumber(contractDetails.min_wei).div(Math.pow(10,$scope.currencyPow)).toString(10) : undefined;
     contractDetails.max_wei = contractDetails.max_wei !== null ? new BigNumber(contractDetails.max_wei).div(Math.pow(10,$scope.currencyPow)).toString(10) : undefined;
@@ -85,7 +86,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
                 account: contractDetails.crowdsale_address,
                 name: 'setfinish',
                 data: {
-                    'finish': startDate * 1
+                    'finish': endDate * 1
                 }
             });
         }
@@ -102,7 +103,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
 
         $scope.scatterNotInstalled = !EOSService.checkScatter();
         if ($scope.scatterNotInstalled) return;
-
+        actions = [];
         createTxData();
 
         if (!actions.length) return;

@@ -58,7 +58,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
 }).controller('baseContractsController', function($scope, $state, $timeout, contractService,
-                                                  web3Service, WebSocketService,
+                                                  web3Service, WebSocketService, EOSService,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
 
     $scope.contractTypesIcons = {
@@ -96,6 +96,37 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
 
+    $scope.iniEOSContract = function(contract) {
+        switch (contract.contract_type) {
+            case 12:
+
+                var buttons = contract.contract_details.buttons = {};
+
+                var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
+                if ((nowDateTime > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
+                    contract.state = 'CANCELLED';
+                    contract.stateValue = $scope.statuses[contract.state]['value'];
+                    contract.stateTitle = $scope.statuses[contract.state]['title'];
+                }
+
+                var noStarted = nowDateTime < contract.contract_details.start_date;
+                // if (noStarted) return;
+
+                if (contract.stateValue === 4) {
+                    EOSService.createEosChain(contract.network);
+                    EOSService.getTableRows(
+                        contract.contract_details.crowdsale_address,
+                        'state',
+                        contract.contract_details.crowdsale_address,
+                        contract.network
+                    ).then(function(result) {
+                        console.log(result.rows[0]);
+                    });
+                }
+                break;
+        }
+    };
+
     $scope.iniContract = function(contract) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
@@ -122,7 +153,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             $scope.iniContract(contract);
             $scope.$apply();
         };
-
         WebSocketService.onUpdateContract(contract.id, updateContract);
 
         $scope.$on('$destroy', function() {
@@ -388,6 +418,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         });
     };
+
     var showPriceLaunchContract = function(contract) {
         if (contract.cost.WISH == 0) {
             launchContract(contract);
@@ -440,7 +471,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             }
         });
     };
-
     $scope.neoCrowdSaleFinalize = function(contract) {
         contractService.neoICOFilnalize(contract.id).then(function(reponse) {
             $rootScope.commonOpenedPopup = 'alerts/neo-finalize-success';

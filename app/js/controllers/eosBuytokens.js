@@ -20,7 +20,7 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
     };
 
-    var rate = $scope.exRate.EOS;
+    var rate = 0.1;//$scope.exRate.EOS;
 
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);

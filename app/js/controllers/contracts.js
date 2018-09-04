@@ -114,8 +114,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
-    var iniEOSContract = function(contract, fullScan) {
 
+
+
+    var iniEOSContract = function(contract, fullScan) {
         switch (contract.contract_type) {
             case 12:
                 var buttons = contract.contract_details.buttons = {};
@@ -156,11 +158,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }
     };
 
-    var iniNeoContract = function(contract, fullScan) {
-    };
+    var iniNeoContract = function(contract, fullScan) {};
 
-    var iniRSKContract = function(contract, fullScan) {
-    };
+    var iniRSKContract = function(contract, fullScan) {};
 
     var iniETHContract = function(contract, fullScan) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
@@ -273,7 +273,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
                             var currentPage = 0;
                             var getTokensOnPage = function() {
-                                console.log(currentPage);
                                 web3Service.setProviderByNumber(contract.network);
                                 iPoolContract.methods['pageTokenAmount'](currentPage).call(function(error, result) {
                                     var intResult = result * 1;
@@ -281,7 +280,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                                         currentPage++;
                                         (currentPage < pagesLength) ? getTokensOnPage() : callback();
                                     } else {
-                                        console.log(currentPage);
                                         callback(currentPage)
                                     }
                                 });
@@ -428,7 +426,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 return;
             }
             var openConditionsPopUp = function() {
-                var originalCost = new BigNumber(($rootScope.sitemode === 'eos') ? contract.cost.EOSISH : contract.cost.WISH);
+                var originalCost = new BigNumber(($rootScope.sitemode === 'eos') ? (contract.cost.EOSISH || 0) : contract.cost.WISH);
                 var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
                 if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
                     $rootScope.commonOpenedPopupParams = {
@@ -512,7 +510,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             }
         });
     };
-
 
     $scope.neoCrowdSaleFinalize = function(contract) {
         contractService.neoICOFilnalize(contract.id).then(function(reponse) {

@@ -174,44 +174,7 @@
                         ng-disabled="!changeDateForm.$valid || ((contract.contract_details.stop_date == newDatesFields.stop_date) && (contract.contract_details.start_date == newDatesFields.start_date))" ng-click="generateSignature(); closeCurrentPopup();">
                     <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
                 </button>
-                <div ng-if="scatterNotInstalled" ng-pop-up="{
-                    template: '/templates/popups/alerts/scatter-install.html',
-                    class: 'deleting-contract',
-                    params: {},
-                    opened: true,
-                    onClose: closeScatterAlert,
-                    newPopupContent: true
-                }"></div>
-
-                <div ng-if="successChangeDates" ng-pop-up="{
-                    template: '/templates/popups/alerts/minting-success.html',
-                    class: 'deleting-contract',
-                    params: {
-                        contract: contract,
-                        tx: successChangeDates
-                    },
-                    opened: true,
-                    onClose: closeMintingForm,
-                    newPopupContent: true
-                }"></div>
-
-                <div ng-if="changeDatesServerError" ng-pop-up="{
-                    template: '/templates/popups/alerts/transaction-error.html',
-                    class: 'deleting-contract',
-                    params: {},
-                    opened: true,
-                    onClose: closeScatterAlert,
-                    newPopupContent: true
-                }"></div>
-
-                <div ng-if="accountNotFinded" ng-pop-up="{
-                    template: '/templates/popups/alerts/scatter-account-found.html',
-                    class: 'deleting-contract',
-                    params: {},
-                    opened: true,
-                    onClose: closeScatterAlert,
-                    newPopupContent: true
-                }"></div>
+                <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
             </div>
 
         </div>

@@ -1,10 +1,8 @@
 angular.module('app').controller('eosCrowdSalePreviewController', function($timeout, $rootScope, contractService,
                                                                         openedContract, $scope, $filter) {
+
     $scope.contract = openedContract.data;
-
-
-    $scope.setContract($scope.contract);
-    $scope.iniEOSContract($scope.contract);
+    $scope.iniContract($scope.contract, true);
 
     var contractDetails = $scope.contract.contract_details;
 
@@ -96,7 +94,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
     $scope.closeScatterAlert = function() {
         $scope.scatterNotInstalled = false;
         $scope.accountNotFinded = false;
-        $scope.changeDatesServerError = false;
+        $scope.txServerError = false;
     };
 
     $scope.generateScatterTx = function() {
@@ -112,14 +110,14 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
             actions: actions,
             owner: $scope.contract.contract_details.admin_address
         }).then(function(result) {
-            $scope.successChangeDates = result;
+            $scope.successTx = result;
         }, function(error) {
             switch(error.code) {
                 case 1:
                     $scope.accountNotFinded = true;
                     break;
                 case 2:
-                    $scope.changeDatesServerError = true;
+                    $scope.txServerError = true;
                     break;
             }
         });

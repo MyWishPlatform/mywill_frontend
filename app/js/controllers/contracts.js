@@ -103,16 +103,14 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 var buttons = contract.contract_details.buttons = {};
 
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
-                if ((nowDateTime > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
-                    contract.state = 'CANCELLED';
-                    contract.stateValue = $scope.statuses[contract.state]['value'];
-                    contract.stateTitle = $scope.statuses[contract.state]['title'];
-                }
 
                 var noStarted = nowDateTime < contract.contract_details.start_date;
-                // if (noStarted) return;
+                if (noStarted) return;
 
                 if (contract.stateValue === 4) {
+
+                    var softCap = contract.contract_details.soft_cap * 1;
+                    var hardCap = contract.contract_details.hard_cap * 1;
                     EOSService.createEosChain(contract.network);
                     EOSService.getTableRows(
                         contract.contract_details.crowdsale_address,
@@ -120,7 +118,23 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         contract.contract_details.crowdsale_address,
                         contract.network
                     ).then(function(result) {
-                        console.log(result.rows[0]);
+                        if (nowDateTime > contract.contract_details.stop_date) {
+                            if (softCap > result.rows[0].total_tokens) {
+                                contract.state = 'CANCELLED';
+                                contract.stateValue = $scope.statuses[contract.state]['value'];
+                                contract.stateTitle = $scope.statuses[contract.state]['title'];
+                            } else {
+                                buttons.finalize = true;
+                            }
+                        } else if ((hardCap <= result.rows[0].total_tokens)) {
+                            buttons.finalize = true;
+                        }
+
+                        contract.contract_details.raised_amount = result.rows[0].total_eoses / 10000;
+
+                        if (buttons.finalize && contract.contract_details.protected_mode) {
+                            buttons.withdraw = true;
+                        }
                     });
                 }
                 break;

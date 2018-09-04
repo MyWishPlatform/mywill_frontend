@@ -1372,7 +1372,7 @@
           "PROGRESS": "Raised progress",
           "MIN": "min",
           "MAX": "max",
-          "TOTAL": "Total raised: {{amount}} ETH",
+          "TOTAL": "Total raised: {{amount}} {{currency || 'ETH'}}",
           "DAY": "(Day: +{{percent}}%)"
         }
       },

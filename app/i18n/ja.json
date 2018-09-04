@@ -1372,7 +1372,7 @@
           "PROGRESS": "進捗が上がった",
           "MIN": "最小",
           "MAX": "最大",
-          "TOTAL": "総獲得額：{{amount}} ETH",
+          "TOTAL": "総獲得額：{{amount}} {{currency || 'ETH'}}",
           "DAY": "日：＋{{percent}}%)"
         }
       },

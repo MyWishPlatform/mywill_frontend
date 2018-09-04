@@ -55,6 +55,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
     var checkNetwork = function(callback) {
         _this.getInfo().then(callback, function(error) {
+            callback();return;
             currentNetworks[currentNetworkName]++;
             currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
             _this.createEosChain(currentNetwork, callback);

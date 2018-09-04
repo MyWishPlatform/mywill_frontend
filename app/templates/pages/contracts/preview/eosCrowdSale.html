@@ -125,8 +125,27 @@
                         </div>
                     </div>
                 </div>
+                <div class="grid-cell grid-cell-1" ng-if="details.raised_amount"><br/><br/>
+                    <div class="form-control-label" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.PROGRESS"></div>
+                    <div class="form-control-label">
+                        <div class="investment-progress">
+                            <div class="investment-progress__max" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.MAX">max</div>
+                            <div class="investment-progress__min"
+                                 ng-style="{'margin-left': (details.soft_cap / details.hard_cap * 100) + '%'}">
+                                <span translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.MIN">min</span>
+                            </div>
+
+                            <div class="investment-progress__raised"
+                                 ng-style="{'width': (details.raised_amount * details.rate / details.hard_cap * 100) + '%'}"></div>
+                        </div>
+                    </div>
+                    <div class="form-control-label">
+                        {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.TOTAL'|translate:'{amount:' + details.raised_amount + ', currency: "EOS"}'}}
+                    </div>
+                </div>
             </div>
-            <div class="clearfix"><br></div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
                     <div class="form-control-label">

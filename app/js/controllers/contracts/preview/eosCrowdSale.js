@@ -124,6 +124,70 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
             }
         });
     };
+}).controller('eosWithdrawController', function($scope, EOSService) {
 
+    $scope.scatterNotInstalled = false;
+    $scope.closeScatterAlert = function() {
+        $scope.scatterNotInstalled = false;
+        $scope.accountNotFinded = false;
+        $scope.txServerError = false;
+    };
 
+    $scope.generateWithdrawTx = function() {
+        $scope.scatterNotInstalled = !EOSService.checkScatter();
+        if ($scope.scatterNotInstalled) return;
+
+        EOSService.sendTx({
+            actions: [{
+                account: $scope.contract.contract_details.crowdsale_address,
+                name: 'withdraw',
+                data: {}
+            }],
+            owner: $scope.contract.contract_details.admin_address
+        }).then(function(result) {
+            $scope.successTx = result;
+        }, function(error) {
+            switch(error.code) {
+                case 1:
+                    $scope.accountNotFinded = true;
+                    break;
+                case 2:
+                    $scope.txServerError = true;
+                    break;
+            }
+        });
+    };
+}).controller('eosFinalizeController', function($scope, EOSService) {
+
+    $scope.scatterNotInstalled = false;
+    $scope.closeScatterAlert = function() {
+        $scope.scatterNotInstalled = false;
+        $scope.accountNotFinded = false;
+        $scope.txServerError = false;
+    };
+
+    $scope.generateWithdrawTx = function() {
+        $scope.scatterNotInstalled = !EOSService.checkScatter();
+        if ($scope.scatterNotInstalled) return;
+
+        EOSService.sendTx({
+            actions: [{
+                account: $scope.contract.contract_details.crowdsale_address,
+                name: 'finalize',
+                data: {}
+            }],
+            owner: $scope.contract.contract_details.admin_address
+        }).then(function(result) {
+            $scope.successTx = result;
+        }, function(error) {
+            switch(error.code) {
+                case 1:
+                    $scope.accountNotFinded = true;
+                    break;
+                case 2:
+                    $scope.txServerError = true;
+                    break;
+            }
+        });
+    };
 });

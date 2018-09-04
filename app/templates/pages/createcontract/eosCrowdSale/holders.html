@@ -47,7 +47,7 @@
                        id="address-amount-{{$index}}"
                        pattern="[0-9,]+{{(request.decimals*1 > 0) ? '(\.[0-9]{1,'+request.decimals+'})?' : ''}}$"
                        commaseparator="{
-                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\\.[0-9]*)?$',
                             min: 1,
                             max: maxSupply
                        }"

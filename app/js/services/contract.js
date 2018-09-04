@@ -188,6 +188,15 @@ angular.module('Services').service('contractService', function(requestService, A
                 }
             };
             return requestService.post(params);
+        },
+        checkStatus: function(contractId) {
+            var params = {
+                path: API.CHECK_STATUS,
+                data: {
+                    id: contractId
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

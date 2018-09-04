@@ -76,8 +76,8 @@
             <!-- Finalize button -->
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-controller="eosFinalizeController"
-                 ng-if="contract.contract_details.buttons.finalize">
-                <button class="btn btn-transparent mobile-width-100" ng-click="generateWithdrawTx()">
+                 ng-if="contract.contract_details.buttons.finalize && !contract.contract_details.is_transferable_at_once">
+                <button class="btn btn-transparent mobile-width-100" ng-click="generateFinalizeTx()">
                     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
                 </button><br/><br/>
                 <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>

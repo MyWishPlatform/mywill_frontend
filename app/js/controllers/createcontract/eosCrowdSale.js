@@ -109,11 +109,10 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         contractDetails.admin_address = contractDetails.admin_address.toLowerCase();
         contractDetails.crowdsale_address = contractDetails.crowdsale_address.toLowerCase();
 
-
-        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(Math.pow(10, contractDetails.decimals)).round().toString(10);
 
         if (contractDetails.soft_cap) {
-            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
+            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(Math.pow(10, contractDetails.decimals)).round().toString(10);
         }
 
         if (!$scope.additionalParams.investsLimit) {
@@ -199,10 +198,10 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         }
 
         if ($scope.request.hard_cap) {
-            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
+            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).div(Math.pow(10,$scope.request.decimals)).round().toString(10);
         }
         if ($scope.request.soft_cap) {
-            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
+            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).div(Math.pow(10,$scope.request.decimals)).round().toString(10);
         }
         setStartTimestamp();
         setStopTimestamp();

@@ -39,17 +39,17 @@
         </div>
 
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.eos_contract_crowdsale.address">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.eos_contract_token.address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.EOS_CROWDSALE.TOKEN_ACCOUNT"></div>
             <br class="show-ls"/>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.eos_contract_crowdsale.address|toCheckSum}}"
+                <a ng-attr-href="{{(contract.network|etherscanUrl:'account')}}/{{details.eos_contract_token.address}}"
                    target="_blank"
-                   ng-bind="details.eos_contract_crowdsale.address|toCheckSum"></a>
+                   ng-bind="details.eos_contract_token.address"></a>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['token_address']}"
-                        text="details.eos_contract_crowdsale.address|toCheckSum"
+                        text="details.eos_contract_token.address"
                         on-copied="$root.successCodeCopy(contract, 'token_address')"
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
@@ -65,7 +65,7 @@
                     <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></span><br/>
-                        {{ contract.contract_details.token_short_name }}
+                        {{ ::contract.contract_details.token_short_name }}
                     </div>
                 </div>
                 <div class="clearfix show-ls"><br/></div>
@@ -73,7 +73,7 @@
                     <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></span><br/>
-                        {{ contract.contract_details.decimals }}
+                        {{ ::contract.contract_details.decimals }}
                     </div>
                 </div>
             </div>
@@ -88,8 +88,8 @@
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.TOKEN_RATE.LABEL'|translate}}
                     </div>
                     <div class="normal-text contract-preview-base-value">
-                        {{details.rate|separateNumber}}
-                        {{details.token_short_name}} = 1 EOS
+                        {{::details.rate|separateNumber}}
+                        {{::details.token_short_name}} = 1 EOS
                     </div>
                 </div>
                 <div class="clearfix"><br></div>
@@ -101,11 +101,11 @@
                     </div>
                     <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
-                            {{details.hard_cap|separateNumber}}
-                            {{details.token_short_name}}
+                            {{::details.hard_cap|separateNumber}}
+                            {{::details.token_short_name}}
                         </div>
                         <div class="contract-preview-grey-font-color contract-preview-base-value-string">
-                            {{details.hard_cap_eth/details.rate|separateNumber}} EOS
+                            {{::details.hard_cap_eth/details.rate|separateNumber}} EOS
                         </div>
                     </div>
                 </div>
@@ -117,14 +117,15 @@
                     </div>
                     <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
-                            {{details.soft_cap|separateNumber}}
-                            {{details.token_short_name}}
+                            {{::details.soft_cap|separateNumber}}
+                            {{::details.token_short_name}}
                         </div>
                         <div class="contract-preview-grey-font-color contract-preview-base-value-string">
-                            {{details.soft_cap_eth/details.rate|separateNumber}} EOS
+                            {{::details.soft_cap_eth/details.rate|separateNumber}} EOS
                         </div>
                     </div>
                 </div>
+
                 <div class="grid-cell grid-cell-1" ng-if="details.raised_amount"><br/><br/>
                     <div class="form-control-label" translate="CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.PROGRESS"></div>
                     <div class="form-control-label">
@@ -140,7 +141,7 @@
                         </div>
                     </div>
                     <div class="form-control-label">
-                        {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.TOTAL'|translate:'{amount:' + details.raised_amount + ', currency: "EOS"}'}}
+                        {{'CONTRACTS.PREVIEW.INVESTMENTS_POOL.RAISED.TOTAL'|translate:'{amount:' + details.raised_amount + '}'}}
                     </div>
                 </div>
             </div>
@@ -228,14 +229,14 @@
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="details.min_wei">
                     <div class="form-control-label">
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.MIN_INVESTMENTS.LABEL'|translate}}<br/>
-                        {{details.min_wei|separateNumber}} EOS
+                        {{::details.min_wei|separateNumber}} EOS
                     </div>
                 </div>
                 <div class="clearfix show-ls"  ng-if="details.min_wei && details.max_wei"><br/></div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="details.max_wei">
                     <div class="form-control-label">
                         {{'CONTRACTS.FORMS.CROWD_SALE.FIELDS.MAX_INVESTMENTS.LABEL'|translate}}<br/>
-                        {{details.max_wei|separateNumber}} EOS
+                        {{::details.max_wei|separateNumber}} EOS
                     </div>
                 </div>
             </div>
@@ -312,7 +313,7 @@
                 <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
                     <div class="form-control-label bold"
                          translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></div>
-                    <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
+                    <div class="form-control-preview-value" ng-bind="::holder.amount|separateNumber"></div>
                 </div>
             </div>
         </div>

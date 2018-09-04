@@ -81,7 +81,7 @@ a img {
 }
 .field-error {
   display: none;
-  color: $main-color;
+  color: #f91c1c;
 }
 .field-success {
   display: block;
@@ -108,7 +108,7 @@ a img {
   outline: none;
   form.ng-submitted &, &.ng-touched {
     &.ng-invalid {
-      border-color: $main-color;
+      border-color: #f91c1c;
       ~ {
         .field-label {
           //color: #ffa2a8;

@@ -94,6 +94,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.max = Math.max;
     $rootScope.min = Math.min;
+    $rootScope.pow = Math.pow;
+
     $rootScope.web3Utils = Web3.utils;
 
 

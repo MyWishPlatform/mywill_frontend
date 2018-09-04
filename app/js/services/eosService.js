@@ -55,7 +55,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
     var checkNetwork = function(callback) {
         _this.getInfo().then(callback, function(error) {
-            callback();return;
             currentNetworks[currentNetworkName]++;
             currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
             _this.createEosChain(currentNetwork, callback);
@@ -90,12 +89,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
     this.getTableRows = function(scope, table, code, network) {
         var defer = $q.defer();
-        checkNetwork(function() {
-            network  ? _this.createEosChain(network) : false;
+        network  ? _this.createEosChain(network, function() {
             eos.getTableRows({
                 code: code || eosAccounts[displayingNetwork]['TOKEN'],
                 scope: scope,
-                table:table || 'stat',
+                table: table || 'stat',
                 json: true
             }, function (error, response) {
                 if (error) {
@@ -104,7 +102,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                     defer.resolve(response);
                 }
             });
-        });
+        }) : false;
         return defer.promise;
     };
 

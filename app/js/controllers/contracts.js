@@ -122,6 +122,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 12:
                 var buttons = contract.contract_details.buttons = {};
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
+
                 var noStarted = nowDateTime < contract.contract_details.start_date;
                 if (noStarted) return;
 
@@ -131,26 +132,37 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
                     if (!fullScan) return;
 
-                    EOSService.createEosChain(contract.network);
                     EOSService.getTableRows(
                         contract.contract_details.crowdsale_address,
                         'state',
                         contract.contract_details.crowdsale_address,
                         contract.network
                     ).then(function(result) {
-                        if (nowDateTime > contract.contract_details.stop_date) {
-                            if (softCap > result.rows[0].total_tokens) {
-                                contract.state = 'CANCELLED';
-                                setContractStatValues(contract);
-                            } else {
-                                buttons.finalize = true;
-                            }
-                        } else if ((hardCap <= result.rows[0].total_tokens)) {
-                            buttons.finalize = true;
-                        }
                         contract.contract_details.raised_amount = result.rows[0].total_eoses / 10000;
-                        if (buttons.finalize && contract.contract_details.protected_mode) {
-                            buttons.withdraw = true;
+                        if ((nowDateTime > result.rows[0].finish) || (hardCap <= result.rows[0].total_tokens)) {
+                            contractService.checkStatus(contract.id).then(function(response) {
+
+                                var oldState = contract.state;
+                                angular.merge(contract, response.data);
+
+                                contract.contract_details.stop_date = result.rows[0].finish;
+                                contract.contract_details.start_date = result.rows[0].start;
+
+                                if (oldState !== contract.state) {
+                                    $scope.iniContract(contract, false, true);
+                                } else {
+                                    if (nowDateTime > contract.contract_details.stop_date) {
+                                        if (softCap <= result.rows[0].total_tokens) {
+                                            buttons.finalize = true;
+                                        }
+                                    } else if (hardCap <= result.rows[0].total_tokens) {
+                                        buttons.finalize = true;
+                                    }
+                                    if (buttons.finalize && contract.contract_details.protected_mode) {
+                                        buttons.withdraw = true;
+                                    }
+                                }
+                            });
                         }
                     });
                 }
@@ -311,8 +323,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }
     };
 
-    $scope.iniContract = function(contract, fullScan) {
-        iniSocketHandler(contract);
+    $scope.iniContract = function(contract, fullScan, noWS) {
+        if (!noWS) {
+            iniSocketHandler(contract);
+        }
         setContractStatValues(contract);
         contract.discount = contract.discount || 0;
         switch (contract.network) {

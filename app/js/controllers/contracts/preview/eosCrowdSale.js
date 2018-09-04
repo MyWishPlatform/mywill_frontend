@@ -7,27 +7,26 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
     var contractDetails = $scope.contract.contract_details;
 
     $scope.contractCrowdsaleInfo = 'eos_contract_crowdsale';
-    $scope.contractTokenInfo = 'eos_contract_token';
-
-
+    // $scope.contractTokenInfo = 'eos_contract_token';
 
     $scope.currencyPow = 4;
 
-    if (contractDetails.eth_contract_crowdsale && contractDetails.eth_contract_crowdsale.address) {
-        if (contractDetails.whitelist) {
-            contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
-                $scope.whiteListedAddresses = response.data;
-            });
-        }
-    }
-    contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
-    contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
+    // if (contractDetails.eth_contract_crowdsale && contractDetails.eth_contract_crowdsale.address) {
+    //     if (contractDetails.whitelist) {
+    //         contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
+    //             $scope.whiteListedAddresses = response.data;
+    //         });
+    //     }
+    // }
 
-    contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,$scope.currencyPow)).toString(10);
-    contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,$scope.currencyPow)).toString(10);
+    contractDetails.hard_cap_eth = contractDetails.hard_cap / Math.pow(10, contractDetails.decimals);
+    contractDetails.soft_cap_eth = contractDetails.soft_cap / Math.pow(10, contractDetails.decimals);
 
-    contractDetails.min_wei = contractDetails.min_wei !== null ? new BigNumber(contractDetails.min_wei).div(Math.pow(10,$scope.currencyPow)).toString(10) : undefined;
-    contractDetails.max_wei = contractDetails.max_wei !== null ? new BigNumber(contractDetails.max_wei).div(Math.pow(10,$scope.currencyPow)).toString(10) : undefined;
+    contractDetails.hard_cap = contractDetails.hard_cap / Math.pow(10, contractDetails.decimals);
+    contractDetails.soft_cap = contractDetails.soft_cap / Math.pow(10, contractDetails.decimals);
+
+    contractDetails.min_wei = contractDetails.min_wei !== null ? contractDetails.min_wei / Math.pow(10, $scope.currencyPow) : undefined;
+    contractDetails.max_wei = contractDetails.max_wei !== null ? contractDetails.max_wei / Math.pow(10, $scope.currencyPow): undefined;
 
 
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
@@ -164,7 +163,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
         $scope.txServerError = false;
     };
 
-    $scope.generateWithdrawTx = function() {
+    $scope.generateFinalizeTx = function() {
         $scope.scatterNotInstalled = !EOSService.checkScatter();
         if ($scope.scatterNotInstalled) return;
 

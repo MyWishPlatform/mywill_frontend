@@ -158,7 +158,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                                     } else if (hardCap <= result.rows[0].total_tokens) {
                                         buttons.finalize = true;
                                     }
-                                    if (buttons.finalize && contract.contract_details.protected_mode) {
+
+                                    if ((softCap <= result.rows[0].total_tokens) && contract.contract_details.protected_mode) {
                                         buttons.withdraw = true;
                                     }
                                 }

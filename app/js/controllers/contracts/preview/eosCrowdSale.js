@@ -7,44 +7,26 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
     var contractDetails = $scope.contract.contract_details;
 
     $scope.contractCrowdsaleInfo = 'eos_contract_crowdsale';
-    // $scope.contractTokenInfo = 'eos_contract_token';
 
-    $scope.currencyPow = 4;
+    var currencyPow = Math.pow(10, 4);
+    var decimalsValue = Math.pow(10, contractDetails.decimals);
 
-    // if (contractDetails.eth_contract_crowdsale && contractDetails.eth_contract_crowdsale.address) {
-    //     if (contractDetails.whitelist) {
-    //         contractService.getWhiteList($scope.contract.id, {limit: 1}).then(function(response) {
-    //             $scope.whiteListedAddresses = response.data;
-    //         });
-    //     }
-    // }
+    contractDetails.hard_cap = contractDetails.hard_cap / decimalsValue;
+    contractDetails.soft_cap = contractDetails.soft_cap / decimalsValue;
 
-    contractDetails.hard_cap_eth = contractDetails.hard_cap / Math.pow(10, contractDetails.decimals);
-    contractDetails.soft_cap_eth = contractDetails.soft_cap / Math.pow(10, contractDetails.decimals);
-
-    contractDetails.hard_cap = contractDetails.hard_cap / Math.pow(10, contractDetails.decimals);
-    contractDetails.soft_cap = contractDetails.soft_cap / Math.pow(10, contractDetails.decimals);
-
-    contractDetails.min_wei = contractDetails.min_wei !== null ? contractDetails.min_wei / Math.pow(10, $scope.currencyPow) : undefined;
-    contractDetails.max_wei = contractDetails.max_wei !== null ? contractDetails.max_wei / Math.pow(10, $scope.currencyPow): undefined;
-
-
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
-    contractDetails.token_holders.map(function(holder) {
-        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
-    });
+    contractDetails.min_wei = contractDetails.min_wei !== null ? contractDetails.min_wei / currencyPow : undefined;
+    contractDetails.max_wei = contractDetails.max_wei !== null ? contractDetails.max_wei / currencyPow : undefined;
 
     var holdersSum = contractDetails.token_holders.reduce(function (val, item) {
-        var value = new BigNumber(item.amount || 0);
-        return value.plus(val);
-    }, new BigNumber(0));
+        item.amount = item.amount / decimalsValue;
+        return item.amount + val;
+    }, 0);
 
-    var ethSum = holdersSum.plus(contractDetails.hard_cap);
+    var ethSum = holdersSum + contractDetails.hard_cap;
+
     $scope.totalSupply = {
-        eth: ethSum.div(contractDetails.rate).round(2).toString(10),
-        tokens: ethSum.round(2).toString(10)
+        tokens: ethSum
     };
-
 
     $scope.chartOptions = {
         itemValue: 'amount',

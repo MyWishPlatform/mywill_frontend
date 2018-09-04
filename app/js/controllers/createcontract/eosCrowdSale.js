@@ -137,6 +137,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     var createContract = function() {
         if ($scope.contractInProgress) return;
         $scope.$broadcast('createContract');
+
         var data = generateContractData();
         $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
@@ -198,10 +199,10 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         }
 
         if ($scope.request.hard_cap) {
-            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).div(Math.pow(10,$scope.request.decimals)).round().toString(10);
+            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).div(Math.pow(10, $scope.request.decimals)).round().toString(10);
         }
         if ($scope.request.soft_cap) {
-            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).div(Math.pow(10,$scope.request.decimals)).round().toString(10);
+            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).div(Math.pow(10, $scope.request.decimals)).round().toString(10);
         }
         setStartTimestamp();
         setStopTimestamp();
@@ -329,15 +330,15 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     };
 
     var resetFormData = function() {
-        $scope.token_holders = angular.copy($scope.request.token_holders);
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        $scope.token_holders = angular.copy($scope.request.token_holders);
         $scope.token_holders.map(function(holder) {
             holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
         });
     };
     var createdContractData = function() {
-        $scope.request.token_holders = [];
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        $scope.request.token_holders = [];
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({
                 amount: new BigNumber(holder.amount).times(powerNumber).toString(10),

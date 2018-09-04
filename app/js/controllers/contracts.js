@@ -509,7 +509,22 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             promo: contract.promo
         }).then(function(response) {
             contract.discount = response.data.discount;
+            var price;
+            switch ($rootScope.sitemode) {
+                case 'eos':
+                    price = (contract.cost.EOSISH - contract.cost.EOSISH * contract.discount / 100) / 10000;
+                    break;
+                default:
+                    price = new BigNumber(
+                        Web3.utils.fromWei(
+                            new BigNumber(contract.cost.WISH).minus(new BigNumber(contract.cost.WISH).times(contract.discount).div(100)).round().toString(10),
+                            'ether'
+                        )
+                    ).round(2)
+            }
             $rootScope.commonOpenedPopupParams = {
+                currency: ($rootScope.sitemode === 'eos') ? 'EOSIH' : 'WISH',
+                price: price,
                 contract: contract,
                 newPopupContent: true
             };

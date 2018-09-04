@@ -168,7 +168,7 @@
       "TEXT": "Please sign in/sign up to replenish your account"
     },
     "PROMO_ACTIVATED": {
-      "TEXT": "Promo code was activated.<br/>New price: {{price}} WISH."
+      "TEXT": "Promo code was activated.<br/>New price: {{price}} {{currency||'WISH'}}."
     },
     "NEO_CROWDSALE_FINALIZED": {
       "TEXT": "Your contract was finalized successfully."

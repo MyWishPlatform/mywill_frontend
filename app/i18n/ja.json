@@ -168,7 +168,7 @@
       "TEXT": "あなたのアカウントを補充するためにサインイン/サインアップしてください"
     },
     "PROMO_ACTIVATED": {
-      "TEXT": "プロモーションコードが活性化されました。<br/>新しい価格ー{{price}} WISH"
+      "TEXT": "プロモーションコードが活性化されました。<br/>新しい価格ー{{price}} {{currency||'WISH'}}"
     },
     "NEO_CROWDSALE_FINALIZED": {
       "TEXT": "ご契約が正常に確定されました。"

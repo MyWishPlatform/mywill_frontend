@@ -2,7 +2,10 @@
     <div class="shadow-block__content shadow-block__content_no-lr-padding">
         <div class="alert-window-title"
              translate="ALERTS.PROMO_ACTIVATED.TEXT"
-             translate-values="{price: $root.bigNumber($root.web3Utils.fromWei($root.bigNumber(ngPopUp.params.contract.cost.WISH).minus($root.bigNumber(ngPopUp.params.contract.cost.WISH).times(ngPopUp.params.contract.discount).div(100)).round().toString(10), 'ether')).round(2)}">
+             translate-values="{
+                price: (ngPopUp.params.price|separateNumber),
+                currency: ngPopUp.params.currency
+            }">
 
         </div>
     </div>

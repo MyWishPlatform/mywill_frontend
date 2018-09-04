@@ -168,7 +168,7 @@
       "TEXT": "请登录/注册以补充您的账户信息"
     },
     "PROMO_ACTIVATED": {
-      "TEXT": "促销代码已激活。<br/>新的价格: {{price}} WISH."
+      "TEXT": "促销代码已激活。<br/>新的价格: {{price}} {{currency||'WISH'}}."
     },
     "NEO_CROWDSALE_FINALIZED": {
       "TEXT": "您的合约已成功完成。"

@@ -590,6 +590,11 @@
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
                 type="button" ng-disabled="!(managementAddressForm.$valid && datesForm.$valid && investmentLimitationsForm.$valid && bonusForm.$valid && (investAddressForm.$valid || !additionalParams.investmentAddress) && (tokenAddressForm.$valid || !additionalParams.tokenAddress))" ng-click="createContract()">
+            <span class="lds-ellipsis" ng-if="contractInProgress">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
             <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
             <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
         </button>

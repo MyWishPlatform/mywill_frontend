@@ -145,15 +145,15 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         };
     };
 
-    var contractInProgress = false;
+    $scope.contractInProgress = false;
     var createContract = function(callback) {
-        if (contractInProgress) return;
+        if ($scope.contractInProgress) return;
         var data = generateContractData();
-        contractInProgress = true;
+        $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
-            contractInProgress = false;
+            $scope.contractInProgress = false;
         });
     };
 

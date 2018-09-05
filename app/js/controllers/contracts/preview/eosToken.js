@@ -158,6 +158,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
     };
 
     $scope.checkTokensAmount = function() {
+        if (!$scope.mintForm) return;
         $scope.chartData = angular.copy(chartData);
         $scope.maximumMint = new BigNumber($scope.tokenInfo['maximumSupply']).minus($scope.tokenInfo['totalSupply']);
         $scope.chartData.push({

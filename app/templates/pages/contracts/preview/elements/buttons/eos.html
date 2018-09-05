@@ -44,6 +44,46 @@
                 </button><br/><br/>
             </div>
 
+
+            <!-- Date changing form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && (contract.contract_type == 12) && contract.contract_details.allow_change_dates">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/change-dates-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Withdraw button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-controller="eosWithdrawController"
+                 ng-if="contract.contract_details.buttons.withdraw">
+                <button class="btn btn-transparent mobile-width-100" ng-click="generateWithdrawTx()">
+                    <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>
+                </button><br/><br/>
+                <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
+            </div>
+
+
+            <!-- Finalize button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-controller="eosFinalizeController"
+                 ng-if="contract.contract_details.buttons.finalize && !contract.contract_details.is_transferable_at_once">
+                <button class="btn btn-transparent mobile-width-100" ng-click="generateFinalizeTx()">
+                    <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
+                </button><br/><br/>
+                <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
+            </div>
+
+
             <!-- Edit button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 0) || (contract.stateValue == 1)">
                 <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
@@ -54,4 +94,7 @@
 
         </div>
     </div>
+
+
+
 </div>

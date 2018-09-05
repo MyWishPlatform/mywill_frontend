@@ -153,6 +153,7 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
             <button class="btn btn-submit" type="button"
+                    ng-if="contract.contract_type == 4"
                     ng-pop-up="{
                         template: '/templates/popups/instructions/eth/change-date-instruction.html',
                         newPopupContent: true,
@@ -166,6 +167,17 @@
                     ng-disabled="!changeDateForm.$valid || ((contract.contract_details.stop_date == newDatesFields.stop_date) && (contract.contract_details.start_date == newDatesFields.start_date))" ng-click="generateSignature(); closeCurrentPopup();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
+            <div ng-controller="eosChangeDateController"
+                 ng-if="contract.contract_type == 12">
+                <button class="btn btn-submit" type="button"
+                        ng-click="generateScatterTx()"
+                        ng-disabled="!changeDateForm.$valid || ((contract.contract_details.stop_date == newDatesFields.stop_date) && (contract.contract_details.start_date == newDatesFields.start_date))" ng-click="generateSignature(); closeCurrentPopup();">
+                    <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CHANGE_DATES'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                </button>
+                <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
+            </div>
+
         </div>
     </form>
 </div>
+

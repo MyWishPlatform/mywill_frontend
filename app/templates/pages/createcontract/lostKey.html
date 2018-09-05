@@ -221,6 +221,11 @@
                 type="button"
                 ng-disabled="!checkedBalance || !hairsForm.$valid || !conditionsForm.$valid || (percentageSum !== 100)"
                 ng-click="createContract()">
+            <span class="lds-ellipsis" ng-if="contractInProgress">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
             <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
             <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
         </button>

@@ -3,12 +3,14 @@ $dark-block-background: #F0F0F0;
 $main-color: #206EFF!default;
 $menu-hover-color: #4d97f4!default;
 
-@if($env == 'eos') {
-  $main-color: #567;
-  $menu-hover-color: #999;
-}
 $white-color: #fff;
 $black-color: #000;
+@if($env == 'eos') {
+  $main-color: #556577;
+  $menu-hover-color: #8293a6;
+  $black-color: #2b3b4b;
+  $blocks-background: #F3F5F7;
+}
 $info-color: #f5a623;
 $cost-value-color: #EFEFEF;
 $dark-grey-color: #808080;
@@ -87,6 +89,9 @@ a img {
 }
 .uppercase {
   text-transform: uppercase;
+}
+.lowercase {
+  text-transform: lowercase;
 }
 
 .no-visibility {
@@ -273,10 +278,19 @@ nav, main, footer, header {
       color: #d0b300;
     }
   }
+  &.error-text {
+    color: #901900;
+    i {
+      float: left;
+      font-size: 1.2em;
+      color: #d01c00;
+      margin-right: 0.4em;
+    }
+  }
 }
 .warning-page {
   //background-color: rgba(203, 0, 8, 0.8);
-  background-color: #f4f4f4;
+  background-color: $blocks-background;
   text-shadow: 0 1px 1px rgba(255,255,255,1);
   color: #000;
   &__icon {

@@ -40,6 +40,7 @@ angular.module('Constants').constant('API', {
     "WHITELIST": "whitelist_addresses/",
     "AIRDROP_ADDRESSES": "airdrop_addresses/",
     "LOAD_AIRDROP": "load_airdrop/",
+    "CHECK_STATUS": "check_status/",
     "SOCIAL": {
         "FACEBOOK": "facebook/",
         "GOOGLE": "google/",

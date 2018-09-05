@@ -14,7 +14,7 @@ angular.module('app').controller('airdropCreateController', function($scope, con
         $scope.request = angular.copy(contract);
     };
     $scope.resetForms = resetForm;
-    var contractInProgress = false;
+    $scope.contractInProgress = false;
     var storage = window.localStorage || {};
 
     $scope.createContract = function() {
@@ -31,14 +31,14 @@ angular.module('app').controller('airdropCreateController', function($scope, con
         return true;
     };
     var createContract = function() {
-        if (contractInProgress) return;
+        if ($scope.contractInProgress) return;
         var data = angular.copy($scope.request);
 
-        contractInProgress = true;
+        $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
-            contractInProgress = false;
+            $scope.contractInProgress = false;
         });
     };
     var checkDraftContract = function(redirect) {

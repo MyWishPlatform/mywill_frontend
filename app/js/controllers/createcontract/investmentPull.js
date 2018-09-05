@@ -55,7 +55,7 @@ angular.module('app').controller('investmentPullCreateController', function($sco
 
     $scope.resetForms = resetForm;
 
-    var contractInProgress = false;
+    $scope.contractInProgress = false;
 
     var storage = window.localStorage || {};
     $scope.createContract = function() {
@@ -73,7 +73,7 @@ angular.module('app').controller('investmentPullCreateController', function($sco
     };
 
     var createContract = function() {
-        if (contractInProgress) return;
+        if ($scope.contractInProgress) return;
         var data = angular.copy($scope.request);
 
         if ($scope.additionalParams.investsLimit) {
@@ -87,7 +87,7 @@ angular.module('app').controller('investmentPullCreateController', function($sco
         data.contract_details.token_address = $scope.additionalParams.tokenAddress ? data.contract_details.token_address : null;
         data.contract_details.investment_address = $scope.additionalParams.investmentAddress ? data.contract_details.investment_address : null;
 
-        contractInProgress = true;
+        $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function(data) {
@@ -104,7 +104,7 @@ angular.module('app').controller('investmentPullCreateController', function($sco
                     }
                     break;
             }
-            contractInProgress = false;
+            $scope.contractInProgress = false;
         });
     };
 

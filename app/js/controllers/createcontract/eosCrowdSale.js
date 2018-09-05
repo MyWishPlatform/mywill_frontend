@@ -60,6 +60,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         });
         $scope.$broadcast('icoTimesChanged');
     };
+
     $scope.onChangeStartTime = setStartTimestamp;
     $scope.onChangeStopTime = setStopTimestamp;
     $scope.onChangeStartDate = setStartTimestamp;

@@ -132,9 +132,29 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             currentUser: function(usersService, $rootScope) {
                 return $rootScope.currentUserDefer.promise;
             },
-            exRate: function(contractService, ENV_VARS) {
-                var tsyms = (ENV_VARS.mode === 'eos') ? 'EOS' : 'ETH,BTC';
-                return contractService.getCurrencyRate({fsym: 'WISH', tsyms: tsyms});
+            exRate: function(contractService, ENV_VARS, $q) {
+                var defer = $q.defer();
+                var loadedCurrencies = {};
+                var loadedCurrenciesCount = 0;
+                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS'] : ['ETH','BTC'];
+                console.log(currencies);
+
+                var getRate = function(currency) {
+                    contractService.getCurrencyRate({fsym: currency, tsyms: 'WISH'}).then(function(result) {
+                        loadedCurrencies[currency] = (1 / result.data['WISH']).toString();
+                        loadedCurrenciesCount++;
+                        if (loadedCurrenciesCount === currencies.length) {
+                            defer.resolve({
+                                data: loadedCurrencies
+                            });
+                        }
+                    });
+                };
+                for (var k = 0; k < currencies.length; k++) {
+                    getRate(currencies[k]);
+                }
+                return defer.promise;
+
             }
         }
     }).state('main.contracts', {

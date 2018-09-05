@@ -90,7 +90,7 @@
 }
 .btn-wallets {
   position: absolute;
-  background-color: #F4F4F4;
+  background-color: $blocks-background;
   box-shadow: 0 0.1em 1em rgba(0, 0, 0, 0.25);
   color: #000;
   border-radius: 0.9em;
@@ -103,7 +103,7 @@
     display: block;
     border-width: 10px 10px 0 0;
     border-style: solid;
-    border-color: #F4F4F4;
+    border-color: $blocks-background;
     transform: rotate(-45deg);
     margin-top: -4px;
     width: 0;
@@ -118,7 +118,7 @@
     margin: 0;
     max-height: 150px;
     overflow: auto;
-    background-color: #F4F4F4;
+    background-color: $blocks-background;
     position: relative;
     z-index: 11;
     li {

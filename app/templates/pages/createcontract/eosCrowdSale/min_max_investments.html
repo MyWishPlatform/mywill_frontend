@@ -1,0 +1,80 @@
+<div class="shadow-block__content">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+            <div class="form-control">
+                <div class="checkbox-decoration">
+                    <label class="form-control-label-checkbox">
+                        <span translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.MIN_MAX_INVESTMENTS.LABEL"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+            <div class="form-control">
+                <label class="checkbox-decoration">
+                    <input type="checkbox" ng-model="additionalParams.investsLimit">
+                    <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                </label>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate-values="{currency: 'EOS'}"
+                      translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.MIN_MAX_INVESTMENTS.DESCRIPTION"></span>
+        </div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control">
+                <label for="min-invest" class="form-control-label"
+                       translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.MIN_INVESTMENTS.LABEL"></label>
+                <input id="min-invest"
+                       ng-disabled="!additionalParams.investsLimit"
+                       ng-required="additionalParams.investsLimit"
+                       type="text"
+                       placeholder="0"
+                       commaseparator="{
+                            regexp: '^((0)|([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]{0,2})?$',
+                            max: request.max_wei,
+                            min: 0
+                            }"
+                       pattern="^((0)|([1-9][0-9,]{0,25})|(1[0,]{26}))(\.[0-9]{1,2})?$"
+                       ng-model="request.min_wei" class="form-control-input">
+                <div class="input-after">EOS</div>
+            </div>
+        </div>
+        <div class="form-control-description grid-cell grid-cell-2-3 grid-cell-ps-3-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control-label hide-vs">&nbsp;</div>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.MIN_INVESTMENTS.DESCRIPTION"></span>
+        </div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control">
+                <label for="max-invest" class="form-control-label"
+                       translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.MAX_INVESTMENTS.LABEL"></label>
+                <input id="max-invest" type="text"
+                       placeholder="{{additionalParams.ethHardCap|number:2}}"
+                       ng-disabled="!additionalParams.investsLimit"
+                       ng-required="additionalParams.investsLimit"
+                       commaseparator="{
+                                regexp: '^((0)|([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]{0,2})?$',
+                                max: additionalParams.ethHardCap,
+                                min: request.min_wei
+                           }"
+                       pattern="^((0)|([1-9][0-9,]{0,25})|(1[0,]{26}))(\.[0-9]{1,2})?$"
+                       ng-model="request.max_wei" class="form-control-input">
+                <div class="input-after">EOS</div>
+            </div>
+        </div>
+        <div class="form-control-description grid-cell grid-cell-2-3 grid-cell-ps-3-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control-label hide-vs">&nbsp;</div>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.CROWD_SALE.FIELDS.MAX_INVESTMENTS.DESCRIPTION"></span>
+        </div>
+    </div>
+</div>

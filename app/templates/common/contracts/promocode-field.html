@@ -24,7 +24,7 @@
         </div>
     </div><br/>
 </form>
-<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border">
+<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode !== 'eos')">
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
         <div class="show-vs"></div>
@@ -38,4 +38,13 @@
         </span>
     </div>
 </div>
-
+<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'eos')">
+    <div class="form-control-label">
+        <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+        <div class="show-vs"></div>
+        {{(contract.cost.EOSISH - contract.cost.EOSISH * contract.discount / 100) / 10000 | separateNumber}} EOSISH&nbsp;&nbsp;&nbsp;
+        <span class="grey-text-color">
+            {{(contract.cost.EOS - contract.cost.EOS * contract.discount / 100) / 10000 | separateNumber}} EOS
+        </span>
+    </div>
+</div>

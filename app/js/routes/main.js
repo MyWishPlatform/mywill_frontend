@@ -75,6 +75,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
         },
         title: 'start'
+    }).state('main.funny', {
+        url: '/😉',
+        title: '😉',
+        controller: function($rootScope, $state) {
+            $rootScope.funny = true;
+            $state.go('main.base');
+        }
     }).state('main.profile', {
         url: '/profile',
         controller: 'profileController',
@@ -125,8 +132,29 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             currentUser: function(usersService, $rootScope) {
                 return $rootScope.currentUserDefer.promise;
             },
-            exRate: function(contractService) {
-                return contractService.getCurrencyRate({fsym: 'WISH', tsyms: 'ETH,BTC'});
+            exRate: function(contractService, ENV_VARS, $q) {
+                var defer = $q.defer();
+                var loadedCurrencies = {};
+                var loadedCurrenciesCount = 0;
+                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS'] : ['ETH','BTC'];
+                console.log(currencies);
+
+                var getRate = function(currency) {
+                    contractService.getCurrencyRate({fsym: currency, tsyms: 'WISH'}).then(function(result) {
+                        loadedCurrencies[currency] = (1 / result.data['WISH']).toString();
+                        loadedCurrenciesCount++;
+                        if (loadedCurrenciesCount === currencies.length) {
+                            defer.resolve({
+                                data: loadedCurrencies
+                            });
+                        }
+                    });
+                };
+                for (var k = 0; k < currencies.length; k++) {
+                    getRate(currencies[k]);
+                }
+                return defer.promise;
+
             }
         }
     }).state('main.contracts', {
@@ -235,8 +263,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.createcontract.types', {
         url: '/create?:blockchain?&:isTestNet?',
         resolve: {
-            allCosts: function(contractService) {
-                return contractService.getAllCosts();
+            allCosts: function(contractService, ENV_VARS) {
+                return contractService.getAllCosts((ENV_VARS.mode !== 'default') ? ENV_VARS.mode : undefined);
             }
         },
         controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS, $stateParams, $location) {
@@ -291,6 +319,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     case '6':
                         curencyValue = 'NEO';
                         break;
+                    case 10:
+                    case '10':
+                    case 11:
+                    case '11':
+                        curencyValue = 'EOS';
+                        break;
                     default:
                         curencyValue = 'ETH';
                         break;
@@ -325,10 +359,25 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getContract($stateParams.id);
             },
             currencyRate: function(contractService, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
-                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {
-                    return contractService.getCurrencyRate({fsym: 'ETH', tsyms: 'USD'});
+                var curencyValue;
+                switch(openedContract.data.network) {
+                    case 5:
+                    case '5':
+                    case 6:
+                    case '6':
+                        curencyValue = 'NEO';
+                        break;
+                    case 10:
+                    case '10':
+                    case 11:
+                    case '11':
+                        curencyValue = 'EOS';
+                        break;
+                    default:
+                        curencyValue = 'ETH';
+                        break;
                 }
-                return undefined;
+                return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
             tokensList: function($stateParams, contractService, CONTRACT_TYPES_NAMES_CONSTANTS, openedContract) {
                 if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {

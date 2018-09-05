@@ -1,0 +1,31 @@
+<div class="shadow-block__content">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+            <div class="form-control">
+                <label for="issuer-address" class="form-control-label"
+                       translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.ADMIN_ACCOUNT.TITLE"></label>
+                <div class="form-control-input-container">
+                    <input id="issuer-address" type="text"
+                           pattern="[a-zA-Z1-5]{12}"
+                           maxlength="12"
+                           placeholder="qwertyuiopas"
+                           ng-change="checkAccountName(issuerForm['admin_address'], true)"
+                           ng-model="request.admin_address"
+                           name="admin_address"
+                           required
+                           class="form-control-input lowercase"/>
+                    <div class="input-after dynamic-info">
+                        {{issuerForm['admin_address'].$viewValue.length||0}}/12
+                    </div>
+                    <span class="field-error form-field_error-check-sum"
+                          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.ACCOUNT_DOES_NOT_EXIST"></span>
+                </div>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+            <div class="form-control-label hide-ps">&nbsp;</div>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.ADMIN_ACCOUNT.DESCRIPTION"></span>
+        </div>
+    </div>
+</div>

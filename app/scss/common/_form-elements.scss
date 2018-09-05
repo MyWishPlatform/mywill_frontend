@@ -329,15 +329,29 @@
 
   .input-after {
     position: absolute;
-    right: 1em;
+    right: 0.3em;
     font-size: 1.5em;
     line-height: 1em;
     display: block;
-    bottom: 1.7em;
+    bottom: 1em;
+    padding: 0.64em 0.5em 0.64em 1.5em;
+    background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.78) 15%, rgba(255,255,255,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,0.78) 15%,rgba(255,255,255,1) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,0.78) 15%,rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 );
     &.dynamic-info {
       color: #aaa;
       font-size: 1.3em;
       line-height: 1em;
+    }
+  }
+  [disabled], input:disabled {
+    ~ .input-after {
+      background: -moz-linear-gradient(left, rgba(240,240,240,0) 0%, rgba(240,240,240,0.78) 15%, rgba(240,240,240,1) 100%);
+      background: -webkit-linear-gradient(left, rgba(240,240,240,0) 0%,rgba(240,240,240,0.78) 15%,rgba(240,240,240,1) 100%);
+      background: linear-gradient(to right, rgba(240,240,240,0) 0%,rgba(240,240,240,0.78) 15%,rgba(240,240,240,1) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00f0f0f0', endColorstr='#f0f0f0',GradientType=1 );
+      color: #aaa;
     }
   }
   &-input-container {
@@ -349,6 +363,8 @@
         margin-top: 0;
         bottom: auto;
         top: 1.5em;
+        padding: 0 1em;
+        background: none;
       }
       .instruction-for-copy-button {
         margin-right: 0;
@@ -611,7 +627,7 @@
     top: -0.6em;
     color: #777;
     display: inline-block;
-    background-color: #F4F4F4;
+    background-color: $blocks-background;
     padding: 0 0.5em;
   }
 }

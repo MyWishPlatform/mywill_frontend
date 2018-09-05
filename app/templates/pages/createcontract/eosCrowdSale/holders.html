@@ -1,0 +1,118 @@
+<div class="shadow-block__content"
+     ng-repeat="recipient in token_holders">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+            <div class="form-control">
+                <label for="out-wallet-key-{{$index}}"
+                       translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.HOLDERS.ACCOUNT.TITLE"
+                       class="form-control-label"></label>
+
+                <div class="form-control-input-container">
+                    <input id="out-wallet-key-{{$index}}" type="text"
+                           pattern="[a-z1-5]{12}"
+                           placeholder="qwertyuiopas"
+                           ng-change="checkAccountName(distributionForm['out-wallet-key-' + $index], true)"
+                           ng-model="recipient.address"
+                           maxlength="12"
+                           ng-attr-name="{{'out-wallet-key-'+$index}}"
+                           required
+                           class="form-control-input"/>
+                    <div class="input-after dynamic-info">
+                        {{distributionForm['out-wallet-key-' + $index].$viewValue.length||0}}/12
+                    </div>
+                    <span class="field-error form-field_error-check-sum"
+                          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.ACCOUNT_DOES_NOT_EXIST"></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="clearfix show-ps"><br/></div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control">
+                <label for="address-name-{{$index}}" class="form-control-label"
+                       translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.HOLDERS.ACCOUNT.INTERNAL_NAME"></label>
+                <input id="address-name-{{$index}}" type="text"
+                       ng-change="checkTokensAmount()"
+                       ng-attr-placeholder="{{'CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.HOLDERS.ACCOUNT.NAME_PLACEHOLDER'|translate}}"
+                       ng-model="recipient.name"
+                       class="form-control-input"/>
+            </div>
+        </div>
+        <div class="clearfix show-full hide-ps show-vs"><br/></div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+            <div class="form-control">
+                <label for="address-amount-{{$index}}" class="form-control-label"
+                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></label>
+                <input class="form-control-input"
+                       id="address-amount-{{$index}}"
+                       pattern="[0-9,]+{{(request.decimals*1 > 0) ? '(\.[0-9]{1,'+request.decimals+'})?' : ''}}$"
+                       commaseparator="{
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\\.[0-9]*)?$',
+                            min: 1,
+                            max: maxSupply
+                       }"
+                       required
+                       ng-attr-invalid="{{tokensAmountError}}"
+                       ng-change="checkTokensAmount()"
+                       ng-model="recipient.amount"/>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ps-3-5 grid-cell-ls-1 form-control-description">
+            <div class="form-control-label hide-ps">&nbsp;</div>
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.HOLDERS.ACCOUNT.AMOUNT_DESCRIPTION"></span>
+        </div>
+    </div>
+    <i class="icon-cancel float-right form-fieldset-info-button"
+       ng-click="removeRecipient(recipient); checkTokensAmount();"
+       ng-if="token_holders.length"></i>
+</div>
+<div class="shadow-block__content" ng-if="token_holders.length < 10">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
+            <span class="form-control-description__text"
+                  translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.DESCRIPTION_BLOCK"></span><br/>
+        </div>
+        <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
+            <button class="btn btn-transparent with-icon mobile-width-100" type="button"
+                    ng-click="addRecipient(); checkTokensAmount();">
+                <i class="icon-create-contract"></i>
+                <span translate="CONTRACTS.FORMS.CROWD_SALE.BUTTONS.ADD_EXTRA_ADDRESS"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="shadow-block__content grey-color" ng-if="tokensAmountError === 'maxSupply'">
+    <div class="normal-text error-text">
+        <i class="icon-error"></i>
+        <div>Total token supply is exceeded Max possible supply.</div>
+    </div>
+</div>
+<div class="shadow-block__content grey-color" ng-if="!tokensAmountError">
+    <div class="grid-row">
+        <div class="grid-cell grid-cell-1">
+            <div class="form-control-label">
+                {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}} {{totalSupply.tokens|separateNumber}} {{token.selectedToken.id ? token.selectedToken.token_short_name : request.token_short_name}}
+            </div>
+            <div class="form-control-description one-line without-padding">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.CROWD_SALE.CHART_TOKEN_DISTRIBUTED_MESSAGE"></span>
+            </div>
+        </div>
+        <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
+            <div id="chartdiv" class="chart-container" style="height: 240px"
+                 ng-chart
+                 ng-chart-data="chartData"
+                 ng-chart-options="chartOptions"></div>
+        </div>
+        <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
+            <div class="chart-legend">
+                <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
+                    <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                    <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

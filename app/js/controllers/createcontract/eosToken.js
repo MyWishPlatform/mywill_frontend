@@ -99,10 +99,10 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
         };
     };
 
-    var contractInProgress = false;
+    $scope.contractInProgress = false;
     var createContract = function() {
-        if (contractInProgress) return;
-        contractInProgress = true;
+        if ($scope.contractInProgress) return;
+        $scope.contractInProgress = true;
 
         var data = generateContractData();
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
@@ -115,7 +115,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
                     }
                     break;
             }
-            contractInProgress = false;
+            $scope.contractInProgress = false;
         });
     };
     $scope.editContractMode = !!contract.id;

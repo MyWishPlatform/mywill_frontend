@@ -1,4 +1,4 @@
-angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope,
+angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope, ENV_VARS,
                                                                  contractsList, $scope, $state, contractService) {
 
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
@@ -44,7 +44,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         contractsUpdateProgress = true;
         contractService.getContractsList({
             limit: 8,
-            offset: $scope.contractsList.length
+            offset: $scope.contractsList.length,
+            eos: ENV_VARS.mode === 'eos' ? 1 : undefined
         }).then(function(response) {
             contractsData = response.data;
             $scope.contractsList = $scope.contractsList.concat(response.data.results);
@@ -57,7 +58,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
 }).controller('baseContractsController', function($scope, $state, $timeout, contractService,
-                                                  web3Service, WebSocketService,
+                                                  web3Service, WebSocketService, EOSService,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
 
     $scope.contractTypesIcons = {
@@ -72,7 +73,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         8: 'icon-airdrop',
         9: 'icon-investment-pool',
         10: 'icon-token-eos',
-        11: 'icon-eos-wallet'
+        11: 'icon-eos-wallet',
+        12: 'icon-eos-ico'
     };
 
     var deletingProgress;
@@ -94,7 +96,85 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
 
-    $scope.iniContract = function(contract) {
+    var setContractStatValues = function(contract) {
+        contract.stateValue = $scope.statuses[contract.state]['value'];
+        contract.stateTitle = $scope.statuses[contract.state]['title'];
+    };
+
+    var iniSocketHandler = function(contract) {
+        var updateContract = function(newContractData) {
+            angular.merge(contract, newContractData);
+            WebSocketService.offUpdateContract(contract.id, updateContract);
+            $scope.iniContract(contract, true);
+            $scope.$apply();
+        };
+        WebSocketService.onUpdateContract(contract.id, updateContract);
+        $scope.$on('$destroy', function() {
+            WebSocketService.offUpdateContract(contract.id, updateContract);
+        });
+    };
+
+
+
+
+    var iniEOSContract = function(contract, fullScan) {
+        switch (contract.contract_type) {
+            case 12:
+                var buttons = contract.contract_details.buttons = {};
+                var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
+
+                var noStarted = nowDateTime < contract.contract_details.start_date;
+                if (noStarted) return;
+
+                if (contract.stateValue === 4) {
+                    var softCap = contract.contract_details.soft_cap * 1;
+                    var hardCap = contract.contract_details.hard_cap * 1;
+
+                    if (!fullScan) return;
+
+                    EOSService.getTableRows(
+                        contract.contract_details.crowdsale_address,
+                        'state',
+                        contract.contract_details.crowdsale_address,
+                        contract.network
+                    ).then(function(result) {
+                        contract.contract_details.raised_amount = result.rows[0].total_eoses / 10000;
+                        if ((nowDateTime > result.rows[0].finish) || (hardCap <= result.rows[0].total_tokens)) {
+                            contractService.checkStatus(contract.id).then(function(response) {
+
+                                var oldState = contract.state;
+                                angular.merge(contract, response.data);
+
+                                contract.contract_details.stop_date = result.rows[0].finish;
+                                contract.contract_details.start_date = result.rows[0].start;
+
+                                if (oldState !== contract.state) {
+                                    $scope.iniContract(contract, false, true);
+                                } else {
+                                    if (nowDateTime > contract.contract_details.stop_date) {
+                                        if (softCap <= result.rows[0].total_tokens) {
+                                            buttons.finalize = true;
+                                        }
+                                    } else if (hardCap <= result.rows[0].total_tokens) {
+                                        buttons.finalize = true;
+                                    }
+                                }
+                            });
+                        }
+                        if (result.rows[0].total_eoses && (softCap <= result.rows[0].total_tokens) && contract.contract_details.protected_mode) {
+                            buttons.withdraw = true;
+                        }
+                    });
+                }
+                break;
+        }
+    };
+
+    var iniNeoContract = function(contract, fullScan) {};
+
+    var iniRSKContract = function(contract, fullScan) {};
+
+    var iniETHContract = function(contract, fullScan) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
         switch (contract.contract_type) {
@@ -109,23 +189,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 }
                 break;
         }
-
-        contract.stateValue = $scope.statuses[contract.state]['value'];
-        contract.stateTitle = $scope.statuses[contract.state]['title'];
-        contract.discount = 0;
-
-        var updateContract = function(newContractData) {
-            angular.merge(contract, newContractData);
-            WebSocketService.offUpdateContract(contract.id, updateContract);
-            $scope.iniContract(contract);
-            $scope.$apply();
-        };
-
-        WebSocketService.onUpdateContract(contract.id, updateContract);
-
-        $scope.$on('$destroy', function() {
-            WebSocketService.offUpdateContract(contract.id, updateContract);
-        });
 
         if (!contract.contract_details.eth_contract) return;
 
@@ -144,8 +207,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
                 if ((nowDateTime > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
                     contract.state = 'CANCELLED';
-                    contract.stateValue = $scope.statuses[contract.state]['value'];
-                    contract.stateTitle = $scope.statuses[contract.state]['title'];
+                    setContractStatValues(contract);
                 }
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
                 var balance = new BigNumber(contract.contract_details.raised_amount);
@@ -223,7 +285,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
                             var currentPage = 0;
                             var getTokensOnPage = function() {
-                                console.log(currentPage);
                                 web3Service.setProviderByNumber(contract.network);
                                 iPoolContract.methods['pageTokenAmount'](currentPage).call(function(error, result) {
                                     var intResult = result * 1;
@@ -231,7 +292,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                                         currentPage++;
                                         (currentPage < pagesLength) ? getTokensOnPage() : callback();
                                     } else {
-                                        console.log(currentPage);
                                         callback(currentPage)
                                     }
                                 });
@@ -263,6 +323,31 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }
     };
 
+    $scope.iniContract = function(contract, fullScan, noWS) {
+        if (!noWS) {
+            iniSocketHandler(contract);
+        }
+        setContractStatValues(contract);
+        contract.discount = contract.discount || 0;
+        switch (contract.network) {
+            case 1:
+            case 2:
+                iniETHContract(contract, fullScan);
+                break;
+            case 3:
+            case 4:
+                iniRSKContract(contract, fullScan);
+                break;
+            case 6:
+                iniNeoContract(contract, fullScan);
+                break;
+            case 10:
+            case 11:
+                iniEOSContract(contract, fullScan);
+                break;
+        }
+    };
+
     /* (Click) Contract refresh */
     $scope.refreshContract = function(contract) {
         var contractId = contract.id;
@@ -276,7 +361,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }, 1000);
         contractService.getContract(contractId).then(function(response) {
             angular.merge(contract, response.data);
-            $scope.iniContract(contract);
+            $scope.iniContract(contract, true);
             $scope.refreshInProgress[contractId] = false;
         }, function() {
             $scope.refreshInProgress[contractId] = false;
@@ -301,7 +386,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     var launchContract = function(contract) {
         if (launchProgress) return;
         launchProgress = true;
-        contractService.deployContract(contract.id, contract.promo).then(function() {
+        contractService.deployContract(contract.id, contract.promo, ($rootScope.sitemode === 'eos') ? true : undefined).then(function() {
             launchProgress = false;
             $rootScope.closeCommonPopup();
 
@@ -355,7 +440,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 return;
             }
             var openConditionsPopUp = function() {
-                var originalCost = new BigNumber(contract.cost.WISH);
+                var originalCost = new BigNumber(($rootScope.sitemode === 'eos') ? (contract.cost.EOSISH || 0) : contract.cost.WISH);
                 var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
                 if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
                     $rootScope.commonOpenedPopupParams = {
@@ -386,6 +471,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         });
     };
+
     var showPriceLaunchContract = function(contract) {
         if (contract.cost.WISH == 0) {
             launchContract(contract);
@@ -409,7 +495,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             class: 'deleting-contract',
             contract: contract,
             confirmPayment: launchContract,
-            contractCost: Web3.utils.fromWei(contract.cost.WISH, 'ether')
+            contractCost: ($rootScope.sitemode !== 'eos') ?
+                Web3.utils.fromWei(contract.cost.WISH, 'ether') : (contract.cost.EOSISH / 10000)
         };
     };
 
@@ -421,7 +508,22 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             promo: contract.promo
         }).then(function(response) {
             contract.discount = response.data.discount;
+            var price;
+            switch ($rootScope.sitemode) {
+                case 'eos':
+                    price = (contract.cost.EOSISH - contract.cost.EOSISH * contract.discount / 100) / 10000;
+                    break;
+                default:
+                    price = new BigNumber(
+                        Web3.utils.fromWei(
+                            new BigNumber(contract.cost.WISH).minus(new BigNumber(contract.cost.WISH).times(contract.discount).div(100)).round().toString(10),
+                            'ether'
+                        )
+                    ).round(2)
+            }
             $rootScope.commonOpenedPopupParams = {
+                currency: ($rootScope.sitemode === 'eos') ? 'EOSIH' : 'WISH',
+                price: price,
                 contract: contract,
                 newPopupContent: true
             };

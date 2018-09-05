@@ -17,10 +17,15 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
-        getAllCosts: function () {
+        getAllCosts: function (type) {
+            var data = {};
             var params = {
                 path: API.GET_ALL_COSTS
             };
+            if (type) {
+                data[type] = true;
+                params.query = data;
+            }
             return requestService.get(params);
         },
         createContract: function (data) {
@@ -106,12 +111,13 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
-        deployContract: function(id, promo) {
+        deployContract: function(id, promo, eos) {
             var params = {
                 path: API.DEPLOY,
                 data: {
                     id: id,
-                    promo: promo
+                    promo: promo,
+                    eos: eos
                 }
             };
             return requestService.post(params);
@@ -179,6 +185,15 @@ angular.module('Services').service('contractService', function(requestService, A
                 data: {
                     id: contractId,
                     addresses: addresses
+                }
+            };
+            return requestService.post(params);
+        },
+        checkStatus: function(contractId) {
+            var params = {
+                path: API.CHECK_STATUS,
+                data: {
+                    id: contractId
                 }
             };
             return requestService.post(params);

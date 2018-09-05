@@ -168,7 +168,7 @@
       "TEXT": "あなたのアカウントを補充するためにサインイン/サインアップしてください"
     },
     "PROMO_ACTIVATED": {
-      "TEXT": "プロモーションコードが活性化されました。<br/>新しい価格ー{{price}} WISH"
+      "TEXT": "プロモーションコードが活性化されました。<br/>新しい価格ー{{price}} {{currency||'WISH'}}"
     },
     "NEO_CROWDSALE_FINALIZED": {
       "TEXT": "ご契約が正常に確定されました。"
@@ -185,7 +185,7 @@
       "TEXT": "あなたはこの契約を削除しますか？"
     },
     "CONTRACT_PAY": {
-      "TEXT": "契約打ち上げ({{price}} WISH)を確認してください"
+      "TEXT": "契約打ち上げ({{price|separateNumber}} {{currency || 'WISH'}})を確認してください"
     },
     "ACCOUNT_CREATION": {
       "TEXT": "Please confirm account creation ({{price}} WISH)"
@@ -250,6 +250,7 @@
     "CREATE_CONTRACT": {
       "BLOCKCHAIN_BLOCK": {
         "TITLE": "ブロックチェーンを選択",
+        "EOS_TITLE": "EOS network",
         "TEST_NETWORK_LABEL": "テストネットワーク",
         "TEST_NETWORK_DESCRIPTION": "無料! 支払う前に、あなたは契約をテストすることができます"
       },
@@ -332,7 +333,7 @@
     "EOS_BUY_TOKENS": {
       "MYWISH_ACCOUNT": {
         "LABEL": "Send EOS to:",
-        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"https://contracts.mywish.io/createAccount\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "MEMO_FIELD": {
         "LABEL": "Fill MEMO field:",
@@ -445,7 +446,9 @@
       },
       "CHART": {
         "TOTAL_SUPPLY": "総供給：",
-        "DISTRIBUTED_BEFORE": "配布されたの総計　（前）"
+        "DISTRIBUTED_BEFORE": "配布されたの総計　（前）",
+        "EOS_DISTRIBUTED_BEFORE": "Minted before",
+        "EOS_DISTRIBUTE_AVAILABLE": "Available for Minting"
       }
     },
     "CHANGE_DATES_FORM": {
@@ -832,7 +835,7 @@
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "投資の最小/最大限度",
-            "DESCRIPTION": "（ETHで）最小/最大受け入れ貢献を指定することができます。 例えば、0.05 ETHから3000 ETHのみの寄付を受け入れます。"
+            "DESCRIPTION": "（{{currency||'ETH'}}で）最小/最大受け入れ貢献を指定することができます。 例えば、0.05 {{currency||'ETH'}}から3000 {{currency||'ETH'}}のみの寄付を受け入れます。"
           },
           "MIN_INVESTMENTS": {
             "LABEL": "最小",
@@ -992,7 +995,6 @@
           "ADD_ADDRESS": "アドレスを追加する"
         },
         "TOTAL_SUPPLY": "総供給：",
-        "MAXIMUM_SUPPLY": "Maximum supply:",
         "FIELDS": {
           "TOKEN_NAME": {
             "LABEL": "トークン名",
@@ -1122,7 +1124,7 @@
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小＆最大の投資制限",
-            "DESCRIPTION": "受け入れ可能な最小/最大受領額を指定することができます（ETH）。 たとえば、0.05 ETHから3000 ETHのみの寄付を受け入れます"
+            "DESCRIPTION": "受け入れ可能な最小/最大受領額を指定することができます（{{currency||'ETH'}}）。 たとえば、0.05 {{currency||'ETH'}}から3000 {{currency||'ETH'}}のみの寄付を受け入れます"
           },
           "MIN_INVESTMENTS": {
             "LABEL": "ミニマム",
@@ -1230,6 +1232,36 @@
           "REGENERATE_KEYS": "Generate new pairs",
           "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, it generates it only."
         }
+      },
+      "EOS_CROWDSALE": {
+        "ERRORS": {
+          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist"
+        },
+        "CAP_NOTE": {
+          "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
+        },
+        "FIELDS": {
+          "ADMIN_ACCOUNT": {
+            "TITLE": "Admin account:",
+            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the Crowdsale. Double check the account (and the access to it) before the submission."
+          },
+          "CROWDSALE_ACCOUNT": {
+            "TITLE": "Crowdsale EOS account:",
+            "DESCRIPTION": "This EOS account shall be new. All contributors will be sent to contract under this account, the name should be connected with the project. For example, \"mynewproject\"."
+          },
+          "PROTECTED_MODE": {
+            "LABEL": "Withdraw before completion",
+            "DESCRIPTION": "Withdraw works only if soft cap reached. If On - the admin will be able to withdraw the contributions before making tokens transferable & sale completion. Off - no withdraw until tokens are not transferable."
+          },
+          "HOLDERS": {
+            "ACCOUNT": {
+              "TITLE": "Account name:",
+              "INTERNAL_NAME": "Internal Name",
+              "NAME_PLACEHOLDER": "Team",
+              "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
+            }
+          }
+        }
       }
     },
     "PREVIEW": {
@@ -1238,6 +1270,7 @@
       },
       "TABS": {
         "INFO": "契約をプレビューする",
+        "ACCOUNT_INFO": "Preview account",
         "SOURCE": "ソースコード"
       },
       "FREE_VERSION_MSG": "（テストネット）フリーバージョンのコードがローディングのために利用できない源を含みます。",
@@ -1339,7 +1372,7 @@
           "PROGRESS": "進捗が上がった",
           "MIN": "最小",
           "MAX": "最大",
-          "TOTAL": "総獲得額：{{amount}} ETH",
+          "TOTAL": "総獲得額：{{amount}} {{currency || 'ETH'}}",
           "DAY": "日：＋{{percent}}%)"
         }
       },
@@ -1347,6 +1380,10 @@
         "ACCOUNT_NAME": "Account name",
         "ACTIVE_PUBLIC_KEY": "Active public key",
         "OWNER_PUBLIC_KEY": "Owner public key"
+      },
+      "EOS_CROWDSALE": {
+        "TOKEN_ACCOUNT": "Token EOS account",
+        "CROWDSALE_ACCOUNT": "Crowdsale EOS account (All contributions shall be sent to this address)"
       }
     }
   }

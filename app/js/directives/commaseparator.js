@@ -38,7 +38,7 @@ angular.module('Directives').directive('commaseparator', function($filter, $time
                 if (!valid) {
                     ctrl.$setViewValue(oldValue);
                     elem.val(commaSeparateNumber(oldValue));
-                    return plainNumber;
+                    return oldValue;
                 } else {
                     ctrl.$setViewValue(plainNumber);
                     elem.val(commaSeparateNumber(plainNumber));

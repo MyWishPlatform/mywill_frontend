@@ -17,7 +17,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
     });
 
     var eos;
-    var isProduction = (location.host.indexOf('eos.mywish.io') > -1) || (location.host.indexOf('contracts.mywish.io') > -1);
+    var isProduction = (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
     var _this = this;
 
     var eosAccounts = APP_CONSTANTS.EOS_ADDRESSES[isProduction ? 'PRODUCTION' : 'DEVELOPMENT'];
@@ -87,6 +87,25 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
+    this.getTableRows = function(scope, table, code, network) {
+        var defer = $q.defer();
+        network  ? _this.createEosChain(network, function() {
+            eos.getTableRows({
+                code: code || eosAccounts[displayingNetwork]['TOKEN'],
+                scope: scope,
+                table: table || 'stat',
+                json: true
+            }, function (error, response) {
+                if (error) {
+                    defer.reject(error);
+                } else {
+                    defer.resolve(response);
+                }
+            });
+        }) : false;
+        return defer.promise;
+    };
+
     this.coinInfo = function(short_name) {
         var defer = $q.defer();
         checkNetwork(function() {
@@ -115,11 +134,12 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer) {
+
+    this.buyTokens = function(amount, memo, defer) {
         defer = defer || $q.defer();
         window.scatter.authenticate().then(function (sign) {
             window.scatter.forgetIdentity().then(function() {
-                _this.mintTokens(tokenOwner, tokensTo, tokenSymbol, amount, memo, defer);
+                _this.buyTokens(amount, memo, defer);
             });
         }).catch(function() {
             _this.connectScatter(createTransaction);
@@ -133,41 +153,110 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                 port: currentEndPoint.port,
                 protocol: currentEndPoint.protocol
             };
-            var tokenOwnerAccount = accounts.filter(function(account) {
-                return account['name'] === tokenOwner;
-            })[0];
-            if (!tokenOwnerAccount) {
-                defer.reject({
-                    code: 1
-                });
-                return;
-            }
+            var tokenOwnerAccount = accounts[0];
+
             var eos = window.scatter.eos(network, Eos, {});
-            eos.transaction({
+
+            var options = {
                 actions: [{
-                    account: eosAccounts[displayingNetwork]['TOKEN'],
-                    name: 'issue',
+                    account: 'eosio.token',
+                    name: 'transfer',
                     authorization: [{
                         actor: tokenOwnerAccount['name'],
                         permission: tokenOwnerAccount['authority']
                     }],
                     data: {
-                        from: tokenOwner,
-                        to: tokensTo,
-                        quantity: amount + ' ' + tokenSymbol,
+                        from: tokenOwnerAccount['name'],
+                        to: eosAccounts['COMING'],
+                        quantity: amount + ' EOS',
                         memo: memo || ''
                     }
                 }],
                 "signatures": [signature]
-            }).then(defer.resolve).catch(function(result) {
+            };
+
+            eos.transaction(options).then(defer.resolve).catch(function(result) {
+                defer.reject({
+                    code: 2
+                });
+            });
+
+        };
+
+        return defer.promise;
+    };
+
+    var getNetwork = function() {
+        return {
+            blockchain: 'eos',
+            chainId: currentEndPoint.chainId,
+            host: currentEndPoint.url,
+            port: currentEndPoint.port,
+            protocol: currentEndPoint.protocol
+        }
+    };
+
+    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo) {
+        return _this.sendTx({
+            owner: tokenOwner,
+            actions: [{
+                account: eosAccounts[displayingNetwork]['TOKEN'],
+                name: 'issue',
+                data: {
+                    from: tokenOwner,
+                    to: tokensTo,
+                    quantity: amount + ' ' + tokenSymbol,
+                    memo: memo || ''
+                }
+            }]
+        });
+    };
+
+    this.sendTx = function(params, defer) {
+        defer = defer || $q.defer();
+        window.scatter.authenticate().then(function() {
+            window.scatter.forgetIdentity().then(function() {
+                _this.sendTx(params, defer);
+            });
+        }).catch(function() {
+            _this.connectScatter(createTransaction);
+        });
+        var createTransaction = function(accounts, signature) {
+            var tokenOwnerAccount = params['owner'] ? accounts.filter(function(account) {
+                return account['name'] === params['owner'];
+            })[0] : accounts[0];
+            if (!tokenOwnerAccount) {
+                defer.reject({
+                    "code": 1
+                });
+                return;
+            }
+            params['actions'].map(function(action) {
+                action.authorization = [{
+                    "actor": tokenOwnerAccount['name'],
+                    "permission": tokenOwnerAccount['authority']
+                }];
+            });
+
+            var eos = window.scatter.eos(getNetwork(), Eos, {});
+
+            console.log({
+                "actions": params.actions,
+                "signatures": [signature]
+            });
+            eos.transaction({
+                "actions": params.actions,
+                "signatures": [signature]
+            }).then(defer.resolve).catch(function() {
                 defer.reject({
                     code: 2
                 });
             });
         };
-
         return defer.promise;
     };
+
+
 
     var checkIdentity = function(success, error) {
         var requiredFields = {

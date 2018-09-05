@@ -154,8 +154,8 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
                 account: $scope.contract.contract_details.crowdsale_address,
                 name: 'finalize',
                 data: {}
-            }],
-            owner: $scope.contract.contract_details.admin_address
+            }]
+            // owner: $scope.contract.contract_details.admin_address
         }).then(function(result) {
             $scope.successTx = result;
         }, function(error) {

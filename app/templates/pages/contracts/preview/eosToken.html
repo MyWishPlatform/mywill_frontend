@@ -82,14 +82,14 @@
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                     <div class="form-control-label">
                         {{'CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.LABEL'|translate}}
-                        {{tokenInfo.maximumSupply|separateNumber}}
+                        {{tokenInfo.maximumSupply*1|separateNumber}}
                         {{contract.contract_details.token_short_name}}
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                     <div class="form-control-label">
                         {{'POPUP_FORMS.MINT_TOKENS_FORM.CHART.TOTAL_SUPPLY'|translate}}
-                        {{tokenInfo.totalSupply|separateNumber}}
+                        {{(tokenInfo.totalSupply*1 || '0')|separateNumber}}
                         {{contract.contract_details.token_short_name}}
                     </div>
                 </div>

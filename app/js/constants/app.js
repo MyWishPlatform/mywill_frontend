@@ -20,14 +20,14 @@ module.constant('APP_CONSTANTS', {
         },
         'PRODUCTION': {
             'MAINNET': {
-                'TOKEN': 'mywishtokens',
+                'TOKEN': 'buildertoken',
                 'ACCOUNT': 'deploymywish'
             },
             'TESTNET': {
                 'TOKEN': 'mywishtokens',
                 'ACCOUNT': 'mywishiotest'
             },
-            'COMING': undefined
+            'COMING': 'mywishcoming'
         }
     },
     'INFURA_ADDRESS': "https://mainnet.infura.io/MEDIUMTUTORIAL",

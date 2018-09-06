@@ -28,12 +28,12 @@
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
         <div class="show-vs"></div>
-        {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.WISH).minus(bigNumber(contract.cost.WISH).times(contract.discount).div(100)).round().toString(10), 'ether')).round(2)}}
+        {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.WISH).minus(bigNumber(contract.cost.WISH).times(contract.discount).div(100)).round().toString(10), 'ether')).round(2)|separateNumber}}
         WISH&nbsp;&nbsp;&nbsp;
         <span class="grey-text-color">
-            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).minus(bigNumber(contract.cost.ETH).times(contract.discount).div(100)).round().toString(10), 'ether')).round(3)}}
+            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).minus(bigNumber(contract.cost.ETH).times(contract.discount).div(100)).round().toString(10), 'ether')).round(3)|separateNumber}}
             ETH /
-            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).minus(bigNumber(contract.cost.BTC).times(contract.discount).div(100)).round().toString(10), 'ether')).round(4)}}
+            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).minus(bigNumber(contract.cost.BTC).times(contract.discount).div(100)).round().toString(10), 'ether')).round(4)|separateNumber}}
             BTC
         </span>
     </div>

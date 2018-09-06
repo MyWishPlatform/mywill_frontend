@@ -162,7 +162,9 @@
         template: '/templates/popups/alerts/minting-success.html',
         class: 'deleting-contract',
         params: {
-            contract: ngPopUp.params.contract,
+            contract: {
+                network: 10
+            },
             tx: successTransaction
         },
         opened: true,

@@ -126,7 +126,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 var noStarted = nowDateTime < contract.contract_details.start_date;
                 if (noStarted) return;
 
-                if (contract.stateValue === 4) {
+                if ((contract.stateValue === 4) || (contract.stateValue === 11)) {
                     var softCap = contract.contract_details.soft_cap * 1;
                     var hardCap = contract.contract_details.hard_cap * 1;
 
@@ -138,7 +138,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         contract.contract_details.crowdsale_address,
                         contract.network
                     ).then(function(result) {
-                        contract.contract_details.raised_amount = result.rows[0].total_eoses / 10000;
+
+                        contract.contract_details.raised_amount =
+                            result.rows[0].total_tokens / contract.contract_details.rate / Math.pow(10, contract.contract_details.decimals);
+
+                        if (contract.stateValue !== 4) return;
+
                         if ((nowDateTime > result.rows[0].finish) || (hardCap <= result.rows[0].total_tokens)) {
                             contractService.checkStatus(contract.id).then(function(response) {
 

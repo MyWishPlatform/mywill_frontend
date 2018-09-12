@@ -2,6 +2,12 @@ $main-color: #206EFF;
 $white-color: #fff;
 $blocks-background: #F4F4F4;
 
+$white-color: #fff;
+$black-color: #000;
+@if($env == 'eos') {
+  $main-color: #556577;
+  $blocks-background: #F3F5F7;
+}
 @import 'common/awesome.scss';
 @import 'common/social-buttons.scss';
 @import 'common/buttons.scss';

@@ -16,14 +16,14 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     };
 
     $scope.resetForms = resetForm;
-
+    resetForm();
     $scope.contractInProgress = false;
 
     var storage = window.localStorage || {};
 
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
-
+        console.log($scope.request);
         var contractData = angular.copy($scope.request);
         if (!$scope.havePublicKeys) {
             contractData.contract_details.active_public_key = $scope.generated_keys.active_public_key;
@@ -41,19 +41,18 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         });
         return true;
     };
-
     var createContract = function(contractData) {
         if ($scope.contractInProgress) return;
 
         $scope.contractInProgress = true;
         contractData.name = contractData.contract_details.account_name;
+
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](contractData).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
         }, function() {
             $scope.contractInProgress = false;
         });
     };
-
     var checkDraftContract = function(redirect) {
         if (storage.draftContract && !contract.id) {
             if (!contract.id) {
@@ -72,14 +71,34 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         }
     };
 
-    checkDraftContract();
+    EOSService.getTableRows('eosio', 'rammarket', 'eosio', $scope.network).then(function(response) {
+        var ramPrice = response.rows[0]['quote']['balance'].split(" ")[0] / response.rows[0]['base']['balance'].split(" ")[0] * 1024;
+        EOSService.checkAddress('eosio', $scope.network).then(function(response) {
+            $scope.EOSprices = {
+                NET: response.net_limit.max / 1024 / (response.net_weight / 10000),
+                CPU: response.cpu_limit.max / 1000 / (response.cpu_weight / 10000),
+                RAM: ramPrice
+            };
+        });
 
-    EOSService.createEosChain($scope.network);
+        // var ramCost = 10000000 + 4 * ramPrice
+        //     + $scope.request.contract_details.stake_net_value +
+        //     $scope.request.contract_details.stake_cpu_value
+    });
+
+
+    EOSService.checkAddress('eosio', $scope.network).then(function(response) {
+        $scope.EOSprices = {
+            NET: response.net_limit.max / 1024 / (response.net_weight / 10000),
+            CPU: response.cpu_limit.max / 1000 / (response.cpu_weight / 10000)
+        };
+    });
+
     $scope.checkAccountName = function(accountNameForm) {
         accountNameForm['account-name'].$setValidity('check-sum', true);
         if (!accountNameForm.$valid) return;
         accountNameForm['account-name'].$setValidity('checked-address', false);
-        EOSService.checkAddress($scope.request.contract_details.account_name).then(function() {
+        EOSService.checkAddress($scope.request.contract_details.account_name, $scope.network).then(function() {
             accountNameForm['account-name'].$setValidity('checked-address', true);
             accountNameForm['account-name'].$setValidity('check-sum', false);
         }, function() {

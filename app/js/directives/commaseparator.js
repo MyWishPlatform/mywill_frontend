@@ -15,6 +15,10 @@ angular.module('Directives').directive('commaseparator', function($filter, $time
                 return commaSeparateNumber(ctrl.$modelValue);
             });
             ctrl.$parsers.unshift(function(viewValue) {
+                if (!viewValue.length) {
+                    ctrl.$setValidity('min-max', true);
+                    return '';
+                }
                 var plainNumber = viewValue.replace(/[\,\-\+]/g, '');
 
                 var valid = plainNumber ? new RegExp(scope.commaseparator.regexp).test(plainNumber) : true;

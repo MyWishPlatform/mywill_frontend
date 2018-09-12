@@ -41,10 +41,12 @@ main.main-content-holder {
   position: relative;
 }
 
-
 .pre-release-information {
   display: block;
   border-bottom: 1px solid #a9c7ff;
+  .eosish-mode & {
+    border-bottom-color: #849bb5;
+  }
   left: 25.5em;
   position: fixed;
   top: 0;

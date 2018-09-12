@@ -66,6 +66,7 @@
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></span><br/>
                         <a ng-if="details.eos_contract_token.address && (contract.network == 10)"
+                           target="_blank"
                            ng-attr-href="{{(contract.network|etherscanUrl:'symbol')}}/{{details.eos_contract_token.address}}/{{ details.token_short_name }}">
                             {{ ::details.token_short_name }}
                         </a>

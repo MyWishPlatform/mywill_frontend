@@ -1382,7 +1382,7 @@
         "OWNER_PUBLIC_KEY": "Owner public key"
       },
       "EOS_CROWDSALE": {
-        "TOKEN_ACCOUNT": "Token EOS account",
+        "TOKEN_ACCOUNT": "Token Contract Builder",
         "CROWDSALE_ACCOUNT": "Crowdsale EOS account (All contributions shall be sent to this address)"
       }
     }

@@ -40,7 +40,8 @@
                             ((statuses[contract.state]['value'] == 6) || (statuses[contract.state]['value'] == 7) || (statuses[contract.state]['value'] == 8) || (statuses[contract.state]['value'] == 11) || (statuses[contract.state]['value'] == 9))
                         }"
                         ng-mousedown="refreshContract(contract)">
-                    <img class="btn-icon refresh-icon" src="/static/images/refresher.svg">
+                    <img class="btn-icon refresh-icon" src="/static/images/refresher.svg" ng-if="sitemode === 'default'">
+                    <img class="btn-icon refresh-icon" src="/static/images/refresher-grey.svg" ng-if="sitemode === 'eos'">
                 </button>
             </div>
 

@@ -1,0 +1,74 @@
+<div class="main-section-content">
+    <div class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="contract-info__network"
+                 ng-class="'contract-info__network_1'">
+                <span>{{'CONTRACTS_NETWORKS.NETWORK_1'|translate}}</span>
+            </div>
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-airdrop"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size" translate="CONTRACTS.FORMS.AIRDROP.TITLE"></span>
+                </div>
+            </div>
+            <div class="shadow-block__content__description">
+                <span>
+                    <a href="#">Official rules for Airdrop is listed here.</a>
+                </span>
+            </div>
+        </div>
+        <form class="shadow-block__content" name="accountsForm">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2">
+                    <div class="form-control">
+                        <div class="form-control-label">ETH address:</div>
+                        <input type="text" class="form-control-input"
+                               ng-model="request.eth_address"
+                               ng-checksum-address-validator="{'network': 'ETH'}">
+                        <span class="field-error form-field_error-check-sum"
+                              ng-if="request.eth_address ? !web3Utils.checkAddressChecksum(request.eth_address) : false"
+                              style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 form-control-description">
+                    <div class="form-control-label">&nbsp;</div>
+                    <div class="form-control-description__text">
+                        Enter your ETH address where WISH tokens are stored at Airdrop date - Поле для ETH адреса
+                    </div>
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2">
+                    <div class="form-control">
+                        <div class="form-control-label">EOS account:</div>
+
+                        <div class="form-control-input-container">
+                            <input id="owner-address" type="text"
+                                   placeholder="qwertyuiopas"
+                                   pattern="[a-z1-5]{12}"
+                                   maxlength="12"
+                                   ng-model="request.eos_address"
+                                   name="eos_address"
+                                   ng-change="checkAddress(accountsForm['eos_address'])"
+                                   required
+                                   class="form-control-input"/>
+                            <div class="input-after dynamic-info">{{accountsForm['eos_address'].$viewValue.length||0}}/12</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 form-control-description">
+                    <div class="form-control-label">&nbsp;</div>
+                    <div class="form-control-description__text">
+                        Enter your EOS account for getting EOSISH tokens - Поле для ввода EOS аккаунта. Если у вас его нет, то вы можете создать его здесь.
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <button class="btn btn-submit"
+                    type="button">
+                <span>Save EOS address</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -161,6 +161,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         abstract: true,
         template: '<div ui-view></div>',
         controller: 'baseContractsController'
+    }).state('main.join_airdrop', {
+        url: '/join_airdrop',
+        templateUrl: templatesPath + 'join_airdrop.html',
+        controller: 'joinAirdropController'
     }).state('main.contracts.list', {
         url: '/contracts',
         controller: 'contractsController',

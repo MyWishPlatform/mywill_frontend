@@ -12,25 +12,54 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     $scope.editContractMode = !!contract.id;
 
     var resetForm = function() {
+        $scope.havePublicKeys = true;
         $scope.request = angular.copy(contract);
+        $scope.getContractCost();
     };
 
     $scope.resetForms = resetForm;
+
+    var getCostProgress = false, costDefer, costSentData;
+
+    $scope.getContractCost = function() {
+        if (getCostProgress) {
+            $timeout.cancel(getCostProgress);
+        }
+        var data = costSentData = {
+            buy_ram_kbytes: $scope.request.contract_details.buy_ram_kbytes,
+            stake_net_value: $scope.request.contract_details.stake_net_value,
+            stake_cpu_value: $scope.request.contract_details.stake_cpu_value
+        };
+        getCostProgress = $timeout(function(){
+            costDefer = contractService.getEOSCost(costSentData).then(function(response) {
+                if (data !== costSentData) return;
+
+                for (var i in response.data) {
+                    response.data[i] = Math.round(response.data[i] * 100) / 100;
+                }
+
+                console.log(response.data);
+                $scope.eosAccountCost = response.data;
+            });
+        }, 1000);
+    };
+
     resetForm();
     $scope.contractInProgress = false;
-
     var storage = window.localStorage || {};
 
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
-        console.log($scope.request);
         var contractData = angular.copy($scope.request);
         if (!$scope.havePublicKeys) {
             contractData.contract_details.active_public_key = $scope.generated_keys.active_public_key;
             contractData.contract_details.owner_public_key = $scope.generated_keys.owner_public_key;
         }
+        contractData.contract_details.stake_cpu_value*= 1;
+        contractData.contract_details.stake_net_value*= 1;
+        contractData.contract_details.buy_ram_kbytes*= 1;
 
-        if (!isWaitingOfLogin) {
+            if (!isWaitingOfLogin) {
             delete storage.draftContract;
             createContract(contractData);
             return;
@@ -87,12 +116,12 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     });
 
 
-    EOSService.checkAddress('eosio', $scope.network).then(function(response) {
-        $scope.EOSprices = {
-            NET: response.net_limit.max / 1024 / (response.net_weight / 10000),
-            CPU: response.cpu_limit.max / 1000 / (response.cpu_weight / 10000)
-        };
-    });
+    // EOSService.checkAddress('eosio', $scope.network).then(function(response) {
+    //     $scope.EOSprices = {
+    //         NET: response.net_limit.max / 1024 / (response.net_weight / 10000),
+    //         CPU: response.cpu_limit.max / 1000 / (response.cpu_weight / 10000)
+    //     };
+    // });
 
     $scope.checkAccountName = function(accountNameForm) {
         accountNameForm['account-name'].$setValidity('check-sum', true);

@@ -234,15 +234,13 @@
     </div>
 </form>
 <form class="shadow-block"
-      ng-class="{'no-active': !(accountNameForm.$valid && accountKeysForm.$valid)}"
+      ng-class="{'no-active': !(accountNameForm.$valid && accountKeysForm.$valid && (copiedKeys || havePublicKeys))}"
       name="advancedSettings">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell">
-                <div class="checkbox-decoration">
-                    <div class="form-control-label-checkbox">
-                        <b class="normal-text">Account settings</b>
-                    </div>
+                <div class="form-control-label-checkbox">
+                    <b class="normal-text">Account settings</b>
                 </div>
             </div>
             <div class="grid-cell grid-cell-1 form-control-description">
@@ -263,11 +261,13 @@
                     </label>
                     <div class="form-control-input-container">
                         <input type="text"
+                               required
                                commaseparator="{
                                 min: 0,
                                 max: 100
                                }"
                                placeholder="0"
+                               ng-change="getContractCost()"
                                ng-model="request.contract_details.stake_net_value" class="form-control-input"/>
                         <div class="input-after">EOS</div>
                     </div>
@@ -292,10 +292,12 @@
                     <div class="form-control-input-container">
                         <input type="text"
                                placeholder="0"
+                               required
                                commaseparator="{
                                 min: 0,
                                 max: 100
                                }"
+                               ng-change="getContractCost()"
                                ng-model="request.contract_details.stake_cpu_value" class="form-control-input"/>
                         <div class="input-after">EOS</div>
                     </div>
@@ -319,11 +321,13 @@
                     </label>
                     <div class="form-control-input-container">
                         <input type="text"
+                               required
                                placeholder="4"
                                commaseparator="{
                                 min: 4,
                                 max: 2048
                                }"
+                               ng-change="getContractCost()"
                                ng-model="request.contract_details.buy_ram_kbytes" class="form-control-input"/>
                         <div class="input-after">KB</div>
                     </div>
@@ -338,6 +342,28 @@
                     RAM is needed for storing the data on EOS blockchain.
                 </span>
             </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="sitemode !== 'eos'">
+        <div class="form-control-label">
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <div class="show-vs"></div>
+            {{eosAccountCost.WISH|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;
+            <span class="grey-text-color">
+            {{eosAccountCost.ETH|separateNumber}}&nbsp;ETH /
+            {{eosAccountCost.BTC|separateNumber}}&nbsp;BTC
+        </span>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="sitemode === 'eos'">
+        <div class="form-control-label">
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <div class="show-vs"></div>
+            {{eosAccountCost.EOSISH | separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;
+            <span class="grey-text-color">
+            {{eosAccountCost.EOS | separateNumber}}&nbsp;EOS
+        </span>
         </div>
     </div>
 </form>

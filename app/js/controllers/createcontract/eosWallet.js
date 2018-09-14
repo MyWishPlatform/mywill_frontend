@@ -66,6 +66,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         contractData.contract_details.stake_cpu_value*= 1;
         contractData.contract_details.stake_net_value*= 1;
         contractData.contract_details.buy_ram_kbytes*= 1;
+        contractData.contract_details.account_name = contractData.contract_details.account_name.toLowerCase();
 
             if (!isWaitingOfLogin) {
             delete storage.draftContract;
@@ -142,7 +143,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         accountNameForm['account-name'].$setValidity('check-sum', true);
         if (!accountNameForm.$valid) return;
         accountNameForm['account-name'].$setValidity('checked-address', false);
-        EOSService.checkAddress($scope.request.contract_details.account_name, $scope.network).then(function() {
+        EOSService.checkAddress($scope.request.contract_details.account_name.toLowerCase(), $scope.network).then(function() {
             accountNameForm['account-name'].$setValidity('checked-address', true);
             accountNameForm['account-name'].$setValidity('check-sum', false);
         }, function() {

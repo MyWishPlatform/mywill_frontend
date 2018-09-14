@@ -1,7 +1,6 @@
 angular.module('app').controller('eosWalletCreateController', function($scope, contractService, $timeout, $state, $rootScope, EOSService,
                                                                           CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
 
-
     var contract = openedContract && openedContract.data ? openedContract.data : {
         contract_type: CONTRACT_TYPES_CONSTANTS.EOS_WALLET,
         network: $stateParams.network,

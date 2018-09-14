@@ -8,8 +8,8 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     };
     $scope.network = contract.network * 1;
     $scope.havePublicKeys = true;
-
     $scope.editContractMode = !!contract.id;
+    $scope.setAdvancedSettings = $scope.editContractMode;
 
     var resetForm = function() {
         $scope.havePublicKeys = true;
@@ -30,9 +30,9 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
             $timeout.cancel($scope.getCostProgress);
         }
         var data = costSentData = {
-            buy_ram_kbytes: $scope.request.contract_details.buy_ram_kbytes,
-            stake_net_value: $scope.request.contract_details.stake_net_value,
-            stake_cpu_value: $scope.request.contract_details.stake_cpu_value
+            buy_ram_kbytes: $scope.setAdvancedSettings ? $scope.request.contract_details.buy_ram_kbytes : 4,
+            stake_net_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_net_value : 0,
+            stake_cpu_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_cpu_value : 0
         };
 
         if (advancedSettings && !advancedSettings.$valid) {
@@ -63,9 +63,17 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
             contractData.contract_details.active_public_key = $scope.generated_keys.active_public_key;
             contractData.contract_details.owner_public_key = $scope.generated_keys.owner_public_key;
         }
-        contractData.contract_details.stake_cpu_value*= 1;
-        contractData.contract_details.stake_net_value*= 1;
-        contractData.contract_details.buy_ram_kbytes*= 1;
+
+        if ($scope.setAdvancedSettings) {
+            contractData.contract_details.stake_cpu_value*= 1;
+            contractData.contract_details.stake_net_value*= 1;
+            contractData.contract_details.buy_ram_kbytes*= 1;
+        } else {
+            contractData.contract_details.stake_cpu_value = 0;
+            contractData.contract_details.stake_net_value = 0;
+            contractData.contract_details.buy_ram_kbytes = 4;
+        }
+
         contractData.contract_details.account_name = contractData.contract_details.account_name.toLowerCase();
 
             if (!isWaitingOfLogin) {

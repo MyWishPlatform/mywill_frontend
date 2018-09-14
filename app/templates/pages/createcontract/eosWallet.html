@@ -239,15 +239,32 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell">
-                <div class="form-control-label-checkbox">
-                    <b class="normal-text">Account settings</b>
+
+                <div class="checkbox-decoration">
+                    <div class="form-control-label-checkbox">
+                        <b class="normal-text">Change Advanced Settings</b>
+                    </div>
                 </div>
-                <span class="form-control-description__text">
-                    You can change the default settings for the account if you need.
-                    Changing the values will affect the costs of the creation.
-                </span>
+            </div>
+            <div class="grid-cell">
+                <label class="checkbox-decoration">
+                    <input type="checkbox"
+                           ng-change="getContractCost(advancedSettings)"
+                           ng-model="setAdvancedSettings">
+                    <span class="checkbox-decoration-displaying for-buttons-height">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on"
+                              translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off"
+                              translate="NO"></span>
+                    </span>
+                </label>
             </div>
         </div>
+
+        <span class="form-control-description__text">
+            You can change the default settings for the account if you need.
+            Changing the values will affect the costs of the creation.
+        </span>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
@@ -259,7 +276,8 @@
                     </label>
                     <div class="form-control-input-container">
                         <input type="text"
-                               required
+                               ng-required="setAdvancedSettings"
+                               ng-disabled="!setAdvancedSettings"
                                pattern="[0-9,]+(\.[0-9]{1,2})?$"
                                commaseparator="{
                                 min: 0,
@@ -292,7 +310,8 @@
                     <div class="form-control-input-container">
                         <input type="text"
                                placeholder="0"
-                               required
+                               ng-required="setAdvancedSettings"
+                               ng-disabled="!setAdvancedSettings"
                                pattern="[0-9,]+(\.[0-9]{1,2})?$"
                                commaseparator="{
                                     min: 0,
@@ -323,7 +342,8 @@
                     </label>
                     <div class="form-control-input-container">
                         <input type="text"
-                               required
+                               ng-required="setAdvancedSettings"
+                               ng-disabled="!setAdvancedSettings"
                                placeholder="4"
                                pattern="[0-9,]+(\.[0-9]{1,2})?$"
                                commaseparator="{

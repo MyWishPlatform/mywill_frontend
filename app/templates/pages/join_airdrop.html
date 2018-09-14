@@ -33,7 +33,7 @@
                 <div class="grid-cell grid-cell-1-2 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
                     <div class="form-control-description__text">
-                        Enter your ETH address where WISH tokens are stored at Airdrop date - Поле для ETH адреса
+                        Enter your ETH address where WISH tokens are stored. Please check that you have corresponding private key.
                     </div>
                 </div>
             </div>
@@ -59,7 +59,8 @@
                 <div class="grid-cell grid-cell-1-2 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
                     <div class="form-control-description__text">
-                        Enter your EOS account for getting EOSISH tokens - Поле для ввода EOS аккаунта. Если у вас его нет, то вы можете создать его здесь.
+                        Enter Your EOS account for getting EOSISH token (after Airdrop date). If you do not have EOS account, you can create it
+                        <a href="/create/eosWallet?network=10" target="_blank">here</a>
                     </div>
                 </div>
             </div>
@@ -72,3 +73,9 @@
         </div>
     </div>
 </div>
+<div ng-pop-up="{
+    template: '/templates/popups/disclaimers/join_airdrop.html',
+    opened: true,
+    newPopupContent: true,
+    params: {}
+}"></div>

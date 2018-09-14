@@ -288,7 +288,8 @@
       },
       "EOS_WALLET": {
         "TITLE": "Create EOS Account",
-        "DESCRIPTION": "Create an account on EOS blockchain"
+        "DESCRIPTION": "Create an account on EOS blockchain",
+        "EOS_DESCRIPTION": "For EOS account creation please go to the <a>contracts.mywish.io</a>"
       },
       "TEST_NET_DISCLAIMER": {
         "LIST": {

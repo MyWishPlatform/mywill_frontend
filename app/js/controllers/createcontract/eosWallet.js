@@ -14,24 +14,35 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     var resetForm = function() {
         $scope.havePublicKeys = true;
         $scope.request = angular.copy(contract);
-        $scope.getContractCost();
+        if ($scope.request.id) {
+            $scope.getContractCost();
+        }
     };
 
     $scope.resetForms = resetForm;
 
-    var getCostProgress = false, costDefer, costSentData;
+    $scope.getCostProgress = false;
+    var costDefer, costSentData;
 
-    $scope.getContractCost = function() {
-        if (getCostProgress) {
-            $timeout.cancel(getCostProgress);
+    $scope.getContractCost = function(advancedSettings) {
+        if ($scope.network === 11) return;
+        if ($scope.getCostProgress) {
+            $timeout.cancel($scope.getCostProgress);
         }
         var data = costSentData = {
             buy_ram_kbytes: $scope.request.contract_details.buy_ram_kbytes,
             stake_net_value: $scope.request.contract_details.stake_net_value,
             stake_cpu_value: $scope.request.contract_details.stake_cpu_value
         };
-        getCostProgress = $timeout(function(){
+
+        if (advancedSettings && !advancedSettings.$valid) {
+            $scope.eosAccountCost = false;
+            return;
+        }
+
+        $scope.getCostProgress = $timeout(function(){
             costDefer = contractService.getEOSCost(costSentData).then(function(response) {
+                $scope.getCostProgress = false;
                 if (data !== costSentData) return;
                 for (var i in response.data) {
                     response.data[i] = Math.round(response.data[i] * 100) / 100;

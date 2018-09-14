@@ -267,7 +267,7 @@
                                 max: 100
                                }"
                                placeholder="0"
-                               ng-change="getContractCost()"
+                               ng-change="getContractCost(advancedSettings)"
                                ng-model="request.contract_details.stake_net_value" class="form-control-input"/>
                         <div class="input-after">EOS</div>
                     </div>
@@ -297,7 +297,7 @@
                                 min: 0,
                                 max: 100
                                }"
-                               ng-change="getContractCost()"
+                               ng-change="getContractCost(advancedSettings)"
                                ng-model="request.contract_details.stake_cpu_value" class="form-control-input"/>
                         <div class="input-after">EOS</div>
                     </div>
@@ -327,7 +327,7 @@
                                 min: 4,
                                 max: 2048
                                }"
-                               ng-change="getContractCost()"
+                               ng-change="getContractCost(advancedSettings)"
                                ng-model="request.contract_details.buy_ram_kbytes" class="form-control-input"/>
                         <div class="input-after">KB</div>
                     </div>
@@ -344,26 +344,35 @@
             </div>
         </div>
     </div>
-    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="sitemode !== 'eos'">
-        <div class="form-control-label">
+
+    <div class="relative shadow-block__content shadow-block__content_min-tb-padding grey-color no-border"
+         ng-if="(request.network == 10) && (getCostProgress || eosAccountCost)">
+
+        <span class="lds-ellipsis for-shadow-block" ng-if="getCostProgress">
+            <span class="lds-ellipsis-container">
+                <span></span><span></span><span></span><span></span>
+            </span>
+        </span>
+
+        <div class="form-control-label" ng-if="(sitemode !== 'eos') && (getCostProgress || eosAccountCost)"
+             ng-class="{'no-visibility': getCostProgress}">
             <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
             <div class="show-vs"></div>
             {{eosAccountCost.WISH|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;
             <span class="grey-text-color">
-            {{eosAccountCost.ETH|separateNumber}}&nbsp;ETH /
-            {{eosAccountCost.BTC|separateNumber}}&nbsp;BTC
-        </span>
+                {{(eosAccountCost.ETH||'0')|separateNumber}}&nbsp;ETH /
+                {{(eosAccountCost.BTC||'0')|separateNumber}}&nbsp;BTC
+            </span>
         </div>
-    </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="sitemode === 'eos'">
-        <div class="form-control-label">
+        <div class="form-control-label" ng-if="(sitemode === 'eos') && (getCostProgress || eosAccountCost)"
+             ng-class="{'no-visibility': getCostProgress}">
             <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
             <div class="show-vs"></div>
             {{eosAccountCost.EOSISH | separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;
             <span class="grey-text-color">
-            {{eosAccountCost.EOS | separateNumber}}&nbsp;EOS
-        </span>
+                {{eosAccountCost.EOS | separateNumber}}&nbsp;EOS
+            </span>
         </div>
     </div>
 </form>

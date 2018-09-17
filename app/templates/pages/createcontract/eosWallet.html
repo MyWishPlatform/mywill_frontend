@@ -31,12 +31,12 @@
                         <input id="contract-name" type="text"
                                ng-change="checkAccountName(accountNameForm)"
                                placeholder="qwertyuiopas"
-                               pattern="[a-z1-5]{12}"
+                               pattern="[a-zA-Z1-5]{12}"
                                maxlength="12"
                                name="account-name"
                                ng-model="request.contract_details.account_name"
                                required
-                               class="form-control-input"/>
+                               class="form-control-input lowercase"/>
                         <div class="input-after dynamic-info">{{accountNameForm['account-name'].$viewValue.length||0}}/12</div>
                         <span class="field-success"
                               ng-if="accountNameForm.$valid"
@@ -56,6 +56,8 @@
         </div>
     </form>
 </div>
+
+
 
 <form class="shadow-block"
      ng-class="{'no-active': !accountNameForm.$valid}"
@@ -231,14 +233,179 @@
         </div>
     </div>
 </form>
+<form class="shadow-block"
+      ng-class="{'no-active': !(accountNameForm.$valid && accountKeysForm.$valid && (copiedKeys || havePublicKeys))}"
+      name="advancedSettings">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row">
+            <div class="grid-cell">
 
+                <div class="checkbox-decoration">
+                    <div class="form-control-label-checkbox">
+                        <b class="normal-text">Change Advanced Settings</b>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell">
+                <label class="checkbox-decoration">
+                    <input type="checkbox"
+                           ng-change="getContractCost(advancedSettings)"
+                           ng-model="setAdvancedSettings">
+                    <span class="checkbox-decoration-displaying for-buttons-height">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on"
+                              translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off"
+                              translate="NO"></span>
+                    </span>
+                </label>
+            </div>
+        </div>
 
+        <span class="form-control-description__text">
+            You can change the default settings for the account if you need.
+            Changing the values will affect the costs of the creation.
+        </span>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label class="form-control-label">
+                        NET
+                    </label>
+                    <div class="form-control-input-container">
+                        <input type="text"
+                               ng-required="setAdvancedSettings"
+                               ng-disabled="!setAdvancedSettings"
+                               pattern="[0-9,]+(\.[0-9]{1,2})?$"
+                               commaseparator="{
+                                min: 0,
+                                regexp: '^(([1-9][0-9]{0,1})|0)(\\.[0-9]{0,2})?$',
+                                max: 50
+                               }"
+                               placeholder="0"
+                               ng-change="getContractCost(advancedSettings)"
+                               ng-model="request.contract_details.stake_net_value" class="form-control-input"/>
+                        <div class="input-after">EOS</div>
+                    </div>
+                    <div class="field-advanced-description" ng-if="request.contract_details.stake_net_value && EOSprices['NET']">
+                        ≈ {{EOSprices['NET'] * request.contract_details.stake_net_value|number:2}} kb
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">
+                    Network Bandwidth. Your bandwidth is temporarily used each time a transaction or action is done on the network.
+                </span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label class="form-control-label">
+                        CPU
+                    </label>
+                    <div class="form-control-input-container">
+                        <input type="text"
+                               placeholder="0"
+                               ng-required="setAdvancedSettings"
+                               ng-disabled="!setAdvancedSettings"
+                               pattern="[0-9,]+(\.[0-9]{1,2})?$"
+                               commaseparator="{
+                                    min: 0,
+                                    regexp: '^(([1-9][0-9]{0,1})|0)(\\.[0-9]{0,2})?$',
+                                    max: 50
+                               }"
+                               ng-change="getContractCost(advancedSettings)"
+                               ng-model="request.contract_details.stake_cpu_value" class="form-control-input"/>
+                        <div class="input-after">EOS</div>
+                    </div>
+                    <div class="field-advanced-description" ng-if="EOSprices['CPU'] && request.contract_details.stake_cpu_value">
+                        ≈ {{EOSprices['CPU'] * request.contract_details.stake_cpu_value|number:2}} ms
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">
+                    Processing Power. CPU needed for transaction and actions execution. The complicated actions require more time for execution (and more CPU).
+                </span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label class="form-control-label">
+                        RAM
+                    </label>
+                    <div class="form-control-input-container">
+                        <input type="text"
+                               ng-required="setAdvancedSettings"
+                               ng-disabled="!setAdvancedSettings"
+                               placeholder="4"
+                               pattern="[0-9,]+(\.[0-9]{1,2})?$"
+                               commaseparator="{
+                                min: 4,
+                                regexp: '^([1-9][0-9]*)(\\.[0-9]{0,2})?$',
+                                max: (50 / EOSprices['RAM'])
+                               }"
+                               ng-change="getContractCost(advancedSettings)"
+                               ng-model="request.contract_details.buy_ram_kbytes" class="form-control-input"/>
+                        <div class="input-after">KB</div>
+                    </div>
+                    <div class="field-advanced-description" ng-if="EOSprices['CPU'] && request.contract_details.buy_ram_kbytes">
+                        {{EOSprices['RAM'] * request.contract_details.buy_ram_kbytes|number:4}} EOS
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text">
+                    RAM is needed for storing the data on EOS blockchain.
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative shadow-block__content shadow-block__content_min-tb-padding grey-color no-border"
+         ng-if="(request.network == 10) && (getCostProgress || eosAccountCost)">
+
+        <span class="lds-ellipsis for-shadow-block" ng-if="getCostProgress">
+            <span class="lds-ellipsis-container">
+                <span></span><span></span><span></span><span></span>
+            </span>
+        </span>
+
+        <div class="form-control-label" ng-if="(sitemode !== 'eos') && (getCostProgress || eosAccountCost)"
+             ng-class="{'no-visibility': getCostProgress}">
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <div class="show-vs"></div>
+            {{eosAccountCost.WISH|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;
+            <span class="grey-text-color">
+                {{(eosAccountCost.ETH||'0')|separateNumber}}&nbsp;ETH /
+                {{(eosAccountCost.BTC||'0')|separateNumber}}&nbsp;BTC
+            </span>
+        </div>
+
+        <div class="form-control-label" ng-if="(sitemode === 'eos') && (getCostProgress || eosAccountCost)"
+             ng-class="{'no-visibility': getCostProgress}">
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <div class="show-vs"></div>
+            {{eosAccountCost.EOSISH | separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;
+            <span class="grey-text-color">
+                {{eosAccountCost.EOS | separateNumber}}&nbsp;EOS
+            </span>
+        </div>
+    </div>
+</form>
 <br/><br/><br/>
 
 <div class="grid-row">
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
-                type="button" ng-disabled="!(accountNameForm.$valid && accountKeysForm.$valid && (copiedKeys || havePublicKeys))" ng-click="createContract()">
+                type="button" ng-disabled="!(advancedSettings.$valid && accountNameForm.$valid && accountKeysForm.$valid && (copiedKeys || havePublicKeys))" ng-click="createContract()">
             <span class="lds-ellipsis" ng-if="contractInProgress">
                 <span class="lds-ellipsis-container">
                     <span></span><span></span><span></span><span></span>

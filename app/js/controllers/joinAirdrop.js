@@ -28,9 +28,9 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
     $scope.network = isProduction ? 1 : 2;
 
     web3Service.setProviderByNumber($scope.network);
-    var contract = web3Service.createContractFromAbi(AIRDROP_TOOL.CONTRACT_ADDRESS, AIRDROP_TOOL.ABI);
 
     var interfaceMethod = web3Service.getMethodInterface('put', AIRDROP_TOOL.ABI);
+    console.log(interfaceMethod);
     $scope.setAddressSignature = (new Web3()).eth.abi.encodeFunctionCall(
         interfaceMethod, [$scope.ngPopUp.params.eos_address]
     );
@@ -42,8 +42,12 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
     });
 
     $scope.sendTransaction = function() {
-        contract.methods['put']($scope.ngPopUp.params.eos_address).send({
+        web3Service.setProvider($scope.currentWallet.type, $scope.network);
+        var contract = web3Service.createContractFromAbi(AIRDROP_TOOL.CONTRACT_ADDRESS, AIRDROP_TOOL.ABI);
+        contract.methods.put($scope.ngPopUp.params.eos_address).send({
             from: $scope.currentWallet.wallet
-        }).then(console.log);
+        }, function() {
+
+        });
     };
 });

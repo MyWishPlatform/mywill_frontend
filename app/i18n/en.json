@@ -1400,6 +1400,11 @@
         "ITEM_5": "All transactions can be found in Ethereum blockchain, no cheats are possible.",
         "ITEM_6": "Tool is not responsible for sending EOSISH tokens."
       }
+    },
+    "INSTRUCTION": {
+      "TITLE": "Save EOS address",
+      "DESCRIPTION": " To connect your ETH address (which will have some WISH by Snapshot time) <b>{{ethAddress}}</b> to EOS Address “<b>{{eosAddress}}</b>” please do the following steps:",
+      "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
     }
   }
 }

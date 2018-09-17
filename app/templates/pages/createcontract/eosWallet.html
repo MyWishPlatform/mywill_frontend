@@ -284,7 +284,7 @@
                                 regexp: '^(([1-9][0-9]{0,1})|0)(\\.[0-9]{0,2})?$',
                                 max: 50
                                }"
-                               placeholder="0"
+                               placeholder="{{request.network == 10 ? 0.01 : 10}}"
                                ng-change="getContractCost(advancedSettings)"
                                ng-model="request.contract_details.stake_net_value" class="form-control-input"/>
                         <div class="input-after">EOS</div>
@@ -309,7 +309,7 @@
                     </label>
                     <div class="form-control-input-container">
                         <input type="text"
-                               placeholder="0"
+                               placeholder="{{request.network == 10 ? 0.64 : 10}}"
                                ng-required="setAdvancedSettings"
                                ng-disabled="!setAdvancedSettings"
                                pattern="[0-9,]+(\.[0-9]{1,2})?$"

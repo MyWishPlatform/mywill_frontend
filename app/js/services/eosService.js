@@ -10,7 +10,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         networkType.endpoints.map(function(networkItem) {
             networkItem.chainId = networkType.chainId;
             EOSNetworks[networkType.name].push({
-                url: networkItem.protocol + '://' + networkItem.url + ':' + networkItem.port,
+                url: networkItem.protocol + '://' + networkItem.url + (networkItem.port ? ':' + networkItem.port : ''),
                 params: networkItem
             });
         });

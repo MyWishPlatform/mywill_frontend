@@ -24,7 +24,7 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         parent: 'main.contracts'
     }, {
         title: 'MAIN_MENU.JOIN_AIRDROP',
-        icon: 'icon-contracts',
+        icon: 'icon-eosish-circle',
         route: 'main.join_airdrop'
     }, {
         title: 'MAIN_MENU.EXTERNAL_DEVELOPERS',

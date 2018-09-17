@@ -6,9 +6,9 @@
                 <span>{{'CONTRACTS_NETWORKS.NETWORK_1'|translate}}</span>
             </div>
             <div class="shadow-block__content__blue-title">
-                <i class="shadow-block__content__blue-title__icon icon-airdrop"></i>
+                <i class="shadow-block__content__blue-title__icon icon-eosish-circle"></i>
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size" translate="CONTRACTS.FORMS.AIRDROP.TITLE"></span>
+                    <span class="big-size" translate="MAIN_MENU.JOIN_AIRDROP"></span>
                 </div>
             </div>
             <div class="shadow-block__content__description">
@@ -19,7 +19,7 @@
         </div>
         <form class="shadow-block__content" name="accountsForm">
             <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <div class="form-control-label">ETH address:</div>
                         <input type="text" class="form-control-input"
@@ -30,7 +30,7 @@
                               style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-1-2 form-control-description">
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
                     <div class="form-control-description__text">
                         Enter your ETH address where WISH tokens are stored. Please check that you have corresponding private key.
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <div class="form-control-label">EOS account:</div>
 
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-cell grid-cell-1-2 form-control-description">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
                     <div class="form-control-description__text">
                         Enter Your EOS account for getting EOSISH token (after Airdrop date). If you do not have EOS account, you can create it
@@ -67,6 +67,17 @@
         </form>
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
             <button class="btn btn-submit"
+                    ng-click="checkSignature(accountsForm)"
+                    ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/airdrop-tool-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                eth_address: request.eth_address,
+                                eos_address: request.eos_address
+                            }
+                        }"
+                    class="btn btn-transparent mobile-width-100"
+                    ng-disabled="!accountsForm.$valid"
                     type="button">
                 <span>Save EOS address</span>
             </button>

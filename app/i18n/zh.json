@@ -21,7 +21,7 @@
     "BUY_TOKENS": "购买代币",
     "SUPPORT": "支持",
     "LOG_OUT": "登出",
-    "JOIN_AIRDROP": "Join Airdrop",
+    "JOIN_AIRDROP": "Airdrop Tool",
     "VERSION": "版"
   },
   "HEADER": {
@@ -1386,6 +1386,19 @@
       "EOS_CROWDSALE": {
         "TOKEN_ACCOUNT": "Token Contract Builder",
         "CROWDSALE_ACCOUNT": "Crowdsale EOS account (All contributions shall be sent to this address)"
+      }
+    }
+  },
+  "JOIN_AIRDROP": {
+    "DISCLAIMER": {
+      "TITLE": "Airdrop Tool information",
+      "TEXTS": {
+        "ITEM_1": "This tool is developed for WISH token holders only.",
+        "ITEM_2": "This tool helps WISH holders to specify EOS account for getting EOSISH.",
+        "ITEM_3": "User should be able to make a transaction from ETH address.",
+        "ITEM_4": "User can use tool until the 16-Jan-19 3 pm GMT.",
+        "ITEM_5": "All transactions can be found in Ethereum blockchain, no cheats are possible.",
+        "ITEM_6": "Tool is not responsible for sending EOSISH tokens."
       }
     }
   }

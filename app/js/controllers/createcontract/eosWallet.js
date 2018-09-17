@@ -31,8 +31,8 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         }
         var data = costSentData = {
             buy_ram_kbytes: $scope.setAdvancedSettings ? $scope.request.contract_details.buy_ram_kbytes : 4,
-            stake_net_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_net_value : 0,
-            stake_cpu_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_cpu_value : 0
+            stake_net_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_net_value : ($scope.network == 10 ? 0.01 : 10),
+            stake_cpu_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_cpu_value : ($scope.network == 10 ? 0.64 : 10)
         };
 
         if (advancedSettings && !advancedSettings.$valid) {
@@ -69,8 +69,8 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
             contractData.contract_details.stake_net_value*= 1;
             contractData.contract_details.buy_ram_kbytes*= 1;
         } else {
-            contractData.contract_details.stake_cpu_value = 0;
-            contractData.contract_details.stake_net_value = 0;
+            contractData.contract_details.stake_cpu_value = ($scope.network == 10 ? 0.64 : 10);
+            contractData.contract_details.stake_net_value = ($scope.network == 10 ? 0.01 : 10);
             contractData.contract_details.buy_ram_kbytes = 4;
         }
 

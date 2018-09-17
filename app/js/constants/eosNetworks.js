@@ -68,6 +68,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "network": "eos",
         "endpoints": [
             {
+                "name": "MyWish",
+                "protocol": "https",
+                "port": 443,
+                "url": "api-wulet.unblocking.io",
+                "description": ""
+            },
+            {
                 "name": "EOSMetal",
                 "protocol": "https",
                 "port": 443,

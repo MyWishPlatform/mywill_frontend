@@ -21,14 +21,29 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
-                        <div class="form-control-label">ETH address:</div>
+                        <div class="form-control-label">
+                            <div class="float-right"
+                                 ng-bind="checkedEthAddress ? ('BALANCE'|translate) +': ' + (checkedEthAddress|separateNumber) + ' WISH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
+                            ETH address:
+                        </div>
                         <input type="text" class="form-control-input"
                                ng-model="request.eth_address"
+                               name="eth_address"
+                               required
+                               ng-change="checkETHAddress(accountsForm['eth_address'])"
                                ng-checksum-address-validator="{'network': 'ETH'}">
-                        <span class="field-error form-field_error-check-sum"
-                              ng-if="request.eth_address ? !web3Utils.checkAddressChecksum(request.eth_address) : false"
-                              style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+
+                        <span class="field-success grey-text-color"
+                              ng-if="!checkedEOSAccount && checkedEthAddress">
+                            No EOS account connected. If you just connected it please wait 10 minutes.
+                        </span>
+                        <span class="field-success"
+                              ng-if="checkedEOSAccount">
+                            This ETH address is connected to <b>{{checkedEOSAccount}}</b> EOS account.
+                        </span>
                     </div>
+
+
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
@@ -41,9 +56,9 @@
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <div class="form-control-label">EOS account:</div>
-
                         <div class="form-control-input-container">
                             <input id="owner-address" type="text"
+                                   ng-disabled="!(!checkedEOSAccount && checkedEthAddress)"
                                    placeholder="qwertyuiopas"
                                    pattern="[a-z1-5]{12}"
                                    maxlength="12"

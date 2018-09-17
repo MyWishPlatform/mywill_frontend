@@ -24,6 +24,7 @@
         </div>
     </div><br/>
 </form>
+
 <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode !== 'eos')">
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
@@ -32,9 +33,10 @@
         WISH&nbsp;&nbsp;&nbsp;
         <span class="grey-text-color">
             {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).minus(bigNumber(contract.cost.ETH).times(contract.discount).div(100)).round().toString(10), 'ether')).round(3)|separateNumber}}
-            ETH /
+            ETH
+            <span ng-if="contract.contract_type != 11">/
             {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).minus(bigNumber(contract.cost.BTC).times(contract.discount).div(100)).round().toString(10), 'ether')).round(4)|separateNumber}}
-            BTC
+                BTC</span>
         </span>
     </div>
 </div>

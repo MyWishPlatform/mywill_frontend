@@ -73,9 +73,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.checkAddress = function(address) {
+    this.checkAddress = function(address, network) {
         var defer = $q.defer();
-        checkNetwork(function() {
+        var getAccount = function() {
             eos.getAccount(address, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -83,7 +83,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                     defer.resolve(response);
                 }
             });
-        });
+        };
+        network  ? _this.createEosChain(network, getAccount) : checkNetwork(getAccount);
+
         return defer.promise;
     };
 
@@ -240,10 +242,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
             var eos = window.scatter.eos(getNetwork(), Eos, {});
 
-            console.log({
-                "actions": params.actions,
-                "signatures": [signature]
-            });
             eos.transaction({
                 "actions": params.actions,
                 "signatures": [signature]

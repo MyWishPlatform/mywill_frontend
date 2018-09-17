@@ -284,7 +284,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             };
 
             for (var key in allCosts.data) {
-                allCosts.data[key] = new BigNumber(allCosts.data[key]).round(3).toString(10);
+                allCosts.data[key] = new BigNumber(allCosts.data[key]+'').round(3).toString(10);
             }
             $scope.allCosts = allCosts.data;
             $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;

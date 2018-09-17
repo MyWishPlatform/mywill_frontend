@@ -17,6 +17,13 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
+        getEOSCost: function (data) {
+            var params = {
+                path: API.GET_EOS_COST,
+                query: data
+            };
+            return requestService.get(params);
+        },
         getAllCosts: function (type) {
             var data = {};
             var params = {

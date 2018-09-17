@@ -148,6 +148,10 @@
   line-height: 1.4em;
   display: block;
   padding: 0.5em 1em;
+  &.no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .form-control-input, .text-field {
@@ -358,7 +362,7 @@
     position: relative;
     .input-after {
       top: 50%;
-      margin-top: -0.5em;
+      margin-top: -1em;
       &.dynamic-info {
         margin-top: 0;
         bottom: auto;

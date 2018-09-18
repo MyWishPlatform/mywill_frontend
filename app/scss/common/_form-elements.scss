@@ -141,6 +141,9 @@
   font-size: 1.2em;
   padding: 0.5em 0;
   display: block;
+  &.grey-text-color {
+    color: #878787;
+  }
 }
 .field-advanced-description {
   color: #A3A3A3;

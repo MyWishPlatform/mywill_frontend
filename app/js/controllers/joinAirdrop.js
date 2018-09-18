@@ -3,8 +3,11 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
     var checkAddressTimeout;
     $scope.checkedEthAddress = false;
 
-    var isProduction = (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
+    var isProduction = true || (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
+
     $scope.network = isProduction ? 1 : 2;
+    var contractAddress = isProduction ? AIRDROP_TOOL.CONTRACT_ADDRESS_MAINNET : AIRDROP_TOOL.CONTRACT_ADDRESS;
+
     web3Service.setProviderByNumber($scope.network);
 
     var web3 = web3Service.web3();
@@ -12,7 +15,7 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
     var getEOSAddress = function(addressField) {
         var address = Web3.utils.toChecksumAddress(addressField.$viewValue);
         var enteredAddress = addressField.$viewValue;
-        var contract = web3Service.createContractFromAbi(AIRDROP_TOOL.CONTRACT_ADDRESS, AIRDROP_TOOL.ABI);
+        var contract = web3Service.createContractFromAbi(contractAddress, AIRDROP_TOOL.ABI);
         contract.methods.get(address).call(function(error, response) {
             if (error || (enteredAddress != addressField.$viewValue)) {
                 $scope.balanceInProgress = false;
@@ -70,10 +73,13 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
 
 }).controller('airdropToolInstruction', function(AIRDROP_TOOL, web3Service, $scope) {
 
-    $scope.contractAddress = AIRDROP_TOOL.CONTRACT_ADDRESS;
+    var isProduction = true || (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
 
-    var isProduction = (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
     $scope.network = isProduction ? 1 : 2;
+
+    var contractAddress = isProduction ? AIRDROP_TOOL.CONTRACT_ADDRESS_MAINNET : AIRDROP_TOOL.CONTRACT_ADDRESS;
+    $scope.contractAddress = contractAddress;
+
     web3Service.setProviderByNumber($scope.network);
 
     var interfaceMethod = web3Service.getMethodInterface('put', AIRDROP_TOOL.ABI);
@@ -90,7 +96,7 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
 
     $scope.sendTransaction = function() {
         web3Service.setProvider($scope.currentWallet.type, $scope.network);
-        var contract = web3Service.createContractFromAbi(AIRDROP_TOOL.CONTRACT_ADDRESS, AIRDROP_TOOL.ABI);
+        var contract = web3Service.createContractFromAbi(contractAddress, AIRDROP_TOOL.ABI);
         contract.methods.put($scope.ngPopUp.params.eos_address).send({
             from: $scope.currentWallet.wallet
         }, function() {

@@ -1,5 +1,6 @@
 angular.module('app').constant('AIRDROP_TOOL', {
     "CONTRACT_ADDRESS": "0x215a044ee1961dd1de057a3c6c273131060e2531",
+    "CONTRACT_ADDRESS_MAINNET": "0xc1be9895d1fe36f164f5b878a76865205ecb40b7",
     "ABI": [
         {
             "constant": false,

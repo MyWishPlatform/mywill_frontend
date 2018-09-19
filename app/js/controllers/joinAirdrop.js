@@ -3,7 +3,7 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
     var checkAddressTimeout;
     $scope.checkedEthAddress = false;
 
-    var isProduction = true || (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
+    var isProduction = (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
 
     $scope.network = isProduction ? 1 : 2;
     var contractAddress = isProduction ? AIRDROP_TOOL.CONTRACT_ADDRESS_MAINNET : AIRDROP_TOOL.CONTRACT_ADDRESS;
@@ -73,7 +73,7 @@ angular.module('app').controller('joinAirdropController', function($scope, $time
 
 }).controller('airdropToolInstruction', function(AIRDROP_TOOL, web3Service, $scope) {
 
-    var isProduction = true || (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
+    var isProduction = (location.host.indexOf('eos.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
 
     $scope.network = isProduction ? 1 : 2;
 

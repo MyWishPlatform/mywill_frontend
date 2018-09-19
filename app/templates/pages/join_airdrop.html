@@ -92,7 +92,7 @@
                             }
                         }"
                     class="btn btn-transparent mobile-width-100"
-                    ng-disabled="!accountsForm.$valid"
+                    ng-disabled="!accountsForm.$valid || (checkedEOSAccount || !checkedEthAddress)"
                     type="button">
                 <span>Save EOS address</span>
             </button>

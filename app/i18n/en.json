@@ -1393,7 +1393,7 @@
     "DISCLAIMER": {
       "TITLE": "Airdrop Tool information",
       "TEXTS": {
-        "ITEM_1": "This tool is developed for WISH token holders only.",
+        "ITEM_1": "This tool was developed for WISH token holders only.",
         "ITEM_2": "This tool helps WISH holders to specify EOS account for getting EOSISH.",
         "ITEM_3": "User should be able to make a transaction from ETH address.",
         "ITEM_4": "User can use tool until the 16-Jan-19 3 pm GMT.",

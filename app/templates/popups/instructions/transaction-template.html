@@ -37,3 +37,16 @@
         <div class="copy-block__text">{{instructionData.dataField}}</div>
     </div>
 </div>
+<div class="normal-text visible-text" ng-if="instructionData.gasLimit">
+    {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.GAS_LIMIT'|translate}}
+    <div class="copy-block">
+        <button class="copy-block__button relative"
+                clipboard supported="supported"
+                text="instructionData.gasLimit"
+                ng-class="{copied: instructionData.contract.copied['gasLimit']}"
+                on-copied="$root.successCodeCopy(instructionData.contract, 'gasLimit')">&nbsp;
+            <i class="icon-content_copy"></i>
+        </button>
+        <div class="copy-block__text">{{instructionData.gasLimit|separateNumber}}</div>
+    </div>
+</div>

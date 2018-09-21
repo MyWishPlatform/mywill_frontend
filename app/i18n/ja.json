@@ -536,7 +536,8 @@
         "PART_1": "管理アドレスからトランザクション ({{amount||'0'}} ETH) を送信する",
         "PART_2": "契約アドレスに",
         "PART_3": "データ フィールド付き",
-        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address"
+        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address",
+        "GAS_LIMIT": "Gas limit"
       },
       "ACTIVATE": {
         "TITLE": "活性化する",

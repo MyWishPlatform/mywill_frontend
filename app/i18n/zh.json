@@ -536,7 +536,8 @@
         "PART_1": "从您的管理地址发送交易（{{amount||'0'}} ETH）",
         "PART_2": "发送至合约地址",
         "PART_3": "含有数据字段",
-        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address"
+        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address",
+        "GAS_LIMIT": "Gas limit"
       },
       "ACTIVATE": {
         "TITLE": "激活",

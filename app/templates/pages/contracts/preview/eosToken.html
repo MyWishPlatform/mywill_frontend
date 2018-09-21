@@ -42,8 +42,8 @@
                            ng-attr-href="{{(contract.network|etherscanUrl:'symbol')}}/{{details.eos_contract.address}}/{{ contract.contract_details.token_short_name }}">
                             {{ contract.contract_details.token_short_name }}
                         </a>
-                        <span ng-if="contract.network == 11">
-                            {{ contract.contract_details.token_short_name }}
+                        <span ng-if="(contract.network == 11 || !details.eos_contract.address)">
+                            {{ details.token_short_name }}
                         </span>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     <div class="normal-text">
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></span><br/>
-                        {{ contract.contract_details.decimals }}
+                        {{ details.decimals }}
                     </div>
                 </div>
                 <div class="clearfix show-ls"><br/></div>

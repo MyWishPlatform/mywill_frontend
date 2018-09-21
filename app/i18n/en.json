@@ -536,7 +536,8 @@
         "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
         "PART_2": "To contract address",
         "PART_3": "With Data field",
-        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address"
+        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address",
+        "GAS_LIMIT": "Gas limit"
       },
       "ACTIVATE": {
         "TITLE": "Activate",

@@ -1,5 +1,5 @@
 angular.module('app').controller('eosAirdropCreateController', function($scope, contractService, $timeout, $state, $rootScope,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, EOSService) {
 
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
@@ -36,6 +36,8 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
     var createContract = function() {
         if ($scope.contractInProgress) return;
         var data = angular.copy($scope.request);
+        data.contract_details.token_short_name = data.contract_details.token_short_name.toUpperCase();
+        data.contract_details.eos_contract = undefined;
         $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});
@@ -60,5 +62,41 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
         }
     };
     checkDraftContract();
+
+    var checkAddressTimeout;
+    $scope.checkAddress = function(addressField) {
+        addressField.$setValidity('not-checked', false);
+        if (!addressField.$viewValue) {
+            return;
+        }
+        checkAddressTimeout ? $timeout.cancel(checkAddressTimeout) : false;
+        checkAddressTimeout = $timeout(function() {
+            EOSService.checkAddress(addressField.$viewValue, contract.network).then(function(addressInfo) {
+                addressField.$setValidity('not-checked', true);
+            });
+        }, 500);
+    };
+
+
+    var checkTokenTimeout;
+    $scope.checkTokenName = function(tokenShortName) {
+        tokenShortName.$setValidity('not-checked', false);
+        tokenShortName.$setValidity('check-sum', true);
+        if (!tokenShortName.$viewValue) {
+            return;
+        }
+        checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
+        checkTokenTimeout = $timeout(function() {
+            var symbol = tokenShortName.$viewValue.toUpperCase();
+            EOSService.coinInfo(symbol, contract.network).then(function(result) {
+                if (!result[symbol]) {
+                    tokenShortName.$setValidity('check-sum', false);
+                }
+                tokenShortName.$setValidity('not-checked', true);
+            }, function() {
+                tokenShortName.$setValidity('not-checked', true);
+            });
+        }, 200);
+    };
 
 });

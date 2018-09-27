@@ -75,6 +75,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
     this.checkAddress = function(address, network) {
         var defer = $q.defer();
+        network*= 1;
         var getAccount = function() {
             eos.getAccount(address, function (error, response) {
                 if (error) {
@@ -108,9 +109,10 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.coinInfo = function(short_name) {
+    this.coinInfo = function(short_name, network) {
         var defer = $q.defer();
-        checkNetwork(function() {
+
+        var getStats = function() {
             eos.getCurrencyStats(eosAccounts[displayingNetwork]['TOKEN'], short_name, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -118,7 +120,10 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                     defer.resolve(response);
                 }
             });
-        });
+        };
+
+        network  ? _this.createEosChain(network, getStats) : checkNetwork(getStats);
+
         return defer.promise;
     };
 
@@ -234,6 +239,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                 return;
             }
             params['actions'].map(function(action) {
+                if ((action.name == 'transfer') && !action.data.from) {
+                    action.data.from = tokenOwnerAccount['name'];
+                }
                 action.authorization = [{
                     "actor": tokenOwnerAccount['name'],
                     "permission": tokenOwnerAccount['authority']
@@ -245,8 +253,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
             eos.transaction({
                 "actions": params.actions,
                 "signatures": [signature]
-            }).then(defer.resolve).catch(function() {
+            }).then(defer.resolve).catch(function(error) {
                 defer.reject({
+                    error: error,
                     code: 2
                 });
             });

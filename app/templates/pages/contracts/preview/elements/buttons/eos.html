@@ -44,6 +44,53 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Airdrop Deposit button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 13)">
+                <button ng-click="depositTokens()"
+                        type="button"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Airdrop add addresses button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 13) && !contract.contract_details.sent_count">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eos/airdrop-addresses-form.html',
+                            newPopupContent: true,
+                            actions: {
+                                updateBalanceInfo: updateBalanceInfo,
+                            },
+                            params: {
+                                contract: contract,
+                                tokenInfo: tokenInfo
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.ADD_ADDRESSES"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Airdrop send table instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 13) && contract.contract_details.added_count">
+
+                <button ng-pop-up="{
+                            template: '/templates/popups/data-preview/eos-airdrop-next-send-table.html',
+                            newPopupContent: true,
+                            class: 'page-size',
+                            params: {
+                                filter: 'added',
+                                contract: contract,
+                                tokenInfo: tokenInfo
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
+                </button><br/><br/>
+            </div>
 
             <!-- Date changing form button -->
             <div class="grid-cell grid-cell-vs-1-2"
@@ -69,7 +116,6 @@
                 <button class="btn btn-transparent mobile-width-100" ng-click="generateWithdrawTx()">
                     <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>
                 </button><br/><br/>
-                <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
             </div>
 
 
@@ -80,7 +126,6 @@
                 <button class="btn btn-transparent mobile-width-100" ng-click="generateFinalizeTx()">
                     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
                 </button><br/><br/>
-                <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
             </div>
 
 
@@ -94,7 +139,6 @@
 
         </div>
     </div>
-
-
+    <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
 
 </div>

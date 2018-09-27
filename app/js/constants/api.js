@@ -40,6 +40,7 @@ angular.module('Constants').constant('API', {
     "SET_LNG": "set_lang/",
     "WHITELIST": "whitelist_addresses/",
     "AIRDROP_ADDRESSES": "airdrop_addresses/",
+    "EOS_AIRDROP_ADDRESSES": "eos_airdrop_addresses/",
     "LOAD_AIRDROP": "load_airdrop/",
     "CHECK_STATUS": "check_status/",
     "SOCIAL": {

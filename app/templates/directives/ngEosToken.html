@@ -13,6 +13,10 @@
 
 
     <span class="field-error form-field_error-check-sum"
+          ng-if="ngEosTokenOptions.invert"
+          translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.ALREADY_NAME_TEXT"></span>
+
+    <span class="field-error form-field_error-check-sum"
           ng-if="field.$error['not-used']"
           style="display: block;"
           translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.TOKEN_IS_USED_AIRDROP"></span>

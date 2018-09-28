@@ -42,23 +42,13 @@
                     <label for="token-symbol" class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
 
-                    <div class="form-control-input-container">
-                        <input id="token-symbol" type="text"
-                               placeholder="NEW"
-                               name="token_field"
-                               ng-change="checkTokenName(contractParamsForm.token_field)"
-                               pattern='[a-zA-Z]+'
-                               ng-model="request.token_short_name"
-                               maxlength="7"
-                               minlength="1"
-                               required
-                               class="form-control-input uppercase"/>
-
-                        <div class="lds-dual-ring" ng-if="contractParamsForm.token_field.$error['not-checked']"></div>
-
-                        <span class="field-error form-field_error-check-sum"
-                              translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.ALREADY_NAME_TEXT"></span>
-                    </div>
+                    <div ng-eos-token
+                         ng-model="request.token_short_name"
+                         ng-eos-token-options="{
+                            name: 'token-symbol',
+                            network: network,
+                            invert: true
+                         }"></div>
                 </div>
             </div>
 

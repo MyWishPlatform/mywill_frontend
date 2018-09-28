@@ -7,23 +7,12 @@
                        translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.HOLDERS.ACCOUNT.TITLE"
                        class="form-control-label"></label>
 
-                <div class="form-control-input-container">
-                    <input id="out-wallet-key-{{$index}}" type="text"
-                           pattern="[a-z1-5]{12}"
-                           placeholder="qwertyuiopas"
-                           ng-change="checkAccountName(distributionForm['out-wallet-key-' + $index], true)"
-                           ng-model="recipient.address"
-                           maxlength="12"
-                           ng-attr-name="{{'out-wallet-key-'+$index}}"
-                           required
-                           class="form-control-input"/>
-                    <div class="input-after dynamic-info">
-                        {{distributionForm['out-wallet-key-' + $index].$viewValue.length||0}}/12
-                    </div>
-                    <span class="field-error form-field_error-check-sum"
-                          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.ACCOUNT_DOES_NOT_EXIST"></span>
-                </div>
-
+                <div ng-eos-account
+                     ng-model="recipient.address"
+                     ng-eos-account-options="{
+                        name: 'out-wallet-key-' + $index,
+                        network: network
+                     }"></div>
             </div>
         </div>
         <div class="clearfix show-ps"><br/></div>

@@ -69,15 +69,15 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
         ctrl.$setValidity('not-used', true);
     };
 
+    var airdropAccount = EOSService.getAirdropAddress($scope.network);
 
-    $scope.checkAirdropToken = function(ctrl, tokenInfo) {
+    $scope.checkAirdropToken = function(ctrl) {
         var details = $scope.request.contract_details;
-
         ctrl.$setValidity('not-checked', false);
         EOSService.getTableRows(
             details.admin_address,
             'drop',
-            'mywishte1111',
+            airdropAccount,
             $scope.network
         ).then(function(response) {
             var result = response.rows;

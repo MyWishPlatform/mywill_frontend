@@ -28,6 +28,20 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return eosAccounts['COMING'];
     };
 
+    this.getAirdropAddress = function(network) {
+        network*= 1;
+        var displayingNetwork;
+        switch(network) {
+            case 10:
+                displayingNetwork = 'MAINNET';
+                break;
+            case 11:
+                displayingNetwork = 'TESTNET';
+                break;
+        }
+        return eosAccounts[displayingNetwork]['AIRDROP'];
+    };
+
     var currentNetworks = {
         'MAINNET': 0,
         'TESTNET': 0
@@ -131,7 +145,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
     this.coinInfo = function(short_name, network, tokenAddress) {
         var defer = $q.defer();
-
         var getStats = function() {
             eos.getCurrencyStats(tokenAddress || eosAccounts[displayingNetwork]['TOKEN'], short_name, function (error, response) {
                 if (error) {
@@ -147,9 +160,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.getBalance = function(code, account, symbol) {
+    this.getBalance = function(code, account, symbol, network) {
         var defer = $q.defer();
-        checkNetwork(function() {
+        network  ? _this.createEosChain(network, function() {
             eos.getCurrencyBalance(code, account, symbol, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -157,7 +170,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                     defer.resolve(response);
                 }
             });
-        });
+        }) : false;
         return defer.promise;
     };
 

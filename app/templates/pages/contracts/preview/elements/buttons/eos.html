@@ -47,7 +47,16 @@
             <!-- Airdrop Deposit button -->
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 13)">
-                <button ng-click="depositTokens()"
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eos/deposit-airdrop.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract,
+                                tokenInfo: tokenInfo
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
                         type="button"
                         class="btn btn-transparent mobile-width-100">
                     <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
@@ -136,7 +145,6 @@
                     <span translate="CONTRACTS_BUTTONS.EDIT"></span>
                 </a><br/><br/>
             </div>
-
         </div>
     </div>
     <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>

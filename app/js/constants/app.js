@@ -10,22 +10,26 @@ module.constant('APP_CONSTANTS', {
         'DEVELOPMENT': {
             'MAINNET': {
                 'TOKEN': 'mywishtoken4',
-                'ACCOUNT': 'mywishtoken4'
+                'ACCOUNT': 'mywishtoken4',
+                'AIRDROP': 'mywishair111'
             },
             'TESTNET': {
                 'TOKEN': 'mywishtoken3',
-                'ACCOUNT': 'mywishtoken3'
+                'ACCOUNT': 'mywishtoken3',
+                'AIRDROP': 'mywishair111'
             },
             'COMING': 'mywishcoming'
         },
         'PRODUCTION': {
             'MAINNET': {
                 'TOKEN': 'buildertoken',
-                'ACCOUNT': 'deploymywish'
+                'ACCOUNT': 'deploymywish',
+                'AIRDROP': ''
             },
             'TESTNET': {
                 'TOKEN': 'mywishtokens',
-                'ACCOUNT': 'mywishiotest'
+                'ACCOUNT': 'mywishiotest',
+                'AIRDROP': ''
             },
             'COMING': 'mywishcoming'
         }

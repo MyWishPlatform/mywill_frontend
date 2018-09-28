@@ -59,10 +59,11 @@ angular.module('Directives').directive('ngEosAccount', function() {
                         accountsInfoHash[accountKey] = addressInfo;
                         $scope.ngEosAccountOptions.change ?
                             $scope.ngEosAccountOptions.change(ctrl, addressInfo) : false;
+                        ctrl.$setValidity('check-sum', !$scope.ngEosAccountOptions.invert);
                     }, function() {
                         if (currValue !== ctrl.$modelValue) return;
-                        ctrl.$setValidity('check-sum', false);
                         ctrl.$setValidity('not-checked', true);
+                        ctrl.$setValidity('check-sum', !!$scope.ngEosAccountOptions.invert);
 
                     });
                 }, !withoutTimeout ? 500 : 0);
@@ -139,6 +140,7 @@ angular.module('Directives').directive('ngEosAccount', function() {
                 }
                 checkTokenTimeout = $timeout(function() {
                     if (tokensInfoHash[tokenKey]) {
+                        ctrl.$setValidity('check-sum', !$scope.ngEosTokenOptions.invert);
                         if (currValue !== ctrl.$modelValue) return;
                         ctrl.$setValidity('not-checked', true);
                         checkIssuer();
@@ -150,14 +152,15 @@ angular.module('Directives').directive('ngEosAccount', function() {
                         ctrl.$setValidity('not-checked', true);
                         if (currValue !== ctrl.$modelValue) return;
                         if (!result[currValue]) {
-                            ctrl.$setValidity('check-sum', false);
+                            ctrl.$setValidity('check-sum', !!$scope.ngEosTokenOptions.invert);
                         } else {
                             tokensInfoHash[tokenKey] = result;
                             checkIssuer();
+                            ctrl.$setValidity('check-sum', !$scope.ngEosTokenOptions.invert);
                         }
                     }, function() {
                         ctrl.$setValidity('not-checked', true);
-                        ctrl.$setValidity('check-sum', false);
+                        ctrl.$setValidity('check-sum', !!$scope.ngEosTokenOptions.invert);
                     });
                 }, !withoutTimeout ? 500 : 0);
             };

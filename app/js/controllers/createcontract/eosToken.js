@@ -16,8 +16,6 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
     $scope.contract = contract;
     $scope.network = contract.network * 1;
 
-    EOSService.createEosChain($scope.network);
-
     var checkTokenTimeout;
     $scope.checkTokenName = function(tokenShortName) {
         tokenShortName.$setValidity('check-sum', true);
@@ -28,7 +26,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
         checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
         checkTokenTimeout = $timeout(function() {
             var symbol = tokenShortName.$viewValue.toUpperCase();
-            EOSService.coinInfo(symbol).then(function(result) {
+            EOSService.coinInfo(symbol, $scope.network).then(function(result) {
                 if (result[symbol]) {
                     tokenShortName.$setValidity('check-sum', false);
                 }

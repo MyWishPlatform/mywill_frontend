@@ -1238,7 +1238,10 @@
       },
       "EOS_CROWDSALE": {
         "ERRORS": {
-          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist"
+          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist",
+          "TOKEN_DOES_NOT_EXIST": "Token symbol does not exist",
+          "TOKEN_IS_USED_AIRDROP": "Token is used on Airdrop",
+          "TOKEN_ISSUER_INVALID": "Владелец токена указан неверно"
         },
         "CAP_NOTE": {
           "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."

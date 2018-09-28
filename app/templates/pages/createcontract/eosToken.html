@@ -41,18 +41,24 @@
                 <div class="form-control">
                     <label for="token-symbol" class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
-                    <input id="token-symbol" type="text"
-                           placeholder="NEW"
-                           name="token_field"
-                           ng-change="checkTokenName(contractParamsForm.token_field)"
-                           pattern='[a-zA-Z]+'
-                           ng-model="request.token_short_name"
-                           maxlength="7"
-                           minlength="1"
-                           required
-                           class="form-control-input uppercase"/>
-                    <span class="field-error form-field_error-check-sum"
-                          translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.ALREADY_NAME_TEXT"></span>
+
+                    <div class="form-control-input-container">
+                        <input id="token-symbol" type="text"
+                               placeholder="NEW"
+                               name="token_field"
+                               ng-change="checkTokenName(contractParamsForm.token_field)"
+                               pattern='[a-zA-Z]+'
+                               ng-model="request.token_short_name"
+                               maxlength="7"
+                               minlength="1"
+                               required
+                               class="form-control-input uppercase"/>
+
+                        <div class="lds-dual-ring" ng-if="contractParamsForm.token_field.$error['not-checked']"></div>
+
+                        <span class="field-error form-field_error-check-sum"
+                              translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.ALREADY_NAME_TEXT"></span>
+                    </div>
                 </div>
             </div>
 
@@ -94,7 +100,7 @@
 </div>
 
 <form class="shadow-block" ng-class="{'no-active': !(contractParamsForm.$valid && contractNameForm.$valid)}" name="tokenOwnerForm">
-    <div class="shadow-block__content">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
@@ -103,15 +109,12 @@
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></label>
 
                     <div class="form-control-input-container">
-                        <input id="owner-address" type="text"
-                               pattern="[a-z1-5]{12}"
-                               maxlength="12"
-                               ng-change="checkAddress(tokenOwnerForm['owner_address'])"
-                               ng-model="request.admin_address"
-                               name="owner_address"
-                               required
-                               class="form-control-input"/>
-                        <div class="input-after dynamic-info">{{tokenOwnerForm['owner_address'].$viewValue.length||0}}/12</div>
+                        <div ng-eos-account
+                             ng-model="request.admin_address"
+                             ng-eos-account-options="{
+                                name: 'owner-address',
+                                network: network
+                             }"></div>
                     </div>
                 </div>
             </div>
@@ -126,7 +129,7 @@
 </form>
 
 <form class="shadow-block" ng-class="{'no-active': !(contractParamsForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}" name="maxSupplyOwnerForm">
-    <div class="shadow-block__content">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">

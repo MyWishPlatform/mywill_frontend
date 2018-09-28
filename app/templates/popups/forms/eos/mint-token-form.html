@@ -24,17 +24,12 @@
                         <label for="out-wallet-key"
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.LABEL"
                                class="form-control-label"></label>
-                        <div class="form-control-input-container">
-                            <input id="out-wallet-key" type="text"
-                                   ng-change="checkAddress(mintForm['out-wallet-key'])"
-                                   pattern="[a-z1-5]{12}"
-                                   maxlength="12"
-                                   ng-model="recipient.address"
-                                   name="out-wallet-key"
-                                   required
-                                   class="form-control-input"/>
-                            <div class="input-after dynamic-info">{{mintForm['out-wallet-key'].$viewValue.length||0}}/12</div>
-                        </div>
+                        <div ng-eos-account
+                             ng-model="recipient.address"
+                             ng-eos-account-options="{
+                                name: 'out-wallet-key',
+                                network: ngPopUp.params.contract.network
+                             }"></div>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">

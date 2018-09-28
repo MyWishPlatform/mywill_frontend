@@ -1,0 +1,14 @@
+<div class="form-control-input-container">
+    <input id="{{ngEosTokenOptions.name}}" type="text"
+           ng-eos-token-validator
+           placeholder="NEW"
+           pattern='[a-zA-Z]+'
+           ng-model="ngModel"
+           name="{{ngEosAccountOptions.name}}"
+           required
+           ng-change="checkToken()"
+           class="form-control-input uppercase"/>
+    <div class="lds-dual-ring" ng-if="field.$error['not-checked']"></div>
+    <span class="field-error form-field_error-check-sum"
+          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.TOKEN_DOES_NOT_EXIST"></span>
+</div>

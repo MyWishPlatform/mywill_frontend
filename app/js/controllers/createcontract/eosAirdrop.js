@@ -63,40 +63,41 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
     };
     checkDraftContract();
 
-    var checkAddressTimeout;
-    $scope.checkAddress = function(addressField) {
-        addressField.$setValidity('not-checked', false);
-        if (!addressField.$viewValue) {
-            return;
-        }
-        checkAddressTimeout ? $timeout.cancel(checkAddressTimeout) : false;
-        checkAddressTimeout = $timeout(function() {
-            EOSService.checkAddress(addressField.$viewValue, contract.network).then(function(addressInfo) {
-                addressField.$setValidity('not-checked', true);
-            });
-        }, 500);
+
+
+    $scope.preCheckToken = function(ctrl) {
+        ctrl.$setValidity('not-used', true);
+        ctrl.$setValidity('this-admin', true);
+        $scope.tokenIsUsed = false;
+        $scope.tokenForOtherAdmin = false;
     };
 
 
-    var checkTokenTimeout;
-    $scope.checkTokenName = function(tokenShortName) {
-        tokenShortName.$setValidity('not-checked', false);
-        tokenShortName.$setValidity('check-sum', true);
-        if (!tokenShortName.$viewValue) {
+    $scope.checkAirdropToken = function(ctrl, tokenInfo) {
+        var details = $scope.request.contract_details;
+        if (tokenInfo[details.token_short_name]['issuer'] !== details.admin_address) {
+            ctrl.$setValidity('this-admin', false);
+            $scope.tokenForOtherAdmin = true;
             return;
         }
-        checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
-        checkTokenTimeout = $timeout(function() {
-            var symbol = tokenShortName.$viewValue.toUpperCase();
-            EOSService.coinInfo(symbol, contract.network).then(function(result) {
-                if (!result[symbol]) {
-                    tokenShortName.$setValidity('check-sum', false);
-                }
-                tokenShortName.$setValidity('not-checked', true);
-            }, function() {
-                tokenShortName.$setValidity('not-checked', true);
+        ctrl.$setValidity('not-checked', false);
+        EOSService.getTableRows(
+            details.admin_address,
+            'drop',
+            'mywishte1111',
+            $scope.network
+        ).then(function(response) {
+            var result = response.rows;
+            var tokens = {};
+            ctrl.$setValidity('not-checked', true);
+            result.map(function(row) {
+                tokens[row.symbol.split(',')[1]] = row;
             });
-        }, 200);
+            if (tokens[details['token_short_name']]) {
+                ctrl.$setValidity('not-used', false);
+                $scope.tokenIsUsed = true;
+            }
+        });
     };
 
 });

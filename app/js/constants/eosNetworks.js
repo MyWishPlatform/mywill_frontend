@@ -67,13 +67,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "type": "testnet",
         "network": "eos",
         "endpoints": [
-            {
-                "name": "MyWish",
-                "protocol": "https",
-                "port": 443,
-                "url": "api-wulet.unblocking.io",
-                "description": ""
-            },
+            // {
+            //     "name": "MyWish",
+            //     "protocol": "https",
+            //     "port": 443,
+            //     "url": "api-wulet.unblocking.io",
+            //     "description": ""
+            // },
             {
                 "name": "EOS Costa Rica",
                 "protocol": "https",

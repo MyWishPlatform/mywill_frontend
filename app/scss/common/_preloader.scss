@@ -256,10 +256,9 @@
   .form-control & {
     position: absolute;
     right: 1.5em;
-    top: 50%;
+    top: 1.7em;
     width: 1.8em;
     height: 1.8em;
-    margin-top: -0.8em;
     + .dynamic-info {
       display: none;
     }

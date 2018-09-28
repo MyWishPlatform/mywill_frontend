@@ -99,25 +99,39 @@ angular.module('Directives').directive('ngEosAccount', function() {
                 return viewValue.toUpperCase();
             });
 
-            $scope.checkToken = function(withoutTimeout) {
 
+            var checkIssuer = function() {
+                if (!tokenKey) return;
+                var result = tokensInfoHash[tokenKey][value];
+                if (!($scope.ngEosTokenOptions.tokenIssuer && result)) return;
+
+                if (result['issuer'] !== $scope.ngEosTokenOptions.tokenIssuer) {
+                    ctrl.$setValidity('this-admin', false);
+                    return;
+                }
+                $scope.ngEosTokenOptions.change ?
+                    $scope.ngEosTokenOptions.change(ctrl, result) : false;
+            };
+
+            var tokenKey;
+            $scope.checkToken = function(withoutTimeout) {
                 $scope.ngEosTokenOptions.startChange ?
                     $scope.ngEosTokenOptions.startChange(ctrl) : false;
 
                 var newValue = ctrl.$modelValue;
 
-                if (value === newValue) return;
                 var currValue = value = newValue;
                 checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
                 ctrl.$setValidity('check-sum', true);
                 ctrl.$setValidity('not-checked', true);
+                ctrl.$setValidity('this-admin', true);
 
                 if (!ctrl.$valid) {
                     return;
                 }
                 ctrl.$setTouched();
-                var tokenKey = $scope.ngEosTokenOptions.network + '_' + currValue + '_' + $scope.ngEosTokenOptions.tokenAddress;
 
+                tokenKey = $scope.ngEosTokenOptions.network + '_' + currValue + '_' + $scope.ngEosTokenOptions.tokenAddress;
                 withoutTimeout = withoutTimeout || !!tokensInfoHash[tokenKey];
 
                 if (!withoutTimeout) {
@@ -127,8 +141,7 @@ angular.module('Directives').directive('ngEosAccount', function() {
                     if (tokensInfoHash[tokenKey]) {
                         if (currValue !== ctrl.$modelValue) return;
                         ctrl.$setValidity('not-checked', true);
-                        $scope.ngEosTokenOptions.change ?
-                            $scope.ngEosTokenOptions.change(ctrl, tokensInfoHash[tokenKey]) : false;
+                        checkIssuer();
                         return;
                     }
                     EOSService.coinInfo(
@@ -140,8 +153,7 @@ angular.module('Directives').directive('ngEosAccount', function() {
                             ctrl.$setValidity('check-sum', false);
                         } else {
                             tokensInfoHash[tokenKey] = result;
-                            $scope.ngEosTokenOptions.change ?
-                                $scope.ngEosTokenOptions.change(ctrl, result) : false;
+                            checkIssuer();
                         }
                     }, function() {
                         ctrl.$setValidity('not-checked', true);
@@ -152,27 +164,18 @@ angular.module('Directives').directive('ngEosAccount', function() {
 
             var addressRegExp = /[a-z1-5]{12}/;
 
-            if ($scope.ngEosTokenOptions.tokenAddress) {
-                $scope.$watch('ngEosTokenOptions.tokenAddress', function() {
-                    if (!addressRegExp.test($scope.ngEosTokenOptions.tokenAddress)) return;
-                    value = false;
-                    ctrl.$setValidity('check-sum', true);
-                    $scope.checkToken(true);
-                });
-            }
+            $scope.$watch('ngEosTokenOptions.tokenAddress', function() {
+                if (!addressRegExp.test($scope.ngEosTokenOptions.tokenAddress)) return;
+                value = false;
+                $scope.checkToken(true);
+            });
 
-            if ($scope.ngEosTokenOptions.tokenIssuer) {
-                $scope.$watch('ngEosTokenOptions.tokenIssuer', function() {
-                    if (!addressRegExp.test($scope.ngEosTokenOptions.tokenIssuer) || !value) return;
-                    var tokenKey = $scope.ngEosTokenOptions.network + '_' + value + '_' + $scope.ngEosTokenOptions.tokenAddress;
+            $scope.$watch('ngEosTokenOptions.tokenIssuer', function() {
+                ctrl.$setValidity('this-admin', true);
+                if (!addressRegExp.test($scope.ngEosTokenOptions.tokenIssuer) || !value) return;
+                checkIssuer();
+            });
 
-                    if (!tokensInfoHash[tokenKey]) return;
-                    $scope.ngEosTokenOptions.startChange ?
-                        $scope.ngEosTokenOptions.startChange(ctrl) : false;
-                    $scope.ngEosTokenOptions.change ?
-                        $scope.ngEosTokenOptions.change(ctrl, tokensInfoHash[tokenKey]) : false;
-                });
-            }
         }
     }
 });

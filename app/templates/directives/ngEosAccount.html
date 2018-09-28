@@ -1,19 +1,17 @@
 <div class="form-control-input-container">
-
     <input id="{{ngEosAccountOptions.name}}" type="text"
            ng-eos-account-validator
            placeholder="qwertyuiopas"
            pattern="[a-zA-Z1-5]{12}"
            maxlength="12"
+           ng-disabled="ngEosAccountOptions.disabled"
            ng-model="ngModel"
            name="{{ngEosAccountOptions.name}}"
            required
            ng-change="checkAddress()"
            class="form-control-input lowercase"/>
-
     <div class="lds-dual-ring" ng-if="field.$error['not-checked']"></div>
     <div class="input-after dynamic-info">{{field.$viewValue.length||0}}/12</div>
-
     <span class="field-error form-field_error-check-sum"
           translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.ACCOUNT_DOES_NOT_EXIST"></span>
 </div>

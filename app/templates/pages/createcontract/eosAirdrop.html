@@ -73,7 +73,8 @@
                          ng-model="request.contract_details.token_address"
                          ng-eos-account-options="{
                             name: 'token_address',
-                            network: request.network
+                            network: request.network,
+                            disabled: !managementAddressForm.$valid
                          }"></div>
                 </div>
             </div>
@@ -103,18 +104,9 @@
                             change: checkAirdropToken,
                             startChange: preCheckToken,
                             tokenAddress: request.contract_details.token_address,
-                            tokenIssuer: request.contract_details.admin_address
+                            tokenIssuer: request.contract_details.admin_address,
+                            disabled: !(managementAddressForm.$valid && tokenAddressForm.$valid)
                          }"></div>
-
-                    <span class="field-error form-field_error-check-sum"
-                          ng-if="tokenForOtherAdmin"
-                          style="display: block;"
-                          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.TOKEN_ISSUER_INVALID"></span>
-
-                    <span class="field-error form-field_error-check-sum"
-                          ng-if="tokenIsUsed"
-                          style="display: block;"
-                          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.TOKEN_IS_USED_AIRDROP"></span>
                 </div>
             </div>
 

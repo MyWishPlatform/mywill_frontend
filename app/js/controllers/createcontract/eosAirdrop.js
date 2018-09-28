@@ -67,19 +67,12 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
 
     $scope.preCheckToken = function(ctrl) {
         ctrl.$setValidity('not-used', true);
-        ctrl.$setValidity('this-admin', true);
-        $scope.tokenIsUsed = false;
-        $scope.tokenForOtherAdmin = false;
     };
 
 
     $scope.checkAirdropToken = function(ctrl, tokenInfo) {
         var details = $scope.request.contract_details;
-        if (tokenInfo[details.token_short_name]['issuer'] !== details.admin_address) {
-            ctrl.$setValidity('this-admin', false);
-            $scope.tokenForOtherAdmin = true;
-            return;
-        }
+
         ctrl.$setValidity('not-checked', false);
         EOSService.getTableRows(
             details.admin_address,
@@ -95,7 +88,6 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
             });
             if (tokens[details['token_short_name']]) {
                 ctrl.$setValidity('not-used', false);
-                $scope.tokenIsUsed = true;
             }
         });
     };

@@ -47,7 +47,9 @@
                          ng-model="request.contract_details.admin_address"
                          ng-eos-account-options="{
                             name: 'admin_address',
-                            network: request.network
+                            network: request.network,
+                            onInit: initField,
+                            change: changeAddressParams
                          }"></div>
                 </div>
             </div>
@@ -74,7 +76,8 @@
                          ng-eos-account-options="{
                             name: 'token_address',
                             network: request.network,
-                            disabled: !managementAddressForm.$valid
+                            disabled: !managementAddressForm.$valid,
+                            onInit: initField
                          }"></div>
                 </div>
             </div>
@@ -104,8 +107,8 @@
                             change: checkAirdropToken,
                             startChange: preCheckToken,
                             tokenAddress: request.contract_details.token_address,
-                            tokenIssuer: request.contract_details.admin_address,
-                            disabled: !(managementAddressForm.$valid && tokenAddressForm.$valid)
+                            disabled: !(managementAddressForm.$valid && tokenAddressForm.$valid),
+                            onInit: initField
                          }"></div>
                 </div>
             </div>

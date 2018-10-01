@@ -23,6 +23,10 @@ angular.module('Directives').directive('ngEosAccount', function() {
                 return viewValue.toLowerCase();
             });
 
+            if ($scope.ngEosAccountOptions.onInit) {
+                $scope.ngEosAccountOptions.onInit(ctrl, $scope.ngEosAccountOptions.name);
+            }
+
             $scope.checkAddress = function(withoutTimeout) {
                 $scope.ngEosAccountOptions.startChange ?
                     $scope.ngEosAccountOptions.startChange(ctrl) : false;
@@ -100,11 +104,20 @@ angular.module('Directives').directive('ngEosAccount', function() {
                 return viewValue.toUpperCase();
             });
 
+            if ($scope.ngEosTokenOptions.onInit) {
+                $scope.ngEosTokenOptions.onInit(ctrl, $scope.ngEosTokenOptions.name);
+            }
 
             var checkIssuer = function() {
                 if (!tokenKey) return;
                 var result = tokensInfoHash[tokenKey][value];
-                if (!($scope.ngEosTokenOptions.tokenIssuer && result)) return;
+                if (!($scope.ngEosTokenOptions.tokenIssuer && result)) {
+                    if (result) {
+                        $scope.ngEosTokenOptions.change ?
+                            $scope.ngEosTokenOptions.change(ctrl, result) : false;
+                    }
+                    return;
+                }
 
                 if (result['issuer'] !== $scope.ngEosTokenOptions.tokenIssuer) {
                     ctrl.$setValidity('this-admin', false);

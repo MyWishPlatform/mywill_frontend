@@ -63,7 +63,16 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
     };
     checkDraftContract();
 
+    var fields = {};
 
+    $scope.initField = function(ctrl, name) {
+        fields[name] = ctrl;
+    };
+
+    $scope.changeAddressParams = function() {
+        $scope.preCheckToken(fields['token_field']);
+        $scope.checkAirdropToken(fields['token_field']);
+    };
 
     $scope.preCheckToken = function(ctrl) {
         ctrl.$setValidity('not-used', true);

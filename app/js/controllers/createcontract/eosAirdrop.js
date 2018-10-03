@@ -101,4 +101,24 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
         });
     };
 
+
+    $scope.getCostProgress = false;
+    $scope.checkContractCost = function() {
+        $scope.getCostProgress = true;
+        var count = $scope.request.contract_details.address_count;
+        contractService.getEosAirdropCost({
+            address_count: $scope.request.contract_details.address_count
+        }).then(function(response) {
+            $scope.getCostProgress = false;
+            if (count !== $scope.request.contract_details.address_count) return;
+            $scope.eosAirdropCost = response.data;
+        }, function() {
+            $scope.eosAirdropCost = false;
+            $scope.getCostProgress = false;
+        });
+    };
+
+    if ($scope.editContractMode) {
+        $scope.checkContractCost();
+    }
 });

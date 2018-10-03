@@ -267,6 +267,10 @@
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
+      "EOS_AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any EOS tokens among many accounts (for example, after Bounty program or Crowdsale)"
+      },
       "INVESTMENT_POOL": {
         "TITLE": "Investment pool",
         "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
@@ -1266,6 +1270,25 @@
               "NAME_PLACEHOLDER": "Team",
               "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
             }
+          }
+        }
+      },
+      "EOS_AIRDROP": {
+        "FIELDS": {
+          "MANAGEMENT_ACCOUNT": {
+            "LABEL": "Management account",
+            "DESCRIPTION": "Owner of this account will be able to manage the airdrop contract (it's the only one)"
+          },
+          "TOKEN_ACCOUNT": {
+            "LABEL": "Token account",
+            "DESCRIPTION": "Specify the token contract which you would like to distribute"
+          },
+          "SYMBOL": {
+            "DESCRIPTION": "Enter the symbol of your token"
+          },
+          "ACCOUNTS_COUNT": {
+            "LABEL": "Number of accounts for distribution",
+            "DESCRIPTION": "Specify how many accounts will get your tokens. It can be 100 or even 50000 (max). Costs of the contract depends on the number."
           }
         }
       }

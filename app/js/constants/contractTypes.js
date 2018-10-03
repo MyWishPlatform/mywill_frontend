@@ -141,7 +141,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         }, {
             'icon': 'icon-eos-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
+            'description': 'PAGES.CREATE_CONTRACT.EOS_AIRDROP.DESCRIPTION',
             'typeNumber': 13,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[13],
             'price': true

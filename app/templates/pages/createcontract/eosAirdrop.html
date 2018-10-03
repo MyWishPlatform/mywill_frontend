@@ -12,7 +12,7 @@
             <span>{{('CONTRACTS_NETWORKS.NETWORK_' + network)|translate}}</span>
         </div>
         <div class="shadow-block__content__blue-title">
-            <i class="shadow-block__content__blue-title__icon icon-airdrop"></i>
+            <i class="shadow-block__content__blue-title__icon icon-eos-airdrop"></i>
             <div class="shadow-block__content__blue-title__name">
                 <span class="big-size" translate="CONTRACTS.FORMS.AIRDROP.TITLE"></span>
             </div>
@@ -42,7 +42,7 @@
                 <div class="form-control">
                     <label for="admin_address"
                            class="form-control-label"
-                           translate="CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
+                           translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.MANAGEMENT_ACCOUNT.LABEL"></label>
                     <div ng-eos-account
                          ng-model="request.contract_details.admin_address"
                          ng-eos-account-options="{
@@ -56,7 +56,7 @@
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.DESCRIPTION"></span>
+                      translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.MANAGEMENT_ACCOUNT.DESCRIPTION"></span>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
                 <div class="form-control">
                     <label for="token_address"
                            class="form-control-label"
-                           translate="CONTRACTS.FORMS.AIRDROP.FIELDS.TOKEN_ADDR.LABEL"></label>
+                           translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.TOKEN_ACCOUNT.LABEL"></label>
                     <div ng-eos-account
                          ng-model="request.contract_details.token_address"
                          ng-eos-account-options="{
@@ -84,14 +84,11 @@
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.AIRDROP.FIELDS.TOKEN_ADDR.DESCRIPTION"></span>
+                      translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.TOKEN_ACCOUNT.DESCRIPTION"></span>
             </div>
         </div>
 
     </div>
-</form>
-<form class="shadow-block" ng-class="{'no-active': !(managementAddressForm.$valid && tokenAddressForm.$valid)}"
-      name="tokenSymbolForm">
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
@@ -107,7 +104,7 @@
                             change: checkAirdropToken,
                             startChange: preCheckToken,
                             tokenAddress: request.contract_details.token_address,
-                            disabled: !(managementAddressForm.$valid && tokenAddressForm.$valid),
+                            disabled: !managementAddressForm.$valid,
                             onInit: initField
                          }"></div>
                 </div>
@@ -116,17 +113,82 @@
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.DESCRIPTION"></span>
+                      translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.SYMBOL.DESCRIPTION"></span>
             </div>
         </div>
     </div>
+</form>
+
+<form class="shadow-block" ng-class="{'no-active': !(managementAddressForm.$valid && tokenAddressForm.$valid)}"
+      name="accountsCountForm">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="accounts_count"
+                           translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.ACCOUNTS_COUNT.LABEL"
+                           class="form-control-label"></label>
+
+                    <div class="form-control">
+                        <input ng-model="request.contract_details.address_count"
+                               class="form-control-input"
+                               required
+                               commaseparator="{
+                                    max: 50000,
+                                    regexp: '^[1-9][0-9]*$',
+                               }"
+                               ng-change="checkContractCost()"
+                               id="accounts_count">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.ACCOUNTS_COUNT.DESCRIPTION">
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative shadow-block__content shadow-block__content_min-tb-padding grey-color no-border"
+         ng-if="(request.network == 10) && (getCostProgress || eosAirdropCost)">
+
+        <span class="lds-ellipsis for-shadow-block" ng-if="getCostProgress">
+            <span class="lds-ellipsis-container">
+                <span></span><span></span><span></span><span></span>
+            </span>
+        </span>
+
+        <div class="form-control-label" ng-if="(sitemode !== 'eos') && (getCostProgress || eosAirdropCost)"
+             ng-class="{'no-visibility': getCostProgress}">
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <div class="show-vs"></div>
+            {{bigNumber(eosAirdropCost.WISH).round(2).toString(10)|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;
+            <span class="grey-text-color">
+                {{(eosAirdropCost.ETH||'0')|separateNumber}}&nbsp;ETH
+            </span>
+        </div>
+
+        <div class="form-control-label" ng-if="(sitemode === 'eos') && (getCostProgress || eosAirdropCost)"
+             ng-class="{'no-visibility': getCostProgress}">
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <div class="show-vs"></div>
+            {{bigNumber(eosAirdropCost.EOSISH).round(2).toString(10)|separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;
+            <span class="grey-text-color">
+                {{eosAirdropCost.EOS | separateNumber}}&nbsp;EOS
+            </span>
+        </div>
+    </div>
+
 </form>
 <br/><br/><br/>
 
 <div class="grid-row">
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
-                type="button" ng-disabled="!(managementAddressForm.$valid && tokenAddressForm.$valid && tokenSymbolForm.$valid)"
+                type="button" ng-disabled="!(managementAddressForm.$valid && tokenAddressForm.$valid && accountsCountForm.$valid)"
                 ng-click="createContract()">
             <span class="lds-ellipsis" ng-if="contractInProgress">
                 <span class="lds-ellipsis-container">

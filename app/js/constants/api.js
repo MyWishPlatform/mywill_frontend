@@ -44,6 +44,7 @@ angular.module('Constants').constant('API', {
     "EOS_AIRDROP_ADDRESSES": "eos_airdrop_addresses/",
     "LOAD_AIRDROP": "load_airdrop/",
     "CHECK_STATUS": "check_status/",
+    "CHECK_EOS_ACCOUNTS": "check_eos_accounts_exists/",
     "SOCIAL": {
         "FACEBOOK": "facebook/",
         "GOOGLE": "google/",

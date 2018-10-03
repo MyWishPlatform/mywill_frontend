@@ -154,9 +154,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                 }
             });
         };
-
         network  ? _this.createEosChain(network, getStats) : checkNetwork(getStats);
-
         return defer.promise;
     };
 

@@ -121,14 +121,37 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
     var createResultData = function(csvData) {
         var myWorker = Webworker.create(parseDataForTable);
         myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
-            $timeout(function() {
-                $scope.tableData = result;
-                $scope.visibleAddresses = angular.copy($scope.tableData.results.slice(0, visibleCountPlus));
-                convertAmount($scope.visibleAddresses);
-                $scope.formWaiting = false;
-                $scope.$apply();
-                $scope.$parent.$broadcast('changeContent');
+
+            var addresses = result.results.map(function(res) {
+                return res.data[0];
             });
+
+            contractService.checkEOSAccounts(addresses).then(function(response) {
+
+                result.errors = result.errors.concat(result.results.filter(function(address) {
+                    if (response.data.not_exists.indexOf(address.data[0]) > -1) {
+                        address.error = {
+                            status: 5
+                        };
+                        return true;
+                    }
+                    return false;
+                }));
+
+                result.results = result.results.filter(function(address) {
+                    return response.data.not_exists.indexOf(address.data[0]) === -1;
+                });
+                $timeout(function() {
+                    $scope.tableData = result;
+                    $scope.visibleAddresses = angular.copy($scope.tableData.results.slice(0, visibleCountPlus));
+                    convertAmount($scope.visibleAddresses);
+                    $scope.formWaiting = false;
+                    $scope.$apply();
+                    $scope.$parent.$broadcast('changeContent');
+                });
+            });
+
+
         });
     };
 

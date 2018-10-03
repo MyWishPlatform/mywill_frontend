@@ -60,7 +60,7 @@ angular.module('Directives').directive('ngEosAccount', function() {
                     EOSService.checkAddress(currValue, $scope.ngEosAccountOptions.network).then(function(addressInfo) {
                         if (currValue !== ctrl.$modelValue) return;
                         ctrl.$setValidity('not-checked', true);
-                        accountsInfoHash[accountKey] = addressInfo;
+                        // accountsInfoHash[accountKey] = addressInfo;
                         $scope.ngEosAccountOptions.change ?
                             $scope.ngEosAccountOptions.change(ctrl, addressInfo) : false;
                         ctrl.$setValidity('check-sum', !$scope.ngEosAccountOptions.invert);
@@ -167,7 +167,7 @@ angular.module('Directives').directive('ngEosAccount', function() {
                         if (!result[currValue]) {
                             ctrl.$setValidity('check-sum', !!$scope.ngEosTokenOptions.invert);
                         } else {
-                            tokensInfoHash[tokenKey] = result;
+                            // tokensInfoHash[tokenKey] = result;
                             checkIssuer();
                             ctrl.$setValidity('check-sum', !$scope.ngEosTokenOptions.invert);
                         }

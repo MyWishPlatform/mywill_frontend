@@ -71,7 +71,7 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
 
     $scope.changeAddressParams = function() {
         $scope.preCheckToken(fields['token_field']);
-        $scope.checkAirdropToken(fields['token_field']);
+        fields['token_field'].$valid ? $scope.checkAirdropToken(fields['token_field']) : false;
     };
 
     $scope.preCheckToken = function(ctrl) {
@@ -83,6 +83,7 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
     $scope.checkAirdropToken = function(ctrl) {
         var details = $scope.request.contract_details;
         ctrl.$setValidity('not-checked', false);
+
         EOSService.getTableRows(
             details.admin_address,
             'drop',

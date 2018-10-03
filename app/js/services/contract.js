@@ -220,6 +220,15 @@ angular.module('Services').service('contractService', function(requestService, A
                 }
             };
             return requestService.post(params);
+        },
+        checkEOSAccounts: function(accounts) {
+            var params = {
+                path: API.CHECK_EOS_ACCOUNTS,
+                data: {
+                    accounts: accounts
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

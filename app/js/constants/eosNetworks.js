@@ -9,6 +9,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "network": "eos",
         "endpoints": [
             {
+                "name": "EOS MyWish",
+                "protocol": "https",
+                "port": 443,
+                "url": "eos-node.mywish.io",
+                "description": "API Node"
+            },
+            {
                 "name": "EOS Nation",
                 "protocol": "https",
                 "port": 443,
@@ -67,13 +74,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "type": "testnet",
         "network": "eos",
         "endpoints": [
-            // {
-            //     "name": "MyWish",
-            //     "protocol": "https",
-            //     "port": 443,
-            //     "url": "api-wulet.unblocking.io",
-            //     "description": ""
-            // },
+            {
+                "name": "MyWish",
+                "protocol": "https",
+                "port": 443,
+                "url": "jungle-node.mywish.io",
+                "description": ""
+            },
             {
                 "name": "EOS Costa Rica",
                 "protocol": "https",

@@ -329,7 +329,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var params = [[], []];
 
     $scope.ngPopUp.params.next_addresses.map(function(address) {
-        params[0].push(address.address);
+        params[0].push(address.address.replace(/\s/g, ''));
         params[1].push(address.amount);
     });
 

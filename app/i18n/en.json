@@ -410,7 +410,8 @@
           "WRONG_FORMAT": "Address has wrong format",
           "EMPTY_STRING": "Empty string",
           "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
-          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
+          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction",
+          "ACCOUNTS_COUNT_LIMIT": "Accounts count limit"
         },
         "ADD_BUTTON": "Add {{length}} addresses"
       }
@@ -1283,18 +1284,18 @@
       "EOS_AIRDROP": {
         "FIELDS": {
           "MANAGEMENT_ACCOUNT": {
-            "LABEL": "Management account",
+            "LABEL": "Management account:",
             "DESCRIPTION": "Owner of this account will be able to manage the airdrop contract (it's the only one)"
           },
           "TOKEN_ACCOUNT": {
-            "LABEL": "Token account",
+            "LABEL": "Token account:",
             "DESCRIPTION": "Specify the token contract which you would like to distribute"
           },
           "SYMBOL": {
             "DESCRIPTION": "Enter the symbol of your token"
           },
           "ACCOUNTS_COUNT": {
-            "LABEL": "Number of accounts for distribution",
+            "LABEL": "Number of accounts for distribution:",
             "DESCRIPTION": "Specify how many accounts will get your tokens. It can be 100 or even 50000 (max). Costs of the contract depends on the number."
           }
         }

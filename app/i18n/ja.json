@@ -410,7 +410,8 @@
           "WRONG_FORMAT": "アドレスが間違った形式になってい",
           "EMPTY_STRING": "空の文字列",
           "WRONG_AMOUNT_FORMAT": "トークンの量が不在または違います",
-          "WRONG_AMOUNT_VALUE": "トークンの間違った量 - 小数の矛盾"
+          "WRONG_AMOUNT_VALUE": "トークンの間違った量 - 小数の矛盾",
+          "ACCOUNTS_COUNT_LIMIT": "Accounts count limit"
         },
         "ADD_BUTTON": "{{length}}アドレスを追加する"
       }

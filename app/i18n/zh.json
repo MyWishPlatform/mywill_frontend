@@ -410,7 +410,8 @@
           "WRONG_FORMAT": "Address has wrong format",
           "EMPTY_STRING": "Empty string",
           "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
-          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
+          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction",
+          "ACCOUNTS_COUNT_LIMIT": "Accounts count limit"
         },
         "ADD_BUTTON": "Add {{length}} addresses"
       }

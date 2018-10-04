@@ -1,13 +1,13 @@
 angular.module('app').controller('eosAirdropPreviewController', function($timeout, openedContract,
                                                                       $scope, contractService, EOSService) {
     $scope.contract = openedContract.data;
-    $scope.iniContract($scope.contract);
     $scope.tokenInfo  = {};
 
     var airdropAccount = EOSService.getAirdropAddress($scope.contract.network);
 
     var getTokenInfo = function() {
         var symbol = $scope.contract.contract_details.token_short_name;
+
         EOSService.getBalance(
             $scope.contract.contract_details.token_address,
             airdropAccount,
@@ -16,6 +16,7 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
         ).then(function(result) {
             $scope.tokenInfo['balance'] = result[0] ? new BigNumber(result[0].split(' ')[0]).toString(10) : 0;
         });
+
         EOSService.coinInfo(
             symbol,
             $scope.contract.network,
@@ -32,17 +33,32 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
         });
     };
 
-    var checkContractPreview = function() {
-        var details = $scope.contract.contract_details;
-        details.all_count = details.added_count + details.processing_count + details.sent_count;
+    var timerContractUpdater;
+    var refreshContract = function() {
+        if (($scope.contract.stateValue === 4) || ($scope.contract.stateValue === 101)) {
+            timerContractUpdater = $timeout(function() {
+                contractService.getContract($scope.contract.id).then(function(response) {
+                    if (!timerContractUpdater) return;
+                    response.data.showedTab = $scope.contract.showedTab;
+                    angular.merge($scope.contract, response.data);
+                    checkContractPreview(true);
+                })
+            }, 3000);
+        }
     };
 
-    if (($scope.contract.stateValue === 4) || ($scope.contract.stateValue === 101)) {
+    var checkContractPreview = function() {
+        $scope.iniContract($scope.contract);
         var details = $scope.contract.contract_details;
         details.all_count = details.added_count + details.processing_count + details.sent_count;
-        getTokenInfo();
-        checkContractPreview();
-    }
+
+        if (($scope.contract.stateValue === 4) || ($scope.contract.stateValue === 101)) {
+            getTokenInfo();
+        }
+        refreshContract();
+    };
+
+    checkContractPreview();
 
     $scope.scatterNotInstalled = false;
     $scope.closeScatterAlert = function() {
@@ -80,7 +96,7 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                 data: row,
                 line: index + 1
             };
-            var address = row[0].replace(/^[\s]*([\S]+)[\s]*$/g, '$1');
+            var address = row[0] = row[0].replace(/^[\s]*([\S]+)[\s]*$/g, '$1');
             var amount = row[1];
             if (!address) {
                 resultRow.error = {
@@ -141,6 +157,19 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                 result.results = result.results.filter(function(address) {
                     return response.data.not_exists.indexOf(address.data[0]) === -1;
                 });
+
+                var results = result.results.slice(0, contract.contract_details.address_count);
+                var errors = result.results.slice(contract.contract_details.address_count, result.results.length);
+
+                result.results = results;
+                errors.map(function(err) {
+                    err.error = {
+                        status: 6
+                    };
+                });
+
+                result.errors = result.errors.concat(errors);
+
                 $timeout(function() {
                     $scope.tableData = result;
                     $scope.visibleAddresses = angular.copy($scope.tableData.results.slice(0, visibleCountPlus));
@@ -476,11 +505,9 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                 account: airdropAccount,
                 name: 'drop',
                 data: {
-                    'issuer': contract.contract_details.admin_address,
-                    'token_contract': contract.contract_details.token_address,
-                    'symbol': $scope.tokenInfo.decimals + ',' + $scope.tokenInfo.symbol,
                     'addresses': airdropAddresses[0],
-                    'amounts': airdropAddresses[1]
+                    'amounts': airdropAddresses[1],
+                    'pk': contract.id
                 }
             }],
             owner: contract.contract_details.admin_address
@@ -526,7 +553,7 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                 data: {
                     to: airdropAccount,
                     quantity: new BigNumber(amount).toFormat(tokenInfo.decimals).toString(10).replace(/,/g, '') + ' ' + contract.contract_details.token_short_name,
-                    memo: ''
+                    memo: contract.id
                 }
             }]
         }).then(function(result) {

@@ -11,12 +11,12 @@ module.constant('APP_CONSTANTS', {
             'MAINNET': {
                 'TOKEN': 'mywishtoken4',
                 'ACCOUNT': 'mywishtoken4',
-                'AIRDROP': 'mywishair111'
+                'AIRDROP': 'air.mywishio'
             },
             'TESTNET': {
                 'TOKEN': 'mywishtoken3',
                 'ACCOUNT': 'mywishtoken3',
-                'AIRDROP': 'mywishair111'
+                'AIRDROP': 'air.mywishio'
             },
             'COMING': 'mywishcoming'
         },

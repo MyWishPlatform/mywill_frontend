@@ -7,28 +7,18 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
 
     var getTokenInfo = function() {
         var symbol = $scope.contract.contract_details.token_short_name;
-        EOSService.getBalance(
-            $scope.contract.contract_details.token_address,
-            airdropAccount,
-            symbol,
-            $scope.contract.network
-        ).then(function(result) {
-            $scope.tokenInfo['balance'] = result[0] ? new BigNumber(result[0].split(' ')[0]).toString(10) : 0;
-        });
-
-        EOSService.coinInfo(
-            symbol,
-            $scope.contract.network,
-            $scope.contract.contract_details.token_address
-        ).then(function (result) {
-            var totalSupply = result[symbol].supply.split(' ')[0];
-            var maximumSupply = result[symbol].max_supply.split(' ')[0];
+        EOSService.callCustomMethod('get_table_entry ', {
+            code: airdropAccount,
+            table: 'drop',
+            scope: airdropAccount,
+            key: $scope.contract.id
+        }, $scope.contract.network).then(function(response) {
+            var result = response.data.available.quantity.split(' ');
+            $scope.tokenInfo['balance'] = new BigNumber(result[0]).toString(10);
             $scope.tokenInfo['symbol'] = symbol;
-            $scope.tokenInfo['totalSupply'] = totalSupply;
-            $scope.tokenInfo['maximumSupply'] = maximumSupply;
-            $scope.tokenInfo['decimals'] = maximumSupply.split('.')[1].length;
-        }, function(result) {
-            getTokenInfo();
+            $scope.tokenInfo['decimals'] = result[0].split('.')[1].length;
+        }, function(response) {
+            // getTokenInfo();
         });
     };
 
@@ -139,7 +129,6 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
             results: resultsData
         }
     };
-
     var createResultData = function(csvData) {
         var myWorker = Webworker.create(parseDataForTable);
         myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
@@ -148,33 +137,22 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                 return res.data[0];
             });
 
-            contractService.checkEOSAccounts(addresses).then(function(response) {
-
-                result.errors = result.errors.concat(result.results.filter(function(address) {
-                    if (response.data.not_exists.indexOf(address.data[0]) > -1) {
-                        address.error = {
+            EOSService.callCustomMethod('get_accounts ', {
+                accounts: addresses,
+                verbose: false
+            }, contract.network).then(function(response) {
+                response.data.map(function(item, index) {
+                    if (!item) {
+                        var errorsItem = result.results[index];
+                        errorsItem['error'] = {
                             status: 5
                         };
-                        return true;
+                        result.results = result.results.filter(function(resItem) {
+                            return resItem !== errorsItem;
+                        });
+                        result.errors.push(errorsItem);
                     }
-                    return false;
-                }));
-
-                result.results = result.results.filter(function(address) {
-                    return response.data.not_exists.indexOf(address.data[0]) === -1;
                 });
-
-                var results = result.results.slice(0, contract.contract_details.address_count);
-                var errors = result.results.slice(contract.contract_details.address_count, result.results.length);
-
-                result.results = results;
-                errors.map(function(err) {
-                    err.error = {
-                        status: 6
-                    };
-                });
-
-                result.errors = result.errors.concat(errors);
 
                 $timeout(function() {
                     $scope.tableData = result;
@@ -185,11 +163,8 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                     $scope.$parent.$broadcast('changeContent');
                 });
             });
-
-
         });
     };
-
     var resetCSVData = function() {
         $scope.tableData = undefined;
         $scope.visibleErrors = [];
@@ -399,7 +374,6 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                     resultItem.convertedAmount = new BigNumber(resultItem.amount).div(Math.pow(10, $scope.tokenInfo.decimals)).toString(10);
                 });
                 $scope.airdropAddressesList = $scope.airdropAddressesList.concat(response.data.results);
-                console.log($scope.airdropAddressesList);
                 $scope.$apply();
                 $scope.$parent.$broadcast('changeContent');
             });
@@ -536,7 +510,7 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
     };
 }).controller('eosAirdropDepositController', function($scope, EOSService) {
     var tokenInfo = $scope.ngPopUp.params.tokenInfo;
-    var contract = $scope.ngPopUp.params.contract;
+    var contract = $scope.contract = $scope.ngPopUp.params.contract;
     $scope.userBalance = 0;
     EOSService.getBalance(
         contract.contract_details.token_address,

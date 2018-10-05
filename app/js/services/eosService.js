@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS) {
+module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS, $http) {
 
     var chainCallbacks, chainChecked;
 
@@ -124,7 +124,19 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.getTableRows = function(scope, table, code, network) {
+    this.callCustomMethod = function(method, data, network) {
+        var defer = $q.defer();
+        network  ? _this.createEosChain(network, function() {
+            $http({
+                method: 'post',
+                url: 'https://' + currentEndPoint.url + '/v1/chain-ext/' + method,
+                data: data
+            }).then(defer.resolve, defer.reject)
+        }) : false;
+        return defer.promise;
+    };
+
+    this.getTableRows = function(scope, table, code, network, key) {
         var defer = $q.defer();
         network  ? _this.createEosChain(network, function() {
             eos.getTableRows({

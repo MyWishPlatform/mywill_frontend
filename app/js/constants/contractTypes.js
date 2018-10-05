@@ -12,7 +12,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'INVESTMENT_PULL': 9,
     'EOS_TOKEN': 10,
     'EOS_WALLET': 11,
-    'CROWDSALE_EOS': 12
+    'CROWDSALE_EOS': 12,
+    'AIRDROP_EOS': 13
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',
@@ -26,7 +27,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     9: 'investmentPull',
     10: 'eosToken',
     11: 'eosWallet',
-    12: 'eosCrowdSale'
+    12: 'eosCrowdSale',
+    13: 'eosAirdrop'
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
     var eth = {
         'networks': [1, 2],
@@ -135,6 +137,13 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
             'typeNumber': 12,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[12],
+            'price': true
+        }, {
+            'icon': 'icon-eos-airdrop',
+            'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.EOS_AIRDROP.DESCRIPTION',
+            'typeNumber': 13,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[13],
             'price': true
         }]
     };

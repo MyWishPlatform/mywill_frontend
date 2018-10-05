@@ -1,0 +1,32 @@
+<div class="form-control-input-container">
+    <input id="{{ngEosTokenOptions.name}}" type="text"
+           ng-eos-token-validator
+           placeholder="NEW"
+           pattern='[a-zA-Z]+'
+           ng-model="ngModel"
+           ng-disabled="ngEosTokenOptions.disabled"
+           name="{{ngEosTokenOptions.name}}"
+           required
+           ng-change="checkToken()"
+           class="form-control-input uppercase"/>
+    <div class="lds-dual-ring" ng-if="field.$error['not-checked']"></div>
+
+
+    <span class="field-error form-field_error-check-sum"
+          ng-if="ngEosTokenOptions.invert"
+          translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.ALREADY_NAME_TEXT"></span>
+
+    <span class="field-error form-field_error-check-sum"
+          ng-if="field.$error['not-used']"
+          style="display: block;"
+          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.TOKEN_IS_USED_AIRDROP"></span>
+
+    <span class="field-error form-field_error-check-sum"
+          ng-if="field.$error['this-admin'] && !field.$error['not-used']"
+          style="display: block;"
+          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.TOKEN_ISSUER_INVALID"></span>
+
+    <span class="field-error form-field_error-check-sum"
+          ng-if="!(field.$error['this-admin'] || field.$error['not-used'])"
+          translate="CONTRACTS.FORMS.EOS_CROWDSALE.ERRORS.TOKEN_DOES_NOT_EXIST"></span>
+</div>

@@ -9,6 +9,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "network": "eos",
         "endpoints": [
             {
+                "name": "EOS MyWish",
+                "protocol": "https",
+                "port": 443,
+                "url": "eos-node.mywish.io",
+                "description": "API Node"
+            },
+            {
                 "name": "EOS Nation",
                 "protocol": "https",
                 "port": 443,
@@ -71,15 +78,8 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
                 "name": "MyWish",
                 "protocol": "https",
                 "port": 443,
-                "url": "api-wulet.unblocking.io",
+                "url": "jungle-node.mywish.io",
                 "description": ""
-            },
-            {
-                "name": "EOSMetal",
-                "protocol": "https",
-                "port": 443,
-                "url": "junglenodes.eosmetal.io",
-                "description": "HA Proxy node provided by EOSMetal"
             },
             {
                 "name": "EOS Costa Rica",
@@ -87,6 +87,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
                 "port": 443,
                 "url": "jungle.eosio.cr",
                 "description": "Public node provided by EOS Costa Rica"
+            },
+            {
+                "name": "EOSMetal",
+                "protocol": "https",
+                "port": 443,
+                "url": "junglenodes.eosmetal.io",
+                "description": "HA Proxy node provided by EOSMetal"
             }
         ]
     }

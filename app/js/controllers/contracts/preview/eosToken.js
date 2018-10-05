@@ -45,17 +45,15 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
     ];
     $scope.tokenInfo = {};
 
-    EOSService.createEosChain($scope.contract.network, function() {
-        var symbol = $scope.contract.contract_details.token_short_name;
-        EOSService.coinInfo(symbol).then(function(result) {
-            var totalSupply = result[symbol].supply.split(' ')[0];
-            $scope.chartData[0].amount = totalSupply;
+    var symbol = $scope.contract.contract_details.token_short_name;
+    EOSService.coinInfo(symbol, $scope.contract.network).then(function(result) {
+        var totalSupply = result[symbol].supply.split(' ')[0];
+        $scope.chartData[0].amount = totalSupply;
 
-            var maximumSupply = result[symbol].max_supply.split(' ')[0];
-            $scope.chartData[1].amount = new BigNumber(maximumSupply).minus(totalSupply).toString(10);
-            $scope.tokenInfo['totalSupply'] = totalSupply;
-            $scope.tokenInfo['maximumSupply'] = maximumSupply;
-        });
+        var maximumSupply = result[symbol].max_supply.split(' ')[0];
+        $scope.chartData[1].amount = new BigNumber(maximumSupply).minus(totalSupply).toString(10);
+        $scope.tokenInfo['totalSupply'] = totalSupply;
+        $scope.tokenInfo['maximumSupply'] = maximumSupply;
     });
 
 }).controller('eosTokenMintController', function(EOSService, $scope, $timeout, $filter) {
@@ -69,26 +67,26 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
 
     $scope.tokenInfo = {};
 
-    EOSService.createEosChain($scope.ngPopUp.params.contract.network, function() {
-        EOSService.coinInfo(contract.token_short_name).then(function(result) {
-            result[contract.token_short_name] = result[contract.token_short_name] || {
-                    supply: '0',
-                    max_supply: '0'
-                };
-            $timeout(function() {
-                $scope.tokenInfo['totalSupply'] = result[contract.token_short_name].supply.split(' ')[0] || 0;
-                $scope.tokenInfo['maximumSupply'] = result[contract.token_short_name].max_supply.split(' ')[0] || 0;
-                $scope.$apply();
-                $scope.$parent.$broadcast('changeContent');
-                beforeDistributed.amount = $scope.tokenInfo['totalSupply'];
-                $scope.totalSupply = $scope.tokenInfo['totalSupply'];
-                if ($scope.tokenInfo['totalSupply'] == 0) {
-                    beforeDistributed.address = '';
-                } else {
-                    beforeDistributed.address = $filter('translate')('POPUP_FORMS.MINT_TOKENS_FORM.CHART.EOS_DISTRIBUTED_BEFORE');
-                }
-                $scope.checkTokensAmount();
-            });
+    EOSService.coinInfo(contract.token_short_name, $scope.ngPopUp.params.contract.network).then(function(result) {
+        result[contract.token_short_name] = result[contract.token_short_name] || {
+                supply: '0',
+                max_supply: '0'
+            };
+        $timeout(function() {
+            $scope.tokenInfo['totalSupply'] = result[contract.token_short_name].supply.split(' ')[0] || 0;
+            $scope.tokenInfo['maximumSupply'] = result[contract.token_short_name].max_supply.split(' ')[0] || 0;
+            $scope.tokenInfo['totalSupply'] = new BigNumber($scope.tokenInfo['totalSupply']).toString(10);
+            $scope.tokenInfo['maximumSupply'] = new BigNumber($scope.tokenInfo['maximumSupply']).toString(10);
+            $scope.$apply();
+            $scope.$parent.$broadcast('changeContent');
+            beforeDistributed.amount = $scope.tokenInfo['totalSupply'];
+            $scope.totalSupply = $scope.tokenInfo['totalSupply'];
+            if ($scope.tokenInfo['totalSupply'] == 0) {
+                beforeDistributed.address = '';
+            } else {
+                beforeDistributed.address = $filter('translate')('POPUP_FORMS.MINT_TOKENS_FORM.CHART.EOS_DISTRIBUTED_BEFORE');
+            }
+            $scope.checkTokensAmount();
         });
     });
 
@@ -122,24 +120,6 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             }
         });
     };
-
-    var checkAddressTimeout;
-
-    $scope.checkAddress = function(addressField) {
-        addressField.$setValidity('not-checked', true);
-        if (!addressField.$valid) return;
-        addressField.$setValidity('not-checked', false);
-        if (!addressField.$viewValue) {
-            return;
-        }
-        checkAddressTimeout ? $timeout.cancel(checkAddressTimeout) : false;
-        checkAddressTimeout = $timeout(function() {
-            EOSService.checkAddress(addressField.$viewValue).then(function(addressInfo) {
-                addressField.$setValidity('not-checked', true);
-            });
-        }, 200);
-    };
-
 
     var beforeDistributed = {
         amount: 0,

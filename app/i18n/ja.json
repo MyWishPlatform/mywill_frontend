@@ -267,6 +267,10 @@
         "TITLE": "Airdrop",
         "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
       },
+      "EOS_AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any EOS tokens among many accounts (for example, after Bounty program or Crowdsale)"
+      },
       "INVESTMENT_POOL": {
         "TITLE": "投資プール",
         "DESCRIPTION": "ETHの蓄積のための契約は、投資の前にあります。それを作成し、そのアドレスを他の人と共有する。"
@@ -379,6 +383,13 @@
     }
   },
   "POPUP_FORMS": {
+    "EOS_AIRDROP": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding accounts & amount of tokens you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one account in EOS (column A) and amount of tokens to distribute (column B)",
+        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+      }
+    },
     "AIRDROP": {
       "DISCLAIMER": {
         "ITEM_1": "アドレスとトークンの量を追加するには、テーブルを* .csv形式でアップロードする必要があります",
@@ -399,7 +410,8 @@
           "WRONG_FORMAT": "アドレスが間違った形式になってい",
           "EMPTY_STRING": "空の文字列",
           "WRONG_AMOUNT_FORMAT": "トークンの量が不在または違います",
-          "WRONG_AMOUNT_VALUE": "トークンの間違った量 - 小数の矛盾"
+          "WRONG_AMOUNT_VALUE": "トークンの間違った量 - 小数の矛盾",
+          "ACCOUNTS_COUNT_LIMIT": "Accounts count limit"
         },
         "ADD_BUTTON": "{{length}}アドレスを追加する"
       }
@@ -1238,7 +1250,10 @@
       },
       "EOS_CROWDSALE": {
         "ERRORS": {
-          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist"
+          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist",
+          "TOKEN_DOES_NOT_EXIST": "Token symbol does not exist",
+          "TOKEN_IS_USED_AIRDROP": "Token is used on Airdrop",
+          "TOKEN_ISSUER_INVALID": "Владелец токена указан неверно"
         },
         "CAP_NOTE": {
           "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
@@ -1263,6 +1278,25 @@
               "NAME_PLACEHOLDER": "Team",
               "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
             }
+          }
+        }
+      },
+      "EOS_AIRDROP": {
+        "FIELDS": {
+          "MANAGEMENT_ACCOUNT": {
+            "LABEL": "Management account",
+            "DESCRIPTION": "Owner of this account will be able to manage the airdrop contract (it's the only one)"
+          },
+          "TOKEN_ACCOUNT": {
+            "LABEL": "Token account",
+            "DESCRIPTION": "Specify the token contract which you would like to distribute"
+          },
+          "SYMBOL": {
+            "DESCRIPTION": "Enter the symbol of your token"
+          },
+          "ACCOUNTS_COUNT": {
+            "LABEL": "Number of accounts for distribution",
+            "DESCRIPTION": "Specify how many accounts will get your tokens. It can be 100 or even 50000 (max). Costs of the contract depends on the number."
           }
         }
       }

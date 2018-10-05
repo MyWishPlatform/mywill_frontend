@@ -117,15 +117,8 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         }
     };
 
-    var initalizedEOSHandlers = [], onInitEOS;
-
     EOSService.getTableRows('eosio', 'rammarket', 'eosio', $scope.network).then(function(response) {
         var ramPrice = response.rows[0]['quote']['balance'].split(" ")[0] / response.rows[0]['base']['balance'].split(" ")[0] * 1024;
-        onInitEOS = true;
-        while (initalizedEOSHandlers.length) {
-            var handler = initalizedEOSHandlers.shift();
-            handler['method'](handler['params']);
-        }
         EOSService.checkAddress('eosio', $scope.network).then(function(response) {
             $scope.EOSprices = {
                 NET: response.net_limit.max / 1024 / (response.net_weight / 10000),
@@ -134,31 +127,6 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
             };
         });
     });
-
-
-    $scope.checkAccountName = function(accountNameForm) {
-        if (!onInitEOS) {
-            initalizedEOSHandlers = initalizedEOSHandlers.filter(function(handler) {
-                return handler['method'] !== $scope.checkAccountName;
-            });
-            initalizedEOSHandlers.push({
-                method: $scope.checkAccountName,
-                param: accountNameForm
-            });
-            return;
-        }
-
-        accountNameForm['account-name'].$setValidity('check-sum', true);
-        if (!accountNameForm.$valid) return;
-        accountNameForm['account-name'].$setValidity('checked-address', false);
-        EOSService.checkAddress($scope.request.contract_details.account_name.toLowerCase(), $scope.network).then(function() {
-            accountNameForm['account-name'].$setValidity('checked-address', true);
-            accountNameForm['account-name'].$setValidity('check-sum', false);
-        }, function() {
-            accountNameForm['account-name'].$setValidity('checked-address', true);
-            accountNameForm['account-name'].$setValidity('check-sum', true);
-        });
-    };
 
     $scope.checkPublicKey = function(keysForm, field) {
         keysForm[field].$setValidity('public-key', Eos.modules.ecc.isValidPublic(keysForm[field].$viewValue));

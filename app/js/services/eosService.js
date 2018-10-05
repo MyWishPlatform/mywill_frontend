@@ -1,5 +1,7 @@
 var module = angular.module('Services');
-module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS) {
+module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS, $http) {
+
+    var chainCallbacks, chainChecked;
 
     var EOSNetworks = {
         'MAINNET': [],
@@ -26,6 +28,20 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return eosAccounts['COMING'];
     };
 
+    this.getAirdropAddress = function(network) {
+        network*= 1;
+        var displayingNetwork;
+        switch(network) {
+            case 10:
+                displayingNetwork = 'MAINNET';
+                break;
+            case 11:
+                displayingNetwork = 'TESTNET';
+                break;
+        }
+        return eosAccounts[displayingNetwork]['AIRDROP'];
+    };
+
     var currentNetworks = {
         'MAINNET': 0,
         'TESTNET': 0
@@ -34,6 +50,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
     var currentNetwork, currentNetworkName, currentEndPoint, displayingNetwork;
 
     this.createEosChain = function(network, callback) {
+        var oldNetworkName = currentNetworkName;
         switch(network) {
             case 10:
                 displayingNetwork = 'MAINNET';
@@ -46,15 +63,32 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         }
         currentNetwork = network;
         currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
+
+        if (currentNetworkName === oldNetworkName) {
+            if (chainChecked) {
+                callback ? callback() : false;
+            } else {
+                callback ? chainCallbacks.push(callback) : false;
+            }
+            return;
+        } else {
+            chainCallbacks = callback ? [callback] : [];
+        }
+        chainChecked = false;
         eos = Eos({
             httpEndpoint: EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['url'],
             verbose: false
         });
-        checkNetwork(callback);
+        checkNetwork();
     };
 
-    var checkNetwork = function(callback) {
-        _this.getInfo().then(callback, function(error) {
+    var checkNetwork = function() {
+        _this.getInfo().then(function() {
+            chainChecked = true;
+            chainCallbacks.map(function(callback) {
+                callback();
+            });
+        }, function(error) {
             currentNetworks[currentNetworkName]++;
             currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
             _this.createEosChain(currentNetwork, callback);
@@ -75,6 +109,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
 
     this.checkAddress = function(address, network) {
         var defer = $q.defer();
+        network*= 1;
         var getAccount = function() {
             eos.getAccount(address, function (error, response) {
                 if (error) {
@@ -89,7 +124,19 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.getTableRows = function(scope, table, code, network) {
+    this.callCustomMethod = function(method, data, network) {
+        var defer = $q.defer();
+        network  ? _this.createEosChain(network, function() {
+            $http({
+                method: 'post',
+                url: 'https://' + currentEndPoint.url + '/v1/chain-ext/' + method,
+                data: data
+            }).then(defer.resolve, defer.reject)
+        }) : false;
+        return defer.promise;
+    };
+
+    this.getTableRows = function(scope, table, code, network, key) {
         var defer = $q.defer();
         network  ? _this.createEosChain(network, function() {
             eos.getTableRows({
@@ -108,23 +155,24 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
         return defer.promise;
     };
 
-    this.coinInfo = function(short_name) {
+    this.coinInfo = function(short_name, network, tokenAddress) {
         var defer = $q.defer();
-        checkNetwork(function() {
-            eos.getCurrencyStats(eosAccounts[displayingNetwork]['TOKEN'], short_name, function (error, response) {
+        var getStats = function() {
+            eos.getCurrencyStats(tokenAddress || eosAccounts[displayingNetwork]['TOKEN'], short_name, function (error, response) {
                 if (error) {
                     defer.reject(error);
                 } else {
                     defer.resolve(response);
                 }
             });
-        });
+        };
+        network  ? _this.createEosChain(network, getStats) : checkNetwork(getStats);
         return defer.promise;
     };
 
-    this.getBalance = function(code, account, symbol) {
+    this.getBalance = function(code, account, symbol, network) {
         var defer = $q.defer();
-        checkNetwork(function() {
+        network  ? _this.createEosChain(network, function() {
             eos.getCurrencyBalance(code, account, symbol, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -132,7 +180,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                     defer.resolve(response);
                 }
             });
-        });
+        }) : false;
         return defer.promise;
     };
 
@@ -234,6 +282,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
                 return;
             }
             params['actions'].map(function(action) {
+                if ((action.name == 'transfer') && !action.data.from) {
+                    action.data.from = tokenOwnerAccount['name'];
+                }
                 action.authorization = [{
                     "actor": tokenOwnerAccount['name'],
                     "permission": tokenOwnerAccount['authority']
@@ -245,8 +296,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS)
             eos.transaction({
                 "actions": params.actions,
                 "signatures": [signature]
-            }).then(defer.resolve).catch(function() {
+            }).then(defer.resolve).catch(function(error) {
                 defer.reject({
+                    error: error,
                     code: 2
                 });
             });

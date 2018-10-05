@@ -147,11 +147,12 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                         errorsItem['error'] = {
                             status: 5
                         };
-                        result.results = result.results.filter(function(resItem) {
-                            return resItem !== errorsItem;
-                        });
                         result.errors.push(errorsItem);
                     }
+                });
+
+                result.results = result.results.filter(function(resItem) {
+                    return result.errors.indexOf(resItem) === -1;
                 });
 
                 $timeout(function() {

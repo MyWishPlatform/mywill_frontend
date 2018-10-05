@@ -48,8 +48,7 @@
                          ng-eos-account-options="{
                             name: 'admin_address',
                             network: request.network,
-                            onInit: initField,
-                            change: changeAddressParams
+                            onInit: initField
                          }"></div>
                 </div>
             </div>
@@ -96,8 +95,6 @@
                     <label for="token_field" class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
 
-                    <!--change: checkAirdropToken,-->
-                    <!--startChange: preCheckToken,-->
                     <div ng-eos-token
                          ng-model="request.contract_details.token_short_name"
                          ng-eos-token-options="{

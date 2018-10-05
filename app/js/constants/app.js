@@ -24,12 +24,12 @@ module.constant('APP_CONSTANTS', {
             'MAINNET': {
                 'TOKEN': 'buildertoken',
                 'ACCOUNT': 'deploymywish',
-                'AIRDROP': ''
+                'AIRDROP': 'wishairdrops'
             },
             'TESTNET': {
                 'TOKEN': 'mywishtokens',
                 'ACCOUNT': 'mywishiotest',
-                'AIRDROP': ''
+                'AIRDROP': 'wishairdrops'
             },
             'COMING': 'mywishcoming'
         }

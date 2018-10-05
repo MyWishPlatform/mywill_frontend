@@ -131,7 +131,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                 method: 'post',
                 url: 'https://' + currentEndPoint.url + '/v1/chain-ext/' + method,
                 data: data
-            }).then(defer.resolve, defer.reject)
+            }).then(function(response) {
+                defer.resolve(response);
+            }, defer.reject)
         }) : false;
         return defer.promise;
     };

@@ -69,40 +69,6 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
         fields[name] = ctrl;
     };
 
-    $scope.changeAddressParams = function() {
-        $scope.preCheckToken(fields['token_field']);
-        fields['token_field'].$valid ? $scope.checkAirdropToken(fields['token_field']) : false;
-    };
-
-    $scope.preCheckToken = function(ctrl) {
-        ctrl.$setValidity('not-used', true);
-    };
-
-    var airdropAccount = EOSService.getAirdropAddress($scope.network);
-
-    $scope.checkAirdropToken = function(ctrl) {
-        var details = $scope.request.contract_details;
-        ctrl.$setValidity('not-checked', false);
-
-        EOSService.getTableRows(
-            details.admin_address,
-            'drop',
-            airdropAccount,
-            $scope.network
-        ).then(function(response) {
-            var result = response.rows;
-            var tokens = {};
-            ctrl.$setValidity('not-checked', true);
-            result.map(function(row) {
-                tokens[row.symbol.split(',')[1]] = row;
-            });
-            if (tokens[details['token_short_name']]) {
-                ctrl.$setValidity('not-used', false);
-            }
-        });
-    };
-
-
     $scope.getCostProgress = false;
     $scope.checkContractCost = function() {
         $scope.getCostProgress = true;

@@ -1397,7 +1397,7 @@
         "NO_ADDRESSES": "No addresses were added",
         "SEND_TO_GROUP": {
           "TITLE": "Send Tokens To",
-          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
+          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included to the next group for sending",
           "BUTTON": "Send Tokens",
           "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
         }

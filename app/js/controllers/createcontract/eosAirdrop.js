@@ -107,6 +107,11 @@ angular.module('app').controller('eosAirdropCreateController', function($scope, 
     $scope.checkContractCost = function() {
         $scope.getCostProgress = true;
         var count = $scope.request.contract_details.address_count;
+        if (!count) {
+            $scope.eosAirdropCost = false;
+            $scope.getCostProgress = false;
+            return;
+        }
         contractService.getEosAirdropCost({
             address_count: $scope.request.contract_details.address_count
         }).then(function(response) {

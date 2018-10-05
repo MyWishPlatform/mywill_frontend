@@ -1,0 +1,209 @@
+<div class="contract-preview-tabs">
+    <div class="contract-preview-one-tab active">
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
+    </div>
+</div>
+
+<div>
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
+             ng-include="'/templates/common/contracts/preview-title.html'">
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="tokenInfo.balance">
+            <span class="form-control-label">
+                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}}
+                <b>{{tokenInfo.balance|separateNumber}}&nbsp;{{tokenInfo.symbol}}&nbsp;&nbsp;</b>
+            </span>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eos_contract.address">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
+            <br class="show-ls"/>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'account') + '/' + contract.contract_details.eos_contract.address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.eos_contract.address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['address']}"
+                        text="contract.contract_details.eos_contract.address"
+                        on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control-label" translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.MANAGEMENT_ACCOUNT.LABEL"></div>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{contract.network|etherscanUrl:'account'}}/{{contract.contract_details.admin_address}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.admin_address"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['admin_address']}"
+                        text="contract.contract_details.admin_address"
+                        on-copied="$root.successCodeCopy(contract, 'admin_address')"
+                        on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control-label" translate="CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.TOKEN_ACCOUNT.LABEL"></div>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{contract.network|etherscanUrl:'account'}}/{{contract.contract_details.token_address}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.token_address"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['token_address']}"
+                        text="contract.contract_details.token_address"
+                        on-copied="$root.successCodeCopy(contract, 'token_address')"
+                        on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+            <div class="grid-row"><br/>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        {{'CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL'|translate}}
+                        <b>
+                            <a ng-if="contract.network == 10"
+                               target="_blank"
+                               ng-attr-href="{{(contract.network|etherscanUrl:'symbol')}}/{{contract.contract_details.token_address}}/{{ contract.contract_details.token_short_name }}">
+                                {{ contract.contract_details.token_short_name }}
+                            </a>
+                            <span ng-if="contract.network == 11">
+                            {{ contract.contract_details.token_short_name }}
+                        </span>
+                        </b>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control-label">
+                {{'CONTRACTS.FORMS.EOS_AIRDROP.FIELDS.ACCOUNTS_COUNT.LABEL'|translate}}
+                <b>
+                    {{ contract.contract_details.address_count|separateNumber }}
+                </b>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(contract.stateValue == 4) && (contract.contract_details.all_count === 0)">
+            <div class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <div translate="CONTRACTS.PREVIEW.AIRDROP.NO_ADDRESSES"></div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="contract.contract_details.all_count">
+            <div class="form-control-label" ng-if="contract.contract_details.sent_count != contract.contract_details.all_count">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/eos-airdrop-addresses-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            contract: contract,
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.ADDED_ADDRESSES',
+                            titleParams: {
+                                count: contract.contract_details.all_count
+                            }
+                        }
+                   }">
+                    <span translate-values="{
+                          count: contract.contract_details.all_count
+                          }"
+                          translate="CONTRACTS.PREVIEW.AIRDROP.ADDED_ADDRESSES"></span>
+                </a>
+            </div>
+            <div class="form-control-label"  ng-if="contract.contract_details.sent_count">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/eos-airdrop-addresses-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            filter: 'sent',
+                            contract: contract,
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.SENT_ADDRESSES',
+                            titleParams: {
+                                count: contract.contract_details.sent_count
+                            }
+                        }
+                   }">
+                    <span translate="CONTRACTS.PREVIEW.AIRDROP.SENT_ADDRESSES"
+                          translate-values="{
+                            count: contract.contract_details.sent_count
+                      }"></span>
+                </a>
+            </div>
+            <div class="form-control-label"
+                 ng-if="contract.contract_details.processing_count">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/eos-airdrop-addresses-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            filter: 'processing',
+                            contract: contract,
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.PROCESSING_ADDRESSES',
+                            titleParams: {
+                                from: contract.contract_details.sent_count + 1,
+                                to: contract.contract_details.sent_count + contract.contract_details.processing_count
+                            }
+                        }
+                   }">
+                    <span translate="CONTRACTS.PREVIEW.AIRDROP.PROCESSING_ADDRESSES"
+                          translate-values="{
+                            from: contract.contract_details.sent_count + 1,
+                            to: contract.contract_details.sent_count + contract.contract_details.processing_count
+                          }"></span>
+                </a>
+            </div>
+            <div class="form-control-label"
+                 ng-if="contract.contract_details.added_count && (contract.contract_details.all_count !== contract.contract_details.added_count)">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/eos-airdrop-addresses-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            filter: 'added',
+                            contract: contract,
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.NOT_SEND_ADDRESSES',
+                            titleParams: {
+                                count: contract.contract_details.added_count
+                            }
+                        }
+                   }">
+                    <span translate="CONTRACTS.PREVIEW.AIRDROP.NOT_SEND_ADDRESSES"
+                          translate-values="{
+                            count: contract.contract_details.added_count
+                          }"></span>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="shadow-block"
+         ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
+         ng-include="'/templates/common/contracts/promocode-field.html'"></div>
+    <div class="main-section-chapter-fieldset"
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
+
+</div>

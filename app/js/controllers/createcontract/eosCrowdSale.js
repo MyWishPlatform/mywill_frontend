@@ -1,6 +1,6 @@
 angular.module('app').controller('eosCrowdSaleCreateController', function(
     $scope, currencyRate, contractService, $location, APP_CONSTANTS, $stateParams,
-    EOSService, $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
+    $filter, openedContract, $timeout, $state, $rootScope, CONTRACT_TYPES_CONSTANTS) {
 
     $scope.currencyRate = currencyRate.data;
     $scope.additionalParams = {};
@@ -73,8 +73,6 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
             $scope.$broadcast('tokensCapChanged');
         }, 300);
     };
-
-
     $scope.checkHardCapEth = function() {
         var hard_cap = $scope.request.hard_cap || 0;
         $scope.additionalParams.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).round(2).toString(10);
@@ -210,7 +208,6 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         $scope.$broadcast('resetForm');
     };
 
-
     var checkDraftContract = function(redirect) {
         if (localStorage.draftContract && !contract.id) {
             if (!contract.id) {
@@ -227,55 +224,15 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
             $state.go('main.contracts.list');
         }
     };
-
     checkDraftContract();
 
     if (contract.id) {
         $scope.checkHardCapEth();
     }
 
-
-    EOSService.createEosChain($scope.network);
-    $scope.checkAccountName = function(accountNameForm, invert) {
-        invert = invert || false;
-        accountNameForm.$setValidity('check-sum', true);
-        if (!accountNameForm.$valid) return;
-        accountNameForm.$setValidity('checked-address', false);
-        EOSService.checkAddress(accountNameForm.$viewValue).then(function() {
-            accountNameForm.$setValidity('checked-address', true);
-            accountNameForm.$setValidity('check-sum', invert);
-        }, function() {
-            accountNameForm.$setValidity('checked-address', true);
-            accountNameForm.$setValidity('check-sum', !invert);
-        });
-    };
-
     $scope.checkPublicKey = function(keysForm, field) {
         keysForm[field].$setValidity('public-key', Eos.modules.ecc.isValidPublic(keysForm[field].$viewValue));
     };
-
-
-    var checkTokenTimeout;
-    $scope.checkTokenName = function(tokenShortName) {
-        tokenShortName.$setValidity('not-checked', false);
-        tokenShortName.$setValidity('check-sum', true);
-        if (!tokenShortName.$viewValue) {
-            return;
-        }
-        checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
-        checkTokenTimeout = $timeout(function() {
-            var symbol = tokenShortName.$viewValue.toUpperCase();
-            EOSService.coinInfo(symbol).then(function(result) {
-                if (result[symbol]) {
-                    tokenShortName.$setValidity('check-sum', false);
-                }
-                tokenShortName.$setValidity('not-checked', true);
-            }, function() {
-                tokenShortName.$setValidity('not-checked', true);
-            });
-        }, 200);
-    };
-
     $scope.checkMaxTokenSupply();
 
 }).controller('eosCrowdSaleHoldersController', function($scope, $timeout, $filter) {

@@ -21,6 +21,7 @@ angular.module('Constants').constant('API', {
     "GET_COST": "get_cost/",
     "GET_EOS_COST": "get_eos_cost/",
     "GET_ALL_COSTS": "get_all_costs/",
+    "GET_EOS_AIRDROP_COST": "get_eos_airdrop_cost/",
     "CONTRACTS": "contracts/",
     "CONTRACT_BY_LINK": "get_contract_for_link/",
     "DEPLOY": "deploy/",
@@ -40,8 +41,10 @@ angular.module('Constants').constant('API', {
     "SET_LNG": "set_lang/",
     "WHITELIST": "whitelist_addresses/",
     "AIRDROP_ADDRESSES": "airdrop_addresses/",
+    "EOS_AIRDROP_ADDRESSES": "eos_airdrop_addresses/",
     "LOAD_AIRDROP": "load_airdrop/",
     "CHECK_STATUS": "check_status/",
+    "CHECK_EOS_ACCOUNTS": "check_eos_accounts_exists/",
     "SOCIAL": {
         "FACEBOOK": "facebook/",
         "GOOGLE": "google/",

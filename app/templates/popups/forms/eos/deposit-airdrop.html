@@ -1,0 +1,44 @@
+<div class="shadow-block" ng-controller="eosAirdropDepositController">
+    <form name="depositForm">
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">Deposit&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-3 grid-cell-ls-1">
+                    <div class="form-control">
+                        <label class="form-control-label">Amount</label>
+                        <input class="form-control-input"
+                               id="address-amount"
+                               pattern="[0-9,]+{{(ngPopUp.params.contract.contract_details.decimals*1 > 0) ? '(\.[0-9]{1,'+ngPopUp.params.contract.contract_details.decimals+'})?' : ''}}$"
+                               commaseparator="{
+                            regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
+                            min: 1,
+                            max: userBalance
+                       }"
+                       required
+                       ng-model="amount"/>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                    <div class="form-control-label hide-ps">&nbsp;</div>
+                    <span class="form-control-description__text"
+                          translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.EOS_DESCRIPTION">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <button class="btn btn-submit" type="button"
+                    ng-disabled="!depositForm.$valid" ng-click="depositTokens(amount);">
+                <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.DEPOSIT'|translate}}&nbsp;&nbsp;&nbsp;</span>
+            </button>
+        </div>
+    </form>
+    <div ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
+</div>

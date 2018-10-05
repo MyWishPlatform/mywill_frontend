@@ -267,6 +267,10 @@
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
+      "EOS_AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any EOS tokens among many accounts (for example, after Bounty program or Crowdsale)"
+      },
       "INVESTMENT_POOL": {
         "TITLE": "Investment pool",
         "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
@@ -379,6 +383,13 @@
     }
   },
   "POPUP_FORMS": {
+    "EOS_AIRDROP": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding accounts & amount of tokens you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one account in EOS (column A) and amount of tokens to distribute (column B)",
+        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+      }
+    },
     "AIRDROP": {
       "DISCLAIMER": {
         "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
@@ -399,7 +410,8 @@
           "WRONG_FORMAT": "Address has wrong format",
           "EMPTY_STRING": "Empty string",
           "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
-          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction"
+          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction",
+          "ACCOUNTS_COUNT_LIMIT": "Accounts count limit"
         },
         "ADD_BUTTON": "Add {{length}} addresses"
       }
@@ -1238,7 +1250,10 @@
       },
       "EOS_CROWDSALE": {
         "ERRORS": {
-          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist"
+          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist",
+          "TOKEN_DOES_NOT_EXIST": "Token symbol does not exist",
+          "TOKEN_IS_USED_AIRDROP": "Token is used on Airdrop",
+          "TOKEN_ISSUER_INVALID": "Владелец токена указан неверно"
         },
         "CAP_NOTE": {
           "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
@@ -1263,6 +1278,25 @@
               "NAME_PLACEHOLDER": "Team",
               "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
             }
+          }
+        }
+      },
+      "EOS_AIRDROP": {
+        "FIELDS": {
+          "MANAGEMENT_ACCOUNT": {
+            "LABEL": "Management account",
+            "DESCRIPTION": "Owner of this account will be able to manage the airdrop contract (it's the only one)"
+          },
+          "TOKEN_ACCOUNT": {
+            "LABEL": "Token account",
+            "DESCRIPTION": "Specify the token contract which you would like to distribute"
+          },
+          "SYMBOL": {
+            "DESCRIPTION": "Enter the symbol of your token"
+          },
+          "ACCOUNTS_COUNT": {
+            "LABEL": "Number of accounts for distribution",
+            "DESCRIPTION": "Specify how many accounts will get your tokens. It can be 100 or even 50000 (max). Costs of the contract depends on the number."
           }
         }
       }
@@ -1363,7 +1397,7 @@
         "NO_ADDRESSES": "No addresses were added",
         "SEND_TO_GROUP": {
           "TITLE": "Send Tokens To",
-          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included ti the next group for sending",
+          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included to the next group for sending",
           "BUTTON": "Send Tokens",
           "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
         }

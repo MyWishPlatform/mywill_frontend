@@ -16,34 +16,17 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
     $scope.contract = contract;
     $scope.network = contract.network * 1;
 
-    EOSService.createEosChain($scope.network);
-
-
-    var checkAddressTimeout;
-    $scope.checkAddress = function(addressField) {
-        addressField.$setValidity('not-checked', false);
-        if (!addressField.$viewValue) {
-            return;
-        }
-        checkAddressTimeout ? $timeout.cancel(checkAddressTimeout) : false;
-        checkAddressTimeout = $timeout(function() {
-            EOSService.checkAddress(addressField.$viewValue).then(function(addressInfo) {
-                addressField.$setValidity('not-checked', true);
-            });
-        }, 500);
-    };
-
     var checkTokenTimeout;
     $scope.checkTokenName = function(tokenShortName) {
-        tokenShortName.$setValidity('not-checked', false);
         tokenShortName.$setValidity('check-sum', true);
-        if (!tokenShortName.$viewValue) {
+        if (!tokenShortName.$modelValue) {
             return;
         }
+        tokenShortName.$setValidity('not-checked', false);
         checkTokenTimeout ? $timeout.cancel(checkTokenTimeout) : false;
         checkTokenTimeout = $timeout(function() {
             var symbol = tokenShortName.$viewValue.toUpperCase();
-            EOSService.coinInfo(symbol).then(function(result) {
+            EOSService.coinInfo(symbol, $scope.network).then(function(result) {
                 if (result[symbol]) {
                     tokenShortName.$setValidity('check-sum', false);
                 }

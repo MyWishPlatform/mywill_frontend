@@ -3,18 +3,15 @@
         <div class="form-control">
             <label for="token-symbol" class="form-control-label"
                    translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
-            <input id="token-symbol" type="text"
-                   ng-change="checkTokenName(tokenInfoForm.token_short_name)"
-                   name="token_short_name"
-                   placeholder="NEW"
-                   pattern='[a-zA-Z]+'
-                   ng-model="request.token_short_name"
-                   maxlength="7"
-                   minlength="1"
-                   required
-                   class="form-control-input uppercase"/>
-            <span class="field-error form-field_error-check-sum"
-                  translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.ALREADY_NAME_TEXT"></span>
+
+            <div ng-eos-token
+                 ng-model="request.token_short_name"
+                 ng-eos-token-options="{
+                    name: 'token_short_name',
+                    network: network,
+                    invert: true
+                 }"></div>
+
         </div>
     </div>
     <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">

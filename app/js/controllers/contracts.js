@@ -74,7 +74,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         9: 'icon-investment-pool',
         10: 'icon-token-eos',
         11: 'icon-eos-wallet',
-        12: 'icon-eos-ico'
+        12: 'icon-eos-ico',
+        13: 'icon-eos-airdrop'
     };
 
     var deletingProgress;
@@ -193,6 +194,16 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         break;
                 }
                 break;
+            case 8:
+                if (contract.contract_details.processing_count) {
+                    contract.state = 'SENDING_TOKENS';
+                }
+                break;
+            case 9:
+                if (($rootScope.getNowDateTime(true).format('X') * 1 > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
+                    contract.state = 'CANCELLED';
+                }
+                break;
         }
 
         if (!contract.contract_details.eth_contract) return;
@@ -201,19 +212,13 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             contract.balance = undefined;
         }
 
-        if ((contract.contract_type === 8) && contract.contract_details.processing_count) {
-            contract.state = 'SENDING_TOKENS';
-        }
 
         var buttons = contract.contract_details.buttons = {};
 
         switch (contract.contract_type) {
             case 9:
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
-                if ((nowDateTime > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
-                    contract.state = 'CANCELLED';
-                    setContractStatValues(contract);
-                }
+
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
                 var balance = new BigNumber(contract.contract_details.raised_amount);
                 if ((contract.stateValue === 6) &&  (balance > 0)) {
@@ -332,7 +337,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         if (!noWS) {
             iniSocketHandler(contract);
         }
-        setContractStatValues(contract);
         contract.discount = contract.discount || 0;
         switch (contract.network) {
             case 1:
@@ -351,6 +355,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 iniEOSContract(contract, fullScan);
                 break;
         }
+        setContractStatValues(contract);
     };
 
     /* (Click) Contract refresh */

@@ -67,7 +67,11 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
 
     $scope.tokenInfo = {};
 
-    EOSService.coinInfo(contract.token_short_name, $scope.ngPopUp.params.contract.network).then(function(result) {
+    EOSService.coinInfo(
+        contract.token_short_name,
+        $scope.ngPopUp.params.contract.network,
+        $scope.ngPopUp.params.contract.contract_details.eos_contract.address
+    ).then(function(result) {
         result[contract.token_short_name] = result[contract.token_short_name] || {
                 supply: '0',
                 max_supply: '0'

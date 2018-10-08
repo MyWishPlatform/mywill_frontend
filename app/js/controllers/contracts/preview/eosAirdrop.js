@@ -129,11 +129,18 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
             results: resultsData
         }
     };
-    var createResultData = function(csvData) {
-        var myWorker = Webworker.create(parseDataForTable);
-        myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
 
-            var addresses = result.results.map(function(res) {
+
+    var accountsPartSize = 20000;
+
+    var checkAccounts = function(allAccounts, callback) {
+        var result = [], errors = [];
+        var callGetAccountsPart = function() {
+
+            var partAccounts = allAccounts.slice(0, accountsPartSize);
+            allAccounts = allAccounts.slice(accountsPartSize, allAccounts.length);
+
+            var addresses = partAccounts.map(function(res) {
                 return res.data[0];
             });
 
@@ -141,29 +148,50 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                 accounts: addresses,
                 verbose: false
             }, contract.network).then(function(response) {
+
                 response.data.map(function(item, index) {
                     if (!item) {
-                        var errorsItem = result.results[index];
-                        errorsItem['error'] = {
+                        partAccounts[index]['error'] = {
                             status: 5
                         };
-                        result.errors.push(errorsItem);
+                    } else if (result.length >= contract.contract_details.address_count) {
+                        partAccounts[index]['error'] = {
+                            status: 6
+                        };
+                    }
+                    if (partAccounts[index]['error']) {
+                        errors.push(partAccounts[index]);
+                    } else {
+                        result.push(partAccounts[index]);
                     }
                 });
 
-                result.results = result.results.filter(function(resItem) {
-                    return result.errors.indexOf(resItem) === -1;
-                });
 
-                var results = result.results.slice(0, contract.contract_details.address_count);
-                var errors = result.results.slice(contract.contract_details.address_count, result.results.length);
+                if (allAccounts.length && (result.length < contract.contract_details.address_count)) {
+                    callGetAccountsPart();
+                    return;
+                } else {
+                    allAccounts.map(function(item) {
+                        item['error'] = {
+                            status: 6
+                        };
+                    });
+                    errors = errors.concat(allAccounts);
+                }
+                callback(result, errors);
+            })
+        };
+        callGetAccountsPart();
+    };
+
+
+    var createResultData = function(csvData) {
+        var myWorker = Webworker.create(parseDataForTable);
+        myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
+
+            checkAccounts(result.results, function(results, errors) {
                 result.results = results;
-                errors.map(function(err) {
-                    err.error = {
-                        status: 6
-                    };
-                });
-                result.errors = result.errors.concat(errors);
+                result.errors = errors;
 
                 $timeout(function() {
                     $scope.tableData = result;
@@ -174,6 +202,7 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                     $scope.$parent.$broadcast('changeContent');
                 });
             });
+
         });
     };
     var resetCSVData = function() {

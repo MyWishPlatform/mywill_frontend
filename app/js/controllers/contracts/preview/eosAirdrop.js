@@ -155,6 +155,16 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                     return result.errors.indexOf(resItem) === -1;
                 });
 
+                var results = result.results.slice(0, contract.contract_details.address_count);
+                var errors = result.results.slice(contract.contract_details.address_count, result.results.length);
+                result.results = results;
+                errors.map(function(err) {
+                    err.error = {
+                        status: 6
+                    };
+                });
+                result.errors = result.errors.concat(errors);
+
                 $timeout(function() {
                     $scope.tableData = result;
                     $scope.visibleAddresses = angular.copy($scope.tableData.results.slice(0, visibleCountPlus));

@@ -37,6 +37,27 @@
 <div class="shadow-block">
     <form class="shadow-block__content shadow-block__content_min-tb-padding no-border" name="contractParamsForm">
         <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="tokwn_account" class="form-control-label"
+                           translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_ACCOUNT.LABEL"></label>
+                    <div ng-eos-account
+                         ng-model="request.token_account"
+                         ng-eos-account-options="{
+                        name: 'token_account',
+                        network: network,
+                        invert: true
+                     }"></div>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_ACCOUNT.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
             <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
                     <label for="token-symbol" class="form-control-label"
@@ -46,8 +67,7 @@
                          ng-model="request.token_short_name"
                          ng-eos-token-options="{
                             name: 'token-symbol',
-                            network: network,
-                            invert: true
+                            noCheck: true
                          }"></div>
                 </div>
             </div>

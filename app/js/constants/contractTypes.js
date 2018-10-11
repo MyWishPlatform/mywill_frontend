@@ -128,17 +128,17 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'price': ENV_VARS.mode === 'default'
         }, {
             'icon': 'icon-token-eos',
-            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
-            'typeNumber': 10,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
+            'title': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_PERSONAL.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_PERSONAL.DESCRIPTION',
+            'typeNumber': 14,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[14],
             'price': true
         }, {
             'icon': 'icon-token-eos',
-            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
-            'typeNumber': 14,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[14],
+            'title': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.DESCRIPTION',
+            'typeNumber': 10,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
             'price': true
         }, {
             'icon': 'icon-eos-ico',

@@ -263,6 +263,14 @@
         "TITLE": "代币合约",
         "DESCRIPTION": "创建一个代币并自行或与代币销售合约一起分发"
       },
+      "EOS_TOKEN_MYWISH": {
+        "TITLE": "Token Contract based on MyWish",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. MyWish account will be shown as token creator."
+      },
+      "EOS_TOKEN_PERSONAL": {
+        "TITLE": "Personal Token Contract",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+      },
       "AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
@@ -985,6 +993,10 @@
       },
       "EOS_TOKEN": {
         "FIELDS": {
+          "TOKEN_ACCOUNT": {
+            "LABEL": "EOS Token account",
+            "DESCRIPTION": "This EOS account shall be new. Token contract will be released to this account. The name should be connected with the project and token. For example, \"mywishtoken\"."
+          },
           "TOKEN_SYMBOL": {
             "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES).",
             "ALREADY_NAME_TEXT": "Token name is already in use"

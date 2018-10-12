@@ -263,6 +263,14 @@
         "TITLE": "トークン契約",
         "DESCRIPTION": "トークンを作成し、自分で配布するか、クラウドセールの契約で配布する"
       },
+      "EOS_TOKEN_MYWISH": {
+        "TITLE": "Token Contract based on MyWish",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. MyWish account will be shown as token creator."
+      },
+      "EOS_TOKEN_PERSONAL": {
+        "TITLE": "Personal Token Contract",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+      },
       "AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
@@ -985,6 +993,10 @@
       },
       "EOS_TOKEN": {
         "FIELDS": {
+          "TOKEN_ACCOUNT": {
+            "LABEL": "EOS Token account",
+            "DESCRIPTION": "This EOS account shall be new. Token contract will be released to this account. The name should be connected with the project and token. For example, \"mywishtoken\"."
+          },
           "TOKEN_SYMBOL": {
             "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES).",
             "ALREADY_NAME_TEXT": "Token name is already in use"

@@ -7,6 +7,7 @@
            ng-disabled="ngEosTokenOptions.disabled"
            name="{{ngEosTokenOptions.name}}"
            required
+           maxlength="7"
            ng-change="checkToken()"
            class="form-control-input uppercase"/>
     <div class="lds-dual-ring" ng-if="field.$error['not-checked']"></div>

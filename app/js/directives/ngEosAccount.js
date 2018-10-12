@@ -129,8 +129,11 @@ angular.module('Directives').directive('ngEosAccount', function() {
 
             var tokenKey;
             $scope.checkToken = function(withoutTimeout) {
+
                 $scope.ngEosTokenOptions.startChange ?
                     $scope.ngEosTokenOptions.startChange(ctrl) : false;
+
+                if ($scope.ngEosTokenOptions.noCheck) return;
 
                 var newValue = ctrl.$modelValue;
 

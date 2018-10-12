@@ -13,7 +13,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'EOS_TOKEN': 10,
     'EOS_WALLET': 11,
     'CROWDSALE_EOS': 12,
-    'AIRDROP_EOS': 13
+    'AIRDROP_EOS': 13,
+    'EOS_I_TOKEN': 14
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',
@@ -28,7 +29,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     10: 'eosToken',
     11: 'eosWallet',
     12: 'eosCrowdSale',
-    13: 'eosAirdrop'
+    13: 'eosAirdrop',
+    14: 'eosIToken'
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
     var eth = {
         'networks': [1, 2],
@@ -126,8 +128,15 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'price': ENV_VARS.mode === 'default'
         }, {
             'icon': 'icon-token-eos',
-            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'title': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_PERSONAL.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_PERSONAL.DESCRIPTION',
+            'typeNumber': 14,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[14],
+            'price': true
+        }, {
+            'icon': 'icon-token-eos',
+            'title': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.DESCRIPTION',
             'typeNumber': 10,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
             'price': true

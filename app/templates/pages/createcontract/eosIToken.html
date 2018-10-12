@@ -1,0 +1,192 @@
+<!--<div class="just-text">-->
+    <!--<i class="icon-help"></i>-->
+    <!--<a href="https://www.youtube.com/watch?v=VxBOoeDQY9k"-->
+       <!--target="_blank"-->
+       <!--translate="CONTRACTS.FORMS.WATCH_INSTRUCTION">-->
+    <!--</a>-->
+<!--</div>-->
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="contract-info__network"
+             ng-class="'contract-info__network_' + network">
+            <span>{{('CONTRACTS_NETWORKS.NETWORK_' + network)|translate}}</span>
+        </div>
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-token-eos"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size" translate="CONTRACTS.FORMS.TOKEN.TITLE"></span>
+            </div>
+        </div>
+    </div>
+    <form class="shadow-block__content shadow-block__content_no-tb-padding no-border" name="contractNameForm">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="contract-name" class="form-control-label"
+                           translate="CONTRACTS.FORMS.FIELDS.ENTER_CONTRACT_NAME.LABEL"></label>
+                    <input id="contract-name" type="text"
+                           placeholder="MyNewProjectToken"
+                           ng-model="contract.name"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+        </div><br/>
+    </form>
+</div>
+<div class="shadow-block">
+    <form class="shadow-block__content shadow-block__content_min-tb-padding no-border" name="contractParamsForm">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="tokwn_account" class="form-control-label"
+                           translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_ACCOUNT.LABEL"></label>
+                    <div ng-eos-account
+                         ng-model="request.token_account"
+                         ng-eos-account-options="{
+                        name: 'token_account',
+                        network: network,
+                        invert: true
+                     }"></div>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_ACCOUNT.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="token-symbol" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
+
+                    <div ng-eos-token
+                         ng-model="request.token_short_name"
+                         ng-eos-token-options="{
+                            name: 'token-symbol',
+                            noCheck: true
+                         }"></div>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_SYMBOL.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-8 grid-cell-ps-1-5 grid-cell-vs-1-4">
+                <div class="form-control">
+                    <label for="decimals" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></label>
+                    <input id="decimals" type="text"
+                           placeholder="4"
+                           ng-model="request.decimals"
+                           pattern="^[0-9]+$"
+                           ng-change="checkMaxTokenSupply()"
+                           commaseparator="{
+                                min: 0,
+                                max: 15
+                           }"
+                           required
+                           class="form-control-input text-center"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
+                <div class="form-control-label hide-vs">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate-values="{
+                            max_decimals: 50,
+                            default_decimals: 18
+                       }"
+                      translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.DECIMALS.DESCRIPTION"></span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<form class="shadow-block" ng-class="{'no-active': !(contractParamsForm.$valid && contractNameForm.$valid)}" name="tokenOwnerForm">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="owner-address" class="form-control-label"
+                           translate-values="{blockchain: 'EOS'}"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></label>
+
+                    <div class="form-control-input-container">
+                        <div ng-eos-account
+                             ng-model="request.admin_address"
+                             ng-eos-account-options="{
+                                name: 'owner-address',
+                                network: network
+                             }"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate-values="{blockchain: 'EOS'}"
+                      translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_OWNER.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="shadow-block" ng-class="{'no-active': !(contractParamsForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid)}" name="maxSupplyOwnerForm">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="max-supply" class="form-control-label" translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.LABEL"></label>
+                    <input id="max-supply" type="text"
+                           name="max-supply"
+                           ng-model="request.maximum_supply"
+                           pattern="[0-9,]+{{(request.decimals*1 > 0) ? '(\.[0-9]{1,'+request.decimals+'})?' : ''}}$"
+                           commaseparator="{
+                                regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
+                                min: 1,
+                                max: maxSupply
+                           }"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text" translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.MAXIMUM_SUPPLY.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br/><br/><br/>
+
+<div class="grid-row">
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="uppercase btn btn-submit mobile-width-100"
+                type="button"
+                ng-disabled="!(contractParamsForm.$valid && maxSupplyOwnerForm.$valid && tokenOwnerForm.$valid && contractNameForm.$valid)"
+                ng-click="createContract()">
+            <span class="lds-ellipsis" ng-if="contractInProgress">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
+            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetFormData($event)">
+            <i class="icon-delete-button"></i>
+            <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
+            <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>
+        </button>
+    </div>
+</div>

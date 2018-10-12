@@ -24,7 +24,7 @@
 
 
 <!-- Mint form button -->
-<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 10)"
+<button ng-if="(contract.stateValue == 4) && ((contract.contract_type == 10) || (contract.contract_type == 14))"
         ng-pop-up="{
             template: '/templates/popups/forms/eos/mint-token-form.html',
             newPopupContent: true,

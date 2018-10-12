@@ -379,7 +379,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         8: 'airdrop',
         9: 'invest',
         10: 'eos_token',
-        11: 'eos_wallet'
+        11: 'eos_wallet',
+        12: 'eos_crowdsale',
+        13: 'eos_airdrop',
+        14: 'eos_i_token'
     };
 
     var launchProgress = false;

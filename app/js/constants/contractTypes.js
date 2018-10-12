@@ -14,7 +14,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'EOS_WALLET': 11,
     'CROWDSALE_EOS': 12,
     'AIRDROP_EOS': 13,
-    'EOS_I_TOKEN': 10
+    'EOS_I_TOKEN': 14
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',

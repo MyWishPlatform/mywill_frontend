@@ -7,7 +7,6 @@ angular.module('app').controller('eosITokenCreateController', function($scope, c
         network: $stateParams.network,
         name: 'MyEOSTokenContract ' + ($rootScope.currentUser.contracts + 1),
         contract_details: {
-            token_holders: []
         }
     };
 
@@ -100,7 +99,7 @@ angular.module('app').controller('eosITokenCreateController', function($scope, c
             }
             $scope.contractInProgress = false;
         });
-    };
+    };   
     $scope.editContractMode = !!contract.id;
 
     $scope.checkMaxTokenSupply = function() {

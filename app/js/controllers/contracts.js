@@ -58,25 +58,15 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
 }).controller('baseContractsController', function($scope, $state, $timeout, contractService,
-                                                  web3Service, WebSocketService, EOSService,
+                                                  web3Service, WebSocketService, EOSService, CONTRACT_TYPES_FOR_CREATE,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
 
-    $scope.contractTypesIcons = {
-        0: 'icon-lastwill',
-        1: 'icon-key',
-        2: 'icon-deferred',
-        3: '',
-        4: 'icon-crowdsale',
-        5: 'icon-token',
-        6: 'icon-token',
-        7: 'icon-crowdsale',
-        8: 'icon-airdrop',
-        9: 'icon-investment-pool',
-        10: 'icon-token-eos',
-        11: 'icon-eos-wallet',
-        12: 'icon-eos-ico',
-        13: 'icon-eos-airdrop'
-    };
+    $scope.contractTypesIcons = {};
+    for (var i in CONTRACT_TYPES_FOR_CREATE) {
+        CONTRACT_TYPES_FOR_CREATE[i]['list'].map(function(contractType) {
+            $scope.contractTypesIcons[contractType['typeNumber']] = contractType['icon'];
+        });
+    }
 
     var deletingProgress;
     $scope.refreshInProgress = {};
@@ -389,7 +379,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         8: 'airdrop',
         9: 'invest',
         10: 'eos_token',
-        11: 'eos_wallet'
+        11: 'eos_wallet',
+        12: 'eos_crowdsale',
+        13: 'eos_airdrop',
+        14: 'eos_i_token'
     };
 
     var launchProgress = false;

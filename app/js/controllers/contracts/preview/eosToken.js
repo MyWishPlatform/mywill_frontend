@@ -58,24 +58,23 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
 
 }).controller('eosTokenMintController', function(EOSService, $scope, $timeout, $filter) {
 
-    var contract = $scope.ngPopUp.params.contract.contract_details;
+    var fullContract = $scope.ngPopUp.params.contract;
+    var contract = fullContract.contract_details;
 
     $scope.recipient = {
         amount: '',
         address: ''
     };
 
-    $scope.tokenInfo = {};
-
     EOSService.coinInfo(
         contract.token_short_name,
-        $scope.ngPopUp.params.contract.network,
-        $scope.ngPopUp.params.contract.contract_details.eos_contract.address
+        fullContract.network,
+        (fullContract.contract_type == 14) ? contract.token_account : contract.eos_contract.address
     ).then(function(result) {
         result[contract.token_short_name] = result[contract.token_short_name] || {
-                supply: '0',
-                max_supply: '0'
-            };
+            supply: '0',
+            max_supply: '0'
+        };
         $timeout(function() {
             $scope.tokenInfo['totalSupply'] = result[contract.token_short_name].supply.split(' ')[0] || 0;
             $scope.tokenInfo['maximumSupply'] = result[contract.token_short_name].max_supply.split(' ')[0] || 0;
@@ -93,6 +92,8 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             $scope.checkTokensAmount();
         });
     });
+
+    $scope.tokenInfo = {};
 
     $scope.scatterNotInstalled = false;
     $scope.closeScatterAlert = function() {

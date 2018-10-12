@@ -170,8 +170,8 @@ angular.module('Directives').directive('ngEosAccount', function() {
                         if (!result[currValue]) {
                             ctrl.$setValidity('check-sum', !!$scope.ngEosTokenOptions.invert);
                         } else {
-                            // tokensInfoHash[tokenKey] = result;
-                            checkIssuer();
+                            tokensInfoHash[tokenKey] = result;
+                            $scope.ngEosTokenOptions.tokenAddress ? checkIssuer() : false;
                             ctrl.$setValidity('check-sum', !$scope.ngEosTokenOptions.invert);
                         }
                     }, function() {

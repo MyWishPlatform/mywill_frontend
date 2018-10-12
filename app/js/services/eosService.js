@@ -248,11 +248,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         }
     };
 
-    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo) {
+    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, tokenAccount) {
         return _this.sendTx({
             owner: tokenOwner,
             actions: [{
-                account: eosAccounts[displayingNetwork]['TOKEN'],
+                account: tokenAccount || eosAccounts[displayingNetwork]['TOKEN'],
                 name: 'issue',
                 data: {
                     from: tokenOwner,

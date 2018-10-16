@@ -1,7 +1,6 @@
 {
   "name": "mywish",
   "version": "1.2.0",
-  "description": "",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -55,12 +54,22 @@
     "moment-timezone": "^0.5.13",
     "ng-webworker": "^0.2.3",
     "node-sass": "^4.9.0",
+    "npm": "^6.4.1",
     "object-assign": "^4.1.1",
     "papaparse": "^4.5.0",
     "qrious": "^4.0.2",
     "ua-parser-js": "^0.7.17",
     "wallet-address-validator": "^0.1.7",
-    "web3": "^1.0.0-beta.28",
+    "web3": "^1.0.0-beta.34",
     "websocket": "^1.0.24"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MyWishPlatform/mywill_frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MyWishPlatform/mywill_frontend/issues"
+  },
+  "homepage": "https://github.com/MyWishPlatform/mywill_frontend#readme",
+  "description": ""
 }

@@ -1,0 +1,64 @@
+<div class="main-section-content">
+    <div class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-eosish-circle"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size" translate="MAIN_MENU.EOSISH_CALCULATOR"></span>
+                </div>
+            </div>
+            <div class="shadow-block__content__description">
+                <span>
+                    This tool shows how many EOSISH you will get after the airdrop. Snapshot date: 16-Oct-2018, 15:00 GMT
+                </span>
+            </div>
+        </div>
+
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="form-control-label">Your ETH address:</div>
+                        <input type="text" class="form-control-input"
+                               ng-model="request.eth_address"
+                               name="eth_address"
+                               required
+                               ng-change="checkETHAddress(accountsForm['eth_address'])"
+                               ng-checksum-address-validator="{'network': 'ETH'}">
+                        <div class="form-control-label">You will get 100,000 EOSISH</div>
+                    </div>
+
+
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                    <div class="form-control-label">&nbsp;</div>
+                    <div class="form-control-description__text">
+                        Enter your ETH address where WISH tokens were stored on the snapshot date.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <label for="eos-account" class="form-control-label">Your EOS account:</label>
+                        <div ng-eos-account
+                             ng-model="request.contract_details.account_name"
+                             ng-eos-account-options="{
+                                name: 'eos-account',
+                                network: 10
+                             }"></div>
+                        <div class="form-control-label">You will get 100,000 EOSISH</div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                    <div class="form-control-label">&nbsp;</div>
+                    <div class="form-control-description__text">
+                        Enter your EOS account where EOS  tokens were stored on the snapshot date.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

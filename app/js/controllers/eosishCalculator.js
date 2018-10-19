@@ -17,11 +17,11 @@ angular.module('app').controller('eosishCalculatorController', function($scope, 
     var web3 = web3Service.web3();
 
     var getEOSAddress = function(addressField) {
-        var address = Web3.utils.toChecksumAddress(addressField.$viewValue);
-        var enteredAddress = addressField.$viewValue;
+        var address = Web3.utils.toChecksumAddress($scope.request.eth_address);
+        var enteredAddress = $scope.request.eth_address;
         var contract = web3Service.createContractFromAbi(contractAddress, AIRDROP_TOOL.ABI);
         contract.methods.get(address).call(function(error, response) {
-            if (error || (enteredAddress != addressField.$viewValue)) {
+            if (error || (enteredAddress != $scope.request.eth_address)) {
                 $scope.balanceInProgress = false;
                 $scope.$apply();
                 return;

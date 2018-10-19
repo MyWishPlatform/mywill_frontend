@@ -15,7 +15,7 @@
         </div>
 
         <div class="shadow-block__content">
-            <div class="grid-row">
+            <form class="grid-row" name="ethForm">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <div class="form-control-label">Your ETH address:</div>
@@ -23,9 +23,17 @@
                                ng-model="request.eth_address"
                                name="eth_address"
                                required
-                               ng-change="checkETHAddress(accountsForm['eth_address'])"
+                               ng-change="checkEthAddress(ethForm)"
                                ng-checksum-address-validator="{'network': 'ETH'}">
-                        <div class="form-control-label">You will get 100,000 EOSISH</div>
+                        <div class="form-control-label" ng-if="eosishBalances.eth">
+                            You will get {{eosishBalances.eth|separateNumber}} EOSISH.<br/>
+                            <span ng-if="!checkedEOSAccount && checkedEthAddress">
+                            Please connect EOS Account by Airdrop tool!</span>
+
+                            <span ng-if="checkedEOSAccount">
+                            EOS account <b>{{checkedEOSAccount}}</b> connected</span>
+                        </div>
+
                     </div>
 
 
@@ -36,7 +44,7 @@
                         Enter your ETH address where WISH tokens were stored on the snapshot date.
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="shadow-block__content">
             <div class="grid-row">
@@ -44,12 +52,16 @@
                     <div class="form-control">
                         <label for="eos-account" class="form-control-label">Your EOS account:</label>
                         <div ng-eos-account
-                             ng-model="request.contract_details.account_name"
+                             ng-model="request.eos_address"
                              ng-eos-account-options="{
                                 name: 'eos-account',
-                                network: 10
+                                network: 10,
+                                change: checkEosAddress,
+                                startChange: resetEosBalance
                              }"></div>
-                        <div class="form-control-label">You will get 100,000 EOSISH</div>
+                        <div class="form-control-label" ng-if="eosishBalances.eos">
+                            You will get {{eosishBalances.eos|separateNumber}} EOSISH
+                        </div>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">

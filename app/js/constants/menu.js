@@ -27,6 +27,10 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         icon: 'icon-eosish-circle',
         route: 'main.join_airdrop'
     }, {
+        title: 'MAIN_MENU.EOSISH_CALCULATOR',
+        icon: 'icon-eosish-circle',
+        route: 'main.eosish_calculator'
+    }, {
         title: 'MAIN_MENU.EXTERNAL_DEVELOPERS',
         icon: 'icon-framew',
         route: 'main.extdevs'

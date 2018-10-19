@@ -165,6 +165,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         url: '/join_airdrop',
         templateUrl: templatesPath + 'join_airdrop.html',
         controller: 'joinAirdropController'
+    }).state('main.eosish_calculator', {
+        url: '/eosish_calculator',
+        templateUrl: templatesPath + 'eosish_calculator.html',
+        controller: 'eosishCalculatorController'
     }).state('main.contracts.list', {
         url: '/contracts',
         controller: 'contractsController',

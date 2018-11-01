@@ -121,7 +121,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.finishGlobalProgress = false;
 
     $rootScope.$state = $state;
-
+    console.log($rootScope.$state);
     var defaultLng = (navigator.language||navigator.browserLanguage).split('-')[0];
     $rootScope.setCurrentUser = function(profile) {
 

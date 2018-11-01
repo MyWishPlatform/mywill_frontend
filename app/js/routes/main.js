@@ -307,10 +307,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {
-        url: '/create/:selectedType?:options?:network?',
-        params: {
-            network: '1'
-        },
+        url: '/create/:selectedType?:options?:network?:ext?',
         controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },

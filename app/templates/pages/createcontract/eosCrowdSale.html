@@ -103,3 +103,10 @@
         </button>
     </div>
 </div>
+
+<div ng-if="($state.params.ext === 'eospark') && (network == 10)" ng-pop-up="{
+            template: '/templates/popups/disclaimers/eos-park-partner.html',
+            newPopupContent: true,
+            opened: true
+     }">
+</div>

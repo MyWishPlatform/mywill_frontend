@@ -57,11 +57,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         offset: 100
     };
 
-}).controller('baseContractsController', function($scope, $state, $timeout, contractService,
+}).controller('baseContractsController', function($scope, $state, $timeout, contractService, $cookies,
                                                   web3Service, WebSocketService, EOSService, CONTRACT_TYPES_FOR_CREATE,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
 
     $scope.contractTypesIcons = {};
+
     for (var i in CONTRACT_TYPES_FOR_CREATE) {
         CONTRACT_TYPES_FOR_CREATE[i]['list'].map(function(contractType) {
             $scope.contractTypesIcons[contractType['typeNumber']] = contractType['icon'];
@@ -328,24 +329,34 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             iniSocketHandler(contract);
         }
         contract.discount = contract.discount || 0;
+
+
         switch (contract.network) {
             case 1:
             case 2:
                 iniETHContract(contract, fullScan);
+                setContractStatValues(contract);
                 break;
             case 3:
             case 4:
                 iniRSKContract(contract, fullScan);
+                setContractStatValues(contract);
                 break;
             case 6:
                 iniNeoContract(contract, fullScan);
+                setContractStatValues(contract);
                 break;
             case 10:
             case 11:
                 iniEOSContract(contract, fullScan);
+                setContractStatValues(contract);
+                if ($cookies.get('partnerpromo') && ($state.current.name === "main.contracts.preview.byId") && (contract.stateValue === 1)) {
+                    contract.promo = $cookies.get('partnerpromo');
+                    $scope.getDiscount(contract, true);
+                }
+
                 break;
         }
-        setContractStatValues(contract);
     };
 
     /* (Click) Contract refresh */
@@ -503,9 +514,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         };
     };
 
-    $scope.getDiscount = function(contract) {
-        if (!contract.promo) return;
+    $scope.getDiscount = function(contract, noPopUp) {
 
+        if (!contract.promo) return;
+        contract.checkPromoProgress = true;
         return contractService.getDiscount({
             contract_type: contract.contract_type,
             promo: contract.promo
@@ -530,9 +542,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 contract: contract,
                 newPopupContent: true
             };
-
-            $rootScope.commonOpenedPopup = 'alerts/promo-code-activated';
-
+            if (!noPopUp) {
+                $rootScope.commonOpenedPopup = 'alerts/promo-code-activated';
+            }
+            contract.checkPromoProgress = false;
         }, function(response) {
             contract.discount = 0;
             switch (response.status) {
@@ -540,6 +553,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     contract.discountError = response.data.detail;
                     break;
             }
+            contract.checkPromoProgress = false;
         });
     };
 

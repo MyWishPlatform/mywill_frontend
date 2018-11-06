@@ -308,7 +308,17 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
     }).state('main.createcontract.form', {
         url: '/create/:selectedType?:options?:network?:ext?',
-        controllerProvider: function($stateParams) {
+        controllerProvider: function($stateParams, APP_CONSTANTS, $cookies) {
+            var cookiePromo;
+            switch ($stateParams.ext) {
+                case 'meetone':
+                    cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
+                    break;
+                case 'eospark':
+                    cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
+                    break;
+            }
+            $cookies.put('partnerpromo', cookiePromo);
             return $stateParams.selectedType + 'CreateController';
         },
         templateProvider: function ($templateCache, $stateParams) {

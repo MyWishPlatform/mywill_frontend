@@ -1,7 +1,7 @@
 angular.module('app').controller('eosTokenPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, $filter, EOSService) {
     $scope.contract = openedContract.data;
 
-    $scope.setContract($scope.contract);
+    $scope.iniContract($scope.contract);
     var contractDetails = $scope.contract.contract_details;
 
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);

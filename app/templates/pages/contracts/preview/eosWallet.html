@@ -83,23 +83,26 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-3">
                     <div class="form-control-label">
-                        <b>NET:</b> {{contract.contract_details.stake_net_value}} EOS
+                        <b translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.NET.LABEL">NET:</b> {{contract.contract_details.stake_net_value}} EOS
                     </div>
                     <div class="no-padding field-advanced-description" ng-if="EOSprices['NET']">
-                        ≈ {{EOSprices['NET'] * contract.contract_details.stake_net_value|number:2}} kb
+                        ≈ {{EOSprices['NET'] * contract.contract_details.stake_net_value|number:2}}
+                        <span translate="CONTRACTS.PREVIEW.EOS_WALLET.KB"></span>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-3">
                     <div class="form-control-label">
-                        <b>CPU:</b> {{contract.contract_details.stake_cpu_value}} EOS
+                        <b translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.CPU.LABEL"></b> {{contract.contract_details.stake_cpu_value}} EOS
                     </div>
                     <div class="no-padding field-advanced-description" ng-if="EOSprices['CPU']">
-                        ≈ {{EOSprices['CPU'] * contract.contract_details.stake_cpu_value|number:2}} ms
+                        ≈ {{EOSprices['CPU'] * contract.contract_details.stake_cpu_value|number:2}}
+                        <span translate="CONTRACTS.PREVIEW.EOS_WALLET.MS"></span>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-3">
                     <div class="form-control-label">
-                        <b>RAM:</b> {{contract.contract_details.buy_ram_kbytes}} kb
+                        <b translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.RAM.LABEL"></b> {{contract.contract_details.buy_ram_kbytes}}
+                        <span translate="CONTRACTS.PREVIEW.EOS_WALLET.KB"></span>
                     </div>
                 </div>
             </div>

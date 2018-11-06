@@ -120,7 +120,8 @@ $red-active-color: #bb0d2b;
     padding: 0 2em;
     line-height: 3.6em;
     &.payment-method {
-      min-width: 12em;
+      width: 12em;
+      max-width: 100%;
     }
     &.active {
       border-color: #206EFF;

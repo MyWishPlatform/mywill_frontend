@@ -8,9 +8,7 @@
                 </div>
             </div>
             <div class="shadow-block__content__description">
-                <span>
-                    This tool shows how many EOSISH you will get after the airdrop. Snapshot date: 16-Oct-2018, 15:00 GMT
-                </span>
+                <span translate="EOSISH_CALCULATOR.DESCRIPTION"></span>
             </div>
         </div>
 
@@ -18,7 +16,7 @@
             <form class="grid-row" name="ethForm">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
-                        <div class="form-control-label">Your ETH address:</div>
+                        <div class="form-control-label" translate="EOSISH_CALCULATOR.FIELDS.ETH_ADDRESS.TITLE"></div>
                         <input type="text" class="form-control-input"
                                ng-model="request.eth_address"
                                name="eth_address"
@@ -26,12 +24,15 @@
                                ng-change="checkEthAddress(ethForm)"
                                ng-checksum-address-validator="{'network': 'ETH'}">
                         <div class="form-control-label" ng-if="eosishBalances.eth">
-                            You will get {{eosishBalances.eth|separateNumber}} EOSISH.<br/>
-                            <span ng-if="!checkedEOSAccount && checkedEthAddress">
-                            Please connect EOS Account by Airdrop tool!</span>
+                            <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
+                                  translate-values="{eosishBalances: (eosishBalances.eth|separateNumber)}"></span>
+                            <br/>
+                            <span ng-if="!checkedEOSAccount && checkedEthAddress"
+                                  translate="EOSISH_CALCULATOR.CHECK_TEXTS.NO_CONNECTED_TEXT"></span>
 
-                            <span ng-if="checkedEOSAccount">
-                            EOS account <b>{{checkedEOSAccount}}</b> connected</span>
+                            <span ng-if="checkedEOSAccount"
+                                  translate-values="{checkedEOSAccount: checkedEOSAccount}"
+                                  translate="EOSISH_CALCULATOR.CHECK_TEXTS.CONNECTED_TEXT"></span>
                         </div>
 
                     </div>
@@ -40,9 +41,7 @@
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
-                    <div class="form-control-description__text">
-                        Enter your ETH address where WISH tokens were stored on the snapshot date.
-                    </div>
+                    <div class="form-control-description__text" translate="EOSISH_CALCULATOR.FIELDS.ETH_ADDRESS.DESCRIPTION"></div>
                 </div>
             </form>
         </div>
@@ -50,7 +49,7 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
-                        <label for="eos-account" class="form-control-label">Your EOS account:</label>
+                        <label for="eos-account" class="form-control-label" translate="EOSISH_CALCULATOR.FIELDS.EOS_ACCOUNT.TITLE"></label>
                         <div ng-eos-account
                              ng-model="request.eos_address"
                              ng-eos-account-options="{
@@ -60,15 +59,15 @@
                                 startChange: resetEosBalance
                              }"></div>
                         <div class="form-control-label" ng-if="eosishBalances.eos">
-                            You will get {{eosishBalances.eos|separateNumber}} EOSISH
+                            <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
+                                  translate-values="{eosishBalances: (eosishBalances.eos|separateNumber)}"></span>
                         </div>
                     </div>
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
-                    <div class="form-control-description__text">
-                        Enter your EOS account where EOS  tokens were stored on the snapshot date.
-                    </div>
+                    <div class="form-control-description__text"
+                         translate="EOSISH_CALCULATOR.FIELDS.EOS_ACCOUNT.DESCRIPTION"></div>
                 </div>
             </div>
         </div>

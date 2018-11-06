@@ -346,8 +346,12 @@
       }
     },
     "EOS_BUY_TOKENS": {
-      "MYWISH_ACCOUNT": {
+      "EOS_ACCOUNT": {
         "LABEL": "Send EOS to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "EOSISH_ACCOUNT": {
+        "LABEL": "Send EOSISH to:",
         "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "MEMO_FIELD": {
@@ -1255,6 +1259,23 @@
             "TITLE": "Your owner private key",
             "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
           },
+          "ADVANCED_SETTINGS": {
+            "LABEL": "Change Advanced Settings",
+            "DESCRIPTION": "You can change the default settings for the account if you need. Changing the values will affect the costs of the creation."
+          },
+          "NET": {
+            "LABEL": "NET:",
+            "DESCRIPTION": "Network Bandwidth. Your bandwidth is temporarily used each time a transaction or action is done on the network."
+          },
+          "CPU": {
+            "LABEL": "CPU:",
+            "DESCRIPTION": "Processing Power. CPU needed for transaction and actions execution. The complicated actions require more time for execution (and more CPU)."
+          },
+          "RAM": {
+            "LABEL": "RAM:",
+            "DESCRIPTION": "RAM is needed for storing the data on EOS blockchain.",
+            "KILOBYTES": "KB"
+          },
           "COPY_KEYS": "Copy keys pairs",
           "GENERATE_KEYS": "Generate keys pairs",
           "REGENERATE_KEYS": "Generate new pairs",
@@ -1429,7 +1450,9 @@
       "EOS_WALLET": {
         "ACCOUNT_NAME": "Account name",
         "ACTIVE_PUBLIC_KEY": "Active public key",
-        "OWNER_PUBLIC_KEY": "Owner public key"
+        "OWNER_PUBLIC_KEY": "Owner public key",
+        "KB": "kb",
+        "MS": "ms"
       },
       "EOS_CROWDSALE": {
         "TOKEN_ACCOUNT": "Token Contract Builder",
@@ -1453,6 +1476,50 @@
       "TITLE": "Save EOS address",
       "DESCRIPTION": " To connect your ETH address (which will have some WISH by Snapshot time) <b>{{ethAddress}}</b> to EOS Address “<b>{{eosAddress}}</b>” please do the following steps:",
       "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
+    }
+  },
+  "AIRDROP_TOOL": {
+    "RULES": "Official rules for Airdrop is listed here.",
+    "FIELDS": {
+      "ETH_ADDRESS": {
+        "LABEL": "ETH address:",
+        "DESCRIPTION": "Enter your ETH address where WISH tokens are stored. Please check that you have corresponding private key.",
+        "CHECK_TEXTS": {
+          "NO_ACCOUNT_CONNECTED": "No EOS account connected. <br/>If you just connected it please wait 10 minutes.",
+          "ACCOUNT_CONNECTED": "This ETH address is connected to <b>{{checkedEOSAccount}}</b> EOS account."
+        }
+      },
+      "EOS_ACCOUNT": {
+        "LABEL": "EOS account:",
+        "DESCRIPTION": "Enter Your EOS account for getting EOSISH token (after Airdrop date). If you do not have EOS account, you can create it <a href=\"/create/eosWallet?network=10\" target=\"_blank\">here</a>"
+      }
+    },
+    "SAVE_BUTTON": "Save EOS address"
+  },
+  "EOSISH_CALCULATOR": {
+    "DESCRIPTION": "This tool shows how many EOSISH you will get after the airdrop. Snapshot date: 16-Oct-2018, 15:00 GMT",
+    "FIELDS": {
+      "ETH_ADDRESS": {
+        "TITLE": "Your ETH address:",
+        "DESCRIPTION": "Enter your ETH address where WISH tokens were stored on the snapshot date."
+      },
+      "EOS_ACCOUNT": {
+        "TITLE": "Your EOS account:",
+        "DESCRIPTION": "Enter your EOS account where EOS  tokens were stored on the snapshot date."
+      }
+    },
+    "CHECK_TEXTS": {
+      "BALANCE_TEXT": "You will get {{eosishBalances}} EOSISH.",
+      "CONNECTED_TEXT": "EOS account <b>{{checkedEOSAccount}}</b> connected",
+      "NO_CONNECTED_TEXT": "Please connect EOS Account by Airdrop tool!"
+    }
+  },
+  "PARTNERS_DISCLAIMERS": {
+    "MEETONE": {
+      "TEXT": "We provide MEETONE users with a 15% discount.<br/> The discount can be applied to the deployment of all EOS Accounts & Contracts.<br/><br/> Please enter the promo code <b>MEETONE</b> before making a payment."
+    },
+    "EOSPARK": {
+      "TEXT": "We provide EOSPark users with a 15% discount.<br/> The discount can be applied to the deployment of all EOS Accounts & Contracts.<br/><br/> Please enter the promo code <b>EOSPARK</b> before making a payment."
     }
   }
 }

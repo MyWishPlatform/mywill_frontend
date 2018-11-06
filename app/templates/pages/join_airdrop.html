@@ -14,7 +14,7 @@
             <div class="shadow-block__content__description">
                 <span>
                     <a href="https://medium.com/@VladimirTikhomirov/instructions-for-getting-eosish-wish-holders-f2700234191f"
-                       target="_blank">Official rules for Airdrop is listed here.</a>
+                       target="_blank" translate="AIRDROP_TOOL.RULES"></a>
                 </span>
             </div>
         </div>
@@ -25,7 +25,7 @@
                         <div class="form-control-label">
                             <div class="float-right"
                                  ng-bind="checkedEthAddress ? ('BALANCE'|translate) +': ' + (checkedEthAddress|separateNumber) + ' WISH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
-                            ETH address:
+                            <span translate="AIRDROP_TOOL.FIELDS.ETH_ADDRESS.LABEL"></span>
                         </div>
                         <input type="text" class="form-control-input"
                                ng-model="request.eth_address"
@@ -35,22 +35,18 @@
                                ng-checksum-address-validator="{'network': 'ETH'}">
 
                         <span class="field-success grey-text-color"
-                              ng-if="!checkedEOSAccount && checkedEthAddress">
-                            No EOS account connected. <br/>If you just connected it please wait 10 minutes.
+                              ng-if="!checkedEOSAccount && checkedEthAddress" translate="AIRDROP_TOOL.FIELDS.ETH_ADDRESS.CHECK_TEXTS.NO_ACCOUNT_CONNECTED">
                         </span>
                         <span class="field-success"
-                              ng-if="checkedEOSAccount">
-                            This ETH address is connected to <b>{{checkedEOSAccount}}</b> EOS account.
-                        </span>
+                              ng-if="checkedEOSAccount"
+                              translate-values="{checkedEOSAccount: checkedEOSAccount}"
+                              translate="AIRDROP_TOOL.FIELDS.ETH_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>
                     </div>
-
-
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
-                    <div class="form-control-description__text">
-                        Enter your ETH address where WISH tokens are stored. Please check that you have corresponding private key.
-                    </div>
+                    <div class="form-control-description__text"
+                         translate="AIRDROP_TOOL.FIELDS.ETH_ADDRESS.DESCRIPTION"></div>
                 </div>
             </div>
             <div class="grid-row">
@@ -74,10 +70,8 @@
                 </div>
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
-                    <div class="form-control-description__text">
-                        Enter Your EOS account for getting EOSISH token (after Airdrop date). If you do not have EOS account, you can create it
-                        <a href="/create/eosWallet?network=10" target="_blank">here</a>
-                    </div>
+                    <div class="form-control-description__text"
+                         translate="AIRDROP_TOOL.FIELDS.EOS_ACCOUNT.DESCRIPTION"></div>
                 </div>
             </div>
         </form>
@@ -95,7 +89,7 @@
                     class="btn btn-transparent mobile-width-100"
                     ng-disabled="!accountsForm.$valid || (checkedEOSAccount || !checkedEthAddress)"
                     type="button">
-                <span>Save EOS address</span>
+                <span translate="AIRDROP_TOOL.SAVE_BUTTON"></span>
             </button>
         </div>
     </div>

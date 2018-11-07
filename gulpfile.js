@@ -15,8 +15,9 @@ var gulp = require('gulp'),
     fs = require('fs'),
     config = require('./config.js'),
     revReplace = require("gulp-rev-replace"),
-    sourcemaps = require("gulp-sourcemaps");
-
+    sourcemaps = require("gulp-sourcemaps"),
+    rename = require('gulp-rename'),
+    template = require('gulp-template');
 var output = 'app';
 var input = 'dist';
 var isProduction;
@@ -251,11 +252,33 @@ gulp.task('app:revision', function() {
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
 
     return gulp.src([path.join(output, '*.html')])
+        .pipe(template({socialScripts: fs.readFileSync("app/social.htm", "utf8")}))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
         .pipe(revReplace({manifest: manifestLoginJS}))
         .pipe(revReplace({manifest: manifestVendors}))
         .pipe(revReplace({manifest: manifestTemplates}))
+        .pipe(gulp.dest(input))
+});
+
+
+gulp.task('app:zh-revision', function() {
+    var manifestCSS = gulp.src(path.join(input, 'static', folders['css'], 'rev-manifest.json'));
+    var manifestJS = gulp.src(path.join(input, 'static', folders['js'], 'main.json'));
+    var manifestLoginJS = gulp.src(path.join(input, 'static', folders['js'], 'login.json'));
+    var manifestVendors = gulp.src(path.join(input, 'static', 'vendors', 'rev-manifest.json'));
+    var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
+
+    return gulp.src([path.join(output, '*.html')])
+        .pipe(template({socialScripts: ''}))
+        .pipe(revReplace({manifest: manifestCSS}))
+        .pipe(revReplace({manifest: manifestJS}))
+        .pipe(revReplace({manifest: manifestLoginJS}))
+        .pipe(revReplace({manifest: manifestVendors}))
+        .pipe(revReplace({manifest: manifestTemplates}))
+        .pipe(rename(function (path) {
+            path.basename+= '.zh';
+        }))
         .pipe(gulp.dest(input))
 });
 
@@ -276,7 +299,7 @@ gulp.task('ng-config', function() {
 
 
 gulp.task('app:rev', ['app:css', 'app:vendors', 'all:js-start', 'app:templates'], function() {
-    return gulp.start('app:revision');
+    return gulp.start('app:revision', 'app:zh-revision');
 });
 gulp.task('css:watcher', ['app:css'], function() {
     return gulp.start('app:revision');

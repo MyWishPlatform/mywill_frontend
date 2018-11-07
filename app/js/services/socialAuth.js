@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS) {
+module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS, $rootScope) {
 
     var googleAppId = APP_CONSTANTS.SOCIAL_APP_ID.GOOGLE;
     var facebookAppId = APP_CONSTANTS.SOCIAL_APP_ID.FACEBOOK;
@@ -11,6 +11,7 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
     };
 
     if (window.FB) {
+        $rootScope.FBInited = true;
         FB.init({
             appId: facebookAppId,
             status: true,
@@ -20,6 +21,7 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
         })
     }
     if (window.gapi) {
+        $rootScope.GAInited = true;
         gapi.load('auth2');
     }
 

@@ -17,6 +17,8 @@ var gulp = require('gulp'),
     revReplace = require("gulp-rev-replace"),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require('gulp-rename'),
+
+    data = require('gulp-data'),
     template = require('gulp-template');
 var output = 'app';
 var input = 'dist';
@@ -250,9 +252,13 @@ gulp.task('app:revision', function() {
     var manifestLoginJS = gulp.src(path.join(input, 'static', folders['js'], 'login.json'));
     var manifestVendors = gulp.src(path.join(input, 'static', 'vendors', 'rev-manifest.json'));
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
+    var endBodyScripts = fs.readFileSync("app/endBody.htm", "utf8");
 
     return gulp.src([path.join(output, '*.html')])
-        .pipe(template({socialScripts: fs.readFileSync("app/social.htm", "utf8")}))
+        .pipe(template({
+            socialScripts: fs.readFileSync("app/social.htm", "utf8"),
+            endBodyScripts: endBodyScripts
+        }))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
         .pipe(revReplace({manifest: manifestLoginJS}))
@@ -270,7 +276,7 @@ gulp.task('app:zh-revision', function() {
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
 
     return gulp.src([path.join(output, '*.html')])
-        .pipe(template({socialScripts: ''}))
+        .pipe(template({socialScripts: '', endBodyScripts: ''}))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
         .pipe(revReplace({manifest: manifestLoginJS}))

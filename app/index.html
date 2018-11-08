@@ -47,9 +47,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="shortcut icon" sizes="196x196" href="/static/favicon/android-chrome-192x192.png">
 
-
     <%= socialScripts %>
-
 
     <script src="/static/vendors/vendors.js"></script>
     <script src="/static/tpl/templates.tpl.js"></script>
@@ -145,36 +143,21 @@
         onClose: commonOpenedPopupParams.onClose || closeCommonPopup
     }" ng-if="commonOpenedPopup"></div>
 
-
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDHD74W"
-                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div class="global-error-layer {{'global-error-layer__' + globalError.type}}"
          ng-click="hideGlobalError()"
          ng-class="{'visible-error': globalError.text}">
         <div class="global-error-layer__text">{{globalError.text}}</div>
     </div>
+
+
+
 </div>
 
-<!-- Start of LiveChat (www.livechatinc.com) code -->
-<script type="text/javascript">
-    window.__lc = window.__lc || {};
-    window.__lc.license = 9683030;
-    (function() {
-        var lc = document.createElement('script'); lc.type = 'text/javascript'; lc.async = true;
-        lc.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.livechatinc.com/tracking.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(lc, s);
-    })();
-</script>
-<!-- End of LiveChat code -->
+<%= endBodyScripts %>
+
 <!-- img src="/static/images/220px-Wikipe-tan_full_length.svg.png"
      ng-class="{visible: visibleGirl}"
      class="anime-girl"/ -->
 </body>
-
-<!--<div class="bg"></div>-->
-<!--<ul class="drops"></ul>-->
 
 </html>

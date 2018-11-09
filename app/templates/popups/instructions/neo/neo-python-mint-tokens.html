@@ -31,7 +31,7 @@
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
-                                text="'import token ' + ngPopUp.params.contract.contract_details.neo_contract_token.script_hash"
+                                text="'import token ' + ngPopUp.params.contract.neo_contract_token.script_hash"
                                 ng-class="{copied: ngPopUp.params.contract.copied['script_hash1']}"
                                 on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash1')">&nbsp;
                             <i class="icon-content_copy"></i>
@@ -63,7 +63,7 @@
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
-                                text="'testinvoke ' + ngPopUp.params.contract.contract_details.neo_contract_token.script_hash + ' mint [' + ngPopUp.params.recipient.address + ',' + ngPopUp.params.recipient.amount + ']'"
+                                text="'testinvoke ' + ngPopUp.params.contract.neo_contract_token.script_hash + ' mint [' + ngPopUp.params.recipient.address + ',' + ngPopUp.params.recipient.amount + ']'"
                                 ng-class="{copied: ngPopUp.params.contract.copied['script_hash3']}"
                                 on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash3')">&nbsp;
                             <i class="icon-content_copy"></i>

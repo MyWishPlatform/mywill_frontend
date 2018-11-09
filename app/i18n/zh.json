@@ -21,8 +21,8 @@
     "BUY_TOKENS": "购买代币",
     "SUPPORT": "支持",
     "LOG_OUT": "登出",
-    "JOIN_AIRDROP": "Airdrop Tool",
-    "EOSISH_CALCULATOR": "EOSISH Calculator",
+    "JOIN_AIRDROP": "空投工具",
+    "EOSISH_CALCULATOR": "EOSISH 计算器",
     "VERSION": "版"
   },
   "HEADER": {
@@ -48,8 +48,8 @@
     "ENDED": "完成",
     "DONE": "完成",
     "UNDER_CROWDSALE": "在代币销售下",
-    "SENDING_TOKENS": "Sending",
-    "CREATING": "Creating"
+    "SENDING_TOKENS": "发送",
+    "CREATING": "正在生成"
   },
   "CONTRACTS_NETWORKS": {
     "NETWORK_1": "Main Ethereum Network",
@@ -81,8 +81,8 @@
     "CONFIRM": "确认",
     "BUY_TOKENS": "购买代币",
     "CHECK": "检查",
-    "BACK": "Back",
-    "CHOOSE_FILE": "Choose file"
+    "BACK": "返回",
+    "CHOOSE_FILE": "返回"
   },
   "AUTH_POPUP": {
     "FIELDS": {
@@ -125,15 +125,15 @@
     "EDIT": "编辑",
     "ADD_TO_PARITY": "+加入Parity",
     "CHANGE_DATES": "更改日期",
-    "WHITELIST": "Whitelist",
-    "SEND_AIRDROP_ADDRESSES": "Send To Group",
-    "ADD_ADDRESSES": "Import data",
-    "SEND_FUNDS": "Send Funds",
-    "SETTINGS": "Settings",
-    "GET_TOKENS": "Get tokens",
-    "REFUND": "Refund",
-    "SEND_TOKENS": "Send Tokens",
-    "CREATE": "Create"
+    "WHITELIST": "白名单",
+    "SEND_AIRDROP_ADDRESSES": "发送到群组",
+    "ADD_ADDRESSES": "导入数据",
+    "SEND_FUNDS": "拨款",
+    "SETTINGS": "设置",
+    "GET_TOKENS": "获得代币",
+    "REFUND": "退款",
+    "SEND_TOKENS": "发送代币",
+    "CREATE": "生成"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "该字段必填",
@@ -152,13 +152,13 @@
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
-      "TEXT": "Please Install Scatter application & Try again"
+      "TEXT": "请下载Scatter应用并尝试"
     },
     "SCATTER_ACCOUNT_NOT_FOUND": {
-      "TEXT": "Owner account is not found in Scatter. Please add & try again."
+      "TEXT": "在Scatter中无法找到持有者账户，请添加并重新尝试"
     },
     "SCATTER_MINTING_SUCCESS": {
-      "TEXT": "Transaction was sent successfully"
+      "TEXT": "交易成功"
     },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "谢谢！ 您的留言已发送，我们会通过电子邮箱与您联系。"
@@ -190,7 +190,7 @@
       "TEXT": "请确认发布合约({{price|separateNumber}} {{currency || 'WISH'}})"
     },
     "ACCOUNT_CREATION": {
-      "TEXT": "Please confirm account creation ({{price}} WISH)"
+      "TEXT": "请确认创建账户 ({{price}} WISH)"
     }
   },
   "PAGES": {
@@ -265,24 +265,24 @@
         "DESCRIPTION": "创建一个代币并自行或与代币销售合约一起分发"
       },
       "EOS_TOKEN_MYWISH": {
-        "TITLE": "Token Contract based on MyWish",
-        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. MyWish account will be shown as token creator."
+        "TITLE": "基于MyWish创建合同",
+        "DESCRIPTION": "为任何需求创建代币，为ICO和交换做好准备。 MyWish帐户将显示为代币创建者。"
       },
       "EOS_TOKEN_PERSONAL": {
-        "TITLE": "Personal Token Contract",
-        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+        "TITLE": "个人代币合同",
+        "DESCRIPTION": "为任何需求创建代币，为ICO和交换做好准备。 MyWish帐户将显示为代币创建者。"
       },
       "AIRDROP": {
-        "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+        "TITLE": "空投",
+        "DESCRIPTION": "将ERC-20/ERC-223代币分发到许多地址（例如赏金计划或者公开销售）"
       },
       "EOS_AIRDROP": {
-        "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any EOS tokens among many accounts (for example, after Bounty program or Crowdsale)"
+        "TITLE": "空投",
+        "DESCRIPTION": "将ERC-20/ERC-223代币分发到许多地址（例如赏金计划或者公开销售）"
       },
       "INVESTMENT_POOL": {
-        "TITLE": "Investment pool",
-        "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
+        "TITLE": "投资池",
+        "DESCRIPTION": "需在投资前收集ETH合， 创建它并与他人共享地址"
       },
       "LOST_KEY": {
         "TITLE": "遗失私钥",
@@ -301,9 +301,9 @@
         "DESCRIPTION": "在指定时间段之后/期间在所有者之间分配资金的具有多重签名的钱包。"
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Account",
-        "DESCRIPTION": "Create an account on EOS blockchain",
-        "EOS_DESCRIPTION": "For EOS account creation please go to the <a>contracts.mywish.io</a>"
+        "TITLE": "创建EOS账户",
+        "DESCRIPTION": "在EOS区域链创建EOS账户",
+        "EOS_DESCRIPTION": "创建EOS账户请前往 <a>contracts.mywish.io</a>"
       },
       "TEST_NET_DISCLAIMER": {
         "LIST": {
@@ -346,17 +346,21 @@
       }
     },
     "EOS_BUY_TOKENS": {
+      "MYWISH_ACCOUNT": {
+        "LABEL": "将EOSISH（或自动交换的EOS）发送至:",
+        "DESCRIPTION": "您可以从交易所或您的EOS个人账户发送EOS代币。 您可以在此处创建帐户： <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
       "EOS_ACCOUNT": {
-        "LABEL": "Send EOS to:",
-        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+        "LABEL": "发送EOS到:",
+        "DESCRIPTION": "您可以从交易所或您的EOS个人账户发送EOS代币。 您可以在此处创建帐户： <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "EOSISH_ACCOUNT": {
-        "LABEL": "Send EOSISH to:",
-        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+        "LABEL": "发EOSISH给:",
+        "DESCRIPTION": "您可以从交易所或您的EOS个人账户发送EOS代币。 您可以在此处创建帐户： <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "MEMO_FIELD": {
-        "LABEL": "Fill MEMO field:",
-        "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
+        "LABEL": "填写备忘录字段",
+        "DESCRIPTION": "请在付款期间输入您在MEMO字段中的唯一代码。 它在MyWish平台上的帐户是独一无二的"
       }
     },
     "BUY_TOKENS": {
@@ -398,62 +402,62 @@
   "POPUP_FORMS": {
     "EOS_AIRDROP": {
       "DISCLAIMER": {
-        "ITEM_1": "For adding accounts & amount of tokens you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one account in EOS (column A) and amount of tokens to distribute (column B)",
-        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+        "ITEM_1": "要添加帐户和代币数量，您需要以* .csv格式上传表格",
+        "ITEM_2": "每行必须包含EOS中的一个帐户（A列）和要分发的代币数量（B列）",
+        "ITEM_TEXT": "代币字段的数字有两种类型。 例如，您的代币有18位小数，并且您想要向某人发送26.5代币。 如果选择“没有小数”，则需要将26.5与小数点添加到B列。” - 26500000000000000000 (26.5 * 10^18)."
       }
     },
     "AIRDROP": {
       "DISCLAIMER": {
-        "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one address in Ethereum (column A) and amount of tokens to distribute (column B)",
-        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+        "ITEM_1": "要添加帐户和代币数量，您需要以* .csv格式上传表格",
+        "ITEM_2": "每行必须包含EOS中的一个帐户（A列）和要分发的代币数量（B列）",
+        "ITEM_TEXT": "代币字段的数字有两种类型。 例如，您的代币有18位小数，并且您想要向某人发送26.5代币。 如果选择没有小数点”，则需要将26.5与小数点添加到B列。” - 26500000000000000000 (26.5 * 10^18)."
       },
       "FILE_ERRORS": {
-        "WRONG_FORMAT": "Wrong file format",
-        "PARSE_ERROR": "File parsing error"
+        "WRONG_FORMAT": "文件格式错误",
+        "PARSE_ERROR": "文件解析错误"
       },
       "TABLE": {
-        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
-        "PROCESSED_SUCCESSFULLY": "{{success}} rows were processed successfully",
-        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
-        "LINE_NUMBER": "Line: {{line}}",
-        "ERRORS_COUNT": "{{count}} errors",
+        "SUCCESS_ADDRESSES": "以下地址已准备好列入众筹合同的白名单:",
+        "PROCESSED_SUCCESSFULLY": "{{success}} 已成功处理行",
+        "ERROR_ADDRESSES": "{{errorsLength}} 行包含错误",
+        "LINE_NUMBER": "线： {{line}}",
+        "ERRORS_COUNT": "{{count}} 错误",
         "ERRORS": {
-          "WRONG_FORMAT": "Address has wrong format",
-          "EMPTY_STRING": "Empty string",
-          "WRONG_AMOUNT_FORMAT": "Missed or wrong amount of tokens",
-          "WRONG_AMOUNT_VALUE": "Wrong amount of tokens - decimals contradiction",
-          "ACCOUNTS_COUNT_LIMIT": "Accounts count limit"
+          "WRONG_FORMAT": "地址格式错误",
+          "EMPTY_STRING": "空字符串",
+          "WRONG_AMOUNT_FORMAT": "错误或错误的代币数量",
+          "WRONG_AMOUNT_VALUE": "代币数量错误 - 小数点矛盾",
+          "ACCOUNTS_COUNT_LIMIT": "帐户数量限制"
         },
-        "ADD_BUTTON": "Add {{length}} addresses"
+        "ADD_BUTTON": "添加 {{length}} 地址"
       }
     },
     "WHITELIST": {
       "DISCLAIMER": {
-        "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one address in Ethereum format",
-        "ITEM_3": "Only the first 100 addresses will be processed",
-        "ITEM_4": "You can add as many addresses as you need, but not more than 100 at a time<br/>Table example:"
+        "ITEM_1": "要添加白名单地址，您需要以* .csv格式上传表格",
+        "ITEM_2": "每行必须包含一个以太坊格式的地址",
+        "ITEM_3": "仅处理前100个地址",
+        "ITEM_4": "您可以根据需要添加任意数量的地址，但一次不能超过100个<br/>表格示例："
       },
       "FILE_ERRORS": {
-        "WRONG_FORMAT": "Wrong file format",
-        "PARSE_ERROR": "File parsing error"
+        "WRONG_FORMAT": "文件格式错误",
+        "PARSE_ERROR": "文件解析错误"
       },
       "TABLE": {
-        "SUCCESS_ADDRESSES": "The following addresses are ready to be whitelisted for Crowdsale contract:",
-        "PROCESSED_SUCCESSFULLY": "{{success}} out of {{amount}} addresses processed successfully",
-        "ERROR_ADDRESSES": "{{errorsLength}} rows contain errors",
-        "LINE_NUMBER": "Line: {{line}}",
-        "WARNINGS_COUNT": "{{count}} warnings",
-        "ERRORS_COUNT": "{{count}} errors",
+        "SUCCESS_ADDRESSES": "以下地址已准备好列入众筹合同的白名单: ",
+        "PROCESSED_SUCCESSFULLY": "{{success}} 在......之外 {{amount}} 地址处理成功",
+        "ERROR_ADDRESSES": "{{errorsLength}} 行包含错误",
+        "LINE_NUMBER": "线： {{line}}",
+        "WARNINGS_COUNT": "{{count}} 警告",
+        "ERRORS_COUNT": "{{count}} 错误",
         "ERRORS": {
-          "WRONG_FORMAT": "Address has wrong format",
-          "DUPLICATE": "Duplicate address:",
-          "EMPTY_STRING": "Empty string",
-          "ALREADY_EXIST": "Address was already whitelisted"
+          "WRONG_FORMAT": "地址格式错误",
+          "DUPLICATE": "重复地址：",
+          "EMPTY_STRING": "空字符串",
+          "ALREADY_EXIST": "地址已经列入白名单"
         },
-        "ADD_BUTTON": "Add {{length}} addresses"
+        "ADD_BUTTON": "填加 {{length}} 地址"
       }
     },
     "MINT_TOKENS_FORM": {
@@ -462,7 +466,7 @@
         "ADDRESS": {
           "PLACEHOLDER": "输入接收人的钱包地址",
           "LABEL": "地址",
-          "EOS_DESCRIPTION": "EOS account (not an exchange account). This account will receive the tokens"
+          "EOS_DESCRIPTION": "EOS帐户（不是交换帐户）。此帐户将收到代币"
         },
         "AMOUNT": {
           "LABEL": "代币数量"
@@ -474,8 +478,8 @@
       "CHART": {
         "TOTAL_SUPPLY": "总供给：",
         "DISTRIBUTED_BEFORE": "（日期）之前的总分发量",
-        "EOS_DISTRIBUTED_BEFORE": "Minted before",
-        "EOS_DISTRIBUTE_AVAILABLE": "Available for Minting"
+        "EOS_DISTRIBUTED_BEFORE": "已经挖矿",
+        "EOS_DISTRIBUTE_AVAILABLE": "可用于挖矿"
       }
     },
     "CHANGE_DATES_FORM": {
@@ -483,7 +487,7 @@
       "SET_NEW_DATES": "你可以变更开始和结束日期。 开始日期不得晚于销售日期且设有时间奖励的合约不得更改开始日期。"
     },
     "SETTINGS_POPUP": {
-      "TITLE": "Change settings"
+      "TITLE": "更改设置"
     }
   },
   "POPUP_ERRORS": {
@@ -539,8 +543,8 @@
         "LIST": {
           "ITEM_0": "否则，资金将按照合约分配."
         },
-        "LAST_CHECK": "Last date:&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
-        "NEXT_CHECK": "Next check:&nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
+        "LAST_CHECK": "上次日期：&nbsp;&nbsp;{{last_check_date|date:'yyyy-MM-dd'}}",
+        "NEXT_CHECK": "检查下一步: &nbsp;&nbsp;{{next_check_date|date:'yyyy-MM-dd'}}"
       },
       "WILL_CANCEL": {
         "TITLE": "取消",
@@ -561,8 +565,8 @@
         "PART_1": "从您的管理地址发送交易（{{amount||'0'}} ETH）",
         "PART_2": "发送至合约地址",
         "PART_3": "含有数据字段",
-        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address",
-        "GAS_LIMIT": "Gas limit"
+        "PART_GUEST": "发送交易 ({{amount||'0'}} ETH) 到合同地址",
+        "GAS_LIMIT": "交易费用限制"
       },
       "ACTIVATE": {
         "TITLE": "激活",
@@ -570,11 +574,11 @@
       },
       "WHITELIST": {
         "TITLE": "Whitelist",
-        "DESCRIPTION": "To add all addresses as whitelisted to Crowdsale contract please do the following transaction<br/>(if you add many addresses it will require a lot of gas):"
+        "DESCRIPTION": "要将所有地址添加到众筹合同的白名单，请执行以下交易<br/>(如果你需添加许多地址，它将需要大量的交易费用):"
       },
       "AIRDROP": {
-        "TITLE": "Tokens sending",
-        "DESCRIPTION": "To send tokens to addresses {{from}} - {{to}} please do the following steps (if you added many addresses it will take a lot of gas):"
+        "TITLE": "正在发送代币",
+        "DESCRIPTION": "将代币发送到地址 {{from}} - {{to}} 请执行以下步骤（如果添加了许多地址，则需要很多交易费用）:"
       },
       "CANCEL": {
         "TITLE": "取消",
@@ -583,7 +587,7 @@
       "DEPOSIT": {
         "TITLE": "存款",
         "DESCRIPTION": "要在合约上存款，请按照说明进行。",
-        "AIRDROP_DESCRIPTION": "To make a deposit of {{coinName}} tokens to Airdrop contract, please do the following steps:",
+        "AIRDROP_DESCRIPTION": "存款 {{coinName}} 将代币发送到空投合同，请执行以下步骤:",
         "LIST": {
           "ITEM_1": "打开你的钱包(Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
           "ITEM_2": "选择钱包中的发送以太币&其他代币标签",
@@ -610,7 +614,7 @@
       },
       "MINT": {
         "TITLE": "铸币",
-        "DESCRIPTION": "铸币{{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)"
+        "DESCRIPTION": "铸币{{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> 地址请从代币所有者的地址进行以下交易 (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)"
       },
       "PARITY": {
         "TITLE": "添加至Parity",
@@ -645,28 +649,28 @@
       "SET_ADDRESS": {
         "DESTINATION_ADDRESS": {
           "TITLE": "",
-          "DESCRIPTION": "To Set Destination to {{address}} for your Investment pool please do the following steps:"
+          "DESCRIPTION": "将目的地设置为 {{address}}  对于您的投资池，请执行以下步骤："
         },
         "TOKEN_ADDRESS": {
           "TITLE": "",
-          "DESCRIPTION": "To Set Token {{address}} for your Investment pool please do the following steps:"
+          "DESCRIPTION": "设置代币 {{address}} 对于您的投资池，请执行以下步骤: "
         }
       },
       "SEND_FUNDS": {
-        "TITLE": "Send Funds",
-        "DESCRIPTION": "For sending ({{amount}} ETH) to Destination address ({{address}}) please make the following steps:"
+        "TITLE": "发送资金",
+        "DESCRIPTION": "用于发送到 ({{amount}} ETH) 目的地地址({{address}}) 请执行以下步骤："
       },
       "GET_TOKENS": {
-        "TITLE": "Get tokens",
-        "DESCRIPTION": "For getting the tokens you need to make the transaction from your investment address:"
+        "TITLE": "得到代币",
+        "DESCRIPTION": "要获得代币，您需要在您的投资地址进行交易"
       },
       "SEND_TOKENS": {
-        "TITLE": "Send tokens",
-        "DESCRIPTION": "For sending the tokens (50 addresses per call) please make the following steps:"
+        "TITLE": "发送代币",
+        "DESCRIPTION": "要发送代币（每次执行50个地址），请执行以下步骤::"
       },
       "INVESTMENT_REFUND": {
-        "TITLE": "Refund",
-        "DESCRIPTION": "To refund your investments please make the following steps under your investment address:"
+        "TITLE": "退款",
+        "DESCRIPTION": "要退还您的资金请在您的投资地址下执行以下步骤："
       }
     },
     "RSK": {
@@ -682,56 +686,56 @@
       }
     },
     "NEO": {
-      "HOW_INSTALL_NEO_PYTHON": "How to install it?",
+      "HOW_INSTALL_NEO_PYTHON": "怎么安装呢？",
       "NEO_PYTHON": {
-        "TITLE": "How to install & use NEO wallet",
+        "TITLE": "如何安装和使用NEO钱包",
         "LIST": {
           "ITEM_1": "Install neo-python. Instruction: <a href=\"https://github.com/CityOfZion/neo-python#native-installation\" target=\"_blank\">https://github.com/CityOfZion/neo-python#native-installation</a>",
-          "ITEM_2": "After installation run neo-python: <a href=\"https://github.com/CityOfZion/neo-python#running\" target=\"_blank\">https://github.com/CityOfZion/neo-python#running</a> By default neo-python runs in Test net mode.",
-          "ITEM_3": "After client running you can create wallet file if you don’t have it (you will enter new password 2 times).<br/> Call:",
-          "ITEM_4": "You can open existing wallet by calling: ",
-          "ITEM_5": "You can import wif to opened wallet by calling:",
-          "ITEM_6": "Wait until your Client synchronized with the blockchain. You can check the state by calling: ",
-          "ITEM_7": "Check that your wallet is also synced by calling: ",
-          "ITEM_7_1": "<b>percent_synced</b> field shall be 100.",
-          "ITEM_8": "Now you are ready to manage the contacts & buy tokens!"
+          "ITEM_2": "安装完成后运行neo-python： <a href=\"https://github.com/CityOfZion/neo-python#running\" target=\"_blank\">https://github.com/CityOfZion/neo-python#running</a> 默认情况下，neo-python在测试网模式下运行。",
+          "ITEM_3": "在客户端运行后，如果您没有它，您可以创建钱包文件（您将输入新密码2次).<br/> 呼叫：",
+          "ITEM_4": "您可以通过以下方式打开现有钱包： ",
+          "ITEM_5": "您可以通过调用将wif导入已打开的钱包",
+          "ITEM_6": "“等待直到您的客户与区块链同步。您可以通过以下方式检查状态： ",
+          "ITEM_7": "通过调用以下内容检查您的钱包是否已同步： ",
+          "ITEM_7_1": "<b>同步百分比</b> 文件应为100。",
+          "ITEM_8": "现在您已准备好管理联系人并购买代币"
         }
       },
       "NEO_PYTHON_BUY_TOKENS": {
-        "TITLE": "Buy tokens",
-        "DESCRIPTION": "How to buy {{tokenName}} tokens? Please share it to your investors.",
+        "TITLE": "购买代币",
+        "DESCRIPTION": "如何购买 {{tokenName}} 代币？请分享给您的投资者。",
         "LIST": {
-          "ITEM_1": "Open your wallet in neo-python",
-          "ITEM_2": "Import Token contract to the wallet:",
-          "ITEM_3": "Call",
-          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
-          "ITEM_4": "To make a contribution - call: ",
-          "ITEM_5": "Enter your password",
-          "ITEM_6": "Check your wallet - you will see {{tokenName}} tokens"
+          "ITEM_1": "在neo-python中打开你的钱包",
+          "ITEM_2": "将代币合同导入钱包:",
+          "ITEM_3": "呼叫",
+          "ITEM_3_1": "检查代币是否已添加到钱包中的代币部分",
+          "ITEM_4": "开始捐款: ",
+          "ITEM_5": "输入您的密码",
+          "ITEM_6": "检查你的钱包 - 你会看到 {{tokenName}}  代币"
         }
       },
       "NEO_PYTHON_MINT_TOKENS": {
-        "TITLE": "Mint",
-        "DESCRIPTION": "For Minting <b>{{amount|separateNumber}}</b> tokens to <b>{{address}}</b> address please do the following steps:",
+        "TITLE": "铸币",
+        "DESCRIPTION": "用于挖矿 <b>{{amount|separateNumber}}</b> 发送代币到 <b>{{address}}</b> 地址请执行以下步骤：",
         "LIST": {
-          "ITEM_1": "Open your wallet in neo-python",
-          "ITEM_2": "Import Token contract to the wallet:",
-          "ITEM_3": "Call",
-          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
+          "ITEM_1": "在neo-python打开你的钱包“",
+          "ITEM_2": "将代币合同导入钱包: ",
+          "ITEM_3": "呼叫",
+          "ITEM_3_1": "检查代币是否已添加到钱包中的代币部分",
           "ITEM_4": "To Mint tokens call: ",
-          "ITEM_5": "Enter your password"
+          "ITEM_5": "输入密码“"
         }
       },
       "NEO_PYTHON_MINT_FINALIZE": {
-        "TITLE": "Finalize",
-        "DESCRIPTION": "For Finalization of the Contract please do the following steps:",
+        "TITLE": "最终确定",
+        "DESCRIPTION": "要完成合同，请执行以下步骤：",
         "LIST": {
-          "ITEM_1": "Open your wallet in neo-python",
-          "ITEM_2": "Import Token contract to the wallet:",
-          "ITEM_3": "Call",
-          "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
-          "ITEM_4": "To Finalize the contract call:",
-          "ITEM_5": "Enter your password"
+          "ITEM_1": "在neo-python打开你的钱包",
+          "ITEM_2": "将代币合同导入钱包：",
+          "ITEM_3": "呼叫",
+          "ITEM_3_1": "检查代币是否已添加到钱包中的代币部分",
+          "ITEM_4": "完成合同通知：",
+          "ITEM_5": "输入您的密码"
         }
       },
       "MINT": {
@@ -825,77 +829,77 @@
         "TITLE": "Investment Pool",
         "FIELDS": {
           "MANAGEMENT_ADDR": {
-            "LABEL": "Management address:",
-            "PLACEHOLDER": "Enter your ETH wallet address",
-            "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
+            "LABEL": "管理地址：",
+            "PLACEHOLDER": "输入您的ETH钱包地址",
+            "DESCRIPTION": "该地址的所有者将能够管理合同（这是唯一的合同）"
           },
           "TOKEN_ADDRESS_ON_OFF": {
-            "LABEL": "Set Token",
-            "DESCRIPTION": "Specify the token which shall be distributed after the investment. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+            "LABEL": "设置代币",
+            "DESCRIPTION": "指定投资后应分配的代币。如果您想稍后设置，请选择“关闭”。<br/>设置后无法更改."
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token contract address:",
-            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+            "LABEL": "代币合同地址：",
+            "DESCRIPTION": "指定要分发的代币的地址"
           },
           "HARD_CAP": {
-            "LABEL": "Pool volume (maximum)",
-            "DESCRIPTION": "Defines maximum volume for the pool. After reaching maximum no more contributions to pool are accepted."
+            "LABEL": "币池容积（最大）",
+            "DESCRIPTION": "定义池的最大值。达到最大值后，不再接受对池的贡献。"
           },
           "SOFT_CAP": {
-            "LABEL": "Pool volume (minimum)",
-            "DESCRIPTION": "Defines minimum ETH needed for investments. If minimum is not reached - contributors get their ETHs back. You can set it to 0 (no minimum)."
+            "LABEL": "币池容积（最小）",
+            "DESCRIPTION": "定义投资所需的最低ETH。如果没有达到最低限度 - 将退回贡献者们的ETH。您可以将其设置为0（无最小值）"
           },
           "START_DATE": {
-            "LABEL": "Start date",
-            "DESCRIPTION": "Start date/time for opening the pool. No contributions to the pool will be accepted before that time"
+            "LABEL": "开始日期",
+            "DESCRIPTION": "创建币池的开始日期/时间。在此之前，不接受对币池的贡献"
           },
           "FINISH_DATE": {
-            "LABEL": "Finish date",
-            "DESCRIPTION": "Finish date/time for closing the pool. No contributions to the pool will be accepted after that time."
+            "LABEL": "完成日期",
+            "DESCRIPTION": "关闭币池的完成日期/时间。在此之后，不接受对该池的贡献"
           },
           "CHANGING_DATES": {
-            "LABEL": "Changing dates",
-            "DESCRIPTION": "Start/Finish Dates can be changed manually after Contract Deployment. You can prolong sale or finish it early.<br/>Otherwise, dates are hardcoded and can`t be changed."
+            "LABEL": "改变日期",
+            "DESCRIPTION": "开始/结束日期可以在合同部署后手动更改。您可以延长销售或提早完成销售.<br/>否则，日期是硬编码的，不能更改"
           },
           "WHITELIST": {
-            "LABEL": "Whitelist",
-            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+            "LABEL": "白名单",
+            "DESCRIPTION": "合同只接受来自定义地址的贡献。您可以随时添加地址。"
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小和最大投资限制",
             "DESCRIPTION": "您可以指定可接受的最小/最大投资额/（{{currency||'ETH'}}）。 例如，接受0.05 {{currency||'ETH'}}至3000 {{currency||'ETH'}}区间的投资额"
           },
           "MIN_INVESTMENTS": {
-            "LABEL": "Minimum",
-            "DESCRIPTION": "Minimum amount accepted. \"0\" = No minimum limitation"
+            "LABEL": "最低限度",
+            "DESCRIPTION": "最低金额。 \"0\" = 没有最低限度"
           },
           "MAX_INVESTMENTS": {
-            "LABEL": "Maximum",
-            "DESCRIPTION": "Maximum amount accepted. it can not be higher hard cap"
+            "LABEL": "最大值",
+            "DESCRIPTION": "最高金额。它不能高于硬顶，募资最高限度"
           },
           "INVESTMENT_ADDRESS_ON_OFF": {
-            "LABEL": "Set Destination",
-            "DESCRIPTION": "Set Destination for the investments. Choose \"Off\" if you would like to set it later.<br/>It CAN'T be changed after setting it up."
+            "LABEL": "设置目的地",
+            "DESCRIPTION": "设置投资的目的地。如果您想稍后设置，请选择“关闭”<br/>设置后无法更改"
           },
           "INVESTMENT_ADDRESS": {
-            "LABEL": "Destination address:",
-            "DESCRIPTION": "ETH address for sending all funds from the pool. It can be Contract address. Double check it before the submission."
+            "LABEL": "目的地址：",
+            "DESCRIPTION": "ETH地址用于发送池中所有的资金。它可以是合同地址。在提交之前请仔细检查它。"
           },
           "BONUS": {
-            "LABEL": "Personal bonus (in Tokens) for the pool's owner:",
-            "DESCRIPTION": "Usually 0.1-1%. % of pool's tokens (after successfull investment) will be sent to pool's owner."
+            "LABEL": "池所有者的个人奖励（在代币中）：",
+            "DESCRIPTION": "通常为0.1-1％。池的代币百分比（成功投资后）将被发送给池的所有者."
           },
           "HARD_CAP_INVEST": {
-            "LABEL": "Everyone after MAX",
-            "DESCRIPTION": "Everyone can initiate investment after MAX reaching. Off - only contract's owner can do it."
+            "LABEL": "最大值之后的每个人",
+            "DESCRIPTION": "最大值到达后，每个人都可以开始投资。关闭 - 只有合同的所有者可以这样做."
           },
           "SOFT_CAP_INVEST": {
-            "LABEL": "Everyone after MIN",
-            "DESCRIPTION": "Everyone can initiate investment after MIN reaching. Off - only contract's owner can do it."
+            "LABEL": "最小值之后的每个人",
+            "DESCRIPTION": "最小值到达后，每个人都可以开始投资。关闭 - 只有合同的所有者可以这样做."
           },
           "PLATFORM_AS_ADMIN": {
-            "LABEL": "Control by MyWish:",
-            "DESCRIPTION": "ON is recommended - after sending the funds, you will be able to call the destination contract via MyWish.<br/>If Off - only the owner of the contract can do it."
+            "LABEL": "由MyWish控制:",
+            "DESCRIPTION": "建议使用 - 发送资金后，您可以通过MyWish调用目的地合同。<br/>如果关闭 - 只有合同的所有者才能这样做."
           }
         }
       },
@@ -999,25 +1003,25 @@
       "EOS_TOKEN": {
         "FIELDS": {
           "TOKEN_ACCOUNT": {
-            "LABEL": "EOS Token account",
-            "DESCRIPTION": "This EOS account shall be new. Token contract will be released to this account. The name should be connected with the project and token. For example, \"mywishtoken\"."
+            "LABEL": "EOS代币帐户",
+            "DESCRIPTION": "此EOS帐户应为新帐户。代币合同将发布到此帐户。该名称应与项目和代币相关联。例如, \"mywishtoken\"."
           },
           "TOKEN_SYMBOL": {
-            "DESCRIPTION": "The name of your token. 1-7 caps letters are accepted (like EOS, BTC, WAVES).",
-            "ALREADY_NAME_TEXT": "Token name is already in use"
+            "DESCRIPTION": "代币的名称。接受1-7个大写字母（如 EOS, BTC, WAVES).",
+            "ALREADY_NAME_TEXT": "代币名称已被使用"
           },
           "DECIMALS": {
-            "DESCRIPTION": "Define the decimals for your token. 0-15 are accepted. 4 as common."
+            "DESCRIPTION": "定义代币的小数。 0-15位可被接受。 4位为常见."
           },
           "TOKEN_OWNER": {
-            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the token. Double check the account (and the access to it) before the submission."
+            "DESCRIPTION": "EOS帐户（不是交换帐户）。此帐户将管理代币。在提交之前仔细检查帐户（及其访问权限）。"
           },
           "DEFINE_TOKENS": {
-            "DESCRIPTION": "Define the amount of tokens which shall be minted to EOS address. It must be less (or equal) than (Maximum-Total) supply."
+            "DESCRIPTION": "定义应铸造到EOS地址的代币数量。它必须小于（或等于）（最大 - 总）供应量."
           },
           "MAXIMUM_SUPPLY": {
-            "LABEL": "Maximum supply:",
-            "DESCRIPTION": "Total supply of the Token. No more tokens can be created."
+            "LABEL": "最大供应量：",
+            "DESCRIPTION": "代币的总供应量。不能创建更多的代币。"
           }
         }
       },
@@ -1151,8 +1155,8 @@
             "DESCRIPTION": "开始/结束日期可以在合约部署后手动更改。 您可以延长销售时间或提前完成销售。 否则，日期是硬编码的，不能更改。"
           },
           "WHITELIST": {
-            "LABEL": "Whitelist",
-            "DESCRIPTION": "Contract will accept the contributions from defined addresses only. You can add addresses at any moment."
+            "LABEL": "白名单",
+            "DESCRIPTION": "合同只接受来自定义地址的贡献。您可以随时添加地址."
           },
           "MIN_MAX_INVESTMENTS": {
             "LABEL": "最小和最大投资限制",
@@ -1200,7 +1204,7 @@
         }
       },
       "AIRDROP": {
-        "TITLE": "Airdrop",
+        "TITLE": "空投",
         "BUTTONS": {},
         "FIELDS": {
           "MANAGEMENT_ADDR": {
@@ -1209,108 +1213,108 @@
             "DESCRIPTION": "该地址的所有者将拥有该合约（唯一的）的管理权"
           },
           "TOKEN_ADDR": {
-            "LABEL": "Token contract address",
-            "DESCRIPTION": "Specify the address of the token which you would like to distribute"
+            "LABEL": "代币合同地址",
+            "DESCRIPTION": "指定要分发的代币的地址"
           },
           "ERRORS": {
-            "WRONG_TOKEN_ADDRESS": "Wrong Token contract address"
+            "WRONG_TOKEN_ADDRESS": "错误的代币合同地址"
           },
           "WITH_DECIMALS": {
-            "LABEL": "Choose Table format:",
-            "VALUE_LABEL": "Decimals"
+            "LABEL": "选择表格格式:",
+            "VALUE_LABEL": "小数点"
           },
-          "TABLE_EXAMPLE": "Table example:"
+          "TABLE_EXAMPLE": "表格示例："
         }
       },
       "EOS_WALLET": {
-        "TITLE": "Create EOS Account",
-        "DESCRIPTION": "By our service you can create EOS account. For EOS account creation you need to pay for RAM",
+        "TITLE": "创建EOS帐户",
+        "DESCRIPTION": "通过我们的服务，您可以创建EOS帐户。对于EOS帐户创建，您需要付费 RAM",
         "FIELDS": {
           "ACCOUNT_NAME": {
-            "TITLE": "Choose a name for your account",
-            "DESCRIPTION": "The EOS account name is the main identifier it has to be unique. Contains letters and/or digits (1-5), and has 12 symbols.",
-            "SUCCESS_TEXT": "Alias is available",
-            "ALREADY_NAME_TEXT": "Alias is already taken"
+            "TITLE": "选择您帐户的名称",
+            "DESCRIPTION": "EOS帐户名称必须是唯一的主要标识符。包含字母和/或数字（1-5），并有12个符号",
+            "SUCCESS_TEXT": "别名可用",
+            "ALREADY_NAME_TEXT": "别名已被占用"
           },
           "HAVE_PUBLIC_KEY": {
-            "TITLE": "Do you have a public key?"
+            "TITLE": "你有公钥吗？"
           },
           "ACTIVE_PUBLIC_KEY": {
-            "TITLE": "Enter your active public key",
-            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+            "TITLE": "输入您的活动公钥",
+            "DESCRIPTION": "填写前请确保您有相应的私钥。 You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
           },
           "OWNER_PUBLIC_KEY": {
-            "TITLE": "Enter your owner public key",
-            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+            "TITLE": "输入您的所有者公钥",
+            "DESCRIPTION": "填写前请确保您有相应的私钥。您可以使用 <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
           },
           "GENERATED_ACTIVE_PUBLIC_KEY": {
-            "TITLE": "Your active public key",
-            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+            "TITLE": "您的活动公钥",
+            "DESCRIPTION": "你的公钥随时可以在MyWish上找到。但我们建议您将密钥存储在PC上或打印出来。"
           },
           "GENERATED_OWNER_PUBLIC_KEY": {
-            "TITLE": "Your owner public key",
-            "DESCRIPTION": "You Publiс Key will be available on MyWish anytime. But we recommend you to store the key on your PC or print it."
+            "TITLE": "您的所有者公钥",
+            "DESCRIPTION": "您可以随时在MyWish上使用您的PubliсKey。但我们建议您将密钥存储在PC上或打印出来。"
           },
           "GENERATED_ACTIVE_PRIVATE_KEY": {
-            "TITLE": "Your active private key",
-            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+            "TITLE": "您的活动私钥",
+            "DESCRIPTION": "立即复制并打印您的私钥。你以后不能再获得它。 MyWish不存储私钥"
           },
           "GENERATED_OWNER_PRIVATE_KEY": {
-            "TITLE": "Your owner private key",
-            "DESCRIPTION": "Copy and print your private key NOW. You CAN’T get it later. MyWish does not store private keys."
+            "TITLE": "您的所有者私钥",
+            "DESCRIPTION": "立即复制并打印您的私钥。你以后不能再获得它。 MyWish不存储私钥。"
           },
           "ADVANCED_SETTINGS": {
-            "LABEL": "Change Advanced Settings",
-            "DESCRIPTION": "You can change the default settings for the account if you need. Changing the values will affect the costs of the creation."
+            "LABEL": "更改高级设置",
+            "DESCRIPTION": "如果需要，您可以更改帐户的默认设置。更改值将影响创建的成本。"
           },
           "NET": {
             "LABEL": "NET:",
-            "DESCRIPTION": "Network Bandwidth. Your bandwidth is temporarily used each time a transaction or action is done on the network."
+            "DESCRIPTION": "网络带宽。 每次在网络处理能力上执行事务或操作时。"
           },
           "CPU": {
             "LABEL": "CPU:",
-            "DESCRIPTION": "Processing Power. CPU needed for transaction and actions execution. The complicated actions require more time for execution (and more CPU)."
+            "DESCRIPTION": "，都会临时使用您的带宽. CPU交易和行动执行所需。 复杂的操作需要更多的执行时间。 CPU)."
           },
           "RAM": {
             "LABEL": "RAM:",
-            "DESCRIPTION": "RAM is needed for storing the data on EOS blockchain.",
+            "DESCRIPTION": "RAM 在EOS区块链上存储数据需要更多时间.",
             "KILOBYTES": "KB"
           },
-          "COPY_KEYS": "Copy keys pairs",
-          "GENERATE_KEYS": "Generate keys pairs",
-          "REGENERATE_KEYS": "Generate new pairs",
-          "GENERATE_KEYS_DESCRIPTION": "We can generate public/private keys or you can use other services like <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish is not storing the keys, it generates it only."
+          "COPY_KEYS": "复制密钥对",
+          "GENERATE_KEYS": "生成密钥对",
+          "REGENERATE_KEYS": "生成新对",
+          "GENERATE_KEYS_DESCRIPTION": "我们可以生成公钥/私钥，也可以使用其他服务 <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a>.<br/> MyWish不存储密钥，只生成它."
         }
       },
       "EOS_CROWDSALE": {
         "ERRORS": {
-          "ACCOUNT_DOES_NOT_EXIST": "Account does not exist",
-          "TOKEN_DOES_NOT_EXIST": "Token symbol does not exist",
-          "TOKEN_IS_USED_AIRDROP": "Token is used on Airdrop",
-          "TOKEN_ISSUER_INVALID": "Владелец токена указан неверно"
+          "ACCOUNT_DOES_NOT_EXIST": "帐户不存在",
+          "TOKEN_DOES_NOT_EXIST": "代币符号不存在",
+          "TOKEN_IS_USED_AIRDROP": "代币用于空投",
+          "TOKEN_ISSUER_INVALID": "指定的所有者无效"
         },
         "CAP_NOTE": {
-          "TEXT": "If softcap > 0 all investments are stored on the crowdsale contract until the end of crowdsale or until soft cap is reached.<br/>If you need to get investments right away set softcap = 0."
+          "TEXT": "If softcap > 0  所有投资都存储在众筹合同中，直到众筹结束或达到软帽 <br/>如果您需要立即获得投资，请设置软帽 = 0."
         },
         "FIELDS": {
           "ADMIN_ACCOUNT": {
-            "TITLE": "Admin account:",
-            "DESCRIPTION": "EOS account (not an exchange account). This account will manage the Crowdsale. Double check the account (and the access to it) before the submission."
+            "TITLE": "管理员帐号：",
+            "DESCRIPTION": "EOS帐户（不是交换帐户）。该帐户将管理Crowdsale。在提交之前仔细检查帐户（以及对帐户的访问权限）。"
           },
           "CROWDSALE_ACCOUNT": {
-            "TITLE": "Crowdsale EOS account:",
-            "DESCRIPTION": "This EOS account shall be new. All contributors will be sent to contract under this account, the name should be connected with the project. For example, \"mynewproject\"."
+            "TITLE": "“众筹EOS帐户：",
+            "DESCRIPTION": "此EOS帐户应为新帐户。所有贡献者将被发送到此帐户下的合同，名称应与项目相关联。例如  \"mynewproject\"."
           },
           "PROTECTED_MODE": {
-            "LABEL": "Withdraw before completion",
-            "DESCRIPTION": "Withdraw works only if soft cap reached. If On - the admin will be able to withdraw the contributions before making tokens transferable & sale completion. Off - no withdraw until tokens are not transferable."
+            "LABEL": "完成前退出",
+            "DESCRIPTION": "仅在达到软帽时才提取。如果开启 - 管理员可以在代币可转让和销售完成之前撤销捐款。关 - 在代币不可转让之前不得退出。"
           },
           "HOLDERS": {
             "ACCOUNT": {
-              "TITLE": "Account name:",
-              "INTERNAL_NAME": "Internal Name",
-              "NAME_PLACEHOLDER": "Team",
-              "AMOUNT_DESCRIPTION": "Define the amount of tokens which shall be minted to EOS account."
+              "TITLE": "用户名: ",
+              "INTERNAL_NAME": "内部名称",
+              "NAME_PLACEHOLDER": "组队",
+              "AMOUNT_DESCRIPTION": "定义应记入EOS帐户的代币数量。"
             }
           }
         }
@@ -1318,19 +1322,19 @@
       "EOS_AIRDROP": {
         "FIELDS": {
           "MANAGEMENT_ACCOUNT": {
-            "LABEL": "Management account",
-            "DESCRIPTION": "Owner of this account will be able to manage the airdrop contract (it's the only one)"
+            "LABEL": "管理帐户",
+            "DESCRIPTION": "这个帐户的所有者将能够管理空投合约（这是唯一一个）"
           },
           "TOKEN_ACCOUNT": {
-            "LABEL": "Token account",
-            "DESCRIPTION": "Specify the token contract which you would like to distribute"
+            "LABEL": "代币帐户",
+            "DESCRIPTION": "指定您要分发的代币合约“"
           },
           "SYMBOL": {
-            "DESCRIPTION": "Enter the symbol of your token"
+            "DESCRIPTION": "输入代币的符号"
           },
           "ACCOUNTS_COUNT": {
-            "LABEL": "Number of accounts for distribution",
-            "DESCRIPTION": "Specify how many accounts will get your tokens. It can be 100 or even 50000 (max). Costs of the contract depends on the number."
+            "LABEL": "分配帐户数",
+            "DESCRIPTION": "指定获取代币的帐户数量。它可以是100甚至50000（最大）。合同成本取决于数量"
           }
         }
       }
@@ -1341,21 +1345,21 @@
       },
       "TABS": {
         "INFO": "预览合约",
-        "ACCOUNT_INFO": "Preview account",
+        "ACCOUNT_INFO": "预览帐户",
         "SOURCE": "源代码"
       },
       "FREE_VERSION_MSG": "在免费版本（TestNet）中，源代码不可用于加载。",
       "WILL_SOURCE_CODE": "您的遗嘱的源代码",
       "DEFERRED_SOURCE_CODE": "您的延期付款合约的源代码",
-      "INVESTMENT_POOL_SOURCE_CODE": "Your Investment Pool contract source code",
+      "INVESTMENT_POOL_SOURCE_CODE": "您的投资池合同源代码",
       "LOST_KEY_SOURCE_CODE": "你丢失的源代码",
       "TOKEN_SOURCE_CODE": "你的代币源代码",
       "CROWDSALE_SOURCE_CODE": "您的ICO源代码",
-      "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
+      "AIRDROP_SOURCE_CODE": "您的空投合同源代码",
       "HERE": "这里",
       "ETHERSCAN_VERIFY_SUPPORT": "如果您需要验证Etherscan的合约，请与我们联系<a href=\"mailto:support@mywish.io\">email</a>",
-      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "如果您需要验证Etherscan的合约，请与我们联系<a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
-      "LIBRARIES_AND_FILES": "可以找到库和其他文件<a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
+      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "如果您需要验证Etherscan的合约，请与我们联系<a href=\"mailto:support@mywish.io\">email</a> 或按照说明操作:",
+      "LIBRARIES_AND_FILES": "可以找到库和其他文件<a href=\"{{gitHubLink}}\" target=\"_blank\">这里</a>",
       "VERIFY_INSTRUCTION": {
         "ITEM_1": "打开合约地址<a target=\"_blank\" href=\"{{address_url}}\">etherscan</a>",
         "ITEM_2": "在合约代码选项卡中选择\"Verify And Publish \"",
@@ -1389,17 +1393,17 @@
         "TOKEN_ADDRESS": "代币地址",
         "TOKEN_TYPE": "代币类型:",
         "TOKEN_DISTRIBUTION": "代币分发",
-        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab."
+        "EOS_TOKEN_INFO": "要查看代币和分发，请单击代币所有者 ({{token_owner_link}})并选择 \"Action: issue\"在\"Other Actions\" 标签。"
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "ICO合约（所有贡献均应发送到此地址）",
         "CROWD_SALE_CONTRACT_NEO": "ICO合约",
-        "NEO_HOW_CONTRIBUTE": "How to contribute?",
+        "NEO_HOW_CONTRIBUTE": "如何贡献？",
         "VAULT_ADDRESS": "保险库合约（投资存储至代币预售结束）",
         "CROWD_SALE_TYPE": " ICO类型：",
         "TOKEN_SCRIPT_HASH": "代币合约脚本哈希",
         "CROWDSALE_SCRIPT_HASH": "ICO合约脚本哈希",
-        "SHOW_WHITELIST": "View whitelisted addresses ({{count}} addresses)",
+        "SHOW_WHITELIST": "查看列入白名单的地址 ({{count}} 地址)",
         "TIME_BONUSES": {
           "TITLE": "奖金时间",
           "BONUS": "奖金：",
@@ -1417,109 +1421,111 @@
           "MAX_AMOUNT": "最大金额"
         },
         "WHITELIST": {
-          "DESCRIPTION": "Contract has {{count}} whitelisted addresses",
-          "DOWNLOAD_CSV": "Download CSV"
+          "DESCRIPTION": "合同 具有{{count}} 列入白名单的地址",
+          "DOWNLOAD_CSV": "下载 .csv"
         }
       },
       "AIRDROP": {
-        "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution.",
-        "ADDED_ADDRESSES": "You have added {{count}} addresses",
-        "SENT_ADDRESSES": "Tokens sent to {{count}} addresses",
-        "PROCESSING_ADDRESSES": "Sending now to addresses #{{from}} - {{to}}",
-        "NOT_SEND_ADDRESSES": "Not sent to {{count}} addresses",
-        "LOW_BALANCE": "Not enough tokens. <br/>Please deposit the contract (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) before the execution",
-        "NO_ADDRESSES": "No addresses were added",
+        "PREVIEW_DESCRIPTION": "合同部署后，您将能够添加要分发的地址列表",
+        "ADDED_ADDRESSES": "你添加了 {{count}}地址",
+        "SENT_ADDRESSES": "代币发送给  {{count}} 地址",
+        "PROCESSING_ADDRESSES": "现在发送到地址 #{{from}} - {{to}}",
+        "NOT_SEND_ADDRESSES": "没有发送到 {{count}}  地址",
+        "LOW_BALANCE": "没有足够的代币 <br/>请存入合同 (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) 在执行之前",
+        "NO_ADDRESSES": "没有添加地址",
         "SEND_TO_GROUP": {
-          "TITLE": "Send Tokens To",
-          "DESCRIPTION": "The following addresses (#{{from}} - {{to}}) are included to the next group for sending",
-          "BUTTON": "Send Tokens",
-          "TOTAL_TOKENS": "<b>Total tokens to sent:</b> {{total}} {{symbol}}"
+          "TITLE": "发送代币",
+          "DESCRIPTION": "以下地址 (#{{from}} - {{to}}) 包含在下一个 发送组",
+          "BUTTON": "发送代币",
+          "TOTAL_TOKENS": "<b>要发送的代币总数：</b> {{total}} {{symbol}}"
         }
       },
       "INVESTMENTS_POOL": {
-        "SHARE_LINK": "You can share your contract to contributors by this link:",
-        "SEN_FUNDS_TX": "Sending transaction on <a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>",
+        "SHARE_LINK": "您可以通过此链接与合作伙伴分享您的合同:",
+        "SEN_FUNDS_TX": "发送交易 <a href=\"{{ etherscan_url }}\" target=\"_blank\">Etherscan</a>",
         "RAISED": {
-          "PROGRESS": "Raised progress",
-          "MIN": "min",
-          "MAX": "max",
-          "TOTAL": "Total raised: {{amount}} {{currency || 'ETH'}}",
-          "DAY": "(Day: +{{percent}}%)"
+          "PROGRESS": "提高了进度",
+          "MIN": "最小",
+          "MAX": "最大",
+          "TOTAL": "募集总额：{{amount}} {{currency || 'ETH'}}",
+          "DAY": "(天： +{{percent}}%)"
         }
       },
       "EOS_WALLET": {
-        "ACCOUNT_NAME": "Account name",
-        "ACTIVE_PUBLIC_KEY": "Active public key",
-        "OWNER_PUBLIC_KEY": "Owner public key",
+        "ACCOUNT_NAME": "用户名",
+        "ACTIVE_PUBLIC_KEY": "活跃的公钥",
+        "OWNER_PUBLIC_KEY": "所有者公钥",
         "KB": "kb",
         "MS": "ms"
       },
       "EOS_CROWDSALE": {
-        "TOKEN_ACCOUNT": "Token Contract Builder",
-        "CROWDSALE_ACCOUNT": "Crowdsale EOS account (All contributions shall be sent to this address)"
+        "TOKEN_ACCOUNT": "代币合同生成器“",
+        "CROWDSALE_ACCOUNT": "众筹 EOS帐户（所有捐款均应发送至此地址"
       }
     }
   },
   "JOIN_AIRDROP": {
     "DISCLAIMER": {
-      "TITLE": "Airdrop Tool information",
+      "TITLE": "空投工具信息",
       "TEXTS": {
-        "ITEM_1": "This tool was developed for WISH token holders only.",
-        "ITEM_2": "This tool helps WISH holders to specify EOS account for getting EOSISH.",
-        "ITEM_3": "User should be able to make a transaction from ETH address.",
-        "ITEM_4": "User can use tool until the 16-Jan-19 3 pm GMT.",
-        "ITEM_5": "All transactions can be found in Ethereum blockchain, no cheats are possible.",
-        "ITEM_6": "Tool is not responsible for sending EOSISH tokens."
+        "ITEM_1": "这个工具是为...开发的 WISH 仅限代币持有人。",
+        "ITEM_2": "这个工具有帮助 WISH 持有人指定EOS帐户获取 EOSISH.",
+        "ITEM_3": "“用户应该能够从ETH地址进行交易.",
+        "ITEM_4": "用户可以使用工具直到格林尼治标准时间1月16日至19日下午3点。",
+        "ITEM_5": "所有交易都可以在以太坊区块链中找到，不可能作弊。",
+        "ITEM_6": "工具不负责发送 EOSISH 代币"
       }
     },
     "INSTRUCTION": {
-      "TITLE": "Save EOS address",
-      "DESCRIPTION": " To connect your ETH address (which will have some WISH by Snapshot time) <b>{{ethAddress}}</b> to EOS Address “<b>{{eosAddress}}</b>” please do the following steps:",
-      "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
+      "TITLE": "保存EOS地址",
+      "DESCRIPTION": " 连接你的ETH地址（按快照时间有一些WISH） <b>{{ethAddress}}</b> 到EOS地址 “<b>{{eosAddress}}</b>” 请执行以下步骤：",
+      "ITEM_1": "发送交易 (0 ETH) 来自您的ETH地址 WISHs:"
     }
   },
   "AIRDROP_TOOL": {
-    "RULES": "Official rules for Airdrop is listed here.",
+    "RULES": "此处列出了空投的官方规则。",
     "FIELDS": {
       "ETH_ADDRESS": {
-        "LABEL": "ETH address:",
-        "DESCRIPTION": "Enter your ETH address where WISH tokens are stored. Please check that you have corresponding private key.",
+        "LABEL": "ETH地址: ",
+        "DESCRIPTION": "输入您的ETH地址 WISH 代币存储。请检查您是否有相应的私钥。",
         "CHECK_TEXTS": {
-          "NO_ACCOUNT_CONNECTED": "No EOS account connected. <br/>If you just connected it please wait 10 minutes.",
-          "ACCOUNT_CONNECTED": "This ETH address is connected to <b>{{checkedEOSAccount}}</b> EOS account."
+          "NO_ACCOUNT_CONNECTED": "没有EOS帐户连接 <br/>如果你刚连接它，请等待10分钟.",
+          "ACCOUNT_CONNECTED": "此ETH地址已连接到 <b>{{checkedEOSAccount}}</b> EOS帐户。"
         }
       },
       "EOS_ACCOUNT": {
-        "LABEL": "EOS account:",
-        "DESCRIPTION": "Enter Your EOS account for getting EOSISH token (after Airdrop date). If you do not have EOS account, you can create it <a href=\"/create/eosWallet?network=10\" target=\"_blank\">here</a>"
+        "LABEL": "EOS帐号：",
+        "DESCRIPTION": "输入您的EOS帐户以获取 EOSISH 代币（在空投日期之后）。如果您没有EOS帐户，则可以创建它 <a href=\"/create/eosWallet?network=10\" target=\"_blank\">here</a>"
       }
     },
-    "SAVE_BUTTON": "Save EOS address"
+    "SAVE_BUTTON": "保存EOS地址"
   },
   "EOSISH_CALCULATOR": {
-    "DESCRIPTION": "This tool shows how many EOSISH you will get after the airdrop. Snapshot date: 16-Oct-2018, 15:00 GMT",
+    "DESCRIPTION": "这个工具显示了多少 EOSISH  你会得到空投。快照日期：2018年10月16日，格林尼治标准时间15:00",
     "FIELDS": {
       "ETH_ADDRESS": {
-        "TITLE": "Your ETH address:",
-        "DESCRIPTION": "Enter your ETH address where WISH tokens were stored on the snapshot date."
+        "TITLE": "你的ETH地址: ",
+        "DESCRIPTION": "输入您在快照日期存储WISH代币的ETH地址."
       },
       "EOS_ACCOUNT": {
-        "TITLE": "Your EOS account:",
-        "DESCRIPTION": "Enter your EOS account where EOS  tokens were stored on the snapshot date."
+        "TITLE": "您的EOS帐户: ",
+        "DESCRIPTION": "输入您的EOS帐户，其中EOS代币存储在快照日期."
       }
     },
     "CHECK_TEXTS": {
-      "BALANCE_TEXT": "You will get {{eosishBalances}} EOSISH.",
-      "CONNECTED_TEXT": "EOS account <b>{{checkedEOSAccount}}</b> connected",
-      "NO_CONNECTED_TEXT": "Please connect EOS Account by Airdrop tool!"
+      "BALANCE_TEXT": "你会得到 {{eosishBalances}} EOSISH.",
+      "CONNECTED_TEXT": "EOS帐户 <b>{{checkedEOSAccount}}</b> 连接的",
+      "NO_CONNECTED_TEXT": "请通过空投工具连接EOS 账户！"
     }
   },
   "PARTNERS_DISCLAIMERS": {
     "MEETONE": {
-      "TEXT": "We provide MEETONE users with a 15% discount.<br/> The discount can be applied to the deployment of all EOS Accounts & Contracts.<br/><br/> Please enter the promo code <b>MEETONE</b> before making a payment."
+      "TEXT": "我们为MEETONE用户提供15％的折扣<br/> 折扣可应用于所有EOS帐户和合同的部署<br/><br/> 请输入促销代码 <b>MEETONE</b>  在付款之前。"
     },
     "EOSPARK": {
-      "TEXT": "We provide EOSPark users with a 15% discount.<br/> The discount can be applied to the deployment of all EOS Accounts & Contracts.<br/><br/> Please enter the promo code <b>EOSPARK</b> before making a payment."
+      "TEXT": "我们为EOSPark用户提供15％的折扣。<br/> 折扣可应用于所有EOS帐户和合同的部署。<br/><br/>  请输入促销代码 <b>EOSPARK</b>在付款之前"
     }
   }
 }
+
+

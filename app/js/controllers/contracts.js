@@ -164,6 +164,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     });
                 }
                 break;
+            case 13:
+                if (contract.contract_details.processing_count) {
+                    contract.state = 'SENDING_TOKENS';
+                }
+                break;
         }
     };
 

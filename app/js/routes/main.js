@@ -136,11 +136,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 var defer = $q.defer();
                 var loadedCurrencies = {};
                 var loadedCurrenciesCount = 0;
-                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS', 'ETH', 'BTC'] : ['ETH','BTC'];
+                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS'] : ['ETH','BTC'];
                 console.log(currencies);
 
                 var getRate = function(currency) {
-                    contractService.getCurrencyRate({fsym: currency, tsyms: ENV_VARS.mode === 'eos' ? 'EOSISH' : 'WISH'}).then(function(result) {
+                    contractService.getCurrencyRate({fsym: currency, tsyms: 'WISH'}).then(function(result) {
                         loadedCurrencies[currency] = (1 / result.data['WISH']).toString();
                         loadedCurrenciesCount++;
                         if (loadedCurrenciesCount === currencies.length) {

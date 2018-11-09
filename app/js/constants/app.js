@@ -46,8 +46,8 @@ module.constant('APP_CONSTANTS', {
     'RSK_NET_ADDRESS': '/endpoint/rsk',
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
-    "NEO_TESTNET_ADDRESS": 'http://testnet.antcha.in/',
-    "NEO_MAINNET_ADDRESS": 'http://antcha.in/',
+    "NEO_TESTNET_ADDRESS": 'http://neoscan.mywish.io/',
+    "NEO_MAINNET_ADDRESS": 'http://neoscan.mywish.io/',
 
     "EOS_MAINNET_ADDRESS": "https://eospark.com/MainNet/",
     "EOS_TESTNET_ADDRESS": "https://eospark.com/Jungle/",

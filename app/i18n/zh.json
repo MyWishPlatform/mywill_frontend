@@ -347,19 +347,19 @@
     },
     "EOS_BUY_TOKENS": {
       "MYWISH_ACCOUNT": {
-        "LABEL": "Send EOSISH(or EOS for autoexchange) to:",
+        "LABEL": "将EOSISH（或自动交换的EOS）发送至:",
         "DESCRIPTION": "您可以从交易所或您的EOS个人账户发送EOS代币。 您可以在此处创建帐户： <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "EOS_ACCOUNT": {
-        "LABEL": "Send EOS to:",
+        "LABEL": "发送EOS到:",
         "DESCRIPTION": "您可以从交易所或您的EOS个人账户发送EOS代币。 您可以在此处创建帐户： <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "EOSISH_ACCOUNT": {
-        "LABEL": "Send EOSISH to:",
+        "LABEL": "发EOSISH给:",
         "DESCRIPTION": "您可以从交易所或您的EOS个人账户发送EOS代币。 您可以在此处创建帐户： <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "MEMO_FIELD": {
-        "LABEL": "Fill MEMO field:",
+        "LABEL": "填写备忘录字段",
         "DESCRIPTION": "请在付款期间输入您在MEMO字段中的唯一代码。 它在MyWish平台上的帐户是独一无二的"
       }
     },

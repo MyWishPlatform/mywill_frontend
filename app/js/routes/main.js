@@ -309,6 +309,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
     }).state('main.createcontract.form', {
         url: '/create/:selectedType?:options?:network?:ext?',
+        onEnter: function($stateParams, $state) {
+            if (!$stateParams.network) {
+                $state.go('main.createcontract.types');
+                return;
+            }
+        },
         controllerProvider: function($stateParams, APP_CONSTANTS, $cookies) {
             var cookiePromo;
             switch ($stateParams.ext) {

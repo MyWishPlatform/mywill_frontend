@@ -45,12 +45,13 @@
                         <label for="address-amount"
                                class="form-control-label"
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.AMOUNT.LABEL"></label>
+
                         <input class="form-control-input"
                                id="address-amount"
                                pattern="[0-9,]+{{(ngPopUp.params.contract.contract_details.decimals*1 > 0) ? '(\.[0-9]{1,'+ngPopUp.params.contract.contract_details.decimals+'})?' : ''}}$"
                                commaseparator="{
-                                    regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))(\.[0-9]*)?$',
-                                    min: 1,
+                                    regexp: '^(([0]{1})||([1-9][0-9]{0,25}))(\.[0-9]*)?$',
+                                    min: 1/$root.pow(10, ngPopUp.params.contract.contract_details.decimals),
                                     max: maximumMint
                                }"
                                required

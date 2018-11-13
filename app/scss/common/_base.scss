@@ -235,7 +235,8 @@ nav, main, footer, header {
   border-radius: 0.5em;
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.1);
   text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-
+  max-width: 90%;
+  box-sizing: border-box;
   &__warning {
     background-color: rgba(202, 169, 0, 0.8);
   }
@@ -243,7 +244,7 @@ nav, main, footer, header {
     background-color: rgba(203, 0, 8, 0.8);
   }
   &__success {
-    background-color: rgba(40, 135, 13, 0.8);
+    background-color: rgb(40, 135, 13);
   }
 
   &.visible-error {
@@ -253,7 +254,7 @@ nav, main, footer, header {
   &__text {
     color: #fff;
     font-size: 1.2em;
-    white-space: pre;
+    //white-space: pre;
   }
 }
 

@@ -1240,12 +1240,12 @@
             "TITLE": "你有公钥吗？"
           },
           "ACTIVE_PUBLIC_KEY": {
-            "TITLE": "输入您的活动公钥",
-            "DESCRIPTION": "填写前请确保您有相应的私钥。 You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+            "TITLE": "输入你的Active 公钥",
+            "DESCRIPTION": "填写前请确保你有相应的私钥，你可以通过<a href=\"https://get-scatter.com/\" target=\"_blank\">scatter</a>或者我们来生成公/私钥对"
           },
           "OWNER_PUBLIC_KEY": {
-            "TITLE": "输入您的所有者公钥",
-            "DESCRIPTION": "填写前请确保您有相应的私钥。您可以使用 <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+            "TITLE": "输入你的Owner 公钥",
+            "DESCRIPTION": "填写前请确保你有相应的私钥，你可以通过<a href=\"https://get-scatter.com/\" target=\"_blank\">scatter</a>或者我们来生成公/私钥对"
           },
           "GENERATED_ACTIVE_PUBLIC_KEY": {
             "TITLE": "您的活动公钥",

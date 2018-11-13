@@ -315,7 +315,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return;
             }
         },
-        controllerProvider: function($stateParams, APP_CONSTANTS, $cookies) {
+        controllerProvider: function($stateParams, APP_CONSTANTS, $cookies, $rootScope) {
             var cookiePromo;
             switch ($stateParams.ext) {
                 case 'meetone':
@@ -326,6 +326,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     break;
             }
             $cookies.put('partnerpromo', cookiePromo);
+
+            if (cookiePromo && $stateParams.network == 10) {
+                $rootScope.globalError = {
+                    type: 'success',
+                    text: 'Enjoy 15% off your order at checkout with code ' + (cookiePromo === APP_CONSTANTS.PROMO_CODES.EOSPARK ? 'EOSPark' : 'MEET.ONE') + ' applied.'
+                };
+            }
             return $stateParams.selectedType + 'CreateController';
         },
         templateProvider: function ($templateCache, $stateParams) {

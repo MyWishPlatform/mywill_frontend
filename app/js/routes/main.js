@@ -329,9 +329,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             if (cookiePromo && $stateParams.network == 10) {
                 $rootScope.globalError = {
                     type: 'success',
-                    text: 'Enjoy 15% off your order at checkout with code ' + (cookiePromo === APP_CONSTANTS.PROMO_CODES.EOSPARK ? 'EOSPark' : 'MEET.ONE') + ' applied.'
+                    text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.'
                 };
             }
+
             return $stateParams.selectedType + 'CreateController';
         },
         templateProvider: function ($templateCache, $stateParams) {

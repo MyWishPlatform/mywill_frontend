@@ -6,8 +6,29 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
     };
 
-    $scope.eosAccountAddress = EOSService.getComingAddress();
 
+    $scope.eosAccountAddress = $rootScope.currentUser.eos_address;
+
+    /*
+    var widget = window['BRWidget'].init('bestrate-widget', '7bfe602c796d37df7c53bfecfb5e68bd');
+    widget.send({
+        tokenWithdrawalWallet: $scope.eosAccountAddress
+    } , {}, {
+        description: $rootScope.currentUser.memo
+    });
+
+    // eoslynx.getAccountInfo('i5OQ2hnQj2SdeHJYTpix1Ou8ZFXeuCr6sAcgEqC7EYfdo6B', true, false, 'eosmywish').then(console.log);
+
+    eoslynx.transfer(
+        'i5OQ2hnQj2SdeHJYTpix1Ou8ZFXeuCr6sAcgEqC7EYfdo6B',
+        $scope.eosAccountAddress,
+        0.0001,
+        'EOSISH',
+        $rootScope.currentUser.memo
+    ).then(response => {
+        console.log(response);
+    });
+    */
 
     var resetForm = function() {
         $scope.formData = {

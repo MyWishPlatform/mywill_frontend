@@ -17,8 +17,6 @@ var gulp = require('gulp'),
     revReplace = require("gulp-rev-replace"),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require('gulp-rename'),
-
-    data = require('gulp-data'),
     template = require('gulp-template');
 var output = 'app';
 var input = 'dist';

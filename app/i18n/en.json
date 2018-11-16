@@ -346,8 +346,12 @@
       }
     },
     "EOS_BUY_TOKENS": {
-      "MYWISH_ACCOUNT": {
-        "LABEL": "Send EOSISH(or EOS for autoexchange) to:",
+      "EOS_ACCOUNT": {
+        "LABEL": "Send EOS to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "EOSISH_ACCOUNT": {
+        "LABEL": "Send EOSISH to:",
         "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
       "EOS_ACCOUNT": {

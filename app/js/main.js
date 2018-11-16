@@ -121,7 +121,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.finishGlobalProgress = false;
 
     $rootScope.$state = $state;
-    console.log($rootScope.$state);
+
     var defaultLng = (navigator.language||navigator.browserLanguage).split('-')[0];
     $rootScope.setCurrentUser = function(profile) {
 
@@ -136,7 +136,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
         switch (ENV_VARS.mode) {
             case 'eos':
-                profile.balance = profile.eos_balance;
+                // profile.balance = profile.eos_balance;
                 profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 4)).toFormat(2);
                 break;
             default:

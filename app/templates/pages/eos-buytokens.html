@@ -26,157 +26,80 @@
                 </div>
             </div>
         </div>
-        <div class="shadow-block__content">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
-                    <div class="form-control">
-                        <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
-                        <input type="text" placeholder="0"
-                               class="form-control-input with-currency" ng-model="formData.eosAmount"
-                               commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
-                               pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
-                               ng-change="checkWishesAmount()">
-                        <div class="input-after">EOS</div>
-                    </div>
-                </div>
-                <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
-                    <div class="form-control">
-                        <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;{{'PAGES.BUY_TOKENS.GET'|translate}}</label>
-                        <input type="text" placeholder="0"
-                               class="form-control-input with-currency"
-                               commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
-                               pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
-                               ng-model="formData.wishesAmount" ng-change="checkEosAmount()">
-                        <div class="input-after">EOSISH</div>
-                    </div>
-                </div>
-            </div><br/>
 
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
-                    <div class="form-control">
-                        <label class="form-control-label" translate="PAGES.EOS_BUY_TOKENS.MYWISH_ACCOUNT.LABEL"></label>
-                        <div class="form-control-input-container">
-                            <input ng-model="wishAddress"
-                                   disabled="disabled"
-                                   type="text" class="form-control-input">
 
-                            <div class="input-after dynamic-info">
-                                <button class="instruction-for-copy-button relative"
-                                        clipboard supported="supported"
-                                        ng-class="{copied: formData.copied['mywish-account']}"
-                                        text="wishAddress"
-                                        on-copied="$root.successCodeCopy(formData, 'mywish-account')">
-                                    <i class="icon-content_copy"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1 form-control-description">
-                    <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span class="form-control-description__text"
-                          translate="PAGES.EOS_BUY_TOKENS.MYWISH_ACCOUNT.DESCRIPTION"></span>
-                </div>
-            </div>
-
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
-                    <div class="form-control">
-                        <label class="form-control-label"
-                               translate="PAGES.EOS_BUY_TOKENS.MEMO_FIELD.LABEL"></label>
-                        <div class="form-control-input-container">
-                            <input disabled="disabled"
-                                   ng-value="currentUser.memo"
-                                   type="text" class="form-control-input">
-
-                            <div class="input-after dynamic-info">
-                                <button class="instruction-for-copy-button relative"
-                                        clipboard supported="supported"
-                                        ng-class="{copied: formData.copied['memo']}"
-                                        text="currentUser.memo"
-                                        on-copied="$root.successCodeCopy(formData, 'memo')">
-                                    <i class="icon-content_copy"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1 form-control-description">
-                    <div class="form-control-label hide-ps">&nbsp;</div>
-                    <span class="form-control-description__text"
-                          translate="PAGES.EOS_BUY_TOKENS.MEMO_FIELD.DESCRIPTION"></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
-
-        <form class="shadow-block__content shadow-block__content_min-tb-padding" name="buyTokensForm">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control">
-                        <label class="form-control-label" translate="PAGES.BUY_TOKENS.ENTER_AMOUNT"></label>
-                        <input type="text"
-                               ng-model="formData.amount"
-                               class="form-control-input"
-                               commaseparator="{notNull: true, regexp: '^([0]{1}|([1-9]{1}[0-9]{0,24}))([.]([0-9]{0,4})?)?$'}"
-                               pattern="^([0]|([1-9][0-9,]{0,24}))([.][0-9]{1,4})?$"
-                               required>
-                    </div>
-                </div>
-                <div class="grid-cell grid-cell-1-3  grid-cell-vs-1">
-                    <div class="form-control">
-                        <div class="form-control-label">&nbsp;</div>
-                        <button class="btn btn-gray with-icon nowrap center-input-field"
-                                ng-disabled="!buyTokensForm.$valid"
-                                ng-click="sendTransaction()">
-                            <img src="/static/images/web3clients/scatter.svg" width="28" style="vertical-align: middle; margin-left: -4px;">
-                            &nbsp;&nbsp;
-                            <span>Scatter</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-            <button class="btn btn-submit float-right"
-                    type="button"
-                    ng-click="payDone()">
-                <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
-            </button>
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
+                    <label class="form-control-label-checkbox">
+                        <span translate="PAGES.BUY_TOKENS.CHOOSE_REPLENISH_METHOD"></span>
+                    </label>
+                </div>
+                <div class="clearfix show-vs"><br/></div>
+                <div class="grid-cell grid-cell-3-4">
+                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                        <label class="btn btn-gray nowrap payment-method with-icon"
+                               ng-class="{'active': visibleForm === 'eosish'}">
+                            <input type="radio" class="hidden-input"
+                                   ng-model="visibleForm"
+                                   value="eosish" name="buy-tokens-net">
+                            <img src="/static/images/blockchain/eosish-logo.svg" width="20" style="vertical-align: middle; margin-left: -5px;">
+                            <span>EOSISH</span>
+                        </label>
+                    </div>
+                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                        <label class="btn btn-gray nowrap payment-method with-icon"
+                               ng-class="{'active': visibleForm === 'eos'}">
+                            <input type="radio" class="hidden-input"
+                                   ng-model="visibleForm"
+                                   value="eos" name="buy-tokens-net">
+                            <img src="/static/images/blockchain/eos-counter.svg" width="16" style="vertical-align: middle">
+                            &nbsp;&nbsp;
+                            <span>EOS</span>
+                        </label>
+                    </div>
+                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                        <label class="btn btn-gray nowrap payment-method with-icon"
+                               ng-class="{'active': visibleForm === 'eth'}">
+                            <input type="radio" class="hidden-input"
+                                   ng-model="visibleForm"
+                                   value="eth" name="buy-tokens-net">
+                            <img src="/static/images/blockchain/ethereum.png" width="20" style="vertical-align: middle">
+                            &nbsp;&nbsp;
+                            <span>ETH</span>
+                        </label>
+                    </div>
+                    <div class="clearfix show-vs"><br/></div>
+                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                        <label class="btn btn-gray nowrap payment-method with-icon no-wrap"
+                               ng-class="{'active': visibleForm === 'btc'}">
+                            <input type="radio" class="hidden-input"
+                                   ng-model="visibleForm"
+                                   value="btc" name="buy-tokens-net">
+                            <img src="/static/images/blockchain/bitcoin.svg" width="20" style="vertical-align: middle">
+                            &nbsp;&nbsp;
+                            <span>BTC</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding">
+            <div id="bestrate-widget"></div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/eos-buytokens-forms/eth-form')"></div>
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'eosish'" ng-include="getTemplate('pages/eos-buytokens-forms/eosish-form')"></div>
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/eos-buytokens-forms/btc-form')"></div>
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'eos'" ng-include="getTemplate('pages/eos-buytokens-forms/eos-form')"></div>
     </div>
 </div>
-<div ng-if="scatterNotInstalled" ng-pop-up="{
-        template: '/templates/popups/alerts/scatter-install.html',
-        class: 'deleting-contract',
-        params: {},
-        opened: true,
-        onClose: closeScatterAlert,
-        newPopupContent: true
-    }"></div>
 
-<div ng-if="successTransaction" ng-pop-up="{
-        template: '/templates/popups/alerts/minting-success.html',
-        class: 'deleting-contract',
-        params: {
-            contract: {
-                network: 10
-            },
-            tx: successTransaction
-        },
-        opened: true,
-        onClose: closeMintingForm,
-        newPopupContent: true
-    }"></div>
 
-<div ng-if="mintServerError" ng-pop-up="{
-        template: '/templates/popups/alerts/transaction-error.html',
-        class: 'deleting-contract',
-        params: {},
-        opened: true,
-        onClose: closeScatterAlert,
-        newPopupContent: true
-    }"></div>
+

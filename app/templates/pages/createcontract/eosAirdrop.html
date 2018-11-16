@@ -160,7 +160,7 @@
 
         <div class="form-control-label" ng-if="(sitemode !== 'eos') && (getCostProgress || eosAirdropCost)"
              ng-class="{'no-visibility': getCostProgress}">
-            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST" translate="CONTRACTS.ENTER_PROMO_BLOCK.COST"></span>
             <div class="show-vs"></div>
             {{bigNumber(eosAirdropCost.WISH).round(2).toString(10)|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;
             <span class="grey-text-color">
@@ -170,7 +170,7 @@
 
         <div class="form-control-label" ng-if="(sitemode === 'eos') && (getCostProgress || eosAirdropCost)"
              ng-class="{'no-visibility': getCostProgress}">
-            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST" translate="CONTRACTS.ENTER_PROMO_BLOCK.COST"></span>
             <div class="show-vs"></div>
             {{bigNumber(eosAirdropCost.EOSISH).round(2).toString(10)|separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;
             <span class="grey-text-color">
@@ -204,3 +204,4 @@
         </button>
     </div>
 </div>
+

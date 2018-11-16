@@ -230,7 +230,7 @@
 
                 <div class="checkbox-decoration">
                     <div class="form-control-label-checkbox">
-                        <b class="normal-text">Change Advanced Settings</b>
+                        <b class="normal-text" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ADVANCED_SETTINGS.LABEL"></b>
                     </div>
                 </div>
             </div>
@@ -249,19 +249,14 @@
             </div>
         </div>
 
-        <span class="form-control-description__text">
-            You can change the default settings for the account if you need.
-            Changing the values will affect the costs of the creation.
-        </span>
+        <span class="form-control-description__text" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.ADVANCED_SETTINGS.DESCRIPTION"></span>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">
-                        NET
-                    </label>
+                    <label class="form-control-label" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.NET.LABEL"></label>
                     <div class="form-control-input-container">
                         <input type="text"
                                ng-required="setAdvancedSettings"
@@ -284,17 +279,14 @@
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">
-                    Network Bandwidth. Your bandwidth is temporarily used each time a transaction or action is done on the network.
-                </span>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.NET.DESCRIPTION"></span>
             </div>
         </div>
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">
-                        CPU
-                    </label>
+                    <label class="form-control-label" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.CPU.LABEL"></label>
                     <div class="form-control-input-container">
                         <input type="text"
                                placeholder="{{request.network == 10 ? 0.64 : 10}}"
@@ -317,17 +309,13 @@
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">
-                    Processing Power. CPU needed for transaction and actions execution. The complicated actions require more time for execution (and more CPU).
-                </span>
+                <span class="form-control-description__text" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.CPU.DESCRIPTION"></span>
             </div>
         </div>
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control">
-                    <label class="form-control-label">
-                        RAM
-                    </label>
+                    <label class="form-control-label" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.RAM.LABEL"></label>
                     <div class="form-control-input-container">
                         <input type="text"
                                ng-required="setAdvancedSettings"
@@ -341,7 +329,7 @@
                                }"
                                ng-change="getContractCost(advancedSettings)"
                                ng-model="request.contract_details.buy_ram_kbytes" class="form-control-input"/>
-                        <div class="input-after">KB</div>
+                        <div class="input-after" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.RAM.KILOBYTES"></div>
                     </div>
                     <div class="field-advanced-description" ng-if="EOSprices['CPU'] && request.contract_details.buy_ram_kbytes">
                         {{EOSprices['RAM'] * request.contract_details.buy_ram_kbytes|number:4}} EOS
@@ -350,9 +338,7 @@
             </div>
             <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text">
-                    RAM is needed for storing the data on EOS blockchain.
-                </span>
+                <span class="form-control-description__text" translate="CONTRACTS.FORMS.EOS_WALLET.FIELDS.RAM.DESCRIPTION"></span>
             </div>
         </div>
     </div>
@@ -368,7 +354,7 @@
 
         <div class="form-control-label" ng-if="(sitemode !== 'eos') && (getCostProgress || eosAccountCost)"
              ng-class="{'no-visibility': getCostProgress}">
-            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST" translate="CONTRACTS.ENTER_PROMO_BLOCK.COST"></span>
             <div class="show-vs"></div>
             {{eosAccountCost.WISH|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;
             <span class="grey-text-color">
@@ -378,7 +364,7 @@
 
         <div class="form-control-label" ng-if="(sitemode === 'eos') && (getCostProgress || eosAccountCost)"
              ng-class="{'no-visibility': getCostProgress}">
-            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST" translate="CONTRACTS.ENTER_PROMO_BLOCK.COST"></span>
             <div class="show-vs"></div>
             {{eosAccountCost.EOSISH | separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;
             <span class="grey-text-color">

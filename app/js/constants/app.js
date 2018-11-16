@@ -46,8 +46,8 @@ module.constant('APP_CONSTANTS', {
     'RSK_NET_ADDRESS': '/endpoint/rsk',
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
-    "NEO_TESTNET_ADDRESS": 'http://testnet.antcha.in/',
-    "NEO_MAINNET_ADDRESS": 'http://antcha.in/',
+    "NEO_TESTNET_ADDRESS": 'http://neoscan.mywish.io/',
+    "NEO_MAINNET_ADDRESS": 'http://neoscan.mywish.io/',
 
     "EOS_MAINNET_ADDRESS": "https://eospark.com/MainNet/",
     "EOS_TESTNET_ADDRESS": "https://eospark.com/Jungle/",
@@ -71,12 +71,16 @@ module.constant('APP_CONSTANTS', {
     'SOCIAL_APP_ID': {
         'GOOGLE': '448526667030-rfiiqfee3f0eils8nha266n43kp1pbac.apps.googleusercontent.com',
         'FACEBOOK': '438113386623173'
-    }
+    },
 
     // For test
     // 'SOCIAL_APP_ID': {
     //     'GOOGLE': '364466470795-a5hkjeu1j743r7ado7u9lo7s89rc4r7q.apps.googleusercontent.com',
     //     'FACEBOOK': '392887687850892'
-    // }
+    // },
+    'PROMO_CODES': {
+        'MEETONE': 'MEETONE',
+        'EOSPARK': 'EOSPARK'
+    }
 });
 

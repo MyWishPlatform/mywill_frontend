@@ -13,7 +13,12 @@
         <div class="grid-cell grid-cell-1-5 grid-cell-ps-2-5">
             <div class="form-control">
                 <div class="form-control-label hide-vs">&nbsp;</div>
-                <button class="btn btn-submit center-input-field" type="submit">
+                <button class="btn btn-submit center-input-field" type="submit">&nbsp;&nbsp;
+                     <span class="lds-ellipsis" ng-if="contract.checkPromoProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                    </span>
                     <span>&nbsp;&nbsp;{{'BUTTONS.CHECK'|translate}}&nbsp;&nbsp;</span>
                 </button>
             </div>

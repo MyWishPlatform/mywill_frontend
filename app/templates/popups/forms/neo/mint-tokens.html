@@ -21,7 +21,6 @@
                         <input id="out-wallet-key" type="text"
                                ng-checksum-address-validator="{'network': 'NEO'}"
                                ng-model="recipient.address"
-                               ng-change="!recipient.name ? checkTokensAmount() : false"
                                required
                                class="form-control-input"/>
                     </div>
@@ -34,9 +33,12 @@
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.AMOUNT.LABEL"></label>
                         <input class="form-control-input"
                                id="address-amount"
-                               commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               pattern="[0-9,]+{{(ngPopUp.params.contract.contract_details.decimals*1 > 0) ? '(\.[0-9]{1,'+ngPopUp.params.contract.contract_details.decimals+'})?' : ''}}$"
+                               commaseparator="{
+                                    regexp: '^(([0]{1})||([1-9][0-9]{0,25}))(\.[0-9]*)?$',
+                                    min: 1/$root.pow(10, ngPopUp.params.contract.contract_details.decimals)
+                               }"
                                required
-                               ng-change="checkTokensAmount()"
                                ng-model="recipient.amount"/>
                     </div>
                 </div>
@@ -50,11 +52,12 @@
                         newPopupContent: true,
                         params: {
                             contract: ngPopUp.params.contract.contract_details,
-                            recipient: recipient
+                            recipient: recipient,
+                            decimalsAmount: convertedAmount
                         },
                         onClose: returnToList
                     }"
-                    ng-disabled="!mintForm.$valid" ng-click="generateSignature(); closeCurrentPopup();">
+                    ng-disabled="!mintForm.$valid" ng-click="closeCurrentPopup();">
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.MINT'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>

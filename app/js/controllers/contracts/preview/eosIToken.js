@@ -1,7 +1,7 @@
 angular.module('app').controller('eosITokenPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, $filter, EOSService) {
     $scope.contract = openedContract.data;
 
-    $scope.setContract($scope.contract);
+    $scope.iniContract($scope.contract);
     var contractDetails = $scope.contract.contract_details;
 
     contractDetails.maximum_supply = new BigNumber(contractDetails.maximum_supply).div(Math.pow(10, contractDetails.decimals)).toString(10);

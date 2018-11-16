@@ -136,12 +136,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 var defer = $q.defer();
                 var loadedCurrencies = {};
                 var loadedCurrenciesCount = 0;
-                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS'] : ['ETH','BTC'];
-                console.log(currencies);
+                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS', 'ETH', 'BTC'] : ['ETH','BTC'];
+
+                var currentCurrency = ENV_VARS.mode === 'eos' ? 'EOSISH' : 'WISH';
 
                 var getRate = function(currency) {
-                    contractService.getCurrencyRate({fsym: currency, tsyms: 'WISH'}).then(function(result) {
-                        loadedCurrencies[currency] = (1 / result.data['WISH']).toString();
+                    contractService.getCurrencyRate({fsym: currency, tsyms: currentCurrency}).then(function(result) {
+                        loadedCurrencies[currency] = (1 / result.data[currentCurrency]).toString();
                         loadedCurrenciesCount++;
                         if (loadedCurrenciesCount === currencies.length) {
                             defer.resolve({
@@ -307,11 +308,32 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'createcontract/contract-types.html'
 
     }).state('main.createcontract.form', {
-        url: '/create/:selectedType?:options?:network?',
-        params: {
-            network: '1'
+        url: '/create/:selectedType?:options?:network?:ext?',
+        onEnter: function($stateParams, $state) {
+            if (!$stateParams.network) {
+                $state.go('main.createcontract.types');
+                return;
+            }
         },
-        controllerProvider: function($stateParams) {
+        controllerProvider: function($stateParams, APP_CONSTANTS, $cookies, $rootScope) {
+            var cookiePromo;
+            switch ($stateParams.ext) {
+                case 'meetone':
+                    cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
+                    break;
+                case 'eospark':
+                    cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
+                    break;
+            }
+            $cookies.put('partnerpromo', cookiePromo);
+
+            if (cookiePromo && $stateParams.network == 10) {
+                $rootScope.globalError = {
+                    type: 'success',
+                    text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.'
+                };
+            }
+
             return $stateParams.selectedType + 'CreateController';
         },
         templateProvider: function ($templateCache, $stateParams) {

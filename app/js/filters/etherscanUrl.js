@@ -26,13 +26,15 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 break;
             case 5:
                 networkUrl = APP_CONSTANTS.NEO_MAINNET_ADDRESS;
-                addressPaths.address = 'address/info';
-                addressPaths.token = 'address/info';
+                addressPaths.address = 'address';
+                addressPaths.token = 'address';
+                addressPaths.transaction = 'transaction';
                 break;
             case 6:
                 networkUrl = APP_CONSTANTS.NEO_TESTNET_ADDRESS;
-                addressPaths.address = 'address/info';
-                addressPaths.token = 'address/info';
+                addressPaths.address = 'address';
+                addressPaths.token = 'address';
+                addressPaths.transaction = 'transaction';
                 break;
             case 10:
                 networkUrl = (path !== 'symbol') ? APP_CONSTANTS.EOS_MAINNET_ADDRESS : APP_CONSTANTS.EOS_FLARE_MAINNET_ADDRESS;

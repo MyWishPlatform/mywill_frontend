@@ -49,9 +49,9 @@
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
         <div class="show-vs"></div>
-        {{(contract.cost.EOSISH - contract.cost.EOSISH * contract.discount / 100) / 10000 | separateNumber}} EOSISH&nbsp;&nbsp;&nbsp;
+        {{bigNumber(contract.cost.EOSISH).minus(bigNumber(contract.cost.EOSISH).times(contract.discount).div(100)).div(10000).round(4) | separateNumber}} EOSISH&nbsp;&nbsp;&nbsp;
         <span class="grey-text-color">
-            {{(contract.cost.EOS - contract.cost.EOS * contract.discount / 100) / 10000 | separateNumber}} EOS
+            {{bigNumber(contract.cost.EOS).minus(bigNumber(contract.cost.EOS).times(contract.discount).div(100)).div(10000).round(4) | separateNumber}} EOS
         </span>
     </div>
 </div>

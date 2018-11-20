@@ -190,7 +190,7 @@
       "TEXT": "Please confirm contract launch ({{price|separateNumber}} {{currency || 'WISH'}})"
     },
     "ACCOUNT_CREATION": {
-      "TEXT": "Please confirm account creation ({{price}} WISH)"
+      "TEXT": "Please confirm account creation ({{price}} {{currency || 'WISH'}})"
     }
   },
   "PAGES": {

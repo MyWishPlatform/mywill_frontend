@@ -509,13 +509,15 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }
 
         $rootScope.commonOpenedPopup = contractConfirmTpl;
+
         $rootScope.commonOpenedPopupParams = {
             newPopupContent: true,
             class: 'deleting-contract',
             contract: contract,
             confirmPayment: launchContract,
             contractCost: ($rootScope.sitemode !== 'eos') ?
-                Web3.utils.fromWei(contract.cost.WISH, 'ether') : (contract.cost.EOSISH / 10000)
+                Web3.utils.fromWei(contract.cost.WISH, 'ether') :
+                new BigNumber(contract.cost.EOSISH).div(10000).toString(10)
         };
     };
 

@@ -122,10 +122,10 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'list': [{
             'icon': 'icon-eos-wallet',
             'title': 'PAGES.CREATE_CONTRACT.EOS_WALLET.TITLE',
-            'description': ENV_VARS.mode === 'default' ? 'PAGES.CREATE_CONTRACT.EOS_WALLET.DESCRIPTION' : 'PAGES.CREATE_CONTRACT.EOS_WALLET.EOS_DESCRIPTION',
+            'description': 'PAGES.CREATE_CONTRACT.EOS_WALLET.DESCRIPTION',
             'typeNumber': 11,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[11],
-            'price': ENV_VARS.mode === 'default'
+            'price': true
         }, {
             'icon': 'icon-token-eos',
             'title': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_PERSONAL.TITLE',

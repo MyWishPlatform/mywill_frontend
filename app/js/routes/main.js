@@ -362,10 +362,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
             openedContract: function(ENV_VARS, $stateParams) {
-                if ((ENV_VARS.mode === 'eos') && ($stateParams.selectedType === 'eosWallet')) {
-                    window.location.href = 'https://contracts.mywish.io/create?blockchain=EOS';
-                    return;
-                }
+                // if ((ENV_VARS.mode === 'eos') && ($stateParams.selectedType === 'eosWallet')) {
+                //     window.location.href = 'https://contracts.mywish.io/create?blockchain=EOS';
+                //     return;
+                // }
                 return false;
             },
             tokensList: function($stateParams, contractService) {

@@ -255,7 +255,8 @@ gulp.task('app:revision', function() {
     return gulp.src([path.join(output, '*.html')])
         .pipe(template({
             socialScripts: fs.readFileSync("app/social.htm", "utf8"),
-            endBodyScripts: endBodyScripts
+            endBodyScripts: endBodyScripts,
+            bestRateWidget: argv.eos ? fs.readFileSync("app/bestRateWidget.htm", "utf8") : ''
         }))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
@@ -274,7 +275,11 @@ gulp.task('app:zh-revision', function() {
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
 
     return gulp.src([path.join(output, '*.html')])
-        .pipe(template({socialScripts: '', endBodyScripts: ''}))
+        .pipe(template({
+            socialScripts: '',
+            endBodyScripts: '',
+            bestRateWidget: argv.eos ? fs.readFileSync("app/bestRateWidget.htm", "utf8") : ''
+        }))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
         .pipe(revReplace({manifest: manifestLoginJS}))

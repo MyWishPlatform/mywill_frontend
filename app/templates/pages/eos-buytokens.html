@@ -43,6 +43,7 @@
                                ng-class="{'active': visibleForm === 'eosish'}">
                             <input type="radio" class="hidden-input"
                                    ng-model="visibleForm"
+                                   ng-click="visibleForm === 'eosish' ? visibleForm =  false : false"
                                    value="eosish" name="buy-tokens-net">
                             <img src="/static/images/blockchain/eosish-logo.svg" width="20" style="vertical-align: middle; margin-left: -5px;">
                             <span>EOSISH</span>
@@ -53,6 +54,7 @@
                                ng-class="{'active': visibleForm === 'eos'}">
                             <input type="radio" class="hidden-input"
                                    ng-model="visibleForm"
+                                   ng-click="visibleForm === 'eos' ? visibleForm =  false : false"
                                    value="eos" name="buy-tokens-net">
                             <img src="/static/images/blockchain/eos-counter.svg" width="16" style="vertical-align: middle">
                             &nbsp;&nbsp;
@@ -64,6 +66,7 @@
                                ng-class="{'active': visibleForm === 'eth'}">
                             <input type="radio" class="hidden-input"
                                    ng-model="visibleForm"
+                                   ng-click="visibleForm === 'eth' ? visibleForm =  false : false"
                                    value="eth" name="buy-tokens-net">
                             <img src="/static/images/blockchain/ethereum.png" width="20" style="vertical-align: middle">
                             &nbsp;&nbsp;
@@ -76,6 +79,7 @@
                                ng-class="{'active': visibleForm === 'btc'}">
                             <input type="radio" class="hidden-input"
                                    ng-model="visibleForm"
+                                   ng-click="visibleForm === 'btc' ? visibleForm =  false : false"
                                    value="btc" name="buy-tokens-net">
                             <img src="/static/images/blockchain/bitcoin.svg" width="20" style="vertical-align: middle">
                             &nbsp;&nbsp;
@@ -86,10 +90,6 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding">
-            <div id="bestrate-widget"></div>
-        </div>
-
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/eos-buytokens-forms/eth-form')"></div>
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
@@ -98,6 +98,17 @@
              ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/eos-buytokens-forms/btc-form')"></div>
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="visibleForm == 'eos'" ng-include="getTemplate('pages/eos-buytokens-forms/eos-form')"></div>
+
+
+        <div class="form-fieldset-delimiter" ng-hide="visibleForm"><span class="uppercase ng-scope" translate="OR">or</span></div>
+
+        <div ng-hide="visibleForm"
+             class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding">
+            <br/><br/>
+            <div id="bestrate-widget"></div>
+        </div>
+
+
     </div>
 </div>
 

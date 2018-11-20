@@ -1,23 +1,22 @@
-angular.module('app').controller('eosBuytokensController', function($scope, $timeout, $rootScope, $filter, $state, exRate, APP_CONSTANTS, EOSService) {
+angular.module('app').controller('eosBuytokensController', function($scope, $timeout, $rootScope, $filter, $state, exRate, APP_CONSTANTS) {
 
     $scope.exRate = exRate.data;
-
     $scope.payDone = function() {
         $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
     };
 
-
     $scope.eosAccountAddress = $rootScope.currentUser.eos_address;
 
-    // var widget = window['BRWidget'].init('bestrate-widget', '7bfe602c796d37df7c53bfecfb5e68bd');
+    if (window['BRWidget']) {
+        var widget = window['BRWidget'].init('bestrate-widget', '7bfe602c796d37df7c53bfecfb5e68bd');
+        widget.send({
+            tokenWithdrawalWallet: $scope.eosAccountAddress,
+            email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
+        } , {}, {
+            description: $rootScope.currentUser.memo
+        });
+    }
 
-    // widget.send({
-    //     tokenWithdrawalWallet: $scope.eosAccountAddress,
-    //     // returnWallet:  $scope.eosAccountAddress,
-    //     email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
-    // } , {}, {
-    //     description: '6c02a87b634ee67907a7'//$rootScope.currentUser.memo
-    // });
     //
     // console.log(JSON.stringify([{
     //     tokenWithdrawalWallet: $scope.eosAccountAddress,

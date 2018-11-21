@@ -270,26 +270,55 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             };
         }
     }).state('main.createcontract.types', {
-        url: '/create?:blockchain?&:isTestNet?',
+        url: '/create?:blockchain?&:isTestNet?&:ext?',
         resolve: {
             allCosts: function(contractService, ENV_VARS) {
                 return contractService.getAllCosts((ENV_VARS.mode !== 'default') ? ENV_VARS.mode : undefined);
             }
         },
-        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS, $stateParams, $location) {
+        controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS,
+                             $stateParams, $location, $cookies, APP_CONSTANTS, $rootScope) {
+
+            var iniPromoCode = function() {
+                var cookiePromo;
+                switch ($stateParams.ext) {
+                    case 'meetone':
+                        cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
+                        break;
+                    case 'eospark':
+                        cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
+                        break;
+                }
+                $cookies.put('partnerpromo', cookiePromo);
+
+                if (cookiePromo && ($scope.blockChainNetwork.type === 'EOS')) {
+                    $rootScope.globalError = {
+                        type: 'success',
+                        text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
+                        promo: true
+                    };
+                } else if ($rootScope.globalError && $rootScope.globalError.promo) {
+                    $rootScope.globalError = undefined;
+                }
+            };
+
+
             $scope.blockChainNetwork = {};
             var iniListParams = function() {
                 switch (ENV_VARS.mode) {
                     case 'eos':
                         $scope.blockChainNetwork.type =
-                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'EOS';
+                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ?
+                                $stateParams.blockchain : 'EOS';
                         break;
                     default:
                         $scope.blockChainNetwork.type =
-                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ? $stateParams.blockchain : 'ETH';
+                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ?
+                                $stateParams.blockchain : 'ETH';
                         break;
                 }
                 $scope.blockChainNetwork.isTest = !!$stateParams.isTestNet;
+                iniPromoCode();
             };
 
             for (var key in allCosts.data) {

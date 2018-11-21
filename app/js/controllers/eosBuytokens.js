@@ -8,7 +8,7 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
     $scope.eosAccountAddress = $rootScope.currentUser.eos_address;
 
     // if (window['BRWidget']) {
-    //     var widget = window['BRWidget'].init('bestrate-widget', '7bfe602c796d37df7c53bfecfb5e68bd');
+    //     var widget = window['BRWidget'].init('bestrate-widget', '8ce55c6765e822cec89307052be65c50');
     //     widget.send({
     //         tokenWithdrawalWallet: $scope.eosAccountAddress,
     //         email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined

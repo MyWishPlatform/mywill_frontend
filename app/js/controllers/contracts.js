@@ -401,19 +401,20 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         14: 'eos_i_token'
     };
 
-    var launchProgress = false;
     var launchContract = function(contract) {
-        if (launchProgress) return;
-        launchProgress = true;
+        if (contract.launchProgress) return;
+        contract.launchProgress = true;
         contractService.deployContract(contract.id, contract.promo, ($rootScope.sitemode === 'eos') ? true : undefined).then(function() {
-            launchProgress = false;
+            contract.launchProgress = false;
             $rootScope.closeCommonPopup();
 
             // add event to GTM
             var testNetwork = [2, 4, 6, 11].indexOf(contract.network) > -1;
             var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
-            dataLayer.push({'event': contractType + '_contract_launch_success' + (testNetwork ? '_test' : '')});
 
+            if (window['dataLayer']) {
+                window['dataLayer'].push({'event': contractType + '_contract_launch_success' + (testNetwork ? '_test' : '')});
+            }
 
             if ($state.current.name === 'main.contracts.list') {
                 $scope.refreshContract(contract);
@@ -421,6 +422,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 $state.go('main.contracts.list');
             }
         }, function(data) {
+            contract.launchProgress = false;
             switch(data.status) {
                 case 400:
                     switch(data.data.result) {
@@ -441,15 +443,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     }
                     break;
             }
-            launchProgress = false;
         });
     };
 
     /* (Click) Launch contract */
     $scope.payContract = function(contract) {
-        if (contract.isDeployProgress) return;
         contract.discount = contract.discount || 0;
-
         $rootScope.getCurrentUser().then(function(data) {
             if ($rootScope.currentUser.is_ghost) {
                 $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';

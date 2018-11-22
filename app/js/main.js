@@ -69,6 +69,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, $cookies, WebSocketService, ENV_VARS) {
 
+    $rootScope.testing = $location.$$hash == 'forTest';
+
     $rootScope.sitemode = ENV_VARS.mode;
     $rootScope.getNetworkPath = function(network) {
         network *= 1;

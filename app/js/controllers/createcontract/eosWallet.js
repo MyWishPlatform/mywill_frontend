@@ -1,5 +1,5 @@
 angular.module('app').controller('eosWalletCreateController', function($scope, contractService, $timeout, $state, $rootScope, EOSService,
-                                                                          CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
+                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, $q) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         contract_type: CONTRACT_TYPES_CONSTANTS.EOS_WALLET,
@@ -22,28 +22,46 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     $scope.resetForms = resetForm;
 
     $scope.getCostProgress = false;
-    var costDefer, costSentData;
 
-    $scope.getContractCost = function(advancedSettings) {
-        if ($scope.network === 11) return;
+    var chooseMode = false;
+    $scope.setAdvanced = function(form) {
+        chooseMode = true;
+        $timeout(function() {
+            chooseMode = false;
+            $scope.getContractCost(form);
+        });
+    };
+
+
+    var costRequest;
+    $scope.getContractCost = function(advancedSettings, checkbox) {
+
+        if (chooseMode || ($scope.network === 11)) return;
+
         if ($scope.getCostProgress) {
             $timeout.cancel($scope.getCostProgress);
+            $scope.getCostProgress = false;
         }
-        var data = costSentData = {
-            buy_ram_kbytes: $scope.setAdvancedSettings ? $scope.request.contract_details.buy_ram_kbytes : 4,
-            stake_net_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_net_value : ($scope.network == 10 ? 0.01 : 10),
-            stake_cpu_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_cpu_value : ($scope.network == 10 ? 0.64 : 10)
+
+        $scope.eosAccountCost = false;
+
+        var costSentData = {
+            buy_ram_kbytes: $scope.setAdvancedSettings ?
+                $scope.request.contract_details.buy_ram_kbytes : 4,
+            stake_net_value: $scope.setAdvancedSettings ?
+                $scope.request.contract_details.stake_net_value : 0.01,
+            stake_cpu_value: $scope.setAdvancedSettings ?
+                $scope.request.contract_details.stake_cpu_value : 0.64
         };
 
-        if (advancedSettings && !advancedSettings.$valid) {
-            $scope.eosAccountCost = false;
+        if ($scope.setAdvancedSettings && !advancedSettings.$valid) {
             return;
         }
 
-        $scope.getCostProgress = $timeout(function(){
-            costDefer = contractService.getEOSCost(costSentData).then(function(response) {
+        var timeout = $scope.getCostProgress = $timeout(function() {
+            contractService.getEOSCost(costSentData).then(function(response) {
+                if (timeout !== $scope.getCostProgress) return;
                 $scope.getCostProgress = false;
-                if (data !== costSentData) return;
                 for (var i in response.data) {
                     response.data[i] = Math.round(response.data[i] * 100) / 100;
                 }
@@ -59,6 +77,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         var contractData = angular.copy($scope.request);
+
         if (!$scope.havePublicKeys) {
             contractData.contract_details.active_public_key = $scope.generated_keys.active_public_key;
             contractData.contract_details.owner_public_key = $scope.generated_keys.owner_public_key;

@@ -1,5 +1,5 @@
 angular.module('app').controller('eosWalletCreateController', function($scope, contractService, $timeout, $state, $rootScope, EOSService,
-                                                                          CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
+                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, $q) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         contract_type: CONTRACT_TYPES_CONSTANTS.EOS_WALLET,
@@ -22,16 +22,30 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     $scope.resetForms = resetForm;
 
     $scope.getCostProgress = false;
-    var costDefer, costSentData;
 
-    $scope.getContractCost = function(advancedSettings) {
+    var chooseMode = false;
+    $scope.setAdvanced = function(form) {
+        chooseMode = true;
+        $timeout(function() {
+            chooseMode = false;
+            $scope.getContractCost(form);
+        });
+    };
 
-        if ($scope.network === 11) return;
+
+    var costRequest;
+    $scope.getContractCost = function(advancedSettings, checkbox) {
+
+        if (chooseMode || ($scope.network === 11)) return;
+
         if ($scope.getCostProgress) {
             $timeout.cancel($scope.getCostProgress);
             $scope.getCostProgress = false;
         }
-        var data = costSentData = {
+
+        $scope.eosAccountCost = false;
+
+        var costSentData = {
             buy_ram_kbytes: $scope.setAdvancedSettings ?
                 $scope.request.contract_details.buy_ram_kbytes : 4,
             stake_net_value: $scope.setAdvancedSettings ?
@@ -41,14 +55,13 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
         };
 
         if ($scope.setAdvancedSettings && !advancedSettings.$valid) {
-            $scope.eosAccountCost = false;
             return;
         }
 
-        $scope.getCostProgress = $timeout(function(){
-            costDefer = contractService.getEOSCost(costSentData).then(function(response) {
+        var timeout = $scope.getCostProgress = $timeout(function() {
+            contractService.getEOSCost(costSentData).then(function(response) {
+                if (timeout !== $scope.getCostProgress) return;
                 $scope.getCostProgress = false;
-                if (data !== costSentData) return;
                 for (var i in response.data) {
                     response.data[i] = Math.round(response.data[i] * 100) / 100;
                 }

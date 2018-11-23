@@ -25,17 +25,22 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     var costDefer, costSentData;
 
     $scope.getContractCost = function(advancedSettings) {
+
         if ($scope.network === 11) return;
         if ($scope.getCostProgress) {
             $timeout.cancel($scope.getCostProgress);
+            $scope.getCostProgress = false;
         }
         var data = costSentData = {
-            buy_ram_kbytes: $scope.setAdvancedSettings ? $scope.request.contract_details.buy_ram_kbytes : 4,
-            stake_net_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_net_value : ($scope.network == 10 ? 0.01 : 10),
-            stake_cpu_value: $scope.setAdvancedSettings ? $scope.request.contract_details.stake_cpu_value : ($scope.network == 10 ? 0.64 : 10)
+            buy_ram_kbytes: $scope.setAdvancedSettings ?
+                $scope.request.contract_details.buy_ram_kbytes : 4,
+            stake_net_value: $scope.setAdvancedSettings ?
+                $scope.request.contract_details.stake_net_value : 0.01,
+            stake_cpu_value: $scope.setAdvancedSettings ?
+                $scope.request.contract_details.stake_cpu_value : 0.64
         };
 
-        if (advancedSettings && !advancedSettings.$valid) {
+        if ($scope.setAdvancedSettings && !advancedSettings.$valid) {
             $scope.eosAccountCost = false;
             return;
         }
@@ -59,6 +64,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         var contractData = angular.copy($scope.request);
+
         if (!$scope.havePublicKeys) {
             contractData.contract_details.active_public_key = $scope.generated_keys.active_public_key;
             contractData.contract_details.owner_public_key = $scope.generated_keys.owner_public_key;

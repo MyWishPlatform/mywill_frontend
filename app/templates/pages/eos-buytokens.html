@@ -28,7 +28,7 @@
         </div>
 
 
-        <div ng-if="false">
+        <div  ng-if="!$root.eoslynx">
             <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
@@ -119,7 +119,7 @@
             </div>
         </div>
 
-        <div ng-if="true">
+        <div ng-if="$root.eoslynx">
             <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
                  ng-include="getTemplate('pages/eos-buytokens-forms/lynx-form')"></div>
         </div>

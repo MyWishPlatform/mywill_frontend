@@ -102,6 +102,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'messages.html',
         resolve: {
         }
+    }).state('eoslynx', {
+        url: '/eoslynx',
+        controller: function($cookies, $rootScope, $state) {
+            $cookies.put('eoslynx', 1);
+            $rootScope.eoslynx = true;
+            $state.go('main.base');
+        }
     }).state('main.extdevs', {
         url: '/ext-devs',
         controller: 'extDevsController',

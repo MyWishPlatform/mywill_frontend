@@ -18,6 +18,8 @@ var gulp = require('gulp'),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require('gulp-rename'),
     template = require('gulp-template');
+
+
 var output = 'app';
 var input = 'dist';
 var isProduction;
@@ -96,7 +98,7 @@ gulp.task('app:vendors-clean', function () {
     return del([path.join(input, 'static', 'vendors', '**/*')]);
 });
 /* Vendors scripts collection */
-gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:polyfills'], function() {
+gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:eos-lynx', 'app:polyfills'], function() {
     var js = gulp.src(
         [
             path.join(input, 'static', 'polyfills', 'polyfills.js'),
@@ -156,6 +158,12 @@ gulp.task('app:ws', function() {
         .pipe(gulp.dest(path.join(input, 'static', 'ws')));
 });
 
+
+gulp.task('app:eos-lynx', function() {
+    return gulp.src(path.join(output, 'eos-lynx.js'))
+        .pipe(browserify())
+        .pipe(gulp.dest(path.join(input, 'static', 'eos-lynx')));
+});
 
 gulp.task('app:web3', function() {
     return gulp.src(path.join(output, 'web3.js'))

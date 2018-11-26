@@ -59,12 +59,13 @@
       ng-swipe-left="toggleMenu(false, $event);"
       ng-swipe-right="toggleMenu(true, $event);">
 <div id="all-page-wrapper">
-    <header class="main-header-holder"
-            ng-include="getTemplate('common/header')"></header>
 
+    <header class="main-header-holder" ng-include="getTemplate('common/header')"></header>
     <div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
+
     <div class="pre-release-information"
          ng-class="{'start-loading': globalProgress, 'finish-loading': finishGlobalProgress}">
+
         <div class="pre-release-information-container">
             <div class="main-content-holder">
                 <div class="main-section-content">

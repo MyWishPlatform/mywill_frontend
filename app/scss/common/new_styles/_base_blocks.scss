@@ -151,6 +151,17 @@
         }
       }
     }
+
+    &__blue-description {
+      line-height: 5.6em;
+      text-align: right;
+      padding-right: 2em;
+      p {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
     &__description {
       margin: 0 2.5em;
       padding-top: 1.5em;

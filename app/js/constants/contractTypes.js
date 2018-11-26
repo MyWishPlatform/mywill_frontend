@@ -168,8 +168,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             return {
                 ETH: eth,
                 NEO: neo,
-                RSK: rsk,
-                EOS: eosDefault
+                RSK: rsk
             };
             break;
     }

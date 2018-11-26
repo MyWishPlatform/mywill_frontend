@@ -22,28 +22,6 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         });
     }
 
-    //
-    // console.log(JSON.stringify([{
-    //     tokenWithdrawalWallet: $scope.eosAccountAddress,
-    //     returnWallet:  $scope.eosAccountAddress
-    // } , {}, {
-    //     description: '6c02a87b634ee67907a7'//$rootScope.currentUser.memo
-    // }]));
-
-    /*
-    // eoslynx.getAccountInfo('i5OQ2hnQj2SdeHJYTpix1Ou8ZFXeuCr6sAcgEqC7EYfdo6B', true, false, 'eosmywish').then(console.log);
-
-    eoslynx.transfer(
-        'i5OQ2hnQj2SdeHJYTpix1Ou8ZFXeuCr6sAcgEqC7EYfdo6B',
-        $scope.eosAccountAddress,
-        0.0001,
-        'EOSISH',
-        $rootScope.currentUser.memo
-    ).then(response => {
-        console.log(response);
-    });
-    */
-
     var resetForm = function() {
         $scope.formData = {
             toAddress: $rootScope.currentUser.internal_address,
@@ -58,19 +36,39 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         resetForm();
     });
 
-}).controller('eosBuytokensEosController', function($scope) {
+}).controller('eosBuytokensEosController', function($scope, $rootScope) {
+
     var rate = $scope.exRate.EOS;
+
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);
         $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
+
     $scope.checkEosAmount = function() {
         if (!$scope.formData.wishesAmount) return;
         var ethAmount = new BigNumber($scope.formData.wishesAmount);
         $scope.formData.eosAmount = ethAmount.times(rate).round(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
+
+    $scope.successLynxTransaction = function() {
+        console.log(window['eoslynx']);
+        if (window['eoslynx']) {
+            eoslynx.transfer(
+                'i5OQ2hnQj2SdeHJYTpix1Ou8ZFXeuCr6sAcgEqC7EYfdo6B',
+                $scope.eosAccountAddress,
+                new BigNumber($scope.formData.eosAmount).toFormat(4),
+                'EOS',
+                $rootScope.currentUser.memo
+            ).then(function(response) {
+                console.log(response);
+            });
+        }
+    };
+
+
 }).controller('eosBuytokensEosishController', function($scope) {
     $scope.formData = {};
 });

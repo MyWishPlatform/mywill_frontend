@@ -28,94 +28,100 @@
         </div>
 
 
-
-        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-            <div class="grid-row contract-form-row">
-                <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
-                    <label class="form-control-label-checkbox">
-                        <span translate="PAGES.BUY_TOKENS.CHOOSE_REPLENISH_METHOD"></span>
-                    </label>
-                </div>
-                <div class="clearfix show-vs"><br/></div>
-                <div class="grid-cell grid-cell-3-4">
-                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
-                        <label class="btn btn-gray nowrap payment-method with-icon"
-                               ng-class="{'active': visibleForm === 'eosish'}">
-                            <input type="radio" class="hidden-input"
-                                   ng-model="visibleForm"
-                                   ng-click="visibleForm === 'eosish' ? visibleForm =  false : false"
-                                   value="eosish" name="buy-tokens-net">
-                            <img src="/static/images/blockchain/eosish-logo.svg" width="20" style="vertical-align: middle; margin-left: -5px;">
-                            <span>EOSISH</span>
-                        </label>
-                    </div>
-                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
-                        <label class="btn btn-gray nowrap payment-method with-icon"
-                               ng-class="{'active': visibleForm === 'eos'}">
-                            <input type="radio" class="hidden-input"
-                                   ng-model="visibleForm"
-                                   ng-click="visibleForm === 'eos' ? visibleForm =  false : false"
-                                   value="eos" name="buy-tokens-net">
-                            <img src="/static/images/blockchain/eos-counter.svg" width="16" style="vertical-align: middle">
-                            &nbsp;&nbsp;
-                            <span>EOS</span>
-                        </label>
-                    </div>
-                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
-                        <label class="btn btn-gray nowrap payment-method with-icon"
-                               ng-class="{'active': visibleForm === 'eth'}">
-                            <input type="radio" class="hidden-input"
-                                   ng-model="visibleForm"
-                                   ng-click="visibleForm === 'eth' ? visibleForm =  false : false"
-                                   value="eth" name="buy-tokens-net">
-                            <img src="/static/images/blockchain/ethereum.png" width="20" style="vertical-align: middle">
-                            &nbsp;&nbsp;
-                            <span>ETH</span>
+        <div  ng-if="!$root.eoslynx">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+                <div class="grid-row contract-form-row">
+                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
+                        <label class="form-control-label-checkbox">
+                            <span translate="PAGES.BUY_TOKENS.CHOOSE_REPLENISH_METHOD"></span>
                         </label>
                     </div>
                     <div class="clearfix show-vs"><br/></div>
-                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
-                        <label class="btn btn-gray nowrap payment-method with-icon no-wrap"
-                               ng-class="{'active': visibleForm === 'btc'}">
-                            <input type="radio" class="hidden-input"
-                                   ng-model="visibleForm"
-                                   ng-click="visibleForm === 'btc' ? visibleForm =  false : false"
-                                   value="btc" name="buy-tokens-net">
-                            <img src="/static/images/blockchain/bitcoin.svg" width="20" style="vertical-align: middle">
-                            &nbsp;&nbsp;
-                            <span>BTC</span>
-                        </label>
+                    <div class="grid-cell grid-cell-3-4">
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'eosish'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-model="visibleForm"
+                                       ng-click="visibleForm === 'eosish' ? visibleForm =  false : false"
+                                       value="eosish" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/eosish-logo.svg" width="20" style="vertical-align: middle; margin-left: -5px;">
+                                <span>EOSISH</span>
+                            </label>
+                        </div>
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'eos'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-model="visibleForm"
+                                       ng-click="visibleForm === 'eos' ? visibleForm =  false : false"
+                                       value="eos" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/eos-counter.svg" width="16" style="vertical-align: middle">
+                                &nbsp;&nbsp;
+                                <span>EOS</span>
+                            </label>
+                        </div>
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'eth'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-model="visibleForm"
+                                       ng-click="visibleForm === 'eth' ? visibleForm =  false : false"
+                                       value="eth" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/ethereum.png" width="20" style="vertical-align: middle">
+                                &nbsp;&nbsp;
+                                <span>ETH</span>
+                            </label>
+                        </div>
+                        <div class="clearfix show-vs"><br/></div>
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon no-wrap"
+                                   ng-class="{'active': visibleForm === 'btc'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-model="visibleForm"
+                                       ng-click="visibleForm === 'btc' ? visibleForm =  false : false"
+                                       value="btc" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/bitcoin.svg" width="20" style="vertical-align: middle">
+                                &nbsp;&nbsp;
+                                <span>BTC</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+                 ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/eos-buytokens-forms/eth-form')"></div>
+            <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+                 ng-if="visibleForm == 'eosish'" ng-include="getTemplate('pages/eos-buytokens-forms/eosish-form')"></div>
+            <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+                 ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/eos-buytokens-forms/btc-form')"></div>
+            <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+                 ng-if="visibleForm == 'eos'" ng-include="getTemplate('pages/eos-buytokens-forms/eos-form')"></div>
+
+
+            <div class="form-fieldset-delimiter"
+                 ng-if="testing"
+                 ng-hide="visibleForm"><span class="uppercase ng-scope" translate="OR">or</span></div>
+
+            <div ng-hide="visibleForm"
+                 ng-if="testing"
+                 class="shadow-block__content shadow-block__content_no-tb-padding">
+                <br/><br/>
+                <div class="form-control-label">Use BestRate service for getting EOSISH</div>
+            </div>
+
+            <div ng-hide="visibleForm"
+                 ng-if="testing"
+                 class="shadow-block__content shadow-block__content_no-tb-padding no-border shadow-block__content_no-lr-padding">
+                <br/><br/>
+                <div id="bestrate-widget"></div>
+            </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
-             ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/eos-buytokens-forms/eth-form')"></div>
-        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
-             ng-if="visibleForm == 'eosish'" ng-include="getTemplate('pages/eos-buytokens-forms/eosish-form')"></div>
-        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
-             ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/eos-buytokens-forms/btc-form')"></div>
-        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
-             ng-if="visibleForm == 'eos'" ng-include="getTemplate('pages/eos-buytokens-forms/eos-form')"></div>
-
-
-        <div class="form-fieldset-delimiter"
-             ng-if="testing"
-             ng-hide="visibleForm"><span class="uppercase ng-scope" translate="OR">or</span></div>
-
-        <div ng-hide="visibleForm"
-             ng-if="testing"
-             class="shadow-block__content shadow-block__content_no-tb-padding">
-            <br/><br/>
-            <div class="form-control-label">Use BestRate service for getting EOSISH</div>
-        </div>
-
-        <div ng-hide="visibleForm"
-             ng-if="testing"
-             class="shadow-block__content shadow-block__content_no-tb-padding no-border shadow-block__content_no-lr-padding">
-            <br/><br/>
-            <div id="bestrate-widget"></div>
+        <div ng-if="$root.eoslynx">
+            <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+                 ng-include="getTemplate('pages/eos-buytokens-forms/lynx-form')"></div>
         </div>
     </div>
 </div>

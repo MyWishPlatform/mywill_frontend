@@ -1,0 +1,36 @@
+<form ng-controller="eosBuytokensEosController" name="buyTokensForm">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
+                <div class="form-control">
+                    <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
+                    <input type="text" placeholder="0"
+                           class="form-control-input with-currency" ng-model="formData.eosAmount"
+                           commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
+                           pattern="^[0-9,]{0,25}([.][0-9]{1,4})?$"
+                           ng-change="checkWishesAmount()">
+                    <div class="input-after">EOS</div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
+                <div class="form-control">
+                    <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;{{'PAGES.BUY_TOKENS.GET'|translate}}</label>
+                    <input type="text" placeholder="0"
+                           class="form-control-input with-currency"
+                           commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
+                           pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
+                           ng-model="formData.wishesAmount" ng-change="checkEosAmount('EOSISH')">
+                    <div class="input-after">EOSISH</div>
+                </div>
+            </div>
+        </div><br/>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <button class="btn btn-submit float-right"
+                type="button"
+                ng-click="successLynxTransaction()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</form>

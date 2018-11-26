@@ -1,4 +1,5 @@
 <div class="main-section-content">
+
     <div class="shadow-block">
         <div class="grid-row">
             <div class="grid-cell grid-cell-2-5 grid-cell-ps-1">
@@ -28,7 +29,7 @@
         </div>
 
 
-        <div  ng-if="!$root.eoslynx">
+        <div ng-if="!$root.eoslynx">
             <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
                 <div class="grid-row contract-form-row">
                     <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
@@ -120,8 +121,53 @@
         </div>
 
         <div ng-if="$root.eoslynx">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color"
+                 ng-show="$root.eoslynxIsMobile">
+                <div class="grid-row contract-form-row">
+                    <div class="grid-cell grid-cell-1-4 grid-cell-ps-1">
+                        <label class="form-control-label-checkbox">
+                            <span translate="PAGES.BUY_TOKENS.CHOOSE_REPLENISH_METHOD"></span>
+                        </label>
+                    </div>
+                    <div class="clearfix show-vs"><br/></div>
+
+                    <div class="grid-cell grid-cell-3-4">
+
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'eos-lynx'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-model="visibleForm"
+                                       ng-click="visibleForm === 'eos-lynx' ? visibleForm =  false : false"
+                                       value="eos-lynx" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/eos-counter.svg" width="16" style="vertical-align: middle">
+                                &nbsp;&nbsp;
+                                <span>EOS</span>
+                            </label>
+                        </div>
+
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'eosish-lynx'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-model="visibleForm"
+                                       ng-click="visibleForm === 'eosish-lynx' ? visibleForm =  false : false"
+                                       value="eosish-lynx" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/eosish-logo.svg" width="20" style="vertical-align: middle; margin-left: -5px;">
+                                <span>EOSISH</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+                 ng-if="!$root.eoslynxIsMobile || (visibleForm === 'eos-lynx')"
                  ng-include="getTemplate('pages/eos-buytokens-forms/lynx-form')"></div>
+
+            <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+                 ng-if="$root.eoslynxIsMobile && (visibleForm === 'eosish-lynx')"
+                 ng-include="getTemplate('pages/eos-buytokens-forms/eosish-lynx-form')"></div>
         </div>
     </div>
 </div>

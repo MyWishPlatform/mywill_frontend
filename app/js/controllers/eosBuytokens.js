@@ -11,7 +11,6 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
 
     if (window['BRWidget'] && $scope.testing) {
         $timeout(function() {
-
             var widget = window['BRWidget'].init('bestrate-widget', '8ce55c6765e822cec89307052be65c50');
             widget.send({
                 tokenWithdrawalWallet: $scope.eosAccountAddress,
@@ -40,6 +39,8 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
 
     var rate = $scope.exRate.EOS;
 
+    // $rootScope.eoslynxIsMobile = true;
+
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);
         $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
@@ -54,21 +55,41 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
     };
 
     $scope.successLynxTransaction = function() {
-        console.log(window['eoslynx']);
-        if (window['eoslynx']) {
-            eoslynx.transfer(
-                'i5OQ2hnQj2SdeHJYTpix1Ou8ZFXeuCr6sAcgEqC7EYfdo6B',
-                $scope.eosAccountAddress,
-                new BigNumber($scope.formData.eosAmount).toFormat(4),
-                'EOS',
-                $rootScope.currentUser.memo
-            ).then(function(response) {
-                console.log(response);
-            });
+        if (!$rootScope.eoslynxIsMobile) {
+            if (window['eoslynx']) {
+                window['eoslynx'].transfer(
+                    'i5OQ2hnQj2SdeHJYTpix1Ou8ZFXeuCr6sAcgEqC7EYfdo6B',
+                    $scope.eosAccountAddress,
+                    new BigNumber($scope.formData.eosAmount).toFormat(4),
+                    'EOS',
+                    $rootScope.currentUser.memo
+                ).then(function(response) {
+                    console.log(response);
+                });
+            }
+        } else {
+            window['lynxMobile']['eosTransfer']({
+                toAccount: $scope.eosAccountAddress,
+                amount: new BigNumber($scope.formData.eosAmount).toFormat(4),
+                memo: $rootScope.currentUser.memo
+            })
         }
     };
-
-
-}).controller('eosBuytokensEosishController', function($scope) {
+}).controller('eosBuytokensEosishController', function($scope, $rootScope) {
     $scope.formData = {};
+    $scope.successEosishLynxTransaction = function() {
+        if ($rootScope.eoslynxIsMobile) {
+            window['lynxMobile']['transfer']({
+                toAccount: $scope.eosAccountAddress,
+                amount: new BigNumber($scope.formData.eosishAmount).toFormat(4),
+                memo: $rootScope.currentUser.memo,
+                contract: 'buildertoken',
+                symbol: "EOSISH"
+            })
+        }
+    };
 });
+
+
+
+

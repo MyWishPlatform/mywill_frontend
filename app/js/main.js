@@ -16,6 +16,18 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).controller('baseController', function($scope, $rootScope, $translate, $timeout, $cookies, authService) {
     $rootScope.showedMenu = false;
 
+    $timeout(function() {
+        $rootScope.eoslynx = !!$cookies.get('eoslynx');
+        if (window['lynxMobile']) {
+            $rootScope.eoslynxIsMobile = true;
+        } else {
+            window.addEventListener("lynxMobileLoaded", function() {
+                $rootScope.eoslynxIsMobile = true;
+            });
+        }
+    });
+
+
     $rootScope.toggleMenu = function(state, event) {
         if (angular.element('body').is('.popup-showed')) return;
         if (state === undefined) {
@@ -68,8 +80,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, $cookies, WebSocketService, ENV_VARS) {
-
-    $rootScope.eoslynx = !!$cookies.get('eoslynx');
 
     $rootScope.testing = $location.$$hash == 'forTest';
 

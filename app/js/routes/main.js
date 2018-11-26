@@ -71,7 +71,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
     }).state('main.base', {
         url: '/',
-        controller: function(currentUser, $state) {
+        controller: function(currentUser, $state, $rootScope) {
             currentUser.data.contracts ? $state.go('main.contracts.list') : $state.go('main.createcontract.types');
         },
         title: 'start'

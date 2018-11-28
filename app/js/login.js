@@ -200,8 +200,9 @@ module.controller('baseController', function($scope, $translate, $cookies) {
         enabled: true,
         requireBase: false
     });
-}).run(function($state, $rootScope) {
+}).run(function($state, $rootScope, $cookies) {
     $rootScope.$state = $state;
+    $rootScope.eoslynx = !!$cookies.get('eoslynx');
 }).config(function($httpProvider, $qProvider) {
     $httpProvider.defaults.xsrfCookieName = 'csrftoken';
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';

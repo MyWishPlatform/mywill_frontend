@@ -119,7 +119,7 @@
                     </form>
                 </div>
 
-                <div class="network-auth-buttons" ng-if="$root.FBInited || $root.GAInited">
+                <div class="network-auth-buttons" ng-if="($root.FBInited || $root.GAInited) && !$root.eoslynx">
                     <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-if="$root.FBInited" ng-click="fbLogin(undefined, false, true);">
                         <i class="icon-network-facebook"></i>
                         <span translate="AUTH_POPUP.BUTTONS.LOGIN_FACEBOOK"></span>

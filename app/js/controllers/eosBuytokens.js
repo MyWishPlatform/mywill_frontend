@@ -9,7 +9,7 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
     $scope.eosAccountAddress = $rootScope.currentUser.eos_address;
 
 
-    if (window['BRWidget'] && $scope.testing) {
+    if (window['BRWidget'] && !$rootScope.eoslynx) {
         $timeout(function() {
             var widget = window['BRWidget'].init('bestrate-widget', '8ce55c6765e822cec89307052be65c50');
             widget.send({
@@ -38,8 +38,6 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
 }).controller('eosBuytokensEosController', function($scope, $rootScope) {
 
     var rate = $scope.exRate.EOS;
-
-    // $rootScope.eoslynxIsMobile = true;
 
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);

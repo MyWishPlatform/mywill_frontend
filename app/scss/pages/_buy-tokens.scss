@@ -12,6 +12,16 @@
         }
     }
 }
+#bestrate-widget {
+    iframe {
+        display: block!important;
+    }
+}
+.bestrate-logo {
+    margin: 0 0.5em;
+    vertical-align: middle;
+    width: 5em;
+}
 @media (max-width: 580px) {
     .payment-row {
         .btn {

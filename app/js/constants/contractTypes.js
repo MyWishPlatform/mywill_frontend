@@ -14,7 +14,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'EOS_WALLET': 11,
     'CROWDSALE_EOS': 12,
     'AIRDROP_EOS': 13,
-    'EOS_I_TOKEN': 14
+    'EOS_I_TOKEN': 14,
+    'WEDDING': '-1'
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',
@@ -30,7 +31,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     11: 'eosWallet',
     12: 'eosCrowdSale',
     13: 'eosAirdrop',
-    14: 'eosIToken'
+    14: 'eosIToken',
+    '-1': 'wedding'
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
     var eth = {
         'networks': [1, 2],
@@ -84,7 +86,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'icon': 'icon-wedding',
             'title': 'PAGES.CREATE_CONTRACT.WEDDING.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.WEDDING.DESCRIPTION',
-            'type:': 'wedding'
+            'typeNumber': '-1',
+            'type:': 'wedding',
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS['-1']
         }]
     };
 

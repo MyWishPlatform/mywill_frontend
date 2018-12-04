@@ -54,7 +54,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
                 $scope.request.contract_details.stake_cpu_value : 0.64
         };
 
-        if ($scope.setAdvancedSettings && !advancedSettings.$valid) {
+        if ($scope.setAdvancedSettings && (advancedSettings && !advancedSettings.$valid)) {
             return;
         }
 

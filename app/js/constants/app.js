@@ -9,12 +9,12 @@ module.constant('APP_CONSTANTS', {
     'EOS_ADDRESSES': {
         'DEVELOPMENT': {
             'MAINNET': {
-                'TOKEN': 'mywishtoken4',
+                'TOKEN': 'tokenfather2',
                 'ACCOUNT': 'mywishtoken4',
                 'AIRDROP': 'air.mywishio'
             },
             'TESTNET': {
-                'TOKEN': 'mywishtoken3',
+                'TOKEN': 'tokenfather2',
                 'ACCOUNT': 'mywishtoken3',
                 'AIRDROP': 'air.mywishio'
             },
@@ -22,12 +22,12 @@ module.constant('APP_CONSTANTS', {
         },
         'PRODUCTION': {
             'MAINNET': {
-                'TOKEN': 'buildertoken',
+                'TOKEN': 'tokensfather',
                 'ACCOUNT': 'deploymywish',
                 'AIRDROP': 'wishairdrops'
             },
             'TESTNET': {
-                'TOKEN': 'mywishtokens',
+                'TOKEN': 'tokensfather',
                 'ACCOUNT': 'mywishiotest',
                 'AIRDROP': 'wishairdrops'
             },

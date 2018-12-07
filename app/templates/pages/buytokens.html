@@ -85,16 +85,16 @@
              ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
 
 
-        <div class="form-fieldset-delimiter" ng-if="$root.testing"
+        <div class="form-fieldset-delimiter"
              ng-hide="visibleForm"><span class="uppercase ng-scope" translate="OR">or</span></div>
 
-        <div ng-hide="visibleForm" ng-if="$root.testing"
+        <div ng-hide="visibleForm"
              class="shadow-block__content shadow-block__content_no-tb-padding text-center">
             <br/><br/>
             <div class="form-control-label">Use <img class="bestrate-logo" src="/static/images/BestRate.svg"/> service for getting WISH</div>
         </div>
 
-        <div ng-hide="visibleForm" ng-if="$root.testing"
+        <div ng-hide="visibleForm"
              class="shadow-block__content shadow-block__content_no-tb-padding no-border shadow-block__content_no-lr-padding">
             <br/><br/>
             <div id="bestrate-widget"></div>

@@ -16,7 +16,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     });
 
 
-    if (window['BRWidget'] && $rootScope.testing) {
+    if (window['BRWidget']) {
         $timeout(function() {
             var widget = window['BRWidget'].init('bestrate-widget', 'mywish-widget');
             widget.send({

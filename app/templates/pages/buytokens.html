@@ -41,6 +41,7 @@
                     <label class="btn btn-gray nowrap payment-method with-icon"
                            ng-class="{'active': visibleForm === 'wish'}">
                         <input type="radio" class="hidden-input"
+                               ng-click="visibleForm === 'wish' ? visibleForm =  false : false"
                                ng-model="visibleForm"
                                value="wish" name="buy-tokens-net">
                         <img src="/static/images/mywish.png" width="20" style="vertical-align: middle; margin-left: -5px;">
@@ -52,6 +53,7 @@
                     <label class="btn btn-gray nowrap payment-method with-icon"
                            ng-class="{'active': visibleForm === 'eth'}">
                         <input type="radio" class="hidden-input"
+                               ng-click="visibleForm === 'eth' ? visibleForm =  false : false"
                                ng-model="visibleForm"
                                value="eth" name="buy-tokens-net">
                         <img src="/static/images/blockchain/ethereum.png" width="20" style="vertical-align: middle">
@@ -64,6 +66,7 @@
                     <label class="btn btn-gray nowrap payment-method with-icon"
                            ng-class="{'active': visibleForm === 'btc'}">
                         <input type="radio" class="hidden-input"
+                               ng-click="visibleForm === 'btc' ? visibleForm =  false : false"
                                ng-model="visibleForm"
                                value="btc" name="buy-tokens-net">
                         <img src="/static/images/blockchain/bitcoin.svg" width="20" style="vertical-align: middle">
@@ -80,5 +83,24 @@
              ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
+
+
+        <div class="form-fieldset-delimiter" ng-if="$root.testing"
+             ng-hide="visibleForm"><span class="uppercase ng-scope" translate="OR">or</span></div>
+
+        <div ng-hide="visibleForm" ng-if="$root.testing"
+             class="shadow-block__content shadow-block__content_no-tb-padding text-center">
+            <br/><br/>
+            <div class="form-control-label">Use <img class="bestrate-logo" src="/static/images/BestRate.svg"/> service for getting WISH</div>
+        </div>
+
+        <div ng-hide="visibleForm" ng-if="$root.testing"
+             class="shadow-block__content shadow-block__content_no-tb-padding no-border shadow-block__content_no-lr-padding">
+            <br/><br/>
+            <div id="bestrate-widget"></div>
+        </div>
+
+
+
     </div>
 </div>

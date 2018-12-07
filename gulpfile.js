@@ -264,7 +264,7 @@ gulp.task('app:revision', function() {
         .pipe(template({
             socialScripts: fs.readFileSync("app/social.htm", "utf8"),
             endBodyScripts: endBodyScripts,
-            bestRateWidget: argv.eos ? fs.readFileSync("app/bestRateWidget.htm", "utf8") : ''
+            bestRateWidget: argv.eos ? fs.readFileSync("app/bestRateWidget.htm", "utf8") : fs.readFileSync("app/ethBestRateWidget.htm", "utf8")
         }))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))

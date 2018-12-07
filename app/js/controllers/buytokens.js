@@ -1,4 +1,4 @@
-angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate, APP_CONSTANTS, web3Service) {
+angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate, APP_CONSTANTS, web3Service, $filter) {
 
     $scope.exRate = exRate.data;
     $scope.wallets = {metamask: [], parity: []};
@@ -14,6 +14,18 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             $scope.wallets[wallet.type].push(wallet.wallet);
         });
     });
+
+
+    if (window['BRWidget'] && $rootScope.testing) {
+        $timeout(function() {
+            var widget = window['BRWidget'].init('bestrate-widget', 'mywish-widget');
+            widget.send({
+                tokenWithdrawalWallet: $rootScope.currentUser.internal_address,
+                email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
+            } , {}, {});
+        });
+    }
+
 
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({

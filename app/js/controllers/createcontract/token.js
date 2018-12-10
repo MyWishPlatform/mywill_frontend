@@ -130,7 +130,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             network: contract.network,
             contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.TOKEN : CONTRACT_TYPES_CONSTANTS.TOKEN_NEO,
             contract_details: contractDetails,
-            id: contract.id
+            id: contract.id,
+            authio: ($scope.network == 1) ? !!contractDetails.authio : undefined,
+            authio_email: ($scope.network == 1) ? contractDetails.authio ? contractDetails.authio_email : null : undefined
         };
     };
 

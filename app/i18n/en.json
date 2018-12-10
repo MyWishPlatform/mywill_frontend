@@ -1082,6 +1082,10 @@
             "LABEL": "Future Minting:",
             "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible.",
             "DESCRIPTION_NEO": "Yes - you can create more tokens in the future. <br/>No - no more tokens will be created in the future."
+          },
+          "AUTHIO": {
+            "LABEL": "Branded audit report",
+            "DESCRIPTION": "Security audit for exchanges and gives estimation of the security !--- ниче не видно в доке --- contract is audited independently. Please <a href=\"https://authio.org/audits\" target=\"_blank\">check the example</a>"
           }
         }
       },

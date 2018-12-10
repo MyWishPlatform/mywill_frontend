@@ -321,6 +321,7 @@
     <span translate="CONTRACTS_BUTTONS.MINT"></span>
 </button>
 
+
 <!-- Finalize token contract form button -->
 <button ng-pop-up="{
             template: '/templates/popups/disclaimers/eth/mint-finalize-disclaimer.html',
@@ -335,3 +336,12 @@
         class="btn btn-transparent hide-ps">
     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
 </button>
+
+
+<!-- Authio form button -->
+<a ng-if="((contract.stateValue == 4) || (contract.stateValue == 11)) && (contract.contract_type == 5) && !contract.contract_details.authio"
+   ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'tab-audit'})"
+   class="btn btn-transparent hide-ps">
+    <i class="icon-note-list"></i>
+    <span>Brand report</span>
+</a>

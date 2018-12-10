@@ -1,5 +1,5 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, $filter) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,
@@ -8,6 +8,11 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         }
     };
     $scope.network = contract.network * 1;
+
+    if ($scope.network === 1) {
+        contract.contract_details.authio_email =
+            $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined;
+    }
 
     switch ($scope.network) {
         case 1:
@@ -125,14 +130,18 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         if ($scope.blockchain === 'NEO') {
             contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
         }
+
+        if ($scope.network === 1) {
+            contractDetails.authio = !!contractDetails.authio;
+            contractDetails.authio_email = contractDetails.authio ? contractDetails.authio_email : null;
+        }
+
         return {
             name: $scope.request.token_name,
             network: contract.network,
             contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.TOKEN : CONTRACT_TYPES_CONSTANTS.TOKEN_NEO,
             contract_details: contractDetails,
-            id: contract.id,
-            authio: ($scope.network == 1) ? !!contractDetails.authio : undefined,
-            authio_email: ($scope.network == 1) ? contractDetails.authio ? contractDetails.authio_email : null : undefined
+            id: contract.id
         };
     };
 

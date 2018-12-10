@@ -89,22 +89,26 @@
 }
 
 .authio-logo-link {
-  float: right;
-  width: 10em;
-  margin-left: 2em;
+  &:not(.no-right) {
+    margin-left: 2em;
+    float: right;
+  }
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
   transition: all linear 0.2s;
   position: relative;
   z-index: 2;
   opacity: 0.5;
-  &:hover, &:focus {
+  vertical-align: middle;
+  display: inline-block;
+  &:hover, &:focus, &.active {
     -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
     filter: grayscale(0);
     opacity: 1;
   }
   img {
     border: 0 none;
+    width: 10em;
   }
 }
 

@@ -354,14 +354,6 @@
         "LABEL": "Send EOSISH to:",
         "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
-      "EOS_ACCOUNT": {
-        "LABEL": "Send EOS to:",
-        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
-      },
-      "EOSISH_ACCOUNT": {
-        "LABEL": "Send EOSISH to:",
-        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
-      },
       "MEMO_FIELD": {
         "LABEL": "Fill MEMO field:",
         "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
@@ -1085,7 +1077,11 @@
           },
           "AUTHIO": {
             "LABEL": "Branded audit report",
-            "DESCRIPTION": "Security audit for exchanges and gives estimation of the security !--- ниче не видно в доке --- contract is audited independently. Please <a href=\"https://authio.org/audits\" target=\"_blank\">check the example</a>"
+            "DESCRIPTION": "Security audit for exchanges and gives estimation of the security !--- ниче не видно в доке --- contract is audited independently. Please <a href=\"https://authio.org/audits\" target=\"_blank\">check the example</a>",
+            "SECOND_DESCRIPTION": "<a href=\"https://authio.org/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
+            "EMAIL_LABEL": "To request a branded audit report please enter your email",
+            "EMAIL_DESCRIPTION": "At this address you will receive an audit of your contract. Please be careful and check t again.",
+            "EMAIL_ERROR": "Please enter email"
           }
         }
       },
@@ -1354,7 +1350,8 @@
       "TABS": {
         "INFO": "Preview contract",
         "ACCOUNT_INFO": "Preview account",
-        "SOURCE": "Source code"
+        "SOURCE": "Source code",
+        "AUDIT": "Audit"
       },
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
       "WILL_SOURCE_CODE": "Your Will source code",
@@ -1401,7 +1398,21 @@
         "TOKEN_ADDRESS": "Token address",
         "TOKEN_TYPE": "Token type:",
         "TOKEN_DISTRIBUTION": "Token distribution",
-        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab."
+        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab.",
+        "AUDIT": {
+          "TITLE": "Audit",
+          "AUDITED_DESCRIPTION": "&nbsp;&nbsp;You requested a contract audit",
+          "NO_AUDITED_DESCRIPTION": "&nbsp;&nbsp;You can request external audit from our partner",
+          "PAYMENT_DATE": "Payment date: {{paymentDate|date:'yyyy-MM-dd'}}",
+          "AUDITED_DATE": "The planned date of the audits is {{auditedDate|date:'yyyy-MM-dd'}}",
+          "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contract you as soon as possible.",
+          "FORM_TEXTS": {
+            "PART_1": "Authio is a full service smart contract security firm focused of mitigating technical debt and security risk for projects building decentralised applications on Ethereum. <a href=\"https://authio.org/\" target=\"_blank\">Learn more</a>",
+            "PART_2": "What you get:<br/> 1. A beautifully designed audit report with your company's branding (name, logo, URL)<br/> 2. A credible attestation that your token contracts have passed review and testing by security experts<br/> <a href=\"https://authio.org/audits\" target=\"_blank\">Check an example</a>"
+          },
+          "FORM_NOTICE": "The term if the audit is 3 days the date of payment.",
+          "AUDIT_BUTTON": "REQUEST / PAY"
+        }
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",

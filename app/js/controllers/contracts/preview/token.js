@@ -67,7 +67,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             contractService.getContract($scope.contract.id).then(function(response) {
                 var newContractDetails = response.data.contract_details;
                 $scope.contract.withAuthioForm = !newContractDetails.authio;
-                if ($scope.contract.withAuthioForm) {
+                if (!$scope.contract.withAuthioForm) {
                     $scope.contract.contract_details.authio_email = newContractDetails.authio_email;
                     $scope.contract.contract_details.authio_date_payment = newContractDetails.authio_date_payment;
                     $scope.contract.contract_details.authio_date_getting = newContractDetails.authio_date_getting;

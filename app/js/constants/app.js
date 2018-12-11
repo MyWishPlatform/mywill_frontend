@@ -80,7 +80,8 @@ module.constant('APP_CONSTANTS', {
     // },
     'PROMO_CODES': {
         'MEETONE': 'MEETONE',
-        'EOSPARK': 'EOSPARK'
+        'EOSPARK': 'EOSPARK',
+        'LYNX': 'LYNX'
     }
 });
 

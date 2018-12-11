@@ -295,6 +295,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     case 'eospark':
                         cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
                         break;
+                    case 'lynx':
+                        cookiePromo = APP_CONSTANTS.PROMO_CODES.LYNX;
+                        $cookies.put('eoslynx', 1);
+                        $rootScope.eoslynx = true;
+                        break;
                 }
                 $cookies.put('partnerpromo', cookiePromo);
 

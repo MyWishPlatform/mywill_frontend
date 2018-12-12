@@ -444,38 +444,26 @@
                         </a>
                     </div>
                     <div class="grid-cell grid-cell-4-5">
-                        <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_TEXTS.PART_1"></p><br/><br/>
-                        <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_TEXTS.PART_2"></p>
+                        <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_TEXTS.PART_1"></p>
                     </div>
-                </div>
+                </div><br/>
+                <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_TEXTS.PART_2"></p>
             </div>
 
             <div class="shadow-block__content">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-5 text-center">
-                        <div class="form-control">
-                            <div class="form-control-label">&nbsp;</div><br/>
-                            <div class="form-control-label">
-                                <i class="icon-mail form-control-label-icon big-size"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid-cell grid-cell-4-5">
-                        <div class="form-control">
-                            <div class="form-control-label"
-                                 translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_LABEL"></div>
-                            <div class="grid-row">
-                                <div class="grid-cell grid-cell-1-2">
-                                    <input id="authio_email"
-                                           type="email"
-                                           ng-model="authioFormRequest.authio_email"
-                                           required
-                                           class="form-control-input"/>
-                                    <span class="field-error form-field_error-required form-field_error-email"
-                                          translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_ERROR">
-                                </span>
-                                </div>
-                            </div>
+                <div class="form-control">
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_LABEL"></div>
+                    <div class="grid-row">
+                        <div class="grid-cell grid-cell-1-2">
+                            <input id="authio_email"
+                                   type="email"
+                                   ng-model="authioFormRequest.authio_email"
+                                   required
+                                   class="form-control-input"/>
+                            <span class="field-error form-field_error-required form-field_error-email"
+                                  translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_ERROR">
+                        </span>
                         </div>
                     </div>
                 </div>
@@ -484,37 +472,21 @@
 
         <div class="shadow-block">
             <div class="shadow-block__content">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-5 text-center">
-                        <div class="form-control no-padding">
-                            <div class="form-control-label">
-                                <i class="icon-but-tokens form-control-label-icon big-size"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid-cell grid-cell-4-5">
-                        <div class="form-control no-padding">
-                            <div class="form-control-label inline-label"
-                                 translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_NOTICE">
-                            </div>
-                        </div>
+                <div class="form-control no-padding">
+                    <div class="form-control-label inline-label"
+                         translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_NOTICE">
                     </div>
                 </div>
             </div>
 
             <div class="shadow-block__content" ng-if="contract.authioPrices">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-5">&nbsp;</div>
-                    <div class="grid-cell grid-cell-4-5">
-                        <div class="form-control no-padding">
-                            <div class="form-control-label inline-label">
-                                Branded report cost: {{contract.authioPrices.WISH|separateNumber}} WISH&nbsp;&nbsp;&nbsp;
-                                <span class="grey-text-color">
-                                {{contract.authioPrices.ETH|separateNumber}} ETH
-                                <span>/ {{contract.authioPrices.BTC|separateNumber}} BTC</span>
-                            </span>
-                            </div>
-                        </div>
+                <div class="form-control no-padding">
+                    <div class="form-control-label inline-label">
+                        Branded report fees: {{contract.authioPrices.WISH|separateNumber}} WISH&nbsp;&nbsp;&nbsp;
+                        <span class="grey-text-color">
+                        {{contract.authioPrices.ETH|separateNumber}} ETH
+                        <span>/ {{contract.authioPrices.BTC|separateNumber}} BTC</span>
+                    </span>
                     </div>
                 </div>
             </div>

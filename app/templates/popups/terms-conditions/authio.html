@@ -39,14 +39,21 @@
             <div class="grid-cell grid-cell-1-5">&nbsp;</div>
             <div class="grid-cell grid-cell-3-5">
                 <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-2">
+                    <div class="grid-cell grid-cell-1-2" ng-if="ngPopUp.params.iAgreeTerms">
                         <button class="btn btn-transparent width-100" ng-click="ngPopUp.params.iAgreeTerms(); closeCurrentPopup()">
+                            <span>&nbsp;&nbsp;&nbsp;I AGREE&nbsp;&nbsp;&nbsp;</span>
+                        </button>
+                    </div>
+                    <div class="grid-cell grid-cell-1-2" ng-if="ngPopUp.params.popup">
+                        <button class="btn btn-transparent width-100"
+                                ng-pop-up="ngPopUp.params.popup"
+                                ng-click="ngPopUp.params.iAgreeTerms(); closeCurrentPopup()">
                             <span>&nbsp;&nbsp;&nbsp;I AGREE&nbsp;&nbsp;&nbsp;</span>
                         </button>
                     </div>
                     <div class="grid-cell grid-cell-1-2">
                         <button class="btn btn-transparent btn-transparent-red width-100"
-                                ng-click="ngPopUp.params.iDisAgreeTerms(); closeCurrentPopup()">
+                                ng-click="ngPopUp.params.iDisAgreeTerms ? ngPopUp.params.iDisAgreeTerms() : false; closeCurrentPopup()">
                             <span>&nbsp;&nbsp;&nbsp;I DISAGREE&nbsp;&nbsp;&nbsp;</span>
                         </button>
                     </div>

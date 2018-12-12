@@ -60,7 +60,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
 
 
     $scope.authioBuyRequest = false;
-    $scope.authioBuy = function() {
+    var authioBuy = function() {
         if ($scope.authioBuyRequest) return;
         $scope.authioBuyRequest = true;
         contractService.buyAuthio($scope.authioFormRequest).then(function(response) {
@@ -90,6 +90,15 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             }
             $scope.authioBuyRequest = false;
         });
+    };
+
+    $scope.authioBuyPopup = {
+        template: '/templates/popups/confirmations/authio-confirm-pay.html',
+        class: 'deleting-contract',
+        params: {
+            contract: $scope.contract,
+            confirmAuthioPayment: authioBuy
+        }
     };
 
 }).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {

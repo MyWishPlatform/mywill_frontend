@@ -497,13 +497,13 @@
         <br/><br/>
         <button type="button" class="btn btn-submit"
                 ng-pop-up="{
-                    template: '/templates/popups/confirmations/authio-confirm-pay.html',
-                    class: 'deleting-contract',
+                    newPopupContent: true,
+                    template: '/templates/popups/terms-conditions/authio.html',
                     params: {
-                        prices: contract.authioPrices,
-                        confirmAuthioPayment: authioBuy
+                        popup: authioBuyPopup
                     }
                 }"
+
                 ng-disabled="!authioForm.$valid || authioBuyRequest">
             <span class="lds-ellipsis" ng-if="authioBuyRequest">
                 <span class="lds-ellipsis-container">

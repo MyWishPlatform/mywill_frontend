@@ -268,11 +268,11 @@
     </div>
     <div class="shadow-block__content" ng-if="(token_holders.length < 5) || (blockchain === 'NEO')">
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 float-right form-control-description">
+            <div class="grid-cell grid-cell-7-12 grid-cell-ls-1 float-right form-control-description">
                 <span class="form-control-description__text"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.DESCRIPTION_BLOCK"></span><br/>
             </div>
-            <div class="grid-cell grid-cell-1-2 grid-cell-ls-1 form-control-description">
+            <div class="grid-cell grid-cell-5-12 grid-cell-ls-1 form-control-description">
                 <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
                     <i class="icon-create-contract"></i>
                     <span translate="CONTRACTS.FORMS.TOKEN.BUTTONS.ADD_ADDRESS"></span>
@@ -349,10 +349,11 @@
 
 <form class="shadow-block"
       name="authioForm"
+      ng-if="network == 1"
       ng-class="{'no-active': !(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid)}">
     <div class="shadow-block__content">
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-3 grid-cell-ps-1-3 grid-cell-ls-1-2">
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
                 <div class="form-control">
                     <div class="checkbox-decoration">
                         <label for="authio" class="form-control-label inline-label">
@@ -374,9 +375,8 @@
                     </label>
                 </div>
             </div>
-            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-4-5 grid-cell-vs-1" ng-if="!request.authio">
+            <div class="grid-cell grid-cell-7-12 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <span class="form-control-description__text"
-                      ng-if="blockchain === 'ETH'"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.DESCRIPTION">
                 </span>
             </div>
@@ -384,10 +384,10 @@
     </div>
 
     <div class="shadow-block__content no-border shadow-block__content_no-tb-padding" ng-if="request.authio">
-        <a href="https://authio.org/" target="_blank" class="authio-logo-link">
-            <img class="authio-logo" src="/static/images/logos/authio.svg">
-        </a>
-        <div class="form-control">
+        <div class="form-control no-padding with-authio-logo">
+            <a href="https://authio.org/" target="_blank" class="authio-logo-link authio-logo-link__absolute">
+                <img class="authio-logo" src="/static/images/logos/authio.svg">
+            </a>
             <div class="form-control-label"
                  translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.SECOND_DESCRIPTION"></div>
         </div><br/><br/>
@@ -398,7 +398,7 @@
                  translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_LABEL"></div>
         </div>
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1">
+            <div class="grid-cell grid-cell-5-12 grid-cell-ps-2-5 grid-cell-ls-1">
                 <div class="form-control">
                     <input id="authio_email"
                            type="email"
@@ -411,7 +411,7 @@
                     </span>
                 </div>
             </div>
-            <div class="grid-cell grid-cell-1-2 form-control-description grid-cell-ps-3-5 grid-cell-vs-1">
+            <div class="grid-cell grid-cell-7-12 form-control-description grid-cell-ps-3-5 grid-cell-vs-1">
                 <span class="form-control-description__text"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_DESCRIPTION"></span>
             </div>
@@ -435,7 +435,7 @@
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
                 type="button"
-                ng-disabled="!(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid)"
+                ng-disabled="!(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid && (!authioForm || authioForm.$valid))"
                 ng-click="createContract()">
             <span class="lds-ellipsis" ng-if="contractInProgress">
                 <span class="lds-ellipsis-container">

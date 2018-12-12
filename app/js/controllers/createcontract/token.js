@@ -84,6 +84,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         $scope.contractName = contract.name;
         $scope.minStartDate = moment();
         $scope.token_holders = angular.copy($scope.request.token_holders);
+
+        $scope.agreed = contract.id && contract.contract_details.authio;
+
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
@@ -193,7 +196,6 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     checkDraftContract();
     $scope.checkTokensAmount();
 
-    $scope.agreed = false;
     $scope.iAgreeTerms = function() {
         $scope.agreed = true;
     };

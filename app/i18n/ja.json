@@ -1077,7 +1077,7 @@
           },
           "AUTHIO": {
             "LABEL": "Branded report",
-            "DESCRIPTION": "Branded report is needed for exchanges and gives the estimation of the security of your token contract. Every contract is verified independently. <br/>Please <a href=\"https://authio.org/services/security-audits\" target=\"_blank\">check the example</a>. <br/><b>Branded report cost is 3 ETH</b>.",
+            "DESCRIPTION": "Branded report is needed for exchanges and gives the estimation of the security of your token contract. Every contract is verified independently. Please <a href=\"https://authio.org/services/security-audits\" target=\"_blank\">check the example</a>. <br/><b>Branded report cost is 3 ETH</b>.",
             "SECOND_DESCRIPTION": "<a href=\"https://authio.org/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
             "EMAIL_LABEL": "To request a branded report please enter your email",
             "EMAIL_DESCRIPTION": "At this address you will receive an branded report of your contract. Please be careful and check it again.",
@@ -1403,7 +1403,7 @@
           "TITLE": "Branded report",
           "AUDITED_DESCRIPTION": "&nbsp;&nbsp;You requested a contract branded report",
           "NO_AUDITED_DESCRIPTION": "&nbsp;&nbsp;You can request external branded report from our partner",
-          "PAYMENT_DATE": "Payment date: {{paymentDate|date:'yyyy-MM-dd'}}",
+          "PAYMENT_DATE": "Request date: {{paymentDate|date:'yyyy-MM-dd'}}",
           "AUDITED_DATE": "The planned date of the branded report is {{auditedDate|date:'yyyy-MM-dd'}}",
           "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contact you as soon as possible.",
           "FORM_TEXTS": {

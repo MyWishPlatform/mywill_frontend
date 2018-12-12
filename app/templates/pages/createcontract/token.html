@@ -419,6 +419,15 @@
     </div>
 </form>
 
+<div ng-if="request.authio && !agreed" ng-pop-up="{
+        opened: true,
+        newPopupContent: true,
+        template: '/templates/popups/terms-conditions/authio.html',
+        params: {
+            iAgreeTerms: iAgreeTerms,
+            iDisAgreeTerms: iDisAgreeTerms
+        }
+    }"></div>
 
 <br/><br/><br/>
 

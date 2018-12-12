@@ -193,4 +193,12 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     checkDraftContract();
     $scope.checkTokensAmount();
 
+    $scope.agreed = false;
+    $scope.iAgreeTerms = function() {
+        $scope.agreed = true;
+    };
+    $scope.iDisAgreeTerms = function() {
+        $scope.request.authio = false;
+    };
+
 });

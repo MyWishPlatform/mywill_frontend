@@ -1076,11 +1076,11 @@
             "DESCRIPTION_NEO": "Yes - you can create more tokens in the future. <br/>No - no more tokens will be created in the future."
           },
           "AUTHIO": {
-            "LABEL": "Branded audit report",
-            "DESCRIPTION": "Security audit for exchanges and gives estimation of the security !--- ниче не видно в доке --- contract is audited independently. Please <a href=\"https://authio.org/audits\" target=\"_blank\">check the example</a>",
+            "LABEL": "Branded report",
+            "DESCRIPTION": "You get branded report and credible attestation that your contract have passed review and testing by security experts.<br/><b>Branded report cost is 3 ETH</b>.",
             "SECOND_DESCRIPTION": "<a href=\"https://authio.org/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
-            "EMAIL_LABEL": "To request a branded audit report please enter your email",
-            "EMAIL_DESCRIPTION": "At this address you will receive an audit of your contract. Please be careful and check t again.",
+            "EMAIL_LABEL": "To request a branded report please enter your email",
+            "EMAIL_DESCRIPTION": "At this address you will receive an branded report of your contract. Please be careful and check it again.",
             "EMAIL_ERROR": "Please enter email"
           }
         }
@@ -1351,7 +1351,7 @@
         "INFO": "Preview contract",
         "ACCOUNT_INFO": "Preview account",
         "SOURCE": "Source code",
-        "AUDIT": "Audit"
+        "AUDIT": "Branded report"
       },
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
       "WILL_SOURCE_CODE": "Your Will source code",
@@ -1400,12 +1400,12 @@
         "TOKEN_DISTRIBUTION": "Token distribution",
         "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab.",
         "AUDIT": {
-          "TITLE": "Audit",
-          "AUDITED_DESCRIPTION": "&nbsp;&nbsp;You requested a contract audit",
+          "TITLE": "Branded report",
+          "AUDITED_DESCRIPTION": "&nbsp;&nbsp;You requested a contract branded report",
           "NO_AUDITED_DESCRIPTION": "&nbsp;&nbsp;You can request external audit from our partner",
           "PAYMENT_DATE": "Payment date: {{paymentDate|date:'yyyy-MM-dd'}}",
-          "AUDITED_DATE": "The planned date of the audits is {{auditedDate|date:'yyyy-MM-dd'}}",
-          "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contract you as soon as possible.",
+          "AUDITED_DATE": "The planned date of the branded report is {{auditedDate|date:'yyyy-MM-dd'}}",
+          "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contact you as soon as possible.",
           "FORM_TEXTS": {
             "PART_1": "Authio is a full service smart contract security firm focused of mitigating technical debt and security risk for projects building decentralised applications on Ethereum. <a href=\"https://authio.org/\" target=\"_blank\">Learn more</a>",
             "PART_2": "What you get:<br/> 1. A beautifully designed audit report with your company's branding (name, logo, URL)<br/> 2. A credible attestation that your token contracts have passed review and testing by security experts<br/> <a href=\"https://authio.org/audits\" target=\"_blank\">Check an example</a>"

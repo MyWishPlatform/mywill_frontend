@@ -31,6 +31,8 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
 
     resetForm();
 
+    $scope.visibleForm = false;
+
     $scope.$watch('visibleForm', function() {
         resetForm();
     });
@@ -68,8 +70,12 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         } else {
             window['lynxMobile']['eosTransfer']({
                 toAccount: $scope.eosAccountAddress,
-                amount: new BigNumber($scope.formData.eosAmount).toFormat(4),
+                amount: new BigNumber($scope.formData.eosAmount).toFormat(4).toString(10),
                 memo: $rootScope.currentUser.memo
+            }).then(function(response) {
+                alert(JSON.stringify(response));
+            }, function(response) {
+                alert(JSON.stringify(response));
             })
         }
     };
@@ -79,10 +85,14 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
         if ($rootScope.eoslynxIsMobile) {
             window['lynxMobile']['transfer']({
                 toAccount: $scope.eosAccountAddress,
-                amount: new BigNumber($scope.formData.eosishAmount).toFormat(4),
+                amount: new BigNumber($scope.formData.eosishAmount).toFormat(4).toString(10),
                 memo: $rootScope.currentUser.memo,
                 contract: 'buildertoken',
                 symbol: "EOSISH"
+            }).then(function(response) {
+                alert(JSON.stringify(response));
+            }, function(response) {
+                alert(JSON.stringify(response));
             })
         }
     };

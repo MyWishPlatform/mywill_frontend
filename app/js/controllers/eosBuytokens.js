@@ -73,9 +73,9 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
                 amount: new BigNumber($scope.formData.eosAmount).toFormat(4).toString(10),
                 memo: $rootScope.currentUser.memo
             }).then(function(response) {
-                // alert(JSON.stringify(response));
+                alert('Payment was successfull.');
             }, function(response) {
-                // alert(JSON.stringify(response));
+                alert('Payment error! Please check CPU/NET and try again.');
             })
         }
     };
@@ -90,9 +90,9 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
                 contract: 'buildertoken',
                 symbol: "EOSISH"
             }).then(function(response) {
-                // alert(JSON.stringify(response));
+                alert('Payment was successfull.');
             }, function(response) {
-                // alert(JSON.stringify(response));
+                alert('Payment error! Please check CPU/NET and try again.');
             })
         }
     };

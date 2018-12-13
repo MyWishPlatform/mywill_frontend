@@ -51,6 +51,7 @@ angular.module('app').controller('authController', function (authService, $rootS
     var onAuth = function(response) {
         $rootScope.$broadcast('$userOnLogin', $scope.ngPopUp.params.onLogin || false);
         $scope.closeCurrentPopup();
+        $scope.closeCommonPopup();
     };
     $scope.serverErrors = {};
     $scope.socialAuthInfo = {};

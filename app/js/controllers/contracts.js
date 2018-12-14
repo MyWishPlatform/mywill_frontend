@@ -453,6 +453,15 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                             };
                             $rootScope.commonOpenedPopup = 'errors/contract_freeze_date_incorrect';
                             break;
+                        case 3:
+                        case '3':
+                            $rootScope.commonOpenedPopupParams = {
+                                noBackgroundCloser: true,
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/less-balance';
+
+                            break;
                     }
                     break;
             }
@@ -471,16 +480,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 return;
             }
             var openConditionsPopUp = function() {
-                var originalCost = new BigNumber(($rootScope.sitemode === 'eos') ? (contract.cost.EOSISH || 0) : contract.cost.WISH);
-                var changedBalance = originalCost.minus(originalCost.times(contract.discount).div(100));
-                if (new BigNumber($rootScope.currentUser.balance).minus(changedBalance) < 0) {
-                    $rootScope.commonOpenedPopupParams = {
-                        noBackgroundCloser: true,
-                        newPopupContent: true
-                    };
-                    $rootScope.commonOpenedPopup = 'errors/less-balance';
-                    return;
-                }
                 $rootScope.commonOpenedPopupParams = {
                     contract: contract,
                     class: 'conditions',

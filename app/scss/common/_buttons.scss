@@ -94,6 +94,15 @@ $red-active-color: #bb0d2b;
         //text-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.2);
       }
     }
+    &-red {
+      color: $red-normal-color;
+      &:hover {
+        color: $red-hover-color;
+      }
+      &:active {
+        color: $red-active-color;
+      }
+    }
   }
   &.btn-as-link {
     color: #000;

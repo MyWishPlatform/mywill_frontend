@@ -200,6 +200,19 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     contract.state = 'CANCELLED';
                 }
                 break;
+            case 5:
+                contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE');
+                contract.withAuthioForm = contract.isAuthioToken && !contract.contract_details.authio;
+                if (contract.withAuthioForm) {
+                    contractService.getAuthioCost().then(function(response) {
+                        contract.authioPrices = {
+                            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).round(2).toString(10),
+                            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).round(2).toString(10),
+                            BTC: new BigNumber(response.data.BTC).div(Math.pow(10, 18)).round(2).toString(10)
+                        };
+                    });
+                }
+                break;
         }
 
         if (!contract.contract_details.eth_contract) return;

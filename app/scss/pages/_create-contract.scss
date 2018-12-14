@@ -88,3 +88,64 @@
   }
 }
 
+.authio-logo-link {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  transition: all linear 0.2s;
+  position: relative;
+  z-index: 2;
+  opacity: 0.5;
+  vertical-align: middle;
+  display: inline-block;
+  &__absolute {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -3.1em;
+  }
+  &:hover, &:focus, &.active {
+    -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+    filter: grayscale(0);
+    opacity: 1;
+  }
+  img {
+    border: 0 none;
+    width: 10em;
+    vertical-align: middle;
+  }
+  &.no-right {
+    img {
+      width: 9em;
+    }
+  }
+}
+
+.form-control {
+  &.with-authio-logo {
+    padding-right: 12em;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .form-control {
+    &.with-authio-logo {
+      padding-right: 0;
+    }
+  }
+  .authio-logo-link {
+    text-align: center;
+    display: block;
+    &__absolute {
+      position: static;
+      margin-top: 0;
+      img {
+        width: 14em;
+      }
+    }
+  }
+
+}
+
+
+
+

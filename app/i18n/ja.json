@@ -346,10 +346,6 @@
       }
     },
     "EOS_BUY_TOKENS": {
-      "MYWISH_ACCOUNT": {
-        "LABEL": "Send EOSISH(or EOS for autoexchange) to:",
-        "DESCRIPTION": "您可以从交易所或您的EOS个人账户发送EOS代币。 您可以在此处创建帐户： <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
-      },
       "EOS_ACCOUNT": {
         "LABEL": "Send EOS to:",
         "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
@@ -1078,6 +1074,14 @@
             "LABEL": "将来のミント",
             "DESCRIPTION": "はい。将来、さらにトークンを作成し、クラウド セールにトークンを使用することができます。<br/>いいえ。 将来、トークンは作成されません。 クラウド セールは不可能です。",
             "DESCRIPTION_NEO": "はい - 将来、さらにトークンを作成することができます。<br/>いいえ - 将来、トークンは作成されません。"
+          },
+          "AUTHIO": {
+            "LABEL": "Branded report",
+            "DESCRIPTION": "Branded report is needed for exchanges and gives the estimation of the security of your token contract. Every contract is verified independently. Please <a href=\"https://authio.org/audits/mywish-token-audit\" target=\"_blank\">check the example</a>. <br/><b>Branded report cost is 3 ETH</b>.",
+            "SECOND_DESCRIPTION": "<a href=\"https://authio.org/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
+            "EMAIL_LABEL": "To request a branded report please enter your email",
+            "EMAIL_DESCRIPTION": "At this address you will receive an branded report of your contract. Please be careful and check it again.",
+            "EMAIL_ERROR": "Please enter email"
           }
         }
       },
@@ -1346,7 +1350,8 @@
       "TABS": {
         "INFO": "契約をプレビューする",
         "ACCOUNT_INFO": "Preview account",
-        "SOURCE": "ソースコード"
+        "SOURCE": "ソースコード",
+        "AUDIT": "Branded report"
       },
       "FREE_VERSION_MSG": "（テストネット）フリーバージョンのコードがローディングのために利用できない源を含みます。",
       "WILL_SOURCE_CODE": "ごウィルのソースコード",
@@ -1393,7 +1398,22 @@
         "TOKEN_ADDRESS": "トークンアドレス",
         "TOKEN_TYPE": "トークンタイプ",
         "TOKEN_DISTRIBUTION": "トークン配布",
-        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab."
+        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab.",
+        "AUDIT": {
+          "TITLE": "Branded report",
+          "AUDITED_DESCRIPTION": "&nbsp;&nbsp;You requested a contract branded report",
+          "NO_AUDITED_DESCRIPTION": "&nbsp;&nbsp;You can request a branded report from our security partner",
+          "PAYMENT_DATE": "Request date: {{paymentDate|date:'yyyy-MM-dd'}}",
+          "FEEL_FORM_TEXT": "Please fill the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSeHf20iCRocWgnpBwHlSIrvzVeP571EgnBdd2j0tmPpVgFbsg/viewform\" target=\"_blank\">form</a> for getting the report",
+          "AUDITED_DATE": "The planned date of the branded report: {{auditedDate|date:'yyyy-MM-dd'}}",
+          "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contact you as soon as possible.",
+          "FORM_TEXTS": {
+            "PART_1": "Authio is a full service smart contract security firm focused of mitigating technical debt and security risk for projects building decentralised applications on Ethereum. <a href=\"https://authio.org/\" target=\"_blank\">Learn more</a>",
+            "PART_2": "What you get:<br/> 1. A beautifully designed branded report with your company's branding (name, logo, URL)<br/> 2. A credible attestation that your token contracts have passed review and testing by security experts<br/> <a href=\"https://authio.org/audits\" target=\"_blank\">Check an example</a>"
+          },
+          "FORM_NOTICE": "The branded report will be delivered in 3 working days by email after the date of payment.",
+          "AUDIT_BUTTON": "REQUEST / PAY"
+        }
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "クラウドセール契約（すべての寄付はこの住所に送付するものとする）",

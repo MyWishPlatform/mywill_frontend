@@ -17,6 +17,19 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
+        getAuthioCost: function (data) {
+            var params = {
+                path: API.GET_AUTHIO_COST,
+                query: data
+            };
+            return requestService.get(params);
+        },
+        buyAuthio: function(data) {
+            return requestService.post({
+                path: API.BUY_BRAND_REPORT,
+                data: data
+            });
+        },
         getEosAirdropCost: function(data) {
             var params = {
                 path: API.GET_EOS_AIRDROP_COST,

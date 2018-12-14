@@ -19,6 +19,8 @@ angular.module('Constants').constant('API', {
     "PASSWORD_RESET_CONFIRM": "password/reset/confirm/",
     "BALANCE": "balance/",
     "GET_COST": "get_cost/",
+    "GET_AUTHIO_COST": "get_authio_cost/",
+    "BUY_BRAND_REPORT": "buy_brand_report/",
     "GET_EOS_COST": "get_eos_cost/",
     "GET_ALL_COSTS": "get_all_costs/",
     "GET_EOS_AIRDROP_COST": "get_eos_airdrop_cost/",

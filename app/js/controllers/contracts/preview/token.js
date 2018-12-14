@@ -1,7 +1,8 @@
-angular.module('app').controller('tokenPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope) {
+angular.module('app').controller('tokenPreviewController', function($timeout, $rootScope, contractService, $location,
+                                                                    openedContract, $scope, $filter) {
     $scope.contract = openedContract.data;
 
-    $scope.setContract($scope.contract);
+    $scope.iniContract($scope.contract);
     var contractDetails = $scope.contract.contract_details;
 
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
@@ -24,6 +25,25 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     };
     $scope.chartData = angular.copy(contractDetails.token_holders);
 
+    var tabs = ['code', 'info'];
+
+    if ($scope.contract.isAuthioToken) {
+        tabs.push('audit');
+    }
+    if ($scope.contract.withAuthioForm) {
+        $scope.authioFormRequest = {
+            contract_id: $scope.contract.id,
+            authio_email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
+        };
+    }
+
+    if ($location.$$hash && (/^tab-.+/.test($location.$$hash))) {
+        var tab = $location.$$hash.replace(/^tab-(.+$)/, '$1');
+        if (tabs.indexOf(tab) !== -1) {
+            $scope.$parent.showedTab = tab;
+        }
+    }
+
 
     switch ($scope.contract.network) {
         case 1:
@@ -37,6 +57,50 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             $scope.contractInfo = 'neo_contract_token';
             break;
     }
+
+
+    $scope.authioBuyRequest = false;
+    var authioBuy = function() {
+        if ($scope.authioBuyRequest) return;
+        $scope.authioBuyRequest = true;
+        contractService.buyAuthio($scope.authioFormRequest).then(function(response) {
+            contractService.getContract($scope.contract.id).then(function(response) {
+                var newContractDetails = response.data.contract_details;
+                $scope.contract.withAuthioForm = !newContractDetails.authio;
+                if (!$scope.contract.withAuthioForm) {
+                    $scope.contract.contract_details.authio = true;
+                    $scope.contract.contract_details.authio_email = newContractDetails.authio_email;
+                    $scope.contract.contract_details.authio_date_payment = newContractDetails.authio_date_payment;
+                    $scope.contract.contract_details.authio_date_getting = newContractDetails.authio_date_getting;
+                }
+                $scope.authioBuyRequest = false;
+            });
+        }, function(err) {
+            switch (err.status) {
+                case 400:
+                    switch(err.data.result) {
+                        case 3:
+                        case "3":
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/authio-less-balance';
+                            break;
+                    }
+                    break;
+            }
+            $scope.authioBuyRequest = false;
+        });
+    };
+
+    $scope.authioBuyPopup = {
+        template: '/templates/popups/confirmations/authio-confirm-pay.html',
+        class: 'deleting-contract',
+        params: {
+            contract: $scope.contract,
+            confirmAuthioPayment: authioBuy
+        }
+    };
 
 }).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
 

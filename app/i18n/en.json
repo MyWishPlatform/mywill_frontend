@@ -354,14 +354,6 @@
         "LABEL": "Send EOSISH to:",
         "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       },
-      "EOS_ACCOUNT": {
-        "LABEL": "Send EOS to:",
-        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
-      },
-      "EOSISH_ACCOUNT": {
-        "LABEL": "Send EOSISH to:",
-        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
-      },
       "MEMO_FIELD": {
         "LABEL": "Fill MEMO field:",
         "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
@@ -1079,9 +1071,17 @@
             "LABEL": "Frozen till"
           },
           "FUTURE_MINTING": {
-            "LABEL": "Future Minting:",
+            "LABEL": "Future Minting",
             "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible.",
             "DESCRIPTION_NEO": "Yes - you can create more tokens in the future. <br/>No - no more tokens will be created in the future."
+          },
+          "AUTHIO": {
+            "LABEL": "Branded report",
+            "DESCRIPTION": "Branded report is needed for exchanges and gives the estimation of the security of your token contract. Every contract is verified independently. Please <a href=\"https://authio.org/audits/mywish-token-audit\" target=\"_blank\">check the example</a>. <br/><b>Branded report cost is 3 ETH</b>.",
+            "SECOND_DESCRIPTION": "<a href=\"https://authio.org/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
+            "EMAIL_LABEL": "To request a branded report please enter your email",
+            "EMAIL_DESCRIPTION": "At this address you will receive an branded report of your contract. Please be careful and check it again.",
+            "EMAIL_ERROR": "Please enter email"
           }
         }
       },
@@ -1350,7 +1350,8 @@
       "TABS": {
         "INFO": "Preview contract",
         "ACCOUNT_INFO": "Preview account",
-        "SOURCE": "Source code"
+        "SOURCE": "Source code",
+        "AUDIT": "Branded report"
       },
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
       "WILL_SOURCE_CODE": "Your Will source code",
@@ -1397,7 +1398,22 @@
         "TOKEN_ADDRESS": "Token address",
         "TOKEN_TYPE": "Token type:",
         "TOKEN_DISTRIBUTION": "Token distribution",
-        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab."
+        "EOS_TOKEN_INFO": "To see the tokens and the distribution click on Token owner ({{token_owner_link}}) and choose \"Action: issue\" in \"Other Actions\" tab.",
+        "AUDIT": {
+          "TITLE": "Branded report",
+          "AUDITED_DESCRIPTION": "&nbsp;&nbsp;You requested a contract branded report",
+          "NO_AUDITED_DESCRIPTION": "&nbsp;&nbsp;You can request a branded report from our security partner",
+          "PAYMENT_DATE": "Request date: {{paymentDate|date:'yyyy-MM-dd'}}",
+          "FEEL_FORM_TEXT": "Please fill the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSeHf20iCRocWgnpBwHlSIrvzVeP571EgnBdd2j0tmPpVgFbsg/viewform\" target=\"_blank\">form</a> for getting the report",
+          "AUDITED_DATE": "The planned date of the branded report: {{auditedDate|date:'yyyy-MM-dd'}}",
+          "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contact you as soon as possible.",
+          "FORM_TEXTS": {
+            "PART_1": "Authio is a full service smart contract security firm focused of mitigating technical debt and security risk for projects building decentralised applications on Ethereum. <a href=\"https://authio.org/\" target=\"_blank\">Learn more</a>",
+            "PART_2": "What you get:<br/> 1. A beautifully designed branded report with your company's branding (name, logo, URL)<br/> 2. A credible attestation that your token contracts have passed review and testing by security experts<br/> <a href=\"https://authio.org/audits\" target=\"_blank\">Check an example</a>"
+          },
+          "FORM_NOTICE": "The branded report will be delivered in 3 working days by email after the date of payment.",
+          "AUDIT_BUTTON": "REQUEST / PAY"
+        }
       },
       "CROWD_SALE": {
         "CROWD_SALE_CONTRACT": "Crowdsale contract (All contributions shall be sent to this address)",

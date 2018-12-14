@@ -1,5 +1,5 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
-                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams) {
+                                                                      CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, $filter) {
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,
@@ -8,6 +8,11 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         }
     };
     $scope.network = contract.network * 1;
+
+    if ($scope.network === 1) {
+        contract.contract_details.authio_email =
+            $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined;
+    }
 
     switch ($scope.network) {
         case 1:
@@ -79,6 +84,9 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         $scope.contractName = contract.name;
         $scope.minStartDate = moment();
         $scope.token_holders = angular.copy($scope.request.token_holders);
+
+        $scope.agreed = contract.id && contract.contract_details.authio;
+
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
@@ -125,6 +133,12 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         if ($scope.blockchain === 'NEO') {
             contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
         }
+
+        if ($scope.network === 1) {
+            contractDetails.authio = !!contractDetails.authio;
+            contractDetails.authio_email = contractDetails.authio ? contractDetails.authio_email : null;
+        }
+
         return {
             name: $scope.request.token_name,
             network: contract.network,
@@ -181,5 +195,12 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
     };
     checkDraftContract();
     $scope.checkTokensAmount();
+
+    $scope.iAgreeTerms = function() {
+        $scope.agreed = true;
+    };
+    $scope.iDisAgreeTerms = function() {
+        $scope.request.authio = false;
+    };
 
 });

@@ -42,6 +42,17 @@ var folders = {
 
 
 
+let currentBlockChainMode;
+let checkModeMethod = function() {
+    let modes = ['eos', 'tron', 'default'];
+    currentBlockChainMode = modes.filter((mode) => {
+        return argv[mode];
+    })[0] || 'default';
+};
+checkModeMethod();
+
+
+
 /* Favicon */
 gulp.task('app:favicon', function() {
     return gulp.src(path.join(output, folders['favicon'], '**/*'))
@@ -63,6 +74,7 @@ gulp.task('app:fonts', function() {
 gulp.task('app:templates-clean', function () {
     return del([path.join(input, 'static', 'tpl', 'templates*')]);
 });
+
 gulp.task('app:templates', ['app:templates-clean'], function () {
     return gulp
         .src([path.join(output, folders['templates'], '*.html'), path.join(output, folders['templates'], '**/*.html')])
@@ -84,7 +96,7 @@ gulp.task('app:css-clean', function () {
 gulp.task('app:css', ['app:css-clean'], function() {
     return gulp.src(path.join(output, folders['scss'], '*.scss'))
         .pipe(sassVariables({
-            $env: argv.eos ? 'eos' : 'default'
+            $env: currentBlockChainMode
         }))
         .pipe(sass())
         .pipe(gulp.dest(path.join(input, 'static', folders['css'])))
@@ -260,11 +272,25 @@ gulp.task('app:revision', function() {
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
     var endBodyScripts = fs.readFileSync("app/endBody.htm", "utf8");
 
+    var bestrateScript;
+
+    switch(currentBlockChainMode) {
+        case 'eos':
+            bestrateScript = fs.readFileSync("app/bestRateWidget.htm", "utf8");
+            break;
+        case 'default':
+            bestrateScript = fs.readFileSync("app/ethBestRateWidget.htm", "utf8");
+            break;
+        default:
+            bestrateScript = '';
+            break;
+    }
+
     return gulp.src([path.join(output, '*.html')])
         .pipe(template({
             socialScripts: fs.readFileSync("app/social.htm", "utf8"),
             endBodyScripts: endBodyScripts,
-            bestRateWidget: argv.eos ? fs.readFileSync("app/bestRateWidget.htm", "utf8") : fs.readFileSync("app/ethBestRateWidget.htm", "utf8")
+            bestRateWidget: bestrateScript
         }))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
@@ -282,11 +308,26 @@ gulp.task('app:zh-revision', function() {
     var manifestVendors = gulp.src(path.join(input, 'static', 'vendors', 'rev-manifest.json'));
     var manifestTemplates = gulp.src(path.join(input, 'static', 'tpl', 'templates.json'));
 
+
+    var bestrateScript;
+
+    switch(currentBlockChainMode) {
+        case 'eos':
+            bestrateScript = fs.readFileSync("app/bestRateWidget.htm", "utf8");
+            break;
+        case 'default':
+            bestrateScript = fs.readFileSync("app/ethBestRateWidget.htm", "utf8");
+            break;
+        default:
+            bestrateScript = '';
+            break;
+    }
+
     return gulp.src([path.join(output, '*.html')])
         .pipe(template({
             socialScripts: '',
             endBodyScripts: '',
-            bestRateWidget: argv.eos ? fs.readFileSync("app/bestRateWidget.htm", "utf8") : ''
+            bestRateWidget: bestrateScript
         }))
         .pipe(revReplace({manifest: manifestCSS}))
         .pipe(revReplace({manifest: manifestJS}))
@@ -303,8 +344,15 @@ gulp.task('ng-config', function() {
     if (!fs.existsSync(input)) {
         fs.mkdirSync(input);
     }
+
+    let modes = ['eos', 'tron', 'default'];
+
+    var currentMode = modes.filter((mode) => {
+        return argv[mode];
+    })[0] || 'default';
+
     fs.writeFileSync(path.join(input, 'config.js'),
-        JSON.stringify(config[argv.eos ? 'eos' : 'default']));
+        JSON.stringify(config[currentMode]));
     return gulp.src(path.join(input, 'config.js'))
         .pipe(
             ngConfig('app', {
@@ -339,6 +387,7 @@ gulp.task('watcher',function() {
         runSequence('all:templates-start');
     });
 });
+
 
 gulp.task('default', ['app:i18n', 'app:images', 'app:favicon', 'app:fonts', 'app:css-images', 'watcher', 'app:rev', 'app:ws'],
     function() {

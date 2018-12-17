@@ -56,7 +56,7 @@
     <script src="/static/js/main.js"></script>
 
 </head>
-<body ng-class="{'with-menu': $root.showedMenu, 'visible': loadedContent, 'eosish-mode': sitemode === 'eos'}"
+<body ng-class="{'with-menu': $root.showedMenu, 'visible': loadedContent, 'eosish-mode': sitemode === 'eos', 'tronish-mode': sitemode === 'tron'}"
       ng-swipe-left="toggleMenu(false, $event);"
       ng-swipe-right="toggleMenu(true, $event);">
 <div id="all-page-wrapper">

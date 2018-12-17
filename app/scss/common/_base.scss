@@ -11,6 +11,16 @@ $black-color: #000;
   $black-color: #2b3b4b;
   $blocks-background: #F3F5F7;
 }
+
+@if($env == 'tron') {
+  $main-color: #C23631;
+  $menu-hover-color: #d63c36;
+  $black-color: #2d0d0b;
+  $blocks-background: #fffafa;
+}
+
+
+
 $info-color: #f5a623;
 $cost-value-color: #EFEFEF;
 $dark-grey-color: #808080;

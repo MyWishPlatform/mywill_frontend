@@ -103,11 +103,13 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         }, [$scope.formData.toAddress, new BigNumber($scope.formData.amount).times(Math.pow(10, 18)).toString(10)]);
     });
 
+    $scope.bnbAddress = '0xB8c77482e45F1F44dE1745F52C74426C631bDD52';
+
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
             from: $scope.formData.address,
             data: $scope.checkedTransferData,
-            to: '0xB8c77482e45F1F44dE1745F52C74426C631bDD52'
+            to: $scope.bnbAddress
         }).then(console.log);
     };
 

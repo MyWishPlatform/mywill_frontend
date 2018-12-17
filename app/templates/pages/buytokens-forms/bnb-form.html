@@ -182,7 +182,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?sendMode=ether&to=' + formData.toAddress + '&gaslimit=' + formData.gaslimit + '&value=' + formData.amount + '#send-transaction' : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?data=' + checkedTransferData + '&value=0&to=0xB8c77482e45F1F44dE1745F52C74426C631bDD52&gaslimit=' + formData.gaslimit + '#send-transaction' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                 </div>

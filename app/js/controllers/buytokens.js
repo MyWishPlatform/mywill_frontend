@@ -106,7 +106,8 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
             from: $scope.formData.address,
-            data: $scope.checkedTransferData
+            data: $scope.checkedTransferData,
+            to: '0xB8c77482e45F1F44dE1745F52C74426C631bDD52'
         }).then(console.log);
     };
 
@@ -138,7 +139,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 type: 'uint256',
                 name: 'value'
             }]
-        }, ['0x5905c0ac40283ff62e44fc43b5ed3b816561d32d'/*$scope.formData.toAddress*/, new BigNumber($scope.formData.amount).times(Math.pow(10, 18)).toString(10)]);
+        }, [$scope.formData.toAddress, new BigNumber($scope.formData.amount).times(Math.pow(10, 18)).toString(10)]);
     });
 
     $scope.sendTransaction = function() {

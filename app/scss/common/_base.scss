@@ -5,6 +5,11 @@ $menu-hover-color: #4d97f4!default;
 
 $white-color: #fff;
 $black-color: #000;
+
+$info-color: #f5a623;
+$cost-value-color: #EFEFEF;
+$dark-grey-color: #808080;
+
 @if($env == 'eos') {
   $main-color: #556577;
   $menu-hover-color: #8293a6;
@@ -13,17 +18,16 @@ $black-color: #000;
 }
 
 @if($env == 'tron') {
-  $main-color: #C23631;
-  $menu-hover-color: #d63c36;
-  $black-color: #2d0d0b;
-  $blocks-background: #fffafa;
+  $main-color: #0f020a;
+  $menu-hover-color: #46100b;
+  $black-color: #1d0705;
+  $blocks-background: #fffcfc;
+  $dark-block-background: #310b08;
 }
 
 
 
-$info-color: #f5a623;
-$cost-value-color: #EFEFEF;
-$dark-grey-color: #808080;
+
 html {
   height: 100%;
 }

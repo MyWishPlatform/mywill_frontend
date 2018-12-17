@@ -13,9 +13,12 @@
   left: 0;
   bottom: 0;
   width: 25.5em;
-  background-color: $main-color;
   transition: margin-left 0.2s;
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.2);
+  background-color: $main-color;
+  @if ($env =='tron') {
+    background: linear-gradient(to right,#430905,#0f020a);
+  }
 }
 .main-menu-wrapper {
   height: 100%;

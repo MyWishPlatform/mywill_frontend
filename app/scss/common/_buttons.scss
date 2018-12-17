@@ -65,6 +65,9 @@ $red-active-color: #bb0d2b;
     background: $main-color;
     color: $white-color;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    &:focus, &:hover {
+      background: $menu-hover-color;
+    }
   }
   &.btn-red {
     background: $red-hover-color;

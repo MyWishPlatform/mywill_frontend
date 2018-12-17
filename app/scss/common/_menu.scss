@@ -17,7 +17,7 @@
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.2);
   background-color: $main-color;
   @if ($env =='tron') {
-    background: linear-gradient(to right,#430905,#0f020a);
+    //background: linear-gradient(to right, #c03634, #842523);
   }
 }
 .main-menu-wrapper {
@@ -102,6 +102,10 @@
         width: 1.8em;
         height: 1.8em;
         background-color: $main-color;
+
+        @if ($env =='tron') {
+          //background: #842523;
+        }
         right: 0;
         z-index: 2;
       }
@@ -194,15 +198,17 @@
   .main-menu-global-menu li ,.main-menu-global-menu a, .main-menu-global-menu .as_menu_link {
     margin-left: 0;
   }
-  .main-menu-global-menu li.active {
-    a {
-      box-shadow: initial;
-    }
-    &, a {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      &:after, &:before {
-        content: initial;
+  .main-menu-global-menu li {
+    &.active, &:hover {
+      a {
+        box-shadow: initial;
+      }
+      &, a {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        &:after, &:before {
+          content: initial;
+        }
       }
     }
   }

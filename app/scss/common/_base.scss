@@ -18,11 +18,10 @@ $dark-grey-color: #808080;
 }
 
 @if($env == 'tron') {
-  $main-color: #0f020a;
-  $menu-hover-color: #46100b;
+  $main-color: #c03634;
+  $menu-hover-color: #ce3a38;
   $black-color: #1d0705;
   $blocks-background: #fffcfc;
-  $dark-block-background: #310b08;
 }
 
 

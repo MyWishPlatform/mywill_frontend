@@ -110,7 +110,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $rootScope.min = Math.min;
     $rootScope.pow = Math.pow;
 
-    $rootScope.web3Utils = Web3.utils;
+    $rootScope.web3Utils = window.Web3 ? window.Web3.utils : false;
 
 
     var loginWatcherInProgress;

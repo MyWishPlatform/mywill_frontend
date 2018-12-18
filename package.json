@@ -16,6 +16,7 @@
     "bufferutil": "^1.2.1",
     "connect-modrewrite": "^0.9.0",
     "del": "^2.2.2",
+    "envify": "^4.1.0",
     "fs": "0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^2.2.1",

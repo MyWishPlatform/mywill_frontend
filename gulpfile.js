@@ -19,6 +19,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     template = require('gulp-template');
 
+var envify = require( 'envify/custom' );
 
 var output = 'app';
 var input = 'dist';
@@ -179,7 +180,14 @@ gulp.task('app:eos-lynx', function() {
 
 gulp.task('app:web3', function() {
     return gulp.src(path.join(output, 'web3.js'))
-        .pipe(browserify())
+        .pipe(browserify({
+            insertGlobals : true,
+            transform: [
+                envify( {
+                    MODE: process.env.MODE
+                } )
+            ]
+        }))
         .pipe(gulp.dest(path.join(input, 'static', 'web3')));
 });
 gulp.task('app:polyfills', function() {
@@ -340,19 +348,23 @@ gulp.task('app:zh-revision', function() {
         .pipe(gulp.dest(input))
 });
 
+
+
+let modes = ['eos', 'tron', 'default'];
+var currentMode = modes.filter((mode) => {
+    return argv[mode];
+})[0] || 'default';
+
+process.env.MODE = currentMode;
+
 gulp.task('ng-config', function() {
     if (!fs.existsSync(input)) {
         fs.mkdirSync(input);
     }
-
-    let modes = ['eos', 'tron', 'default'];
-
-    var currentMode = modes.filter((mode) => {
-        return argv[mode];
-    })[0] || 'default';
-
     fs.writeFileSync(path.join(input, 'config.js'),
-        JSON.stringify(config[currentMode]));
+        JSON.stringify(config[process.env.MODE]));
+
+
     return gulp.src(path.join(input, 'config.js'))
         .pipe(
             ngConfig('app', {

@@ -253,6 +253,7 @@
       "BLOCKCHAIN_BLOCK": {
         "TITLE": "Choose Blockchain",
         "EOS_TITLE": "EOS network",
+        "TRON_TITLE": "TRON network",
         "TEST_NETWORK_LABEL": "Test Network",
         "TEST_NETWORK_DESCRIPTION": "Free of charge - for testing your contract before paying for it"
       },
@@ -269,6 +270,10 @@
         "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. MyWish account will be shown as token creator."
       },
       "EOS_TOKEN_PERSONAL": {
+        "TITLE": "Personal Token Contract",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+      },
+      "TRON_TOKEN": {
         "TITLE": "Personal Token Contract",
         "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
       },

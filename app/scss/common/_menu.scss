@@ -17,7 +17,7 @@
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(255, 255, 255, 0.2);
   background-color: $main-color;
   @if ($env =='tron') {
-    //background: linear-gradient(to right, #c03634, #842523);
+    background: linear-gradient(to right, #c03634, #842523);
   }
 }
 .main-menu-wrapper {
@@ -104,7 +104,7 @@
         background-color: $main-color;
 
         @if ($env =='tron') {
-          //background: #842523;
+          background: #842523;
         }
         right: 0;
         z-index: 2;

@@ -373,6 +373,7 @@
       "SEND_WISH": "Send WISH tokens to:",
       "SEND_ETH": "Send your ETH to:",
       "SEND_BTC": "Send your BTC to:",
+      "SEND_BNB": "Send your BNB to:",
       "ENTER_AMOUNT": "Enter Amount:",
       "BTC_ATTENTION": {
         "RED_TEXT": "Attention!",

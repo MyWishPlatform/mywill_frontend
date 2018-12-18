@@ -373,6 +373,7 @@
       "SEND_WISH": "WISHトークンを送信する",
       "SEND_ETH": "あなたのETHを送信する",
       "SEND_BTC": "あなたのBTCを送信する",
+      "SEND_BNB": "Send your BNB to:",
       "ENTER_AMOUNT": "金額を入力します：",
       "BTC_ATTENTION": {
         "RED_TEXT": "注意！",

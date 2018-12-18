@@ -37,43 +37,60 @@
                     </label>
                 </div>
                 <div class="clearfix show-vs"><br/></div>
-                <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
-                    <label class="btn btn-gray nowrap payment-method with-icon"
-                           ng-class="{'active': visibleForm === 'wish'}">
-                        <input type="radio" class="hidden-input"
-                               ng-click="visibleForm === 'wish' ? visibleForm =  false : false"
-                               ng-model="visibleForm"
-                               value="wish" name="buy-tokens-net">
-                        <img src="/static/images/mywish.png" width="20" style="vertical-align: middle; margin-left: -5px;">
-                        &nbsp;&nbsp;
-                        <span>WISH</span>
-                    </label>
+                <div class="grid-cell grid-cell-3-4">
+                    <div class="grid-row contract-form-row">
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'wish'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-click="visibleForm === 'wish' ? visibleForm =  false : false"
+                                       ng-model="visibleForm"
+                                       value="wish" name="buy-tokens-net">
+                                <img src="/static/images/mywish.png" width="20" style="vertical-align: middle; margin-left: -5px;">
+                                &nbsp;&nbsp;
+                                <span>WISH</span>
+                            </label>
+                        </div>
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'eth'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-click="visibleForm === 'eth' ? visibleForm =  false : false"
+                                       ng-model="visibleForm"
+                                       value="eth" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/ethereum.png" width="20" style="vertical-align: middle">
+                                &nbsp;&nbsp;
+                                <span>ETH</span>
+                            </label>
+                        </div>
+                        <div class="clearfix show-vs"><br/></div>
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'bnb'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-click="visibleForm === 'bnb' ? visibleForm =  false : false"
+                                       ng-model="visibleForm"
+                                       value="bnb" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/binance-coin-logo.webp" width="20" style="vertical-align: middle; margin-left: -5px;">
+                                &nbsp;&nbsp;
+                                <span>BNB</span>
+                            </label>
+                        </div>
+                        <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
+                            <label class="btn btn-gray nowrap payment-method with-icon"
+                                   ng-class="{'active': visibleForm === 'btc'}">
+                                <input type="radio" class="hidden-input"
+                                       ng-click="visibleForm === 'btc' ? visibleForm =  false : false"
+                                       ng-model="visibleForm"
+                                       value="btc" name="buy-tokens-net">
+                                <img src="/static/images/blockchain/bitcoin.svg" width="20" style="vertical-align: middle">
+                                &nbsp;&nbsp;
+                                <span>BTC</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
-                <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
-                    <label class="btn btn-gray nowrap payment-method with-icon"
-                           ng-class="{'active': visibleForm === 'eth'}">
-                        <input type="radio" class="hidden-input"
-                               ng-click="visibleForm === 'eth' ? visibleForm =  false : false"
-                               ng-model="visibleForm"
-                               value="eth" name="buy-tokens-net">
-                        <img src="/static/images/blockchain/ethereum.png" width="20" style="vertical-align: middle">
-                        &nbsp;&nbsp;
-                        <span>ETH</span>
-                    </label>
-                </div>
-                <div class="clearfix show-vs"><br/></div>
-                <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-vs-1-2 text-center">
-                    <label class="btn btn-gray nowrap payment-method with-icon"
-                           ng-class="{'active': visibleForm === 'btc'}">
-                        <input type="radio" class="hidden-input"
-                               ng-click="visibleForm === 'btc' ? visibleForm =  false : false"
-                               ng-model="visibleForm"
-                               value="btc" name="buy-tokens-net">
-                        <img src="/static/images/blockchain/bitcoin.svg" width="20" style="vertical-align: middle">
-                        &nbsp;&nbsp;
-                        <span>BTC</span>
-                    </label>
-                </div>
+
             </div>
         </div>
 
@@ -81,6 +98,9 @@
              ng-if="visibleForm == 'eth'" ng-include="getTemplate('pages/buytokens-forms/eth-form')"></div>
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="visibleForm == 'bnb'" ng-include="getTemplate('pages/buytokens-forms/bnb-form')"></div>
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="visibleForm == 'btc'" ng-include="getTemplate('pages/buytokens-forms/btc-form')"></div>
 

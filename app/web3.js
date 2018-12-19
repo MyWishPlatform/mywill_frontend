@@ -11,7 +11,6 @@ if (process.env.MODE !== 'tron') {
 
 }
 
-console.log(window);
 // const fullNode = new HttpProvider('https://api.trongrid.io'); // Full node http endpoint
 // const solidityNode = new HttpProvider('https://api.trongrid.io:'); // Solidity node http endpoint
 // const eventServer = 'https://api.trongrid.io'; // Contract events http endpoint

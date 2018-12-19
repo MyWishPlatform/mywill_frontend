@@ -372,8 +372,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     contract.promo = $cookies.get('partnerpromo');
                     $scope.getDiscount(contract, true);
                 }
-
                 break;
+            case 12:
+            case 13:
+                // iniEOSContract(contract, fullScan);
+                setContractStatValues(contract);
         }
     };
 
@@ -411,7 +414,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         11: 'eos_wallet',
         12: 'eos_crowdsale',
         13: 'eos_airdrop',
-        14: 'eos_i_token'
+        14: 'eos_i_token',
+        15: 'tron_token'
     };
 
     var launchContract = function(contract) {

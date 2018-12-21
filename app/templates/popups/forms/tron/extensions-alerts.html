@@ -1,0 +1,38 @@
+<div ng-if="extensionNotInstalled" ng-pop-up="{
+                    template: '/templates/popups/alerts/extension-install.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeScatterAlert,
+                    newPopupContent: true
+                }"></div>
+
+<div ng-if="successTx" ng-pop-up="{
+                    template: '/templates/popups/alerts/tron-minting-success.html',
+                    class: 'deleting-contract',
+                    params: {
+                        contract: contract,
+                        tx: successTx
+                    },
+                    opened: true,
+                    onClose: closeMintingForm,
+                    newPopupContent: true
+                }"></div>
+
+<div ng-if="txServerError" ng-pop-up="{
+                    template: '/templates/popups/alerts/transaction-error.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeScatterAlert,
+                    newPopupContent: true
+                }"></div>
+
+<div ng-if="accountNotFinded" ng-pop-up="{
+                    template: '/templates/popups/alerts/extension-account-found.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeScatterAlert,
+                    newPopupContent: true
+                }"></div>

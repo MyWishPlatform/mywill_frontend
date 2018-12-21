@@ -1,73 +1,114 @@
 angular.module('app').controller('tronTokenPreviewController', function($timeout, $rootScope, contractService, $location,
-                                                                    openedContract, $scope, $filter) {
+                                                                    openedContract, $scope, $filter, TronService) {
     $scope.contract = openedContract.data;
 
     $scope.iniContract($scope.contract);
-    var contractDetails = $scope.contract.contract_details;
-
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
-    contractDetails.token_holders.map(function(holder) {
-        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
-    });
-
-    var holdersSum = contractDetails.token_holders.reduce(function (val, item) {
-        var value = new BigNumber(item.amount || 0);
-        return value.plus(val);
-    }, new BigNumber(0));
-
-    $scope.totalSupply = {
-        tokens: holdersSum
-    };
-
-    $scope.chartOptions = {
-        itemValue: 'amount',
-        itemLabel: 'address'
-    };
-    $scope.chartData = angular.copy(contractDetails.token_holders);
-
-    var tabs = ['code', 'info'];
-
-    if ($scope.contract.isAuthioToken) {
-        tabs.push('audit');
-    }
-    if ($scope.contract.withAuthioForm) {
-        $scope.authioFormRequest = {
-            contract_id: $scope.contract.id,
-            authio_email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
-        };
-    }
-
-    if ($location.$$hash && (/^tab-.+/.test($location.$$hash))) {
-        var tab = $location.$$hash.replace(/^tab-(.+$)/, '$1');
-        if (tabs.indexOf(tab) !== -1) {
-            $scope.$parent.showedTab = tab;
-        }
-    }
 
     $scope.blockchain = 'TRON';
     $scope.contractInfo = 'tron_contract_token';
 
+    jQuery(function() {
 
-}).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
+        if ($scope.contract.state === 'ACTIVE') {
+
+            var tokenContract = TronService.createContract(
+                $scope.contract.contract_details.tron_contract_token.abi,
+                $scope.contract.contract_details.tron_contract_token.address,
+                $scope.contract.network
+            );
+            tokenContract.totalSupply().call().then(function(result) {
+                $scope.contract.contract_details.totalSupply =
+                    new BigNumber(result._hex).div(Math.pow(10, $scope.contract.contract_details.decimals));
+                $timeout(function() {
+                    generateChart();
+                    $scope.$apply();
+                });
+            });
+        }
+    });
+
+
+    var generateChart = function() {
+        var contractDetails = $scope.contract.contract_details;
+
+        var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+
+        contractDetails.token_holders.map(function(holder) {
+            holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+        });
+
+
+        var beforeDistributed = {
+            amount: 0,
+            address: $filter('translate')('POPUP_FORMS.MINT_TOKENS_FORM.CHART.DISTRIBUTED_BEFORE')
+        };
+
+        var holdersSum = contractDetails.token_holders.reduce(function (val, item) {
+            var value = new BigNumber(item.amount || 0);
+            return value.plus(val);
+        }, new BigNumber(0));
+
+
+
+        $scope.totalSupply = {
+            tokens: contractDetails.totalSupply
+        };
+
+        $scope.chartOptions = {
+            itemValue: 'amount',
+            itemLabel: 'address'
+        };
+
+        $scope.chartData = angular.copy(contractDetails.token_holders);
+
+        beforeDistributed.amount = contractDetails.totalSupply.minus(holdersSum);
+
+        if (beforeDistributed.amount > 0) {
+            $scope.chartData.push(beforeDistributed);
+        }
+
+    };
+
+
+
+}).controller('tokenMintFinalize', function($scope, web3Service) {
+
+    // web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
+    //
+    // var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
+    //
+    // var interfaceMethod = web3Service.getMethodInterface('finishMinting', contractDetails.eth_contract_token.abi);
+    // $scope.finalizeSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
+    //
+    // web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
+    //     $scope.currentWallet = result.filter(function(wallet) {
+    //         return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+    //     })[0];
+    //     if ($scope.currentWallet) {
+    //         web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
+    //         contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
+    //     }
+    // });
+    // $scope.sendTransaction = function() {
+    //     contract.methods.finishMinting().send({
+    //         from: $scope.currentWallet.wallet
+    //     }).then(console.log);
+    // };
+}).controller('tronTokenMintController', function($scope, $timeout, APP_CONSTANTS, TronService, $filter) {
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
-    $scope.contract = contract;
 
-    web3Service.setProviderByNumber(contract.network);
-    var web3Contract;
+    var tokenContract = TronService.createContract(
+        contract.contract_details.tron_contract_token.abi,
+        contract.contract_details.tron_contract_token.address,
+        contract.network
+    );
 
-    web3Service.getAccounts(contract.network).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, contract.network);
-        }
-        web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
+    var initedChain;
+
+    TronService.connectToNetwork(contract.network).then(function(response) {
+        initedChain = response.tronWeb;
         getTotalSupply();
-        $timeout(function() {
-            $scope.$apply();
-        });
     });
 
     $scope.minStartDate = moment();
@@ -82,112 +123,57 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
         itemLabel: 'address'
     };
 
-    var getTotalSupply = function() {
-        web3Service.setProviderByNumber(contract.network);
-        web3Contract.methods.totalSupply().call(function(error, result) {
-            if (error) {
-                result = 0;
-            }
-
-            totalSupply.tokens =
-                beforeDistributed.amount =
-                    new BigNumber(result).div(Math.pow(10, contract.contract_details.decimals));
-
-            $scope.checkTokensAmount();
-            $timeout(function() {
-                $scope.$apply();
-            });
-        });
-    };
 
     var beforeDistributed = {
         amount: 0,
         address: $filter('translate')('POPUP_FORMS.MINT_TOKENS_FORM.CHART.DISTRIBUTED_BEFORE')
     };
-    var totalSupply = {
-        tokens: 0
-    };
 
     var chartData = [beforeDistributed];
     $scope.chartData = [];
 
-    $scope.checkTokensAmount = function() {
-        $scope.chartData = angular.copy(chartData);
-        $scope.totalSupply = angular.copy(totalSupply);
 
-        if ($scope.mintForm.$valid) {
-            $scope.chartData.push($scope.recipient);
-            $scope.totalSupply.tokens = $scope.totalSupply.tokens.plus($scope.recipient.amount);
-        }
+    var totalSupply = {
+        tokens: 0
     };
 
-    $scope.dataChanged = function() {
-        $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
-    };
-    $scope.mintSignature = {};
-    $scope.generateSignature = function() {
-        var mintInterfaceMethod = web3Service.getMethodInterface(
-            !$scope.recipient.isFrozen ? 'mint' : 'mintAndFreeze',
-            contract.contract_details.eth_contract_token.abi);
-        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
-        var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
-        var params = [$scope.recipient.address, amount];
-
-        if ($scope.recipient.isFrozen) {
-            params.push($scope.recipient.freeze_date.format('X'));
-        }
-        $scope.mintSignature.string = (new Web3()).eth.abi.encodeFunctionCall(
-            mintInterfaceMethod, params
-        );
-    };
 
     $scope.sendMintTransaction = function() {
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
         if ($scope.recipient.isFrozen) {
-            web3Contract.methods.mintAndFreeze(
+            tokenContract.mintAndFreeze(
                 $scope.recipient.address,
                 amount,
                 $scope.recipient.freeze_date.format('X')
-            ).send({
-                from: $scope.currentWallet.wallet
-            }).then(console.log);
+            ).send().then(console.log);
         } else {
-            web3Contract.methods.mint($scope.recipient.address, amount).send({
-                from: $scope.currentWallet.wallet
-            }).then(console.log);
+            tokenContract.mint($scope.recipient.address, amount).send().then(console.log);
         }
     };
-    $scope.sendFinalizeTransaction = function() {
-        web3Contract.methods.finishMinting().send({
-            from: $scope.currentWallet.wallet
-        }).then(console.log);
-    };
+
+    $scope.checkTokensAmount = function() {
+        $scope.chartData = angular.copy(chartData);
+        $scope.totalSupply = angular.copy(totalSupply);
 
 
-}).controller('tokenMintFinalize', function($scope, web3Service) {
-
-    web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
-
-    var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
-
-    var interfaceMethod = web3Service.getMethodInterface('finishMinting', contractDetails.eth_contract_token.abi);
-    $scope.finalizeSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
-
-    web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
+        if ($scope.mintForm && $scope.mintForm.$valid) {
+            $scope.chartData.push($scope.recipient);
+            $scope.totalSupply.tokens = $scope.totalSupply.tokens.plus($scope.recipient.amount);
         }
-    });
-    $scope.sendTransaction = function() {
-        contract.methods.finishMinting().send({
-            from: $scope.currentWallet.wallet
-        }).then(console.log);
     };
+
+    totalSupply.tokens =
+        beforeDistributed.amount = contract.contract_details.totalSupply;
+
+    $scope.checkTokensAmount();
+
+    $scope.dataChanged = function() {
+        $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
+    };
+
+
+
 });

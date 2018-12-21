@@ -306,12 +306,12 @@
                 </div>
             </div>
         </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.totalSupply">
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label">
                         {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}}
-                        {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
+                        {{contract.contract_details.totalSupply|separateNumber}} {{details.token_short_name}}</div>
                     <div class="form-control-description one-line without-padding" ng-if="!details.future_minting">
                         <span class="form-control-description__text" translate="CONTRACTS.FORMS.CROWD_SALE.CHART_TOKEN_DISTRIBUTED_MESSAGE"></span>
                     </div>

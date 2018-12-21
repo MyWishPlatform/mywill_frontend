@@ -162,6 +162,9 @@
     "SCATTER_MINTING_SUCCESS": {
       "TEXT": "Transaction was sent successfully"
     },
+    "TRON_MINTING_SUCCESS": {
+      "TEXT": "Transaction was sent successfully"
+    },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "Thank you! Your message has been sent, we will contact you by Email."
     },

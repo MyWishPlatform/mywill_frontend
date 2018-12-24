@@ -72,7 +72,7 @@
                 <div class="main-section-content">
                     <div class="user-balance">
                         <div class="user-balance-value">
-                            <i class="user-balance-icon icon-mywish" ng-if="sitemode === 'default'">
+                            <i class="user-balance-icon icon-mywish" ng-if="(sitemode === 'default') || (sitemode === 'tron')">
                                 <span class="path1"></span><span class="path2"></span>
                             </i>
                             <i class="user-balance-icon icon-eosish-logo" ng-if="sitemode === 'eos'"></i>
@@ -84,6 +84,7 @@
                                     ng-click="getCurrentBalance()">
                                 <img class="btn-icon refresh-icon" src="/static/images/refresher.svg" ng-if="sitemode === 'default'">
                                 <img class="btn-icon refresh-icon" src="/static/images/refresher-grey.svg" ng-if="sitemode === 'eos'">
+                                <img class="btn-icon refresh-icon" src="/static/images/refresher-red.svg" ng-if="sitemode === 'tron'">
                             </button>
                         </div>
                         <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon hide-ls">

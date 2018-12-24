@@ -4,6 +4,13 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 
     $scope.iniContract($scope.contract);
 
+    var contractDetails = $scope.contract.contract_details;
+
+    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    contractDetails.token_holders.map(function(holder) {
+        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+    });
+
     $scope.blockchain = 'TRON';
     $scope.contractInfo = 'tron_contract_token';
 
@@ -28,11 +35,9 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
     });
 
 
+
     var generateChart = function() {
-        var contractDetails = $scope.contract.contract_details;
-
         var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
-
         contractDetails.token_holders.map(function(holder) {
             holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
         });

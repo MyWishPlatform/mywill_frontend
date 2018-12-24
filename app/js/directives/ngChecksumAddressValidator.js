@@ -17,7 +17,7 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                     elem.attr('placeholder', elem.attr('placeholder') || 'AP5n92qDhmoNGP5S71LMBBmn9C4XcMGZDz');
                     break;
                 case 'TRON':
-                    elem.attr('placeholder', elem.attr('placeholder') || 'TAyVnVQxkiWiZ6tUsS9onSEG6W5iJZ8e6g');
+                    elem.attr('placeholder', elem.attr('placeholder') || 'TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg');
                     break;
             }
 

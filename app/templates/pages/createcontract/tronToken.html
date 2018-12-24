@@ -98,8 +98,13 @@
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <label for="owner-address" class="form-control-label"
-                           translate-values="{blockchain: blockchain}"
-                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></label>
+                           translate-values="{blockchain: blockchain}">
+                        <span translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></span>
+                        <span ng-if="network == 13">
+                            (<span class="as-link" ng-click="request.admin_address = 'TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg'">paste address sample</span>)
+                        </span>
+
+                    </label>
 
                     <input id="owner-address" type="text"
                            ng-checksum-address-validator="{'network': blockchain}"

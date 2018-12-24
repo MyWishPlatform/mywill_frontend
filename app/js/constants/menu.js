@@ -65,7 +65,7 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         noactive: false
     }, {
         title: 'MAIN_MENU.SUPPORT',
-        icon: 'icon-phone-call',
+        icon: 'icon-at',
         static: true,
         url: 'support@mywish.io',
         type: 'mail'

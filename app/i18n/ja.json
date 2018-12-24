@@ -1366,6 +1366,7 @@
       "CROWDSALE_SOURCE_CODE": "クラウドセールのソースコード",
       "AIRDROP_SOURCE_CODE": "あなたのAirdrop契約のソースコード",
       "HERE": "ここに",
+      "SUPPORT_CONTRACT_CODE": "If you need any help or consult please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
       "ETHERSCAN_VERIFY_SUPPORT": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレスでご連絡ください</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "Etherscan契約を確認する必要がある場合、<a href=\"mailto:support@mywish.io\">メールアドレス</a>でご連絡いただくか、指示に従ってください：",
       "LIBRARIES_AND_FILES": "ライブラリとその他のファイルを<a href=\"{{gitHubLink}}\" target=\"_blank\">こちら</a>にあります",

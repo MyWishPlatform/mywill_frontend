@@ -63,8 +63,6 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
 
     service.createContract = function(abi, address, network) {
         if (network) {
-            console.log(abi);
-
             var node = connectToNode(network);
             return node.contract(abi, address)
         }

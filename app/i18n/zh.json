@@ -1366,6 +1366,7 @@
       "CROWDSALE_SOURCE_CODE": "您的ICO源代码",
       "AIRDROP_SOURCE_CODE": "您的空投合同源代码",
       "HERE": "这里",
+      "SUPPORT_CONTRACT_CODE": "If you need any help or consult please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
       "ETHERSCAN_VERIFY_SUPPORT": "如果您需要验证Etherscan的合约，请与我们联系<a href=\"mailto:support@mywish.io\">email</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "如果您需要验证Etherscan的合约，请与我们联系<a href=\"mailto:support@mywish.io\">email</a> 或按照说明操作:",
       "LIBRARIES_AND_FILES": "可以找到库和其他文件<a href=\"{{gitHubLink}}\" target=\"_blank\">这里</a>",

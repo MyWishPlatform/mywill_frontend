@@ -79,8 +79,6 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 }).controller('tronTokenMintFinalizeController', function($scope, TronService) {
     var contract = angular.copy($scope.ngPopUp.params.contract);
 
-    console.log(contract);
-
     var tokenContract = TronService.createContract(
         contract.contract_details.tron_contract_token.abi,
         contract.contract_details.tron_contract_token.address,

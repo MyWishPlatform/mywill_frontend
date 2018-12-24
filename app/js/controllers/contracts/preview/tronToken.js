@@ -139,7 +139,35 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 
 
 
+    $scope.closeExtensionAlert = function() {
+        $scope.extensionNotInstalled =
+            $scope.extensionNotAuthorized =
+                $scope.extensionOtherUser =
+                    $scope.successTx =
+                        $scope.txServerError = false;
+    };
+
+
+    $scope.closeMintingForm = function() {
+        $scope.$parent.$broadcast('$closePopUps');
+    };
+
+
     $scope.sendMintTransaction = function() {
+        if (!window.tronWeb) {
+            $scope.extensionNotInstalled = true;
+            return;
+        } else if (!window.tronWeb.defaultAddress) {
+            $scope.extensionNotAuthorized = true;
+            return;
+        } else if (
+            (window.tronWeb.defaultAddress.hex !== contract.contract_details.admin_address) &&
+            (window.tronWeb.defaultAddress.base58 !== contract.contract_details.admin_address)) {
+            $scope.extensionOtherUser = true;
+            return;
+        }
+
+
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
@@ -148,9 +176,20 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
                 $scope.recipient.address,
                 amount,
                 $scope.recipient.freeze_date.format('X')
-            ).send().then(console.log);
+            ).send().then(function(response) {
+                console.log(response);
+                // $scope.successTx
+            }, function() {
+                $scope.txServerError = true;
+            });
         } else {
-            tokenContract.mint($scope.recipient.address, amount).send().then(console.log);
+            tokenContract.mint($scope.recipient.address, amount).send().then(function(response) {
+                console.log(response);
+                // $scope.successTx
+            }, function(response) {
+                console.log(response);
+                $scope.txServerError = true;
+            });;
         }
     };
 

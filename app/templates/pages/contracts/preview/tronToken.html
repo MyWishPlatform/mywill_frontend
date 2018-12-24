@@ -162,17 +162,9 @@
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
-            <p class="normal-text">
-                <small>
-                    <span class="as-link dotted"
-                          ng-click="goTo('code', contractInfo);">
-                        <span translate="CONTRACTS.PREVIEW.HOW_TO_VERIFY"></span>
-                    </span>
-                </small>
-            </p>
 
             <br/>
-            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CROWD_SALE.TOKEN_SCRIPT_HASH"></div>
+            <!-- div class="form-control-label" translate="CONTRACTS.PREVIEW.CROWD_SALE.TOKEN_SCRIPT_HASH"></div>
             <br class="show-ls"/>
             <div class="contract-wallet-information-wallet">
                 <span ng-bind="details[contractInfo].script_hash"></span>
@@ -184,7 +176,7 @@
                         on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
-            </div>
+            </div -->
         </div>
 
 
@@ -342,5 +334,7 @@
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>
     <div class="main-section-chapter-fieldset"
          ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
+
+
 </div>
 

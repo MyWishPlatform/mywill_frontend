@@ -52,6 +52,9 @@ module.constant('APP_CONSTANTS', {
     "EOS_MAINNET_ADDRESS": "https://eospark.com/MainNet/",
     "EOS_TESTNET_ADDRESS": "https://eospark.com/Jungle/",
 
+    "TRON_MAINNET_ADDRESS": "https://eospark.com/MainNet/",
+    "TRON_TESTNET_ADDRESS": "https://eospark.com/Jungle/",
+
     "EOS_FLARE_MAINNET_ADDRESS": "https://eosflare.io/",
 
     'EMPTY_PROFILE': {

@@ -1,14 +1,14 @@
-if (process.env.MODE !== 'tron') {
+// if (process.env.MODE !== 'tron') {
     require('any-promise/register/bluebird');
     window.Web3 = require('web3');
     window.abi = require('human-standard-token-abi');
     window.WAValidator = require('wallet-address-validator');
 
-} else {
+// } else {
 
     window.TronWeb = require('tronweb');
     window.TronHttpProvider = window.TronWeb.providers.HttpProvider;
-}
+// }
 
 // const fullNode = new HttpProvider('https://api.trongrid.io'); // Full node http endpoint
 // const solidityNode = new HttpProvider('https://api.trongrid.io:'); // Solidity node http endpoint

@@ -1373,7 +1373,7 @@
       "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
       "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
       "HERE": "here",
-      "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>",
+      "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
       "LIBRARIES_AND_FILES": "Libraries & other files can be found <a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
       "VERIFY_INSTRUCTION": {

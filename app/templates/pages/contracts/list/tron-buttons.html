@@ -23,7 +23,7 @@
 <!-- Mint form button -->
 <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 15) && contract.contract_details.future_minting"
         ng-pop-up="{
-            template: '/templates/popups/forms/eth/mint-token-form.html',
+            template: '/templates/popups/forms/tron/mint-token-form.html',
             newPopupContent: true,
             params: {
                 contract: contract
@@ -38,7 +38,7 @@
 
 <!-- Finalize token contract form button -->
 <button ng-pop-up="{
-            template: '/templates/popups/disclaimers/eth/mint-finalize-disclaimer.html',
+            template: '/templates/popups/disclaimers/tron/mint-finalize-disclaimer.html',
             newPopupContent: true,
             params: {
                 contract: contract

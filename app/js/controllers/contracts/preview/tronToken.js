@@ -71,29 +71,63 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 
 
 
-}).controller('tokenMintFinalize', function($scope, web3Service) {
+}).controller('tronTokenMintFinalizeController', function($scope, TronService) {
+    var contract = angular.copy($scope.ngPopUp.params.contract);
 
-    // web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
-    //
-    // var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
-    //
-    // var interfaceMethod = web3Service.getMethodInterface('finishMinting', contractDetails.eth_contract_token.abi);
-    // $scope.finalizeSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
-    //
-    // web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
-    //     $scope.currentWallet = result.filter(function(wallet) {
-    //         return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
-    //     })[0];
-    //     if ($scope.currentWallet) {
-    //         web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
-    //         contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
-    //     }
-    // });
-    // $scope.sendTransaction = function() {
-    //     contract.methods.finishMinting().send({
-    //         from: $scope.currentWallet.wallet
-    //     }).then(console.log);
-    // };
+    console.log(contract);
+
+    var tokenContract = TronService.createContract(
+        contract.contract_details.tron_contract_token.abi,
+        contract.contract_details.tron_contract_token.address,
+        contract.network
+    );
+
+    var initedChain;
+
+    TronService.connectToNetwork(contract.network).then(function(response) {
+        initedChain = response.tronWeb;
+    });
+
+    $scope.closeExtensionAlert = function() {
+        $scope.extensionNotInstalled =
+            $scope.extensionNotAuthorized =
+                $scope.extensionOtherUser =
+                    $scope.successTx =
+                        $scope.txServerError = false;
+    };
+
+
+    $scope.closeFinalizeForm = function() {
+        $scope.$parent.$broadcast('$closePopUps');
+    };
+
+
+    $scope.sendTransaction = function() {
+        if (!window.tronWeb) {
+            $scope.extensionNotInstalled = true;
+            return;
+        } else if (!window.tronWeb.defaultAddress) {
+            $scope.extensionNotAuthorized = true;
+            return;
+        } else if (
+            (window.tronWeb.defaultAddress.hex !== contract.contract_details.admin_address) &&
+            (window.tronWeb.defaultAddress.base58 !== contract.contract_details.admin_address)) {
+            $scope.extensionOtherUser = true;
+            return;
+        }
+
+        tokenContract.finishMinting().send().then(function(response) {
+            // console.log(response);
+            $scope.closeFinalizeForm();
+            // $scope.successTx
+        }, function() {
+            $scope.txServerError = true;
+        });
+    };
+
+
+
+
 }).controller('tronTokenMintController', function($scope, $timeout, APP_CONSTANTS, TronService, $filter) {
 
     var contract = angular.copy($scope.ngPopUp.params.contract);
@@ -108,7 +142,7 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 
     TronService.connectToNetwork(contract.network).then(function(response) {
         initedChain = response.tronWeb;
-        getTotalSupply();
+        checkTotalSupply();
     });
 
     $scope.minStartDate = moment();
@@ -136,8 +170,6 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
     var totalSupply = {
         tokens: 0
     };
-
-
 
     $scope.closeExtensionAlert = function() {
         $scope.extensionNotInstalled =
@@ -177,7 +209,7 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
                 amount,
                 $scope.recipient.freeze_date.format('X')
             ).send().then(function(response) {
-                console.log(response);
+                // console.log(response);
                 // $scope.successTx
             }, function() {
                 $scope.txServerError = true;
@@ -187,9 +219,8 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
                 console.log(response);
                 // $scope.successTx
             }, function(response) {
-                console.log(response);
                 $scope.txServerError = true;
-            });;
+            });
         }
     };
 
@@ -204,15 +235,31 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
         }
     };
 
-    totalSupply.tokens =
-        beforeDistributed.amount = contract.contract_details.totalSupply;
-
-    $scope.checkTokensAmount();
 
     $scope.dataChanged = function() {
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
 
 
+    var checkTotalSupply = function() {
+        if (!contract.contract_details.totalSupply) {
+            tokenContract.totalSupply().call().then(function(result) {
+                contract.contract_details.totalSupply =
+                    new BigNumber(result._hex).div(Math.pow(10, contract.contract_details.decimals));
+
+                totalSupply.tokens =
+                    beforeDistributed.amount = contract.contract_details.totalSupply;
+
+                $timeout(function() {
+                    $scope.$apply();
+                    $scope.checkTokensAmount();
+                });
+            });
+        } else {
+            totalSupply.tokens =
+                beforeDistributed.amount = contract.contract_details.totalSupply;
+            $scope.checkTokensAmount();
+        }
+    };
 
 });

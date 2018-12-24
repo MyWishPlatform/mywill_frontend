@@ -45,9 +45,9 @@
 
             <!-- Finalize token contract form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 15) && contract.contract_details.future_minting">
                 <button ng-pop-up="{
-                            template: '/templates/popups/disclaimers/eth/mint-finalize-disclaimer.html',
+                            template: '/templates/popups/disclaimers/tron/mint-finalize-disclaimer.html',
                             newPopupContent: true,
                             params: {
                                 contract: contract

@@ -7,6 +7,22 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     $stateProvider.state('main', {
         abstract: true,
         templateUrl: '/templates/common/main.html',
+        controller: function($rootScope, $scope) {
+
+            var startSantaPromo = moment.utc([2018, 11, 26, 0, 0, 1]);
+            var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
+            var nowDateTime = $rootScope.getNowDateTime(true);
+
+            if ((nowDateTime >= startSantaPromo) && (nowDateTime < finishSantaPromo)) {
+                $scope.santaPromo = 'SANTA';
+                $rootScope.globalError = {
+                    type: 'success',
+                    text: 'Enter SANTA promo code and get 50% off before the 15th of January',
+                    promo: true,
+                    no_hidden: true
+                };
+            }
+        },
         resolve: {
             currentUser: function($rootScope) {
                 return $rootScope.currentUserDefer.promise;
@@ -240,7 +256,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: function($scope, $rootScope, $window, $q, authService, $stateParams, $cookies) {
 
             var iniPromoCode = function() {
-                var cookiePromo, santaPromo;
+                var cookiePromo;
 
                 switch ($stateParams.ext) {
                     case 'meetone':
@@ -255,32 +271,21 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         $rootScope.eoslynx = true;
                         break;
                     default:
-                        santaPromo = 'SANTA';
-                        var startSantaPromo = moment.utc([2018, 11, 25, 0, 0, 1]);
-                        var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
-                        var nowDateTime = $rootScope.getNowDateTime(true);
-
                         break;
                 }
 
 
-                if ((nowDateTime >= startSantaPromo) && (nowDateTime < finishSantaPromo)) {
+
+                if (cookiePromo && ($rootScope.mode === 'eos')) {
                     $rootScope.globalError = {
                         type: 'success',
-                        text: 'Enter the SANTA promo code and get 50% off any smart contract, this Christmas gift is valid till 15th of January.',
+                        text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
                         promo: true
                     };
-                } else {
-                    if (cookiePromo && ($rootScope.mode === 'eos')) {
-                        $rootScope.globalError = {
-                            type: 'success',
-                            text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
-                            promo: true
-                        };
-                    } else if (!santaPromo && $rootScope.globalError && $rootScope.globalError.promo) {
-                        $rootScope.globalError = undefined;
-                    }
+                } else if (!$scope.santaPromo && $rootScope.globalError && $rootScope.globalError.promo) {
+                    $rootScope.globalError = undefined;
                 }
+
                 $cookies.put('partnerpromo', cookiePromo);
             };
 
@@ -327,8 +332,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.createcontract.types', {
         url: '/create?:blockchain?&:isTestNet?&:ext?',
         resolve: {
-            allCosts: function(contractService, ENV_VARS) {
-                return contractService.getAllCosts((ENV_VARS.mode !== 'default') ? ENV_VARS.mode : undefined);
+            allCosts: function(contractService) {
+                return contractService.getAllCosts();
             }
         },
         controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS,
@@ -341,6 +346,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         $scope.blockChainNetwork.type =
                             CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ?
                                 $stateParams.blockchain : 'EOS';
+                        break;
+                    case 'tron':
+                        $scope.blockChainNetwork.type =
+                            CONTRACT_TYPES_FOR_CREATE[$stateParams.blockchain] ?
+                                $stateParams.blockchain : 'TRON';
                         break;
                     default:
                         $scope.blockChainNetwork.type =

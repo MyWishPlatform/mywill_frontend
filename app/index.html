@@ -146,7 +146,7 @@
     }" ng-if="commonOpenedPopup"></div>
 
     <div class="global-error-layer {{'global-error-layer__' + globalError.type}}"
-         ng-click="hideGlobalError()"
+         ng-click="!globalError.no_hidden ? hideGlobalError() : false"
          ng-class="{'visible-error': globalError.text}">
         <div class="global-error-layer__text">{{globalError.text}}</div>
     </div>

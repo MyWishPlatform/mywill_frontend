@@ -289,6 +289,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
             var iniPromoCode = function() {
                 var cookiePromo;
+
+                var startSantaPromo = moment.utc([2018, 11, 26, 0, 0, 1]);
+                var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
+
+                var nowDateTime = $rootScope.getNowDateTime(true);
+
                 switch ($stateParams.ext) {
                     case 'meetone':
                         cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
@@ -302,19 +308,28 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         $rootScope.eoslynx = true;
                         break;
                 }
-                $cookies.put('partnerpromo', cookiePromo);
 
-                if (cookiePromo && ($scope.blockChainNetwork.type === 'EOS')) {
+
+                if ((nowDateTime >= startSantaPromo) && (nowDateTime < finishSantaPromo)) {
+                    cookiePromo = 'SANTA';
                     $rootScope.globalError = {
                         type: 'success',
-                        text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
+                        text: 'Enter the SANTA promo code and get 50% off any smart contract, this Christmas gift is valid till 15th of January.',
                         promo: true
                     };
-                } else if ($rootScope.globalError && $rootScope.globalError.promo) {
-                    $rootScope.globalError = undefined;
+                } else {
+                    if (cookiePromo && ($scope.blockChainNetwork.type === 'EOS')) {
+                        $rootScope.globalError = {
+                            type: 'success',
+                            text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
+                            promo: true
+                        };
+                    } else if ($rootScope.globalError && $rootScope.globalError.promo) {
+                        $rootScope.globalError = undefined;
+                    }
                 }
+                $cookies.put('partnerpromo', cookiePromo);
             };
-
 
             $scope.blockChainNetwork = {};
             var iniListParams = function() {
@@ -359,6 +374,13 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         },
         controllerProvider: function($stateParams, APP_CONSTANTS, $cookies, $rootScope) {
             var cookiePromo;
+
+            var startSantaPromo = moment.utc([2018, 11, 26, 0, 0, 1]);
+            var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
+
+            var nowDateTime = $rootScope.getNowDateTime(true);
+
+
             switch ($stateParams.ext) {
                 case 'meetone':
                     cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
@@ -366,15 +388,34 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 case 'eospark':
                     cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
                     break;
+                case 'lynx':
+                    cookiePromo = APP_CONSTANTS.PROMO_CODES.LYNX;
+                    $cookies.put('eoslynx', 1);
+                    $rootScope.eoslynx = true;
+                    break;
             }
-            $cookies.put('partnerpromo', cookiePromo);
 
-            if (cookiePromo && $stateParams.network == 10) {
+
+            if ((nowDateTime >= startSantaPromo) && (nowDateTime < finishSantaPromo)) {
+                cookiePromo = 'SANTA';
                 $rootScope.globalError = {
                     type: 'success',
-                    text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.'
+                    text: 'Enter the SANTA promo code and get 50% off any smart contract, this Christmas gift is valid till 15th of January.',
+                    promo: true
                 };
+            } else {
+                if (cookiePromo && ($scope.blockChainNetwork.type === 'EOS')) {
+                    $rootScope.globalError = {
+                        type: 'success',
+                        text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
+                        promo: true
+                    };
+                } else if ($rootScope.globalError && $rootScope.globalError.promo) {
+                    $rootScope.globalError = undefined;
+                }
             }
+
+            $cookies.put('partnerpromo', cookiePromo);
 
             return $stateParams.selectedType + 'CreateController';
         },

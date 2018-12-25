@@ -6,21 +6,28 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 
     var contractDetails = $scope.contract.contract_details;
 
+    contractDetails.admin_address = TronWeb.address.fromHex(contractDetails.admin_address);
+
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
     contractDetails.token_holders.map(function(holder) {
+        holder.amount.address = TronWeb.address.fromHex(holder.amount.address);
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });
 
     $scope.blockchain = 'TRON';
     $scope.contractInfo = 'tron_contract_token';
 
+    if (contractDetails.tron_contract_token.address) {
+        contractDetails.tron_contract_token.address = TronWeb.address.fromHex(contractDetails.tron_contract_token.address);
+    }
+
     jQuery(function() {
 
         if ($scope.contract.state === 'ACTIVE') {
 
             var tokenContract = TronService.createContract(
-                $scope.contract.contract_details.tron_contract_token.abi,
-                $scope.contract.contract_details.tron_contract_token.address,
+                contractDetails.tron_contract_token.abi,
+                contractDetails.tron_contract_token.address,
                 $scope.contract.network
             );
             tokenContract.totalSupply().call().then(function(result) {

@@ -237,7 +237,54 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.createcontract', {
         abstract: true,
         templateUrl: templatesPath + 'createcontract.html',
-        controller: function($scope, $rootScope, $window, $q, authService) {
+        controller: function($scope, $rootScope, $window, $q, authService, $stateParams, $cookies) {
+
+            var iniPromoCode = function() {
+                var cookiePromo, santaPromo;
+
+                switch ($stateParams.ext) {
+                    case 'meetone':
+                        cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
+                        break;
+                    case 'eospark':
+                        cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
+                        break;
+                    case 'lynx':
+                        cookiePromo = APP_CONSTANTS.PROMO_CODES.LYNX;
+                        $cookies.put('eoslynx', 1);
+                        $rootScope.eoslynx = true;
+                        break;
+                    default:
+                        santaPromo = 'SANTA';
+                        var startSantaPromo = moment.utc([2018, 11, 25, 0, 0, 1]);
+                        var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
+                        var nowDateTime = $rootScope.getNowDateTime(true);
+
+                        break;
+                }
+
+
+                if ((nowDateTime >= startSantaPromo) && (nowDateTime < finishSantaPromo)) {
+                    $rootScope.globalError = {
+                        type: 'success',
+                        text: 'Enter the SANTA promo code and get 50% off any smart contract, this Christmas gift is valid till 15th of January.',
+                        promo: true
+                    };
+                } else {
+                    if (cookiePromo && ($rootScope.mode === 'eos')) {
+                        $rootScope.globalError = {
+                            type: 'success',
+                            text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
+                            promo: true
+                        };
+                    } else if (!santaPromo && $rootScope.globalError && $rootScope.globalError.promo) {
+                        $rootScope.globalError = undefined;
+                    }
+                }
+                $cookies.put('partnerpromo', cookiePromo);
+            };
+
+            iniPromoCode();
 
             $scope.checkUserIsGhost = function() {
                 if ($rootScope.currentUser.is_ghost) {
@@ -287,50 +334,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controller: function($scope, allCosts, CONTRACT_TYPES_FOR_CREATE, ENV_VARS,
                              $stateParams, $location, $cookies, APP_CONSTANTS, $rootScope) {
 
-            var iniPromoCode = function() {
-                var cookiePromo;
-
-                var startSantaPromo = moment.utc([2018, 11, 26, 0, 0, 1]);
-                var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
-
-                var nowDateTime = $rootScope.getNowDateTime(true);
-
-                switch ($stateParams.ext) {
-                    case 'meetone':
-                        cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
-                        break;
-                    case 'eospark':
-                        cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
-                        break;
-                    case 'lynx':
-                        cookiePromo = APP_CONSTANTS.PROMO_CODES.LYNX;
-                        $cookies.put('eoslynx', 1);
-                        $rootScope.eoslynx = true;
-                        break;
-                }
-
-
-                if ((nowDateTime >= startSantaPromo) && (nowDateTime < finishSantaPromo)) {
-                    cookiePromo = 'SANTA';
-                    $rootScope.globalError = {
-                        type: 'success',
-                        text: 'Enter the SANTA promo code and get 50% off any smart contract, this Christmas gift is valid till 15th of January.',
-                        promo: true
-                    };
-                } else {
-                    if (cookiePromo && ($scope.blockChainNetwork.type === 'EOS')) {
-                        $rootScope.globalError = {
-                            type: 'success',
-                            text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
-                            promo: true
-                        };
-                    } else if ($rootScope.globalError && $rootScope.globalError.promo) {
-                        $rootScope.globalError = undefined;
-                    }
-                }
-                $cookies.put('partnerpromo', cookiePromo);
-            };
-
             $scope.blockChainNetwork = {};
             var iniListParams = function() {
                 switch (ENV_VARS.mode) {
@@ -346,7 +349,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         break;
                 }
                 $scope.blockChainNetwork.isTest = !!$stateParams.isTestNet;
-                iniPromoCode();
             };
 
             for (var key in allCosts.data) {
@@ -372,51 +374,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return;
             }
         },
-        controllerProvider: function($stateParams, APP_CONSTANTS, $cookies, $rootScope) {
-            var cookiePromo;
-
-            var startSantaPromo = moment.utc([2018, 11, 26, 0, 0, 1]);
-            var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
-
-            var nowDateTime = $rootScope.getNowDateTime(true);
-
-
-            switch ($stateParams.ext) {
-                case 'meetone':
-                    cookiePromo = APP_CONSTANTS.PROMO_CODES.MEETONE;
-                    break;
-                case 'eospark':
-                    cookiePromo = APP_CONSTANTS.PROMO_CODES.EOSPARK;
-                    break;
-                case 'lynx':
-                    cookiePromo = APP_CONSTANTS.PROMO_CODES.LYNX;
-                    $cookies.put('eoslynx', 1);
-                    $rootScope.eoslynx = true;
-                    break;
-            }
-
-
-            if ((nowDateTime >= startSantaPromo) && (nowDateTime < finishSantaPromo)) {
-                cookiePromo = 'SANTA';
-                $rootScope.globalError = {
-                    type: 'success',
-                    text: 'Enter the SANTA promo code and get 50% off any smart contract, this Christmas gift is valid till 15th of January.',
-                    promo: true
-                };
-            } else {
-                if (cookiePromo && ($scope.blockChainNetwork.type === 'EOS')) {
-                    $rootScope.globalError = {
-                        type: 'success',
-                        text: 'Enjoy 15% off your order at checkout with code ' + cookiePromo + ' applied.',
-                        promo: true
-                    };
-                } else if ($rootScope.globalError && $rootScope.globalError.promo) {
-                    $rootScope.globalError = undefined;
-                }
-            }
-
-            $cookies.put('partnerpromo', cookiePromo);
-
+        controllerProvider: function($stateParams) {
             return $stateParams.selectedType + 'CreateController';
         },
         templateProvider: function ($templateCache, $stateParams) {
@@ -444,11 +402,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 }
                 return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
-            openedContract: function(ENV_VARS, $stateParams) {
-                // if ((ENV_VARS.mode === 'eos') && ($stateParams.selectedType === 'eosWallet')) {
-                //     window.location.href = 'https://contracts.mywish.io/create?blockchain=EOS';
-                //     return;
-                // }
+            openedContract: function() {
                 return false;
             },
             tokensList: function($stateParams, contractService) {

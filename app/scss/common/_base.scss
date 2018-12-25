@@ -57,6 +57,16 @@ body {
     }
   }
 }
+
+input, button, a {
+  &::-moz-focus-outer {
+    border: 0;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 #all-page-wrapper {
   min-height: 100%;
 }

@@ -38,7 +38,7 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                         validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);
                         break;
                 }
-                console.log(validAddress);
+
                 ctrl.$setValidity('valid-address', validAddress);
                 return validAddress ? value : false;
             });

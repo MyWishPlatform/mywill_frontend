@@ -81,7 +81,16 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 }).run(function(APP_CONSTANTS, $rootScope, $window, $timeout, $state, $q, $location, authService,
                 MENU_CONSTANTS, $interval, $cookies, WebSocketService, ENV_VARS) {
 
-    $rootScope.testing = $location.$$hash == 'forTest';
+    $rootScope.testing = $location.$$hash === 'forTest';
+
+    $rootScope.testAddresses = {
+        "ETH": "0xD0593B233Be4411A236F22b42087345E1137170b",
+        "EOS": "mywishtestac",
+        "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
+        "NEO": "AYhjNHgTs9sG8B2TbnRT5HxwTA2HAuhthq",
+        "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69"
+    };
+
 
     $rootScope.sitemode = ENV_VARS.mode;
     $rootScope.getNetworkPath = function(network) {

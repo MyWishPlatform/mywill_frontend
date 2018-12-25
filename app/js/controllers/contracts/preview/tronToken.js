@@ -10,9 +10,10 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
     contractDetails.token_holders.map(function(holder) {
-        holder.amount.address = TronWeb.address.fromHex(holder.amount.address);
+        holder.address = TronWeb.address.fromHex(holder.address);
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });
+
 
     $scope.blockchain = 'TRON';
     $scope.contractInfo = 'tron_contract_token';

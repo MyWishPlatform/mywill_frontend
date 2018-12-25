@@ -1,4 +1,4 @@
-angular.module('Directives').directive('ngChecksumAddressValidator', function($filter) {
+angular.module('Directives').directive('ngChecksumAddressValidator', function($filter, APP_CONSTANTS) {
     return {
         require: 'ngModel',
         scope: {
@@ -11,13 +11,13 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
 
             switch(scope.ngChecksumAddressValidator.network) {
                 case 'ETH':
-                    elem.attr('placeholder', elem.attr('placeholder') || '0x1234567890adfbced543567acbedf34565437e8f');
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.ETH);
                     break;
                 case 'NEO':
-                    elem.attr('placeholder', elem.attr('placeholder') || 'AP5n92qDhmoNGP5S71LMBBmn9C4XcMGZDz');
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.NEO);
                     break;
                 case 'TRON':
-                    elem.attr('placeholder', elem.attr('placeholder') || 'TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg');
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.TRON);
                     break;
             }
 

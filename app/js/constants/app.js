@@ -6,6 +6,13 @@ module.constant('APP_CONSTANTS', {
     'WISH': {
         'ADDRESS': '0x1b22c32cd936cb97c28c5690a0695a82abf688e6'
     },
+    'TEST_ADDRESSES': {
+        "ETH": "0xD0593B233Be4411A236F22b42087345E1137170b",
+        "EOS": "mywishtestac",
+        "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
+        "NEO": "AYhjNHgTs9sG8B2TbnRT5HxwTA2HAuhthq",
+        "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69"
+    },
     'EOS_ADDRESSES': {
         'DEVELOPMENT': {
             'MAINNET': {

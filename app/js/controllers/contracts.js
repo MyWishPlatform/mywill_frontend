@@ -1,11 +1,15 @@
 angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope, ENV_VARS,
-                                                                 contractsList, $scope, $state, contractService) {
+                                                                 contractsList, $scope, $state, contractService, APP_CONSTANTS) {
 
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 
     var contractsData = contractsList.data;
     $scope.contractsList = contractsData ? contractsData.results : [];
+
+
+    $scope.testAddresses = APP_CONSTANTS.TEST_ADDRESSES;
+
 
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);

@@ -282,6 +282,10 @@
         "TITLE": "Personal Token Contract",
         "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
       },
+      "TRON_GA": {
+        "TITLE": "Game Assets Contract",
+        "DESCRIPTION": "Create a token for assets in your game. You account will be shown as token creator."
+      },
       "AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"

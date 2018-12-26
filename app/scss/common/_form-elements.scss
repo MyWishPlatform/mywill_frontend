@@ -209,7 +209,7 @@
   transition: box-shadow linear 0.1s;
   &:focus {
     box-shadow: 0 0 0.2em rgba(32, 110, 255, 0.4);
-    border-color: $main-color;
+    border-color: $main-field-color;
   }
   &[readonly="readonly"] {
     background-color: transparent;

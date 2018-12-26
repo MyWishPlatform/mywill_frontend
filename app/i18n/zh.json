@@ -59,7 +59,9 @@
     "NETWORK_5": "NEO MainNet",
     "NETWORK_6": "NEO TestNet",
     "NETWORK_10": "EOS MainNet",
-    "NETWORK_11": "EOS TestNet"
+    "NETWORK_11": "EOS TestNet",
+    "NETWORK_12": "TRON MainNet",
+    "NETWORK_13": "TRON TestNet"
   },
   "BUTTONS": {
     "ENABLE": "启用",
@@ -253,6 +255,7 @@
       "BLOCKCHAIN_BLOCK": {
         "TITLE": "选择区块链",
         "EOS_TITLE": "EOS network",
+        "TRON_TITLE": "TRON network",
         "TEST_NETWORK_LABEL": "测试网络",
         "TEST_NETWORK_DESCRIPTION": "付费前提供合约免费测试服务"
       },
@@ -1363,6 +1366,7 @@
       "CROWDSALE_SOURCE_CODE": "您的ICO源代码",
       "AIRDROP_SOURCE_CODE": "您的空投合同源代码",
       "HERE": "这里",
+      "SUPPORT_CONTRACT_CODE": "If you need any help or consult please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
       "ETHERSCAN_VERIFY_SUPPORT": "如果您需要验证Etherscan的合约，请与我们联系<a href=\"mailto:support@mywish.io\">email</a>",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "如果您需要验证Etherscan的合约，请与我们联系<a href=\"mailto:support@mywish.io\">email</a> 或按照说明操作:",
       "LIBRARIES_AND_FILES": "可以找到库和其他文件<a href=\"{{gitHubLink}}\" target=\"_blank\">这里</a>",

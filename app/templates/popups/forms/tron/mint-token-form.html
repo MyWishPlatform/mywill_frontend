@@ -1,0 +1,122 @@
+<div class="shadow-block" ng-controller="tronTokenMintController">
+    <form name="mintForm">
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-tron-token"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control">
+                <div class="form-control-label" translate="POPUP_FORMS.MINT_TOKENS_FORM.DESCRIPTION"></div>
+            </div>
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <label for="out-wallet-key"
+                               translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.LABEL"
+                               class="form-control-label"></label>
+                        <input id="out-wallet-key" type="text"
+                               placeholder="{{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.PLACEHOLDER'|translate}}"
+                               ng-checksum-address-validator="{'network': 'TRON'}"
+                               ng-model="recipient.address"
+                               ng-change="!recipient.name ? checkTokensAmount() : false"
+                               required
+                               class="form-control-input"/>
+                    </div>
+                </div>
+
+                <div class="clearfix show-full hide-ps show-vs"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label for="address-amount" class="form-control-label"
+                               translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.AMOUNT.LABEL"></label>
+                        <input class="form-control-input"
+                               id="address-amount"
+                               commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                               required
+                               ng-change="checkTokensAmount()"
+                               ng-model="recipient.amount"/>
+                    </div>
+                </div>
+                <div class="clearfix show-ps"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <label class="form-control-label">
+                        <i class="icon-snowflake form-control-label-icon floated"></i>
+                        <span class="after-floated">{{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.FROZEN_DATE.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{$root.currentTimezone}}</span></span>
+                    </label>
+                    <div class="form-control">
+                        <div class="grid-row contract-form-row">
+                            <div class="grid-cell grid-cell-2-5">
+                                <label class="checkbox-decoration">
+                                    <input type="checkbox" ng-model="recipient.isFrozen"/>
+                                    <span class="checkbox-decoration-displaying">
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_on">Yes</span>
+                                        <span class="checkbox-decoration-val checkbox-decoration-val_off">No</span>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <div class="grid-cell grid-cell-3-5">
+                                <input type="datetime"
+                                       ng-required="recipient.isFrozen"
+                                       ng-disabled="!recipient.isFrozen"
+                                       ng-model="recipient.freeze_date"
+                                       auto-close="true"
+                                       readonly
+                                       date-time
+                                       min-date="minStartDate"
+                                       min-view="date"
+                                       view="year"
+                                       format="YYYY-MM-DD"
+                                       position="fixed"
+                                       class="form-control-input form-control-input-date"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label">
+                        {{'POPUP_FORMS.MINT_TOKENS_FORM.CHART.TOTAL_SUPPLY'|translate}} {{totalSupply.tokens|separateNumber}} {{ngPopUp.params.contract.contract_details.token_short_name}}
+                    </div>
+                </div>
+
+                <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
+                    <div id="chartdiv" class="chart-container" ng-hide="totalSupply.tokens == 0"
+                         ng-chart
+                         ng-chart-data="chartData"
+                         ng-chart-options="chartOptions"></div>
+                    <div class="chart-placeholder" ng-hide="totalSupply.tokens != 0">
+                        <img src="/static/images/chart_placeholder.svg"/>
+                    </div>
+                    &nbsp;
+                </div>
+                <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
+                    <div class="chart-legend">
+                        <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
+                            <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                            <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <button class="btn btn-submit" type="button"
+                    ng-click="sendMintTransaction()"
+                    ng-disabled="!mintForm.$valid">
+                <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.MINT'|translate}}&nbsp;&nbsp;&nbsp;</span>
+            </button>
+        </div>
+    </form>
+
+    <div ng-include="'/templates/popups/forms/tron/extensions-alerts.html'"></div>
+
+</div>
+

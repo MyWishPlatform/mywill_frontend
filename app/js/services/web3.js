@@ -1,5 +1,6 @@
 angular.module('Services').service('web3Service', function($q, $rootScope, APP_CONSTANTS, $timeout) {
 
+    if (!window.Web3) return;
     var web3 = new Web3(), contract, _this = this;
 
     /* Определение провайдеров клиентов */

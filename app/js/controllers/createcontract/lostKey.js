@@ -96,7 +96,7 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
             web3Service.getBalance($scope.walletAddress).then(function(balance) {
-                balance = Web3.utils.fromWei(balance, 'ether');
+                balance = new BigNumber(Web3.utils.fromWei(balance, 'ether')).round(4);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
                 $scope.balanceInProgress = false;
@@ -214,5 +214,10 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
 
 
     checkDraftContract();
+
+    $scope.setWalletAddress = function() {
+        $scope.walletAddress = $scope.testAddresses.ETH;
+        $scope.getBalance();
+    };
 
 });

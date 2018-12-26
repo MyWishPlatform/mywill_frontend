@@ -25,11 +25,17 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
     }, {
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-eosish-circle',
-        route: 'main.join_airdrop'
+        route: 'main.join_airdrop',
+        not: {
+            mode: ['tron']
+        }
     }, {
         title: 'MAIN_MENU.EOSISH_CALCULATOR',
         icon: 'icon-eosish-circle',
-        route: 'main.eosish_calculator'
+        route: 'main.eosish_calculator',
+        not: {
+            mode: ['tron']
+        }
     }, {
         title: 'MAIN_MENU.EXTERNAL_DEVELOPERS',
         icon: 'icon-framew',
@@ -59,7 +65,7 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         noactive: false
     }, {
         title: 'MAIN_MENU.SUPPORT',
-        icon: 'icon-phone-call',
+        icon: 'icon-at',
         static: true,
         url: 'support@mywish.io',
         type: 'mail'

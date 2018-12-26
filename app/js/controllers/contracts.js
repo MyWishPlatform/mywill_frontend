@@ -1,11 +1,15 @@
 angular.module('app').controller('contractsController', function(CONTRACT_STATUSES_CONSTANTS, $rootScope, ENV_VARS,
-                                                                 contractsList, $scope, $state, contractService) {
+                                                                 contractsList, $scope, $state, contractService, APP_CONSTANTS) {
 
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.stateData  = $state.current.data;
 
     var contractsData = contractsList.data;
     $scope.contractsList = contractsData ? contractsData.results : [];
+
+
+    $scope.testAddresses = APP_CONSTANTS.TEST_ADDRESSES;
+
 
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);
@@ -372,8 +376,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     contract.promo = $cookies.get('partnerpromo');
                     $scope.getDiscount(contract, true);
                 }
-
                 break;
+            case 12:
+            case 13:
+                // iniEOSContract(contract, fullScan);
+                setContractStatValues(contract);
         }
     };
 
@@ -411,7 +418,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         11: 'eos_wallet',
         12: 'eos_crowdsale',
         13: 'eos_airdrop',
-        14: 'eos_i_token'
+        14: 'eos_i_token',
+        15: 'tron_token'
     };
 
     var launchContract = function(contract) {

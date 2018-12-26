@@ -15,6 +15,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'CROWDSALE_EOS': 12,
     'AIRDROP_EOS': 13,
     'EOS_I_TOKEN': 14,
+    'TRON_TOKEN': 15,
     'WEDDING': '-1'
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
@@ -32,6 +33,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     12: 'eosCrowdSale',
     13: 'eosAirdrop',
     14: 'eosIToken',
+    15: 'tronToken',
     '-1': 'wedding'
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
     var eth = {
@@ -161,11 +163,27 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         }]
     };
 
+    var tronDefault = {
+        'networks': [12, 13],
+        'list': [{
+            'icon': 'icon-tron-token',
+            'title': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.DESCRIPTION',
+            'typeNumber': 15,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
+            'price': true
+        }]
+    };
 
     switch (ENV_VARS.mode) {
         case 'eos':
             return {
                 EOS: eosDefault
+            };
+            break;
+        case 'tron':
+            return {
+                TRON: tronDefault
             };
             break;
         default:

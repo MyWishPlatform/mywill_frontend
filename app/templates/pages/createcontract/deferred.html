@@ -36,8 +36,13 @@
                     <div class="form-control-label float-right"
                          ng-bind="checkedBalance ? ('BALANCE'|translate) +': ' + (checkedBalance|separateNumber) + ' ETH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
                     <label for="wallet-key"
-                           class="form-control-label"
-                           translate="CONTRACTS.FORMS.DEFERRED.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
+                           class="form-control-label">
+                        <span translate="CONTRACTS.FORMS.DEFERRED.FIELDS.MANAGEMENT_ADDR.LABEL"></span>
+                        <br ng-if="balanceInProgress || checkedBalance"/>
+                        <span ng-show="network == 2">
+                            (<span class="as-link" ng-click="setWalletAddress()">paste address sample</span>)
+                        </span>
+                    </label>
                     <input id="wallet-key" type="text"
                            ng-model="request.contract_details.user_address"
                            required

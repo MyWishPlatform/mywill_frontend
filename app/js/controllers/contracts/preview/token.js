@@ -3,6 +3,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     $scope.contract = openedContract.data;
 
     $scope.iniContract($scope.contract);
+
     var contractDetails = $scope.contract.contract_details;
 
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);

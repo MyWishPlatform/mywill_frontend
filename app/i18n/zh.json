@@ -162,6 +162,9 @@
     "SCATTER_MINTING_SUCCESS": {
       "TEXT": "交易成功"
     },
+    "TRON_MINTING_SUCCESS": {
+      "TEXT": "Transaction was sent successfully"
+    },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "谢谢！ 您的留言已发送，我们会通过电子邮箱与您联系。"
     },
@@ -274,6 +277,14 @@
       "EOS_TOKEN_PERSONAL": {
         "TITLE": "个人代币合同",
         "DESCRIPTION": "为任何需求创建代币，为ICO和交换做好准备。 MyWish帐户将显示为代币创建者。"
+      },
+      "TRON_TOKEN": {
+        "TITLE": "Personal Token Contract",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+      },
+      "TRON_GA": {
+        "TITLE": "Game Assets Contract",
+        "DESCRIPTION": "Create a token for assets in your game. You account will be shown as token creator."
       },
       "AIRDROP": {
         "TITLE": "空投",

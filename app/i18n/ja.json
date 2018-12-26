@@ -162,6 +162,9 @@
     "SCATTER_MINTING_SUCCESS": {
       "TEXT": "Transaction was sent successfully"
     },
+    "TRON_MINTING_SUCCESS": {
+      "TEXT": "Transaction was sent successfully"
+    },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "ありがとうございました！ あなたのメッセージが送信されました、私たちはメールアドレスで連絡します"
     },
@@ -274,6 +277,14 @@
       "EOS_TOKEN_PERSONAL": {
         "TITLE": "Personal Token Contract",
         "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+      },
+      "TRON_TOKEN": {
+        "TITLE": "Personal Token Contract",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+      },
+      "TRON_GA": {
+        "TITLE": "Game Assets Contract",
+        "DESCRIPTION": "Create a token for assets in your game. You account will be shown as token creator."
       },
       "AIRDROP": {
         "TITLE": "Airdrop",

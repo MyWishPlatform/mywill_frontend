@@ -39,7 +39,7 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
-                    <label for="tokwn_account" class="form-control-label"
+                    <label for="token_account" class="form-control-label"
                            translate="CONTRACTS.FORMS.EOS_TOKEN.FIELDS.TOKEN_ACCOUNT.LABEL"></label>
                     <div ng-eos-account
                          ng-model="request.token_account"
@@ -114,9 +114,14 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
-                    <label for="owner-address" class="form-control-label"
-                           translate-values="{blockchain: 'EOS'}"
-                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></label>
+                    <label for="owner-address" class="form-control-label">
+
+                        <span translate-values="{blockchain: 'EOS'}"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></span>
+                        <span ng-show="network == 11">
+                            (<span class="as-link" ng-click="request.admin_address = testAddresses.EOS">paste address sample</span>)
+                        </span>
+                    </label>
 
                     <div class="form-control-input-container">
                         <div ng-eos-account

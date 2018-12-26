@@ -4,6 +4,11 @@ var environments = {
             mode: 'eos'
         }
     },
+    'tron': {
+        ENV_VARS: {
+            mode: 'tron'
+        }
+    },
     'default': {
         ENV_VARS: {
             mode: 'default'

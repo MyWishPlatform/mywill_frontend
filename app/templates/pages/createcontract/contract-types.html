@@ -8,12 +8,16 @@
                 <span class="big-size"
                       ng-if="sitemode === 'eos'"
                       translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.EOS_TITLE"></span>
+                <span class="big-size"
+                      ng-if="sitemode === 'tron'"
+                      translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TRON_TITLE"></span>
             </div>
         </div>
         <div class="shadow-block__content__blue-description">
             <p class="normal-text">
                 <a href="https://eos.mywish.io/create" ng-if="sitemode === 'default'">Switch to EOS blockchain</a>
                 <a href="https://contracts.mywish.io/create" ng-if="sitemode === 'eos'">Switch to ETH / NEO blockchains</a>
+                <a href="https://contracts.mywish.io/create" ng-if="sitemode === 'tron'">Switch to ETH / NEO blockchains</a>
             </p>
         </div>
     </div>
@@ -29,15 +33,6 @@
                     <span translate="BLOCKCHAIN_NETWORKS.ETH"></span>
                 </a>
             </div>
-            <!-- div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
-                <a ui-sref="main.createcontract.types({blockchain: 'EOS'})"
-                   ng-click="blockChainNetwork.type = 'EOS'"
-                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'EOS'}">
-                    <img src="/static/images/blockchain/eos.svg" width="18" style="vertical-align: middle">
-                    &nbsp;&nbsp;
-                    <span translate="BLOCKCHAIN_NETWORKS.EOS"></span>
-                </a>
-            </div -->
             <div class="show-ps clearfix"><br/></div>
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
                 <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"
@@ -129,6 +124,7 @@
                     <span>{{allCosts[contractForCreate.typeNumber]}}</span>
                     <img src="/static/images/blockchain/ethereum.png" ng-if="sitemode === 'default'">
                     <img src="/static/images/blockchain/eos-counter.svg" style="width: 1.2em" ng-if="sitemode === 'eos'">
+                    <img src="/static/images/blockchain/tron.svg" style="width: 1.8em" ng-if="sitemode === 'tron'">
                 </div>
             </div>
             <div class="grid-row">

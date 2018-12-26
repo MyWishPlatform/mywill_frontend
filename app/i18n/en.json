@@ -59,7 +59,9 @@
     "NETWORK_5": "NEO MainNet",
     "NETWORK_6": "NEO TestNet",
     "NETWORK_10": "EOS MainNet",
-    "NETWORK_11": "EOS TestNet"
+    "NETWORK_11": "EOS TestNet",
+    "NETWORK_12": "TRON MainNet",
+    "NETWORK_13": "TRON TestNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -160,6 +162,9 @@
     "SCATTER_MINTING_SUCCESS": {
       "TEXT": "Transaction was sent successfully"
     },
+    "TRON_MINTING_SUCCESS": {
+      "TEXT": "Transaction was sent successfully"
+    },
     "FORM_REQUEST_SUCCESS": {
       "TEXT": "Thank you! Your message has been sent, we will contact you by Email."
     },
@@ -253,6 +258,7 @@
       "BLOCKCHAIN_BLOCK": {
         "TITLE": "Choose Blockchain",
         "EOS_TITLE": "EOS network",
+        "TRON_TITLE": "TRON network",
         "TEST_NETWORK_LABEL": "Test Network",
         "TEST_NETWORK_DESCRIPTION": "Free of charge - for testing your contract before paying for it"
       },
@@ -269,6 +275,10 @@
         "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. MyWish account will be shown as token creator."
       },
       "EOS_TOKEN_PERSONAL": {
+        "TITLE": "Personal Token Contract",
+        "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
+      },
+      "TRON_TOKEN": {
         "TITLE": "Personal Token Contract",
         "DESCRIPTION": "Create a token for any needs, ready for ICO and exchanges. You account will be shown as token creator. "
       },
@@ -1363,7 +1373,8 @@
       "CROWDSALE_SOURCE_CODE": "Your CrowdSale source code",
       "AIRDROP_SOURCE_CODE": "Your Airdrop contract source code",
       "HERE": "here",
-      "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>",
+      "SUPPORT_CONTRACT_CODE": "If you need any help or consult please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
+      "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
       "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
       "LIBRARIES_AND_FILES": "Libraries & other files can be found <a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
       "VERIFY_INSTRUCTION": {

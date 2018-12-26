@@ -38,8 +38,15 @@
                          ng-if="mainForm.$valid"
                          ng-bind="checkedBalance ? ('BALANCE'|translate) +': ' + (checkedBalance|separateNumber) + ' ' + networkName : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
 
-                    <label for="wallet-key" class="form-control-label"
-                           translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
+                    <label for="wallet-key" class="form-control-label">
+                        <span translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.MANAGEMENT_ADDR.LABEL"></span>
+                        <span ng-if="network == 4">
+                            (<span class="as-link" ng-click="request.user_address = testAddresses.RSK">paste address sample</span>)
+                        </span>
+                        <span ng-if="network == 2">
+                            (<span class="as-link" ng-click="request.user_address = testAddresses.ETH">paste address sample</span>)
+                        </span>
+                    </label>
                     <input id="wallet-key" type="text"
                            ng-model="request.user_address"
                            required

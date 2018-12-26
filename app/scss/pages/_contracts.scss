@@ -77,18 +77,33 @@
     }
   }
 
-  &_10 {
+  &_10, &_12 {
     color: $main-color;
     &:before {
       background: $main-color;
     }
   }
-  &_11 {
+
+  &_11, &_13 {
     color: #e37700;
     &:before {
       background: #e37700;
     }
   }
+
+  &_12, &_13 {
+    &:before {
+      background: none;
+      border: 7px solid transparent;
+      border-left: 0 none;
+      border-right: 12px solid;
+      width: 0;
+      height: 0;
+      margin-top: -0.8em;
+      transform: rotate(-20deg);
+    }
+  }
+
 }
 
 

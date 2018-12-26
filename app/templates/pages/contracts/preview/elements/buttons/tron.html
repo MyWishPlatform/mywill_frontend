@@ -1,0 +1,106 @@
+<div class="contract-form-fieldset without-padding">
+    <div class="contract-form-information-btns">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-vs-1-2 float-right"
+                 ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-red with-icon mobile-width-100 with-icon initial-padding text-center"
+                        ng-pop-up="{
+                            template: '/templates/popups/confirmations/delete-contract.html',
+                            newPopupContent: true,
+                            params: contract,
+                            class: 'deleting-contract',
+                            actions: {
+                                deleteContract: deleteContract
+                            }
+                        }">
+                    <i class="icon-trash"></i>
+                    <span translate="CONTRACTS_BUTTONS.DELETE"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Launch button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-transparent mobile-width-100 text-center"
+                        ng-click="payContract(contract)">
+                    <i class="icon-rocket-ship"></i>
+                    <span translate="CONTRACTS_BUTTONS.LAUNCH"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Mint form button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 15) && contract.contract_details.future_minting">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/tron/mint-token-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.MINT"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Finalize token contract form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 15) && contract.contract_details.future_minting">
+                <button ng-pop-up="{
+                            template: '/templates/popups/disclaimers/tron/mint-finalize-disclaimer.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'conditions',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Edit button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
+                    <i class="icon-edit"></i>
+                    <span translate="CONTRACTS_BUTTONS.EDIT"></span>
+                </a><br/><br/>
+            </div>
+
+            <!-- Settings form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.settings">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/contract-settings.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'language-switcher-popup',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SETTINGS"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool send funds instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.send_funds">
+
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>
+                </button><br/><br/>
+            </div>
+
+        </div>
+    </div>
+</div>

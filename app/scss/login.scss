@@ -4,10 +4,23 @@ $blocks-background: #F4F4F4;
 
 $white-color: #fff;
 $black-color: #000;
+
+$menu-hover-color: #4d97f4!default;
+
+
 @if($env == 'eos') {
   $main-color: #556577;
   $blocks-background: #F3F5F7;
+  $menu-hover-color: #8293a6;
 }
+
+@if($env == 'tron') {
+  $main-color: #c03634;
+  $menu-hover-color: #ce3a38;
+  $blocks-background: #fffcfc;
+}
+
+
 @import 'common/awesome.scss';
 @import 'common/social-buttons.scss';
 @import 'common/buttons.scss';

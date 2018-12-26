@@ -1,0 +1,48 @@
+<div ng-if="extensionNotInstalled" ng-pop-up="{
+                    template: '/templates/popups/alerts/extension-install.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeExtensionAlert,
+                    newPopupContent: true
+                }"></div>
+
+<div ng-if="extensionNotAuthorized" ng-pop-up="{
+                    template: '/templates/popups/alerts/extension-not-authorized.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeExtensionAlert,
+                    newPopupContent: true
+                }"></div>
+
+<div ng-if="extensionOtherUser" ng-pop-up="{
+                    template: '/templates/popups/alerts/extension-other-user.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeExtensionAlert,
+                    newPopupContent: true
+                }"></div>
+
+
+<div ng-if="successTx" ng-pop-up="{
+                    template: '/templates/popups/alerts/tron-minting-success.html',
+                    class: 'deleting-contract',
+                    params: {
+                        contract: contract,
+                        tx: successTx
+                    },
+                    opened: true,
+                    onClose: closeMintingForm,
+                    newPopupContent: true
+                }"></div>
+
+<div ng-if="txServerError" ng-pop-up="{
+                    template: '/templates/popups/alerts/transaction-error.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeExtensionAlert,
+                    newPopupContent: true
+                }"></div>

@@ -1,0 +1,52 @@
+<button class="btn only-icon float-right" type="button"
+        ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)"
+        ng-pop-up="{
+            template: '/templates/popups/confirmations/delete-contract.html',
+            newPopupContent: true,
+            params: contract,
+            class: 'deleting-contract',
+            actions: {
+                deleteContract: deleteContract
+            }
+        }">
+    <i class="icon-trash"></i>
+</button>
+
+<!-- Pay instruction button -->
+<button ng-click="payContract(contract)"
+        ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)"
+        class="btn btn-transparent hide-ps">
+    <i class="icon-rocket-ship"></i>
+    <span translate="CONTRACTS_BUTTONS.LAUNCH"></span>
+</button>
+
+<!-- Mint form button -->
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 15) && contract.contract_details.future_minting"
+        ng-pop-up="{
+            template: '/templates/popups/forms/tron/mint-token-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'page-size',
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.MINT"></span>
+</button>
+
+
+<!-- Finalize token contract form button -->
+<button ng-pop-up="{
+            template: '/templates/popups/disclaimers/tron/mint-finalize-disclaimer.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'conditions',
+            onClose: returnToList
+        }"
+        ng-if="(contract.stateValue == 4) && (contract.contract_type == 15) && contract.contract_details.future_minting"
+        class="btn btn-transparent hide-ps">
+    <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
+</button>

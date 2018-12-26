@@ -14,7 +14,7 @@
 
 <div ng-show="showedTab == 'code'">
     <div class="shadow-block after-tabs">
-        <div class="shadow-block__content" ng-if="contract.network == 13">
+        <div class="shadow-block__content" ng-if="contract.network == 15">
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
@@ -24,12 +24,12 @@
             <p class="normal-text">
                 <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="contract.network == 12"
+                          ng-if="contract.network == 14"
                           ng-click="saveAsFile(contract.contract_details[contractInfo].source_code, contract.name + '(token)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
-                          ng-if="contract.network == 13">
+                          ng-if="contract.network == 15">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>

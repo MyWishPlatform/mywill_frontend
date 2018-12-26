@@ -377,8 +377,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     $scope.getDiscount(contract, true);
                 }
                 break;
-            case 12:
-            case 13:
+            case 14:
+            case 15:
                 // iniEOSContract(contract, fullScan);
                 setContractStatValues(contract);
         }

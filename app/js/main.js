@@ -112,8 +112,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             case 11:
                 return 'eos';
                 break;
-            case 12:
-            case 13:
+            case 14:
+            case 15:
                 return 'tron';
                 break;
         }

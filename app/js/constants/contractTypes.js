@@ -164,7 +164,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     };
 
     var tronDefault = {
-        'networks': [12, 13],
+        'networks': [14, 15],
         'list': [{
             'icon': 'icon-tron-token',
             'title': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.TITLE',

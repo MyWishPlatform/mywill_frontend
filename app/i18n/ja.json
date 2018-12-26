@@ -60,8 +60,8 @@
     "NETWORK_6": "NEO TestNet",
     "NETWORK_10": "EOS MainNet",
     "NETWORK_11": "EOS TestNet",
-    "NETWORK_12": "TRON MainNet",
-    "NETWORK_13": "TRON TestNet"
+    "NETWORK_14": "TRON MainNet",
+    "NETWORK_15": "TRON TestNet"
   },
   "BUTTONS": {
     "ENABLE": "有効にする",

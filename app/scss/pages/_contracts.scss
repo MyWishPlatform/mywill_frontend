@@ -77,21 +77,21 @@
     }
   }
 
-  &_10, &_12 {
+  &_10, &_14 {
     color: $main-color;
     &:before {
       background: $main-color;
     }
   }
 
-  &_11, &_13 {
+  &_11, &_15 {
     color: #e37700;
     &:before {
       background: #e37700;
     }
   }
 
-  &_12, &_13 {
+  &_14, &_15 {
     &:before {
       background: none;
       border: 7px solid transparent;

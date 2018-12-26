@@ -37,12 +37,11 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     service.connectToNetwork = function(networkNumber) {
         var defer = $q.defer();
         var currNode = connectToNode(networkNumber);
-
         if (!window.tronWeb) {
             defer.resolve({
                 tronWeb: currNode
             });
-            return;
+            return  defer.promise;
         }
 
         currNode.trx.getBlock(0).then(function(blockInfo) {
@@ -62,11 +61,18 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     };
 
     service.createContract = function(abi, address, network) {
+        var defer = $q.defer();
         if (network) {
-            var node = connectToNode(network);
-            return node.contract(abi, address)
+            service.connectToNetwork(network).then(function(result) {
+                defer.resolve(result.tronWeb.contract(abi, address));
+            });
+            return defer.promise;
         }
-        return window.tronWeb.contract(abi, address);
+        $timeout(function() {
+            defer.resolve(window.tronWeb.contract(abi, address));
+        });
+
+        return defer.promise;
     };
 
 

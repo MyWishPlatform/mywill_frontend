@@ -6,8 +6,11 @@
 
 // } else {
 
+// if (process.env.MODE === 'tron') {
     window.TronWeb = require('tronweb');
     window.TronHttpProvider = window.TronWeb.providers.HttpProvider;
+// }
+
 // }
 
 // const fullNode = new HttpProvider('https://api.trongrid.io'); // Full node http endpoint

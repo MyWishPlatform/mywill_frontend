@@ -41,8 +41,12 @@
             <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                 <div class="form-control">
                     <label for="wallet-key"
-                           class="form-control-label"
-                           translate="CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.LABEL"></label>
+                           class="form-control-label">
+                        <span translate="CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.LABEL"></span>
+                        <span ng-if="network == 2">
+                            (<span class="as-link" ng-click="request.contract_details.admin_address = testAddresses.ETH">paste address sample</span>)
+                        </span>
+                    </label>
                     <input id="wallet-key" type="text"
                            ng-model="request.contract_details.admin_address"
                            required

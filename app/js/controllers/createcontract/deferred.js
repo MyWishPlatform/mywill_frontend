@@ -102,4 +102,9 @@ angular.module('app').controller('deferredCreateController', function($scope, co
     };
 
     checkDraftContract();
+
+    $scope.setWalletAddress = function() {
+        $scope.request.contract_details.user_address = $scope.testAddresses.ETH;
+        $scope.getBalance();
+    };
 });

@@ -12,10 +12,13 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
         contractDetails.tron_contract_token.address = TronWeb.address.fromHex(contractDetails.tron_contract_token.address);
     }
 
-}).controller('tronTokenMintFinalizeController', function($scope, TronService) {
+}).controller('tronGACreateAssetController', function($scope, TronService, $timeout) {
     var contract = $scope.contract = angular.copy($scope.ngPopUp.params.contract);
 
     var tokenContract;
+    $scope.newToken = {};
+
+    console.log(contract.contract_details.tron_contract_token.abi);
 
     TronService.createContract(
         contract.contract_details.tron_contract_token.abi,
@@ -34,12 +37,36 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
     };
 
 
-    $scope.closeFinalizeForm = function() {
+    $scope.closeForm = function() {
         $scope.$parent.$broadcast('$closePopUps');
     };
 
+    var timerCheckTokenId, checkedId;
+    $scope.checkTokenIdError = false;
+    $scope.checkProgress = false;
+
+    $scope.checkTokenId = function() {
+        if (timerCheckTokenId) {
+            $timeout.cancel(timerCheckTokenId);
+        }
+        $scope.checkProgress = true;
+        $scope.checkTokenIdError = false;
+        checkedId = $scope.newToken.tokenId;
+        timerCheckTokenId = $timeout(function() {
+            tokenContract.ownerOf($scope.newToken.tokenId).call().then(function() {
+                if (checkedId != $scope.newToken.tokenId) return;
+                $scope.checkTokenIdError = true;
+                $scope.checkProgress = false;
+                $scope.$apply();
+            }, function() {
+                $scope.checkProgress = false;
+                $scope.$apply();
+            });
+        },  500)
+    };
 
     $scope.sendTransaction = function() {
+
         if (!window.tronWeb) {
             $scope.extensionNotInstalled = true;
             return;
@@ -52,10 +79,8 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
             $scope.extensionOtherUser = true;
             return;
         }
-
-        tokenContract.finishMinting().send().then(function(response) {
-            // console.log(response);
-            $scope.closeFinalizeForm();
+        tokenContract.mint($scope.newToken.address, $scope.newToken.tokenId).send().then(function(response) {
+            $scope.closeForm();
             $scope.successTx = {
                 transaction_id: response
             };

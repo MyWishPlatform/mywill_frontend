@@ -425,12 +425,14 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     var launchContract = function(contract) {
         if (contract.launchProgress) return;
         contract.launchProgress = true;
+
+        $rootScope.closeCommonPopup();
+
         contractService.deployContract(contract.id, contract.promo, ($rootScope.sitemode === 'eos') ? true : undefined).then(function() {
             contract.launchProgress = false;
-            $rootScope.closeCommonPopup();
 
             // add event to GTM
-            var testNetwork = [2, 4, 6, 11].indexOf(contract.network) > -1;
+            var testNetwork = [2, 4, 6, 11, 15].indexOf(contract.network) > -1;
             var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
 
             if (window['dataLayer']) {
@@ -443,6 +445,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 $state.go('main.contracts.list');
             }
         }, function(data) {
+            $rootScope.closeCommonPopup();
             contract.launchProgress = false;
             switch(data.status) {
                 case 400:
@@ -479,35 +482,31 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     /* (Click) Launch contract */
     $scope.payContract = function(contract) {
         contract.discount = contract.discount || 0;
-        $rootScope.getCurrentUser().then(function(data) {
-            if ($rootScope.currentUser.is_ghost) {
-                $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
-                $rootScope.commonOpenedPopupParams = {
-                    newPopupContent: true
-                };
-                return;
-            }
-            var openConditionsPopUp = function() {
-                $rootScope.commonOpenedPopupParams = {
-                    contract: contract,
-                    class: 'conditions',
-                    newPopupContent: true,
-                    actions: {
-                        showPriceLaunchContract: showPriceLaunchContract
-                    }
-                };
-                $rootScope.commonOpenedPopup = 'disclaimers/conditions';
+        if ($rootScope.currentUser.is_ghost) {
+            $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
+            $rootScope.commonOpenedPopupParams = {
+                newPopupContent: true
             };
+            return;
+        }
+        var openConditionsPopUp = function() {
+            $rootScope.commonOpenedPopupParams = {
+                contract: contract,
+                class: 'conditions',
+                newPopupContent: true,
+                actions: {
+                    showPriceLaunchContract: showPriceLaunchContract
+                }
+            };
+            $rootScope.commonOpenedPopup = 'disclaimers/conditions';
+        };
 
-            var promoIsEntered = $scope.getDiscount(contract);
-            if (promoIsEntered) {
-                promoIsEntered.then(openConditionsPopUp, openConditionsPopUp);
-            } else {
-                openConditionsPopUp();
-            }
-        }, function() {
-
-        });
+        var promoIsEntered = $scope.getDiscount(contract);
+        if (promoIsEntered) {
+            promoIsEntered.then(openConditionsPopUp, openConditionsPopUp);
+        } else {
+            openConditionsPopUp();
+        }
     };
 
     var showPriceLaunchContract = function(contract) {

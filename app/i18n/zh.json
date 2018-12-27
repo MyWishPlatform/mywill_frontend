@@ -284,7 +284,7 @@
       },
       "TRON_GA": {
         "TITLE": "Game Assets Contract",
-        "DESCRIPTION": "Create a token for assets in your game. You account will be shown as token creator."
+        "DESCRIPTION": "Create a token for assets in your game. You account will be shown as token creator. Be in blockchain"
       },
       "AIRDROP": {
         "TITLE": "空投",
@@ -1033,6 +1033,14 @@
           "MAXIMUM_SUPPLY": {
             "LABEL": "最大供应量：",
             "DESCRIPTION": "代币的总供应量。不能创建更多的代币。"
+          }
+        }
+      },
+      "GAME_ASSETS": {
+        "FIELDS": {
+          "URI": {
+            "TITLE": "URI",
+            "DESCRIPTION": "URI URI URI URI URI"
           }
         }
       },

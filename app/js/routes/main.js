@@ -163,7 +163,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 var currentCurrency = ENV_VARS.mode === 'eos' ? 'EOSISH' : 'WISH';
 
                 var getRate = function(currency) {
-                    console.log(currency);
                     contractService.getCurrencyRate({fsym: currency, tsyms: currentCurrency}).then(function(result) {
                         loadedCurrencies[currency] = (1 / result.data[currentCurrency]).toString();
                         loadedCurrenciesCount++;
@@ -409,6 +408,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         curencyValue = 'ETH';
                         break;
                 }
+                if (($stateParams.network == 14) || ($stateParams.network == 15)) return;
                 return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
             openedContract: function() {

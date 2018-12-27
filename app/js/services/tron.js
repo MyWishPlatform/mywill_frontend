@@ -24,10 +24,10 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     var connectToNode = function(networkNumber) {
         var node;
         switch (networkNumber) {
-            case 12:
+            case 14:
                 node = connectToMainNet();
                 break;
-            case 13:
+            case 15:
                 node = connectToTestNet();
                 break;
         }

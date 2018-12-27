@@ -18,8 +18,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 $rootScope.globalError = {
                     type: 'success',
                     text: 'Enter SANTA promo code and get 50% off before the 15th of January',
-                    promo: true,
-                    no_hidden: true
+                    promo: true
                 };
             }
         },

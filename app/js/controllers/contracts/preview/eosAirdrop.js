@@ -188,10 +188,9 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
     var createResultData = function(csvData) {
         var myWorker = Webworker.create(parseDataForTable);
         myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
-
             checkAccounts(result.results, function(results, errors) {
                 result.results = results;
-                result.errors = errors;
+                result.errors = result.errors.concat(errors);
 
                 $timeout(function() {
                     $scope.tableData = result;

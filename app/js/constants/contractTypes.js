@@ -16,7 +16,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'AIRDROP_EOS': 13,
     'EOS_I_TOKEN': 14,
     'TRON_TOKEN': 15,
-    'TRON_GA': 15,
+    'TRON_GA': 16,
     'WEDDING': '-1'
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',

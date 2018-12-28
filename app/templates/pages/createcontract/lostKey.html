@@ -40,7 +40,9 @@
                         <span translate="CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL"></span>
                         <br ng-if="balanceInProgress || checkedBalance"/>
                         <span ng-show="network == 2">
-                            (<span class="as-link" ng-click="setWalletAddress()">paste address sample</span>)
+                            <span class="as-link"
+                                   translate="CONTRACTS.FORMS.PASTE_ADDRESS"
+                                   ng-click="setWalletAddress()"></span>
                         </span>
                     </label>
                     <input id="wallet-key" type="text"
@@ -236,7 +238,7 @@
         </button>
     </div>
     <div class="grid-cell grid-cell-vs-1-2">
-        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetForms($event)">
+        <button class="btn btn-transparent btn-transparent-red with-icon mobile-width-100" ng-click="resetForms($event)">
             <i class="icon-delete-button"></i>
             <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
             <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>

@@ -5,7 +5,9 @@
                 <label for="issuer-address" class="form-control-label">
                     <span translate="CONTRACTS.FORMS.EOS_CROWDSALE.FIELDS.ADMIN_ACCOUNT.TITLE"></span>
                     <span ng-show="network == 11">
-                        (<span class="as-link" ng-click="request.admin_address = testAddresses.EOS">paste address sample</span>)
+                        <span class="as-link"
+                               translate="CONTRACTS.FORMS.PASTE_ADDRESS"
+                               ng-click="request.admin_address = testAddresses.EOS"></span>
                     </span>
                 </label>
             </div>

@@ -7,7 +7,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     $stateProvider.state('main', {
         abstract: true,
         templateUrl: '/templates/common/main.html',
-        controller: function($rootScope, $scope) {
+        controller: function($rootScope, $scope, ENV_VARS) {
+
+            if (ENV_VARS.mode === 'tron') {
+                return;
+            }
 
             var startSantaPromo = moment.utc([2018, 11, 26, 0, 0, 1]);
             var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);
@@ -163,7 +167,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 var currentCurrency = ENV_VARS.mode === 'eos' ? 'EOSISH' : 'WISH';
 
                 var getRate = function(currency) {
-                    console.log(currency);
                     contractService.getCurrencyRate({fsym: currency, tsyms: currentCurrency}).then(function(result) {
                         loadedCurrencies[currency] = (1 / result.data[currentCurrency]).toString();
                         loadedCurrenciesCount++;
@@ -409,6 +412,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         curencyValue = 'ETH';
                         break;
                 }
+                if (($stateParams.network == 14) || ($stateParams.network == 15)) return;
                 return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
             openedContract: function() {

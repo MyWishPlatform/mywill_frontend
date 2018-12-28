@@ -17,7 +17,6 @@
             <p class="normal-text">
                 <a href="https://eos.mywish.io/create" ng-if="sitemode === 'default'">Switch to EOS blockchain</a>
                 <a href="https://contracts.mywish.io/create" ng-if="sitemode === 'eos'">Switch to ETH / NEO blockchains</a>
-                <a href="https://contracts.mywish.io/create" ng-if="sitemode === 'tron'">Switch to ETH / NEO blockchains</a>
             </p>
         </div>
     </div>
@@ -121,7 +120,7 @@
         <div class="shadow-block__content">
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
                 <div class="contract-price-block_content">
-                    <span>{{allCosts[contractForCreate.typeNumber]}}</span>
+                    <span>{{(contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber])|separateNumber}}</span>
                     <img src="/static/images/blockchain/ethereum.png" ng-if="sitemode === 'default'">
                     <img src="/static/images/blockchain/eos-counter.svg" style="width: 1.2em" ng-if="sitemode === 'eos'">
                     <img src="/static/images/blockchain/tron.svg" style="width: 1.8em" ng-if="sitemode === 'tron'">

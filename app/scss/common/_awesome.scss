@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?qzigch');
-  src:  url('fonts/icomoon.eot?qzigch#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?qzigch') format('truetype'),
-  url('fonts/icomoon.woff?qzigch') format('woff'),
-  url('fonts/icomoon.svg?qzigch#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?zdfqxy1');
+  src:  url('fonts/icomoon.eot?zdfqxy1#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?zdfqxy1') format('truetype'),
+  url('fonts/icomoon.woff?zdfqxy1') format('woff'),
+  url('fonts/icomoon.svg?zdfqxy1#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,47 +24,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ga:before {
+  content: "\e950";
+}
 .icon-at:before {
   content: "\e94f";
-}
-.icon-cart:before {
-  content: "\e920";
-}
-.icon-github:before {
-  content: "\e911";
-}
-.icon-spinner:before {
-  content: "\e900";
-}
-.icon-loading:before {
-  content: "\e900";
-}
-.icon-loading-wheel:before {
-  content: "\e900";
-}
-.icon-refresh:before {
-  content: "\e900";
-}
-.icon-repeat:before {
-  content: "\e900";
-}
-.icon-busy:before {
-  content: "\e900";
-}
-.icon-wait:before {
-  content: "\e900";
-}
-.icon-arrow:before {
-  content: "\e900";
-}
-.icon-network-google:before {
-  content: "\e940";
-}
-.icon-network-facebook:before {
-  content: "\e93f";
-}
-.icon-exit:before {
-  content: "\e939";
 }
 .icon-tron-token:before {
   content: "\e94e";
@@ -277,9 +241,6 @@
 .icon-note-list:before {
   content: "\e945";
 }
-.icon-alert-circle:before {
-  content: "\e936";
-}
 .icon-refresh-new:before {
   content: "\e931";
 }
@@ -303,4 +264,43 @@
 }
 .icon-eye:before {
   content: "\e916";
+}
+.icon-cart:before {
+  content: "\e920";
+}
+.icon-github:before {
+  content: "\e911";
+}
+.icon-spinner:before {
+  content: "\e900";
+}
+.icon-loading:before {
+  content: "\e900";
+}
+.icon-loading-wheel:before {
+  content: "\e900";
+}
+.icon-refresh:before {
+  content: "\e900";
+}
+.icon-repeat:before {
+  content: "\e900";
+}
+.icon-busy:before {
+  content: "\e900";
+}
+.icon-wait:before {
+  content: "\e900";
+}
+.icon-arrow:before {
+  content: "\e900";
+}
+.icon-network-google:before {
+  content: "\e940";
+}
+.icon-network-facebook:before {
+  content: "\e93f";
+}
+.icon-exit:before {
+  content: "\e939";
 }

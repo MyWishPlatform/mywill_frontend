@@ -9,7 +9,8 @@
                        ng-model="request.username" required>
                 <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
                 <span class="field-error form-field_error-email" translate="FIELDS_ERRORS.YOUR_EMAIL"></span>
-                <span class="field-error form-field_error-server">{{serverErrors.username.join(', ')}}</span>
+                <span class="field-error form-field_error-server">{{serverErrors.username.join(' ')}}</span>
+                <span class="field-error form-field_error-server">{{serverErrors.email.join(' ')}}</span>
             </div>
 
             <div class="field-container">
@@ -25,7 +26,7 @@
                 <span class="field-error form-field_error-pattern" translate="FIELDS_ERRORS.INCORRECT_PASSWORD"></span>
                 <span class="field-error form-field_error-minlength" translate="FIELDS_ERRORS.MIN_LENGTH_PASSWORD"></span>
                 <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
-                <span class="field-error form-field_error-server">{{serverErrors.password1.join(', ')}}</span>
+                <span class="field-error form-field_error-server">{{serverErrors.password1.join(' ')}}</span>
             </div>
             <div class="field-container">
                 <span class="field-label" translate="FIELDS.CONFIRM_PASSWORD"></span>
@@ -37,11 +38,11 @@
                        ng-model="request.password2" required>
                 <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
                 <span class="field-error form-field_error-pattern" translate="FIELDS_ERRORS.NO_MATCH_PASSWORD"></span>
-                <span class="field-error form-field_error-server">{{serverErrors.password2.join(', ')}}</span>
+                <span class="field-error form-field_error-server">{{serverErrors.password2.join(' ')}}</span>
             </div>
 
             <span class="static-field-error"
-                  ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(', ')}}</span>
+                  ng-if="serverErrors.non_field_errors">{{serverErrors.non_field_errors.join(' ')}}</span>
 
 
             <div class="field-submit-container">

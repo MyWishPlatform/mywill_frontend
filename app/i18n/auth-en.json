@@ -18,7 +18,7 @@
     "CONTINUE": "Continue",
     "SEND": "Send",
     "REGISTRATION": "Registration",
-    "CHANGE_PASSWORD": "Change buttons"
+    "CHANGE_PASSWORD": "Change password"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",

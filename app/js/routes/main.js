@@ -7,7 +7,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     $stateProvider.state('main', {
         abstract: true,
         templateUrl: '/templates/common/main.html',
-        controller: function($rootScope, $scope) {
+        controller: function($rootScope, $scope, ENV_VARS) {
+
+            if (ENV_VARS.mode === 'tron') {
+                return;
+            }
 
             var startSantaPromo = moment.utc([2018, 11, 26, 0, 0, 1]);
             var finishSantaPromo = moment.utc([2019, 0, 15, 23, 59, 59]);

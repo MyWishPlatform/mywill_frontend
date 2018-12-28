@@ -1060,6 +1060,7 @@
           "TOKEN_SYMBOL": {
             "LABEL": "トークン記号：",
             "DESCRIPTION": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_TRON": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）"
           },
           "DECIMALS": {

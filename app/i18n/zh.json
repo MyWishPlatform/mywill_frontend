@@ -1060,6 +1060,7 @@
           "TOKEN_SYMBOL": {
             "LABEL": "代币符号：",
             "DESCRIPTION": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。请在提交之前检查它是否是唯一的(<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_TRON": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
             "DESCRIPTION_NEO": "该符号应该较短（建议使用3-8个字符），不得有空白字符或换行符，并应限制为大写拉丁字母（即英文中使用的26个字母）"
           },
           "DECIMALS": {

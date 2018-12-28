@@ -46,7 +46,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
 
         currNode.trx.getBlock(0).then(function(blockInfo) {
             window.tronWeb.trx.getBlock(0).then(function(blockExtInfo) {
-                if (blockInfo.blockId === blockExtInfo.blockId) {
+                if (blockInfo.blockID === blockExtInfo.blockID) {
                     defer.resolve({
                         tronWeb: window.tronWeb
                     });

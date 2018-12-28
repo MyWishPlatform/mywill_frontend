@@ -98,7 +98,9 @@
                         <span translate-values="{blockchain: 'EOS'}"
                               translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></span>
                         <span ng-show="network == 11">
-                            (<span class="as-link" ng-click="request.admin_address = testAddresses.EOS">paste address sample</span>)
+                            <span class="as-link"
+                                   translate="CONTRACTS.FORMS.PASTE_ADDRESS"
+                                   ng-click="request.admin_address = testAddresses.EOS"></span>
                         </span>
                     </label>
 
@@ -167,7 +169,7 @@
         </button>
     </div>
     <div class="grid-cell grid-cell-vs-1-2">
-        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetFormData($event)">
+        <button class="btn btn-transparent btn-transparent-red with-icon mobile-width-100" ng-click="resetFormData($event)">
             <i class="icon-delete-button"></i>
             <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
             <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>

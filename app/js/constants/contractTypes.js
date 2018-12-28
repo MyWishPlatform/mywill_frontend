@@ -175,7 +175,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
             'price': true
         }, {
-            'icon': 'icon-tron-token',
+            'icon': 'icon-ga',
             'title': 'PAGES.CREATE_CONTRACT.TRON_GA.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_GA.DESCRIPTION',
             'typeNumber': 16,

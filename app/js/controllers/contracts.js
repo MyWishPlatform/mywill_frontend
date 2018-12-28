@@ -72,6 +72,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             $scope.contractTypesIcons[contractType['typeNumber']] = contractType['icon'];
         });
     }
+    console.log($scope.contractTypesIcons);
 
     var deletingProgress;
     $scope.refreshInProgress = {};

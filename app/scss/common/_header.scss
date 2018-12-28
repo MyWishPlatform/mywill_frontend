@@ -99,6 +99,20 @@
 
   }
 }
+.user-balance-icon {
+  &.tron-mode {
+    .path1 {
+      &:before {
+        color: #c03634;
+      }
+    }
+    .path2 {
+      &:before {
+        color: #ff999e;
+      }
+    }
+  }
+}
 @media screen and (min-width: 1025px) {
   .main-header-holder {
     display: none;

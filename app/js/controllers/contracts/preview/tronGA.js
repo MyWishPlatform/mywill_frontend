@@ -18,15 +18,14 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
     var tokenContract;
     $scope.newToken = {};
 
-    console.log(contract.contract_details.tron_contract_token.abi);
-
     TronService.createContract(
         contract.contract_details.tron_contract_token.abi,
         contract.contract_details.tron_contract_token.address,
         contract.network
     ).then(function(result) {
+        console.log(result);
         tokenContract = result;
-    });
+    }, console.log);
 
     $scope.closeExtensionAlert = function() {
         $scope.extensionNotInstalled =

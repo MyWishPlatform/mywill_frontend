@@ -5,7 +5,7 @@ angular.module('app').controller('tronGACreateController', function($scope, cont
         network: $stateParams.network,
         contract_type: CONTRACT_TYPES_CONSTANTS.TRON_GA,
         contract_details: {},
-        name: 'Game Assets Contract #' + ($scope.currentUser.contracts + 1)
+        name: ''
     };
     $scope.network = contract.network * 1;
 

@@ -287,6 +287,7 @@ gulp.task('app:revision', function() {
             bestrateScript = fs.readFileSync("app/bestRateWidget.htm", "utf8");
             break;
         case 'default':
+        case 'tron':
             bestrateScript = fs.readFileSync("app/ethBestRateWidget.htm", "utf8");
             break;
         default:

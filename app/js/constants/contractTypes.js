@@ -173,14 +173,16 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.DESCRIPTION',
             'typeNumber': 15,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
-            'price': true
+            'price': true,
+            'fixPrice': 31300
         }, {
             'icon': 'icon-ga',
             'title': 'PAGES.CREATE_CONTRACT.TRON_GA.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_GA.DESCRIPTION',
             'typeNumber': 16,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[16],
-            'price': true
+            'price': true,
+            'fixPrice': 3150
         }]
     };
 

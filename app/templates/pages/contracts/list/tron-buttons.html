@@ -20,6 +20,22 @@
     <span translate="CONTRACTS_BUTTONS.LAUNCH"></span>
 </button>
 
+
+<!-- Create Asset form button -->
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 16)"
+        ng-pop-up="{
+            template: '/templates/popups/forms/tron/create-asset-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'page-size',
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+    <span>Create Asset</span>
+</button>
+
 <!-- Mint form button -->
 <button ng-if="(contract.stateValue == 4) && (contract.contract_type == 15) && contract.contract_details.future_minting"
         ng-pop-up="{

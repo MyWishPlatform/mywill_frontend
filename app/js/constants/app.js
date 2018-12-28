@@ -60,7 +60,7 @@ module.constant('APP_CONSTANTS', {
     "EOS_TESTNET_ADDRESS": "https://eospark.com/Jungle/",
 
     "TRON_MAINNET_ADDRESS": "https://tronscan.org/",
-    "TRON_TESTNET_ADDRESS": "https://shasta.tronscan.org/",
+    "TRON_TESTNET_ADDRESS": "http://tronscan.mywish.io/",
 
     "EOS_FLARE_MAINNET_ADDRESS": "https://eosflare.io/",
 

@@ -12,6 +12,13 @@
 .form-control-label {
   padding: 0.4em 0;
   display: block;
+  .as-link {
+    color: inherit;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
+  }
   &.inline-label {
     display: inline-block;
     vertical-align: middle;

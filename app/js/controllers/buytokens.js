@@ -1,4 +1,5 @@
-angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate, APP_CONSTANTS, web3Service, $filter) {
+angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate,
+                                                                 APP_CONSTANTS, web3Service, $filter, ENV_VARS) {
 
     $scope.exRate = exRate.data;
     $scope.wallets = {metamask: [], parity: []};
@@ -15,10 +16,14 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         });
     });
 
+    var widgets = {
+        'default': 'mywish-widget',
+        'tron': 'e0efeb1a4d926071b16d7edce5cebadd'
+    };
 
     if (window['BRWidget']) {
         $timeout(function() {
-            var widget = window['BRWidget'].init('bestrate-widget', 'mywish-widget');
+            var widget = window['BRWidget'].init('bestrate-widget', widgets[ENV_VARS.mode]);
             widget.send({
                 tokenWithdrawalWallet: $rootScope.currentUser.internal_address,
                 email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined

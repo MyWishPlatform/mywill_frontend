@@ -1,0 +1,69 @@
+<div class="shadow-block" ng-controller="tronGACreateAssetController">
+    <form name="mintForm">
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-ga"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">{{ngPopUp.params.contract.name}}&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="form-control">
+                <div class="form-control-label" translate="POPUP_FORMS.MINT_TOKENS_FORM.DESCRIPTION"></div>
+            </div>
+            <div class="grid-row contract-form-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <label for="out-wallet-key"
+                               class="form-control-label">User game address</label>
+                        <input id="out-wallet-key" type="text"
+                               ng-checksum-address-validator="{'network': 'TRON'}"
+                               ng-model="newToken.address"
+                               required
+                               class="form-control-input"/>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                    <div class="form-control-label hide-ps">&nbsp;</div>
+                    <span class="form-control-description__text"
+                          translate-values="{blockchain: 'TRON'}"
+                          translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.DESCRIPTION"></span>
+                </div>
+
+                <div class="clearfix show-full hide-ps show-vs"><br/></div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                    <div class="form-control">
+                        <label for="token-id" class="form-control-label">Asset ID</label>
+                        <input class="form-control-input"
+                               ng-change="checkTokenId()"
+                               pattern="[\d]+"
+                               ng-model="newToken.tokenId"
+                               id="token-id"
+                               required/>
+                        <span class="field-error form-field_error-pattern">
+                            Use only numbers.
+                        </span>
+                        <span class="field-error form-field_error-check-sum"
+                              style="display: block"
+                              ng-if="checkTokenIdError"
+                              >ЗАНЯТО!!!</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+            <button class="btn btn-submit" type="button"
+                    ng-click="sendTransaction()"
+                    ng-disabled="!mintForm.$valid || checkTokenIdError || checkProgress">
+                <span>&nbsp;&nbsp;&nbsp;Create Asset&nbsp;&nbsp;&nbsp;</span>
+            </button>
+        </div>
+    </form>
+
+    <div ng-include="'/templates/popups/forms/tron/extensions-alerts.html'"></div>
+
+</div>
+

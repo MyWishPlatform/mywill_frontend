@@ -9,11 +9,6 @@ angular.module('app').controller('tronTokenCreateController', function($scope, c
     };
     $scope.network = contract.network * 1;
 
-    if ($scope.network === 1) {
-        contract.contract_details.authio_email =
-            $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined;
-    }
-
     $scope.blockchain = 'TRON';
 
 
@@ -75,8 +70,6 @@ angular.module('app').controller('tronTokenCreateController', function($scope, c
         $scope.contractName = contract.name;
         $scope.minStartDate = moment();
         $scope.token_holders = angular.copy($scope.request.token_holders);
-
-        $scope.agreed = contract.id && contract.contract_details.authio;
 
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
@@ -164,7 +157,7 @@ angular.module('app').controller('tronTokenCreateController', function($scope, c
         if (localStorage.draftContract) {
             if (!contract.id) {
                 var draftContract = JSON.parse(localStorage.draftContract);
-                if ((draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN) || (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TOKEN_NEO)) {
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.TRON_TOKEN) {
                     contract = draftContract;
                 }
             }
@@ -179,11 +172,5 @@ angular.module('app').controller('tronTokenCreateController', function($scope, c
     checkDraftContract();
     $scope.checkTokensAmount();
 
-    $scope.iAgreeTerms = function() {
-        $scope.agreed = true;
-    };
-    $scope.iDisAgreeTerms = function() {
-        $scope.request.authio = false;
-    };
 
 });

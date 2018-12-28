@@ -5,11 +5,15 @@
                 <label for="owner-address" class="form-control-label">
                     <span translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></span>
                     <span ng-if="network == 2">
-                        (<span class="as-link" ng-click="request.admin_address = testAddresses.ETH">paste address sample</span>)
+                        <span class="as-link"
+                               translate="CONTRACTS.FORMS.PASTE_ADDRESS"
+                               ng-click="request.admin_address = testAddresses.ETH"></span>
                     </span>
 
                     <span ng-if="network == 6">
-                        (<span class="as-link" ng-click="request.admin_address = testAddresses.NEO">paste address sample</span>)
+                        <span class="as-link"
+                              translate="CONTRACTS.FORMS.PASTE_ADDRESS"
+                              ng-click="request.admin_address = testAddresses.NEO"></span>
                     </span>
 
                 </label>

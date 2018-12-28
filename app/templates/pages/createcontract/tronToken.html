@@ -101,8 +101,9 @@
                            translate-values="{blockchain: blockchain}">
                         <span translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></span>
                         <span ng-if="network == 15">
-                            (<span class="as-link"
-                                   ng-click="request.admin_address = testAddresses.TRON">paste address sample</span>)
+                            <span class="as-link"
+                                   translate="CONTRACTS.FORMS.PASTE_ADDRESS"
+                                   ng-click="request.admin_address = testAddresses.TRON"></span>
                         </span>
 
                     </label>
@@ -316,7 +317,7 @@
         </button>
     </div>
     <div class="grid-cell grid-cell-vs-1-2">
-        <button class="btn btn-red with-icon mobile-width-100" ng-click="resetFormData($event)">
+        <button class="btn btn-transparent btn-transparent-red with-icon mobile-width-100" ng-click="resetFormData($event)">
             <i class="icon-delete-button"></i>
             <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
             <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>

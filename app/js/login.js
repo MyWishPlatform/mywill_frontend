@@ -89,6 +89,7 @@ module.controller('baseController', function($scope, $translate, $cookies) {
                 if (!regForm.$valid) return;
                 $scope.request.email = $scope.request.username;
                 $scope.serverErrors = undefined;
+                $cookies.put('latest-email-request');
                 authService.registration({
                     data: $scope.request
                 }).then(function(response) {

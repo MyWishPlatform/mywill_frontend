@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="baseController" ng-class="{'funny': funny}">
+<head lang="en">
+    <title>MyWish</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1">
+    <link href="/fonts/css?family=Ubuntu:200&amp;subset=latin-ext" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            background-color: #fff;
+        }
+        body {
+            position: relative;
+            min-width: 320px;
+            margin: 0;
+            font-family: Ubuntu, sans-serif;
+        }
+        .bg-circles {
+            position: absolute;
+            max-width: 30%;
+        }
+        .bg-circles-1 {
+            right: 0;
+            top: 100px;
+        }
+        .bg-circles-2 {
+            left: 0;
+            bottom: 100px;
+        }
+        .error-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+        .error-content_img {
+            width: 430px;
+            max-width: 90%;
+            vertical-align: top;
+            margin-bottom: 40px;
+        }
+        .error-content_text {
+            color: #4d525d;
+            font-weight: 200;
+            font-size: 23px;
+        }
+        .error-content_logo {
+            width: 120px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+<img class="bg-circles bg-circles-1" src="/static/images/global-error/sp_01.svg">
+<img class="bg-circles bg-circles-2" src="/static/images/global-error/sp_02.svg">
+<div class="error-content">
+    <img src="/static/images/global-error/img.png" class="error-content_img">
+    <div class="error-content_text">
+        Update is in progress, we'll be back soon!
+    </div>
+    <img class="error-content_logo" src="/static/images/logotype-dark.svg">
+</div>
+</body>
+

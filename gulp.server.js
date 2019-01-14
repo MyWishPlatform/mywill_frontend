@@ -44,6 +44,7 @@ var getBrowserSyncConfig = function () {
                 proxy,
                 modRewrite([
                     '^.*/(auth)($|\/)[a-z\-\/0-9A-Z]*$ /auth.html',
+                    '^.*/(global-error)($|\/)[a-z\-\/0-9A-Z]*$ /global-error.html',
                     '^.*/(dashboard)($|\/).*$ /dashboard.html',
                     '!' + extensionsPattern + ' /index.html [L]'
                 ])

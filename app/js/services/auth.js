@@ -4,6 +4,7 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
         registration: function(params) {
             params.API_PATH = API.HOSTS.AUTH_PATH;
             params.path = API.REGISTRATION;
+            params.data.username = params.data.email = params.data.email.toLowerCase();
             return requestService.post(params);
         },
         get: function() {
@@ -33,6 +34,7 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
         auth: function(params) {
             params.API_PATH = params.API_PATH || API.HOSTS.AUTH_PATH;
             params.path = params.path || API.LOGIN;
+            params.data.username = params.data.username.toLowerCase();
             return requestService.post(params);
         },
         createGhost: function() {
@@ -65,7 +67,7 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
         passwordReset: function(email) {
             var params = {
                 data: {
-                    email: email
+                    email: email.toLowerCase()
                 }
             };
             params.API_PATH = API.HOSTS.AUTH_PATH;
@@ -112,7 +114,7 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
             var params = {
                 path: API.RESEND_EMAIL,
                 data: {
-                    email: email
+                    email: email.toLowerCase()
                 }
             };
             return requestService.post(params);

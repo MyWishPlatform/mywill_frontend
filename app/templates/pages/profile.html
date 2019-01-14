@@ -68,7 +68,7 @@
                               translate="FIELDS_ERRORS.MIN_LENGTH_PASSWORD"></span>
                         <span class="field-error form-field_error-required"
                               translate="FIELDS_ERRORS.REQUIRED"></span>
-                        <span class="field-error form-field_error-server">{{serverErrors.new_password1.join(', ')}}</span>
+                        <span class="field-error form-field_error-server">{{serverErrors.new_password1.join(' ')}}</span>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                               translate="FIELDS_ERRORS.REQUIRED"></span>
                         <span class="field-error form-field_error-pattern"
                               translate="FIELDS_ERRORS.NO_MATCH_PASSWORD"></span>
-                        <span class="field-error form-field_error-server">{{serverErrors.new_password2.join(', ')}}</span>
+                        <span class="field-error form-field_error-server">{{serverErrors.new_password2.join(' ')}}</span>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                                class="form-control-input">
                         <span class="field-error form-field_error-required"
                               translate="FIELDS_ERRORS.REQUIRED"></span>
-                        <span class="field-error form-field_error-server">{{serverErrors.totp.join(', ')}}</span>
+                        <span class="field-error form-field_error-server">{{serverErrors.totp.join(' ')}}</span>
                     </div>
                 </div>
             </div>

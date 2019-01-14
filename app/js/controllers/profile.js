@@ -97,6 +97,11 @@ angular.module('app').controller('profileController', function($scope, authServi
                 case 400:
                     $scope.serverErrors = response.data;
                     break;
+                case 403:
+                    $scope.serverErrors = {
+                        non_field_errors: [response.data.detail]
+                    };
+                    break;
             }
             passwordChangeProgress = false;
         });

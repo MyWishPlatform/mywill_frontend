@@ -5,12 +5,12 @@
                 <span class="field-label" translate="FIELDS.EMAIL"></span>
                 <input type="email" class="field-input"
                        autocomplete="new-password"
-                       ng-class="{'ng-invalid ng-invalid-server': serverErrors.username}"
+                       ng-class="{'ng-invalid ng-invalid-server': serverErrors.username || serverErrors.email}"
                        ng-model="request.username" required>
                 <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
                 <span class="field-error form-field_error-email" translate="FIELDS_ERRORS.YOUR_EMAIL"></span>
-                <span class="field-error form-field_error-server">{{serverErrors.username.join(' ')}}</span>
-                <span class="field-error form-field_error-server">{{serverErrors.email.join(' ')}}</span>
+                <span class="field-error form-field_error-server" ng-if="serverErrors.username">{{serverErrors.username.join(' ')}}</span>
+                <span class="field-error form-field_error-server" ng-if="serverErrors.email">{{serverErrors.email.join(' ')}}</span>
             </div>
 
             <div class="field-container">

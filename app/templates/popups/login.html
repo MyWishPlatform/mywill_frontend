@@ -25,7 +25,9 @@
                                       translate="FIELDS_ERRORS.REQUIRED"></span>
                                 <span class="field-error form-field_error-email"
                                       translate="FIELDS_ERRORS.YOUR_EMAIL"></span>
-                                <span class="field-error form-field_error-server">{{logInServerErrors.username.join(', ')}}</span>
+                                <span class="field-error form-field_error-server">
+                                    {{logInServerErrors.username.join(' ')}}
+                                </span>
                             </div>
                             <div class="form-control contract-form-row">
                                 <div class="form-control-label" translate="AUTH_POPUP.FIELDS.PASSWORD"></div>
@@ -70,14 +72,17 @@
                             <div class="form-control-label" translate="AUTH_POPUP.FIELDS.EMAIL"></div>
                             <input type="email"
                                    autocomplete="new-password"
-                                   ng-class="{'ng-invalid ng-invalid-server': regServerErrors.username}"
+                                   ng-class="{'ng-invalid ng-invalid-server': regServerErrors.username || regServerErrors.email}"
                                    ng-model="regRequest.username" required
                                    class="form-control-input">
                             <span class="field-error form-field_error-required"
                                   translate="FIELDS_ERRORS.REQUIRED"></span>
                             <span class="field-error form-field_error-email"
                                   translate="FIELDS_ERRORS.YOUR_EMAIL"></span>
-                            <span class="field-error form-field_error-server">{{regServerErrors.username.join(', ')}}</span>
+                            <span class="field-error form-field_error-server">
+                                {{regServerErrors.username.join(' ')}}
+                                {{regServerErrors.email.join(' ')}}
+                            </span>
                         </div>
 
                         <div class="form-control contract-form-row">

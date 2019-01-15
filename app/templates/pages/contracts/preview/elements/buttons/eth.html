@@ -61,7 +61,7 @@
 
             <!-- Unfreezing token contract form button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="((contract.stateValue == 4) || (contract.stateValue == 11)) && (contract.contract_type == 5) && contract.contract_details.future_minting">
+                 ng-if="tokensFreezed">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/unfreezing-instruction.html',
                             newPopupContent: true,

@@ -40,7 +40,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
 
     this.createContractFromAbi = function(contractAddress, abi) {
         var contract = new web3.eth.Contract(abi);
-        contract.options.address = contractAddress;
+        contract.options.address = Web3.utils.toChecksumAddress(contractAddress);
         return contract;
     };
 

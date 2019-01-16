@@ -497,4 +497,83 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         });
     };
 
+}).controller('airdropWithdrawController', function($scope, web3Service, $timeout){
+
+
+    var contract = angular.copy($scope.ngPopUp.params.contract);
+    $scope.contract = contract;
+
+    web3Service.setProviderByNumber(contract.network);
+    var web3Contract;
+
+    web3Service.getAccounts(contract.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
+        })[0];
+
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contract.network);
+        }
+
+        web3Contract = web3Service.createContractFromAbi(
+            contract.contract_details.eth_contract.address,
+            contract.contract_details.eth_contract.abi
+        );
+
+        $timeout(function() {
+            $scope.$apply();
+        });
+    });
+
+    $scope.dataField = {
+        address: contract.contract_details.token_address
+    };
+
+
+    $scope.checkAirdropToken = function() {
+        $scope.tokenInfo = {};
+        if (!$scope.dataField.address) return;
+        web3Service.getTokenInfo(
+            contract.network,
+            $scope.dataField.address,
+            contract.contract_details.eth_contract.address,
+            ['balanceOf', 'decimals']
+        ).then(function(result) {
+            for (var i in result) {
+                $scope.tokenInfo[i] = result[i];
+            }
+            $scope.tokenInfo['balanceOf'] = $scope.tokenInfo['balanceOf'] || 0;
+            $scope.dataField['amount'] = result.balanceOf;
+        });
+    };
+
+    $scope.tokenInfo = {
+        address: $scope.contract.contract_details.token_address
+    };
+
+    $scope.withdrawSignature = {};
+    $scope.checkAirdropToken();
+
+    $scope.generateSignature = function() {
+        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
+        var amount = new BigNumber($scope.dataField.amount).times(powerNumber).toString(10);
+        var params = [$scope.dataField.address, amount];
+
+        var withdrawInterfaceMethod = web3Service.getMethodInterface('withdrawToken', contract.contract_details.eth_contract.abi);
+
+        $scope.withdrawSignature.string = (new Web3()).eth.abi.encodeFunctionCall(
+            withdrawInterfaceMethod, params
+        );
+    };
+
+    $scope.sendWithdrawTransaction = function() {
+        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
+        var amount = new BigNumber($scope.dataField.amount).times(powerNumber).toString(10);
+
+        web3Contract.methods.withdrawToken($scope.dataField.address, amount).send({
+            from: $scope.currentWallet.wallet
+        }).then(console.log);
+    };
+
+
 });

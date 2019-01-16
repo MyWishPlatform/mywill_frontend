@@ -63,6 +63,23 @@
                 </button><br/><br/>
             </div>
 
+
+            <!-- CrowdSale refund instruction -->
+
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 4) && contract.contract_details.soft_cap">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/crowdsale-refunding.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.REFUND"></span>
+                </button><br/><br/>
+            </div>
+
             <!-- Unfreezing token contract form button -->
             <div class="grid-cell grid-cell-vs-1-2"
                  ng-if="tokensFreezed">

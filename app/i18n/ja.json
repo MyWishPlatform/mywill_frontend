@@ -135,7 +135,8 @@
     "GET_TOKENS": "Get tokens",
     "REFUND": "Refund",
     "SEND_TOKENS": "Send Tokens",
-    "CREATE": "Create"
+    "CREATE": "Create",
+    "UNFREEZING": "Defrosting"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "フィールドが必要です",
@@ -573,6 +574,32 @@
       }
     },
     "ETH": {
+      "UNFREEZING": {
+        "TITLE": "Defrosting",
+        "DESCRIPTION": "To unfreeze the tokens in your wallet, please follow the instructions.",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
+          "ITEM_3": "Enter token contract address:",
+          "ITEM_4": "Specify Gas limit 100000",
+          "ITEM_5": "Input Data:",
+          "ITEM_6": "Click generate Transaction",
+          "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
+        }
+      },
+      "REFUND": {
+        "TITLE": "Refunding",
+        "DESCRIPTION": "In order for investors to receive funds back, provide them with the following instruction.",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
+          "ITEM_3": "Enter token contract address:",
+          "ITEM_4": "Specify Gas limit 100000",
+          "ITEM_5": "Input Data:",
+          "ITEM_6": "Click generate Transaction",
+          "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
+        }
+      },
       "ANY_TRANSACTION": {
         "PART_1": "管理アドレスからトランザクション ({{amount||'0'}} ETH) を送信する",
         "PART_2": "契約アドレスに",

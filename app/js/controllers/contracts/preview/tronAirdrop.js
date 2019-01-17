@@ -7,18 +7,27 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
         var details = $scope.contract.contract_details;
         details.all_count = details.added_count + details.processing_count + details.sent_count;
 
+        if ($scope.contract.contract_details.tron_contract.address) {
+            $scope.contract.contract_details.tron_contract.address =
+                TronWeb.address.fromHex($scope.contract.contract_details.tron_contract.address)
+        }
+
         if (withBalanceCheck) {
-            web3Service.getTokenInfo(
-                $scope.contract.network,
-                $scope.contract.contract_details.token_address,
-                $scope.contract.contract_details.eth_contract.address,
-                ['balanceOf', 'decimals']
-            ).then(function(result) {
-                for (var i in result) {
-                    $scope.tokenInfo[i] = result[i];
+            TronService.getContract(
+                $scope.contract.contract_details.token_address, $scope.contract.network
+            ).then(function(contract) {
+                if (contract) {
+                    TronService.checkToken(contract, $scope.contract.network).then(function(result) {
+                        $scope.tokenInfo = result;
+                        refreshContract();
+                    }, function() {
+                        refreshContract();
+                    });
+                } else {
+                    refreshContract();
                 }
-                refreshContract();
             });
+
         } else {
             refreshContract();
         }
@@ -37,14 +46,8 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
         }
     };
 
-
     checkContractPreview();
 
-    var fieldsParams = ['decimals', 'symbol'];
-
-    if ($scope.contract.stateValue >= 4) {
-        fieldsParams = false;
-    }
 
     TronService.getContract(
         $scope.contract.contract_details.token_address, $scope.contract.network
@@ -64,21 +67,23 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
             timerContractUpdater = false;
         }
     });
-}).controller('airdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state, web3Service) {
+}).controller('tronAirdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state, TronService) {
 
     /* Get token decimals */
 
     $scope.formWaiting = true;
 
-    web3Service.getTokenInfo(
-        $scope.ngPopUp.params.contract.network,
-        $scope.ngPopUp.params.contract.contract_details.token_address
-    ).then(function(result) {
-        $timeout(function() {
-            $scope.tokenInfo = result;
-            $scope.formWaiting = false;
-            $scope.$apply();
-            $scope.$parent.$broadcast('changeContent');
+    TronService.getContract(
+        $scope.ngPopUp.params.contract.contract_details.token_address, $scope.ngPopUp.params.contract.network
+    ).then(function(contract) {
+
+        TronService.checkToken(contract, $scope.ngPopUp.params.contract.network).then(function(result) {
+            $timeout(function() {
+                $scope.tokenInfo = result;
+                $scope.formWaiting = false;
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            });
         });
     });
 

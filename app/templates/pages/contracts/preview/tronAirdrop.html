@@ -7,7 +7,7 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
-         ng-show="contract.contract_details.eth_contract.address">
+         ng-show="contract.contract_details.tron_contract.address">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
@@ -25,7 +25,7 @@
                 <span>{{'CONTRACTS.PREVIEW.AIRDROP_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
                           ng-if="(contract.network == 1) || (contract.network == 3)"
-                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(deferred)')">
+                          ng-click="saveAsFile(contract.contract_details.tron_contract.source_code, contract.name + '(airdrop)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
@@ -60,17 +60,17 @@
             </span>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.tron_contract.address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.tron_contract.address|toCheckSum}}"
                    target="_blank"
-                   ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
+                   ng-bind="contract.contract_details.tron_contract.address"></a>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['address']}"
-                        text="contract.contract_details.eth_contract.address"
+                        text="contract.contract_details.tron_contract.address"
                         on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>

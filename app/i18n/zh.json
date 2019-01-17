@@ -287,6 +287,10 @@
         "TITLE": "Game Asset",
         "DESCRIPTION": "Create assets for your TRON-based game. Mint unique assets to the users."
       },
+      "TRON_AIRDROP": {
+        "TITLE": "空投",
+        "DESCRIPTION": "将TRC-20/TRC-223代币分发到许多地址（例如赏金计划或者公开销售）"
+      },
       "AIRDROP": {
         "TITLE": "空投",
         "DESCRIPTION": "将ERC-20/ERC-223代币分发到许多地址（例如赏金计划或者公开销售）"

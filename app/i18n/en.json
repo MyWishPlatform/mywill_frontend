@@ -287,6 +287,10 @@
         "TITLE": "Game Asset",
         "DESCRIPTION": "Create assets for your TRON-based game. Mint unique assets to the users."
       },
+      "TRON_AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any TRC-20/TRC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+      },
       "AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"

@@ -65,7 +65,7 @@
 
             <!-- CrowdSale refund instruction -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 4) && contract.contract_details.soft_cap">
+                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 4) && (contract.contract_details.soft_cap != 0)">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/crowdsale-refunding.html',
                             newPopupContent: true,
@@ -426,7 +426,7 @@
 
             <!-- Aitdrop WITHDRAW button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="((contract.stateValue == 4) && (contract.contract_type == 8))">
+                 ng-if="(((contract.stateValue == 4) || (contract.stateValue == 11)) && (contract.contract_type == 8))">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/withdraw-airdrop-form.html',
                             newPopupContent: true,

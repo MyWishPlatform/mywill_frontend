@@ -543,7 +543,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 $scope.tokenInfo[i] = result[i];
             }
             $scope.tokenInfo['balanceOf'] = $scope.tokenInfo['balanceOf'] || 0;
-            $scope.dataField['amount'] = result.balanceOf;
+            $scope.dataField['amount'] = new BigNumber($scope.tokenInfo['balanceOf']).div(Math.pow(10, $scope.tokenInfo['decimals']));
         });
     };
 

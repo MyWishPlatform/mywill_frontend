@@ -63,9 +63,6 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
-            </span>
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
                    target="_blank"
@@ -83,9 +80,6 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="form-control-label" translate="CONTRACTS.FORMS.AIRDROP.FIELDS.MANAGEMENT_ADDR.LABEL"></div>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{contract.contract_details.admin_address|blockies}}"/>
-            </span>
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{contract.network|etherscanUrl:'address'}}/{{contract.contract_details.admin_address|toCheckSum}}"
                    target="_blank"
@@ -102,9 +96,6 @@
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <div class="form-control-label" translate="CONTRACTS.FORMS.AIRDROP.FIELDS.TOKEN_ADDR.LABEL"></div>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{contract.contract_details.token_address|blockies}}"/>
-            </span>
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{contract.network|etherscanUrl:'address'}}/{{contract.contract_details.token_address|toCheckSum}}"
                    target="_blank"

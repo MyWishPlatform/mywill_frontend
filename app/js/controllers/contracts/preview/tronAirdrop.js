@@ -1,4 +1,4 @@
-angular.module('app').controller('airdropPreviewController', function($timeout, web3Service, openedContract,
+angular.module('app').controller('tronAirdropPreviewController', function($timeout, TronService, openedContract,
                                                                       $scope, contractService) {
     $scope.contract = openedContract.data;
 
@@ -45,14 +45,18 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     if ($scope.contract.stateValue >= 4) {
         fieldsParams = false;
     }
-    web3Service.getTokenInfo(
-        $scope.contract.network,
-        $scope.contract.contract_details.token_address,
-        $scope.contract.contract_details.eth_contract.address,
-        fieldsParams
-    ).then(function(result) {
-        $scope.tokenInfo = result;
+
+    TronService.getContract(
+        $scope.contract.contract_details.token_address, $scope.contract.network
+    ).then(function(contract) {
+        if (contract) {
+            TronService.checkToken(contract, $scope.contract.network).then(function(result) {
+                $scope.tokenInfo = result;
+            }, function() {
+            });
+        } else {}
     });
+
 
     $scope.$on('$destroy', function() {
         if (timerContractUpdater) {

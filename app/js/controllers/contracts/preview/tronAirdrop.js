@@ -95,22 +95,30 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
 
     // Check errors for values
     var parseDataForTable = function(results, csvFormat, decimals) {
-        var addressRegExp = /^0x[0-9a-f]{40}$/i;
+
         if (!results.data[results.data.length - 1][0]) {
             results.data = results.data.slice(0, results.data.length - 1);
         }
-        var changeAmountParam = 1;
+        var changeAmountParam = 0;
         if (!csvFormat.decimals) {
-            changeAmountParam = Math.pow(10, decimals);
+            changeAmountParam = decimals;
         }
         var errorsData = [], resultsData = [];
+
         results.data.forEach(function(row, index) {
             var resultRow = {
                 data: row,
                 line: index + 1
             };
+
+
+            row[0] = row[0].replace(/^[\s]*([\S]+)[\s]*$/g, '$1');
+
             var address = row[0] = row[0].replace(/^[\s]*([\S]+)[\s]*$/g, '$1');
             var amount = row[1];
+
+
+
             if (!address) {
                 resultRow.error = {
                     status: 1
@@ -118,21 +126,28 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
                 errorsData.push(resultRow);
                 return;
             }
-            if (!addressRegExp.test(address)) {
+            if (row[2] === 'INVALID_ADDRESS') {
                 resultRow.error = {
                     status: 2
                 };
                 errorsData.push(resultRow);
                 return;
             }
+
             if (!amount || isNaN(amount)) {
                 resultRow.error = {
                     status: 3
                 };
                 errorsData.push(resultRow);
                 return;
+            } else {
+                var splittedAmount = amount.split('.');
+                if (splittedAmount[1]) {
+                    row[1] = amount = splittedAmount[0] + '.' + (splittedAmount[1].replace(/[0]+$/, ''));
+                }
             }
-            if ((amount * changeAmountParam) % 1 > 0) {
+
+            if ((amount.split('.')[1] || '').length > changeAmountParam) {
                 resultRow.error = {
                     status: 4
                 };
@@ -148,7 +163,16 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
     };
 
     var createResultData = function(csvData) {
+
         var myWorker = Webworker.create(parseDataForTable);
+
+        console.log(csvData);
+        csvData.data.forEach(function(row) {
+            if (!TronWeb.isAddress(row[0])) {
+                row[2] = 'INVALID_ADDRESS';
+            }
+        });
+
         myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
             $timeout(function() {
                 $scope.tableData = result;
@@ -204,7 +228,7 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
         var reader = new FileReader();
         reader.onload = function(evt) {
             var filecontent = evt.target.result;
-            /(0x)?[0-9a-f]{40}/ig.test(filecontent);
+            /T[0-9a-z]{33}/ig.test(filecontent);
             var lastMatch = RegExp.lastMatch;
             var searchIndex = filecontent.indexOf(lastMatch);
             var delimiter = filecontent[searchIndex + lastMatch.length];
@@ -288,7 +312,11 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
                         $scope.saveAddressesError = true;
                         break;
                 }
-                $scope.formWaiting = false;
+                $timeout(function() {
+                    $scope.formWaiting = false;
+                    $scope.$apply();
+                    $scope.$parent.$broadcast('changeContent');
+                });
             });
         });
     };
@@ -342,31 +370,31 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
         params[1].push(address.amount);
     });
 
-    var methodName = 'transfer';
+    // var methodName = 'transfer';
+    //
+    // var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract.abi);
+    // try {
+    //     $scope.sendAirdropSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
+    // } catch(err) {
+    //     console.log(err);
+    // }
 
-    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract.abi);
-    try {
-        $scope.sendAirdropSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
-    } catch(err) {
-        console.log(err);
-    }
-
-    web3Service.getAccounts(contractData.network).then(function(result) {
-        web3Service.setProviderByNumber(contractData.network);
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, contractData.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
-        }
-    });
-
-    $scope.sendTransaction = function() {
-        contract.methods[methodName](params[0], params[1]).send({
-            from: $scope.currentWallet.wallet
-        }).then(console.log);
-    };
+    // web3Service.getAccounts(contractData.network).then(function(result) {
+    //     web3Service.setProviderByNumber(contractData.network);
+    //     $scope.currentWallet = result.filter(function(wallet) {
+    //         return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+    //     })[0];
+    //     if ($scope.currentWallet) {
+    //         web3Service.setProvider($scope.currentWallet.type, contractData.network);
+    //         contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
+    //     }
+    // });
+    //
+    // $scope.sendTransaction = function() {
+    //     contract.methods[methodName](params[0], params[1]).send({
+    //         from: $scope.currentWallet.wallet
+    //     }).then(console.log);
+    // };
 }).controller('airdropAddressesListPreview', function($scope, contractService, $timeout, FileSaver) {
 
     $scope.airdropAddressesList = [];

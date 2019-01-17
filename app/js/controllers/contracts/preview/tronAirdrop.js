@@ -343,47 +343,6 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
         });
     };
 
-}).controller('sendTronAirdropController', function($scope, TronService) {
-    var contractData = $scope.ngPopUp.params.contract;
-
-    $scope.amount = $scope.ngPopUp.params.amount;
-    $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo;
-
-    $scope.contract = contractData;
-
-    var contractDetails = contractData.contract_details, contract;
-    var params = [[], []];
-
-    $scope.ngPopUp.params.next_addresses.map(function(address) {
-        params[0].push(address.address.replace(/\s/g, ''));
-        params[1].push(address.amount);
-    });
-
-    // var methodName = 'transfer';
-    //
-    // var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract.abi);
-    // try {
-    //     $scope.sendAirdropSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
-    // } catch(err) {
-    //     console.log(err);
-    // }
-
-    // web3Service.getAccounts(contractData.network).then(function(result) {
-    //     web3Service.setProviderByNumber(contractData.network);
-    //     $scope.currentWallet = result.filter(function(wallet) {
-    //         return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
-    //     })[0];
-    //     if ($scope.currentWallet) {
-    //         web3Service.setProvider($scope.currentWallet.type, contractData.network);
-    //         contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
-    //     }
-    // });
-    //
-    // $scope.sendTransaction = function() {
-    //     contract.methods[methodName](params[0], params[1]).send({
-    //         from: $scope.currentWallet.wallet
-    //     }).then(console.log);
-    // };
 }).controller('tronAirdropAddressesListPreview', function($scope, contractService, $timeout, FileSaver) {
 
     $scope.airdropAddressesList = [];
@@ -492,18 +451,21 @@ angular.module('app').controller('tronAirdropPreviewController', function($timeo
 
     $scope.downloadProgress = true;
 
-    // if ($scope.tokenInfo) {
+    if ($scope.tokenInfo) {
         createContractAddressesInfo();
-    // } else {
-    //     web3Service.getTokenInfo(
-    //         contract.network,
-    //         contract.contract_details.token_address,
-    //         contract.contract_details.eth_contract.address
-    //     ).then(function(result) {
-    //         $scope.tokenInfo = result;
-    //         createContractAddressesInfo();
-    //     });
-    // }
+    } else {
+        TronService.getContract(
+            contract.contract_details.token_address, contract.network
+        ).then(function(contractModel) {
+            TronService.checkToken(
+                contractModel, contract.network, contract.contract_details.tron_contract.address
+            ).then(function(result) {
+                $scope.tokenInfo = result;
+                createContractAddressesInfo();
+            });
+        });
+
+    }
 
     $scope.saveAirdropAddress = function() {
         $timeout(function() {

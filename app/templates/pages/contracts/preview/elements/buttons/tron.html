@@ -138,6 +138,25 @@
                 </button><br/><br/>
             </div>
 
+            <!-- Airdrop send table instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 17) && contract.contract_details.added_count">
+                <button ng-pop-up="{
+                            template: '/templates/popups/data-preview/tron-airdrop-next-send-table.html',
+                            newPopupContent: true,
+                            class: 'page-size',
+                            params: {
+                                filter: 'added',
+                                contract: contract,
+                                tokenInfo: tokenInfo
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
+                </button><br/><br/>
+            </div>
+
+
         </div>
     </div>
 </div>

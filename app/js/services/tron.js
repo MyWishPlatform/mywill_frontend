@@ -61,7 +61,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
         return defer.promise;
     };
 
-    service.checkToken = function(contractModel, networkNumber) {
+    service.checkToken = function(contractModel, networkNumber, balanceAddress) {
 
         var tokenInfo = {
             propertiesLength: 0
@@ -77,10 +77,18 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
                 tokenInfo[property] = result;
                 tokenInfo['propertiesLength']++;
                 if (tokenInfo['propertiesLength'] === tokenProperties.length) {
-                    defer.resolve(tokenInfo);
+                    if (balanceAddress) {
+                        contract.balanceOf(balanceAddress).call().then(function(result) {
+                            tokenInfo.balance = new BigNumber(result.balance).div(Math.pow(10, tokenInfo['decimals'])).toString(10);
+                            defer.resolve(tokenInfo);
+                        });
+                    } else {
+                        defer.resolve(tokenInfo);
+                    }
                 }
             }, defer.reject);
         });
+
 
         return defer.promise;
     };

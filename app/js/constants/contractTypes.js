@@ -188,7 +188,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         }, {
             'icon': 'icon-tron-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
+            'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',
             'typeNumber': 17,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[17],
             'price': true,

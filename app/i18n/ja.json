@@ -417,6 +417,13 @@
     }
   },
   "POPUP_FORMS": {
+    "TRON_AIRDROP": {
+      "DISCLAIMER": {
+        "ITEM_1": "For adding accounts & amount of tokens you need to upload the table in *.csv format",
+        "ITEM_2": "Every row must contain one account in TRON (column A) and amount of tokens to distribute (column B)",
+        "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
+      }
+    },
     "EOS_AIRDROP": {
       "DISCLAIMER": {
         "ITEM_1": "For adding accounts & amount of tokens you need to upload the table in *.csv format",

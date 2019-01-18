@@ -17,8 +17,8 @@ var devServerApi = {
     path: [
         "/api", '/accounts', '/logout', '/endpoint', '/fonts'
     ],
-    // url: url.parse("http://trondev.mywish.io")
-    url: url.parse("http://dev.mywish.io")
+    url: url.parse("http://trondev.mywish.io")
+    // url: url.parse("http://dev.mywish.io")
 };
 var getBrowserSyncConfig = function () {
 

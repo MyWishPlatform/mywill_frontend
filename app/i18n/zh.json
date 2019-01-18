@@ -136,7 +136,7 @@
     "REFUND": "退款",
     "SEND_TOKENS": "发送代币",
     "CREATE": "生成",
-    "UNFREEZING": "Defrosting"
+    "UNFREEZING": "Unfreezing"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "该字段必填",

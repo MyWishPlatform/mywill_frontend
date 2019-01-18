@@ -136,7 +136,7 @@
     "REFUND": "Refund",
     "SEND_TOKENS": "Send Tokens",
     "CREATE": "Create",
-    "UNFREEZING": "Defrosting"
+    "UNFREEZING": "Unfreezing"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "Field is required",

@@ -86,38 +86,76 @@
                 </a><br/><br/>
             </div>
 
-            <!-- Settings form button -->
+            <!--&lt;!&ndash; Settings form button &ndash;&gt;-->
+            <!--<div class="grid-cell grid-cell-vs-1-2"-->
+                 <!--ng-if="contract.contract_details.buttons.settings">-->
+                <!--<button ng-pop-up="{-->
+                            <!--template: '/templates/popups/forms/eth/contract-settings.html',-->
+                            <!--newPopupContent: true,-->
+                            <!--params: {-->
+                                <!--contract: contract-->
+                            <!--},-->
+                            <!--class: 'language-switcher-popup',-->
+                            <!--onClose: returnToList-->
+                        <!--}"-->
+                        <!--class="btn btn-transparent mobile-width-100">-->
+                    <!--<span translate="CONTRACTS_BUTTONS.SETTINGS"></span>-->
+                <!--</button><br/><br/>-->
+            <!--</div>-->
+
+            <!--&lt;!&ndash; Investment pool send funds instruction &ndash;&gt;-->
+            <!--<div class="grid-cell grid-cell-vs-1-2"-->
+                 <!--ng-if="contract.contract_details.buttons.send_funds">-->
+
+                <!--<button ng-pop-up="{-->
+                            <!--template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',-->
+                            <!--newPopupContent: true,-->
+                            <!--params: {-->
+                                <!--contract: contract-->
+                            <!--}-->
+                        <!--}"-->
+                        <!--class="btn btn-transparent mobile-width-100">-->
+                    <!--<span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>-->
+                <!--</button><br/><br/>-->
+            <!--</div>-->
+
+
+            <!-- Airdrop add addresses button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="contract.contract_details.buttons.settings">
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 17) && !contract.contract_details.sent_count">
                 <button ng-pop-up="{
-                            template: '/templates/popups/forms/eth/contract-settings.html',
+                            template: '/templates/popups/forms/tron/airdrop-addresses-form.html',
                             newPopupContent: true,
-                            params: {
-                                contract: contract
+                            actions: {
+                                updateBalanceInfo: updateBalanceInfo
                             },
-                            class: 'language-switcher-popup',
-                            onClose: returnToList
-                        }"
-                        class="btn btn-transparent mobile-width-100">
-                    <span translate="CONTRACTS_BUTTONS.SETTINGS"></span>
-                </button><br/><br/>
-            </div>
-
-            <!-- Investment pool send funds instruction -->
-            <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="contract.contract_details.buttons.send_funds">
-
-                <button ng-pop-up="{
-                            template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',
-                            newPopupContent: true,
                             params: {
                                 contract: contract
                             }
                         }"
                         class="btn btn-transparent mobile-width-100">
-                    <span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>
+                    <span translate="CONTRACTS_BUTTONS.ADD_ADDRESSES"></span>
                 </button><br/><br/>
             </div>
+
+            <!-- Airdrop send table instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 17) && contract.contract_details.added_count">
+                <button ng-pop-up="{
+                            template: '/templates/popups/data-preview/tron-airdrop-next-send-table.html',
+                            newPopupContent: true,
+                            class: 'page-size',
+                            params: {
+                                filter: 'added',
+                                contract: contract,
+                                tokenInfo: tokenInfo
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
+                </button><br/><br/>
+            </div>
+
 
         </div>
     </div>

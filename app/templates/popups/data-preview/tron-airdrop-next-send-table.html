@@ -1,0 +1,74 @@
+<div class="shadow-block" ng-controller="tronAirdropSendAddressesPreview">
+    <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size"
+                      translate="CONTRACTS.PREVIEW.AIRDROP.SEND_TO_GROUP.TITLE"></span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description" ng-show="next_addresses.length && !downloadProgress">
+            <span translate-values="{
+                    from: ngPopUp.params.contract.contract_details.sent_count + 1,
+                    to: ngPopUp.params.contract.contract_details.sent_count + maxCount
+                  }"
+                  translate="CONTRACTS.PREVIEW.AIRDROP.SEND_TO_GROUP.DESCRIPTION"></span>
+        </div>
+    </div>
+
+    <div class="shadow-block__content" ng-show="!next_addresses.length || downloadProgress">
+        <div class="normal-text" translate="PLEASE_WAIT"></div>
+    </div>
+    <div class="csv-addresses-table with-counter-line" ng-show="next_addresses.length && !downloadProgress">
+        <div ng-repeat="address in next_addresses" class="csv-addresses-table__row">
+            <div class="shadow-block__content shadow-block__content_no-tb-padding">
+                <div class="form-control-label">
+                    <b>{{address.address}}</b><br/>
+                    {{address.converted_amount|separateNumber}}&nbsp;{{tokenInfo.symbol}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-show="next_addresses.length && !downloadProgress">
+        <div class="normal-text">
+            <div translate="CONTRACTS.PREVIEW.AIRDROP.SEND_TO_GROUP.TOTAL_TOKENS"
+                 translate-values="{total: allAmounts, symbol: tokenInfo.symbol}"
+            ></div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-show="next_addresses.length && !downloadProgress && !airdrop_enabled">
+        <div class="normal-text warning-text">
+            <i class="icon-warning"></i>
+            <div translate="CONTRACTS.PREVIEW.AIRDROP.LOW_BALANCE"
+                 translate-values="{
+                    require: allAmounts,
+                    tokenSymbol: tokenInfo.symbol
+                 }">
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color"
+         ng-show="next_addresses.length && !downloadProgress">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2">
+                <button class="btn btn-submit" type="button" ng-click="saveAirdropAddress()">
+                    <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS.PREVIEW.CROWD_SALE.WHITELIST.DOWNLOAD_CSV'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                </button>
+            </div>
+
+            <div class="grid-cell grid-cell-1-2 text-right">
+                <button class="btn btn-transparent"
+                        ng-click="sendAirdropAddresses()"
+                        ng-disabled="!airdrop_enabled"
+                        type="button" >
+                    <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+    <div ng-include="'/templates/popups/forms/tron/extensions-alerts.html'"></div>
+</div>

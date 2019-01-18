@@ -37,7 +37,8 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     service.connectToNetwork = function(networkNumber) {
         var defer = $q.defer();
         var currNode = connectToNode(networkNumber);
-        if (!window.tronWeb) {
+
+        if (!(window.tronWeb && window.tronWeb.defaultAddress.hex)) {
             defer.resolve({
                 tronWeb: currNode
             });
@@ -60,11 +61,67 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
         return defer.promise;
     };
 
+    service.checkToken = function(contractModel, networkNumber, balanceAddress) {
+
+        var tokenInfo = {
+            propertiesLength: 0
+        };
+        var tokenProperties = ['decimals', 'symbol'];
+        var defer = $q.defer();
+        var currNode = connectToNode(networkNumber);
+
+        var contract = currNode.contract(contractModel.abi.entrys, contractModel.contract_address);
+
+        tokenProperties.map(function(property) {
+            contract[property]().call().then(function(result) {
+                tokenInfo[property] = result;
+                tokenInfo['propertiesLength']++;
+                if (tokenInfo['propertiesLength'] === tokenProperties.length) {
+                    if (balanceAddress) {
+                        contract.balanceOf(balanceAddress).call().then(function(result) {
+                            tokenInfo.balance = new BigNumber(result.balance).div(Math.pow(10, tokenInfo['decimals'])).toString(10);
+                            defer.resolve(tokenInfo);
+                        });
+                    } else {
+                        defer.resolve(tokenInfo);
+                    }
+                }
+            }, defer.reject);
+        });
+
+
+        return defer.promise;
+    };
+
+    service.getContract = function(address, network) {
+        var defer = $q.defer();
+        if (network) {
+            service.connectToNetwork(network).then(function(result) {
+                result.tronWeb.trx.getContract(address, function(error, result) {
+                    defer.resolve(result);
+                });
+            }, function() {
+                console.log(arguments);
+            });
+            return defer.promise;
+        }
+        $timeout(function() {
+            window.tronWeb.trx.getContract(address, function(result) {
+                console.log(result);
+                defer.resolve();
+            });
+        });
+
+        return defer.promise;
+    };
+
     service.createContract = function(abi, address, network) {
         var defer = $q.defer();
         if (network) {
             service.connectToNetwork(network).then(function(result) {
                 defer.resolve(result.tronWeb.contract(abi, address));
+            }, function() {
+                console.log(arguments);
             });
             return defer.promise;
         }

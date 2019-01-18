@@ -420,7 +420,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         12: 'eos_crowdsale',
         13: 'eos_airdrop',
         14: 'eos_i_token',
-        15: 'tron_token'
+        15: 'tron_token',
+        16: 'game_assets',
+        17: 'tron_airdrop'
     };
 
     var launchContract = function(contract) {

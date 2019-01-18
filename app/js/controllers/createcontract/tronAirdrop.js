@@ -34,7 +34,7 @@ angular.module('app').controller('tronAirdropCreateController', function($scope,
     var createContract = function() {
         if ($scope.contractInProgress) return;
         var data = angular.copy($scope.request);
-
+        data.contract_details.tron_contract = undefined;
         $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});

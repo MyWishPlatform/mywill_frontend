@@ -135,7 +135,8 @@
     "GET_TOKENS": "获得代币",
     "REFUND": "退款",
     "SEND_TOKENS": "发送代币",
-    "CREATE": "生成"
+    "CREATE": "生成",
+    "UNFREEZING": "Unfreezing"
   },
   "FIELDS_ERRORS": {
     "REQUIRED": "该字段必填",
@@ -573,6 +574,32 @@
       }
     },
     "ETH": {
+      "UNFREEZING": {
+        "TITLE": "Defrosting",
+        "DESCRIPTION": "To unfreeze the tokens in your wallet, please follow the instructions.",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
+          "ITEM_3": "Enter token contract address:",
+          "ITEM_4": "Specify Gas limit 100000",
+          "ITEM_5": "Input Data:",
+          "ITEM_6": "Click generate Transaction",
+          "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
+        }
+      },
+      "REFUND": {
+        "TITLE": "Refunding",
+        "DESCRIPTION": "In order for investors to receive funds back, provide them with the following instruction.",
+        "LIST": {
+          "ITEM_1": "Open your wallet (Parity, <a href=\"{{depositUrl}}\" target=\"_blank\">MyEtherWallet</a>)",
+          "ITEM_2": "Choose Send Ether & Tokens tab in your wallet",
+          "ITEM_3": "Enter token contract address:",
+          "ITEM_4": "Specify Gas limit 100000",
+          "ITEM_5": "Input Data:",
+          "ITEM_6": "Click generate Transaction",
+          "ITEM_7": "Confirm the payment by pressing the button \"{{'BUTTONS.DONE'|translate}}\""
+        }
+      },
       "ANY_TRANSACTION": {
         "PART_1": "从您的管理地址发送交易（{{amount||'0'}} ETH）",
         "PART_2": "发送至合约地址",

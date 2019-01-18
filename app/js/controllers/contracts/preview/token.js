@@ -1,10 +1,29 @@
 angular.module('app').controller('tokenPreviewController', function($timeout, $rootScope, contractService, $location,
-                                                                    openedContract, $scope, $filter) {
+                                                                    openedContract, $scope, $filter, web3Service) {
     $scope.contract = openedContract.data;
 
     $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
+
+
+    if (contractDetails.eth_contract_token.address) {
+        web3Service.setProviderByNumber(2);
+        var contract = web3Service.createContractFromAbi(
+            contractDetails.eth_contract_token.address,
+            contractDetails.eth_contract_token.abi
+        );
+
+        contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+            if (error) return;
+            if (result * 1) {
+                $scope.tokensFreezed = true;
+            }
+            $scope.$apply();
+        });
+    }
+
+
 
     var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
     contractDetails.token_holders.map(function(holder) {

@@ -14,7 +14,7 @@
 
 <div ng-show="contract.showedTab == 'code'">
     <div class="shadow-block after-tabs">
-        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+        <div class="shadow-block__content" ng-if="contract.network == 15">
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
@@ -22,26 +22,26 @@
 
         <div class="shadow-block__content">
             <p class="normal-text">
-                <span>{{'CONTRACTS.PREVIEW.AIRDROP_SOURCE_CODE'|translate}}
+                <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="(contract.network == 1) || (contract.network == 3)"
+                          ng-if="contract.network == 14"
                           ng-click="saveAsFile(contract.contract_details.tron_contract.source_code, contract.name + '(airdrop)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
-                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                          ng-if="contract.network == 15">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
             </p>
+
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/contracts/tree/develop'}"></span>
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/tron-airdrop-contract'}"></span>
             </p>
         </div>
-
         <div class="shadow-block__content">
-            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT"></p>
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.SUPPORT_CONTRACT_CODE"></p>
         </div>
     </div>
 </div>

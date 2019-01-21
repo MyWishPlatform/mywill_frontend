@@ -19,6 +19,7 @@
                        pattern=".+"
                        type="password"
                        minlength="8"
+                       name="password"
                        ng-model="request.password1"
                        ng-class="{'ng-invalid ng-invalid-server': serverErrors.password1}"
                        autocomplete="new-password"
@@ -36,8 +37,10 @@
                        autocomplete="new-password"
                        ng-class="{'ng-invalid ng-invalid-server': serverErrors.password2}"
                        ng-model="request.password2" required>
-                <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
-                <span class="field-error form-field_error-pattern" translate="FIELDS_ERRORS.NO_MATCH_PASSWORD"></span>
+                <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"
+                      ng-if="regForm.password.$valid"></span>
+                <span class="field-error form-field_error-pattern" translate="FIELDS_ERRORS.NO_MATCH_PASSWORD"
+                      ng-if="regForm.password.$valid"></span>
                 <span class="field-error form-field_error-server">{{serverErrors.password2.join(' ')}}</span>
             </div>
 

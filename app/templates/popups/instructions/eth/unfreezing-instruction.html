@@ -1,0 +1,82 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title static-width">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="uppercase" translate="CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.TITLE"></span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description">
+            <span translate="CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.DESCRIPTION"></span>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <ul class="new-instruction-list">
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate-values="{depositUrl: depositUrl}"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.LIST.ITEM_1"
+                ></div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.LIST.ITEM_2">
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    {{'CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.LIST.ITEM_3'|translate}}
+                    <div class="copy-block">
+                        <button class="copy-block__button relative"
+                                clipboard supported="supported"
+                                text="ngPopUp.params.contract.contract_details.eth_contract.address"
+                                ng-class="{copied: ngPopUp.params.contract.copied['address']}"
+                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'address')">&nbsp;
+                            <i class="icon-content_copy"></i>
+                        </button>
+                        <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract_token.address}}</div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.LIST.ITEM_4">
+                </div>
+            </li>
+
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text">
+                    {{'CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.LIST.ITEM_5'|translate}}
+                    <div class="copy-block">
+                        <button class="copy-block__button relative"
+                                clipboard supported="supported"
+                                text="'0x5be7fde8'"
+                                ng-class="{copied: ngPopUp.params.contract.copied['dataField']}"
+                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'dataField')">&nbsp;
+                            <i class="icon-content_copy"></i>
+                        </button>
+                        <div class="copy-block__text">0x5be7fde8</div>
+                    </div>
+                </div>
+            </li>
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.LIST.ITEM_6">
+                </div>
+            </li>
+            <li class="new-instruction-list__item">
+                <div class="new-instruction-list__item__text"
+                     translate="CONTRACTS_INSTRUCTIONS.ETH.UNFREEZING.LIST.ITEM_7">
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>

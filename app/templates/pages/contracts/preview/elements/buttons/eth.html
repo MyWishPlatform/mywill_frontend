@@ -44,7 +44,11 @@
             </div>
 
             <!-- Mint form button -->
-            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting">
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(
+                 ((contract.stateValue == 4) && (contract.contract_type == 5) && contract.contract_details.future_minting) ||
+                 ((contract.stateValue == 11) && (contract.contract_type == 4) && (contract.contract_details.continue_minting))
+                 )">
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/mint-token-form.html',
                             newPopupContent: true,
@@ -58,6 +62,42 @@
                     <span translate="CONTRACTS_BUTTONS.MINT"></span>
                 </button><br/><br/>
             </div>
+
+            <!-- CrowdSale refund instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 4) && (contract.contract_details.soft_cap != 0)">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/crowdsale-refunding.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.REFUND"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Unfreezing token contract form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="tokensFreezed">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/unfreezing-instruction.html',
+                            newPopupContent: true,
+                            instructionParams: {
+                                coinName: tokenInfo.symbol,
+                                gasLimit: 100000,
+                                specifyDescription: 'UNFREEZING'
+                            },
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.UNFREEZING"></span>
+                </button><br/><br/>
+            </div>
+
 
             <!-- Finalize token contract form button -->
             <div class="grid-cell grid-cell-vs-1-2"
@@ -381,6 +421,26 @@
                     <span translate="CONTRACTS_BUTTONS.SEND_TOKENS"></span>
                 </button><br/><br/>
             </div>
+
+
+
+            <!-- Aitdrop WITHDRAW button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(((contract.stateValue == 4) || (contract.stateValue == 11)) && (contract.contract_type == 8))">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/withdraw-airdrop-form.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>
+                </button><br/><br/>
+            </div>
+
 
         </div>
     </div>

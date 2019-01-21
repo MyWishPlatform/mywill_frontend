@@ -22,7 +22,7 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         icon: 'icon-contracts',
         route: 'main.contracts.list',
         parent: 'main.contracts'
-    }, {
+    }, /*{
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-eosish-circle',
         route: 'main.join_airdrop',
@@ -36,7 +36,7 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         not: {
             mode: ['tron']
         }
-    }, {
+    }, */{
         title: 'MAIN_MENU.EXTERNAL_DEVELOPERS',
         icon: 'icon-framew',
         route: 'main.extdevs'

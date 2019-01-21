@@ -66,3 +66,34 @@
         class="btn btn-transparent hide-ps">
     <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
 </button>
+
+
+<!-- Add addresses to airdrop -->
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 17) && !contract.contract_details.sent_count"
+        ng-pop-up="{
+            template: '/templates/popups/forms/tron/airdrop-addresses-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent">
+    <span translate="CONTRACTS_BUTTONS.ADD_ADDRESSES"></span>
+</button>
+
+<!-- Airdrop send table instruction button -->
+
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 17) && contract.contract_details.added_count"
+        ng-pop-up="{
+            template: '/templates/popups/data-preview/tron-airdrop-next-send-table.html',
+            newPopupContent: true,
+            class: 'page-size',
+            params: {
+                filter: 'added',
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent">
+    <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>
+</button>
+

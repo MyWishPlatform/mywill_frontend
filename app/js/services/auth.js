@@ -34,7 +34,7 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
         auth: function(params) {
             params.API_PATH = params.API_PATH || API.HOSTS.AUTH_PATH;
             params.path = params.path || API.LOGIN;
-            params.data.username = params.data.username.toLowerCase();
+            params.data.username = params.data.username ? params.data.username.toLowerCase() : params.data.username;
             return requestService.post(params);
         },
         createGhost: function() {

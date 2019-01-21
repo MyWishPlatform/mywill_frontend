@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="baseController" ng-class="{'funny': funny}">
+<head lang="en">
+    <title>MyWish</title>
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, user-scalable=no, initial-scale=1">
+    <link href="/fonts/css?family=Ubuntu:200&amp;subset=latin-ext" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            background-color: #fff;
+        }
+        body {
+            position: relative;
+            min-width: 320px;
+            margin: 0;
+            font-family: Ubuntu, sans-serif;
+        }
+        .bg-circles {
+            position: absolute;
+            max-width: 30%;
+        }
+        .bg-circles-1 {
+            right: 0;
+            top: 100px;
+        }
+        .bg-circles-2 {
+            left: 0;
+            bottom: 100px;
+        }
+        .error-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+        .error-content_img {
+            width: 430px;
+            max-width: 90%;
+            vertical-align: top;
+            margin-bottom: 40px;
+        }
+        .error-content_text {
+            color: #4d525d;
+            font-weight: 200;
+            font-size: 23px;
+        }
+        .error-content_logo {
+            width: 120px;
+            margin-top: 30px;
+        }
+    </style>
+
+    <link rel="shortcut icon" href="/static/favicon/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/favicon/android-chrome-192x192.png" sizes="192x192">
+    <meta name="msapplication-square70x70logo" content="/static/favicon/smalltile.png" />
+    <meta name="msapplication-square150x150logo" content="/static/favicon/mediumtile.png" />
+    <meta name="msapplication-wide310x150logo" content="/static/favicon/widetile.png" />
+
+    <meta name="msapplication-square310x310logo" content="/static/favicon/largetile.png" />
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#206EFF">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#206EFF">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="#206EFF">
+
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+    <link rel="apple-touch-icon" href="/static/favicon/android-chrome-192x192.png">
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="196x196" href="/static/favicon/android-chrome-192x192.png">
+
+</head>
+<body>
+<img class="bg-circles bg-circles-1" src="/static/images/global-error/sp_01.svg">
+<img class="bg-circles bg-circles-2" src="/static/images/global-error/sp_02.svg">
+<div class="error-content">
+    <img src="/static/images/global-error/img.png" class="error-content_img">
+    <div class="error-content_text">
+        Update is in progress, we'll be back soon!
+    </div>
+    <img class="error-content_logo" src="/static/images/logotype-dark.svg">
+</div>
+</body>
+

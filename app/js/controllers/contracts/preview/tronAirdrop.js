@@ -1,4 +1,4 @@
-angular.module('app').controller('airdropPreviewController', function($timeout, web3Service, openedContract,
+angular.module('app').controller('tronAirdropPreviewController', function($timeout, TronService, openedContract,
                                                                       $scope, contractService) {
     $scope.contract = openedContract.data;
 
@@ -7,22 +7,30 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         var details = $scope.contract.contract_details;
         details.all_count = details.added_count + details.processing_count + details.sent_count;
 
+        if ($scope.contract.contract_details.tron_contract.address) {
+            $scope.contract.contract_details.tron_contract.address =
+                TronWeb.address.fromHex($scope.contract.contract_details.tron_contract.address)
+        }
+
         if (withBalanceCheck) {
-            web3Service.getTokenInfo(
-                $scope.contract.network,
-                $scope.contract.contract_details.token_address,
-                $scope.contract.contract_details.eth_contract.address,
-                ['balanceOf', 'decimals']
-            ).then(function(result) {
-                for (var i in result) {
-                    $scope.tokenInfo[i] = result[i];
-                }
-                refreshContract();
+            TronService.getContract(
+                details.token_address, $scope.contract.network
+            ).then(function(contract) {
+                TronService.checkToken(
+                    contract, $scope.contract.network, details.tron_contract.address
+                ).then(function(result) {
+                    $scope.tokenInfo = result;
+                    refreshContract();
+                }, function() {
+                    refreshContract();
+                });
             });
+
         } else {
             refreshContract();
         }
     };
+
     var timerContractUpdater;
     var refreshContract = function() {
         if (($scope.contract.stateValue === 4) || ($scope.contract.stateValue === 101)) {
@@ -37,22 +45,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         }
     };
 
-
-    checkContractPreview();
-
-    var fieldsParams = ['decimals', 'symbol'];
-
-    if ($scope.contract.stateValue >= 4) {
-        fieldsParams = false;
-    }
-    web3Service.getTokenInfo(
-        $scope.contract.network,
-        $scope.contract.contract_details.token_address,
-        $scope.contract.contract_details.eth_contract.address,
-        fieldsParams
-    ).then(function(result) {
-        $scope.tokenInfo = result;
-    });
+    checkContractPreview(true);
 
     $scope.$on('$destroy', function() {
         if (timerContractUpdater) {
@@ -60,21 +53,26 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             timerContractUpdater = false;
         }
     });
-}).controller('airdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state, web3Service) {
+}).controller('tronAirdropAddressesFormController', function($scope, Webworker, $timeout, contractService, $state, TronService) {
 
     /* Get token decimals */
 
     $scope.formWaiting = true;
 
-    web3Service.getTokenInfo(
-        $scope.ngPopUp.params.contract.network,
-        $scope.ngPopUp.params.contract.contract_details.token_address
-    ).then(function(result) {
-        $timeout(function() {
-            $scope.tokenInfo = result;
-            $scope.formWaiting = false;
-            $scope.$apply();
-            $scope.$parent.$broadcast('changeContent');
+    TronService.getContract(
+        $scope.ngPopUp.params.contract.contract_details.token_address,
+        $scope.ngPopUp.params.contract.network
+    ).then(function(contract) {
+        TronService.checkToken(
+            contract,
+            $scope.ngPopUp.params.contract.network
+        ).then(function(result) {
+            $timeout(function() {
+                $scope.tokenInfo = result;
+                $scope.formWaiting = false;
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            });
         });
     });
 
@@ -86,22 +84,30 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
 
     // Check errors for values
     var parseDataForTable = function(results, csvFormat, decimals) {
-        var addressRegExp = /^0x[0-9a-f]{40}$/i;
+
         if (!results.data[results.data.length - 1][0]) {
             results.data = results.data.slice(0, results.data.length - 1);
         }
-        var changeAmountParam = 1;
+        var changeAmountParam = 0;
         if (!csvFormat.decimals) {
-            changeAmountParam = Math.pow(10, decimals);
+            changeAmountParam = decimals;
         }
         var errorsData = [], resultsData = [];
+
         results.data.forEach(function(row, index) {
             var resultRow = {
                 data: row,
                 line: index + 1
             };
+
+
+            row[0] = row[0].replace(/^[\s]*([\S]+)[\s]*$/g, '$1');
+
             var address = row[0] = row[0].replace(/^[\s]*([\S]+)[\s]*$/g, '$1');
             var amount = row[1];
+
+
+
             if (!address) {
                 resultRow.error = {
                     status: 1
@@ -109,21 +115,28 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 errorsData.push(resultRow);
                 return;
             }
-            if (!addressRegExp.test(address)) {
+            if (row[2] === 'INVALID_ADDRESS') {
                 resultRow.error = {
                     status: 2
                 };
                 errorsData.push(resultRow);
                 return;
             }
+
             if (!amount || isNaN(amount)) {
                 resultRow.error = {
                     status: 3
                 };
                 errorsData.push(resultRow);
                 return;
+            } else {
+                var splittedAmount = amount.split('.');
+                if (splittedAmount[1]) {
+                    row[1] = amount = splittedAmount[0] + '.' + (splittedAmount[1].replace(/[0]+$/, ''));
+                }
             }
-            if ((amount * changeAmountParam) % 1 > 0) {
+
+            if ((amount.split('.')[1] || '').length > changeAmountParam) {
                 resultRow.error = {
                     status: 4
                 };
@@ -139,7 +152,16 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     };
 
     var createResultData = function(csvData) {
+
         var myWorker = Webworker.create(parseDataForTable);
+
+        console.log(csvData);
+        csvData.data.forEach(function(row) {
+            if (!TronWeb.isAddress(row[0])) {
+                row[2] = 'INVALID_ADDRESS';
+            }
+        });
+
         myWorker.run(csvData, $scope.csvFormat, $scope.tokenInfo.decimals).then(function(result) {
             $timeout(function() {
                 $scope.tableData = result;
@@ -195,7 +217,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         var reader = new FileReader();
         reader.onload = function(evt) {
             var filecontent = evt.target.result;
-            /(0x)?[0-9a-f]{40}/ig.test(filecontent);
+            /T[0-9a-z]{33}/ig.test(filecontent);
             var lastMatch = RegExp.lastMatch;
             var searchIndex = filecontent.indexOf(lastMatch);
             var delimiter = filecontent[searchIndex + lastMatch.length];
@@ -279,7 +301,11 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                         $scope.saveAddressesError = true;
                         break;
                 }
-                $scope.formWaiting = false;
+                $timeout(function() {
+                    $scope.formWaiting = false;
+                    $scope.$apply();
+                    $scope.$parent.$broadcast('changeContent');
+                });
             });
         });
     };
@@ -317,48 +343,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         });
     };
 
-}).controller('sendAirdropController', function($scope, web3Service) {
-    var contractData = $scope.ngPopUp.params.contract;
-
-    $scope.amount = $scope.ngPopUp.params.amount;
-    $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo;
-
-    $scope.contract = contractData;
-
-    var contractDetails = contractData.contract_details, contract;
-    var params = [[], []];
-
-    $scope.ngPopUp.params.next_addresses.map(function(address) {
-        params[0].push(address.address.replace(/\s/g, ''));
-        params[1].push(address.amount);
-    });
-
-    var methodName = 'transfer';
-
-    var interfaceMethod = web3Service.getMethodInterface(methodName, contractDetails.eth_contract.abi);
-    try {
-        $scope.sendAirdropSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, params);
-    } catch(err) {
-        console.log(err);
-    }
-
-    web3Service.getAccounts(contractData.network).then(function(result) {
-        web3Service.setProviderByNumber(contractData.network);
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, contractData.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
-        }
-    });
-
-    $scope.sendTransaction = function() {
-        contract.methods[methodName](params[0], params[1]).send({
-            from: $scope.currentWallet.wallet
-        }).then(console.log);
-    };
-}).controller('airdropAddressesListPreview', function($scope, contractService, $timeout, FileSaver) {
+}).controller('tronAirdropAddressesListPreview', function($scope, contractService, $timeout, FileSaver) {
 
     $scope.airdropAddressesList = [];
     var contract = $scope.ngPopUp.params.contract;
@@ -368,7 +353,6 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     var getListPartProgress = false;
     var latestRequestResult;
     $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo;
-
     var getNewPageAddresses = function() {
         if (getListPartProgress) return;
 
@@ -392,6 +376,7 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
                 }
                 response.data.results.map(function(resultItem) {
                     resultItem.convertedAmount = new BigNumber(resultItem.amount).div(Math.pow(10, $scope.tokenInfo.decimals)).toString(10);
+                    resultItem.address = TronWeb.address.fromHex(resultItem.address);
                 });
                 $scope.airdropAddressesList = $scope.airdropAddressesList.concat(response.data.results);
                 $scope.$apply();
@@ -431,9 +416,9 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             });
         });
     };
-}).controller('airdropSendAddressesPreview', function($scope, contractService, $timeout, web3Service, FileSaver) {
+}).controller('tronAirdropSendAddressesPreview', function($scope, contractService, $timeout, TronService, FileSaver) {
     var countLimit = 100;
-    var contract = $scope.ngPopUp.params.contract;
+    var contract = $scope.contract = $scope.ngPopUp.params.contract;
     $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo || false;
 
     var createContractAddressesInfo = function() {
@@ -448,7 +433,8 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
             if ($scope.next_addresses.length) {
                 $scope.next_addresses.map(function(address) {
                     allAmounts = allAmounts.plus(address.amount);
-                    address.converted_amount = new BigNumber(address.amount).div(decimalsValue).toString(10)
+                    address.converted_amount = new BigNumber(address.amount).div(decimalsValue).toString(10);
+                    address.address = TronWeb.address.fromHex(address.address);
                 });
                 $scope.totalAmount = allAmounts.toString(10);
                 $scope.allAmounts = new BigNumber(allAmounts).div(decimalsValue).toString(10);
@@ -468,14 +454,17 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
     if ($scope.tokenInfo) {
         createContractAddressesInfo();
     } else {
-        web3Service.getTokenInfo(
-            contract.network,
-            contract.contract_details.token_address,
-            contract.contract_details.eth_contract.address
-        ).then(function(result) {
-            $scope.tokenInfo = result;
-            createContractAddressesInfo();
+        TronService.getContract(
+            contract.contract_details.token_address, contract.network
+        ).then(function(contractModel) {
+            TronService.checkToken(
+                contractModel, contract.network, contract.contract_details.tron_contract.address
+            ).then(function(result) {
+                $scope.tokenInfo = result;
+                createContractAddressesInfo();
+            });
         });
+
     }
 
     $scope.saveAirdropAddress = function() {
@@ -497,83 +486,64 @@ angular.module('app').controller('airdropPreviewController', function($timeout, 
         });
     };
 
-}).controller('airdropWithdrawController', function($scope, web3Service, $timeout){
+    $scope.closeExtensionAlert = function() {
+        $scope.extensionNotInstalled =
+            $scope.extensionNotAuthorized =
+                $scope.extensionOtherUser =
+                    $scope.successTx =
+                        $scope.txServerError = false;
+    };
 
 
-    var contract = angular.copy($scope.ngPopUp.params.contract);
-    $scope.contract = contract;
+    $scope.closeAirdropAddressesForm = function() {
+        $scope.$parent.$broadcast('$closePopUps');
+    };
 
-    web3Service.setProviderByNumber(contract.network);
-    var web3Contract;
 
-    web3Service.getAccounts(contract.network).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
-        })[0];
+    var airdropContract;
 
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, contract.network);
-        }
-
-        web3Contract = web3Service.createContractFromAbi(
-            contract.contract_details.eth_contract.address,
-            contract.contract_details.eth_contract.abi
-        );
-
-        $timeout(function() {
-            $scope.$apply();
-        });
+    TronService.createContract(
+        contract.contract_details.tron_contract.abi,
+        contract.contract_details.tron_contract.address,
+        contract.network
+    ).then(function(result) {
+        airdropContract = result;
     });
 
-    $scope.dataField = {
-        address: contract.contract_details.token_address
-    };
 
 
-    $scope.checkAirdropToken = function() {
-        $scope.tokenInfo = {};
-        if (!$scope.dataField.address) return;
-        web3Service.getTokenInfo(
-            contract.network,
-            $scope.dataField.address,
-            contract.contract_details.eth_contract.address,
-            ['balanceOf', 'decimals']
-        ).then(function(result) {
-            for (var i in result) {
-                $scope.tokenInfo[i] = result[i];
-            }
-            $scope.tokenInfo['balanceOf'] = $scope.tokenInfo['balanceOf'] || 0;
-            $scope.dataField['amount'] = new BigNumber($scope.tokenInfo['balanceOf']).div(Math.pow(10, $scope.tokenInfo['decimals']));
+    $scope.sendAirdropAddresses = function() {
+        if (!window.tronWeb) {
+            $scope.extensionNotInstalled = true;
+            return;
+        } else if (!window.tronWeb.defaultAddress) {
+            $scope.extensionNotAuthorized = true;
+            return;
+        } else if (
+            (window.tronWeb.defaultAddress.hex !== contract.contract_details.admin_address) &&
+            (window.tronWeb.defaultAddress.base58 !== contract.contract_details.admin_address)) {
+            $scope.extensionOtherUser = true;
+            return;
+        }
+
+        var params = [[], []];
+
+        $scope.next_addresses.map(function(address) {
+            params[0].push(address.address.replace(/\s/g, ''));
+            params[1].push(address.amount);
+        });
+
+
+        airdropContract.transfer(params[0], params[1]).send().then(function(response) {
+            $scope.closeAirdropAddressesForm();
+            $scope.successTx = {
+                transaction_id: response
+            };
+            $scope.$apply();
+        }, function(response) {
+            $scope.txServerError = true;
+            $scope.$apply();
         });
     };
-
-    $scope.tokenInfo = {
-        address: $scope.contract.contract_details.token_address
-    };
-
-    $scope.withdrawSignature = {};
-    $scope.checkAirdropToken();
-
-    $scope.generateSignature = function() {
-        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
-        var amount = new BigNumber($scope.dataField.amount).times(powerNumber).toString(10);
-        var params = [$scope.dataField.address, amount];
-
-        var withdrawInterfaceMethod = web3Service.getMethodInterface('withdrawToken', contract.contract_details.eth_contract.abi);
-
-        $scope.withdrawSignature.string = (new Web3()).eth.abi.encodeFunctionCall(
-            withdrawInterfaceMethod, params
-        );
-    };
-
-    $scope.sendWithdrawTransaction = function() {
-        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
-        var amount = new BigNumber($scope.dataField.amount).times(powerNumber).toString(10);
-
-        web3Contract.methods.withdrawToken($scope.dataField.address, amount).send({
-            from: $scope.currentWallet.wallet
-        }).then(console.log);
-    };
-
 
 });

@@ -93,12 +93,16 @@
                                    ng-model="regRequest.password1"
                                    ng-class="{'ng-invalid ng-invalid-server': regServerErrors.password1}"
                                    autocomplete="new-password"
+                                   name="password"
                                    required
                                    class="form-control-input">
-                            <span class="field-error form-field_error-pattern" translate="FIELDS_ERRORS.INCORRECT_PASSWORD"></span>
-                            <span class="field-error form-field_error-minlength" translate="FIELDS_ERRORS.MIN_LENGTH_PASSWORD"></span>
-                            <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
-                            <span class="field-error form-field_error-server">{{regServerErrors.password1.join(', ')}}</span>
+                            <span class="field-error form-field_error-pattern"
+                                  translate="FIELDS_ERRORS.INCORRECT_PASSWORD"></span>
+                            <span class="field-error form-field_error-minlength"
+                                  translate="FIELDS_ERRORS.MIN_LENGTH_PASSWORD"></span>
+                            <span class="field-error form-field_error-required"
+                                  translate="FIELDS_ERRORS.REQUIRED"></span>
+                            <span class="field-error form-field_error-server">{{regServerErrors.password1.join(' ')}}</span>
                         </div>
 
                         <div class="form-control contract-form-row">
@@ -109,11 +113,15 @@
                                    ng-class="{'ng-invalid ng-invalid-server': regServerErrors.password2}"
                                    ng-model="regRequest.password2" required
                                    class="form-control-input">
-                            <span class="field-error form-field_error-required" translate="FIELDS_ERRORS.REQUIRED"></span>
-                            <span class="field-error form-field_error-pattern" translate="FIELDS_ERRORS.NO_MATCH_PASSWORD"></span>
-                            <span class="field-error form-field_error-server">{{regServerErrors.password2.join(', ')}}</span>
+                            <span class="field-error form-field_error-required"
+                                  ng-if="regForm.password.$valid"
+                                  translate="FIELDS_ERRORS.REQUIRED"></span>
+                            <span class="field-error form-field_error-pattern"
+                                  ng-if="regForm.password.$valid"
+                                  translate="FIELDS_ERRORS.NO_MATCH_PASSWORD"></span>
+                            <span class="field-error form-field_error-server">{{regServerErrors.password2.join(' ')}}</span>
                             <span class="field-error" style="display: block"
-                                  ng-if="regServerErrors.non_field_errors">{{regServerErrors.non_field_errors.join(', ')}}</span>
+                                  ng-if="regServerErrors.non_field_errors">{{regServerErrors.non_field_errors.join(' ')}}</span>
                         </div>
 
                         <div class="form-control contract-form-row"><br/>

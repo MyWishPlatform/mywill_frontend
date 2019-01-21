@@ -9,6 +9,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "network": "eos",
         "endpoints": [
             {
+                "name": "Latest",
+                "protocol": "https",
+                "port": 443,
+                "url": "api.eosdetroit.io",
+                "description": "API Node"
+            },
+            {
                 "name": "EOS MyWish",
                 "protocol": "https",
                 "port": 443,

@@ -19,7 +19,6 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
             }
 
             var validator = function(value) {
-                console.log(value);
                 if (!value) return;
                 var val = value;
                 if (scope.ngChecksumAddressValidator.network === 'ETH') {

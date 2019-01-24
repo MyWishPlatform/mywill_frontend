@@ -5,9 +5,6 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
             ngChecksumAddressValidator: '='
         },
         link: function(scope, elem, attrs, ctrl) {
-            ctrl.$formatters.unshift(function (value) {
-                return ctrl.$modelValue;
-            });
 
             switch(scope.ngChecksumAddressValidator.network) {
                 case 'ETH':
@@ -21,7 +18,8 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                     break;
             }
 
-            ctrl.$parsers.unshift(function(value) {
+            var validator = function(value) {
+                console.log(value);
                 if (!value) return;
                 var val = value;
                 if (scope.ngChecksumAddressValidator.network === 'ETH') {
@@ -38,10 +36,13 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                         validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);
                         break;
                 }
-
                 ctrl.$setValidity('valid-address', validAddress);
                 return validAddress ? value : false;
-            });
+            };
+
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.unshift(validator);
+
         }
     }
 });

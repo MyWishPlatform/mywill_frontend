@@ -24,8 +24,8 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     }
 
 
-    if (contractDetails.eth_contract_token.address) {
-        web3Service.setProviderByNumber(2);
+    if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {
+        web3Service.setProviderByNumber($scope.contract.network);
         var contractWeb3 = web3Service.createContractFromAbi(
             contractDetails.eth_contract_token.address,
             contractDetails.eth_contract_token.abi

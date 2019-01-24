@@ -155,7 +155,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractInfo].address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
             <br class="show-ls"/>
-            <span class="identicon-container">
+            <span class="identicon-container" ng-if="blockchain === 'ETH'">
                 <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
@@ -257,7 +257,7 @@
                     <div class="form-control-label"
                          translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></div>
                     <br class="show-ls"/>
-                    <span class="identicon-container">
+                    <span class="identicon-container" ng-if="blockchain === 'ETH'">
                         <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
                     </span>
                     <div class="contract-wallet-information-wallet">
@@ -293,7 +293,7 @@
             <div class="form-control-label bold"
                  translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"></div>
             <br class="show-ls"/>
-            <span class="identicon-container">
+            <span class="identicon-container" ng-if="blockchain === 'ETH'">
                 <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
@@ -361,7 +361,7 @@
         </div>
 
         <!-- Authio -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="blockchain === 'ETH'">
             <span class="form-control-label">
                 <i class="icon-note-list form-control-label-icon"></i>
                 {{'CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.LABEL'|translate}}
@@ -396,7 +396,7 @@
          ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
 </div>
 
-<div ng-show="showedTab == 'audit'">
+<div ng-show="showedTab == 'audit'" ng-if="blockchain === 'ETH'">
     <div ng-if="!contract.withAuthioForm" class="shadow-block after-tabs">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">

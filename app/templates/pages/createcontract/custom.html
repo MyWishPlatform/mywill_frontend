@@ -4,7 +4,7 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="shadow-block__content__title">
-                        <i class="icon-wedding shadow-block__content__title__icon"></i>
+                        <i class="icon-custom-contract shadow-block__content__title__icon"></i>
                         <span class="shadow-block__content__title__text" translate="CONTRACTS.FORMS.CUSTOM.TITLE"></span>
                     </div>
                     <div class="shadow-block__content__text shadow-block__content__text_description">
@@ -16,12 +16,6 @@
     </div>
     <form class="shadow-block__content" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
         <div class="simple-form-wrapper">
-            <div class="simple-form-field-row">
-                <label class="simple-form-field-label" translate="CONTRACTS.FORMS.CUSTOM.FIELDS.USERNAME.LABEL"></label>
-                <div class="simple-form-field-input">
-                    <input class="form-control-input" ng-model="request.username" required/>
-                </div>
-            </div>
             <div class="simple-form-field-row">
                 <label class="simple-form-field-label" translate="CONTRACTS.FORMS.CUSTOM.FIELDS.EMAIL.LABEL"></label>
                 <div class="simple-form-field-input">
@@ -41,9 +35,6 @@
                 <div class="simple-form-field-input simple-form-buttons-container">
                     <button class="btn btn-submit">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.SEND'|translate}}&nbsp;&nbsp;&nbsp;</span>
-                    </button>
-                    <button class="btn btn-transparent" type="reset">
-                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CLEAN'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </button>
                 </div>
             </div>

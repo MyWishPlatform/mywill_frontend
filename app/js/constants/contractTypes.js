@@ -45,7 +45,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
 
     var customContract = {
-        'icon': 'icon-wedding',
+        'icon': 'icon-custom-contract',
         'title': 'CONTRACTS.FORMS.CUSTOM.TITLE',
         'description': 'CONTRACTS.FORMS.CUSTOM.DESCRIPTION',
         'typeNumber': '-2',

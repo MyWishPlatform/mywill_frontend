@@ -38,13 +38,13 @@
       box-shadow: 0 0.1em 0.6em rgba(0, 0, 0, 0.25);
     }
     &.lighter-type {
-      box-shadow: 0 0 1em rgb(128, 112, 255);
+      box-shadow: 0 0 1em $main-color;
 
       &:hover, &:focus {
-        box-shadow: 0 0 2em rgb(128, 112, 255);
+        box-shadow: 0 0 2em $main-color;
       }
       &:active {
-        box-shadow: 0 0 0.6em rgb(128, 112, 255);
+        box-shadow: 0 0 0.6em $main-color;
       }
     }
   }

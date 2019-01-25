@@ -18,7 +18,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'TRON_TOKEN': 15,
     'TRON_GA': 16,
     'TRON_AIRDROP': 17,
-    'WEDDING': '-1'
+    'WEDDING': '-1',
+    'CUSTOM': '-2'
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',
@@ -38,11 +39,23 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     15: 'tronToken',
     16: 'tronGA',
     17: 'tronAirdrop',
-    '-1': 'wedding'
+    '-1': 'wedding',
+    '-2': 'custom'
+
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
+
+    var customContract = {
+        'icon': 'icon-wedding',
+        'title': 'CONTRACTS.FORMS.CUSTOM.TITLE',
+        'description': 'CONTRACTS.FORMS.CUSTOM.DESCRIPTION',
+        'typeNumber': '-2',
+        'type': CONTRACT_TYPES_NAMES_CONSTANTS['-2'],
+        'class': 'lighter-type'
+    };
+
     var eth = {
         'networks': [1, 2],
-        'list':[{
+        'list':[customContract, {
             'icon': 'icon-crowdsale',
             'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
@@ -93,14 +106,13 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'title': 'PAGES.CREATE_CONTRACT.WEDDING.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.WEDDING.DESCRIPTION',
             'typeNumber': '-1',
-            'type:': 'wedding',
             'type': CONTRACT_TYPES_NAMES_CONSTANTS['-1']
         }]
     };
 
     var neo = {
         'networks': [6, 6],
-        'list': [{
+        'list': [customContract, {
             'icon': 'icon-token',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
@@ -117,7 +129,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var rsk = {
         'networks': [3, 4],
-        'list': [{
+        'list': [customContract, {
             'icon': 'icon-lastwill',
             'title': 'PAGES.CREATE_CONTRACT.WILL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.WILL.DESCRIPTION',
@@ -129,7 +141,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var eosDefault = {
         'networks': [10, 11],
-        'list': [{
+        'list': [customContract, {
             'icon': 'icon-eos-wallet',
             'title': 'PAGES.CREATE_CONTRACT.EOS_WALLET.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.EOS_WALLET.DESCRIPTION',
@@ -169,7 +181,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var tronDefault = {
         'networks': [14, 15],
-        'list': [{
+        'list': [customContract, {
             'icon': 'icon-tron-token',
             'title': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.DESCRIPTION',

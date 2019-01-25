@@ -843,6 +843,22 @@
           }
         }
       },
+      "CUSTOM": {
+        "TITLE": "Custom contract",
+        "DESCRIPTION": "Create custom smart contract with any conditions. We can develop or customize any smart contract.",
+        "FORM_DESCRIPTION": "Please fill the form below and specify your wishes. We would be glad to create any custom smart contracts for you.",
+        "FIELDS": {
+          "USERNAME": {
+            "LABEL": "ユーザー名"
+          },
+          "EMAIL": {
+            "LABEL": "メールアドレス"
+          },
+          "DESCRIPTION": {
+            "PLACEHOLDER": "契約の説明"
+          }
+        }
+      },
       "FIELDS": {
         "ENTER_CONTRACT_NAME": {
           "LABEL": "契約名を入力："

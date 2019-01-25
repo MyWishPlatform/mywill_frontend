@@ -1,0 +1,61 @@
+<div class="shadow-block">
+    <div class="shadow-block">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="icon-wedding shadow-block__content__title__icon"></i>
+                        <span class="shadow-block__content__title__text" translate="CONTRACTS.FORMS.CUSTOM.TITLE"></span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="CONTRACTS.FORMS.CUSTOM.FORM_DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="shadow-block__content" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
+        <div class="simple-form-wrapper">
+            <div class="simple-form-field-row">
+                <label class="simple-form-field-label" translate="CONTRACTS.FORMS.CUSTOM.FIELDS.USERNAME.LABEL"></label>
+                <div class="simple-form-field-input">
+                    <input class="form-control-input" ng-model="request.username" required/>
+                </div>
+            </div>
+            <div class="simple-form-field-row">
+                <label class="simple-form-field-label" translate="CONTRACTS.FORMS.CUSTOM.FIELDS.EMAIL.LABEL"></label>
+                <div class="simple-form-field-input">
+                    <input class="form-control-input" type="email" ng-model="request.email" required/>
+                </div>
+            </div>
+            <div class="simple-form-field-row">
+                <label class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</label>
+                <div class="simple-form-field-input">
+                    <textarea  class="form-control-input"
+                               placeholder="{{ 'CONTRACTS.FORMS.CUSTOM.FIELDS.DESCRIPTION.PLACEHOLDER'|translate}}"
+                               ng-model="request.message" required></textarea>
+                </div>
+            </div>
+            <div class="simple-form-field-row">
+                <div class="simple-form-field-label simple-form-mobile-hidden">&nbsp;</div>
+                <div class="simple-form-field-input simple-form-buttons-container">
+                    <button class="btn btn-submit">
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.SEND'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                    <button class="btn btn-transparent" type="reset">
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CLEAN'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-pop-up="{
+    template: '/templates/popups/alerts/form-request-success.html',
+    newPopupContent: true,
+    opened: true,
+    class: 'deleting-contract',
+    noClickShow: true,
+    onClose: resetForm
+}" ng-if="formRequestSuccess"></div>

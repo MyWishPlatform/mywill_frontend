@@ -16,6 +16,8 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
 
     $scope.setContract = function(contract) {
 
+        contract.original_cost = contract.cost;
+
         $scope.contract = contract;
         $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
         $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
@@ -40,6 +42,7 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
     $scope.changePromoCode = function(contract) {
         contract.discountError = false;
         contract.discount = 0;
+        contract.cost = contract.original_cost;
     };
 
 

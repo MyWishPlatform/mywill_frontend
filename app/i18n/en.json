@@ -830,7 +830,23 @@
       "PASTE_ADDRESS": "(use custom address)",
       "WEDDING": {
         "TITLE": "Wedding contract",
-        "DESCRIPTION": "Please fill the form below and specify your wishes. We will ask contact of your partner before contract creation.",
+        "DESCRIPTION": "Please fill the form below and specify your wishes.<br/> Our technical team will contact you as soon as possible.<br/> You can also reach us by email: support@mywish.io or using our online chat.",
+        "FIELDS": {
+          "USERNAME": {
+            "LABEL": "User&nbsp;name"
+          },
+          "EMAIL": {
+            "LABEL": "E-mail"
+          },
+          "DESCRIPTION": {
+            "PLACEHOLDER": "Contract description"
+          }
+        }
+      },
+      "CUSTOM": {
+        "TITLE": "Custom contract",
+        "DESCRIPTION": "We will develop and deploy any smart contract, just provide us with your requirements.",
+        "FORM_DESCRIPTION": "Please fill the form below and specify your wishes.<br/> Our technical team will contact you as soon as possible. <br/>You can also reach us by email: <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or using our online chat.",
         "FIELDS": {
           "USERNAME": {
             "LABEL": "User&nbsp;name"

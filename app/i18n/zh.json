@@ -843,6 +843,22 @@
           }
         }
       },
+      "CUSTOM": {
+        "TITLE": "Custom contract",
+        "DESCRIPTION": "We will develop and deploy any smart contract, just provide us with your requirements.",
+        "FORM_DESCRIPTION": "Please fill the form below and specify your wishes.<br/> Our technical team will contact you as soon as possible.<br/> You can also reach us by email: <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or using our online chat.",
+        "FIELDS": {
+          "USERNAME": {
+            "LABEL": "用户名"
+          },
+          "EMAIL": {
+            "LABEL": "电子邮箱"
+          },
+          "DESCRIPTION": {
+            "PLACEHOLDER": "合约描述"
+          }
+        }
+      },
       "FIELDS": {
         "ENTER_CONTRACT_NAME": {
           "LABEL": "输入合约名称："

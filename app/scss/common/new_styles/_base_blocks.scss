@@ -37,6 +37,16 @@
     &:active {
       box-shadow: 0 0.1em 0.6em rgba(0, 0, 0, 0.25);
     }
+    &.lighter-type {
+      box-shadow: 0 0 1em $main-color;
+
+      &:hover, &:focus {
+        box-shadow: 0 0 2em $main-color;
+      }
+      &:active {
+        box-shadow: 0 0 0.6em $main-color;
+      }
+    }
   }
   &__content {
     padding: 2em 2.5em;

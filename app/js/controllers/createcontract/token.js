@@ -65,6 +65,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         $scope.chartData = angular.copy($scope.token_holders);
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
+
     $scope.chartOptions = {
         itemValue: 'amount',
         itemLabel: 'address'
@@ -97,6 +98,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             holder.parsed_freeze_date = holder.freeze_date.format('X') * 1;
         });
         $scope.request.future_minting = $scope.request.future_minting || !$scope.token_holders.length;
+        $scope.checkTokensAmount();
     };
 
 

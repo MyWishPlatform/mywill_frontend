@@ -53,12 +53,12 @@
                 <div class="grid-row" ng-if="request.hard_cap && request.rate">
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
-                            {{blockchain}} {{additionalParams.ethHardCap|number:2}}
+                            {{blockchain}} {{(request.hard_cap / request.rate)| number:2}}
                         </div>
                     </div>
                     <div class="grid-cell grid-cell-1-2">
                         <div class="field-advanced-description">
-                            ${{additionalParams.usdHardCap}}
+                            ${{(request.hard_cap / request.rate * currencyRate.USD)| number:2}}
                         </div>
                     </div>
                 </div>

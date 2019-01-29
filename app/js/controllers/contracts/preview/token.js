@@ -7,7 +7,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     var contractDetails = $scope.contract.contract_details;
 
 
-    if (contractDetails.eth_contract_token.address) {
+    if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {
         web3Service.setProviderByNumber(2);
         var contract = web3Service.createContractFromAbi(
             contractDetails.eth_contract_token.address,

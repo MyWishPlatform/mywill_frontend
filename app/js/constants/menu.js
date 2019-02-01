@@ -22,6 +22,21 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         icon: 'icon-contracts',
         route: 'main.contracts.list',
         parent: 'main.contracts'
+    }, {
+        title: 'MAIN_MENU.JOIN_AIRDROP',
+        icon: 'icon-tron-token',
+        route: 'main.join_tronish_airdrop',
+        not: {
+            mode: ['eos', 'default']
+        }
+    }, {
+        title: 'MAIN_MENU.JOIN_AIRDROP',
+        icon: 'icon-tron-token',
+        static: true,
+        url: 'https://tron.mywish.io/join_tronish_airdrop',
+        not: {
+            mode: ['tron']
+        }
     }, /*{
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-eosish-circle',

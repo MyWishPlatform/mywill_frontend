@@ -188,6 +188,15 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         abstract: true,
         template: '<div ui-view></div>',
         controller: 'baseContractsController'
+    }).state('main.join_tronish_airdrop', {
+        url: '/join_tronish_airdrop',
+        templateUrl: templatesPath + 'join_tronish_airdrop.html',
+        controller: 'joinTronishAirdropController',
+        onEnter: function($rootScope, $state) {
+            if ($rootScope.sitemode !== 'tron') {
+                $state.go('main.base');
+            }
+        }
     // }).state('main.join_airdrop', {
     //     url: '/join_airdrop',
     //     templateUrl: templatesPath + 'join_airdrop.html',

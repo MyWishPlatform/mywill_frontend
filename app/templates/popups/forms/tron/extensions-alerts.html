@@ -46,3 +46,12 @@
                     onClose: closeExtensionAlert,
                     newPopupContent: true
                 }"></div>
+
+<div ng-if="extensionNotSelectedNetwork" ng-pop-up="{
+                    template: '/templates/popups/alerts/tron-ext-network-error.html',
+                    class: 'deleting-contract',
+                    params: {},
+                    opened: true,
+                    onClose: closeExtensionAlert,
+                    newPopupContent: true
+                }"></div>

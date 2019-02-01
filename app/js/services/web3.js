@@ -46,18 +46,28 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
 
     var currentProvider;
 
+
+    var isProduction = (location.host.indexOf('tron.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
+
+
+    this.isProduction = function() {
+        return isProduction;
+    };
+
+
     this.setProviderByNumber = function(networkId) {
 
         networkId = networkId * 1;
+
         switch (networkId) {
             case 1:
-                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.INFURA_ADDRESS));
+                web3.setProvider(new Web3.providers.HttpProvider(isProduction ? APP_CONSTANTS.INFURA_ADDRESS : APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS));
                 break;
             case 2:
                 web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.ROPSTEN_INFURA_ADDRESS));
                 break;
             case 3:
-                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.RSK_NET_ADDRESS));
+                web3.setProvider(new Web3.providers.HttpProvider(isProduction ? APP_CONSTANTS.RSK_NET_ADDRESS : APP_CONSTANTS.RSK_TESTNET_NET_ADDRESS));
                 break;
             case 4:
                 web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.RSK_TESTNET_NET_ADDRESS));
@@ -66,6 +76,13 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     };
 
     this.setProvider = function(providerName, network) {
+
+        switch (network) {
+            case 1:
+                network = isProduction ? network : 2;
+                break;
+        }
+
         switch (providerName) {
             case 'metamask':
 
@@ -120,6 +137,13 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         accountsList = [];
         var defer = $q.defer();
         var countProviders = 0;
+
+        switch (network) {
+            case 1:
+                network = isProduction ? network : 2;
+                break;
+        }
+
         for (var clientName in web3Providers) {
             countProviders++;
             getAccounts(clientName, network).then(function(result) {

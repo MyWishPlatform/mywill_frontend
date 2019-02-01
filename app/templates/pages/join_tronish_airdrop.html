@@ -1,0 +1,281 @@
+<div class="main-section-content">
+
+    <div class="contract-preview-tabs" ng-init="contract.showedTab = 'tron'">
+        <div class="contract-preview-one-tab"
+             ng-class="{active: contract.showedTab == 'tron'}"
+             ng-click="contract.showedTab = 'tron'">
+            <span>I have TRX</span>
+        </div>
+        <div class="contract-preview-one-tab"
+             ng-class="{active: contract.showedTab == 'eth'}"
+             ng-click="contract.showedTab = 'eth'">
+            <span>I have WISH</span>
+        </div>
+        <div class="contract-preview-one-tab"
+             ng-class="{active: contract.showedTab == 'eos'}"
+             ng-click="contract.showedTab = 'eos'">
+            <span>I have EOSISH</span>
+        </div>
+    </div>
+
+
+
+
+    <div ng-show="contract.showedTab == 'tron'">
+        <div class="shadow-block after-tabs">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+                <div class="contract-info__network"
+                     ng-class="'contract-info__network_14'">
+                    <span>{{'CONTRACTS_NETWORKS.NETWORK_14'|translate}}</span>
+                </div>
+                <div class="shadow-block__content__blue-title">
+                    <i class="shadow-block__content__blue-title__icon icon-tron-token"></i>
+                    <div class="shadow-block__content__blue-title__name">
+                        <span class="big-size" translate="MAIN_MENU.JOIN_AIRDROP"></span>
+                    </div>
+                </div>
+                <div class="shadow-block__content__description">
+                <span>
+                    <a href="https://medium.com/@VladimirTikhomirov/instructions-for-getting-eosish-wish-holders-f2700234191f"
+                       target="_blank" translate="AIRDROP_TOOL.RULES"></a>
+                </span>
+                </div>
+            </div>
+            <form class="shadow-block__content" name="tronAccountsForm">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                        <div class="form-control">
+                            <div class="form-control-label">
+                                <div class="float-right"
+                                     ng-bind="checkedEthAddress ? ('BALANCE'|translate) +': ' + (checkedEthAddress|separateNumber) + ' WISH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
+                                <span translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.LABEL"></span>
+                            </div>
+                            <input type="text" class="form-control-input"
+                                   ng-model="request.tron_address"
+                                   name="tron_address"
+                                   required
+                                   ng-change="checkTronAddress(tronAccountsForm['tron_address'])"
+                                   ng-checksum-address-validator="{'network': 'TRON'}">
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                        <div class="form-control-label">&nbsp;</div>
+                        <div class="form-control-description__text"
+                             translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.DESCRIPTION"></div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+                <button ng-click="attachTronAddress()"
+                        class="btn btn-transparent mobile-width-100"
+                        ng-disabled="!tronAccountsForm.$valid || attachedTRONAddress"
+                        type="button">
+                    <span translate="AIRDROP_TOOL.SAVE_TRON_BUTTON"></span>
+                </button>
+            </div>
+        </div>
+        <div ng-if="contract.showedTab == 'tron'" ng-include="'/templates/popups/forms/tron/extensions-alerts.html'"></div>
+    </div>
+
+
+    <div ng-show="contract.showedTab == 'eth'">
+        <div class="shadow-block after-tabs">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+                <div class="contract-info__network"
+                     ng-class="'contract-info__network_1'">
+                    <span>{{'CONTRACTS_NETWORKS.NETWORK_1'|translate}}</span>
+                </div>
+                <div class="shadow-block__content__blue-title">
+                    <i class="shadow-block__content__blue-title__icon icon-tron-token"></i>
+                    <div class="shadow-block__content__blue-title__name">
+                        <span class="big-size" translate="MAIN_MENU.JOIN_AIRDROP"></span>
+                    </div>
+                </div>
+                <div class="shadow-block__content__description">
+                <span>
+                    <a href="https://medium.com/@VladimirTikhomirov/instructions-for-getting-eosish-wish-holders-f2700234191f"
+                       target="_blank" translate="AIRDROP_TOOL.RULES"></a>
+                </span>
+                </div>
+            </div>
+            <form class="shadow-block__content" name="ethAccountsForm">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                        <div class="form-control">
+                            <div class="form-control-label">
+                                <div class="float-right"
+                                     ng-bind="checkedWISHBalance ? ('BALANCE'|translate) +': ' + (checkedWISHBalance|separateNumber) + ' WISH' : WISHBbalanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
+                                <span translate="AIRDROP_TOOL.FIELDS.ETH_ADDRESS.LABEL"></span>
+                            </div>
+                            <input type="text" class="form-control-input"
+                                   ng-model="request.eth_address"
+                                   name="eth_address"
+                                   required
+                                   ng-change="checkETHAddress(ethAccountsForm['eth_address'])"
+                                   ng-checksum-address-validator="{'network': 'ETH'}">
+
+                            <span class="field-success grey-text-color"
+                                  ng-if="!checkedTRONAddress && checkedWISHBalance"
+                                  translate="AIRDROP_TRONISH_TOOL.NO_ACCOUNT_CONNECTED">
+                            </span>
+                            <span class="field-success"
+                                  ng-if="checkedTRONAddress"
+                                  translate-values="{
+                                    checkedTRONAddress: checkedTRONAddress
+                                  }"
+                                  translate="AIRDROP_TRONISH_TOOL.FIELDS.ETH_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                        <div class="form-control-label">&nbsp;</div>
+                        <div class="form-control-description__text"
+                             translate="AIRDROP_TOOL.FIELDS.ETH_ADDRESS.DESCRIPTION"></div>
+                    </div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                        <div class="form-control">
+                            <div class="form-control-label">
+                                <span translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.LABEL"></span>
+                            </div>
+                            <input type="text" class="form-control-input"
+                                   ng-model="request.tron_address"
+                                   name="tron_address"
+                                   ng-disabled="checkedTRONAddress"
+                                   required
+                                   ng-change="checkETHAddress(accountsForm['tron_address'])"
+                                   ng-checksum-address-validator="{'network': 'TRON'}">
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                        <div class="form-control-label">&nbsp;</div>
+                        <div class="form-control-description__text"
+                             translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.DESCRIPTION_GETTING"></div>
+                    </div>
+                </div>
+            </form>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+                <button ng-click="checkSignature(accountsForm)"
+                        ng-pop-up="{
+                            template: '/templates/popups/instructions/tron/airdrop-tool-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                eth_address: request.eth_address,
+                                tron_address: request.tron_address
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100"
+                        ng-disabled="!ethAccountsForm.$valid || checkedTRONAddress"
+                        type="button">
+                    <span translate="AIRDROP_TOOL.SAVE_TRON_BUTTON"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-show="contract.showedTab == 'eos'">
+        <div class="shadow-block after-tabs">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+                <div class="contract-info__network"
+                     ng-class="'contract-info__network_10'">
+                    <span>{{'CONTRACTS_NETWORKS.NETWORK_10'|translate}}</span>
+                </div>
+                <div class="shadow-block__content__blue-title">
+                    <i class="shadow-block__content__blue-title__icon icon-tron-token"></i>
+                    <div class="shadow-block__content__blue-title__name">
+                        <span class="big-size" translate="MAIN_MENU.JOIN_AIRDROP"></span>
+                    </div>
+                </div>
+                <div class="shadow-block__content__description">
+                <span>
+                    <a href="https://medium.com/@VladimirTikhomirov/instructions-for-getting-eosish-wish-holders-f2700234191f"
+                       target="_blank" translate="AIRDROP_TOOL.RULES"></a>
+                </span>
+                </div>
+            </div>
+
+            <form class="shadow-block__content" name="eosAccountsForm">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                        <div class="form-control">
+                            <label for="eos_address"
+                                   class="form-control-label">
+                                <div class="float-right"
+                                     ng-bind="checkedEOSISHBalance ? ('BALANCE'|translate) +': ' + (checkedEOSISHBalance|separateNumber) + ' EOSISH' : eosBalanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>
+                                <span translate="AIRDROP_TOOL.FIELDS.EOS_ACCOUNT.LABEL"></span>
+                            </label>
+                            <div ng-eos-account
+                                 ng-model="request.eos_address"
+                                 ng-eos-account-options="{
+                                    name: 'eos_address',
+                                    network: 10,
+                                    onInit: initField,
+                                    change: onSelectEOSAccount,
+                                    startChange: resetEOSField
+                                 }"></div>
+
+
+                            <span class="field-success grey-text-color"
+                                  ng-if="(currentEOSTRONAddress === null) && checkedEOSISHBalance"
+                                  translate="AIRDROP_TRONISH_TOOL.NO_ACCOUNT_CONNECTED">
+                            </span>
+
+                            <span class="field-success"
+                                  ng-if="currentEOSTRONAddress"
+                                  translate-values="{
+                                    checkedTRONAddress: currentEOSTRONAddress.tron_address
+                                  }"
+                                  translate="AIRDROP_TRONISH_TOOL.FIELDS.EOS_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>
+
+
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                        <div class="form-control-label">&nbsp;</div>
+                        <div class="form-control-description__text"
+                             translate="AIRDROP_TRONISH_TOOL.FIELDS.EOS_ADDRESS.DESCRIPTION"></div>
+                    </div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                        <div class="form-control">
+                            <div class="form-control-label">
+                                <span translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.LABEL"></span>
+                            </div>
+                            <input type="text" class="form-control-input"
+                                   ng-model="request.tron_address"
+                                   name="tron_address"
+                                   required
+                                   ng-disabled="currentEOSTRONAddress"
+                                   ng-checksum-address-validator="{'network': 'TRON'}">
+
+                        </div>
+                    </div>
+                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                        <div class="form-control-label">&nbsp;</div>
+                        <div class="form-control-description__text"
+                             translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.DESCRIPTION_GETTING"></div>
+                    </div>
+                </div>
+
+            </form>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+                <button ng-click="attachEosTronAddress()"
+                        class="btn btn-transparent mobile-width-100"
+                        ng-disabled="!eosAccountsForm.$valid || currentEOSTRONAddress"
+                        type="button">
+                    <span translate="AIRDROP_TOOL.SAVE_TRON_BUTTON"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-if="contract.showedTab == 'eos'" ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
+</div>
+
+
+<div ng-pop-up="{
+    template: '/templates/popups/disclaimers/join_airdrop.html',
+    opened: true,
+    newPopupContent: true,
+    params: {}
+}"></div>

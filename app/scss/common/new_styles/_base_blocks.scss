@@ -48,9 +48,19 @@
       }
     }
   }
+
   &__content {
     padding: 2em 2.5em;
     position: relative;
+    &.shadow-block_hovered {
+      background-color: inherit;
+      &:hover {
+        z-index: 3;
+        margin-bottom: -1px;
+        margin-top: 1px;
+        border-radius: 0.9em;
+      }
+    }
     > .for-shadow-block {
       margin: 0 2.5em;
     }

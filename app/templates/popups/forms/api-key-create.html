@@ -21,7 +21,8 @@
                            minlength="1"
                            maxlength="80"
                            pattern="[a-zA-Z0-9]+"
-                           ng-model="ngPopUp.params.dataModel.label"
+                           ng-model="ngPopUp.params.formData.apiFormRequest.label"
+                           autofocus
                            class="form-control-input"/>
                     <br/><br/>
                     <span class="form-control-description__text">
@@ -38,8 +39,13 @@
             <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CLOSE'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
         <button class="btn btn-submit" type="button"
-                ng-click="ngPopUp.params.submitApiForm()"
-                ng-disabled="!keyApiForm.$valid">
+                ng-click="ngPopUp.params.submitApiForm(closeCurrentPopup)"
+                ng-disabled="!keyApiForm.$valid || ngPopUp.params.formData.createTokenProgress">
+            <span class="lds-ellipsis" ng-if="ngPopUp.params.formData.createTokenProgress">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
             <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CREATE'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>

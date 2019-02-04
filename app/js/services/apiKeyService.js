@@ -8,15 +8,24 @@ angular.module('Services').service('APIKeysService', function(requestService, AP
             };
             return requestService.post(params);
         },
-        getTokens: function (address, blockchain) {
+        getTokens: function () {
             var params = {
-                path: API.SNAPSHOT_GET_VALUE,
-                params: {
-                    address: address,
-                    blockchain: blockchain
-                }
+                path: API.API_KEYS.GET
             };
             return requestService.get(params);
+        },
+        deleteToken: function(tokenKey) {
+            var params = {
+                path: API.API_KEYS.DELETE,
+                method: 'delete',
+                data: {
+                    token: tokenKey
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

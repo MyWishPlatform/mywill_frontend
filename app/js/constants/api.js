@@ -58,8 +58,8 @@ angular.module('Constants').constant('API', {
         }
     },
     "API_KEYS": {
-        "CREATE": "/create_api_token/",
-        "GET": "/get_api_tokens/",
-        "DELETE": "/delete_api_token/"
+        "CREATE": "create_api_token/",
+        "GET": "get_api_tokens/",
+        "DELETE": "delete_api_token/"
     }
 });

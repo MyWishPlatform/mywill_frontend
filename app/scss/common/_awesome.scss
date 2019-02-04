@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?57emv1');
-  src:  url('fonts/icomoon.eot?57emv1#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?57emv1') format('truetype'),
-  url('fonts/icomoon.woff?57emv1') format('woff'),
-  url('fonts/icomoon.svg?57emv1#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?spquv');
+  src:  url('fonts/icomoon.eot?spquv#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?spquv') format('truetype'),
+  url('fonts/icomoon.woff?spquv') format('woff'),
+  url('fonts/icomoon.svg?spquv#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-eye-off:before {
+  content: "\e953";
+}
+.icon-eye1:before {
+  content: "\e954";
+}
+.icon-refresh-new:before {
+  content: "\e931";
+}
+.icon-keyboard_arrow_left:before {
+  content: "\e913";
+}
+.icon-keyboard_arrow_right:before {
+  content: "\e93c";
+}
+.icon-check_circle:before {
+  content: "\e92f";
+}
+.icon-alert-circle:before {
+  content: "\e936";
+}
 .icon-custom-contract:before {
   content: "\e952";
 }
@@ -246,18 +267,6 @@
 }
 .icon-note-list:before {
   content: "\e945";
-}
-.icon-refresh-new:before {
-  content: "\e931";
-}
-.icon-keyboard_arrow_left:before {
-  content: "\e913";
-}
-.icon-keyboard_arrow_right:before {
-  content: "\e93c";
-}
-.icon-check_circle:before {
-  content: "\e92f";
 }
 .icon-alert-circle:before {
   content: "\e936";

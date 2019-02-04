@@ -1,21 +1,38 @@
 <div class="main-section-content">
-    <div class="shadow-block">
-        <div class="shadow-block">
-            <div class="shadow-block__content">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1">
-                        <div class="shadow-block__content__title">
-                            <i class="icon-framew shadow-block__content__title__icon"></i>
-                            <span class="shadow-block__content__title__text" translate="PAGES.EXTERNAL_DEVELOPERS.TITLE"></span>
-                        </div>
-                        <div class="shadow-block__content__text shadow-block__content__text_description">
-                            <span translate="PAGES.EXTERNAL_DEVELOPERS.DESCRIPTION"></span>
+
+    <div class="contract-preview-tabs" ng-init="contract.showedTab = 'api'">
+        <div class="contract-preview-one-tab"
+             ng-class="{active: contract.showedTab == 'message'}"
+             ng-click="contract.showedTab = 'message'">
+            <span>Send contract</span>
+        </div>
+        <div class="contract-preview-one-tab"
+             ng-class="{active: contract.showedTab == 'api'}"
+             ng-click="contract.showedTab = 'api'">
+            <span>API</span>
+        </div>
+    </div>
+
+
+
+    <div class="shadow-block after-tabs">
+        <div class="ext-devs_message"  ng-show="contract.showedTab == 'message'">
+            <div class="shadow-block after-tabs">
+                <div class="shadow-block__content">
+                    <div class="grid-row">
+                        <div class="grid-cell grid-cell-1">
+                            <div class="shadow-block__content__title">
+                                <i class="icon-framew shadow-block__content__title__icon"></i>
+                                <span class="shadow-block__content__title__text" translate="PAGES.EXTERNAL_DEVELOPERS.TITLE"></span>
+                            </div>
+                            <div class="shadow-block__content__text shadow-block__content__text_description">
+                                <span translate="PAGES.EXTERNAL_DEVELOPERS.DESCRIPTION"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <form class="shadow-block__content" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
+            <form class="shadow-block__content" ng-submit="sendForm(requestForm)" novalidate name="requestForm">
             <div class="simple-form-wrapper">
                 <div class="simple-form-field-row">
                     <label class="simple-form-field-label"
@@ -58,6 +75,56 @@
                 </div>
             </div>
         </form>
+        </div>
+        <div class="ext-devs_message"  ng-show="contract.showedTab == 'api'">
+            <div class="shadow-block after-tabs">
+                <div class="shadow-block__content">
+                    <div class="grid-row">
+                        <div class="grid-cell grid-cell-1">
+                            <div class="shadow-block__content__title">
+                                <i class="icon-framew shadow-block__content__title__icon"></i>
+                                <span class="shadow-block__content__title__text">API tokens</span>
+                            </div>
+                            <div class="shadow-block__content__text shadow-block__content__text_description">
+                                <span>
+                                    A script or other process can use an API tokens to perform basic authentication with MyWish platform.
+                                    You must use an API token if the MyWish account you authenticate with has had two-step verification enabled.
+                                    You should treat API tokens as securely as any other password.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shadow-block__content">
+                <button class="btn btn-transparent btn-transparent-red float-right">
+                    <i class="icon-trash"></i>
+                    <span>Revoke API tokens</span>
+                </button>
+                <button class="btn btn-transparent"
+                        ng-pop-up="{
+                            template: '/templates/popups/forms/api-key-create.html',
+                            newPopupContent: true,
+                            class: 'deleting-contract',
+                            params: {
+                                dataModel: apiFormRequest,
+                                submitApiForm: submitApiForm
+                            }
+                        }">
+                    <i class="icon-rocket-ship"></i>
+                    <span>Create API token</span>
+                </button>
+            </div>
+            <div class="shadow-block">
+                <div class="shadow-block__content"></div>
+                <div class="shadow-block__content"></div>
+                <div class="shadow-block__content"></div>
+            </div>
+            <div class="shadow-block__content">
+                <div class="normal-text" translate="CONTRACTS.PREVIEW.SUPPORT_CONTRACT_CODE"></div>
+            </div>
+        </div>
     </div>
 </div>
 

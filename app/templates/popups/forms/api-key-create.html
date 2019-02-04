@@ -1,0 +1,47 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-framew"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">Create your API token&nbsp;</span>
+            </div>
+        </div>
+    </div>
+
+    <form name="keyApiForm" class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="form-control">
+                    <label for="api-key-label"
+                           class="form-control-label">
+                        Label:
+                    </label>
+                    <input id="api-key-label" type="text"
+                           required
+                           minlength="1"
+                           maxlength="80"
+                           pattern="[a-zA-Z0-9]+"
+                           ng-model="ngPopUp.params.dataModel.label"
+                           class="form-control-input"/>
+                    <br/><br/>
+                    <span class="form-control-description__text">
+                        Make sure you choose a memorable and concise name
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <button class="btn btn-transparent float-right" type="button"
+                ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CLOSE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+        <button class="btn btn-submit" type="button"
+                ng-click="ngPopUp.params.submitApiForm()"
+                ng-disabled="!keyApiForm.$valid">
+            <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.CREATE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>
+

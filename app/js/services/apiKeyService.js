@@ -26,6 +26,16 @@ angular.module('Services').service('APIKeysService', function(requestService, AP
                 }
             };
             return requestService.post(params);
+        },
+        deleteTokens: function() {
+            var params = {
+                path: API.API_KEYS.DELETE_ALL,
+                method: 'delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            return requestService.post(params);
         }
     }
 });

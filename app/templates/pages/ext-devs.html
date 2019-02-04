@@ -116,7 +116,20 @@
                     </div>
                     <div class="grid-cell grid-cell-1 show-vs"><br/></div>
                     <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 text-right text-center-vs">
-                        <button class="btn btn-transparent btn-transparent-red">
+                        <button class="btn btn-transparent btn-transparent-red"
+                                ng-if="tokensList.length"
+                                ng-pop-up="{
+                                    template: '/templates/popups/confirmations/delete-api-token.html',
+                                    newPopupContent: true,
+                                    prevented: true,
+                                    params: {
+                                        other: deletePopupParams
+                                    },
+                                    class: 'deleting-contract',
+                                    actions: {
+                                        deleteToken: deleteToken
+                                    }
+                                }">
                             <i class="icon-trash"></i>
                             <span>Revoke API tokens</span>
                         </button>

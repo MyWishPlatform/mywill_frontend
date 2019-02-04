@@ -24,7 +24,6 @@ angular.module('app').controller('extDevsController', function(contractService, 
     $scope.submitApiForm = function(callback) {
         $scope.apiFormPopUpData.createTokenProgress = true;
         APIKeysService.createToken($scope.apiFormPopUpData.apiFormRequest).then(function(response) {
-            response.data.last_accessed = new Date();
             $scope.tokensList.push(response.data);
             callback ? callback() : false;
             response.data.isNew = true;
@@ -41,20 +40,30 @@ angular.module('app').controller('extDevsController', function(contractService, 
 
     var deleteToken = function(tokenKey) {
         $scope.deletePopupParams.progress = true;
-        $scope.tokensList = $scope.tokensList.filter(function(token) {
-            return token.token !== tokenKey;
-        });
-        APIKeysService.deleteToken(tokenKey).then(function(response) {
-            $scope.deletePopupParams.progress = false;
-        }, function() {
-            $scope.deletePopupParams.progress = false;
-        })
+        if (tokenKey) {
+            $scope.tokensList = $scope.tokensList.filter(function(token) {
+                return token.token !== tokenKey;
+            });
+            APIKeysService.deleteToken(tokenKey).then(function() {
+                $scope.deletePopupParams.progress = false;
+            }, function() {
+                $scope.deletePopupParams.progress = false;
+            })
+        } else {
+            $scope.tokensList = [];
+            APIKeysService.deleteTokens().then(function() {
+                $scope.deletePopupParams.progress = false;
+            }, function() {
+                $scope.deletePopupParams.progress = false;
+            })
+        }
     };
 
     $scope.deletePopupParams = {
         method: deleteToken,
         progress: false
     };
+
 
     $scope.showToken = function(token) {
         $scope.showedToken = token;

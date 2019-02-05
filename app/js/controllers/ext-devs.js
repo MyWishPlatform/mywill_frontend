@@ -34,6 +34,7 @@ angular.module('app').controller('extDevsController', function(contractService, 
     };
 
 
+
     APIKeysService.getTokens().then(function(response) {
         $scope.tokensList = response.data.tokens;
     }, console.log);

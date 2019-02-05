@@ -101,15 +101,29 @@
                 <div class="grid-row">
                     <div class="grid-cell grid-cell-1-2 grid-cell-vs-1 text-center-vs">
                         <button class="btn btn-transparent"
+                                ng-if="currentUser.is_ghost"
                                 ng-pop-up="{
-                            template: '/templates/popups/forms/api-key-create.html',
-                            newPopupContent: true,
-                            class: 'deleting-contract',
-                            params: {
-                                formData: apiFormPopUpData,
-                                submitApiForm: submitApiForm
-                            }
-                        }">
+                                'template': '/templates/popups/login.html',
+                                'class': 'login-form',
+                                'params': {
+                                    page: 'registration'
+                                }
+                            }">
+                            <i class="icon-rocket-ship"></i>
+                            <span>&nbsp;Create API token&nbsp;</span>
+                        </button>
+
+                        <button class="btn btn-transparent"
+                                ng-if="!currentUser.is_ghost"
+                                ng-pop-up="{
+                                    template: '/templates/popups/forms/api-key-create.html',
+                                    newPopupContent: true,
+                                    class: 'deleting-contract',
+                                    params: {
+                                        formData: apiFormPopUpData,
+                                        submitApiForm: submitApiForm
+                                    }
+                                }">
                             <i class="icon-rocket-ship"></i>
                             <span>&nbsp;Create API token&nbsp;</span>
                         </button>

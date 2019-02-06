@@ -47,6 +47,7 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
 
         if (window.tronWeb && window.tronWeb.defaultAddress) {
             $scope.request.tron_address = window.tronWeb.defaultAddress.base58 || '';
+            $scope.checkTronAddress();
         }
 
     });
@@ -54,10 +55,11 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
     $scope.checkTronAddress = function(tronAddressField) {
         $scope.attachedTRONAddress = false;
 
-        if (!tronAddressField.$valid) {
+        if ((tronAddressField && !tronAddressField.$valid) || (!$scope.request.tron_address)) {
             return;
         }
         $scope.attachedTRONAddress = true;
+
         tronAirdropContract.isRegistered(
             TronWeb.address.toHex($scope.request.tron_address)
         ).call().then(function(result) {
@@ -66,39 +68,51 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
         }, console.log);
     };
 
-
     $scope.attachTronAddress = function() {
 
         if (!window.tronWeb) {
-            $scope.extensionNotInstalled = true;
+            $scope.TRONExtensionInfo.extensionNotInstalled = true;
             return;
         } else if (!window.tronWeb.defaultAddress) {
-            $scope.extensionNotAuthorized = true;
+            $scope.TRONExtensionInfo.extensionNotAuthorized = true;
             return;
         } else if (
             (window.tronWeb.defaultAddress.hex !== $scope.request.tron_address) &&
             (window.tronWeb.defaultAddress.base58 !== $scope.request.tron_address)) {
-            $scope.extensionOtherUser = true;
+            $scope.TRONExtensionInfo.extensionOtherUser = true;
             return;
         }
 
         TronService.connectToNetwork(TRONNetwork).then(function(trueConnection) {
             if (trueConnection.tronWeb !== window.tronWeb) {
-                $scope.extensionNotSelectedNetwork = true;
+                $scope.TRONExtensionInfo.extensionNotSelectedNetwork = true;
             } else {
                 tronAirdropContract.put()
                     .send().then(function(result) {
-                    $scope.successTx = {
+                    $scope.TRONExtensionInfo.successTx = {
                         transaction_id: result
                     };
                     $scope.$apply();
                 }, function(response) {
-                    $scope.txServerError = true;
+                    $scope.TRONExtensionInfo.txServerError = true;
                     $scope.$apply();
                 });
             }
         });
     };
+
+
+    $scope.closeExtensionAlert = function() {
+        $scope.TRONExtensionInfo = {
+            extensionNotInstalled: false,
+            extensionNotAuthorized: false,
+            extensionOtherUser: false,
+            txServerError: false,
+            successTx: false
+        };
+    };
+    $scope.closeExtensionAlert();
+
 
 
     /** EOS account methods **/

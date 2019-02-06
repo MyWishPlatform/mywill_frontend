@@ -63,7 +63,7 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
         tronAirdropContract.isRegistered(
             TronWeb.address.toHex($scope.request.tron_address)
         ).call().then(function(result) {
-            $scope.attachedTRONAddress = result;
+            $scope.attachedTRONAddress = result ? $scope.request.tron_address : false;
             $scope.$apply();
         }, console.log);
     };

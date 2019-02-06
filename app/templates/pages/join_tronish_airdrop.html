@@ -56,6 +56,9 @@
                                    required
                                    ng-change="checkTronAddress(tronAccountsForm['tron_address'])"
                                    ng-checksum-address-validator="{'network': 'TRON'}">
+                            <span class="field-success"
+                                  ng-if="attachedTRONAddress === request.tron_address">This TRON address already connected</span>
+
                         </div>
                     </div>
                     <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">

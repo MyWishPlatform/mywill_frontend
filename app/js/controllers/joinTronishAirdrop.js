@@ -136,7 +136,8 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
     $scope.closeScatterAlert = function() {
         $scope.scatterNotInstalled = false;
         $scope.accountNotFinded = false;
-        $scope.mintServerError = false;
+        $scope.txServerError = false;
+        $scope.successTx = false;
     };
 
     $scope.attachEosTronAddress = function() {
@@ -156,7 +157,7 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
             $scope.contract = {
                 network: EOSNetwork
             };
-            $scope.successTx = result.transaction_id;
+            $scope.successTx = result;
         }, function(error) {
             switch(error.code) {
                 case 1:

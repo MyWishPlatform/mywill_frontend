@@ -1,19 +1,19 @@
 <div class="main-section-content">
 
-    <div class="contract-preview-tabs" ng-init="contract.showedTab = 'tron'">
+    <div class="contract-preview-tabs" ng-init="showedTab = 'tron'">
         <div class="contract-preview-one-tab"
-             ng-class="{active: contract.showedTab == 'tron'}"
-             ng-click="contract.showedTab = 'tron'">
+             ng-class="{active: showedTab == 'tron'}"
+             ng-click="showedTab = 'tron'">
             <span>I have TRX</span>
         </div>
         <div class="contract-preview-one-tab"
-             ng-class="{active: contract.showedTab == 'eth'}"
-             ng-click="contract.showedTab = 'eth'">
+             ng-class="{active: showedTab == 'eth'}"
+             ng-click="showedTab = 'eth'">
             <span>I have WISH</span>
         </div>
         <div class="contract-preview-one-tab"
-             ng-class="{active: contract.showedTab == 'eos'}"
-             ng-click="contract.showedTab = 'eos'">
+             ng-class="{active: showedTab == 'eos'}"
+             ng-click="showedTab = 'eos'">
             <span>I have EOSISH</span>
         </div>
     </div>
@@ -21,7 +21,7 @@
 
 
 
-    <div ng-show="contract.showedTab == 'tron'">
+    <div ng-show="showedTab == 'tron'">
         <div class="shadow-block after-tabs">
             <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
                 <div class="contract-info__network"
@@ -81,12 +81,10 @@
                 </button>
             </div>
         </div>
-        <div ng-if="contract.showedTab == 'tron'"
+        <div ng-if="showedTab == 'tron'"
              ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
     </div>
-
-
-    <div ng-show="contract.showedTab == 'eth'">
+    <div ng-show="showedTab == 'eth'">
         <div class="shadow-block after-tabs">
             <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
                 <div class="contract-info__network"
@@ -180,7 +178,7 @@
             </div>
         </div>
     </div>
-    <div ng-show="contract.showedTab == 'eos'">
+    <div ng-show="showedTab == 'eos'">
         <div class="shadow-block after-tabs">
             <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
                 <div class="contract-info__network"
@@ -276,7 +274,9 @@
             </div>
         </div>
     </div>
-    <div ng-if="contract.showedTab == 'eos'" ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
+    <div ng-if="showedTab == 'eos'"
+         ng-init="closeMintingForm = closeScatterAlert;"
+         ng-include="'/templates/popups/forms/eos/scatter-alerts.html'"></div>
 </div>
 
 

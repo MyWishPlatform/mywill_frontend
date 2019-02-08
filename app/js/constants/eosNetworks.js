@@ -82,6 +82,13 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "network": "eos",
         "endpoints": [
             {
+                "name": "MyWish",
+                "protocol": "https",
+                "port": 443,
+                "url": "jungle-node.mywish.io",
+                "description": ""
+            },
+            {
                 "name": "EOS Costa Rica",
                 "protocol": "https",
                 "port": 443,
@@ -94,13 +101,6 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
                 "port": 443,
                 "url": "junglenodes.eosmetal.io",
                 "description": "HA Proxy node provided by EOSMetal"
-            },
-            {
-                "name": "MyWish",
-                "protocol": "https",
-                "port": 443,
-                "url": "jungle-node.mywish.io",
-                "description": ""
             }
         ]
     }

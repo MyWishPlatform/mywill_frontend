@@ -98,11 +98,11 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     };
 
 
-    service.getBalance = function(address, network) {
+    service.getAccount = function(address, network) {
         var defer = $q.defer();
 
         service.connectToNetwork(network).then(function(result) {
-            result.tronWeb.trx.getBalance(address, function(error, result) {
+            result.tronWeb.trx.getAccount(address, function(error, result) {
                 defer.resolve({
                     error: error,
                     result: result

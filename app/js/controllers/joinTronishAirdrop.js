@@ -157,7 +157,16 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
                 network: EOSNetwork
             };
             $scope.successTx = result.transaction_id;
-        }, console.log)
+        }, function(error) {
+            switch(error.code) {
+                case 1:
+                    $scope.accountNotFinded = true;
+                    break;
+                case 2:
+                    $scope.txServerError = true;
+                    break;
+            }
+        })
     };
 
     var checkEosTronAddress = function() {

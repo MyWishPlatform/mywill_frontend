@@ -96,7 +96,7 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
 
     $scope.checkEosAddress = function(ctrl, accountInfo) {
         EOSService.getBalance('buildertoken', accountInfo.account_name, 'EOSISH', EOSNetwork).then(function(result) {
-            $scope.tronishBalances.eos = result.length ? new BigNumber(result[0].split(' ')[0]).round().toString(10) : '0';
+            $scope.tronishBalances.eos = result.length ? new BigNumber(result[0].split(' ')[0]).div(20).round().toString(10) : '0';
             getEOSTRONAddress();
         }, function() {
 
@@ -139,10 +139,14 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
             $scope.$apply();
         }, console.log);
 
-        TronService.getBalance($scope.request.tron_address, TRONNetwork).then(function(response) {
-            console.log(response);
+        TronService.getAccount($scope.request.tron_address, TRONNetwork).then(function(response) {
             if (!response.error) {
-                $scope.tronishBalances.tron = new BigNumber(response.result).div(Math.pow(10, 6)).div(100).round(4).toString(10);
+                var TRXBalance = new BigNumber(response.result.balance).plus(response.result.account_resource.frozen_balance_for_energy.frozen_balance).div(Math.pow(10, 6));
+                if (TRXBalance.minus(1000) > 0) {
+                    $scope.tronishBalances.tron = TRXBalance.div(10000).round(4).toString(10);
+                } else {
+                    $scope.tronishBalances.tron = '0';
+                }
             }
         });
     };

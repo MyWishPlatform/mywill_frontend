@@ -30,6 +30,14 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
             mode: ['eos', 'default']
         }
     }, {
+        title: 'MAIN_MENU.TRONISH_CALCULATOR',
+        icon: 'icon-tron-token',
+        static: true,
+        url: 'https://tron.mywish.io/tronish_calculator',
+        not: {
+            mode: ['tron']
+        }
+    }, {
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-tron-token',
         route: 'main.join_tronish_airdrop',

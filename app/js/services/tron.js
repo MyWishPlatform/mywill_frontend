@@ -3,7 +3,8 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
 
     var service = {};
 
-    var isProduction = location.host.indexOf('tron.mywish.io') === 0;
+    var isProduction = location.protocol === "https:";
+
 
     var connectToMainNet = function() {
         return new TronWeb(
@@ -38,13 +39,15 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
 
 
 
-    service.connectToNetwork = function(networkNumber) {
+    service.connectToNetwork = function(networkNumber, ignoreExtension) {
         var defer = $q.defer();
         var currNode = connectToNode(networkNumber);
 
-        if (!(window.tronWeb && window.tronWeb.defaultAddress.hex)) {
-            defer.resolve({
-                tronWeb: currNode
+        if (!(window.tronWeb && window.tronWeb.defaultAddress.hex) || ignoreExtension) {
+            $timeout(function() {
+                defer.resolve({
+                    tronWeb: currNode
+                });
             });
             return  defer.promise;
         }
@@ -101,7 +104,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     service.getAccount = function(address, network) {
         var defer = $q.defer();
 
-        service.connectToNetwork(network).then(function(result) {
+        service.connectToNetwork(network, true).then(function(result) {
             result.tronWeb.trx.getAccount(address, function(error, result) {
                 defer.resolve({
                     error: error,
@@ -118,7 +121,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     service.getContract = function(address, network) {
         var defer = $q.defer();
         if (network) {
-            service.connectToNetwork(network).then(function(result) {
+            service.connectToNetwork(network, true).then(function(result) {
                 result.tronWeb.trx.getContract(address, function(error, result) {
                     defer.resolve(result);
                 });
@@ -140,7 +143,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     service.createContract = function(abi, address, network) {
         var defer = $q.defer();
         if (network) {
-            service.connectToNetwork(network).then(function(result) {
+            service.connectToNetwork(network, true).then(function(result) {
                 defer.resolve(result.tronWeb.contract(abi, address));
             }, function() {
                 console.log(arguments);

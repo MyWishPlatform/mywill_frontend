@@ -47,7 +47,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     var currentProvider;
 
 
-    var isProduction = (location.host.indexOf('tron.mywish.io') === 0) || (location.host.indexOf('contracts.mywish.io') > -1);
+    var isProduction = location.protocol === "https:";
 
 
     this.isProduction = function() {

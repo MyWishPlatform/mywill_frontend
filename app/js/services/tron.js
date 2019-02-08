@@ -3,6 +3,8 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
 
     var service = {};
 
+    var isProduction = location.host.indexOf('tron.mywish.io') === 0;
+
     var connectToMainNet = function() {
         return new TronWeb(
             TRON_NETWORKS_CONSTANTS.MAINNET.FULL_NODE,
@@ -25,7 +27,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
         var node;
         switch (networkNumber) {
             case 14:
-                node = connectToMainNet();
+                node = isProduction ? connectToMainNet() : connectToTestNet();
                 break;
             case 15:
                 node = connectToTestNet();
@@ -33,6 +35,8 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
         }
         return node;
     };
+
+
 
     service.connectToNetwork = function(networkNumber) {
         var defer = $q.defer();
@@ -92,6 +96,24 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
 
         return defer.promise;
     };
+
+
+    service.getAccount = function(address, network) {
+        var defer = $q.defer();
+
+        service.connectToNetwork(network).then(function(result) {
+            result.tronWeb.trx.getAccount(address, function(error, result) {
+                defer.resolve({
+                    error: error,
+                    result: result
+                });
+            });
+        }, function() {
+            console.log(arguments);
+        });
+        return defer.promise;
+    };
+
 
     service.getContract = function(address, network) {
         var defer = $q.defer();

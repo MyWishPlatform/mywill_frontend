@@ -32,11 +32,12 @@ angular.module('Directives').directive('ngEosAccount', function() {
                     $scope.ngEosAccountOptions.startChange(ctrl) : false;
                 var newValue = ctrl.$modelValue;
 
-                if (value === newValue) return;
+                // if (value === newValue) return;
                 var currValue = value = newValue;
                 checkAddressTimeout ? $timeout.cancel(checkAddressTimeout) : false;
                 ctrl.$setValidity('check-sum', true);
                 ctrl.$setValidity('not-checked', true);
+
                 if (!ctrl.$valid) {
                     return;
                 }
@@ -60,15 +61,21 @@ angular.module('Directives').directive('ngEosAccount', function() {
                     EOSService.checkAddress(currValue, $scope.ngEosAccountOptions.network).then(function(addressInfo) {
                         if (currValue !== ctrl.$modelValue) return;
                         ctrl.$setValidity('not-checked', true);
-                        // accountsInfoHash[accountKey] = addressInfo;
                         $scope.ngEosAccountOptions.change ?
                             $scope.ngEosAccountOptions.change(ctrl, addressInfo) : false;
                         ctrl.$setValidity('check-sum', !$scope.ngEosAccountOptions.invert);
-                    }, function() {
+                    }, function(response) {
+
                         if (currValue !== ctrl.$modelValue) return;
                         ctrl.$setValidity('not-checked', true);
-                        ctrl.$setValidity('check-sum', !!$scope.ngEosAccountOptions.invert);
-
+                        switch (response.status) {
+                            case 500:
+                                ctrl.$setValidity('check-sum', !!$scope.ngEosAccountOptions.invert);
+                                break;
+                            default:
+                                ctrl.$setValidity('check-sum', true);
+                                $scope.checkAddress();
+                        }
                     });
                 }, !withoutTimeout ? 500 : 0);
             };

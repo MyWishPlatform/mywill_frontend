@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS, $http) {
+module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS, $http, $timeout) {
 
     var chainCallbacks, chainChecked;
 
@@ -65,12 +65,16 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
 
         if (currentNetworkName === oldNetworkName) {
+            var defer = $q.defer();
             if (chainChecked) {
                 callback ? callback() : false;
             } else {
                 callback ? chainCallbacks.push(callback) : false;
             }
-            return;
+            $timeout(function() {
+                defer.resolve();
+            });
+            return defer.promise;
         } else {
             chainCallbacks = callback ? [callback] : [];
         }
@@ -79,20 +83,24 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
             httpEndpoint: EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['url'],
             verbose: false
         });
-        checkNetwork();
+        return checkNetwork();
     };
 
     var checkNetwork = function() {
-        _this.getInfo().then(function() {
+        var defer = $q.defer();
+        _this.getInfo().then(function(response) {
             chainChecked = true;
             chainCallbacks.map(function(callback) {
                 callback();
             });
+            defer.resolve(response);
         }, function(error) {
             currentNetworks[currentNetworkName]++;
             currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
             _this.createEosChain(currentNetwork, callback);
+            defer.reject(error);
         });
+        return defer.promise;
     };
 
     this.getInfo = function() {
@@ -112,6 +120,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         network*= 1;
         var getAccount = function() {
             eos.getAccount(address, function (error, response) {
+                console.log(arguments);
                 if (error) {
                     defer.reject(error);
                 } else {
@@ -119,7 +128,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                 }
             });
         };
-        network  ? _this.createEosChain(network, getAccount) : checkNetwork(getAccount);
+        network  ? _this.createEosChain(network, getAccount).then(undefined, defer.reject) : checkNetwork(getAccount);
 
         return defer.promise;
     };
@@ -141,12 +150,20 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     this.getTableRows = function(scope, table, code, network, key) {
         var defer = $q.defer();
         network  ? _this.createEosChain(network, function() {
-            eos.getTableRows({
+
+            var getTableParams = {
                 code: code || eosAccounts[displayingNetwork]['TOKEN'],
                 scope: scope,
                 table: table || 'stat',
                 json: true
-            }, function (error, response) {
+            };
+
+            if (key) {
+                getTableParams.lower_bound =
+                    getTableParams.upper_bound = key;
+            }
+
+            eos.getTableRows(getTableParams, function (error, response) {
                 if (error) {
                     defer.reject(error);
                 } else {

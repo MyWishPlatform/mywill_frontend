@@ -1,0 +1,134 @@
+<div class="main-section-content">
+    <div class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-tron-token"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size" translate="MAIN_MENU.EOSISH_CALCULATOR"></span>
+                </div>
+            </div>
+            <div class="shadow-block__content__description">
+                <span translate="EOSISH_CALCULATOR.DESCRIPTION"></span>
+            </div>
+        </div>
+
+        <div class="shadow-block__content">
+            <form class="grid-row" name="ethForm">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="form-control-label" translate="EOSISH_CALCULATOR.FIELDS.ETH_ADDRESS.TITLE"></div>
+                        <input type="text" class="form-control-input"
+                               ng-model="request.eth_address"
+                               name="eth_address"
+                               required
+                               ng-change="checkEthAddress(ethForm)"
+                               ng-checksum-address-validator="{'network': 'ETH'}">
+                    </div>
+
+
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                    <div class="form-control-label">&nbsp;</div>
+                    <div class="form-control-description__text">
+                        Enter your ETH address where WISH tokens were stored on the snapshot date.
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label" ng-if="tronishBalances.eth">
+                            <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
+                                  translate-values="{eosishBalances: (tronishBalances.eth|separateNumber)}"></span>
+                        <br/>
+                        <span ng-if="!checkedETHTRONAccount && checkedEthAddress"
+                              translate="EOSISH_CALCULATOR.CHECK_TEXTS.NO_CONNECTED_TEXT"></span>
+
+                        <span ng-if="checkedETHTRONAccount"
+                              translate-values="{checkedTRONAddress: checkedETHTRONAccount}"
+                              translate="AIRDROP_TRONISH_TOOL.FIELDS.ETH_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <label for="eos-account" class="form-control-label" translate="EOSISH_CALCULATOR.FIELDS.EOS_ACCOUNT.TITLE"></label>
+                        <div ng-eos-account
+                             ng-model="request.eos_address"
+                             ng-eos-account-options="{
+                                name: 'eos-account',
+                                network: 10,
+                                change: checkEosAddress,
+                                startChange: resetEosBalance
+                             }"></div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                    <div class="form-control-label">&nbsp;</div>
+                    <div class="form-control-description__text">
+                        Enter your EOS account where EOSISH tokens were stored on the snapshot date.
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label" ng-if="tronishBalances.eos">
+                            <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
+                                  translate-values="{eosishBalances: (tronishBalances.eos|separateNumber)}"></span>
+                        <br/>
+                        <span ng-if="!checkedEOSTRONAccount && checkedEosAddress"
+                              translate="EOSISH_CALCULATOR.CHECK_TEXTS.NO_CONNECTED_TEXT"></span>
+
+                        <span ng-if="checkedEOSTRONAccount"
+                              translate-values="{checkedTRONAddress: checkedEOSTRONAccount}"
+                              translate="AIRDROP_TRONISH_TOOL.FIELDS.EOS_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content">
+            <form class="grid-row" name="tronForm">
+                <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                    <div class="form-control">
+                        <div class="form-control-label" translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.LABEL"></div>
+                        <input type="text" class="form-control-input"
+                               ng-model="request.tron_address"
+                               name="tron_address"
+                               required
+                               ng-change="checkTronAddress(tronForm['tron_address'])"
+                               ng-checksum-address-validator="{'network': 'TRON'}">
+
+                    </div>
+
+                    <div class="form-control-label" ng-if="eosishBalances.tron">
+                            <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
+                                  translate-values="{eosishBalances: (eosishBalances.tron|separateNumber)}"></span>
+                    </div>
+
+                </div>
+                <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                    <div class="form-control-label">&nbsp;</div>
+                    <div class="form-control-description__text">
+                        Enter your TRON address where TRX tokens were stored on the snapshot date.
+                        You need at least 1000 TRX in your balance to proceed.
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1">
+                    <div class="form-control-label" ng-if="tronishBalances.tron">
+                        <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
+                              translate-values="{eosishBalances: (tronishBalances.tron|separateNumber)}"></span><br/>
+                        <span ng-if="attachedTRONAddress === request.tron_address">This TRON address already connected</span>
+                        <span ng-if="!attachedTRONAddress"
+                              translate="EOSISH_CALCULATOR.CHECK_TEXTS.NO_CONNECTED_TEXT"></span>
+                        </span>
+                        <!--<br/>-->
+                        <!--<span ng-if="!checkedETHTRONAccount && checkedEthAddress"-->
+                              <!--translate="EOSISH_CALCULATOR.CHECK_TEXTS.NO_CONNECTED_TEXT"></span>-->
+
+                        <!--<span ng-if="checkedETHTRONAccount"-->
+                              <!--translate-values="{checkedTRONAddress: checkedETHTRONAccount}"-->
+                              <!--translate="AIRDROP_TRONISH_TOOL.FIELDS.ETH_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

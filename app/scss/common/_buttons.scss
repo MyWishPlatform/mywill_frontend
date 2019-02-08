@@ -52,6 +52,15 @@ $red-active-color: #bb0d2b;
   }
   span {
     font-size: 1.5em;
+    &.btn-visible-text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0.04em;
+      + span {
+        visibility: hidden;
+      }
+    }
   }
   i, span {
     display: inline-block;

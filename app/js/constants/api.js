@@ -56,5 +56,11 @@ angular.module('Constants').constant('API', {
             "VK": "/rest-auth/vk/login/",
             "TWITTER": "/rest-auth/twitter/login/"
         }
+    },
+    "API_KEYS": {
+        "CREATE": "create_api_token/",
+        "GET": "get_api_tokens/",
+        "DELETE": "delete_api_token/",
+        "DELETE_ALL": "delete_all_api_tokens/"
     }
 });

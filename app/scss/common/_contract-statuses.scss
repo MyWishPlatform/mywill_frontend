@@ -12,7 +12,7 @@
 .contract-status-name {
   position: relative;
   display: inline-block;
-  &:before {
+  &:not(.without-indicator):before {
     content: '';
     position: absolute;
     width: 1.275em;

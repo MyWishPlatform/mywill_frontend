@@ -23,6 +23,13 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         route: 'main.contracts.list',
         parent: 'main.contracts'
     }, {
+        title: 'MAIN_MENU.TRONISH_CALCULATOR',
+        icon: 'icon-tron-token',
+        route: 'main.tronish_calculator',
+        not: {
+            mode: ['eos', 'default']
+        }
+    }, {
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-tron-token',
         route: 'main.join_tronish_airdrop',

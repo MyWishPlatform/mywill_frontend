@@ -23,6 +23,7 @@
     "LOG_OUT": "Log out",
     "JOIN_AIRDROP": "Airdrop Tool",
     "EOSISH_CALCULATOR": "EOSISH Calculator",
+    "TRONISH_CALCULATOR": "TRONISH Calculator",
     "VERSION": "version"
   },
   "HEADER": {
@@ -1643,7 +1644,7 @@
     }
   },
   "EOSISH_CALCULATOR": {
-    "DESCRIPTION": "This tool shows how many EOSISH you will get after the airdrop. Snapshot date: 16-Oct-2018, 15:00 GMT",
+    "DESCRIPTION": "This tool shows how many TRONISH you will get after the airdrop.",
     "FIELDS": {
       "ETH_ADDRESS": {
         "TITLE": "Your ETH address:",
@@ -1651,13 +1652,13 @@
       },
       "EOS_ACCOUNT": {
         "TITLE": "Your EOS account:",
-        "DESCRIPTION": "Enter your EOS account where EOS  tokens were stored on the snapshot date."
+        "DESCRIPTION": "Enter your EOS account where EOSISH  tokens were stored on the snapshot date."
       }
     },
     "CHECK_TEXTS": {
-      "BALANCE_TEXT": "You will get {{eosishBalances}} EOSISH.",
+      "BALANCE_TEXT": "You will get {{eosishBalances}} TRONISH.",
       "CONNECTED_TEXT": "EOS account <b>{{checkedEOSAccount}}</b> connected",
-      "NO_CONNECTED_TEXT": "Please connect EOS Account by Airdrop tool!"
+      "NO_CONNECTED_TEXT": "Please connect TRON address by Airdrop tool!"
     }
   },
   "PARTNERS_DISCLAIMERS": {

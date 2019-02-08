@@ -197,6 +197,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 $state.go('main.base');
             }
         }
+    }).state('main.tronish_calculator', {
+        url: '/tronish_calculator',
+        templateUrl: templatesPath + 'tronish_calculator.html',
+        controller: 'tronishCalculatorController'
     // }).state('main.join_airdrop', {
     //     url: '/join_airdrop',
     //     templateUrl: templatesPath + 'join_airdrop.html',

@@ -143,7 +143,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     service.createContract = function(abi, address, network) {
         var defer = $q.defer();
         if (network) {
-            service.connectToNetwork(network, true).then(function(result) {
+            service.connectToNetwork(network).then(function(result) {
                 defer.resolve(result.tronWeb.contract(abi, address));
             }, function() {
                 console.log(arguments);

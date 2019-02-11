@@ -141,7 +141,12 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
 
         TronService.getAccount($scope.request.tron_address, TRONNetwork).then(function(response) {
             if (!response.error) {
-                var TRXBalance = new BigNumber(response.result.balance).plus(response.result.account_resource.frozen_balance_for_energy.frozen_balance).div(Math.pow(10, 6));
+                var TRXBalance = new BigNumber(response.result.balance.toString());
+
+                if (response.result.account_resource.frozen_balance_for_energy) {
+                    TRXBalance = TRXBalance.plus(response.result.account_resource.frozen_balance_for_energy.frozen_balance);
+                }
+                TRXBalance = TRXBalance.div(Math.pow(10, 6));
                 if (TRXBalance.minus(1000) > 0) {
                     $scope.tronishBalances.tron = TRXBalance.div(10000).round(4).toString(10);
                 } else {

@@ -76,6 +76,8 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
     };
 
 
+    var checkedEOSAddress;
+
     var getEOSTRONAddress = function() {
         EOSService.getTableRows(
             eosContractAddress,
@@ -83,6 +85,7 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
             eosContractAddress, EOSNetwork,
             $scope.request.eos_address
         ).then(function(response) {
+            $scope.checkedEosAddress = checkedEOSAddress;
             var checkedEOSTRONAccount = response.rows.filter(function(oneRow) {
                 return oneRow.eos_account === $scope.request.eos_address;
             })[0];
@@ -96,8 +99,11 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
     };
 
     $scope.checkEosAddress = function(ctrl, accountInfo) {
+        checkedEOSAddress = false;
+        $scope.checkedEosAddress = false;
         EOSService.getBalance('buildertoken', accountInfo.account_name, 'EOSISH', EOSNetwork).then(function(result) {
             $scope.tronishBalances.eos = result.length ? new BigNumber(result[0].split(' ')[0]).div(20).round().toString(10) : '0';
+            checkedEOSAddress = true;
             getEOSTRONAddress();
         }, function() {
 

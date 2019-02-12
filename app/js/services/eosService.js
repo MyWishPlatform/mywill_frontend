@@ -3,7 +3,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
     var scatter;
 
-    ScatterJS.scatter.connect("MyWish platform 2").then(connected => {
+    ScatterJS.scatter.connect("MyWish platform 2").then(function(connected) {
         // User does not have Scatter Desktop, Mobile or Classic installed.
         if(!connected) return false;
         ScatterJS.plugins( new ScatterEOS() );
@@ -223,8 +223,8 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
     this.buyTokens = function(amount, memo, defer) {
         defer = defer || $q.defer();
-        var createTransaction = function(accounts, signature) {
-            var tokenOwnerAccount = accounts[0];
+        var createTransaction = function(tokenOwnerAccount, signature) {
+
             var eos = scatter.eos(getNetwork(), Eos, {});
 
             var options = {
@@ -288,6 +288,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         defer = defer || $q.defer();
         var createTransaction = function(tokenOwnerAccount, signature) {
 
+            console.log(arguments);
 
             if (!tokenOwnerAccount) {
                 defer.reject({
@@ -315,7 +316,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                 });
             });
         };
-        _this.connectScatter(params['owner'], createTransaction);
+        _this.connectScatter(params['owner'], createTransaction, function(error) {
+            defer.reject({
+                error: error
+            });
+        });
         return defer.promise;
     };
 
@@ -329,20 +334,40 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
             }]
         };
 
-        scatter.getIdentity(requiredFields)
-            .then(success)
-            .catch(error);
+        var getIdentity = function() {
+            scatter.getIdentity(requiredFields)
+                .then(success)
+                .catch(error);
+        };
+
+        console.log(scatter);
+        console.log(scatter.account());
+        if (scatter.identity) {
+            console.log(scatter.account());
+            scatter.logout().then(function() {
+                getIdentity();
+            });
+        } else {
+            getIdentity();
+        }
+
     };
 
-    this.connectScatter = function(owner, callback) {
+    this.connectScatter = function(owner, callback, error) {
         checkIdentity(function(identity) {
             var tokenOwnerAccount = owner ? identity.accounts.filter(function(account) {
                 return account['name'] === owner;
             })[0] : identity.accounts[0];
-            scatter.authenticate(tokenOwnerAccount.name).then(function (sign) {
+
+            if (owner && !tokenOwnerAccount) {
+                error();
+                return;
+            }
+
+            scatter.authenticate(tokenOwnerAccount ? tokenOwnerAccount.name : false).then(function (sign) {
                 callback(tokenOwnerAccount, sign);
             });
-        });
+        }, error);
     };
 
     this.checkScatter = function() {

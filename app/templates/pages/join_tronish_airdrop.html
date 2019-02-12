@@ -77,8 +77,15 @@
             <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
                 <button ng-click="attachTronAddress()"
                         class="btn btn-transparent mobile-width-100"
-                        ng-disabled="!tronAccountsForm.$valid || attachedTRONAddress"
+                        ng-disabled="!tronAccountsForm.$valid || attachedTRONAddress || saveTronProgress"
                         type="button">
+
+                    <span class="lds-ellipsis" ng-if="saveTronProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                    </span>
+
                     <span translate="AIRDROP_TOOL.SAVE_TRON_BUTTON"></span>
                 </button>
             </div>
@@ -269,8 +276,14 @@
             <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
                 <button ng-click="attachEosTronAddress()"
                         class="btn btn-transparent mobile-width-100"
-                        ng-disabled="!eosAccountsForm.$valid || currentEOSTRONAddress"
+                        ng-disabled="!eosAccountsForm.$valid || currentEOSTRONAddress || saveEosTronProgress"
                         type="button">
+
+                    <span class="lds-ellipsis" ng-if="saveEosTronProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                    </span>
                     <span translate="AIRDROP_TOOL.SAVE_TRON_BUTTON"></span>
                 </button>
             </div>

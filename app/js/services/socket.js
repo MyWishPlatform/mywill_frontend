@@ -46,7 +46,7 @@ angular.module('Services').service('WebSocketService', function() {
 
     var client, status;
 
-    var isProduction = (location.host.indexOf('eos.mywish.io') > -1) || (location.host.indexOf('contracts.mywish.io') > -1);
+    var isProduction = location.protocol === 'https:';
 
     var openConnection = function() {
         var socketUrl = !isProduction ? 'ws://dev.mywish.io/ws/' : 'wss://contracts.mywish.io/ws/';

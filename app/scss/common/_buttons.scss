@@ -100,6 +100,11 @@ $red-active-color: #bb0d2b;
     transition: all 0.05s linear;
     //text-shadow: 0 0.4em 0.2em rgba(0, 0, 0, 0);
     box-shadow: 0 0.4em 1.3em rgba(0, 0, 0, 0), inset 0 0.4em 1.3em rgba(0, 0, 0, 0);
+
+    .lds-ellipsis-container span {
+      background-color: $main-color;
+    }
+
     &:not([disabled]):not(.active):not(.disabled) {
       &:hover {
         box-shadow: 0 0.1em 0.6em rgba(0, 0, 0, 0.3), inset 0 0.1em 0.6em rgba(0, 0, 0, 0.3);

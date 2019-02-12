@@ -1,6 +1,22 @@
 var module = angular.module('Services');
 module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS, $http, $timeout) {
 
+    var scatter;
+
+    ScatterJS.scatter.connect("MyWish platform 2").then(function(connected) {
+        // User does not have Scatter Desktop, Mobile or Classic installed.
+        if(!connected) return false;
+        ScatterJS.plugins( new ScatterEOS() );
+        scatter = ScatterJS.scatter;
+        // -----------------------
+        // ^^^ See the section below about storing this in state.
+        // -----------------------
+        window.ScatterJS = null;
+        // -----------------------
+        // ^^^ See the section below about nulling out the window reference
+        // -----------------------
+    });
+
     var chainCallbacks, chainChecked;
 
     var EOSNetworks = {
@@ -122,7 +138,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         network*= 1;
         var getAccount = function() {
             eos.getAccount(address, function (error, response) {
-                console.log(arguments);
                 if (error) {
                     defer.reject(error);
                 } else {
@@ -208,25 +223,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
     this.buyTokens = function(amount, memo, defer) {
         defer = defer || $q.defer();
-        window.scatter.authenticate().then(function (sign) {
-            window.scatter.forgetIdentity().then(function() {
-                _this.buyTokens(amount, memo, defer);
-            });
-        }).catch(function() {
-            _this.connectScatter(createTransaction);
-        });
+        var createTransaction = function(tokenOwnerAccount, signature) {
 
-        var createTransaction = function(accounts, signature) {
-            var network = {
-                blockchain: 'eos',
-                chainId: currentEndPoint.chainId,
-                host: currentEndPoint.url,
-                port: currentEndPoint.port,
-                protocol: currentEndPoint.protocol
-            };
-            var tokenOwnerAccount = accounts[0];
-
-            var eos = window.scatter.eos(network, Eos, {});
+            var eos = scatter.eos(getNetwork(), Eos, {});
 
             var options = {
                 actions: [{
@@ -253,6 +252,8 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
             });
 
         };
+
+        this.connectScatter(false, createTransaction);
 
         return defer.promise;
     };
@@ -285,17 +286,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
     this.sendTx = function(params, defer) {
         defer = defer || $q.defer();
-        window.scatter.authenticate().then(function() {
-            window.scatter.forgetIdentity().then(function() {
-                _this.sendTx(params, defer);
-            });
-        }).catch(function() {
-            _this.connectScatter(createTransaction);
-        });
-        var createTransaction = function(accounts, signature) {
-            var tokenOwnerAccount = params['owner'] ? accounts.filter(function(account) {
-                return account['name'] === params['owner'];
-            })[0] : accounts[0];
+        var createTransaction = function(tokenOwnerAccount, signature) {
             if (!tokenOwnerAccount) {
                 defer.reject({
                     "code": 1
@@ -303,7 +294,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                 return;
             }
             params['actions'].map(function(action) {
-                if ((action.name == 'transfer') && !action.data.from) {
+                if ((action.name === 'transfer') && !action.data.from) {
                     action.data.from = tokenOwnerAccount['name'];
                 }
                 action.authorization = [{
@@ -311,9 +302,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                     "permission": tokenOwnerAccount['authority']
                 }];
             });
-
-            var eos = window.scatter.eos(getNetwork(), Eos, {});
-
+            var eos = scatter.eos(getNetwork(), Eos, {});
             eos.transaction({
                 "actions": params.actions,
                 "signatures": [signature]
@@ -324,6 +313,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                 });
             });
         };
+        _this.connectScatter(params['owner'], createTransaction, function(error) {
+            defer.reject({
+                error: error
+            });
+        });
         return defer.promise;
     };
 
@@ -337,21 +331,41 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
             }]
         };
 
-        window.scatter.getIdentity(requiredFields)
-            .then(success)
-            .catch(error);
+        var getIdentity = function() {
+            scatter.getIdentity(requiredFields)
+                .then(success)
+                .catch(error);
+        };
+
+        if (scatter.identity) {
+            scatter.logout().then(function() {
+                getIdentity();
+            });
+        } else {
+            getIdentity();
+        }
+
     };
 
-    this.connectScatter = function(callback) {
+    this.connectScatter = function(owner, callback, error) {
         checkIdentity(function(identity) {
-            window.scatter.authenticate().then(function (sign) {
-                callback(identity.accounts, sign);
+            var tokenOwnerAccount = owner ? identity.accounts.filter(function(account) {
+                return account['name'] === owner;
+            })[0] : identity.accounts[0];
+
+            if (owner && !tokenOwnerAccount) {
+                error();
+                return;
+            }
+
+            scatter.authenticate(tokenOwnerAccount ? tokenOwnerAccount.name : false).then(function (sign) {
+                callback(tokenOwnerAccount, sign);
             });
-        });
+        }, error);
     };
 
     this.checkScatter = function() {
-        return window.scatter;
+        return scatter;
     };
 
 });

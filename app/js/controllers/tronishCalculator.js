@@ -29,6 +29,7 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
     $scope.checkedEosAddress = false;
 
     web3Service.setProviderByNumber(ETHNetwork);
+    var web3 = web3Service.web3();
 
     var getETHTRONAddress = function() {
         var address = Web3.utils.toChecksumAddress($scope.request.eth_address);

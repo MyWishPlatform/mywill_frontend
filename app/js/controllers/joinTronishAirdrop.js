@@ -87,13 +87,16 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
             if (trueConnection.tronWeb !== window.tronWeb) {
                 $scope.TRONExtensionInfo.extensionNotSelectedNetwork = true;
             } else {
+                $scope.saveTronProgress = true;
                 tronAirdropContract.put()
                     .send().then(function(result) {
+                    $scope.saveTronProgress = false;
                     $scope.TRONExtensionInfo.successTx = {
                         transaction_id: result
                     };
                     $scope.$apply();
                 }, function(response) {
+                    $scope.saveTronProgress = false;
                     $scope.TRONExtensionInfo.txServerError = true;
                     $scope.$apply();
                 });
@@ -143,6 +146,7 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
     $scope.attachEosTronAddress = function() {
         $scope.scatterNotInstalled = !EOSService.checkScatter();
         if ($scope.scatterNotInstalled) return;
+        $scope.saveEosTronProgress = true;
         EOSService.sendTx({
             actions: [{
                 account: eosContractAddress,
@@ -154,11 +158,13 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
             }],
             owner: $scope.request.eos_address
         }).then(function(result) {
+            $scope.saveEosTronProgress = false;
             $scope.contract = {
                 network: EOSNetwork
             };
             $scope.successTx = result;
         }, function(error) {
+            $scope.saveEosTronProgress = false;
             switch(error.code) {
                 case 1:
                     $scope.accountNotFinded = true;

@@ -102,6 +102,9 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 }, function() {
                 });
                 // $scope.$apply();
+                if ($scope.ngPopUp.prevented) {
+                    return false;
+                }
             };
 
 

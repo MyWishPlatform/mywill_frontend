@@ -1,0 +1,58 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+        <div class="shadow-block__content__blue-title">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">{{ngPopUp.params.token.label}}&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="normal-text">
+            Copy this API token before closing the dialog<br/>
+            <span ng-if="ngPopUp.params.token.isNew">(you won't be able to see the token later)</span>
+        </div>
+    </div>
+    <form name="showApiKey" class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="form-control">
+                    <input id="api-key-label"
+                           disabled="disabled"
+                           type="password"
+                           name="apiKeyField"
+                           ng-model="ngPopUp.params.token.token"
+                           class="form-control-input text-center"/>
+                    <button class="show-hide-psw"
+                            ng-init="fieldElement = showApiKey.apiKeyField.$$element"
+                            ng-click="ngPopUp.params.hideShow(showApiKey.apiKeyField)">
+                        <i ng-class="{
+                            'icon-eye-off': fieldElement.attr('type') !== 'password',
+                            'icon-eye1': fieldElement.attr('type') === 'password'
+                        }"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color text-right">
+        <button class="btn" clipboard
+                supported="supported"
+                ng-class="{
+                    'btn-submit': !ngPopUp.params.token.copied['token'],
+                    'btn-transparent': ngPopUp.params.token.copied['token']
+                }"
+                text="ngPopUp.params.token.token"
+                on-copied="$root.successCodeCopy(ngPopUp.params.token, 'token')"
+                ng-disabled="ngPopUp.params.token.copied['token']"
+                type="button">
+            <span class="btn-visible-text" ng-if="ngPopUp.params.token.copied['token']">Copied</span>
+            <span>Copy to clipboard</span>
+        </button>
+        <button class="btn btn-transparent" type="button"
+                ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CLOSE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>
+

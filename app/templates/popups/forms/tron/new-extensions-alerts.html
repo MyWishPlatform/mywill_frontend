@@ -1,4 +1,4 @@
-<div ng-if="extensionNotInstalled" ng-pop-up="{
+<div ng-if="TRONExtensionInfo.extensionNotInstalled" ng-pop-up="{
                     template: '/templates/popups/alerts/extension-install.html',
                     class: 'deleting-contract',
                     params: {},
@@ -7,7 +7,7 @@
                     newPopupContent: true
                 }"></div>
 
-<div ng-if="extensionNotAuthorized" ng-pop-up="{
+<div ng-if="TRONExtensionInfo.extensionNotAuthorized" ng-pop-up="{
                     template: '/templates/popups/alerts/extension-not-authorized.html',
                     class: 'deleting-contract',
                     params: {},
@@ -16,7 +16,7 @@
                     newPopupContent: true
                 }"></div>
 
-<div ng-if="extensionOtherUser" ng-pop-up="{
+<div ng-if="TRONExtensionInfo.extensionOtherUser" ng-pop-up="{
                     template: '/templates/popups/alerts/extension-other-user.html',
                     class: 'deleting-contract',
                     params: {},
@@ -26,19 +26,21 @@
                 }"></div>
 
 
-<div ng-if="successTx" ng-pop-up="{
+<div ng-if="TRONExtensionInfo.successTx" ng-pop-up="{
                     template: '/templates/popups/alerts/tron-minting-success.html',
                     class: 'deleting-contract',
                     params: {
-                        contract: contract,
-                        tx: successTx
+                        contract: {
+                            network: 14
+                        },
+                        tx: TRONExtensionInfo.successTx
                     },
                     opened: true,
-                    onClose: closeMintingForm,
+                    onClose: closeExtensionAlert,
                     newPopupContent: true
                 }"></div>
 
-<div ng-if="txServerError" ng-pop-up="{
+<div ng-if="TRONExtensionInfo.txServerError" ng-pop-up="{
                     template: '/templates/popups/alerts/transaction-error.html',
                     class: 'deleting-contract',
                     params: {},
@@ -47,7 +49,7 @@
                     newPopupContent: true
                 }"></div>
 
-<div ng-if="extensionNotSelectedNetwork" ng-pop-up="{
+<div ng-if="TRONExtensionInfo.extensionNotSelectedNetwork" ng-pop-up="{
                     template: '/templates/popups/alerts/tron-ext-network-error.html',
                     class: 'deleting-contract',
                     params: {},

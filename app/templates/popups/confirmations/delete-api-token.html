@@ -1,0 +1,33 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_no-lr-padding">
+        <div class="alert-window-title">Confirm revocation</div>
+    </div>
+
+    <div class="shadow-block__content">
+        <div class="normal-text" ng-if="ngPopUp.params.token">
+            Are you sure you want to permanently revoke your API token:<br/>
+            <b>{{ngPopUp.params.token.label}}</b>
+        </div>
+        <div class="normal-text" ng-if="!ngPopUp.params.token">
+            Are you sure you want to permanently revoke all your API tokens?
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
+        <button class="btn btn-submit" type="button"
+                ng-disabled="ngPopUp.params.other.progress"
+                ng-click="ngPopUp.params.other.method(ngPopUp.params.token.token, closeCurrentPopup())">
+
+            <span class="lds-ellipsis" ng-if="ngPopUp.params.other.progress">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
+            <span>&nbsp;&nbsp;&nbsp;{{'YES'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+        <button class="btn btn-transparent"
+                ng-disabled="ngPopUp.params.other.progress"
+                ng-click="closeCurrentPopup()" type="button">
+            <span>&nbsp;&nbsp;&nbsp;{{'NO'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button><br/><br/>
+    </div>
+</div>

@@ -107,6 +107,8 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
 
         if ($scope.scatterNotInstalled) return;
 
+        $scope.mintInProgress = true;
+
         EOSService.mintTokens(
             contract.admin_address,
             $scope.recipient.address,
@@ -115,8 +117,10 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             '',
             (fullContract.contract_type == 14) ? contract.token_account : contract.eos_contract.address
         ).then(function(result) {
+            $scope.mintInProgress = false;
             $scope.successTransaction = result;
         }, function(error) {
+            $scope.mintInProgress = false;
             switch(error.code) {
                 case 1:
                     $scope.accountNotFinded = true;

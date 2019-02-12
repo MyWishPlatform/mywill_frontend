@@ -63,7 +63,8 @@ angular.module('Services').service('requestService', function($http, API, GITHUB
             var requestOptions = {
                 method: params.method || 'POST',
                 url: url,
-                data: params.data
+                data: params.data,
+                params: params.params
             };
             if (params.headers) {
                 requestOptions.headers = params.headers;

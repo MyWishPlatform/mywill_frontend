@@ -565,7 +565,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     ).round(2)
             }
             $rootScope.commonOpenedPopupParams = {
-                currency: ($rootScope.sitemode === 'eos') ? 'EOSIH' : 'WISH',
+                currency: ($rootScope.sitemode === 'eos') ? 'EOSISH' : 'WISH',
                 price: price,
                 contract: contract,
                 newPopupContent: true

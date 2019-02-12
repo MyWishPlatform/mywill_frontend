@@ -9,8 +9,11 @@ module.constant('TRON_NETWORKS_CONSTANTS',
         },
         "MAINNET": {
             FULL_NODE: new window.TronHttpProvider('https://api.trongrid.io'),
+            // FULL_NODE: new window.TronHttpProvider('https://tronmainnet.mywish.io'),
             SOLIDITY_NODE: new window.TronHttpProvider('https://api.trongrid.io'),
+            // SOLIDITY_NODE: new window.TronHttpProvider('https://tronmainnet.mywish.io'),
             EVENT_SERVER: 'https://api.trongrid.io/'
+            // EVENT_SERVER: 'https://tronmainnet.mywish.io/'
         }
     }
 );

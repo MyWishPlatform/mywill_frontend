@@ -287,9 +287,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     this.sendTx = function(params, defer) {
         defer = defer || $q.defer();
         var createTransaction = function(tokenOwnerAccount, signature) {
-
-            console.log(arguments);
-
             if (!tokenOwnerAccount) {
                 defer.reject({
                     "code": 1
@@ -340,10 +337,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                 .catch(error);
         };
 
-        console.log(scatter);
-        console.log(scatter.account());
         if (scatter.identity) {
-            console.log(scatter.account());
             scatter.logout().then(function() {
                 getIdentity();
             });

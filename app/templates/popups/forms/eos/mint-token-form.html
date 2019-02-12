@@ -105,6 +105,13 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color" ng-show="tokenInfo.maximumSupply">
             <button class="btn btn-submit" type="button"
                     ng-disabled="!mintForm.$valid" ng-click="mintTokens();">
+
+                <span class="lds-ellipsis" ng-if="mintInProgress">
+                    <span class="lds-ellipsis-container">
+                        <span></span><span></span><span></span><span></span>
+                    </span>
+                </span>
+
                 <span>&nbsp;&nbsp;&nbsp;{{'CONTRACTS_BUTTONS.MINT'|translate}}&nbsp;&nbsp;&nbsp;</span>
             </button>
         </div>

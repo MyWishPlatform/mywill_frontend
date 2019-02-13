@@ -1,20 +1,20 @@
 <form ng-controller="eosBuytokensEosishController" name="buyTokensForm">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label" translate="PAGES.TRON_BUY_TOKENS.TRONISH_ACCOUNT.LABEL"></label>
                     <div class="form-control-input-container">
-                        <input ng-model="eosAccountAddress"
+                        <input ng-model="tronAccountAddress"
                                disabled="disabled"
                                type="text" class="form-control-input">
 
                         <div class="input-after dynamic-info">
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
-                                    ng-class="{copied: formData.copied['mywish-account']}"
-                                    text="eosAccountAddress"
-                                    on-copied="$root.successCodeCopy(formData, 'mywish-account')">
+                                    ng-class="{copied: formData.copied['tron-address']}"
+                                    text="tronAccountAddress"
+                                    on-copied="$root.successCodeCopy(formData, 'tron-address')">
                                 <i class="icon-content_copy"></i>
                             </button>
                         </div>

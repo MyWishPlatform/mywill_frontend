@@ -16,6 +16,16 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         });
     });
 
+    $scope.sendTransaction = function() {
+        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
+            value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(10),
+            from: $scope.formData.address,
+            to: $scope.formData.toAddress
+        }, function() {
+            console.log(arguments);
+        });
+    };
+
     var widgets = {
         'default': 'mywish-widget',
         'tron': 'e0efeb1a4d926071b16d7edce5cebadd'
@@ -30,16 +40,6 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             } , {}, {});
         });
     }
-
-    $scope.sendTransaction = function() {
-        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
-            value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(10),
-            from: $scope.formData.address,
-            to: $scope.formData.toAddress
-        }, function() {
-            console.log(arguments);
-        });
-    };
 
     $scope.checkWishAddress = function() {
         $scope.formData.addressChecked = true;

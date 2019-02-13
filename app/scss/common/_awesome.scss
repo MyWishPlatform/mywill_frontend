@@ -24,26 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-eye-off:before {
-  content: "\e953";
+.icon-tronish-logo:before {
+  content: "\e956";
+  color: #bd2e21;
 }
-.icon-eye1:before {
-  content: "\e954";
-}
-.icon-refresh-new:before {
-  content: "\e931";
-}
-.icon-keyboard_arrow_left:before {
-  content: "\e913";
-}
-.icon-keyboard_arrow_right:before {
-  content: "\e93c";
-}
-.icon-check_circle:before {
-  content: "\e92f";
-}
-.icon-alert-circle:before {
-  content: "\e936";
+.icon-refresher:before {
+  content: "\e955";
 }
 .icon-custom-contract:before {
   content: "\e952";
@@ -256,6 +242,27 @@
 .icon-checkmark:before {
   content: "\ea10";
 }
+.icon-eye-off:before {
+  content: "\e953";
+}
+.icon-eye1:before {
+  content: "\e954";
+}
+.icon-refresh-new:before {
+  content: "\e931";
+}
+.icon-keyboard_arrow_left:before {
+  content: "\e913";
+}
+.icon-keyboard_arrow_right:before {
+  content: "\e93c";
+}
+.icon-check_circle:before {
+  content: "\e92f";
+}
+.icon-alert-circle:before {
+  content: "\e936";
+}
 .icon-padlock:before {
   content: "\e927";
 }
@@ -267,9 +274,6 @@
 }
 .icon-note-list:before {
   content: "\e945";
-}
-.icon-alert-circle:before {
-  content: "\e936";
 }
 .icon-download:before {
   content: "\e944";

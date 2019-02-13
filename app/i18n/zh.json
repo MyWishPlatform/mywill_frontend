@@ -388,6 +388,16 @@
         "DESCRIPTION": "请在付款期间输入您在MEMO字段中的唯一代码。 它在MyWish平台上的帐户是独一无二的"
       }
     },
+    "TRON_BUY_TOKENS": {
+      "TRON_ACCOUNT": {
+        "LABEL": "Send TRON to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "TRONISH_ACCOUNT": {
+        "LABEL": "Send TRONISH to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      }
+    },
     "BUY_TOKENS": {
       "TITLE": "购买代币",
       "NOTE": {

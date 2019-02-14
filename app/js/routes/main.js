@@ -195,7 +195,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         currentCurrency = 'EOSISH';
                         break;
                     case 'tron':
-                        currencies = ['TRON', 'ETH', 'BTC'];
+                        currencies = ['TRX', 'ETH', 'BTC'];
                         currentCurrency = 'TRONISH';
                         break;
                     default:

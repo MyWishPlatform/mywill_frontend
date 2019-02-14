@@ -64,7 +64,7 @@ angular.module('app').controller('tronBuytokensController', function($scope, $ti
 
 }).controller('tronBuytokensTronController', function($scope, $rootScope) {
 
-    var rate = $scope.exRate.TRON || 0.2;
+    var rate = $scope.exRate.TRX || 0.2;
 
     $scope.checkTronishAmount = function() {
         var tronishAmount = new BigNumber($scope.formData.tronAmount || 0);

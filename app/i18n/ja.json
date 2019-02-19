@@ -308,6 +308,10 @@
         "TITLE": "失われたキー",
         "DESCRIPTION": "スマート契約は、標準のEthereumウォレットと同じ機能を備えています。また、アクセス/秘密キーを失うと、資金をバックアップウォレットにリダイレクトします。"
       },
+      "TRON_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The smart contract has all the same features as the standard TRON wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
+      },
       "DEFERRED": {
         "TITLE": "後払い",
         "DESCRIPTION": "スマート契約は指定された日付に支払いを行います。"

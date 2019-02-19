@@ -308,6 +308,10 @@
         "TITLE": "Lost key",
         "DESCRIPTION": "The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
       },
+      "TRON_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The smart contract has all the same features as the standard TRON wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
+      },
       "DEFERRED": {
         "TITLE": "Deferred payment",
         "DESCRIPTION": "Smart contract makes payment on a specified date."
@@ -968,6 +972,17 @@
           "PLATFORM_AS_ADMIN": {
             "LABEL": "Control by MyWish:",
             "DESCRIPTION": "ON is recommended - after sending the funds, you will be able to call the destination contract via MyWish.<br/>If Off - only the owner of the contract can do it."
+          }
+        }
+      },
+      "TRON_LOST_KEY": {
+        "FIELDS": {
+          "DATE_OF_CONFIRMATION": {
+            "LABEL": "Define how often you want to confirm your access to the management address",
+            "DESCRIPTION": "You will need to send transaction to the contract from management address every time. If no transactions in confirmation period are sent, all funds will be send to reserve address after transaction to the contract from any address except the management address."
+          },
+          "EXPIRATION_DATE": {
+            "LABEL": "Contract expiration date"
           }
         }
       },

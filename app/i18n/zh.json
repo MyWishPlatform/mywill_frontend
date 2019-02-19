@@ -308,6 +308,10 @@
         "TITLE": "遗失私钥",
         "DESCRIPTION": "智能合约与标准以太坊钱包具有完全相同的功能，此外，如果您遗失了访问权限/私钥，您的资金将被重新发送到备份钱包。"
       },
+      "TRON_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The smart contract has all the same features as the standard TRON wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
+      },
       "DEFERRED": {
         "TITLE": "延期付款",
         "DESCRIPTION": "智能合约在指定的日期付款。"

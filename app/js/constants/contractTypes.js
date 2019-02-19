@@ -18,6 +18,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'TRON_TOKEN': 15,
     'TRON_GA': 16,
     'TRON_AIRDROP': 17,
+    'TRON_LOST_KEY': 18,
     'WEDDING': '-1',
     'CUSTOM': '-2'
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
@@ -39,6 +40,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     15: 'tronToken',
     16: 'tronGA',
     17: 'tronAirdrop',
+    18: 'tronLostKey',
     '-1': 'wedding',
     '-2': 'custom'
 
@@ -187,24 +189,28 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.DESCRIPTION',
             'typeNumber': 15,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
-            'price': true,
-            'fixPrice': 31300
+            'price': true
         }, {
             'icon': 'icon-ga',
             'title': 'PAGES.CREATE_CONTRACT.TRON_GA.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_GA.DESCRIPTION',
             'typeNumber': 16,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[16],
-            'price': true,
-            'fixPrice': 3150
+            'price': true
         }, {
             'icon': 'icon-tron-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',
             'typeNumber': 17,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[17],
-            'price': true,
-            'fixPrice': 3150
+            'price': true
+        }, {
+            'icon': 'icon-key',
+            'title': 'PAGES.CREATE_CONTRACT.LOST_KEY.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.LOST_KEY.DESCRIPTION',
+            'typeNumber': 18,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[18],
+            'price': true
         }]
     };
 

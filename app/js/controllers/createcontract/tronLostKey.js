@@ -84,8 +84,6 @@ angular.module('app').controller('tronLostKeyCreateController', function($scope,
             contract_type: CONTRACT_TYPES_CONSTANTS.TRON_LOST_KEY,
             network: contract.network,
             contract_details: {
-                platform_cancel: $scope.request.platform_cancel,
-                platform_alive: $scope.request.platform_alive,
                 user_address: $scope.request.user_address,
                 email: $scope.request.email,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
@@ -161,22 +159,7 @@ angular.module('app').controller('tronLostKeyCreateController', function($scope,
         $scope.hairPercentChange();
     };
 
-
-    $scope.balanceInProgress = false;
-    $scope.checkedBalance = false;
     $scope.mainForm = false;
-
-    web3Service.setProviderByNumber(contract.network);
-    $scope.checkBalance = function() {
-        if (!$scope.mainForm.$valid) return;
-        $scope.balanceInProgress = true;
-        web3Service.getBalance($scope.request.user_address).then(function(data) {
-            $scope.balanceInProgress = false;
-            $scope.checkedBalance = Web3.utils.fromWei(data, 'ether');
-        }, function() {
-            $scope.balanceInProgress = false;
-        });
-    };
 
     var checkDraftContract = function(redirect) {
         if (localStorage.draftContract && !contract.id) {
@@ -188,7 +171,6 @@ angular.module('app').controller('tronLostKeyCreateController', function($scope,
             }
         }
         $scope.resetForms();
-        $scope.checkBalance();
         if (localStorage.draftContract && !contract.id && !$rootScope.currentUser.is_ghost) {
             $scope.createContract();
         } else if (redirect && !localStorage.draftContract) {

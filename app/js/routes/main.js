@@ -132,6 +132,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         url: '/ext-devs',
         controller: 'extDevsController',
         templateUrl: templatesPath + 'ext-devs.html'
+    }).state('main.api', {
+        url: '/mywish-api',
+        controller: 'apiDevsController',
+        templateUrl: templatesPath + 'api-devs.html'
     }).state('main.contacts', {
         url: '/contacts',
         controller: 'contactsController',

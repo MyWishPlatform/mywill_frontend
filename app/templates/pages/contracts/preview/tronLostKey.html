@@ -4,7 +4,7 @@
          ng-click="contract.showedTab = 'info'">
         <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
-    <div class="contract-preview-one-tab"jk4ew03PCS8c
+    <div class="contract-preview-one-tab"
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
          ng-show="contract.contract_details.tron_contract.address">
@@ -22,7 +22,7 @@
 
         <div class="shadow-block__content">
             <p class="normal-text">
-                <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
+                <span>{{'CONTRACTS.PREVIEW.LOST_KEY_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
                           ng-if="contract.network == 14"
                           ng-click="saveAsFile(contract.contract_details.tron_contract.source_code, contract.name + '(lost key)')">

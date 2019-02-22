@@ -55,12 +55,14 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 addressPaths.address = '#/address';
                 addressPaths.token = '#/contract';
                 addressPaths.tx = '#/transaction';
+                addressPaths.token20 = '#/token20';
                 break;
             case 15:
                 networkUrl = APP_CONSTANTS.TRON_TESTNET_ADDRESS;
                 addressPaths.address = '#/address';
                 addressPaths.token = '#/contract';
                 addressPaths.tx = '#/transaction';
+                addressPaths.token20 = '#/token20';
                 break;
 
         }

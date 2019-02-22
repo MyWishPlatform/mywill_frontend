@@ -1,4 +1,4 @@
-angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTANTS, $q, $timeout) {
+angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTANTS, $q, $timeout, $http, requestService) {
 
 
     var service = {};
@@ -38,6 +38,17 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
     };
 
 
+    var getNodes = function(networkNumber) {
+        var node;
+        switch (networkNumber) {
+            case 14:
+                return isProduction ? TRON_NETWORKS_CONSTANTS.MAINNET : TRON_NETWORKS_CONSTANTS.TESTNET;
+            case 15:
+                return TRON_NETWORKS_CONSTANTS.TESTNET;
+        }
+    };
+
+
 
     service.connectToNetwork = function(networkNumber, ignoreExtension) {
         var defer = $q.defer();
@@ -66,6 +77,11 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
             })
         });
         return defer.promise;
+    };
+
+
+    service.callContract = function(contractModel, networkNumber) {
+        return service.createContract(contractModel.abi.entrys, contractModel.contract_address, networkNumber);
     };
 
     service.checkToken = function(contractModel, networkNumber, balanceAddress) {
@@ -117,6 +133,34 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
         return defer.promise;
     };
 
+
+    service.getAccountAdvancedInfo = function(address, network) {
+        var nodes = getNodes(network);
+        if (nodes === TRON_NETWORKS_CONSTANTS.TESTNET) {
+            var defer = $q.defer();
+            requestService.get({
+                path: 'get_testnet_tron_tokens/'
+            }).then(function(result) {
+                defer.resolve({
+                    data: {
+                        trc20token_balances: result.data.map(function (token) {
+                            return {
+                                contract_address: token.address,
+                                name: token.token_name,
+                                decimals: token.decimals,
+                                symbol: token.token_short_name,
+                                balance: NaN
+                            };
+                        })
+                    }
+                });
+               console.log(result.data);
+            });
+            return defer.promise;
+        } else {
+            return $http.get(nodes.API + '/api/account?address=' + address);
+        }
+    };
 
     service.getContract = function(address, network) {
         var defer = $q.defer();

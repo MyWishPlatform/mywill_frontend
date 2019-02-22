@@ -4,17 +4,17 @@
          ng-click="contract.showedTab = 'info'">
         <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
-    <div class="contract-preview-one-tab"
+    <div class="contract-preview-one-tab"jk4ew03PCS8c
          ng-class="{active: contract.showedTab == 'code'}"
          ng-click="contract.showedTab = 'code'"
-         ng-show="contract.contract_details.eth_contract.address">
+         ng-show="contract.contract_details.tron_contract.address">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
 
 <div ng-show="contract.showedTab == 'code'">
     <div class="shadow-block after-tabs">
-        <div class="shadow-block__content" ng-if="(contract.network == 2) || (contract.network == 4)">
+        <div class="shadow-block__content" ng-if="contract.network == 15">
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
             </p>
@@ -22,26 +22,26 @@
 
         <div class="shadow-block__content">
             <p class="normal-text">
-                <span>{{'CONTRACTS.PREVIEW.LOST_KEY_SOURCE_CODE'|translate}}
+                <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="(contract.network == 1) || (contract.network == 3)"
-                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(will)')">
+                          ng-if="contract.network == 14"
+                          ng-click="saveAsFile(contract.contract_details.tron_contract.source_code, contract.name + '(lost key)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
-                          ng-if="(contract.network == 2) || (contract.network == 4)">
+                          ng-if="contract.network == 15">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
             </p>
+
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/contracts/tree/develop'}"></span>
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/game-assets-contract'}"></span>
             </p>
         </div>
-
         <div class="shadow-block__content">
-            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT"></p>
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.SUPPORT_CONTRACT_CODE"></p>
         </div>
     </div>
 </div>
@@ -53,45 +53,21 @@
              ng-include="'/templates/common/contracts/preview-title.html'">
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.stateValue == 4">
-            <span class="form-control-label">
-                {{'CONTRACTS.PREVIEW.CONTRACT_BALANCE'|translate}} <b>{{contract.balance|separateNumber}}&nbsp;ETH&nbsp;&nbsp;</b>
-            </span>
-        </div>
-
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.eth_contract.address">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="contract.contract_details.tron_contract.address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
-            </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address|toCheckSum}}"
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.tron_contract.address}}"
                    target="_blank"
-                   ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
+                   ng-bind="contract.contract_details.tron_contract.address"></a>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['address']}"
-                        text="contract.contract_details.eth_contract.address"
+                        text="contract.contract_details.tron_contract.address"
                         on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
-
-                <button
-                        ng-if="contract.stateValue == 4"
-                        ng-pop-up="{
-                            template: '/templates/popups/instructions/eth/parity-instruction.html',
-                            newPopupContent: true,
-                            onClose: ngPopUp.onClose,
-                            params: {
-                              contract: contract
-                            }
-                        }"
-                        ng-click="closeCurrentPopup(true)"
-                        class="as-link">
-                    <span translate="CONTRACTS_BUTTONS.ADD_TO_PARITY"></span>
-                </button>
-
             </div>
         </div>
 
@@ -102,11 +78,13 @@
                     {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
                 </div><br/>
                 <div class="contract-wallet-information-float contract-wallet-information">
-                    <span class="identicon-container relative-top">
-                        <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
-                    </span>
-                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="contract.contract_details.user_address|toCheckSum"></div>
-                    <div class="contract-wallet-information-float-cell contract-wallet-information-after_wallet" ng-bind="contract.contract_details.email"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-bind="contract.contract_details.user_address"
+                           target="_blank"
+                           ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.user_address}}"></a>
+                    </div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-after_wallet"
+                         ng-bind="contract.contract_details.email"></div>
                 </div>
             </div><br/>
 
@@ -117,15 +95,74 @@
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
                     <br/>
-                    <span class="identicon-container relative-top">
-                        <img class="identicon-image" ng-src="{{heir.address|blockies}}"/>
-                    </span>
-                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet" ng-bind="heir.address|toCheckSum"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-bind="heir.address"
+                           target="_blank"
+                           ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + heir.address}}"></a>
+                    </div>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.percentage+'%'"></div>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="heir.email"></div>
                 </div>
             </div>
         </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color"
+             ng-if="(contract.stateValue == 4)">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">Token balances</span>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border"
+             ng-if="(contract.stateValue == 4)">
+            <table class="token-balances-table">
+                <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Address</th>
+                    <th>Balance</th>
+                    <th>Allowed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="token in visibleTokensList">
+                    <td>{{token.name}} ({{ token.symbol }})</td>
+                    <td>
+                        <a ng-bind="token.contract_address.slice(0, 10) + '...'"
+                           target="_blank"
+                           ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}"></a>
+                    </td>
+                    <td>{{ token.visibleBalance | separateNumber }}</td>
+                    <td class="normal-size with-lds">
+                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                        <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
+                                ng-if="!token.isAllowProgress && !token.allowed">
+                            <span>Allow</span>
+                        </button>
+
+                        <button type="button" class="btn btn-transparent width-100" ng-click="confirmToken(token)"
+                                ng-if="!token.isAllowProgress && token.allowed && !token.confirmed">
+                            <span translate="BUTTONS.CONFIRM"></span>
+                        </button>
+
+                        <div ng-if="token.confirmed" class="normal-text token-confirmed">
+                            <i class="icon-check_circle icon-check_circle"></i>
+                            <span translate="YES" class="capitalize"></span>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
         <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
             <div class="contract-wallets-information-one-block">
                 <div class="form-control-label">
@@ -139,7 +176,8 @@
                     </div><br/>
                     <div>
                         {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.CHECK_EVERY.LABEL'|translate}}&nbsp;&nbsp;
-                        {{contract.contract_details.check_interval.period}} {{contract.contract_details.check_interval.periodUnit|translate}}
+                        {{contract.contract_details.check_interval.period}}
+                        {{contract.contract_details.check_interval.periodUnit|translate}}
                     </div><br/>
                     <div ng-if="contract.contract_details.next_check">
                         {{'CONTRACTS.PREVIEW.NEXT_CHECK'|translate}}&nbsp;&nbsp;
@@ -155,5 +193,8 @@
          ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>
     <div class="main-section-chapter-fieldset"
-         ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/tron.html'"></div>
 </div>
+
+<div ng-if="contract.stateValue === 4"
+     ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>

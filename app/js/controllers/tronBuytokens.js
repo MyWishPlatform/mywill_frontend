@@ -9,18 +9,15 @@ angular.module('app').controller('tronBuytokensController', function($scope, $ti
     $scope.tronAccountAddress = $rootScope.currentUser.tron_address;
 
 
-    if (window['BRWidget'] && !$rootScope.eoslynx) {
+    if (window['BRWidget']) {
         $timeout(function() {
-            var widget = window['BRWidget'].init('bestrate-widget', '8ce55c6765e822cec89307052be65c50');
+            var widget = window['BRWidget'].init('bestrate-widget', 'e0efeb1a4d926071b16d7edce5cebadd');
             widget.send({
-                tokenWithdrawalWallet: $scope.eosAccountAddress,
+                tokenWithdrawalWallet: $rootScope.currentUser.internal_address,
                 email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
-            } , {}, {
-                description: $rootScope.currentUser.memo
-            });
+            } , {}, {});
         });
     }
-
     var resetForm = function() {
         $scope.formData = {
             toAddress: $rootScope.currentUser.internal_address,

@@ -110,9 +110,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
-
-
-
     var iniEOSContract = function(contract, fullScan) {
         switch (contract.contract_type) {
             case 12:
@@ -385,6 +382,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             iniSocketHandler(contract);
         }
 
+        contract.original_cost = contract.cost;
+
         switch (contract.network) {
             case 1:
             case 2:
@@ -412,6 +411,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 14:
             case 15:
                 // iniEOSContract(contract, fullScan);
+                contract.cost.TRONISH = contract.cost.TRONISH || contract.cost.TRX;
                 setContractStatValues(contract);
         }
     };
@@ -543,7 +543,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
     var showPriceLaunchContract = function(contract) {
-        if (contract.cost.WISH == 0) {
+
+        if ((contract.cost.WISH == 0) && (contract.cost.EOSISH == 0) && (contract.cost.TRX == 0)) {
             launchContract(contract);
             return;
         }
@@ -559,16 +560,31 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         }
 
+        var price, currency;
+
+        switch ($rootScope.sitemode) {
+            case 'eos':
+                price = new BigNumber(contract.cost.EOSISH).div(10000).round(2);
+                currency = 'EOSISH';
+                break;
+            case 'tron':
+                price = new BigNumber(contract.cost.TRONISH).div(1000000).round(2);
+                currency = 'TRONISH';
+                break;
+            default:
+                price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).round(2);
+                currency = 'WISH';
+        }
+
         $rootScope.commonOpenedPopup = contractConfirmTpl;
 
         $rootScope.commonOpenedPopupParams = {
             newPopupContent: true,
+            currency: currency,
             class: 'deleting-contract',
             contract: contract,
             confirmPayment: launchContract,
-            contractCost: ($rootScope.sitemode !== 'eos') ?
-                Web3.utils.fromWei(contract.cost.WISH, 'ether') :
-                new BigNumber(contract.cost.EOSISH).div(10000).toString(10)
+            contractCost: price.toString(10)
         };
     };
 
@@ -584,16 +600,23 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             promo: contract.promo
         }).then(function(response) {
             contract.cost = response.data.discount_price;
-            var price;
+            contract.cost.TRONISH = contract.cost.TRONISH || contract.cost.TRX;
+            var price, currency;
             switch ($rootScope.sitemode) {
                 case 'eos':
-                    price = contract.cost.EOSISH / 10000;
+                    price = new BigNumber(contract.cost.EOSISH).div(10000).round(2);
+                    currency = 'EOSISH';
+                    break;
+                case 'tron':
+                    price = new BigNumber(contract.cost.TRONISH).div(1000000).round(2);
+                    currency = 'TRONISH';
                     break;
                 default:
-                    price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).round(2)
+                    price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).round(2);
+                    currency = 'WISH';
             }
             $rootScope.commonOpenedPopupParams = {
-                currency: ($rootScope.sitemode === 'eos') ? 'EOSISH' : 'WISH',
+                currency: currency,
                 price: price,
                 contract: contract,
                 newPopupContent: true

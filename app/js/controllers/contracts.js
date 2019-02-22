@@ -218,6 +218,22 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     });
                 }
                 break;
+            case 0:
+            case 1:
+            case 2:
+            case 4:
+                if (!contract.contract_details.eth_contract) {
+                    contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
+                        ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
+                    $scope.networkName = contract.currency;
+                    if (contract.contract_details.eth_contract.address) {
+                        web3Service.setProviderByNumber(contract.network);
+                        web3Service.getBalance(contract.contract_details.eth_contract.address).then(function(result) {
+                            contract.balance = Web3.utils.fromWei(result, 'ether');
+                        });
+                    }
+                }
+            break;
         }
 
         if (!contract.contract_details.eth_contract) return;
@@ -348,6 +364,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
     $scope.iniContract = function(contract, fullScan, noWS) {
+
+        contract.original_cost = contract.cost;
+
         if (!noWS) {
             iniSocketHandler(contract);
         }

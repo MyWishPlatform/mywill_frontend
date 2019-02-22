@@ -14,31 +14,6 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
         FileSaver.saveAs(data, name + '.sol');
     };
 
-    $scope.setContract = function(contract) {
-
-        contract.original_cost = contract.cost;
-
-        $scope.contract = contract;
-        $scope.contract.stateValue = $scope.statuses[$scope.contract.state]['value'];
-        $scope.contract.stateTitle = $scope.statuses[$scope.contract.state]['title'];
-        contract.balance = undefined;
-        $scope.contract.discount = 0;
-
-        if (!contract.contract_details.eth_contract) return;
-
-        contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
-            ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
-
-        $scope.networkName = contract.currency;
-
-        web3Service.setProviderByNumber(contract.network);
-
-        if (contract.contract_details.eth_contract.address) {
-            web3Service.getBalance(contract.contract_details.eth_contract.address).then(function(result) {
-                contract.balance = Web3.utils.fromWei(result, 'ether');
-            });
-        }
-    };
     $scope.changePromoCode = function(contract) {
         contract.discountError = false;
         contract.discount = 0;

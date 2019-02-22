@@ -3,7 +3,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     $scope.contract = openedContract.data;
 
 
-    $scope.setContract($scope.contract);
+    $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
 

@@ -1,7 +1,7 @@
 angular.module('app').controller('tronLostKeyPreviewController', function($timeout, $rootScope, contractService, $state,
                                                                           openedContract, $scope, $http, TronService) {
     $scope.contract = openedContract.data;
-    $scope.setContract($scope.contract);
+    $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
     if (contractDetails.tron_contract && contractDetails.tron_contract.address) {

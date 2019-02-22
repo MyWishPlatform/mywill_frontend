@@ -351,8 +351,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         if (!noWS) {
             iniSocketHandler(contract);
         }
-        contract.discount = contract.discount || 0;
-
 
         switch (contract.network) {
             case 1:
@@ -484,7 +482,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     /* (Click) Launch contract */
     $scope.payContract = function(contract) {
-        contract.discount = contract.discount || 0;
         if ($rootScope.currentUser.is_ghost) {
             $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
             $rootScope.commonOpenedPopupParams = {
@@ -546,23 +543,21 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         if (!contract.promo) return;
         contract.checkPromoProgress = true;
+
+
         return contractService.getDiscount({
             contract_type: contract.contract_type,
+            contract_id: contract.id,
             promo: contract.promo
         }).then(function(response) {
-            contract.discount = response.data.discount;
+            contract.cost = response.data.discount_price;
             var price;
             switch ($rootScope.sitemode) {
                 case 'eos':
-                    price = (contract.cost.EOSISH - contract.cost.EOSISH * contract.discount / 100) / 10000;
+                    price = contract.cost.EOSISH / 10000;
                     break;
                 default:
-                    price = new BigNumber(
-                        Web3.utils.fromWei(
-                            new BigNumber(contract.cost.WISH).minus(new BigNumber(contract.cost.WISH).times(contract.discount).div(100)).round().toString(10),
-                            'ether'
-                        )
-                    ).round(2)
+                    price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).round(2)
             }
             $rootScope.commonOpenedPopupParams = {
                 currency: ($rootScope.sitemode === 'eos') ? 'EOSISH' : 'WISH',
@@ -575,7 +570,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             }
             contract.checkPromoProgress = false;
         }, function(response) {
-            contract.discount = 0;
             switch (response.status) {
                 case 403:
                     contract.discountError = response.data.detail;

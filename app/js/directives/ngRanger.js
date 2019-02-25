@@ -16,7 +16,7 @@ angular.module('Directives').directive('ngRanger', function($rootScope) {
             var movePoint = angular.element('.ng-ranger-line-point:first', element);
 
             var changePercentage = function() {
-                $scope.percentage = Math.min(100, Math.max(0, $scope.percentage));
+                $scope.percentage = Math.min(100, Math.max($scope.ngRanger.min || 0, $scope.percentage));
                 $scope.value = Math.round($scope.percentage);
                 $scope.ngRanger.model.percentage = $scope.value;
                 $scope.ngRanger.onChange ? $scope.ngRanger.onChange() : true;

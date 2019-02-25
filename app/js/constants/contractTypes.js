@@ -206,8 +206,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'price': true
         }, {
             'icon': 'icon-key',
-            'title': 'PAGES.CREATE_CONTRACT.LOST_KEY.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.LOST_KEY.DESCRIPTION',
+            'title': 'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.DESCRIPTION',
             'typeNumber': 18,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[18],
             'price': true

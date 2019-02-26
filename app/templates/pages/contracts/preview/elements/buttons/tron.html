@@ -156,25 +156,8 @@
                 </button><br/><br/>
             </div>
 
-            <!-- Lost key confirm all -->
-            <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)">
-                <button type="button"
-                        ng-disabled="!(visibleTokensList|filter:{confirmed: false, allowed: true}).length"
-                        ng-click="callAddTokens()"
-                        class="btn btn-transparent mobile-width-100">
-                    <span class="lds-ellipsis" ng-if="contract.isAllConfirmProgress">
-                        <span class="lds-ellipsis-container">
-                            <span></span><span></span><span></span><span></span>
-                        </span>
-                    </span>
-                    <span>Confirm all</span>
-                </button><br/><br/>
-            </div>
-
             <!-- Lost key i'm good -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-controller="tronLostKeyImAlievController"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)">
                 <button type="button"
                         ng-click="callIALive()"
@@ -184,26 +167,24 @@
                             <span></span><span></span><span></span><span></span>
                         </span>
                     </span>
-                    <span>I'm good</span>
+                    <span>Update confirmation date</span>
                 </button><br/><br/>
-                <div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
             </div>
 
             <!-- Lost key cancel -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-controller="tronLostKeyCancelController"
                  ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)">
                 <button type="button"
-                        ng-click="callCancel()"
+                        ng-pop-up="{
+                            template: '/templates/popups/confirmations/confirm-cancel-contract.html',
+                            newPopupContent: true,
+                            class: 'deleting-contract',
+                            callCancel: callCancel,
+                            params: cancelContractPopUpParams
+                        }"
                         class="btn btn-transparent mobile-width-100">
-                    <span class="lds-ellipsis" ng-if="contract.imCancelProgress">
-                        <span class="lds-ellipsis-container">
-                            <span></span><span></span><span></span><span></span>
-                        </span>
-                    </span>
-                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
+                    <span>Cancel contract</span>
                 </button><br/><br/>
-                <div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
             </div>
 
 

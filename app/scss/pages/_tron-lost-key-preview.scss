@@ -1,12 +1,7 @@
 .token-balances-table {
   width: 100%;
   font-size: 1em;
-  thead {
-    font-weight: bold;
-    th {
-      border-bottom: 1px solid #eaeaea;
-    }
-  }
+
   td, th {
     &:not(.normal-size) {
       font-size: 1.4em;
@@ -27,6 +22,15 @@
     }
   }
 
+  tr {
+    &.as-head {
+      font-weight: bold;
+      td {
+        border-bottom: 1px solid #eaeaea;
+        border-top: 1px solid #eaeaea;
+      }
+    }
+  }
   th, td {
     &:last-child {
       text-align: center;

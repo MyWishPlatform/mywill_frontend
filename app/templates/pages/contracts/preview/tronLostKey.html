@@ -1,18 +1,25 @@
-<div class="contract-preview-tabs" ng-init="contract.showedTab = 'info'">
+<div class="contract-preview-tabs">
     <div class="contract-preview-one-tab"
-         ng-class="{active: contract.showedTab == 'info'}"
-         ng-click="contract.showedTab = 'info'">
-        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
+         ng-class="{active: showedTab == 'tokens'}"
+         ng-click="showedTab = 'tokens'"
+         ng-show="(contract.stateValue == 4)">
+        <span>Tokens</span>
     </div>
     <div class="contract-preview-one-tab"
-         ng-class="{active: contract.showedTab == 'code'}"
-         ng-click="contract.showedTab = 'code'"
+         ng-class="{active: showedTab == 'info'}"
+         ng-click="showedTab = 'info'">
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
+    </div>
+
+    <div class="contract-preview-one-tab"
+         ng-class="{active: showedTab == 'code'}"
+         ng-click="showedTab = 'code'"
          ng-show="contract.contract_details.tron_contract.address">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
 
-<div ng-show="contract.showedTab == 'code'">
+<div ng-show="showedTab == 'code'">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content" ng-if="contract.network == 15">
             <p class="normal-text">
@@ -46,8 +53,126 @@
     </div>
 </div>
 
-<div ng-show="contract.showedTab == 'info'">
+<div ng-show="showedTab == 'tokens'" ng-if="(contract.stateValue == 4)">
 
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+            <div class="shadow-block__content__blue-title">
+                <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">Token balances</span>
+                </div>
+            </div>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border"
+             ng-if="!visibleTokensList">
+            <p class="normal-text">Please wait...</p>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border"
+              ng-if="visibleTokensList">
+            <p class="normal-text" ng-if="(visibleTokensList|filter:{confirmed: false}).length">
+                Please, check that all the tokens are on the list and can be transferred.<br/>
+                After tokens adding, please confirm the changes in the contract.<br/><br/>
+                <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                Tokens which are not on the list will not be sent to the reserved addresses.<br/><br/>
+            </p>
+            <p class="normal-text" ng-if="!(visibleTokensList|filter:{confirmed: false}).length">
+                All your tokens were added on the list and ready to be transferred.<br/>
+            </p>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+             ng-if="visibleTokensList">
+            <table class="token-balances-table">
+                <tr ng-repeat="token in visibleTokensList|filter:{confirmed: false}">
+                    <td>
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                            {{token.name}} ({{ token.symbol }})
+                        </a>
+                    </td>
+
+                    <td>{{ token.visibleBalance | separateNumber }}</td>
+                    <td class="normal-size with-lds">
+                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                        <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
+                                ng-if="!token.isAllowProgress && !token.allowed">
+                            <span>Add</span>
+                        </button>
+
+                        <button type="button" class="btn btn-transparent width-100" ng-click="confirmToken(token)"
+                                ng-if="!token.isAllowProgress && token.allowed && !token.confirmed">
+                            <span translate="BUTTONS.CONFIRM"></span>
+                        </button>
+
+                        <div ng-if="token.confirmed" class="normal-text token-confirmed">
+                            <i class="icon-check_circle icon-check_circle"></i>
+                            <span translate="YES" class="capitalize"></span>
+                        </div>
+
+                    </td>
+                </tr>
+
+                <tr ng-if="(visibleTokensList|filter:{confirmed: true}).length" class="as-head">
+                    <td>This token are added</td>
+                    <td>Balance</td>
+                    <td>Status</td>
+                </tr>
+
+                <tr ng-repeat="token in visibleTokensList|filter:{confirmed: true}">
+                    <td>
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                            {{token.name}} ({{ token.symbol }})
+                        </a>
+                    </td>
+                    <td>{{ token.visibleBalance | separateNumber }}</td>
+                    <td class="normal-size with-lds">
+                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                        <div ng-if="token.confirmed" class="normal-text token-confirmed">
+                            <i class="icon-check_circle icon-check_circle"></i>
+                            <span class="capitalize">Added</span>
+                        </div>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="main-section-chapter-fieldset" ng-if="visibleTokensList">
+        <div class="contract-form-fieldset without-padding">
+            <div class="contract-form-information-btns">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-vs-1-2"
+                         ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)">
+                        <button type="button"
+                                ng-disabled="!(visibleTokensList|filter:{confirmed: false, allowed: true}).length"
+                                ng-click="callAddTokens()"
+                                class="btn btn-transparent mobile-width-100">
+                                <span class="lds-ellipsis" ng-if="contract.isAllConfirmProgress">
+                                    <span class="lds-ellipsis-container">
+                                        <span></span><span></span><span></span><span></span>
+                                    </span>
+                                </span>
+                            <span>Confirm tokens changes</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="showedTab == 'info'">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
              ng-include="'/templates/common/contracts/preview-title.html'">
@@ -106,61 +231,7 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color"
-             ng-if="(contract.stateValue == 4)">
-            <div class="shadow-block__content__blue-title">
-                <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
-                <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Token balances</span>
-                </div>
-            </div>
-        </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border"
-             ng-if="(contract.stateValue == 4)">
-            <table class="token-balances-table">
-                <thead>
-                <tr>
-                    <th>Token</th>
-                    <th>Address</th>
-                    <th>Balance</th>
-                    <th>Allowed</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="token in visibleTokensList">
-                    <td>{{token.name}} ({{ token.symbol }})</td>
-                    <td>
-                        <a ng-bind="token.contract_address.slice(0, 10) + '...'"
-                           target="_blank"
-                           ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}"></a>
-                    </td>
-                    <td>{{ token.visibleBalance | separateNumber }}</td>
-                    <td class="normal-size with-lds">
-                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
-                            <span class="lds-ellipsis-container">
-                                <span></span><span></span><span></span><span></span>
-                            </span>
-                        </span>
-                        <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
-                                ng-if="!token.isAllowProgress && !token.allowed">
-                            <span>Allow</span>
-                        </button>
 
-                        <button type="button" class="btn btn-transparent width-100" ng-click="confirmToken(token)"
-                                ng-if="!token.isAllowProgress && token.allowed && !token.confirmed">
-                            <span translate="BUTTONS.CONFIRM"></span>
-                        </button>
-
-                        <div ng-if="token.confirmed" class="normal-text token-confirmed">
-                            <i class="icon-check_circle icon-check_circle"></i>
-                            <span translate="YES" class="capitalize"></span>
-                        </div>
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
 
 
         <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
@@ -180,7 +251,7 @@
                         {{contract.contract_details.check_interval.periodUnit|translate}}
                     </div><br/>
                     <div ng-if="contract.contract_details.next_check">
-                        {{'CONTRACTS.PREVIEW.NEXT_CHECK'|translate}}&nbsp;&nbsp;
+                        Next confirmation transaction should be before:
                         {{contract.contract_details.next_check|date:'yyyy-MM-dd'}}
                     </div>
                 </div>

@@ -98,34 +98,26 @@
 </button>
 
 
-<!-- Lost key i'm good -->
-<button type="button"
-        ng-controller="tronLostKeyImAlievController"
-        ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
-        ng-click="callIALive()"
-        class="btn btn-transparent mobile-width-100">
-                <span class="lds-ellipsis" ng-if="contract.imAliveProgress">
-                    <span class="lds-ellipsis-container">
-                        <span></span><span></span><span></span><span></span>
-                    </span>
-                </span>
-    <span>I'm good</span>
-    <div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
-</button>
+<!--&lt;!&ndash; Lost key i'm good &ndash;&gt;-->
+<!--<button type="button"-->
+        <!--ng-controller="tronLostKeyImAlievController"-->
+        <!--ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"-->
+        <!--ng-click="callIALive()"-->
+        <!--class="btn btn-transparent mobile-width-100">-->
+                <!--<span class="lds-ellipsis" ng-if="contract.imAliveProgress">-->
+                    <!--<span class="lds-ellipsis-container">-->
+                        <!--<span></span><span></span><span></span><span></span>-->
+                    <!--</span>-->
+                <!--</span>-->
+    <!--<span>I'm good</span>-->
+    <!--<div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>-->
+<!--</button>-->
 
 
-<!-- Lost key i'm good -->
-<button type="button"
-        ng-controller="tronLostKeyCancelController"
+<!-- Lost key add tokens -->
+<a ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'tokens'})"
         ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
-        ng-click="callCancel()"
-        class="btn btn-transparent mobile-width-100">
-                <span class="lds-ellipsis" ng-if="contract.imCancelProgress">
-                    <span class="lds-ellipsis-container">
-                        <span></span><span></span><span></span><span></span>
-                    </span>
-                </span>
-    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
-    <div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
-</button>
+      class="btn btn-transparent mobile-width-100">
+    <span>Add tokens</span>
+</a>
 

@@ -1,11 +1,19 @@
 angular.module('app').controller('tronLostKeyPreviewController', function($timeout, $rootScope, contractService, $state,
-                                                                          openedContract, $scope, $http, TronService) {
+                                                                          openedContract, $scope, $http, TronService, $location) {
     $scope.contract = openedContract.data;
     $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
     if (contractDetails.tron_contract && contractDetails.tron_contract.address) {
         contractDetails.tron_contract.address = TronWeb.address.fromHex(contractDetails.tron_contract.address);
+    }
+
+    var tabs = ['tokens', 'info', 'code'];
+
+    $scope.showedTab = $location.hash().replace('#', '');
+
+    if (tabs.indexOf($scope.showedTab) === -1) {
+        $scope.showedTab = tabs[1];
     }
 
     var durationList = [
@@ -58,14 +66,14 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
         }, console.log);
     };
 
-    var getAllUserTokens = function(addedTokens) {
 
+    var getAllUserTokens = function(addedTokens) {
         TronService.getAccountAdvancedInfo(contractDetails.user_address, $scope.contract.network).then(
             function(response) {
                 $scope.visibleTokensList = response.data.trc20token_balances;
                 $scope.visibleTokensList.map(function(token) {
                     token.contract_address = TronWeb.address.fromHex(token.contract_address);
-                    token.visibleBalance = new BigNumber(token.balance).div(Math.pow(10, token.decimals));
+                    token.visibleBalance = isNaN(token.balance) ? token.balance : new BigNumber(token.balance).div(Math.pow(10, token.decimals));
                     token.confirmed = addedTokens.indexOf(TronWeb.address.toHex(token.contract_address)) > -1;
                     token.isAllowProgress  = true;
                     if (!token.confirmed) {
@@ -94,7 +102,7 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
     }
 
 
-    $scope.visibleTokensList = [];
+    // $scope.visibleTokensList = [];
 
 
     $scope.closeExtensionAlert = function() {
@@ -218,63 +226,29 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
         });
     };
 
-    $scope.onCancel = function() {
-        $state.go('main.contracts.list');
-    };
 
-}).controller('tronLostKeyCancelController', function ($scope, TronService) {
+    $scope.cancelContractPopUpParams = {};
 
-    $scope.closeExtensionAlert = function() {
-        $scope.TRONExtensionInfo = {
-            extensionNotInstalled: false,
-            extensionNotAuthorized: false,
-            extensionOtherUser: false,
-            txServerError: false,
-            successTx: false,
-            network: $scope.contract.network
-        };
-    };
+    $scope.callCancel = function(callback) {
+        if (!isSuccessExtension()) return;
 
-    $scope.closeExtensionAlert();
-
-    var isSuccessExtension = function() {
-        var address = $scope.contract.contract_details.user_address;
-        if (!window.tronWeb) {
-            $scope.TRONExtensionInfo.extensionNotInstalled = true;
-            return;
-        } else if (!window.tronWeb.defaultAddress.hex) {
-            $scope.TRONExtensionInfo.extensionNotAuthorized = true;
-            return;
-        } else if (
-            (window.tronWeb.defaultAddress.hex !== address) &&
-            (window.tronWeb.defaultAddress.base58 !== address)) {
-            $scope.TRONExtensionInfo.extensionOtherUser = true;
-            return;
-        }
-        return true;
-    };
-
-
-    $scope.callCancel = function() {
         TronService.createContract(
             $scope.contract.contract_details.tron_contract.abi,
             $scope.contract.contract_details.tron_contract.address,
             $scope.contract.network
-        ).then(callCancel);
+        ).then(function(tronContract) {
+            callCancel(tronContract, callback);
+        });
     };
 
 
-    var callCancel = function(tronContract) {
-        if (!isSuccessExtension()) return;
-        $scope.contract.imCancelProgress  = true;
+    var callCancel = function(tronContract, callback) {
+        $scope.cancelContractPopUpParams.imCancelProgress  = true;
         tronContract.kill().send().then(
             function(result) {
                 $scope.TRONExtensionInfo.successTx = {
                     transaction_id: result
                 };
-                if ($scope.onCancel) {
-                    $scope.onCancel();
-                }
                 $scope.$apply();
             },
             function() {
@@ -282,40 +256,10 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
                 $scope.$apply();
             }
         ).finally(function() {
-            $scope.contract.imCancelProgress = false;
+            callback();
+            $scope.cancelContractPopUpParams.imCancelProgress = false;
             $scope.$apply();
         });
-    }
-}).controller('tronLostKeyImAlievController', function ($scope, TronService) {
-
-    $scope.closeExtensionAlert = function() {
-        $scope.TRONExtensionInfo = {
-            extensionNotInstalled: false,
-            extensionNotAuthorized: false,
-            extensionOtherUser: false,
-            txServerError: false,
-            successTx: false,
-            network: $scope.contract.network
-        };
-    };
-
-    $scope.closeExtensionAlert();
-
-    var isSuccessExtension = function() {
-        var address = $scope.contract.contract_details.user_address;
-        if (!window.tronWeb) {
-            $scope.TRONExtensionInfo.extensionNotInstalled = true;
-            return;
-        } else if (!window.tronWeb.defaultAddress.hex) {
-            $scope.TRONExtensionInfo.extensionNotAuthorized = true;
-            return;
-        } else if (
-            (window.tronWeb.defaultAddress.hex !== address) &&
-            (window.tronWeb.defaultAddress.base58 !== address)) {
-            $scope.TRONExtensionInfo.extensionOtherUser = true;
-            return;
-        }
-        return true;
     };
 
 

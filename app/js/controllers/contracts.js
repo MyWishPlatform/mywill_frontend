@@ -13,7 +13,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);
-        if (target.is('.btn') || target.parents('.btn').length) return;
+        if (!(target.is('[click-ignore]') || target.parents('[click-ignore]').length) &&  (target.is('.btn') || target.parents('.btn').length)) return;
         var contractId = contract.id;
         if ((contract.contract_type === 5) && (contract.state === 'UNDER_CROWDSALE')) {
             contractId = contract.contract_details.crowdsale || contractId;

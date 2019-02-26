@@ -103,8 +103,9 @@
             </div>
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.LOST_KEY.FIELDS.NOTIFICATION_EMAIL.DESCRIPTION"></span>
+                <span class="form-control-description__text">
+                    Enter the e-mail address to which you want to send a message about transferring the tokens
+                </span>
             </div>
         </div>
         <i class="icon-cancel float-right form-fieldset-info-button"
@@ -112,7 +113,7 @@
     </div>
 </form>
 <div ng-if="hairsList.length"><br/><br/></div>
-<div ng-if="hairsList.length < 5">
+<div ng-if="hairsList.length < 100">
     <button class="btn btn-transparent with-icon" type="button" ng-click="addHair()"
             ng-disabled="!(mainForm.$valid && contractNameForm.$valid)">
         <i class="icon-create-contract"></i>
@@ -200,8 +201,9 @@
 
             <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                 <div class="form-control-label hide-ps">&nbsp;</div>
-                <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.LAST_WILL.FIELDS.CONTRACT_EXPIRATION.DESCRIPTION"></span>
+                <span class="form-control-description__text">
+                    After the expiration date, the contract will expire and won't be able to transfer tokens from the management address.
+                </span>
             </div>
         </div>
     </div>

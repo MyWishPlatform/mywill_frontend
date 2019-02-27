@@ -58,6 +58,7 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
                     TronWeb.address.toHex(contractDetails.user_address),
                     TronWeb.address.toHex(contractDetails.tron_contract.address)
                 ).call().then(function(response) {
+                    token.checked = true;
                     token.allowed = new BigNumber(response) > 0;
                     token.isAllowProgress = false;
                     $scope.$apply();
@@ -72,6 +73,7 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
             function(response) {
                 $scope.visibleTokensList = response.data.trc20token_balances;
                 $scope.visibleTokensList.map(function(token) {
+                    token.checked = false;
                     token.contract_address = TronWeb.address.fromHex(token.contract_address);
                     token.visibleBalance = isNaN(token.balance) ? token.balance : new BigNumber(token.balance).div(Math.pow(10, token.decimals));
                     token.confirmed = addedTokens.indexOf(TronWeb.address.toHex(token.contract_address)) > -1;
@@ -79,6 +81,7 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
                     if (!token.confirmed) {
                         checkTokenContract(token);
                     } else {
+                        token.checked = true;
                         token.allowed = true;
                         token.isAllowProgress  = false;
                     }
@@ -174,7 +177,7 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
         });
 
         var tokensList = notConfirmedTokens.map(function(token) {
-            token.isAllowProgress = true;
+            token.isConfirmProgress = true;
             return TronWeb.address.toHex(token.contract_address);
         });
         $scope.contract.isAllConfirmProgress = true;
@@ -196,7 +199,7 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
             }
         ).finally(function() {
             notConfirmedTokens.forEach(function(token) {
-                token.isAllowProgress = false;
+                token.isConfirmProgress = false;
             });
             $scope.contract.isAllConfirmProgress = false;
             $scope.$apply();
@@ -226,16 +229,50 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
         });
     };
 
+}).controller('tronLostKeyCancelController', function ($scope, TronService) {
+
+    var contract = $scope.ngPopUp.contract;
+    $scope.closeExtensionAlert = function() {
+        $scope.TRONExtensionInfo = {
+            extensionNotInstalled: false,
+            extensionNotAuthorized: false,
+            extensionOtherUser: false,
+            txServerError: false,
+            successTx: false,
+            network: contract.network
+        };
+    };
+
+    $scope.closeExtensionAlert();
+
+    var isSuccessExtension = function() {
+        var address = contract.contract_details.user_address;
+        if (!window.tronWeb) {
+            $scope.TRONExtensionInfo.extensionNotInstalled = true;
+            return;
+        } else if (!window.tronWeb.defaultAddress.hex) {
+            $scope.TRONExtensionInfo.extensionNotAuthorized = true;
+            return;
+        } else if (
+            (window.tronWeb.defaultAddress.hex !== address) &&
+            (window.tronWeb.defaultAddress.base58 !== address)) {
+            $scope.TRONExtensionInfo.extensionOtherUser = true;
+            return;
+        }
+        return true;
+    };
+
 
     $scope.cancelContractPopUpParams = {};
 
     $scope.callCancel = function(callback) {
+        console.log(isSuccessExtension());
         if (!isSuccessExtension()) return;
 
         TronService.createContract(
-            $scope.contract.contract_details.tron_contract.abi,
-            $scope.contract.contract_details.tron_contract.address,
-            $scope.contract.network
+            contract.contract_details.tron_contract.abi,
+            contract.contract_details.tron_contract.address,
+            contract.network
         ).then(function(tronContract) {
             callCancel(tronContract, callback);
         });
@@ -243,7 +280,7 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
 
 
     var callCancel = function(tronContract, callback) {
-        $scope.cancelContractPopUpParams.imCancelProgress  = true;
+        $scope.imCancelProgress  = true;
         tronContract.kill().send().then(
             function(result) {
                 $scope.TRONExtensionInfo.successTx = {
@@ -257,9 +294,41 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
             }
         ).finally(function() {
             callback();
-            $scope.cancelContractPopUpParams.imCancelProgress = false;
+            $scope.imCancelProgress = false;
             $scope.$apply();
         });
+    };
+
+}).controller('tronLostKeyImAlievController', function ($scope, TronService) {
+
+    $scope.closeExtensionAlert = function() {
+        $scope.TRONExtensionInfo = {
+            extensionNotInstalled: false,
+            extensionNotAuthorized: false,
+            extensionOtherUser: false,
+            txServerError: false,
+            successTx: false,
+            network: $scope.contract.network
+        };
+    };
+
+    $scope.closeExtensionAlert();
+
+    var isSuccessExtension = function() {
+        var address = $scope.contract.contract_details.user_address;
+        if (!window.tronWeb) {
+            $scope.TRONExtensionInfo.extensionNotInstalled = true;
+            return;
+        } else if (!window.tronWeb.defaultAddress.hex) {
+            $scope.TRONExtensionInfo.extensionNotAuthorized = true;
+            return;
+        } else if (
+            (window.tronWeb.defaultAddress.hex !== address) &&
+            (window.tronWeb.defaultAddress.base58 !== address)) {
+            $scope.TRONExtensionInfo.extensionOtherUser = true;
+            return;
+        }
+        return true;
     };
 
 

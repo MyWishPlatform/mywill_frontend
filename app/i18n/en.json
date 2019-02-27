@@ -310,7 +310,7 @@
       },
       "TRON_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
-        "DESCRIPTION": "The smart contract has all the same features as the standard TRON wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
+        "DESCRIPTION": " The contract makes your address safe in case you lost the access/private key. It requires one transaction to send the owner address info to the token address, and the second transaction to confirm sending the tokens to the contract address. After finishing the transactions, please confirm the changes in the contract."
       },
       "DEFERRED": {
         "TITLE": "Deferred payment",

@@ -54,119 +54,176 @@
 </div>
 
 <div ng-show="showedTab == 'tokens'" ng-if="(contract.stateValue == 4)">
-
-    <div class="shadow-block after-tabs">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
-            <div class="shadow-block__content__blue-title">
-                <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
-                <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Token balances</span>
-                </div>
-            </div>
-        </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border"
-             ng-if="!visibleTokensList">
+    <div class="shadow-block after-tabs" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border">
             <p class="normal-text">Please wait...</p>
-        </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border"
-              ng-if="visibleTokensList">
-            <p class="normal-text" ng-if="(visibleTokensList|filter:{confirmed: false}).length">
-                Please, check that all the tokens are on the list and can be transferred.<br/>
-                After tokens adding, please confirm the changes in the contract.<br/><br/>
-                <i class="main-blue-color icon-alert-circle"></i>&nbsp;
-                Tokens which are not on the list will not be sent to the reserved addresses.<br/><br/>
-            </p>
-            <p class="normal-text" ng-if="!(visibleTokensList|filter:{confirmed: false}).length">
-                All your tokens were added on the list and ready to be transferred.<br/>
-            </p>
-        </div>
-
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
-             ng-if="visibleTokensList">
-            <table class="token-balances-table">
-                <tr ng-repeat="token in visibleTokensList|filter:{confirmed: false}">
-                    <td>
-                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
-                            {{token.name}} ({{ token.symbol }})
-                        </a>
-                    </td>
-
-                    <td>{{ token.visibleBalance | separateNumber }}</td>
-                    <td class="normal-size with-lds">
-                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
-                            <span class="lds-ellipsis-container">
-                                <span></span><span></span><span></span><span></span>
-                            </span>
-                        </span>
-                        <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
-                                ng-if="!token.isAllowProgress && !token.allowed">
-                            <span>Add</span>
-                        </button>
-
-                        <button type="button" class="btn btn-transparent width-100" ng-click="confirmToken(token)"
-                                ng-if="!token.isAllowProgress && token.allowed && !token.confirmed">
-                            <span translate="BUTTONS.CONFIRM"></span>
-                        </button>
-
-                        <div ng-if="token.confirmed" class="normal-text token-confirmed">
-                            <i class="icon-check_circle icon-check_circle"></i>
-                            <span translate="YES" class="capitalize"></span>
-                        </div>
-
-                    </td>
-                </tr>
-
-                <tr ng-if="(visibleTokensList|filter:{confirmed: true}).length" class="as-head">
-                    <td>This token are added</td>
-                    <td>Balance</td>
-                    <td>Status</td>
-                </tr>
-
-                <tr ng-repeat="token in visibleTokensList|filter:{confirmed: true}">
-                    <td>
-                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
-                            {{token.name}} ({{ token.symbol }})
-                        </a>
-                    </td>
-                    <td>{{ token.visibleBalance | separateNumber }}</td>
-                    <td class="normal-size with-lds">
-                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
-                            <span class="lds-ellipsis-container">
-                                <span></span><span></span><span></span><span></span>
-                            </span>
-                        </span>
-                        <div ng-if="token.confirmed" class="normal-text token-confirmed">
-                            <i class="icon-check_circle icon-check_circle"></i>
-                            <span class="capitalize">Added</span>
-                        </div>
-
-                    </td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 
 
-    <div class="main-section-chapter-fieldset" ng-if="visibleTokensList">
-        <div class="contract-form-fieldset without-padding">
-            <div class="contract-form-information-btns">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-vs-1-2"
-                         ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)">
-                        <button type="button"
-                                ng-disabled="!(visibleTokensList|filter:{confirmed: false, allowed: true}).length"
-                                ng-click="callAddTokens()"
-                                class="btn btn-transparent mobile-width-100">
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">1. Token allowance</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+             ng-if="!(visibleTokensList | filter : {allowed: false}).length">
+            <p class="normal-text">
+                <!--<i class="main-blue-color icon-warning"></i>&nbsp;-->
+                No tokens are available to allowance.<br/>
+            </p>
+        </div>
+
+        <div ng-if="(visibleTokensList | filter : {allowed: false}).length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <p class="normal-text">
+                    Please allow the contract to send the tokens from your personal address to reserved addresses.<br/>
+                    After allowing, please confirm the changes in the contract.<br/>
+                </p>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <table class="token-balances-table">
+                    <tr ng-repeat="token in visibleTokensList|filter:{allowed: false}">
+                        <td>
+                            <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                                {{token.name}} ({{ token.symbol }})
+                            </a>
+                        </td>
+                        <td>{{ token.visibleBalance | separateNumber }}</td>
+                        <td class="normal-size with-lds">
+                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                            <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
+                                    ng-if="!token.isAllowProgress">
+                                <span>Allow</span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">2. Confirm tokens</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+             ng-if="!(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
+            <p class="normal-text">
+                <!--<i class="main-blue-color icon-warning"></i>&nbsp;-->
+                No tokens are available for adding.<br/>
+            </p>
+        </div>
+
+        <div ng-if="(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <p class="normal-text">
+                    Please confirm each token or all tokens (recommended) on the list, so the contract can complete the transaction.
+                    <br/><br/>
+                    <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                    Tokens which are not confirmed will not be sent to the reserved addresses.<br/>
+                </p>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <table class="token-balances-table">
+                    <tr ng-repeat="token in visibleTokensList|filter:{confirmed: false, allowed: true}">
+                        <td>
+                            <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                                {{token.name}} ({{ token.symbol }})
+                            </a>
+                        </td>
+                        <td>{{ token.visibleBalance | separateNumber }}</td>
+                        <td class="normal-size with-lds">
+                            <span class="lds-ellipsis" ng-if="token.isConfirmProgress">
+                                <span class="lds-ellipsis-container">
+                                    <span></span><span></span><span></span><span></span>
+                                </span>
+                            </span>
+                            <button type="button" class="btn btn-transparent width-100" ng-click="confirmToken(token)"
+                                    ng-if="!token.isConfirmProgress">
+                                <span translate="BUTTONS.CONFIRM"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <button type="button"
+                        ng-click="callAddTokens()"
+                        class="btn btn-transparent mobile-width-100 float-right">
                                 <span class="lds-ellipsis" ng-if="contract.isAllConfirmProgress">
                                     <span class="lds-ellipsis-container">
                                         <span></span><span></span><span></span><span></span>
                                     </span>
                                 </span>
-                            <span>Confirm tokens changes</span>
-                        </button>
-                    </div>
+                    <span>Confirm all</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">Tokens in contract</span>
                 </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+             ng-if="!(visibleTokensList | filter : {confirmed: true}).length">
+            <p class="normal-text">
+                <!--<i class="main-blue-color icon-warning"></i>&nbsp;-->
+                The list is empty, no tokens are available to be transferred.<br/>
+            </p>
+        </div>
+
+        <div ng-if="(visibleTokensList | filter : {confirmed: true}).length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <p class="normal-text">
+                    These tokens are confirmed to be sent to the reserved addresses.
+                    <br/><br/>
+                    <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                    Tokens which are not on the list will not be sent to the reserved addresses.<br/>
+                </p>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <table class="token-balances-table">
+                    <tr ng-repeat="token in visibleTokensList | filter : { confirmed: true }">
+                        <td>
+                            <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                                {{token.name}} ({{ token.symbol }})
+                            </a>
+                        </td>
+                        <td>{{ token.visibleBalance | separateNumber }}</td>
+                        <td class="normal-size">
+                            <div class="normal-text token-confirmed">
+                                <i class="icon-check_circle icon-check_circle"></i>
+                                <span class="capitalize">Allowed</span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

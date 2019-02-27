@@ -78,6 +78,20 @@ angular.module('app').controller('tronLostKeyCreateController', function($scope,
     $scope.network = contract.network;
 
     var generateContractData = function() {
+        var heirs = $scope.hairsList.reduce(function(res, heir) {
+            console.log(arguments);
+            var addedHeir = res.filter(function(h) {
+                return TronWeb.address.toHex(h.address) === TronWeb.address.toHex(heir.address);
+            })[0];
+
+            if (addedHeir) {
+                addedHeir.percentage+= heir.percentage;
+            } else {
+                res.push(heir);
+            }
+            return res;
+        }, []);
+
         return {
             name: $scope.contractName,
             id: contract.id,
@@ -88,7 +102,7 @@ angular.module('app').controller('tronLostKeyCreateController', function($scope,
                 email: $scope.request.email,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-                heirs: angular.copy($scope.hairsList)
+                heirs: heirs
             }
         }
     };

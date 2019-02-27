@@ -1,4 +1,4 @@
-<div class="shadow-block">
+<div class="shadow-block" ng-controller="tronLostKeyCancelController">
     <div class="shadow-block__content shadow-block__content_no-lr-padding">
         <div class="alert-window-title">
             Please confirm that you want Cancel contract
@@ -6,9 +6,9 @@
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
         <button class="btn btn-submit" type="button"
-                ng-click="ngPopUp.callCancel(closeCurrentPopup)">
+                ng-click="callCancel(closeCurrentPopup)">
 
-            <span class="lds-ellipsis" ng-if="ngPopUp.params.imCancelProgress">
+            <span class="lds-ellipsis" ng-if="imCancelProgress">
                 <span class="lds-ellipsis-container">
                     <span></span><span></span><span></span><span></span>
                 </span>
@@ -19,4 +19,5 @@
             <span>&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;</span>
         </button><br/><br/>
     </div>
+    <div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
 </div>

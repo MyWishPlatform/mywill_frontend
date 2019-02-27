@@ -98,26 +98,38 @@
 </button>
 
 
-<!--&lt;!&ndash; Lost key i'm good &ndash;&gt;-->
-<!--<button type="button"-->
-        <!--ng-controller="tronLostKeyImAlievController"-->
-        <!--ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"-->
-        <!--ng-click="callIALive()"-->
-        <!--class="btn btn-transparent mobile-width-100">-->
-                <!--<span class="lds-ellipsis" ng-if="contract.imAliveProgress">-->
-                    <!--<span class="lds-ellipsis-container">-->
-                        <!--<span></span><span></span><span></span><span></span>-->
-                    <!--</span>-->
-                <!--</span>-->
-    <!--<span>I'm good</span>-->
-    <!--<div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>-->
-<!--</button>-->
+<!-- Lost key i'm good -->
+<button type="button"
+        ng-controller="tronLostKeyImAlievController"
+        ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
+        ng-click="callIALive()"
+        class="btn btn-transparent mobile-width-100">
+                <span class="lds-ellipsis" ng-if="contract.imAliveProgress">
+                    <span class="lds-ellipsis-container">
+                        <span></span><span></span><span></span><span></span>
+                    </span>
+                </span>
+    <span>Confirm access</span>
+    <div ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
+</button>
 
+
+
+<button type="button"
+        ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
+        ng-pop-up="{
+            template: '/templates/popups/confirmations/confirm-cancel-contract.html',
+            newPopupContent: true,
+            class: 'deleting-contract',
+            contract: contract
+        }"
+        class="btn btn-transparent mobile-width-100">
+    <span>Cancel contract</span>
+</button>
 
 <!-- Lost key add tokens -->
 <a ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'tokens'})"
-        ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
-      class="btn btn-transparent mobile-width-100">
+   ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
+   class="btn btn-transparent mobile-width-100">
     <span>Add tokens</span>
 </a>
-

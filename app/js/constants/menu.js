@@ -94,6 +94,10 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         route: 'main.buytokens',
         noactive: false
     }, {
+        title: 'Developer API',
+        icon: 'icon-framew',
+        route: 'main.api'
+    }, {
         title: 'MAIN_MENU.SUPPORT',
         icon: 'icon-at',
         static: true,

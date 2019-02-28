@@ -69,7 +69,6 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
         },
         googleAuth: function(callback, errCallback, advancedData) {
             var onLogged = function(response) {
-                console.log(response);
                 var requestData = {
                     'access_token': response.access_token,
                     'totp': response.totp

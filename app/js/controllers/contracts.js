@@ -13,7 +13,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     $scope.goToContract = function(contract, $event) {
         var target = angular.element($event.target);
-        if (target.is('.btn') || target.parents('.btn').length) return;
+        if (!(target.is('[click-ignore]') || target.parents('[click-ignore]').length) &&  (target.is('.btn') || target.parents('.btn').length)) return;
         var contractId = contract.id;
         if ((contract.contract_type === 5) && (contract.state === 'UNDER_CROWDSALE')) {
             contractId = contract.contract_details.crowdsale || contractId;
@@ -218,6 +218,22 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     });
                 }
                 break;
+            case 0:
+            case 1:
+            case 2:
+            case 4:
+                if (contract.contract_details.eth_contract) {
+                    contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
+                        ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
+                    $scope.networkName = contract.currency;
+                    if (contract.contract_details.eth_contract.address) {
+                        web3Service.setProviderByNumber(contract.network);
+                        web3Service.getBalance(contract.contract_details.eth_contract.address).then(function(result) {
+                            contract.balance = Web3.utils.fromWei(result, 'ether');
+                        });
+                    }
+                }
+            break;
         }
 
         if (!contract.contract_details.eth_contract) return;
@@ -348,11 +364,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
     $scope.iniContract = function(contract, fullScan, noWS) {
+
+        contract.original_cost = contract.cost;
+
         if (!noWS) {
             iniSocketHandler(contract);
         }
-        contract.discount = contract.discount || 0;
-
 
         switch (contract.network) {
             case 1:
@@ -484,7 +501,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     /* (Click) Launch contract */
     $scope.payContract = function(contract) {
-        contract.discount = contract.discount || 0;
         if ($rootScope.currentUser.is_ghost) {
             $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
             $rootScope.commonOpenedPopupParams = {
@@ -546,23 +562,21 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         if (!contract.promo) return;
         contract.checkPromoProgress = true;
+
+
         return contractService.getDiscount({
             contract_type: contract.contract_type,
+            contract_id: contract.id,
             promo: contract.promo
         }).then(function(response) {
-            contract.discount = response.data.discount;
+            contract.cost = response.data.discount_price;
             var price;
             switch ($rootScope.sitemode) {
                 case 'eos':
-                    price = (contract.cost.EOSISH - contract.cost.EOSISH * contract.discount / 100) / 10000;
+                    price = contract.cost.EOSISH / 10000;
                     break;
                 default:
-                    price = new BigNumber(
-                        Web3.utils.fromWei(
-                            new BigNumber(contract.cost.WISH).minus(new BigNumber(contract.cost.WISH).times(contract.discount).div(100)).round().toString(10),
-                            'ether'
-                        )
-                    ).round(2)
+                    price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).round(2)
             }
             $rootScope.commonOpenedPopupParams = {
                 currency: ($rootScope.sitemode === 'eos') ? 'EOSISH' : 'WISH',
@@ -575,7 +589,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             }
             contract.checkPromoProgress = false;
         }, function(response) {
-            contract.discount = 0;
             switch (response.status) {
                 case 403:
                     contract.discountError = response.data.detail;

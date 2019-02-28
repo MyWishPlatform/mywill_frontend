@@ -17,7 +17,7 @@
     "UNKNOWN": "不明",
     "CREATE_CONTRACT": "契約を結ぶ",
     "MY_CONTRACTS": "私の契約",
-    "EXTERNAL_DEVELOPERS": "外部デベロッパー",
+    "EXTERNAL_DEVELOPERS": "Custom development",
     "BUY_TOKENS": "トークンを購入する",
     "SUPPORT": "サポート",
     "LOG_OUT": "ログアウト",
@@ -307,6 +307,10 @@
       "LOST_KEY": {
         "TITLE": "失われたキー",
         "DESCRIPTION": "スマート契約は、標準のEthereumウォレットと同じ機能を備えています。また、アクセス/秘密キーを失うと、資金をバックアップウォレットにリダイレクトします。"
+      },
+      "TRON_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The Lost Key smart contract ensures your ( TRC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "後払い",

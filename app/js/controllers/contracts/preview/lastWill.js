@@ -1,7 +1,7 @@
 angular.module('app').controller('lastWillPreviewController', function($timeout, $rootScope, contractService, openedContract, $scope, $state) {
     $scope.contract = openedContract.data;
 
-    $scope.setContract($scope.contract);
+    $scope.iniContract($scope.contract);
     var contractDetails = $scope.contract.contract_details;
     var durationList = [
         {

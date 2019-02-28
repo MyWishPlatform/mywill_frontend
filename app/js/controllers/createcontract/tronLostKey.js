@@ -79,11 +79,9 @@ angular.module('app').controller('tronLostKeyCreateController', function($scope,
 
     var generateContractData = function() {
         var heirs = $scope.hairsList.reduce(function(res, heir) {
-            console.log(arguments);
             var addedHeir = res.filter(function(h) {
                 return TronWeb.address.toHex(h.address) === TronWeb.address.toHex(heir.address);
             })[0];
-
             if (addedHeir) {
                 addedHeir.percentage+= heir.percentage;
             } else {

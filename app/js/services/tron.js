@@ -149,7 +149,7 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
                                 name: token.token_name,
                                 decimals: token.decimals,
                                 symbol: token.token_short_name,
-                                balance: 'Not avaible in Testnet'
+                                balance: 'Not available in Testnet'
                             };
                         })
                     }

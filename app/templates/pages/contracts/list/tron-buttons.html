@@ -98,6 +98,13 @@
 </button>
 
 
+<!-- Lost key add tokens -->
+<a ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'tokens'})"
+   ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
+   class="btn btn-transparent mobile-width-100">
+    <span>Add tokens</span>
+</a>
+
 <!-- Lost key i'm good -->
 <button type="button"
         ng-controller="tronLostKeyImAlievController"
@@ -126,10 +133,3 @@
         class="btn btn-transparent mobile-width-100">
     <span>Cancel contract</span>
 </button>
-
-<!-- Lost key add tokens -->
-<a ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'tokens'})"
-   ng-if="(contract.stateValue == 4) && (contract.contract_type == 18)"
-   class="btn btn-transparent mobile-width-100">
-    <span>Add tokens</span>
-</a>

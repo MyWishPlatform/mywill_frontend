@@ -310,7 +310,7 @@
       },
       "TRON_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
-        "DESCRIPTION": " The contract makes your address safe in case you lost the access/private key. It requires one transaction to send the owner address info to the token address, and the second transaction to confirm sending the tokens to the contract address. After finishing the transactions, please confirm the changes in the contract."
+        "DESCRIPTION": "The Lost Key smart contract ensures your ( TRC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "後払い",

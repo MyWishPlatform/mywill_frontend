@@ -66,7 +66,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">1. Token allowance</span>
+                    <span class="big-size">1. Allow tokens</span>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
              ng-if="!(visibleTokensList | filter : {allowed: false}).length">
             <p class="normal-text">
-                <!--<i class="main-blue-color icon-warning"></i>&nbsp;-->
+                <i class="main-blue-color icon-warning"></i>&nbsp;
                 No tokens are available to allowance.<br/>
             </p>
         </div>
@@ -119,7 +119,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">2. Confirm tokens</span>
+                    <span class="big-size">2. Add tokens</span>
                 </div>
             </div>
         </div>
@@ -127,7 +127,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
              ng-if="!(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
             <p class="normal-text">
-                <!--<i class="main-blue-color icon-warning"></i>&nbsp;-->
+                <i class="main-blue-color icon-warning"></i>&nbsp;
                 No tokens are available for adding.<br/>
             </p>
         </div>
@@ -185,7 +185,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Tokens in contract</span>
+                    <span class="big-size">Saved tokens</span>
                 </div>
             </div>
         </div>
@@ -193,7 +193,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
              ng-if="!(visibleTokensList | filter : {confirmed: true}).length">
             <p class="normal-text">
-                <!--<i class="main-blue-color icon-warning"></i>&nbsp;-->
+                <i class="main-blue-color icon-warning"></i>&nbsp;
                 The list is empty, no tokens are available to be transferred.<br/>
             </p>
         </div>

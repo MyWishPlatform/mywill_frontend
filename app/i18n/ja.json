@@ -975,6 +975,17 @@
           }
         }
       },
+      "TRON_LOST_KEY": {
+        "FIELDS": {
+          "DATE_OF_CONFIRMATION": {
+            "LABEL": "Define how often you want to confirm your access to the management address",
+            "DESCRIPTION": "You will need to send transaction to the contract from management address every time. If no transactions in confirmation period are sent, all funds will be send to reserve address after transaction to the contract from any address except the management address."
+          },
+          "EXPIRATION_DATE": {
+            "LABEL": "Contract expiration date"
+          }
+        }
+      },
       "LOST_KEY": {
         "TITLE": "失われたキーの契約",
         "FIELDS": {

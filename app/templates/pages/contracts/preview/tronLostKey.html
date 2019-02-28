@@ -1,0 +1,328 @@
+<div class="contract-preview-tabs">
+    <div class="contract-preview-one-tab"
+         ng-class="{active: showedTab == 'tokens'}"
+         ng-click="showedTab = 'tokens'"
+         ng-show="(contract.stateValue == 4)">
+        <span>Tokens</span>
+    </div>
+    <div class="contract-preview-one-tab"
+         ng-class="{active: showedTab == 'info'}"
+         ng-click="showedTab = 'info'">
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
+    </div>
+
+    <div class="contract-preview-one-tab"
+         ng-class="{active: showedTab == 'code'}"
+         ng-click="showedTab = 'code'"
+         ng-show="contract.contract_details.tron_contract.address">
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
+    </div>
+</div>
+
+<div ng-show="showedTab == 'code'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content" ng-if="contract.network == 15">
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text">
+                <span>{{'CONTRACTS.PREVIEW.LOST_KEY_SOURCE_CODE'|translate}}
+                    <span class="as-link dotted"
+                          ng-if="contract.network == 14"
+                          ng-click="saveAsFile(contract.contract_details.tron_contract.source_code, contract.name + '(lost key)')">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="contract.network == 15">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                </span>
+            </p>
+
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/game-assets-contract'}"></span>
+            </p>
+        </div>
+        <div class="shadow-block__content">
+            <p class="normal-text" translate="CONTRACTS.PREVIEW.SUPPORT_CONTRACT_CODE"></p>
+        </div>
+    </div>
+</div>
+
+<div ng-show="showedTab == 'tokens'" ng-if="(contract.stateValue == 4)">
+    <div class="shadow-block after-tabs" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border">
+            <p class="normal-text">Please wait...</p>
+        </div>
+    </div>
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">1. Allow tokens</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+             ng-if="!(visibleTokensList | filter : {allowed: false}).length">
+            <p class="normal-text">
+                <i class="main-blue-color icon-warning"></i>&nbsp;
+                No tokens are available to allowance.<br/>
+            </p>
+        </div>
+
+        <div ng-if="(visibleTokensList | filter : {allowed: false}).length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <p class="normal-text">
+                    Please allow the contract to send the tokens from your personal address to reserved addresses.<br/>
+                    After allowing, please confirm the changes in the contract.<br/>
+                </p>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <table class="token-balances-table">
+                    <tr ng-repeat="token in visibleTokensList|filter:{allowed: false}">
+                        <td>
+                            <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                                {{token.name}} ({{ token.symbol }})
+                            </a>
+                        </td>
+                        <td>{{ token.visibleBalance | separateNumber }}</td>
+                        <td class="normal-size with-lds">
+                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                            <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
+                                    ng-if="!token.isAllowProgress">
+                                <span>Allow</span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">2. Add tokens</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+             ng-if="!(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
+            <p class="normal-text">
+                <i class="main-blue-color icon-warning"></i>&nbsp;
+                No tokens are available for adding.<br/>
+            </p>
+        </div>
+
+        <div ng-if="(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <p class="normal-text">
+                    Please confirm each token or all tokens (recommended) on the list, so the contract can complete the transaction.
+                    <br/><br/>
+                    <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                    Tokens which are not confirmed will not be sent to the reserved addresses.<br/>
+                </p>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <table class="token-balances-table">
+                    <tr ng-repeat="token in visibleTokensList|filter:{confirmed: false, allowed: true}">
+                        <td>
+                            <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                                {{token.name}} ({{ token.symbol }})
+                            </a>
+                        </td>
+                        <td>{{ token.visibleBalance | separateNumber }}</td>
+                        <td class="normal-size with-lds">
+                            <span class="lds-ellipsis" ng-if="token.isConfirmProgress">
+                                <span class="lds-ellipsis-container">
+                                    <span></span><span></span><span></span><span></span>
+                                </span>
+                            </span>
+                            <button type="button" class="btn btn-transparent width-100" ng-click="confirmToken(token)"
+                                    ng-if="!token.isConfirmProgress">
+                                <span translate="BUTTONS.CONFIRM"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <button type="button"
+                        ng-click="callAddTokens()"
+                        class="btn btn-transparent mobile-width-100 float-right">
+                                <span class="lds-ellipsis" ng-if="contract.isAllConfirmProgress">
+                                    <span class="lds-ellipsis-container">
+                                        <span></span><span></span><span></span><span></span>
+                                    </span>
+                                </span>
+                    <span>Confirm all</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size">Saved tokens</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+             ng-if="!(visibleTokensList | filter : {confirmed: true}).length">
+            <p class="normal-text">
+                <i class="main-blue-color icon-warning"></i>&nbsp;
+                The list is empty, no tokens are available to be transferred.<br/>
+            </p>
+        </div>
+
+        <div ng-if="(visibleTokensList | filter : {confirmed: true}).length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <p class="normal-text">
+                    These tokens are confirmed to be sent to the reserved addresses.
+                    <br/><br/>
+                    <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                    Tokens which are not on the list will not be sent to the reserved addresses.<br/>
+                </p>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+                <table class="token-balances-table">
+                    <tr ng-repeat="token in visibleTokensList | filter : { confirmed: true }">
+                        <td>
+                            <a ng-attr-href="{{ (contract.network|etherscanUrl:'token20') + '/' + token.contract_address}}" target="_blank">
+                                {{token.name}} ({{ token.symbol }})
+                            </a>
+                        </td>
+                        <td>{{ token.visibleBalance | separateNumber }}</td>
+                        <td class="normal-size">
+                            <div class="normal-text token-confirmed">
+                                <i class="icon-check_circle icon-check_circle"></i>
+                                <span class="capitalize">Allowed</span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="showedTab == 'info'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
+             ng-include="'/templates/common/contracts/preview-title.html'">
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="contract.contract_details.tron_contract.address">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
+            <br class="show-ls"/>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.tron_contract.address}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.tron_contract.address"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['address']}"
+                        text="contract.contract_details.tron_contract.address"
+                        on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-wallet form-control-label-icon"></i>
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
+                </div><br/>
+                <div class="contract-wallet-information-float contract-wallet-information">
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-bind="contract.contract_details.user_address"
+                           target="_blank"
+                           ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.user_address}}"></a>
+                    </div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-after_wallet"
+                         ng-bind="contract.contract_details.email"></div>
+                </div>
+            </div><br/>
+
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-in-wallet form-control-label-icon"></i>
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.RESERVE_ADDRESS.LABEL'|translate}}
+                </div>
+                <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
+                    <br/>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-bind="heir.address"
+                           target="_blank"
+                           ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + heir.address}}"></a>
+                    </div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.percentage+'%'"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="heir.email"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-conditions form-control-label-icon"></i>
+                    {{'CONTRACTS.PREVIEW.CONTRACT_CONDITIONS'|translate}}
+                </div>
+                <div class="normal-text contract-preview-base-value">
+                    <div>
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.DUE_DATE.LABEL'|translate}}&nbsp;&nbsp;
+                        {{contract.contract_details.active_to|date:'yyyy-MM-dd'}}
+                    </div><br/>
+                    <div>
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.CHECK_EVERY.LABEL'|translate}}&nbsp;&nbsp;
+                        {{contract.contract_details.check_interval.period}}
+                        {{contract.contract_details.check_interval.periodUnit|translate}}
+                    </div><br/>
+                    <div ng-if="contract.contract_details.next_check">
+                        Next confirmation transaction should be before:
+                        {{contract.contract_details.next_check|date:'yyyy-MM-dd'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="shadow-block after-tabs"
+         ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
+         ng-include="'/templates/common/contracts/promocode-field.html'"></div>
+    <div class="main-section-chapter-fieldset"
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/tron.html'"></div>
+</div>
+
+<div ng-if="contract.stateValue === 4"
+     ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>

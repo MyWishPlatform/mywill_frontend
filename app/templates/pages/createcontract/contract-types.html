@@ -15,8 +15,19 @@
         </div>
         <div class="shadow-block__content__blue-description">
             <p class="normal-text">
-                <a href="https://eos.mywish.io/create" ng-if="sitemode === 'default'">Switch to EOS blockchain</a>
-                <a href="https://contracts.mywish.io/create" ng-if="sitemode === 'eos'">Switch to ETH / NEO blockchains</a>
+                <span>
+                    Switch  to
+                    <a href="https://contracts.mywish.io/create"
+                       ng-if="sitemode !== 'default'">ETH / NEO</a>
+                    <span ng-if="sitemode !== 'default'">or </span>
+
+                    <a href="https://tron.mywish.io/create"
+                       ng-if="sitemode !== 'tron'">TRON</a>
+
+                    <span ng-if="sitemode === 'default'">or </span>
+                    <a href="https://eos.mywish.io/create"
+                       ng-if="sitemode !== 'eos'">EOS</a>
+                </span>
             </p>
         </div>
     </div>

@@ -1,8 +1,9 @@
-var gulp = require('gulp');
-var path = require('path');
-var browserSync = require('browser-sync');
-var url = require('url');
-var proxyMiddleware = require('http-proxy-middleware');
+let gulp = require('gulp');
+let path = require('path');
+let browserSync = require('browser-sync');
+let url = require('url');
+let argv = require('yargs').argv;
+let proxyMiddleware = require('http-proxy-middleware');
 
 var allowedExtensions = ['html', 'js', 'map', 'css', 'png', 'svg', 'jpg', 'jpeg', 'gif', 'webp', 'woff', 'ttf', 'svg', 'otf', 'ico', 'eot', 'swf', 'mp3'];
 
@@ -12,14 +13,30 @@ var extensionsPattern = allowedExtensions.map(function (extension) {
 
 var indexTemplates = ['auth'].join('|');
 
+let modes = ['eos', 'tron', 'default'];
+let currentBlockChainMode = modes.filter((mode) => {
+    return argv[mode];
+})[0] || 'default';
+
+let proxyUrl;
+
+switch (currentBlockChainMode) {
+    case 'eos':
+        proxyUrl = url.parse("http://deveos.mywish.io");
+        break;
+    case 'tron':
+        proxyUrl = url.parse("http://trondev.mywish.io");
+        break;
+    default:
+        proxyUrl = url.parse("http://dev.mywish.io");
+        break;
+}
 
 var devServerApi = {
     path: [
         "/api", '/accounts', '/logout', '/endpoint', '/fonts'
     ],
-    // url: url.parse("http://trondev.mywish.io")
-    // url: url.parse("http://deveos.mywish.io")
-    url: url.parse("http://dev.mywish.io")
+    url: proxyUrl
 };
 var getBrowserSyncConfig = function () {
 

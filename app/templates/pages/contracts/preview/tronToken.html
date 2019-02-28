@@ -57,7 +57,7 @@
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
             <br class="show-ls"/>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address}}"
+                <a ng-attr-href="{{(contract.network|etherscanUrl:'token20')}}/{{details[contractInfo].address}}"
                    target="_blank"
                    ng-bind="details[contractInfo].address|toCheckSum"></a>
 
@@ -69,7 +69,6 @@
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
-
             <br/>
             <!-- div class="form-control-label" translate="CONTRACTS.PREVIEW.CROWD_SALE.TOKEN_SCRIPT_HASH"></div>
             <br class="show-ls"/>

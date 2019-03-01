@@ -4,9 +4,6 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
     $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
-    if (contractDetails.tron_contract && contractDetails.tron_contract.address) {
-        contractDetails.tron_contract.address = TronWeb.address.fromHex(contractDetails.tron_contract.address);
-    }
 
     var tabs = ['tokens', 'info', 'code'];
 
@@ -44,19 +41,20 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
 
     var checkLostKeyContract = function() {
         return TronService.createContract(
-            contractDetails.tron_contract.abi,
-            contractDetails.tron_contract.address,
+            contractDetails.eth_contract.abi,
+            contractDetails.eth_contract.address,
             $scope.contract.network
         );
     };
 
     var checkTokenContract = function(token) {
+        return;
         TronService.getContract(token.contract_address, $scope.contract.network).then(function(response) {
             token.contract = response;
             TronService.callContract(response, $scope.contract.network).then(function(tokenContract) {
                 tokenContract.allowance(
                     TronWeb.address.toHex(contractDetails.user_address),
-                    TronWeb.address.toHex(contractDetails.tron_contract.address)
+                    TronWeb.address.toHex(contractDetails.eth_contract.address)
                 ).call().then(function(response) {
                     token.checked = true;
                     token.allowed = new BigNumber(response) > 0;
@@ -67,8 +65,8 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         }, console.log);
     };
 
-
     var getAllUserTokens = function(addedTokens) {
+        return;
         TronService.getAccountAdvancedInfo(contractDetails.user_address, $scope.contract.network).then(
             function(response) {
                 $scope.visibleTokensList = response.data.trc20token_balances;
@@ -90,18 +88,19 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         );
     };
 
+
     if ($scope.contract.stateValue === 4) {
-        checkLostKeyContract().then(function(lostKeyContract) {
-            tronContract = lostKeyContract;
-            tronContract.getTokenAddresses().call().then(function(result) {
-                result = result.map(function(addr) {
-                    return addr.replace(/^0x/, '41').toLowerCase();
-                });
-                getAllUserTokens(result);
-            }, function() {
-                console.log(arguments);
-            })
-        });
+        // checkLostKeyContract().then(function(lostKeyContract) {
+        //     tronContract = lostKeyContract;
+        //     tronContract.getTokenAddresses().call().then(function(result) {
+        //         result = result.map(function(addr) {
+        //             return addr.replace(/^0x/, '41').toLowerCase();
+        //         });
+        //         getAllUserTokens(result);
+        //     }, function() {
+        //         console.log(arguments);
+        //     })
+        // });
     }
 
 
@@ -120,7 +119,6 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
     };
 
     $scope.closeExtensionAlert();
-
 
     var isSuccessExtension = function() {
         var address = contractDetails.user_address;
@@ -141,13 +139,14 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
 
 
     var TOKENS_SUM = new BigNumber(2).pow(256).minus(1).toString(10);
+
     $scope.allowToken = function(token) {
+        return;
         if (!isSuccessExtension()) return;
         token.isAllowProgress  = true;
-
         TronService.callContract(token.contract, $scope.contract.network).then(function(tokenContract) {
             tokenContract.approve(
-                TronWeb.address.toHex(contractDetails.tron_contract.address), TOKENS_SUM
+                TronWeb.address.toHex(contractDetails.eth_contract.address), TOKENS_SUM
             ).send().then(
                 function(result) {
                     $scope.TRONExtensionInfo.successTx = {
@@ -270,8 +269,8 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         if (!isSuccessExtension()) return;
 
         TronService.createContract(
-            contract.contract_details.tron_contract.abi,
-            contract.contract_details.tron_contract.address,
+            contract.contract_details.eth_contract.abi,
+            contract.contract_details.eth_contract.address,
             contract.network
         ).then(function(tronContract) {
             callCancel(tronContract, callback);
@@ -334,8 +333,8 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
 
     $scope.callIALive = function() {
         TronService.createContract(
-            $scope.contract.contract_details.tron_contract.abi,
-            $scope.contract.contract_details.tron_contract.address,
+            $scope.contract.contract_details.eth_contract.abi,
+            $scope.contract.contract_details.eth_contract.address,
             $scope.contract.network
         ).then(callIALive);
     };

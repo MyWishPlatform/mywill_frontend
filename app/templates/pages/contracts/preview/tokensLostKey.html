@@ -14,7 +14,7 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: showedTab == 'code'}"
          ng-click="showedTab = 'code'"
-         ng-show="contract.contract_details.tron_contract.address">
+         ng-show="contract.contract_details.eth_contract.address">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
 </div>
@@ -31,12 +31,12 @@
             <p class="normal-text">
                 <span>{{'CONTRACTS.PREVIEW.LOST_KEY_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="contract.network == 14"
+                          ng-if="contract.network == 1"
                           ng-click="saveAsFile(contract.contract_details.tron_contract.source_code, contract.name + '(lost key)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                     <span class="grey-text-color"
-                          ng-if="contract.network == 15">
+                          ng-if="contract.network == 2">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
                 </span>
@@ -236,17 +236,20 @@
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding"
-             ng-if="contract.contract_details.tron_contract.address">
+             ng-if="contract.contract_details.eth_contract.address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
+            </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.tron_contract.address}}"
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address}}"
                    target="_blank"
-                   ng-bind="contract.contract_details.tron_contract.address"></a>
+                   ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['address']}"
-                        text="contract.contract_details.tron_contract.address"
+                        text="contract.contract_details.eth_contract.address"
                         on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
                     <i class="icon-content_copy"></i>
                 </button>
@@ -260,8 +263,11 @@
                     {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
                 </div><br/>
                 <div class="contract-wallet-information-float contract-wallet-information">
+                    <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
+                    </span>
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
-                        <a ng-bind="contract.contract_details.user_address"
+                        <a ng-bind="contract.contract_details.user_address|toCheckSum"
                            target="_blank"
                            ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.user_address}}"></a>
                     </div>
@@ -277,8 +283,12 @@
                 </div>
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
                     <br/>
+                    <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
+                    </span>
+
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
-                        <a ng-bind="heir.address"
+                        <a ng-bind="heir.address|toCheckSum"
                            target="_blank"
                            ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + heir.address}}"></a>
                     </div>

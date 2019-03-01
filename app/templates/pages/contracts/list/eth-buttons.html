@@ -37,7 +37,7 @@
 </button>
 
 <!-- Deposit instruction button -->
-<button ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8) && (contract.contract_type != 9)"
+<button ng-if="(contract.stateValue == 4) && ((contract.contract_type == 1) || (contract.contract_type == 2) || (contract.contract_type == 0))"
         ng-pop-up="{
             template: '/templates/popups/instructions/eth/deposit-instruction.html',
             newPopupContent: true,

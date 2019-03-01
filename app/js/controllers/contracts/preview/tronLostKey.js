@@ -53,6 +53,13 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
     var checkTokenContract = function(token) {
         TronService.getContract(token.contract_address, $scope.contract.network).then(function(response) {
             token.contract = response;
+            if (!token.contract) {
+                $scope.visibleTokensList = $scope.visibleTokensList.filter(function(t) {
+                    return t !== token;
+                });
+
+                return;
+            }
             TronService.callContract(response, $scope.contract.network).then(function(tokenContract) {
                 tokenContract.allowance(
                     TronWeb.address.toHex(contractDetails.user_address),
@@ -68,26 +75,52 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
     };
 
 
-    var getAllUserTokens = function(addedTokens) {
-        TronService.getAccountAdvancedInfo(contractDetails.user_address, $scope.contract.network).then(
-            function(response) {
-                $scope.visibleTokensList = response.data.trc20token_balances;
-                $scope.visibleTokensList.map(function(token) {
-                    token.checked = false;
-                    token.contract_address = TronWeb.address.fromHex(token.contract_address);
-                    token.visibleBalance = isNaN(token.balance) ? token.balance : new BigNumber(token.balance).div(Math.pow(10, token.decimals));
-                    token.confirmed = addedTokens.indexOf(TronWeb.address.toHex(token.contract_address)) > -1;
-                    token.isAllowProgress  = true;
-                    if (!token.confirmed) {
-                        checkTokenContract(token);
-                    } else {
-                        token.checked = true;
-                        token.allowed = true;
-                        token.isAllowProgress  = false;
-                    }
-                });
+    var checkUserTokens = function(tokensList, addedTokens) {
+        $scope.visibleTokensList = tokensList.data.trc20token_balances;
+        $scope.visibleTokensList = $scope.visibleTokensList || [];
+
+        $scope.visibleTokensList.map(function(token) {
+            token.checked = false;
+            token.contract_address = TronWeb.address.fromHex(token.contract_address);
+            token.visibleBalance = isNaN(token.balance) ? token.balance : new BigNumber(token.balance).div(Math.pow(10, token.decimals));
+            token.confirmed = addedTokens.indexOf(TronWeb.address.toHex(token.contract_address)) > -1;
+            token.isAllowProgress  = true;
+            if (!token.confirmed) {
+                checkTokenContract(token);
+            } else {
+                token.checked = true;
+                token.allowed = true;
+                token.isAllowProgress  = false;
             }
-        );
+        });
+    };
+
+    var getAllUserTokens = function(addedTokens) {
+        if (!(($scope.currentUser.id === 13219) && ($scope.contract.network === 14))) {
+            TronService.getAccountAdvancedInfo(contractDetails.user_address, $scope.contract.network).then(function(response) {
+                checkUserTokens(response, addedTokens);
+            });
+        } else {
+            checkUserTokens({
+                data: {
+                    trc20token_balances: [
+                        {
+                            name: 'TokenMy',
+                            symbol: 'TKNM',
+                            balance: 0,
+                            decimals: 0,
+                            contract_address: 'TSuKwUybEMf5ynWnrKWTQiYjJpQEMFrzBx'
+                        }, {
+                            name: 'FirstToken',
+                            symbol: 'FT1',
+                            balance: 0,
+                            decimals: 0,
+                            contract_address: 'TMrRa4ayHkxkgcuG81fqEYSTyXRrMr8CNC'
+                        }
+                    ]
+                }
+            }, addedTokens);
+        }
     };
 
     if ($scope.contract.stateValue === 4) {

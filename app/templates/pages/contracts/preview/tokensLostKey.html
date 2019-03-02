@@ -55,7 +55,7 @@
 
 <div ng-show="showedTab == 'tokens'" ng-if="(contract.stateValue == 4)">
     <div class="shadow-block after-tabs" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
             <p class="normal-text">Please wait...</p>
         </div>
     </div>
@@ -63,7 +63,7 @@
 
     <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
          class="shadow-block after-tabs">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
                     <span class="big-size">1. Allow tokens</span>
@@ -71,7 +71,7 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
              ng-if="!(visibleTokensList | filter : {allowed: false}).length">
             <p class="normal-text">
                 <i class="main-blue-color icon-warning"></i>&nbsp;
@@ -80,13 +80,13 @@
         </div>
 
         <div ng-if="(visibleTokensList | filter : {allowed: false}).length">
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <p class="normal-text">
                     Please allow the contract to send the tokens from your personal address to reserved addresses.<br/>
                     After allowing, please confirm the changes in the contract.<br/>
                 </p>
             </div>
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <table class="token-balances-table">
                     <tr ng-repeat="token in visibleTokensList|filter:{allowed: false}">
                         <td>
@@ -116,7 +116,7 @@
 
     <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
          class="shadow-block">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
                     <span class="big-size">2. Add tokens</span>
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
              ng-if="!(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
             <p class="normal-text">
                 <i class="main-blue-color icon-warning"></i>&nbsp;
@@ -133,7 +133,7 @@
         </div>
 
         <div ng-if="(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <p class="normal-text">
                     Please confirm each token or all tokens (recommended) on the list, so the contract can complete the transaction.
                     <br/><br/>
@@ -141,7 +141,7 @@
                     Tokens which are not confirmed will not be sent to the reserved addresses.<br/>
                 </p>
             </div>
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <table class="token-balances-table">
                     <tr ng-repeat="token in visibleTokensList|filter:{confirmed: false, allowed: true}">
                         <td>
@@ -164,7 +164,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <button type="button"
                         ng-click="callAddTokens()"
                         class="btn btn-transparent mobile-width-100 float-right">
@@ -182,7 +182,7 @@
 
     <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
          class="shadow-block">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
                     <span class="big-size">Saved tokens</span>
@@ -190,7 +190,7 @@
             </div>
         </div>
 
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
              ng-if="!(visibleTokensList | filter : {confirmed: true}).length">
             <p class="normal-text">
                 <i class="main-blue-color icon-warning"></i>&nbsp;
@@ -199,7 +199,7 @@
         </div>
 
         <div ng-if="(visibleTokensList | filter : {confirmed: true}).length">
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <p class="normal-text">
                     These tokens are confirmed to be sent to the reserved addresses.
                     <br/><br/>
@@ -207,7 +207,7 @@
                     Tokens which are not on the list will not be sent to the reserved addresses.<br/>
                 </p>
             </div>
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <table class="token-balances-table">
                     <tr ng-repeat="token in visibleTokensList | filter : { confirmed: true }">
                         <td>

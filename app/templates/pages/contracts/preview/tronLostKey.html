@@ -54,15 +54,33 @@
 </div>
 
 <div ng-show="showedTab == 'tokens'" ng-if="(contract.stateValue == 4)">
-    <div class="shadow-block after-tabs" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
+
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="shadow-block__content__title__icon icon-key"></i>
+                        <span class="shadow-block__content__title__text">
+                            {{'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.TITLE' | translate}}
+                        </span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
         <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border">
             <p class="normal-text">Please wait...</p>
         </div>
     </div>
 
-
     <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
-         class="shadow-block after-tabs">
+         class="shadow-block">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">

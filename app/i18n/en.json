@@ -1578,6 +1578,9 @@
       "EOS_CROWDSALE": {
         "TOKEN_ACCOUNT": "Token Contract Builder",
         "CROWDSALE_ACCOUNT": "Crowdsale EOS account (All contributions shall be sent to this address)"
+      },
+      "TOKENS_LOST_KEY": {
+        "TOKENS_DESCRIPTION": "The contract makes your address safe in case you lost the access/private key.<br/> It requires one transaction to send the owner address info to the token address, and the second transaction to confirm sending the tokens to the contract address.<br/> After finishing the transactions, please confirm the changes in the contract."
       }
     }
   },

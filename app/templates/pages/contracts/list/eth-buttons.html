@@ -345,3 +345,53 @@
     <i class="icon-note-list"></i>
     <span>Branded report</span>
 </a>
+
+
+
+
+
+<!-- Lost key add tokens -->
+<a ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'tokens'})"
+   ng-if="(contract.stateValue == 4) && (contract.contract_type == 19)"
+   class="btn btn-transparent mobile-width-100">
+    <span>Add tokens</span>
+</a>
+
+<!-- Lost key i'm good -->
+<button type="button"
+        ng-if="(contract.stateValue == 4) && (contract.contract_type == 19)"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/tokens-lost-key-alive-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent mobile-width-100">
+    <span class="lds-ellipsis" ng-if="contract.imAliveProgress">
+        <span class="lds-ellipsis-container">
+            <span></span><span></span><span></span><span></span>
+        </span>
+    </span>
+    <span>Confirm access</span>
+</button>
+
+
+
+<button type="button"
+        ng-if="(contract.stateValue == 4) && (contract.contract_type == 19)"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/tokens-lost-key-kill-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent mobile-width-100">
+    <span class="lds-ellipsis" ng-if="contract.killProgress">
+        <span class="lds-ellipsis-container">
+            <span></span><span></span><span></span><span></span>
+        </span>
+    </span>
+    <span>Cancel contract</span>
+</button>

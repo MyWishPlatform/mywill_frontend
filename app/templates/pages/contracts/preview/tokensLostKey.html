@@ -220,7 +220,7 @@
             <table class="token-balances-table">
                 <tr ng-repeat="token in visibleTokensList|filter:{confirmed: false, allowed: true}">
                     <td>
-                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token') + '/' + token.contract}}" target="_blank">
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token') + '/' + token.address}}" target="_blank">
                             {{token.name}} ({{ token.symbol }})
                         </a>
                     </td>
@@ -414,7 +414,7 @@
          ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>
     <div class="main-section-chapter-fieldset"
-         ng-include="'/templates/pages/contracts/preview/elements/buttons/tron.html'"></div>
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/eth.html'"></div>
 </div>
 
 <div ng-if="tokenAddressReady"
@@ -450,6 +450,3 @@
      }">
 </div>
 
-
-<div ng-if="contract.stateValue === 4"
-     ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>

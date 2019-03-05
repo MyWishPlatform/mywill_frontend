@@ -1,0 +1,49 @@
+<div class="shadow-block" ng-controller="tokenLostKeyConfirmController">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title static-width">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">Какой-то заголовок&nbsp;</span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description">
+            <span>Какое-то описание</span>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <a ng-attr-href="{{
+            'https://www.myetherwallet.com/?data=' + confirmTokenSignature +
+            '&value=0&to=' + contract.address}}#send-transaction"
+           target="_blank" class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>MyEtherwallet</span>
+        </a>
+        <button ng-click="sendTransaction()"
+                ng-if="currentWallet && (currentWallet.type === 'parity')"
+                class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Parity</span>
+        </button>
+        <button  ng-click="sendTransaction()"
+                 ng-if="currentWallet && (currentWallet.type === 'metamask')"
+                 class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Metamask</span>
+        </button>
+    </div>
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-init="instructionData = {
+            'dataField': confirmTokenSignature,
+            'ownerAddress': ngPopUp.params.contract.contract_details.user_address,
+            'contractAddress': ngPopUp.params.contract.contract_details.eth_contract.address,
+            'contract': ngPopUp.params.contract
+         }"
+         ng-include="'/templates/popups/instructions/transaction-template.html'">
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup();">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>

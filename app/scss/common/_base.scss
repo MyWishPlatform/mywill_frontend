@@ -455,3 +455,25 @@ nav, main, footer, header {
     }
   }
 }
+
+
+
+.as-table {
+  display: table;
+  width: 100%;
+  &-cell {
+    display: table-cell;
+    padding: 0.5em 1em;
+    vertical-align: middle;
+    &.min-width {
+      width: 1px;
+    }
+    &:first-child {
+      padding-left: 0;
+    }
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
+

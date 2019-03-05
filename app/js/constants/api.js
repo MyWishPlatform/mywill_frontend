@@ -62,5 +62,6 @@ angular.module('Constants').constant('API', {
         "GET": "get_api_tokens/",
         "DELETE": "delete_api_token/",
         "DELETE_ALL": "delete_all_api_tokens/"
-    }
+    },
+    "GET_ETH_TOKENS_FOR_ADDRESS": "get_tokens_for_eth_address/"
 });

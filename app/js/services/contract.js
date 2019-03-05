@@ -242,6 +242,17 @@ angular.module('Services').service('contractService', function(requestService, A
                 }
             };
             return requestService.post(params);
+        },
+        getEthTokensForAddress: function(address, network) {
+            var params = {
+                path: API.GET_ETH_TOKENS_FOR_ADDRESS,
+                query: {
+                    address: address,
+                    network: network === 1 ? 'mainnet' : 'testnet'
+                }
+            };
+            return requestService.get(params);
+
         }
     }
 });

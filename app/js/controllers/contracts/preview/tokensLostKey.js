@@ -1,5 +1,5 @@
-angular.module('app').controller('tokensLostKeyPreviewController', function($timeout, $rootScope, contractService, $state,
-                                                                          openedContract, $scope, $http, TronService, $location) {
+angular.module('app').controller('tokensLostKeyPreviewController', function($timeout, $rootScope, contractService, $state, $q,
+                                                                          openedContract, $scope, $http, web3Service, $location) {
     $scope.contract = openedContract.data;
     $scope.iniContract($scope.contract);
 
@@ -7,7 +7,11 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
 
     var tabs = ['tokens', 'info', 'code'];
 
+    $scope.maximumTokens = 400;
+
     $scope.showedTab = $location.hash().replace('#', '');
+
+    web3Service.setProviderByNumber($scope.contract.network);
 
     if (tabs.indexOf($scope.showedTab) === -1) {
         $scope.showedTab = tabs[1];
@@ -35,200 +39,329 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         periodUnit: checkInterval.name
     };
 
-
-    var tronContract;
-
-
     var checkLostKeyContract = function() {
-        return TronService.createContract(
-            contractDetails.eth_contract.abi,
-            contractDetails.eth_contract.address,
-            $scope.contract.network
-        );
-    };
 
-    var checkTokenContract = function(token) {
-        return;
-        TronService.getContract(token.contract_address, $scope.contract.network).then(function(response) {
-            token.contract = response;
-            TronService.callContract(response, $scope.contract.network).then(function(tokenContract) {
-                tokenContract.allowance(
-                    TronWeb.address.toHex(contractDetails.user_address),
-                    TronWeb.address.toHex(contractDetails.eth_contract.address)
-                ).call().then(function(response) {
-                    token.checked = true;
-                    token.allowed = new BigNumber(response) > 0;
-                    token.isAllowProgress = false;
-                    $scope.$apply();
+        contractService.getEthTokensForAddress(
+            contractDetails.user_address,
+            $scope.contract.network
+        ).then(function(result) {
+            var tokens = result.data;
+            lostKeyContract.methods.getTokenAddresses().call().then(function(addedTokens) {
+                tokens.forEach(function(token) {
+                    var tokenInfo = token.token_info;
+                    tokenInfo.balanceOf = token.balance;
+                    var tokenIsConfirmed = !!addedTokens.filter(function(t) {
+                        return t.toLowerCase() === tokenInfo.address;
+                    }).length;
+                    addedTokens = addedTokens.filter(function(t) {
+                        return t.toLowerCase() !== tokenInfo.address;
+                    });
+                    checkTokenInfo(tokenInfo.address, ['allowance'], tokenInfo).then(function(tokenResult) {
+                        tokenResult.confirmed = tokenIsConfirmed;
+                        $scope.visibleTokensList.push(tokenResult);
+                    });
+                });
+                addedTokens.forEach(function(tokenAddress) {
+                    var confirmedTokenAddress = tokenAddress.toLowerCase();
+                    checkTokenInfo(confirmedTokenAddress).then(function(tokenInfo) {
+                        tokenInfo.confirmed = true;
+                        $scope.visibleTokensList.push(tokenInfo);
+                    });
                 });
             });
-        }, console.log);
-    };
-
-    var getAllUserTokens = function(addedTokens) {
-        return;
-        TronService.getAccountAdvancedInfo(contractDetails.user_address, $scope.contract.network).then(
-            function(response) {
-                $scope.visibleTokensList = response.data.trc20token_balances;
-                $scope.visibleTokensList.map(function(token) {
-                    token.checked = false;
-                    token.contract_address = TronWeb.address.fromHex(token.contract_address);
-                    token.visibleBalance = isNaN(token.balance) ? token.balance : new BigNumber(token.balance).div(Math.pow(10, token.decimals));
-                    token.confirmed = addedTokens.indexOf(TronWeb.address.toHex(token.contract_address)) > -1;
-                    token.isAllowProgress  = true;
-                    if (!token.confirmed) {
-                        checkTokenContract(token);
-                    } else {
-                        token.checked = true;
-                        token.allowed = true;
-                        token.isAllowProgress  = false;
-                    }
-                });
-            }
-        );
-    };
-
-
-    if ($scope.contract.stateValue === 4) {
-        // checkLostKeyContract().then(function(lostKeyContract) {
-        //     tronContract = lostKeyContract;
-        //     tronContract.getTokenAddresses().call().then(function(result) {
-        //         result = result.map(function(addr) {
-        //             return addr.replace(/^0x/, '41').toLowerCase();
-        //         });
-        //         getAllUserTokens(result);
-        //     }, function() {
-        //         console.log(arguments);
-        //     })
-        // });
-    }
-
-
-    // $scope.visibleTokensList = [];
-
-
-    $scope.closeExtensionAlert = function() {
-        $scope.TRONExtensionInfo = {
-            extensionNotInstalled: false,
-            extensionNotAuthorized: false,
-            extensionOtherUser: false,
-            txServerError: false,
-            successTx: false,
-            network: $scope.contract.network
-        };
-    };
-
-    $scope.closeExtensionAlert();
-
-    var isSuccessExtension = function() {
-        var address = contractDetails.user_address;
-        if (!window.tronWeb) {
-            $scope.TRONExtensionInfo.extensionNotInstalled = true;
-            return;
-        } else if (!window.tronWeb.defaultAddress.hex) {
-            $scope.TRONExtensionInfo.extensionNotAuthorized = true;
-            return;
-        } else if (
-            (window.tronWeb.defaultAddress.hex !== address) &&
-            (window.tronWeb.defaultAddress.base58 !== address)) {
-            $scope.TRONExtensionInfo.extensionOtherUser = true;
-            return;
-        }
-        return true;
-    };
-
-
-    var TOKENS_SUM = new BigNumber(2).pow(256).minus(1).toString(10);
-
-    $scope.allowToken = function(token) {
-        return;
-        if (!isSuccessExtension()) return;
-        token.isAllowProgress  = true;
-        TronService.callContract(token.contract, $scope.contract.network).then(function(tokenContract) {
-            tokenContract.approve(
-                TronWeb.address.toHex(contractDetails.eth_contract.address), TOKENS_SUM
-            ).send().then(
-                function(result) {
-                    $scope.TRONExtensionInfo.successTx = {
-                        transaction_id: result
-                    };
-                    token.allowed = true;
-                    $scope.$apply();
-                },
-                function() {
-                    $scope.TRONExtensionInfo.txServerError = true;
-                    $scope.$apply();
-                }
-            ).finally(function() {
-                token.isAllowProgress  = false;
-                $scope.$apply();
-            })
         });
     };
 
+    $scope.tokenAddressReady = false;
+    var lostKeyContract;
+    if ($scope.contract.stateValue === 4) {
+        $scope.visibleTokensList = [];
+        lostKeyContract =
+            web3Service.createContractFromAbi(contractDetails.eth_contract.address, contractDetails.eth_contract.abi);
 
-    $scope.contract.isAllConfirmProgress = false;
+        checkLostKeyContract();
+    }
+
+
+    var checkTokenInfo = function(address, customInfo, advTokenData) {
+        var tokenData = customInfo || ['decimals', 'symbol', 'balanceOf', 'name', 'allowance'];
+        var defer = $q.defer();
+        var web3TokenContract = web3Service.createContractFromAbi(
+            address, window.abi
+        );
+        var checkedTokenData = {};
+        var sch = tokenData.length;
+        var currMethod;
+
+        tokenData.map(function(method) {
+            var methodFn = web3TokenContract.methods[method];
+
+            switch(method) {
+                case 'balanceOf':
+                    currMethod = methodFn(contractDetails.user_address);
+                    break;
+                case 'allowance':
+                    currMethod = methodFn(
+                        contractDetails.user_address,
+                        $scope.contract.contract_details.eth_contract.address);
+                    break;
+                default:
+                    currMethod = methodFn();
+                    break;
+            }
+            currMethod.call(function(err, result) {
+                if (err === null) {
+                    checkedTokenData[method] = result;
+                    sch--;
+                    if (!sch) {
+                        checkedTokenData = advTokenData ? angular.merge(advTokenData, checkedTokenData) : checkedTokenData;
+                        checkedTokenData.address = address;
+                        checkedTokenData.balance = new BigNumber(checkedTokenData.balanceOf).div(Math.pow(10, checkedTokenData.decimals)).toString(10);
+                        checkedTokenData.checked = true;
+                        checkedTokenData.allowed = new BigNumber(checkedTokenData.allowance) > 0;
+                        defer.resolve(checkedTokenData);
+                    }
+                } else {
+                    defer.reject();
+                }
+            });
+        });
+        return defer.promise;
+    };
+
+    $scope.customAddressCheck = {
+        isProgressAddresses: []
+    };
+    var checkTokenAddress = function(token_address) {
+        var defer = $q.defer();
+        var address = token_address.$viewValue.toLowerCase();
+        checkTokenInfo(address).then(function(result) {
+            defer.resolve(result);
+            token_address.$setValidity('contract-address', true);
+        }, function() {
+            defer.reject();
+            token_address.$setValidity('contract-address', false);
+        });
+        return defer.promise;
+    };
+
+
+    $scope.resetTokenAddress = function(tokenAddress) {
+        tokenAddress.$error['contract-address'] ?
+            tokenAddress.$setValidity('contract-address', true) : false;
+
+        tokenAddress.$error['allowance-address'] ?
+            tokenAddress.$setValidity('allowance-address', true) : false;
+    };
+
+    $scope.closeAllowTokenPopup = function() {
+        $scope.tokenAddressReady = false;
+    };
+
+    $scope.closeConfirmTokenPopup = function() {
+        $scope.tokenConfirmAddressReady = false;
+    };
+
+    $scope.closeAllConfirmTokenPopup = function() {
+        $scope.allTokenConfirmAddressReady = false;
+    };
+
+    $scope.confirmToken = function(token) {
+        $scope.tokenConfirmAddressReady = {
+            token: token,
+            contract: $scope.contract
+        };
+    };
+
+    $scope.allowToken = function(token) {
+        $scope.tokenAddressReady = {
+            token: token,
+            customField: $scope.customAddressCheck,
+            lostKeyContract: {
+                address: $scope.contract.contract_details.eth_contract.address
+            },
+            contract: {
+                address: token.address,
+                network: $scope.contract.network,
+                admin_address: $scope.contract.contract_details.user_address
+            }
+        };
+    };
+
+    $scope.allowCustomToken = function(tokenAddress) {
+        var address = tokenAddress.$viewValue.toLowerCase();
+        var currentToken = $scope.visibleTokensList.filter(function(existsToken) {
+            return existsToken.address === address;
+        })[0];
+        if (currentToken) {
+            if (!currentToken.allowed) {
+                $scope.allowToken(currentToken, tokenAddress);
+            } else {
+                tokenAddress.$setValidity('allowance-address', false);
+            }
+            return;
+        }
+
+        checkTokenAddress(tokenAddress).then(function(web3TokenContract) {
+            tokenAddress.$setValidity('allowance-address', !web3TokenContract.allowed);
+            web3TokenContract.confirmed = false;
+            $scope.visibleTokensList.push(web3TokenContract);
+            if (!web3TokenContract.allowed) {
+                $scope.allowToken(web3TokenContract);
+            }
+        }, function() {
+            console.log('Not token');
+        });
+    };
+
     $scope.callAddTokens = function() {
-        if (!isSuccessExtension()) return;
-
         var notConfirmedTokens = $scope.visibleTokensList.filter(function(token) {
             return !token.confirmed && token.allowed;
         });
 
-        var tokensList = notConfirmedTokens.map(function(token) {
-            token.isConfirmProgress = true;
-            return TronWeb.address.toHex(token.contract_address);
+        $scope.allTokenConfirmAddressReady = {
+            tokens_addresses: notConfirmedTokens,
+            contract: $scope.contract
+        };
+    };
+
+}).controller('tokenLostKeyAllowController', function($scope, web3Service) {
+    web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
+
+    var TOKENS_SUM = new BigNumber(2).pow(256).minus(1).toString(10);
+
+    var contractDetails = $scope.ngPopUp.params.contract, contract;
+    $scope.contract = $scope.ngPopUp.params.contract;
+
+    var interfaceMethod = web3Service.getMethodInterface('approve', window.abi);
+
+    $scope.allowTokenSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [
+        $scope.ngPopUp.params.lostKeyContract.address,
+        TOKENS_SUM
+    ]);
+
+    web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
+        }
+        contract = web3Service.createContractFromAbi(contractDetails.address, window.abi);
+    });
+
+    $scope.sendTransaction = function() {
+        $scope.ngPopUp.params.token.isAllowProgress = true;
+        $scope.ngPopUp.params.customField.isProgressAddresses[$scope.ngPopUp.params.token.address] = true;
+
+        contract.methods.approve(
+            $scope.ngPopUp.params.lostKeyContract.address,
+            TOKENS_SUM
+        ).send({
+            from: $scope.currentWallet.wallet
+        }).then(function() {
+            $scope.ngPopUp.params.token.allowed = true;
+        }).finally(function() {
+            $scope.ngPopUp.params.token.isAllowProgress = false;
+            $scope.$apply();
+            $scope.ngPopUp.params.customField.isProgressAddresses[$scope.ngPopUp.params.token.address] = false;
         });
-        $scope.contract.isAllConfirmProgress = true;
-        tronContract.addTokenAddresses(tokensList).send().then(
-            function(result) {
-                $scope.TRONExtensionInfo.successTx = {
-                    transaction_id: result
-                };
+    };
 
-                notConfirmedTokens.forEach(function(token) {
-                    token.confirmed = true;
-                });
+}).controller('allTokenLostKeyConfirmController', function($scope, web3Service) {
+    web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
 
-                $scope.$apply();
-            },
-            function() {
-                $scope.TRONExtensionInfo.txServerError = true;
-                $scope.$apply();
-            }
-        ).finally(function() {
-            notConfirmedTokens.forEach(function(token) {
-                token.isConfirmProgress = false;
+    var contractDetails = $scope.ngPopUp.params.contract, contract;
+
+    var interfaceMethod = web3Service.getMethodInterface(
+        'addTokenAddresses',
+        contractDetails.contract_details.eth_contract.abi
+    );
+
+    var tokenAddresses = $scope.ngPopUp.params.tokens_addresses;
+    var tokensList = tokenAddresses.map(function(token) {
+        return token.address;
+    });
+    $scope.confirmTokenSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [
+        tokensList
+    ]);
+
+
+    web3Service.getAccounts(contractDetails.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.contract_details.user_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractDetails.network);
+        }
+        contract = web3Service.createContractFromAbi(
+            contractDetails.contract_details.eth_contract.address,
+            contractDetails.contract_details.eth_contract.abi
+        );
+    });
+
+    $scope.sendTransaction = function() {
+        tokenAddresses.forEach(function(t) {
+            t.isConfirmProgress = true;
+        });
+        contract.methods.addTokenAddresses(
+            tokensList
+        ).send({
+            from: $scope.currentWallet.wallet
+        }).then(function() {
+            tokenAddresses.forEach(function(t) {
+                t.confirmed = true;
             });
-            $scope.contract.isAllConfirmProgress = false;
+        }).finally(function() {
+            tokenAddresses.forEach(function(t) {
+                t.isConfirmProgress = false;
+            });
             $scope.$apply();
         });
     };
 
+}).controller('tokenLostKeyConfirmController', function($scope, web3Service) {
+    web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
 
-    $scope.confirmToken = function(token) {
-        if (!isSuccessExtension()) return;
+    var contractDetails = $scope.ngPopUp.params.contract, contract;
 
-        token.isAllowProgress  = true;
-        tronContract.addTokenAddress(TronWeb.address.toHex(token.contract_address)).send().then(
-            function(result) {
-                $scope.TRONExtensionInfo.successTx = {
-                    transaction_id: result
-                };
-                token.confirmed = true;
-                $scope.$apply();
-            },
-            function() {
-                $scope.TRONExtensionInfo.txServerError = true;
-                $scope.$apply();
-            }
-        ).finally(function() {
-            token.isAllowProgress  = false;
+    var interfaceMethod = web3Service.getMethodInterface(
+        'addTokenAddress',
+        contractDetails.contract_details.eth_contract.abi
+    );
+
+    $scope.confirmTokenSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [
+        contractDetails.address
+    ]);
+
+    web3Service.getAccounts(contractDetails.network).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === contractDetails.contract_details.user_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, contractDetails.network);
+        }
+        contract = web3Service.createContractFromAbi(
+            contractDetails.contract_details.eth_contract.address,
+            contractDetails.contract_details.eth_contract.abi
+        );
+    });
+
+    $scope.sendTransaction = function() {
+        $scope.ngPopUp.params.token.isConfirmProgress = true;
+        contract.methods.addTokenAddress(
+            $scope.ngPopUp.params.token.address
+        ).send({
+            from: $scope.currentWallet.wallet
+        }).then(function() {
+            $scope.ngPopUp.params.token.confirmed = true;
+        }).finally(function() {
+            $scope.ngPopUp.params.token.isConfirmProgress = false;
             $scope.$apply();
         });
     };
 
-}).controller('tronLostKeyCancelController', function ($scope, TronService) {
+})/*.controller('tronLostKeyCancelController', function ($scope, TronService) {
 
     var contract = $scope.ngPopUp.contract;
     $scope.closeExtensionAlert = function() {
@@ -359,4 +492,4 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
             $scope.$apply();
         });
     }
-});
+})*/;

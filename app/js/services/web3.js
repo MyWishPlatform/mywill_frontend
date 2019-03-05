@@ -188,6 +188,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     };
 
     var _this = this;
+
     this.getTokenInfo = function(network, token, wallet, customFields) {
         var defer = $q.defer();
         var tokenInfoFields = customFields || ['decimals', 'symbol', 'balanceOf'];

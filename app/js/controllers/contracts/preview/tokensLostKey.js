@@ -1,6 +1,8 @@
 angular.module('app').controller('tokensLostKeyPreviewController', function($timeout, $rootScope, contractService, $state, $q,
                                                                           openedContract, $scope, $http, web3Service, $location) {
+
     $scope.contract = openedContract.data;
+
     $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
@@ -40,7 +42,6 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
     };
 
     var checkLostKeyContract = function() {
-
         web3Service.getEthTokensForAddress(
             contractDetails.user_address,
             $scope.contract.network
@@ -81,7 +82,9 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
     var lostKeyContract;
 
 
-    if ($scope.contract.stateValue === 4) {
+    $scope.showTokensTab = false;
+    if ($scope.contract.contract_details.eth_contract && $scope.contract.contract_details.eth_contract.address) {
+        $scope.showTokensTab = true;
         $scope.visibleTokensList = [];
         lostKeyContract = web3Service.createContractFromAbi(
             contractDetails.eth_contract.address,
@@ -210,6 +213,12 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
             tokenAddress.$setValidity('allowance-address', !web3TokenContract.allowed);
             web3TokenContract.confirmed = false;
             $scope.visibleTokensList.push(web3TokenContract);
+            if (!currentToken) {
+                tokenAddress.$setViewValue('');
+                tokenAddress.$$setModelValue('');
+                tokenAddress.$setUntouched();
+                tokenAddress.$$parentForm.$setUntouched();
+            }
             if (!web3TokenContract.allowed) {
                 $scope.allowToken(web3TokenContract);
             }
@@ -337,7 +346,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
     );
 
     $scope.confirmTokenSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [
-        contractDetails.address
+        $scope.ngPopUp.params.token.address
     ]);
 
     web3Service.getAccounts(contractDetails.network).then(function(result) {

@@ -1,6 +1,7 @@
 angular.module('app').controller('tronLostKeyPreviewController', function($timeout, $rootScope, contractService, $state,
                                                                           openedContract, $scope, $http, TronService, $location) {
     $scope.contract = openedContract.data;
+
     $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details;
@@ -90,7 +91,9 @@ angular.module('app').controller('tronLostKeyPreviewController', function($timeo
         );
     };
 
-    if ($scope.contract.stateValue === 4) {
+    $scope.showTokensTab = false;
+    if ($scope.contract.contract_details.tron_contract && $scope.contract.contract_details.tron_contract.address) {
+        $scope.showTokensTab = true;
         checkLostKeyContract().then(function(lostKeyContract) {
             tronContract = lostKeyContract;
             tronContract.getTokenAddresses().call().then(function(result) {

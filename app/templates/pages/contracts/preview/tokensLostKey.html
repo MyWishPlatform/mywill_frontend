@@ -2,11 +2,11 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: showedTab == 'tokens'}"
          ng-click="showedTab = 'tokens'"
-         ng-show="(contract.stateValue == 4)">
+         ng-show="showTokensTab">
         <span>Tokens</span>
     </div>
     <div class="contract-preview-one-tab"
-         ng-class="{active: (showedTab == 'info') || ((contract.stateValue !== 4) && (showedTab == 'tokens'))}"
+         ng-class="{active: (showedTab == 'info') || (!showTokensTab && (showedTab == 'tokens'))}"
          ng-click="showedTab = 'info'">
         <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
@@ -53,8 +53,27 @@
     </div>
 </div>
 
-<div ng-show="(showedTab == 'tokens') && (contract.stateValue === 4)" ng-if="(contract.stateValue == 4)">
-    <div class="shadow-block after-tabs" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
+<div ng-show="(showedTab == 'tokens')" ng-if="showTokensTab">
+
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="shadow-block__content__title__icon icon-key"></i>
+                        <span class="shadow-block__content__title__text">
+                            {{'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.TITLE' | translate}}
+                        </span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
         <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
             <p class="normal-text">Please wait...</p>
         </div>
@@ -62,11 +81,11 @@
 
 
     <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
-         class="shadow-block after-tabs">
+         class="shadow-block">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">1. Allow tokens</span>
+                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.TITLE"></span>
                 </div>
             </div>
         </div>
@@ -77,7 +96,7 @@
             ) < maximumTokens)">
             <p class="normal-text warning-text">
                 <i class="icon-warning"></i>&nbsp;
-                No tokens are available to allowance.<br/>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.NO_AVAILABLE"></span><br/>
             </p>
         </div>
 
@@ -86,19 +105,19 @@
                 (visibleTokensList | filter : {confirmed: true}).length
             ) < maximumTokens)">
             <p class="normal-text">
-                Please allow the contract to send the tokens from your personal address to reserved addresses.<br/>
-                After allowing, please confirm the changes in the contract.
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.MAIN"></span>
                 <br/><br/>
                 <i class="main-blue-color icon-alert-circle"></i>&nbsp;
-                The maximum quantity of tokens in one contract is {{maximumTokens}}.<br/>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.MAXIMUM_TOKENS"
+                      translate-values="{maximumTokens: maximumTokens}"></span>
+                <br/>
             </p>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding"
              ng-if="((visibleTokensList | filter : {confirmed: true}).length) >= maximumTokens">
             <p class="normal-text warning-text">
                 <i class="icon-warning"></i>
-                You have reached the maximum number of tokens in the contract.<br/>
-                Please create a new one.<br/>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.LIMIT_TOKENS"></span>
             </p>
         </div>
 
@@ -112,9 +131,9 @@
                         </a>
                     </td>
                     <td>{{ token.balance | separateNumber }}</td>
-                    <td class="normal-size with-lds" ng-if="(
+                    <td class="normal-size with-lds" ng-if="((
                             (visibleTokensList | filter : {confirmed: true}).length
-                        ) < maximumTokens">
+                        ) < maximumTokens) && contract.stateValue === 4">
                         <span class="lds-ellipsis" ng-if="token.isAllowProgress">
                             <span class="lds-ellipsis-container">
                                 <span></span><span></span><span></span><span></span>
@@ -122,14 +141,15 @@
                         </span>
                         <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
                                 ng-if="!token.isAllowProgress">
-                            <span>Allow</span>
+                            <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.BUTTONS.ALLOW"></span>
                         </button>
                     </td>
                 </tr>
             </table>
         </div>
 
-        <form name="ercTokenAddress" class="shadow-block__content shadow-block__content_min-tb-padding">
+        <form name="ercTokenAddress" class="shadow-block__content shadow-block__content_min-tb-padding"
+              ng-if="contract.stateValue === 4">
             <div class="as-table">
                 <div class="as-table-cell">
                     <input id="contract-name" type="text"
@@ -142,18 +162,16 @@
                            ng-disabled="(visibleTokensList | filter : {confirmed: true}).length >= maximumTokens"
                            class="form-control-input"/>
                 </div>
-
                 <div class="as-table-cell min-width">
                     <button class="btn btn-transparent"
                             ng-disabled="((visibleTokensList | filter : {confirmed: true}).length >= maximumTokens) || customAddressCheck.isProgressAddresses[address.toLowerCase()] || !ercTokenAddress.$valid"
                             ng-click="allowCustomToken(ercTokenAddress.tokenAddress)">
-
                         <span class="lds-ellipsis" ng-if="customAddressCheck.isProgressAddresses[address.toLowerCase()]">
                             <span class="lds-ellipsis-container">
                                 <span></span><span></span><span></span><span></span>
                             </span>
                         </span>
-                        <span>Allow</span>
+                        <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.BUTTONS.ALLOW"></span>
                     </button>
                 </div>
             </div>
@@ -165,8 +183,8 @@
 
             <span class="field-error form-field_error-allowance-address"
                   style="display: block"
-                  ng-if="ercTokenAddress.tokenAddress.$error['allowance-address']">
-                Этот токен allowance
+                  ng-if="ercTokenAddress.tokenAddress.$error['allowance-address']"
+                  translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.ERRORS.TOKEN_IS_ALREADY">
             </span>
 
         </form>
@@ -180,7 +198,7 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">2. Add tokens</span>
+                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.TITLE"></span>
                 </div>
             </div>
         </div>
@@ -191,28 +209,28 @@
             ) < maximumTokens)">
             <p class="normal-text warning-text">
                 <i class="icon-warning"></i>
-                No tokens are available for adding.<br/>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.NO_AVAILABLE"></span><br/>
             </p>
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding"
              ng-if="(((visibleTokensList | filter : {confirmed: true}).length) < maximumTokens) && (visibleTokensList | filter : {confirmed: false, allowed: true}).length">
             <p class="normal-text">
-                Please confirm each token or all tokens (recommended) on the list, so the contract can complete the transaction.
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.CONFIRM_TEXTS.MAIN"></span>
                 <br/><br/>
                 <i class="main-blue-color icon-alert-circle"></i>&nbsp;
-                Tokens which are not confirmed will not be sent to the reserved addresses.
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.CONFIRM_TEXTS.NOT_CONFIRMED"></span>
                 <br/><br/>
                 <i class="main-blue-color icon-alert-circle"></i>&nbsp;
-                The maximum quantity of tokens in one contract is {{maximumTokens}}.<br/>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.MAXIMUM_TOKENS"
+                      translate-values="{maximumTokens: maximumTokens}"></span>
             </p>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding"
              ng-if="((visibleTokensList | filter : {confirmed: true}).length) >= maximumTokens">
             <p class="normal-text warning-text">
                 <i class="icon-warning"></i>
-                You have reached the maximum number of tokens in the contract.<br/>
-                Please create a new one.<br/>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.LIMIT_TOKENS"></span>
             </p>
         </div>
 
@@ -227,9 +245,9 @@
                     </td>
                     <td>{{ token.balance | separateNumber }}</td>
                     <td class="normal-size with-lds"
-                        ng-if="(
+                        ng-if="((
                             (visibleTokensList | filter : {confirmed: true}).length
-                        ) < maximumTokens">
+                        ) < maximumTokens) && (contract.stateValue === 4)">
                         <span class="lds-ellipsis" ng-if="token.isConfirmProgress">
                             <span class="lds-ellipsis-container">
                                 <span></span><span></span><span></span><span></span>
@@ -245,10 +263,10 @@
             </table>
         </div>
         <div class="shadow-block__content shadow-block__content_min-tb-padding"
-             ng-if="(visibleTokensList | filter : {confirmed: false, allowed: true}).length && (
+             ng-if="((visibleTokensList | filter : {confirmed: false, allowed: true}).length && (
                 (visibleTokensList | filter : {confirmed: false, allowed: true}).length +
                 (visibleTokensList | filter : {confirmed: true}).length
-            ) <= maximumTokens">
+            ) <= maximumTokens) && (contract.stateValue === 4)">
             <button type="button"
                     ng-click="callAddTokens()"
                     ng-disabled="(visibleTokensList | filter : {isConfirmProgress: true}).length && ((visibleTokensList | filter : {confirmed: false, allowed: true}).length === (visibleTokensList | filter : {isConfirmProgress: true}).length)"
@@ -259,10 +277,9 @@
                         <span></span><span></span><span></span><span></span>
                     </span>
                 </span>
-                <span>Confirm all</span>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.BUTTONS.CONFIRM_ALL"></span>
             </button>
         </div>
-
     </div>
 
 
@@ -271,7 +288,13 @@
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size">Saved tokens {{(visibleTokensList | filter : {confirmed: true}).length}} / {{maximumTokens}}</span>
+                    <span class="big-size"
+                          translate-values="{
+                            confirmedCount: (visibleTokensList | filter : {confirmed: true}).length,
+                            totalCount: maximumTokens
+                          }"
+                          translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.TITLE">
+                    </span>
                 </div>
             </div>
         </div>
@@ -280,17 +303,17 @@
              ng-if="!(visibleTokensList | filter : {confirmed: true}).length">
             <p class="normal-text warning-text">
                 <i class="icon-warning"></i>
-                The list is empty, no tokens are available to be transferred.<br/>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.EMPTY_LIST"></span><br/>
             </p>
         </div>
 
         <div ng-if="(visibleTokensList | filter : {confirmed: true}).length">
             <div class="shadow-block__content shadow-block__content_min-tb-padding">
                 <p class="normal-text">
-                    These tokens are confirmed to be sent to the reserved addresses.
+                    <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.CONFIRMED_TOKENS"></span>
                     <br/><br/>
                     <i class="main-blue-color icon-alert-circle"></i>&nbsp;
-                    Tokens which are not on the list will not be sent to the reserved addresses.<br/>
+                    <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.CONFIRMED_TOKENS_NOTE"></span><br/>
                 </p>
             </div>
             <div class="shadow-block__content shadow-block__content_min-tb-padding">
@@ -305,7 +328,8 @@
                         <td class="normal-size">
                             <div class="normal-text token-confirmed">
                                 <i class="icon-check_circle icon-check_circle"></i>
-                                <span class="capitalize">Allowed</span>
+                                <span class="capitalize"
+                                      translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.STATE"></span>
                             </div>
                         </td>
                     </tr>
@@ -315,7 +339,7 @@
     </div>
 </div>
 
-<div ng-show="(showedTab == 'info') || ((contract.stateValue !== 4) && (showedTab == 'tokens'))">
+<div ng-show="(showedTab == 'info') || (!showTokensTab && (showedTab == 'tokens'))">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
              ng-include="'/templates/common/contracts/preview-title.html'">

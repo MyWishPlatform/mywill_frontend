@@ -56,7 +56,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
                     addedTokens = addedTokens.filter(function(t) {
                         return t.toLowerCase() !== tokenInfo.address;
                     });
-                    checkTokenInfo(tokenInfo.address, ['allowance'], tokenInfo).then(function(tokenResult) {
+                    checkTokenInfo(tokenInfo.address, ['allowance', 'balanceOf'], tokenInfo).then(function(tokenResult) {
                         tokenResult.confirmed = tokenIsConfirmed;
                         $scope.visibleTokensList.push(tokenResult);
                     });
@@ -122,9 +122,9 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
                     checkedTokenData[method] = result;
                     sch--;
                     if (!sch) {
-                        checkedTokenData = advTokenData ? angular.merge(advTokenData, checkedTokenData) : checkedTokenData;
                         checkedTokenData.address = address;
                         checkedTokenData.balance = new BigNumber(checkedTokenData.balanceOf).div(Math.pow(10, checkedTokenData.decimals)).toString(10);
+                        checkedTokenData = advTokenData ? angular.merge(advTokenData, checkedTokenData) : checkedTokenData;
                         checkedTokenData.checked = true;
                         checkedTokenData.allowed = new BigNumber(checkedTokenData.allowance) > 0;
                         defer.resolve(checkedTokenData);

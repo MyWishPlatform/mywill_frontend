@@ -44,7 +44,7 @@
 
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/game-assets-contract'}"></span>
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/eth-lost-key-token'}"></span>
             </p>
         </div>
         <div class="shadow-block__content">
@@ -323,7 +323,7 @@
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address|blockies}}"/>
+                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address.toLowerCase()|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
                 <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address}}"
@@ -367,7 +367,7 @@
                 <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
                     <br/>
                     <span class="identicon-container relative-top">
-                        <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
+                        <img class="identicon-image" ng-src="{{heir.address.toLowerCase()|blockies}}"/>
                     </span>
 
                     <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">

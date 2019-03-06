@@ -72,7 +72,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             $scope.contractTypesIcons[contractType['typeNumber']] = contractType['icon'];
         });
     }
-    console.log($scope.contractTypesIcons);
 
     var deletingProgress;
     $scope.refreshInProgress = {};
@@ -234,6 +233,20 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     }
                 }
             break;
+            case 19:
+                if (contract.state === 'ACTIVE') {
+                    web3Service.setProviderByNumber(contract.network);
+                    var lostKeyContract = web3Service.createContractFromAbi(
+                        contract.contract_details.eth_contract.address,
+                        contract.contract_details.eth_contract.abi
+                    );
+                    lostKeyContract.methods.getTokenAddresses().call().then(function(result) {
+                        contract.contract_details.confirmed_addresses = result;
+                    }).finally(function() {
+                        $scope.$apply();
+                    });
+                }
+                break;
         }
 
         if (!contract.contract_details.eth_contract) return;

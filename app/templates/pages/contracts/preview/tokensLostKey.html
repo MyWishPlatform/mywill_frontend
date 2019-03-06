@@ -139,13 +139,14 @@
                            ng-change="resetTokenAddress(ercTokenAddress.tokenAddress)"
                            ng-checksum-address-validator="{'network': 'ETH'}"
                            required
+                           ng-disabled="(visibleTokensList | filter : {confirmed: true}).length >= maximumTokens"
                            class="form-control-input"/>
                 </div>
 
                 <div class="as-table-cell min-width">
                     <button class="btn btn-transparent"
-                            ng-click="allowCustomToken(ercTokenAddress.tokenAddress)"
-                            ng-disabled="customAddressCheck.isProgressAddresses[address.toLowerCase()] || !ercTokenAddress.$valid">
+                            ng-disabled="((visibleTokensList | filter : {confirmed: true}).length >= maximumTokens) || customAddressCheck.isProgressAddresses[address.toLowerCase()] || !ercTokenAddress.$valid"
+                            ng-click="allowCustomToken(ercTokenAddress.tokenAddress)">
 
                         <span class="lds-ellipsis" ng-if="customAddressCheck.isProgressAddresses[address.toLowerCase()]">
                             <span class="lds-ellipsis-container">
@@ -250,8 +251,10 @@
             ) <= maximumTokens">
             <button type="button"
                     ng-click="callAddTokens()"
+                    ng-disabled="(visibleTokensList | filter : {isConfirmProgress: true}).length && ((visibleTokensList | filter : {confirmed: false, allowed: true}).length === (visibleTokensList | filter : {isConfirmProgress: true}).length)"
                     class="btn btn-transparent mobile-width-100 float-right">
-                <span class="lds-ellipsis" ng-if="(visibleTokensList | filter : {isConfirmProgress: true}).length && ((visibleTokensList | filter : {confirmed: false, allowed: true}).length === (visibleTokensList | filter : {isConfirmProgress: true}).length)">
+                <span class="lds-ellipsis"
+                      ng-if="(visibleTokensList | filter : {isConfirmProgress: true}).length && ((visibleTokensList | filter : {confirmed: false, allowed: true}).length === (visibleTokensList | filter : {isConfirmProgress: true}).length)">
                     <span class="lds-ellipsis-container">
                         <span></span><span></span><span></span><span></span>
                     </span>

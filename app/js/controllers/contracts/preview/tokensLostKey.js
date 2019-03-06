@@ -7,7 +7,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
 
     var tabs = ['tokens', 'info', 'code'];
 
-    $scope.maximumTokens = 400;
+    $scope.maximumTokens = 3;
 
     $scope.showedTab = $location.hash().replace('#', '');
 
@@ -123,8 +123,8 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
                     sch--;
                     if (!sch) {
                         checkedTokenData.address = address;
-                        checkedTokenData.balance = new BigNumber(checkedTokenData.balanceOf).div(Math.pow(10, checkedTokenData.decimals)).toString(10);
                         checkedTokenData = advTokenData ? angular.merge(advTokenData, checkedTokenData) : checkedTokenData;
+                        checkedTokenData.balance = new BigNumber(checkedTokenData.balanceOf).div(Math.pow(10, checkedTokenData.decimals)).toString(10);
                         checkedTokenData.checked = true;
                         checkedTokenData.allowed = new BigNumber(checkedTokenData.allowance) > 0;
                         defer.resolve(checkedTokenData);
@@ -251,6 +251,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
         }
+        $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
         contract = web3Service.createContractFromAbi(contractDetails.address, window.abi);
     });
 
@@ -267,8 +268,8 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
             $scope.ngPopUp.params.token.allowed = true;
         }).finally(function() {
             $scope.ngPopUp.params.token.isAllowProgress = false;
-            $scope.$apply();
             $scope.ngPopUp.params.customField.isProgressAddresses[$scope.ngPopUp.params.token.address] = false;
+            $scope.$apply();
         });
     };
 
@@ -298,6 +299,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractDetails.network);
         }
+        $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
         contract = web3Service.createContractFromAbi(
             contractDetails.contract_details.eth_contract.address,
             contractDetails.contract_details.eth_contract.abi
@@ -345,6 +347,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractDetails.network);
         }
+        $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
         contract = web3Service.createContractFromAbi(
             contractDetails.contract_details.eth_contract.address,
             contractDetails.contract_details.eth_contract.abi
@@ -380,6 +383,8 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractDetails.network);
         }
+        $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
+
         contract = web3Service.createContractFromAbi(
             contractDetails.contract_details.eth_contract.address,
             contractDetails.contract_details.eth_contract.abi
@@ -410,6 +415,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contractDetails.network);
         }
+        $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
         contract = web3Service.createContractFromAbi(
             contractDetails.contract_details.eth_contract.address,
             contractDetails.contract_details.eth_contract.abi

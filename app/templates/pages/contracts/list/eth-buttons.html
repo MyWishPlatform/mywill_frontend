@@ -352,7 +352,7 @@
 
 <!-- Lost key add tokens -->
 <a ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'tokens'})"
-   ng-if="(contract.stateValue == 4) && (contract.contract_type == 19)"
+   ng-if="(contract.stateValue == 4) && (contract.contract_type == 19) && (contract.contract_details.confirmed_addresses.length < 400)"
    class="btn btn-transparent mobile-width-100">
     <span>Add tokens</span>
 </a>

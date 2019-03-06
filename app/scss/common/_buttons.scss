@@ -66,7 +66,7 @@ $red-active-color: #bb0d2b;
     display: inline-block;
     vertical-align: middle;
   }
-  .lds-ellipsis + span {
+  .lds-ellipsis ~ span {
     visibility: hidden;
   }
   span, i {}
@@ -153,6 +153,13 @@ $red-active-color: #bb0d2b;
     }
     &.active {
       border-color: #206EFF;
+    }
+    .lds-ellipsis {
+      .lds-ellipsis-container {
+        span {
+          background-color: $main-color;
+        }
+      }
     }
   }
   &.only-icon {

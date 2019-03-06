@@ -234,6 +234,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 }
             break;
             case 19:
+                contract.maxTokensLimit = 4;
                 if (contract.state === 'ACTIVE') {
                     web3Service.setProviderByNumber(contract.network);
                     var lostKeyContract = web3Service.createContractFromAbi(

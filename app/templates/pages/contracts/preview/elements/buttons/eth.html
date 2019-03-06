@@ -52,13 +52,20 @@
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/mint-token-form.html',
                             newPopupContent: true,
+                            mintInfo: forMintInfo,
                             params: {
                                 contract: contract
                             },
                             class: 'page-size',
                             onClose: returnToList
                         }"
+                        ng-disabled="forMintInfo.isProgress"
                         class="btn btn-transparent mobile-width-100 text-center">
+                    <span class="lds-ellipsis" ng-if="forMintInfo.isProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                    </span>
                     <span translate="CONTRACTS_BUTTONS.MINT"></span>
                 </button><br/><br/>
             </div>

@@ -7,7 +7,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
 
     var tabs = ['tokens', 'info', 'code'];
 
-    $scope.maximumTokens = 3;
+    $scope.maximumTokens = 400;
 
     $scope.showedTab = $location.hash().replace('#', '');
 

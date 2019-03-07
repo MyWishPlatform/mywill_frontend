@@ -2,11 +2,11 @@
     <div class="contract-preview-one-tab"
          ng-class="{active: showedTab == 'tokens'}"
          ng-click="showedTab = 'tokens'"
-         ng-show="(contract.stateValue == 4)">
+         ng-show="showTokensTab">
         <span>Tokens</span>
     </div>
     <div class="contract-preview-one-tab"
-         ng-class="{active: showedTab == 'info'}"
+         ng-class="{active: (showedTab == 'info') || (!showTokensTab && (showedTab == 'tokens'))}"
          ng-click="showedTab = 'info'">
         <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
     </div>
@@ -53,16 +53,34 @@
     </div>
 </div>
 
-<div ng-show="showedTab == 'tokens'" ng-if="(contract.stateValue == 4)">
-    <div class="shadow-block after-tabs" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
+<div ng-show="showedTab == 'tokens'" ng-if="showTokensTab">
+
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="shadow-block__content__title__icon icon-key"></i>
+                        <span class="shadow-block__content__title__text">
+                            {{'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.TITLE' | translate}}
+                        </span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
         <div class="shadow-block__content shadow-block__content_min-tb-padding light-color no-border">
             <p class="normal-text">Please wait...</p>
         </div>
     </div>
 
-
     <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
-         class="shadow-block after-tabs">
+         class="shadow-block">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color">
             <div class="shadow-block__content__blue-title">
                 <div class="shadow-block__content__blue-title__name">
@@ -95,7 +113,7 @@
                             </a>
                         </td>
                         <td>{{ token.visibleBalance | separateNumber }}</td>
-                        <td class="normal-size with-lds">
+                        <td class="normal-size with-lds" ng-if="(contract.stateValue === 4)">
                         <span class="lds-ellipsis" ng-if="token.isAllowProgress">
                             <span class="lds-ellipsis-container">
                                 <span></span><span></span><span></span><span></span>
@@ -150,7 +168,7 @@
                             </a>
                         </td>
                         <td>{{ token.visibleBalance | separateNumber }}</td>
-                        <td class="normal-size with-lds">
+                        <td class="normal-size with-lds" ng-if="contract.stateValue === 4">
                             <span class="lds-ellipsis" ng-if="token.isConfirmProgress">
                                 <span class="lds-ellipsis-container">
                                     <span></span><span></span><span></span><span></span>
@@ -164,7 +182,8 @@
                     </tr>
                 </table>
             </div>
-            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
+                 ng-if="contract.stateValue === 4">
                 <button type="button"
                         ng-click="callAddTokens()"
                         class="btn btn-transparent mobile-width-100 float-right">
@@ -229,7 +248,7 @@
     </div>
 </div>
 
-<div ng-show="showedTab == 'info'">
+<div ng-show="(showedTab == 'info') || (!showTokensTab && (showedTab == 'tokens'))">
     <div class="shadow-block after-tabs">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
              ng-include="'/templates/common/contracts/preview-title.html'">

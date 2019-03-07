@@ -52,13 +52,20 @@
                 <button ng-pop-up="{
                             template: '/templates/popups/forms/eth/mint-token-form.html',
                             newPopupContent: true,
+                            mintInfo: forMintInfo,
                             params: {
                                 contract: contract
                             },
                             class: 'page-size',
                             onClose: returnToList
                         }"
+                        ng-disabled="forMintInfo.isProgress"
                         class="btn btn-transparent mobile-width-100 text-center">
+                    <span class="lds-ellipsis" ng-if="forMintInfo.isProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                    </span>
                     <span translate="CONTRACTS_BUTTONS.MINT"></span>
                 </button><br/><br/>
             </div>
@@ -126,7 +133,7 @@
 
             <!-- Deposit instruction button -->
             <div class="grid-cell grid-cell-vs-1-2"
-                 ng-if="(contract.stateValue == 4) && (contract.contract_type != 4) && (contract.contract_type != 5) && (contract.contract_type != 8) && (contract.contract_type != 9)">
+                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 1) || (contract.contract_type == 2) || (contract.contract_type == 0))">
                 <button ng-pop-up="{
                             template: '/templates/popups/instructions/eth/deposit-instruction.html',
                             newPopupContent: true,
@@ -438,6 +445,49 @@
                         }"
                         class="btn btn-transparent mobile-width-100 text-center">
                     <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>
+                </button><br/><br/>
+            </div>
+
+
+            <!-- Tokens Lost key i'm good -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 19)">
+                <button type="button"
+                        ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/tokens-lost-key-alive-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span class="lds-ellipsis" ng-if="contract.imAliveProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                    </span>
+                    <span>Confirm access</span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Lost key cancel -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 19)">
+                <button type="button"
+                        ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/tokens-lost-key-kill-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span class="lds-ellipsis" ng-if="contract.killProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
+                    </span>
+                    <span>Cancel contract</span>
                 </button><br/><br/>
             </div>
 

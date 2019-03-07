@@ -310,7 +310,11 @@
       },
       "TRON_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
-        "DESCRIPTION": "The Lost Key smart contract ensures your ( TRC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
+        "DESCRIPTION": "The Lost Key smart contract ensures your (TRC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
+      },
+      "ETH_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The Lost Key smart contract ensures your (ERC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "延期付款",
@@ -1578,6 +1582,9 @@
       "EOS_CROWDSALE": {
         "TOKEN_ACCOUNT": "代币合同生成器“",
         "CROWDSALE_ACCOUNT": "众筹 EOS帐户（所有捐款均应发送至此地址"
+      },
+      "TOKENS_LOST_KEY": {
+        "TOKENS_DESCRIPTION": "The contract makes your address safe in case you lost the access/private key.<br/> It requires one transaction to send the owner address info to the token address, and the second transaction to confirm sending the tokens to the contract address.<br/> After finishing the transactions, please confirm the changes in the contract."
       }
     }
   },

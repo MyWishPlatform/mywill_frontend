@@ -4,52 +4,71 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
 
     $scope.iniContract($scope.contract);
 
-    var contractDetails = $scope.contract.contract_details;
+    var contractDetails = $scope.contract.contract_details, web3Contract;
 
-
-    if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {
-        web3Service.setProviderByNumber(2);
-        var contract = web3Service.createContractFromAbi(
-            contractDetails.eth_contract_token.address,
-            contractDetails.eth_contract_token.abi
-        );
-
-        contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
-            if (error) return;
-            if (result * 1) {
-                $scope.tokensFreezed = true;
-            }
-            $scope.$apply();
-        });
-    }
-
-
-
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
-    contractDetails.token_holders.map(function(holder) {
-        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
-    });
-
-    var holdersSum = contractDetails.token_holders.reduce(function (val, item) {
-        var value = new BigNumber(item.amount || 0);
-        return value.plus(val);
-    }, new BigNumber(0));
-
-    $scope.totalSupply = {
-        tokens: holdersSum
-    };
-
-    $scope.chartOptions = {
-        itemValue: 'amount',
-        itemLabel: 'address'
-    };
-    $scope.chartData = angular.copy(contractDetails.token_holders);
 
     var tabs = ['code', 'info'];
 
     if ($scope.contract.isAuthioToken) {
         tabs.push('audit');
     }
+
+
+    var updateTotalSupply = function() {
+        web3Contract.methods.totalSupply().call(function(error, result) {
+            if (error) {
+                result = 0;
+            }
+            $scope.chartData = angular.copy(contractDetails.token_holders);
+            $scope.chartData.unshift({
+                amount: new BigNumber(result).minus(holdersSum).div(powerNumber),
+                address: 'Other'
+            });
+            $scope.totalSupply = {
+                tokens: new BigNumber(result).div(powerNumber)
+            };
+            $scope.$apply();
+        });
+    };
+
+
+    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    var holdersSum = new BigNumber(0);
+
+    contractDetails.token_holders.map(function(holder) {
+        holdersSum = holdersSum.plus(holder.amount);
+        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+    });
+
+
+    if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {
+        web3Service.setProviderByNumber($scope.contract.network);
+        web3Contract = web3Service.createContractFromAbi(
+            contractDetails.eth_contract_token.address,
+            contractDetails.eth_contract_token.abi
+        );
+
+        web3Contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+            if (error) return;
+            if (result * 1) {
+                $scope.tokensFreezed = true;
+            }
+            $scope.$apply();
+        });
+        updateTotalSupply();
+    } else {
+        $scope.chartData = angular.copy(contractDetails.token_holders);
+    }
+
+    $scope.chartOptions = {
+        itemValue: 'amount',
+        itemLabel: 'address'
+    };
+
+    $scope.forMintInfo = {
+        updateData: updateTotalSupply
+    };
+
     if ($scope.contract.withAuthioForm) {
         $scope.authioFormRequest = {
             contract_id: $scope.contract.id,
@@ -137,6 +156,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         if ($scope.currentWallet) {
             web3Service.setProvider($scope.currentWallet.type, contract.network);
         }
+        $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
         web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
         getTotalSupply();
         $timeout(function() {
@@ -199,6 +219,8 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
     $scope.mintSignature = {};
+    $scope.ngPopUp.mintInfo = $scope.ngPopUp.mintInfo || {};
+
     $scope.generateSignature = function() {
         var mintInterfaceMethod = web3Service.getMethodInterface(
             !$scope.recipient.isFrozen ? 'mint' : 'mintAndFreeze',
@@ -220,19 +242,29 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
+        var txProgress;
+        $scope.ngPopUp.mintInfo.isProgress = true;
+
         if ($scope.recipient.isFrozen) {
-            web3Contract.methods.mintAndFreeze(
+            txProgress = web3Contract.methods.mintAndFreeze(
                 $scope.recipient.address,
                 amount,
                 $scope.recipient.freeze_date.format('X')
             ).send({
                 from: $scope.currentWallet.wallet
-            }).then(console.log);
+            });
         } else {
-            web3Contract.methods.mint($scope.recipient.address, amount).send({
+            txProgress = web3Contract.methods.mint($scope.recipient.address, amount).send({
                 from: $scope.currentWallet.wallet
-            }).then(console.log);
+            });
         }
+        txProgress.then(function() {
+            $scope.ngPopUp.mintInfo.updateData ?
+                $scope.ngPopUp.mintInfo.updateData() : false;
+        }).finally(function() {
+            $scope.ngPopUp.mintInfo.isProgress = false;
+            $scope.$apply();
+        })
     };
     $scope.sendFinalizeTransaction = function() {
         web3Contract.methods.finishMinting().send({

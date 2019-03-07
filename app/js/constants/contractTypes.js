@@ -19,6 +19,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'TRON_GA': 16,
     'TRON_AIRDROP': 17,
     'TRON_LOST_KEY': 18,
+    'TOKENS_LOST_KEY': 19,
     'WEDDING': '-1',
     'CUSTOM': '-2'
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
@@ -41,6 +42,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     16: 'tronGA',
     17: 'tronAirdrop',
     18: 'tronLostKey',
+    19: 'tokensLostKey',
     '-1': 'wedding',
     '-2': 'custom'
 
@@ -84,6 +86,13 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.INVESTMENT_POOL.DESCRIPTION',
             'typeNumber': 9,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[9],
+            'price': true
+        }, {
+            'icon': 'icon-key',
+            'title': 'PAGES.CREATE_CONTRACT.ETH_LOST_KEY.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.ETH_LOST_KEY.DESCRIPTION',
+            'typeNumber': 19,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[19],
             'price': true
         }, {
             'icon': 'icon-key',

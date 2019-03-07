@@ -58,4 +58,11 @@
             <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>
+
+    <div ng-pop-up="{
+        template: '/templates/popups/disclaimers/eth/token-lost-key-confirm-disclaimer.html',
+        newPopupContent: true,
+        opened: true,
+        iAgree: iAgree
+     }"></div>
 </div>

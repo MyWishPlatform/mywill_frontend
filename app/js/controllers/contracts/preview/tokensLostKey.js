@@ -282,7 +282,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         });
     };
 
-}).controller('allTokenLostKeyConfirmController', function($scope, web3Service) {
+}).controller('allTokenLostKeyConfirmController', function($scope, web3Service, $timeout) {
     web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
 
     var contractDetails = $scope.ngPopUp.params.contract, contract;
@@ -335,7 +335,13 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
         });
     };
 
-}).controller('tokenLostKeyConfirmController', function($scope, web3Service) {
+    $scope.iAgree = function() {
+        $timeout(function() {
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
+
+}).controller('tokenLostKeyConfirmController', function($scope, web3Service, $timeout) {
     web3Service.setProviderByNumber($scope.ngPopUp.params.contract.network);
 
     var contractDetails = $scope.ngPopUp.params.contract, contract;
@@ -348,6 +354,12 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
     $scope.confirmTokenSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [
         $scope.ngPopUp.params.token.address
     ]);
+
+    $scope.iAgree = function() {
+        $timeout(function() {
+            $scope.$parent.$broadcast('changeContent');
+        });
+    };
 
     web3Service.getAccounts(contractDetails.network).then(function(result) {
         $scope.currentWallet = result.filter(function(wallet) {

@@ -226,7 +226,7 @@
   &:-moz-placeholder           {color:#999;}/* Firefox 18- */
   &:-ms-input-placeholder      {color:#999;}
 
-  form.ng-submitted &.ng-invalid, &.ng-invalid:focus, &.ng-touched.ng-invalid, &[invalid="true"] {
+  form:not(.no-check-submitted).ng-submitted &.ng-invalid, &.ng-invalid:focus, &.ng-touched.ng-invalid, &[invalid="true"] {
     &:not(:disabled), &:not([disabled]), &:not([readonly]) {
       border-color: #f91c1c;
     }

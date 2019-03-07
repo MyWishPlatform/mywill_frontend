@@ -1,34 +1,27 @@
-<div class="shadow-block">
+<div class="shadow-block" ng-controller="allTokenLostKeyConfirmController">
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
-                <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.ETH.MINT.TITLE'|translate}}&nbsp;</span>
+                <span class="big-size" translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.INSTRUCTIONS.CONFIRM.TITLE">&nbsp;</span>
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span translate="CONTRACTS_INSTRUCTIONS.ETH.MINT.DESCRIPTION"
-                  translate-values="{
-                    amount: (ngPopUp.params.recipient.amount|separateNumber),
-                    tokenName: ngPopUp.params.contract.contract_details.token_short_name,
-                    recipient: ngPopUp.params.recipient.address,
-                    admin: ngPopUp.params.contract.contract_details.admin_address,
-                    etherscanUrl: (ngPopUp.params.contract.network|etherscanUrl:'address')
-                }">
-            </span>
+            <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.INSTRUCTIONS.CONFIRM.DESCRIPTION"></span>
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <a ng-attr-href="{{
-            'https://www.myetherwallet.com/?data=' + ngPopUp.params.mintSignature.string +
-            '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract_token.address}}#send-transaction"
+            'https://www.myetherwallet.com/?data=' + confirmTokenSignature +
+            '&value=0&to=' + contract.address}}#send-transaction"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
-        <button ng-click="ngPopUp.actions.sendMintTransaction()"
-                ng-disabled="ngPopUp.params.currentWallet.type !== 'parity'"
+
+        <button ng-click="sendTransaction()"
+                ng-disabled="currentWallet.type !== 'parity'"
                 class="btn btn-gray with-icon nowrap">
-            <span class="lds-ellipsis" ng-if="!ngPopUp.params.currentWallet">
+            <span class="lds-ellipsis" ng-if="!currentWallet">
                 <span class="lds-ellipsis-container">
                     <span></span><span></span><span></span><span></span>
                 </span>
@@ -36,10 +29,10 @@
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
-        <button  ng-click="ngPopUp.actions.sendMintTransaction()"
-                 ng-disabled="ngPopUp.params.currentWallet.type !== 'metamask'"
+        <button  ng-click="sendTransaction()"
+                 ng-disabled="currentWallet.type !== 'metamask'"
                  class="btn btn-gray with-icon nowrap">
-            <span class="lds-ellipsis" ng-if="!ngPopUp.params.currentWallet">
+            <span class="lds-ellipsis" ng-if="!currentWallet">
                 <span class="lds-ellipsis-container">
                     <span></span><span></span><span></span><span></span>
                 </span>
@@ -49,23 +42,27 @@
         </button>
 
     </div>
-
     <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding"
          ng-init="instructionData = {
-            'dataField': ngPopUp.params.mintSignature.string,
-            'ownerAddress': ngPopUp.params.contract.contract_details.admin_address,
-            'contractAddress': ngPopUp.params.contract.contract_details.eth_contract_token.address,
-            'contract': {
-                network: ngPopUp.params.contract.network
-            }
+            'dataField': confirmTokenSignature,
+            'ownerAddress': ngPopUp.params.contract.contract_details.user_address,
+            'contractAddress': ngPopUp.params.contract.contract_details.eth_contract.address,
+            'contract': ngPopUp.params.contract
          }"
          ng-include="'/templates/popups/instructions/transaction-template.html'">
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup();">
             <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>
+
+    <div ng-pop-up="{
+        template: '/templates/popups/disclaimers/eth/token-lost-key-confirm-disclaimer.html',
+        newPopupContent: true,
+        opened: true,
+        iAgree: iAgree
+     }"></div>
 </div>

@@ -1,4 +1,4 @@
-angular.module('Services').service('web3Service', function($q, $rootScope, APP_CONSTANTS, $timeout) {
+angular.module('Services').service('web3Service', function($q, $rootScope, APP_CONSTANTS, $timeout, requestService, API) {
 
     if (!window.Web3) return;
     var web3 = new Web3(), contract, _this = this;
@@ -188,6 +188,21 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     };
 
     var _this = this;
+
+
+
+    this.getEthTokensForAddress = function(address, network) {
+        var params = {
+            path: API.GET_ETH_TOKENS_FOR_ADDRESS,
+            query: {
+                address: address,
+                network: ((network === 1) && isProduction) ? 'mainnet' : 'testnet'
+            }
+        };
+        return requestService.get(params);
+
+    };
+
     this.getTokenInfo = function(network, token, wallet, customFields) {
         var defer = $q.defer();
         var tokenInfoFields = customFields || ['decimals', 'symbol', 'balanceOf'];

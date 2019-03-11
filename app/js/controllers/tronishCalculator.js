@@ -1,5 +1,5 @@
 angular.module('app').controller('tronishCalculatorController', function($scope, EOSService, web3Service, TronService,
-                                                                         AIRDROP_TRONISH_TOOL) {
+                                                                         AIRDROP_TRONISH_TOOL, requestService) {
 
 
     $scope.request = {};
@@ -59,20 +59,33 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
 
         if (!ethForm.$valid) return;
         getETHTRONAddress($scope.request.eth_address);
-        web3.eth.call({
-            to: "0x1b22c32cd936cb97c28c5690a0695a82abf688e6",
-            data: "0x70a08231000000000000000000000000" + enteredAddress.split('x')[1]
-        }, function(error, response) {
-            if (error || (addressField.$viewValue !== enteredAddress)) {
+
+        requestService.get({
+            path: 'get_tronish_balance/',
+            params: {
+                eth_address: enteredAddress
+            }
+        }).then(function(result) {
+            if (addressField.$viewValue !== enteredAddress) {
                 $scope.ethBalanceInProgress = false;
-                $scope.$apply();
                 return
             }
-            $scope.tronishBalances.eth = Web3.utils.fromWei(
-                new BigNumber(Web3.utils.hexToNumberString(response)).toString(10), 'ether'
-            );
-            $scope.$apply();
+            $scope.tronishBalances.eth = new BigNumber(result.data.balance).div(Math.pow(10, 6))
         });
+        // web3.eth.call({
+        //     to: "0x1b22c32cd936cb97c28c5690a0695a82abf688e6",
+        //     data: "0x70a08231000000000000000000000000" + enteredAddress.split('x')[1]
+        // }, function(error, response) {
+        //     if (error || (addressField.$viewValue !== enteredAddress)) {
+        //         $scope.ethBalanceInProgress = false;
+        //         $scope.$apply();
+        //         return
+        //     }
+        //     $scope.tronishBalances.eth = Web3.utils.fromWei(
+        //         new BigNumber(Web3.utils.hexToNumberString(response)).toString(10), 'ether'
+        //     );
+        //     $scope.$apply();
+        // });
     };
 
 
@@ -101,13 +114,22 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
     $scope.checkEosAddress = function(ctrl, accountInfo) {
         checkedEOSAddress = false;
         $scope.checkedEosAddress = false;
-        EOSService.getBalance('buildertoken', accountInfo.account_name, 'EOSISH', EOSNetwork).then(function(result) {
-            $scope.tronishBalances.eos = result.length ? new BigNumber(result[0].split(' ')[0]).div(20).round().toString(10) : '0';
+
+        requestService.get({
+            path: 'get_tronish_balance/',
+            params: {
+                eos_address: accountInfo.account_name
+            }
+        }).then(function(result) {
+            if (ctrl.$viewValue !== accountInfo.account_name) {
+                $scope.ethBalanceInProgress = false;
+                return
+            }
             checkedEOSAddress = true;
             getEOSTRONAddress();
-        }, function() {
-
+            $scope.tronishBalances.eos = new BigNumber(result.data.balance).div(Math.pow(10, 6))
         });
+
     };
 
     $scope.resetEosBalance = function() {
@@ -146,21 +168,43 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
             $scope.$apply();
         }, console.log);
 
-        TronService.getAccount($scope.request.tron_address, TRONNetwork).then(function(response) {
-            if (!response.error) {
-                var TRXBalance = new BigNumber(response.result.balance.toString());
 
-                if (response.result.account_resource.frozen_balance_for_energy) {
-                    TRXBalance = TRXBalance.plus(response.result.account_resource.frozen_balance_for_energy.frozen_balance);
-                }
-                TRXBalance = TRXBalance.div(Math.pow(10, 6));
-                if (TRXBalance.minus(1000) > 0) {
-                    $scope.tronishBalances.tron = TRXBalance.div(10000).round(4).toString(10);
-                } else {
-                    $scope.tronishBalances.tron = '0';
-                }
+        requestService.get({
+            path: 'get_tronish_balance/',
+            params: {
+                tron_address: $scope.request.tron_address
             }
+        }).then(function(result) {
+            // if (!response.error) {
+                // var TRXBalance = new BigNumber(response.result.balance.toString());
+                //
+                // if (response.result.account_resource.frozen_balance_for_energy) {
+                //     TRXBalance = TRXBalance.plus(response.result.account_resource.frozen_balance_for_energy.frozen_balance);
+                // }
+                // TRXBalance = TRXBalance.div(Math.pow(10, 6));
+                // if (TRXBalance.minus(1000) > 0) {
+                //     $scope.tronishBalances.tron = TRXBalance.div(10000).round(4).toString(10);
+                // } else {
+                $scope.tronishBalances.tron = new BigNumber(result.data.balance).div(Math.pow(10, 6))
+                // }
+            // }
         });
+
+        // TronService.getAccount($scope.request.tron_address, TRONNetwork).then(function(response) {
+        //     if (!response.error) {
+        //         var TRXBalance = new BigNumber(response.result.balance.toString());
+        //
+        //         if (response.result.account_resource.frozen_balance_for_energy) {
+        //             TRXBalance = TRXBalance.plus(response.result.account_resource.frozen_balance_for_energy.frozen_balance);
+        //         }
+        //         TRXBalance = TRXBalance.div(Math.pow(10, 6));
+        //         if (TRXBalance.minus(1000) > 0) {
+        //             $scope.tronishBalances.tron = TRXBalance.div(10000).round(4).toString(10);
+        //         } else {
+        //             $scope.tronishBalances.tron = '0';
+        //         }
+        //     }
+        // });
     };
 
 

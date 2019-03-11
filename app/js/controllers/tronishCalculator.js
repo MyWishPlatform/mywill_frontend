@@ -111,17 +111,18 @@ angular.module('app').controller('tronishCalculatorController', function($scope,
         });
     };
 
-    $scope.checkEosAddress = function(ctrl, accountInfo) {
+    $scope.checkEosAddress = function(ctrl) {
         checkedEOSAddress = false;
         $scope.checkedEosAddress = false;
 
+        var addr = ctrl.$viewValue;
         requestService.get({
             path: 'get_tronish_balance/',
             params: {
-                eos_address: accountInfo.account_name
+                eos_address: addr
             }
         }).then(function(result) {
-            if (ctrl.$viewValue !== accountInfo.account_name) {
+            if (ctrl.$viewValue !== addr) {
                 $scope.ethBalanceInProgress = false;
                 return
             }

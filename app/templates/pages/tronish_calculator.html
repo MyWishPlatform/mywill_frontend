@@ -13,7 +13,7 @@
         </div>
 
         <div class="shadow-block__content">
-            <form class="grid-row" name="ethForm">
+            <form class="grid-row" name="ethForm" ng-submit="checkEthAddress(ethForm)">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <div class="form-control-label" translate="EOSISH_CALCULATOR.FIELDS.ETH_ADDRESS.TITLE"></div>
@@ -21,11 +21,8 @@
                                ng-model="request.eth_address"
                                name="eth_address"
                                required
-                               ng-change="checkEthAddress(ethForm)"
                                ng-checksum-address-validator="{'network': 'ETH'}">
                     </div>
-
-
                 </div>
                 <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
                     <div class="form-control-label">&nbsp;</div>
@@ -35,8 +32,8 @@
                 </div>
                 <div class="grid-cell grid-cell-1">
                     <div class="form-control-label" ng-if="tronishBalances.eth">
-                            <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
-                                  translate-values="{eosishBalances: (tronishBalances.eth|separateNumber)}"></span>
+                        <span translate="EOSISH_CALCULATOR.CHECK_TEXTS.BALANCE_TEXT"
+                              translate-values="{eosishBalances: (tronishBalances.eth|separateNumber)}"></span>
                         <br/>
                         <span ng-if="!checkedETHTRONAccount && checkedEthAddress"
                               translate="EOSISH_CALCULATOR.CHECK_TEXTS.NO_CONNECTED_TEXT"></span>
@@ -46,10 +43,16 @@
                               translate="AIRDROP_TRONISH_TOOL.FIELDS.ETH_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>
                     </div>
                 </div>
+
+                <div class="grid-cell grid-cell-1"><br/>
+                    <button class="btn btn-transparent" ng-disabled="!ethForm.$valid" type="submit">
+                        <span>Calculate</span>
+                    </button>
+                </div>
             </form>
         </div>
         <div class="shadow-block__content">
-            <div class="grid-row">
+            <form class="grid-row" name="eosForm" ng-submit="checkEosAddress(eosForm['eos-account'])">
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <label for="eos-account" class="form-control-label" translate="EOSISH_CALCULATOR.FIELDS.EOS_ACCOUNT.TITLE"></label>
@@ -58,7 +61,6 @@
                              ng-eos-account-options="{
                                 name: 'eos-account',
                                 network: 10,
-                                change: checkEosAddress,
                                 startChange: resetEosBalance
                              }"></div>
                     </div>
@@ -82,10 +84,17 @@
                               translate="AIRDROP_TRONISH_TOOL.FIELDS.EOS_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>
                     </div>
                 </div>
-            </div>
+
+                <div class="grid-cell grid-cell-1"><br/>
+                    <button class="btn btn-transparent" ng-disabled="!eosForm.$valid" type="submit">
+                        <span>Calculate</span>
+                    </button>
+                </div>
+
+            </form>
         </div>
         <div class="shadow-block__content">
-            <form class="grid-row" name="tronForm">
+            <form class="grid-row" name="tronForm" ng-submit="checkTronAddress(tronForm['tron_address'])">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
                     <div class="form-control">
                         <div class="form-control-label" translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.LABEL"></div>
@@ -93,7 +102,6 @@
                                ng-model="request.tron_address"
                                name="tron_address"
                                required
-                               ng-change="checkTronAddress(tronForm['tron_address'])"
                                ng-checksum-address-validator="{'network': 'TRON'}">
 
                     </div>
@@ -128,6 +136,12 @@
                               <!--translate="AIRDROP_TRONISH_TOOL.FIELDS.ETH_ADDRESS.CHECK_TEXTS.ACCOUNT_CONNECTED"></span>-->
                     </div>
                 </div>
+                <div class="grid-cell grid-cell-1"><br/>
+                    <button class="btn btn-transparent" ng-disabled="!tronForm.$valid" type="submit">
+                        <span>Calculate</span>
+                    </button>
+                </div>
+
             </form>
         </div>
     </div>

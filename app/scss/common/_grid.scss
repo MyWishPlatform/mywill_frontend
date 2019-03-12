@@ -26,6 +26,10 @@
   float: left;
   box-sizing: border-box;
   padding: 0 1em;
+  &.cell-min-padding {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
   &.without-padding {
     padding-left: 0;
     padding-right: 0;

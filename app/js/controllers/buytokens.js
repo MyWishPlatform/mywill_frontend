@@ -16,21 +16,6 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         });
     });
 
-    var widgets = {
-        'default': 'mywish-widget',
-        'tron': 'e0efeb1a4d926071b16d7edce5cebadd'
-    };
-
-    if (window['BRWidget']) {
-        $timeout(function() {
-            var widget = window['BRWidget'].init('bestrate-widget', widgets[ENV_VARS.mode]);
-            widget.send({
-                tokenWithdrawalWallet: $rootScope.currentUser.internal_address,
-                email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
-            } , {}, {});
-        });
-    }
-
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
             value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(10),
@@ -40,6 +25,16 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             console.log(arguments);
         });
     };
+
+    if (window['BRWidget']) {
+        $timeout(function() {
+            var widget = window['BRWidget'].init('bestrate-widget', 'mywish-widget');
+            widget.send({
+                tokenWithdrawalWallet: $rootScope.currentUser.internal_address,
+                email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
+            } , {}, {});
+        });
+    }
 
     $scope.checkWishAddress = function() {
         $scope.formData.addressChecked = true;

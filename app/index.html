@@ -79,10 +79,11 @@
                         <div class="user-balance-value">
                             <i class="user-balance-icon icon-mywish"
                                ng-class="{'tron-mode': sitemode === 'tron'}"
-                               ng-if="(sitemode === 'default') || (sitemode === 'tron')">
+                               ng-if="sitemode === 'default'">
                                 <span class="path1"></span><span class="path2"></span>
                             </i>
                             <i class="user-balance-icon icon-eosish-logo" ng-if="sitemode === 'eos'"></i>
+                            <i class="user-balance-icon icon-tronish-logo" ng-if="sitemode === 'tron'"></i>
                             <div ng-bind="currentUser.visibleBalance" ui-sref="main.buytokens"
                                  class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
 

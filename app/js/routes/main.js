@@ -149,10 +149,29 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.buytokens', {
         url: '/buy',
         controllerProvider: function(ENV_VARS) {
-            return (ENV_VARS.mode === 'eos') ? 'eosBuytokensController' : 'buytokensController'
+            switch (ENV_VARS.mode) {
+                case 'eos':
+                    return 'eosBuytokensController';
+                case 'tron':
+                    return 'tronBuytokensController';
+                default:
+                    return 'buytokensController';
+            }
         },
         templateProvider: function ($templateCache, ENV_VARS) {
-            var buyTokensTpl = (ENV_VARS.mode === 'eos') ? 'eos-buytokens' : 'buytokens';
+            var buyTokensTpl;
+            switch (ENV_VARS.mode) {
+                case 'eos':
+                    buyTokensTpl = 'eos-buytokens';
+                    break;
+                case 'tron':
+                    buyTokensTpl = 'tron-buytokens';
+                    break;
+                default:
+                    buyTokensTpl = 'buytokens';
+                    break;
+            }
+
             return $templateCache.get(templatesPath + buyTokensTpl + '.html');
         },
         data: {
@@ -166,9 +185,25 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 var defer = $q.defer();
                 var loadedCurrencies = {};
                 var loadedCurrenciesCount = 0;
-                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS', 'ETH', 'BTC'] : ['ETH','BTC', 'BNB'];
+                var currencies;
+                var currentCurrency;
 
-                var currentCurrency = ENV_VARS.mode === 'eos' ? 'EOSISH' : 'WISH';
+
+                switch (ENV_VARS.mode) {
+                    case 'eos':
+                        currencies = ['EOS', 'ETH', 'BTC'];
+                        currentCurrency = 'EOSISH';
+                        break;
+                    case 'tron':
+                        currencies = ['TRX', 'ETH', 'BTC'];
+                        currentCurrency = 'TRONISH';
+                        break;
+                    default:
+                        currencies = ['ETH','BTC', 'BNB'];
+                        currentCurrency = 'WISH';
+                        break;
+                }
+
 
                 var getRate = function(currency) {
                     contractService.getCurrencyRate({fsym: currency, tsyms: currentCurrency}).then(function(result) {
@@ -179,7 +214,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                                 data: loadedCurrencies
                             });
                         }
-                    });
+                    }, defer.resolve);
                 };
                 for (var k = 0; k < currencies.length; k++) {
                     getRate(currencies[k]);

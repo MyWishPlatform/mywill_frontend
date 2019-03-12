@@ -36,7 +36,7 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                         break;
                 }
                 ctrl.$setValidity('valid-address', validAddress);
-                return validAddress ? value : false;
+                return validAddress ? value : null;
             };
 
             ctrl.$parsers.unshift(validator);

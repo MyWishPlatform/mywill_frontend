@@ -1,11 +1,11 @@
 <div class="main-section-content">
 
-    <div class="contract-preview-tabs" ng-init="showedTab = 'tron'">
-        <div class="contract-preview-one-tab"
-             ng-class="{active: showedTab == 'tron'}"
-             ng-click="showedTab = 'tron'">
-            <span>I have TRX</span>
-        </div>
+    <div class="contract-preview-tabs" ng-init="showedTab = 'eth'">
+        <!--<div class="contract-preview-one-tab"-->
+             <!--ng-class="{active: showedTab == 'tron'}"-->
+             <!--ng-click="showedTab = 'tron'">-->
+            <!--<span>I have TRX</span>-->
+        <!--</div>-->
         <div class="contract-preview-one-tab"
              ng-class="{active: showedTab == 'eth'}"
              ng-click="showedTab = 'eth'">
@@ -21,78 +21,81 @@
 
 
 
-    <div ng-show="showedTab == 'tron'">
-        <div class="shadow-block after-tabs">
-            <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
-                <div class="contract-info__network"
-                     ng-class="'contract-info__network_14'">
-                    <span>{{'CONTRACTS_NETWORKS.NETWORK_14'|translate}}</span>
-                </div>
-                <div class="shadow-block__content__blue-title">
-                    <i class="shadow-block__content__blue-title__icon icon-tron-token"></i>
-                    <div class="shadow-block__content__blue-title__name">
-                        <span class="big-size" translate="MAIN_MENU.JOIN_AIRDROP"></span>
-                    </div>
-                </div>
-                <div class="shadow-block__content__description">
-                <span>
-                    <a href="https://medium.com/@VladimirTikhomirov/tronish-general-info-a5384fffb50a"
-                       target="_blank" translate="AIRDROP_TOOL.RULES"></a>
-                </span>
-                </div>
-            </div>
-            <form class="shadow-block__content" name="tronAccountsForm">
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
-                        <div class="form-control">
-                            <div class="form-control-label">
-                                <!--<div class="float-right"-->
-                                     <!--ng-bind="checkedEthAddress ? ('BALANCE'|translate) +': ' + (checkedEthAddress|separateNumber) + ' WISH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>-->
-                                <span translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.LABEL"></span>
-                            </div>
-                            <input type="text" class="form-control-input"
-                                   ng-model="request.tron_address"
-                                   name="tron_address"
-                                   required
-                                   ng-change="checkTronAddress(tronAccountsForm['tron_address'])"
-                                   ng-checksum-address-validator="{'network': 'TRON'}">
-                            <span class="field-success"
-                                  ng-if="attachedTRONAddress && (attachedTRONAddress === request.tron_address)">
-                                This TRON address already connected
-                            </span>
+    <!--<div ng-show="showedTab == 'tron'">-->
+        <!--<div class="shadow-block after-tabs">-->
+            <!--<div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">-->
+                <!--<div class="contract-info__network"-->
+                     <!--ng-class="'contract-info__network_14'">-->
+                    <!--<span>{{'CONTRACTS_NETWORKS.NETWORK_14'|translate}}</span>-->
+                <!--</div>-->
+                <!--<div class="shadow-block__content__blue-title">-->
+                    <!--<i class="shadow-block__content__blue-title__icon icon-tron-token"></i>-->
+                    <!--<div class="shadow-block__content__blue-title__name">-->
+                        <!--<span class="big-size" translate="MAIN_MENU.JOIN_AIRDROP"></span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="shadow-block__content__description">-->
+                <!--<span>-->
+                    <!--<a href="https://medium.com/@VladimirTikhomirov/tronish-general-info-a5384fffb50a"-->
+                       <!--target="_blank" translate="AIRDROP_TOOL.RULES"></a>-->
+                <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<form class="shadow-block__content" name="tronAccountsForm">-->
+                <!--<div class="grid-row">-->
+                    <!--<div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">-->
+                        <!--<div class="form-control">-->
+                            <!--<div class="form-control-label">-->
+                                <!--&lt;!&ndash;<div class="float-right"&ndash;&gt;-->
+                                     <!--&lt;!&ndash;ng-bind="checkedEthAddress ? ('BALANCE'|translate) +': ' + (checkedEthAddress|separateNumber) + ' WISH' : balanceInProgress ? ('PLEASE_WAIT'|translate) : ' '"></div>&ndash;&gt;-->
+                                <!--<span translate="AIRDROP_TRONISH_TOOL.FIELDS.TRON_ADDRESS.LABEL"></span>-->
+                            <!--</div>-->
+                            <!--<input type="text" class="form-control-input"-->
+                                   <!--ng-model="request.tron_address"-->
+                                   <!--name="tron_address"-->
+                                   <!--required-->
+                                   <!--ng-change="checkTronAddress(tronAccountsForm['tron_address'])"-->
+                                   <!--ng-checksum-address-validator="{'network': 'TRON'}">-->
+                            <!--<span class="field-success"-->
+                                  <!--ng-if="attachedTRONAddress && (attachedTRONAddress === request.tron_address)">-->
+                                <!--This TRON address already connected-->
+                            <!--</span>-->
 
-                        </div>
-                    </div>
-                    <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
-                        <div class="form-control-label">&nbsp;</div>
-                        <div class="form-control-description__text">
-                            Enter your TRON address where TRX tokens are stored.
-                            You need at least 1000 TRX in your balance to proceed.
-                            Please check that you have corresponding private key.
-                        </div>
-                    </div>
-                </div>
-            </form>
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">-->
+                        <!--<div class="form-control-label">&nbsp;</div>-->
+                        <!--<div class="form-control-description__text">-->
+                            <!--Enter your TRON address where TRX tokens are stored.-->
+                            <!--You need at least 1000 TRX in your balance to proceed.-->
+                            <!--Please check that you have corresponding private key.-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</form>-->
 
-            <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-                <button ng-click="attachTronAddress()"
-                        class="btn btn-transparent mobile-width-100"
-                        ng-disabled="!tronAccountsForm.$valid || attachedTRONAddress || saveTronProgress"
-                        type="button">
+            <!--<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">-->
+                <!--<button ng-click="attachTronAddress()"-->
+                        <!--class="btn btn-transparent mobile-width-100"-->
+                        <!--ng-disabled="!tronAccountsForm.$valid || attachedTRONAddress || saveTronProgress"-->
+                        <!--type="button">-->
 
-                    <span class="lds-ellipsis" ng-if="saveTronProgress">
-                        <span class="lds-ellipsis-container">
-                            <span></span><span></span><span></span><span></span>
-                        </span>
-                    </span>
+                    <!--<span class="lds-ellipsis" ng-if="saveTronProgress">-->
+                        <!--<span class="lds-ellipsis-container">-->
+                            <!--<span></span><span></span><span></span><span></span>-->
+                        <!--</span>-->
+                    <!--</span>-->
 
-                    <span translate="AIRDROP_TOOL.SAVE_TRON_BUTTON"></span>
-                </button>
-            </div>
-        </div>
-        <div ng-if="showedTab == 'tron'"
-             ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
-    </div>
+                    <!--<span translate="AIRDROP_TOOL.SAVE_TRON_BUTTON"></span>-->
+                <!--</button>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div ng-if="showedTab == 'tron'"-->
+             <!--ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>-->
+    <!--</div>-->
+
+
+
     <div ng-show="showedTab == 'eth'">
         <div class="shadow-block after-tabs">
             <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">

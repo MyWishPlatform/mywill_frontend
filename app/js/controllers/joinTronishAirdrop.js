@@ -5,7 +5,7 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
 
     var EOSNetwork = 10;
     var ETHNetwork = 1;
-    var TRONNetwork = 14;
+    // var TRONNetwork = 14;
 
     var isProduction = web3Service.isProduction();
 
@@ -18,103 +18,103 @@ angular.module('app').controller('joinTronishAirdropController', function($scope
         AIRDROP_TRONISH_TOOL.EOS_CONTRACT_ADDRESS_MAINNET :
         AIRDROP_TRONISH_TOOL.EOS_CONTRACT_ADDRESS;
 
-    var tronContractAddress = isProduction ?
-        AIRDROP_TRONISH_TOOL.TRON_CONTRACT_ADDRESS_MAINNET :
-        AIRDROP_TRONISH_TOOL.TRON_CONTRACT_ADDRESS;
+    // var tronContractAddress = isProduction ?
+    //     AIRDROP_TRONISH_TOOL.TRON_CONTRACT_ADDRESS_MAINNET :
+    //     AIRDROP_TRONISH_TOOL.TRON_CONTRACT_ADDRESS;
 
 
     /** TRON account methods **/
-
-    var tronAirdropContract = true;
-
-
-    $scope.closeExtensionAlert = function() {
-        $scope.extensionNotInstalled =
-            $scope.extensionNotAuthorized =
-                $scope.extensionOtherUser =
-                    $scope.successTx =
-                        $scope.extensionNotSelectedNetwork =
-                            $scope.txServerError = false;
-    };
-
-
-    TronService.createContract(
-        AIRDROP_TRONISH_TOOL.TRON_ABI,
-        tronContractAddress,
-        TRONNetwork
-    ).then(function(result) {
-        tronAirdropContract = result;
-
-        if (window.tronWeb && window.tronWeb.defaultAddress) {
-            $scope.request.tron_address = window.tronWeb.defaultAddress.base58 || '';
-            $scope.checkTronAddress();
-        }
-
-    });
-
-    $scope.checkTronAddress = function(tronAddressField) {
-        $scope.attachedTRONAddress = false;
-
-        if ((tronAddressField && !tronAddressField.$valid) || (!$scope.request.tron_address)) {
-            return;
-        }
-        $scope.attachedTRONAddress = true;
-
-        tronAirdropContract.isRegistered(
-            TronWeb.address.toHex($scope.request.tron_address)
-        ).call().then(function(result) {
-            $scope.attachedTRONAddress = result ? $scope.request.tron_address : false;
-            $scope.$apply();
-        }, console.log);
-    };
-
-    $scope.attachTronAddress = function() {
-
-        if (!window.tronWeb) {
-            $scope.TRONExtensionInfo.extensionNotInstalled = true;
-            return;
-        } else if (!window.tronWeb.defaultAddress) {
-            $scope.TRONExtensionInfo.extensionNotAuthorized = true;
-            return;
-        } else if (
-            (window.tronWeb.defaultAddress.hex !== $scope.request.tron_address) &&
-            (window.tronWeb.defaultAddress.base58 !== $scope.request.tron_address)) {
-            $scope.TRONExtensionInfo.extensionOtherUser = true;
-            return;
-        }
-
-        TronService.connectToNetwork(TRONNetwork).then(function(trueConnection) {
-            if (trueConnection.tronWeb !== window.tronWeb) {
-                $scope.TRONExtensionInfo.extensionNotSelectedNetwork = true;
-            } else {
-                $scope.saveTronProgress = true;
-                tronAirdropContract.put()
-                    .send().then(function(result) {
-                    $scope.saveTronProgress = false;
-                    $scope.TRONExtensionInfo.successTx = {
-                        transaction_id: result
-                    };
-                    $scope.$apply();
-                }, function(response) {
-                    $scope.saveTronProgress = false;
-                    $scope.TRONExtensionInfo.txServerError = true;
-                    $scope.$apply();
-                });
-            }
-        });
-    };
-
-
-    $scope.closeExtensionAlert = function() {
-        $scope.TRONExtensionInfo = {
-            extensionNotInstalled: false,
-            extensionNotAuthorized: false,
-            extensionOtherUser: false,
-            txServerError: false,
-            successTx: false
-        };
-    };
-    $scope.closeExtensionAlert();
+    //
+    // var tronAirdropContract = true;
+    //
+    //
+    // $scope.closeExtensionAlert = function() {
+    //     $scope.extensionNotInstalled =
+    //         $scope.extensionNotAuthorized =
+    //             $scope.extensionOtherUser =
+    //                 $scope.successTx =
+    //                     $scope.extensionNotSelectedNetwork =
+    //                         $scope.txServerError = false;
+    // };
+    //
+    //
+    // TronService.createContract(
+    //     AIRDROP_TRONISH_TOOL.TRON_ABI,
+    //     tronContractAddress,
+    //     TRONNetwork
+    // ).then(function(result) {
+    //     tronAirdropContract = result;
+    //
+    //     if (window.tronWeb && window.tronWeb.defaultAddress) {
+    //         $scope.request.tron_address = window.tronWeb.defaultAddress.base58 || '';
+    //         $scope.checkTronAddress();
+    //     }
+    //
+    // });
+    //
+    // $scope.checkTronAddress = function(tronAddressField) {
+    //     $scope.attachedTRONAddress = false;
+    //
+    //     if ((tronAddressField && !tronAddressField.$valid) || (!$scope.request.tron_address)) {
+    //         return;
+    //     }
+    //     $scope.attachedTRONAddress = true;
+    //
+    //     tronAirdropContract.isRegistered(
+    //         TronWeb.address.toHex($scope.request.tron_address)
+    //     ).call().then(function(result) {
+    //         $scope.attachedTRONAddress = result ? $scope.request.tron_address : false;
+    //         $scope.$apply();
+    //     }, console.log);
+    // };
+    //
+    // $scope.attachTronAddress = function() {
+    //
+    //     if (!window.tronWeb) {
+    //         $scope.TRONExtensionInfo.extensionNotInstalled = true;
+    //         return;
+    //     } else if (!window.tronWeb.defaultAddress) {
+    //         $scope.TRONExtensionInfo.extensionNotAuthorized = true;
+    //         return;
+    //     } else if (
+    //         (window.tronWeb.defaultAddress.hex !== $scope.request.tron_address) &&
+    //         (window.tronWeb.defaultAddress.base58 !== $scope.request.tron_address)) {
+    //         $scope.TRONExtensionInfo.extensionOtherUser = true;
+    //         return;
+    //     }
+    //
+    //     TronService.connectToNetwork(TRONNetwork).then(function(trueConnection) {
+    //         if (trueConnection.tronWeb !== window.tronWeb) {
+    //             $scope.TRONExtensionInfo.extensionNotSelectedNetwork = true;
+    //         } else {
+    //             $scope.saveTronProgress = true;
+    //             tronAirdropContract.put()
+    //                 .send().then(function(result) {
+    //                 $scope.saveTronProgress = false;
+    //                 $scope.TRONExtensionInfo.successTx = {
+    //                     transaction_id: result
+    //                 };
+    //                 $scope.$apply();
+    //             }, function(response) {
+    //                 $scope.saveTronProgress = false;
+    //                 $scope.TRONExtensionInfo.txServerError = true;
+    //                 $scope.$apply();
+    //             });
+    //         }
+    //     });
+    // };
+    //
+    //
+    // $scope.closeExtensionAlert = function() {
+    //     $scope.TRONExtensionInfo = {
+    //         extensionNotInstalled: false,
+    //         extensionNotAuthorized: false,
+    //         extensionOtherUser: false,
+    //         txServerError: false,
+    //         successTx: false
+    //     };
+    // };
+    // $scope.closeExtensionAlert();
 
 
 

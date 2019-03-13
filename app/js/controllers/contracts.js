@@ -543,8 +543,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
     };
 
     var showPriceLaunchContract = function(contract) {
+        contract.cost.TRONISH = contract.cost.TRONISH || contract.cost.TRX || 0;
+        contract.cost.EOSISH = contract.cost.EOSISH || 0;
 
-        if ((contract.cost.WISH == 0) && (contract.cost.EOSISH == 0) && (contract.cost.TRX == 0)) {
+        if ((contract.cost.WISH == 0) && (contract.cost.EOSISH == 0) && (contract.cost.TRONISH == 0)) {
             launchContract(contract);
             return;
         }
@@ -564,15 +566,15 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         switch ($rootScope.sitemode) {
             case 'eos':
-                price = new BigNumber(contract.cost.EOSISH).div(10000).round(2);
+                price = new BigNumber(contract.cost.EOSISH || 0).div(10000).round(2);
                 currency = 'EOSISH';
                 break;
             case 'tron':
-                price = new BigNumber(contract.cost.TRONISH).div(1000000).round(2);
+                price = new BigNumber(contract.cost.TRONISH || 0).div(1000000).round(2);
                 currency = 'TRONISH';
                 break;
             default:
-                price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).round(2);
+                price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH || 0, 'ether')).round(2);
                 currency = 'WISH';
         }
 

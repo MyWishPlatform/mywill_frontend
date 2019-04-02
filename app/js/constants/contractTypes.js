@@ -59,20 +59,20 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var eth = {
         'networks': [1, 2],
-        'list':[customContract, {
-            'icon': 'icon-crowdsale',
-            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
-            'typeNumber': 4,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
-            'price': true
-        }, {
+        'list':[customContract,  {
             'icon': 'icon-token',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 5,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[5],
             'price': true
+        }, {
+          'icon': 'icon-crowdsale',
+          'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
+          'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
+          'typeNumber': 4,
+          'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
+          'price': true
         }, {
             'icon': 'icon-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',

@@ -1596,24 +1596,6 @@
       }
     }
   },
-  "JOIN_AIRDROP": {
-    "DISCLAIMER": {
-      "TITLE": "空投工具信息",
-      "TEXTS": {
-        "ITEM_1": "这个工具是为...开发的 WISH 仅限代币持有人。",
-        "ITEM_2": "这个工具有帮助 WISH 持有人指定EOS帐户获取 EOSISH.",
-        "ITEM_3": "“用户应该能够从ETH地址进行交易.",
-        "ITEM_4": "用户可以使用工具直到格林尼治标准时间1月16日至19日下午3点。",
-        "ITEM_5": "所有交易都可以在以太坊区块链中找到，不可能作弊。",
-        "ITEM_6": "工具不负责发送 EOSISH 代币"
-      }
-    },
-    "INSTRUCTION": {
-      "TITLE": "保存EOS地址",
-      "DESCRIPTION": " 连接你的ETH地址（按快照时间有一些WISH） <b>{{ethAddress}}</b> 到EOS地址 “<b>{{eosAddress}}</b>” 请执行以下步骤：",
-      "ITEM_1": "发送交易 (0 ETH) 来自您的ETH地址 WISHs:"
-    }
-  },
   "JOIN_TRONISH_AIRDROP": {
     "DISCLAIMER": {
       "TITLE": "空投工具信息",

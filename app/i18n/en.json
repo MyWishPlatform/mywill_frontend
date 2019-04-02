@@ -1647,24 +1647,6 @@
       }
     }
   },
-  "JOIN_AIRDROP": {
-    "DISCLAIMER": {
-      "TITLE": " information",
-      "TEXTS": {
-        "ITEM_1": "This tool was developed for WISH token holders only.",
-        "ITEM_2": "This tool helps WISH holders to specify EOS account for getting EOSISH.",
-        "ITEM_3": "User should be able to make a transaction from ETH address.",
-        "ITEM_4": "User can use tool until the 16-Jan-19 3 pm GMT.",
-        "ITEM_5": "All transactions can be found in Ethereum blockchain, no cheats are possible.",
-        "ITEM_6": "Tool is not responsible for sending EOSISH tokens."
-      }
-    },
-    "INSTRUCTION": {
-      "TITLE": "Save EOS address",
-      "DESCRIPTION": " To connect your ETH address (which will have some WISH by Snapshot time) <b>{{ethAddress}}</b> to EOS Address “<b>{{eosAddress}}</b>” please do the following steps:",
-      "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
-    }
-  },
   "PARTNERS_DISCLAIMERS": {
     "MEETONE": {
       "TEXT": "We provide MEETONE users with a 15% discount.<br/> The discount can be applied to the deployment of all EOS Accounts & Contracts.<br/><br/> Please enter the promo code <b>MEETONE</b> before making a payment."

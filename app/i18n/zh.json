@@ -21,9 +21,7 @@
     "BUY_TOKENS": "购买代币",
     "SUPPORT": "支持",
     "LOG_OUT": "登出",
-    "JOIN_AIRDROP": "空投工具",
     "EOSISH_CALCULATOR": "EOSISH 计算器",
-    "TRONISH_CALCULATOR": "TRONISH 计算器",
     "VERSION": "版"
   },
   "HEADER": {
@@ -1634,26 +1632,6 @@
       "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
     }
   },
-  "AIRDROP_TOOL": {
-    "RULES": "此处列出了空投的官方规则。",
-    "FIELDS": {
-      "ETH_ADDRESS": {
-        "LABEL": "ETH地址: ",
-        "DESCRIPTION": "输入您的ETH地址 WISH 代币存储。请检查您是否有相应的私钥。",
-        "CHECK_TEXTS": {
-          "NO_ACCOUNT_CONNECTED": "没有EOS帐户连接 <br/>如果你刚连接它，请等待10分钟。",
-          "ACCOUNT_CONNECTED": "此ETH地址已连接到 <b>{{checkedEOSAccount}}</b> EOS帐户。"
-        }
-      },
-      "EOS_ACCOUNT": {
-        "LABEL": "EOS帐号：",
-        "DESCRIPTION": "输入您的EOS帐户以获取 EOSISH 代币（在空投日期之后）。如果您没有EOS帐户，则可以创建它 <a href=\"/create/eosWallet?network=10\" target=\"_blank\">here</a>"
-      }
-    },
-    "SAVE_BUTTON": "保存EOS地址",
-    "SAVE_TRON_BUTTON": "保存TRON地址",
-    "SAVE_ETH_BUTTON": "保存ETH地址"
-  },
   "AIRDROP_TRONISH_TOOL": {
     "NO_ACCOUNT_CONNECTED": "没有TRON地址连接 <br/>如果你刚连接它，请等待10分钟。",
     "FIELDS": {
@@ -1673,24 +1651,6 @@
         "DESCRIPTION": "输入您的TRON地址 TRX 代币存储。请检查您是否有相应的私钥。",
         "DESCRIPTION_GETTING": "输入您的TRON地址以获取 TRONISH 代币（在空投日期之后）"
       }
-    }
-  },
-  "EOSISH_CALCULATOR": {
-    "DESCRIPTION": "这个工具显示了多少 TRONISH  你会得到空投。",
-    "FIELDS": {
-      "ETH_ADDRESS": {
-        "TITLE": "你的ETH地址: ",
-        "DESCRIPTION": "输入您在快照日期存储WISH代币的ETH地址."
-      },
-      "EOS_ACCOUNT": {
-        "TITLE": "您的EOS帐户: ",
-        "DESCRIPTION": "输入您的EOS帐户，其中EOSISH代币存储在快照日期."
-      }
-    },
-    "CHECK_TEXTS": {
-      "BALANCE_TEXT": "你会得到 {{eosishBalances}} TRONISH.",
-      "CONNECTED_TEXT": "EOS帐户 <b>{{checkedEOSAccount}}</b> 连接的",
-      "NO_CONNECTED_TEXT": "Please connect TRON address by Airdrop tool!"
     }
   },
   "PARTNERS_DISCLAIMERS": {

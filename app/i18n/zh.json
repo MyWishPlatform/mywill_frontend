@@ -1596,45 +1596,6 @@
       }
     }
   },
-  "JOIN_TRONISH_AIRDROP": {
-    "DISCLAIMER": {
-      "TITLE": "空投工具信息",
-      "TEXTS": {
-        "ITEM_1": "这个工具是为...开发的 WISH 仅限代币持有人。",
-        "ITEM_2": "这个工具有帮助 WISH 持有人指定EOS帐户获取 EOSISH.",
-        "ITEM_3": "“用户应该能够从ETH地址进行交易.",
-        "ITEM_4": "用户可以使用工具直到格林尼治标准时间1月16日至19日下午3点。",
-        "ITEM_5": "所有交易都可以在以太坊区块链中找到，不可能作弊。",
-        "ITEM_6": "工具不负责发送 EOSISH 代币"
-      }
-    },
-    "INSTRUCTION": {
-      "TITLE": "Save TRON address",
-      "DESCRIPTION": " To connect your ETH address (which will have some WISH by Snapshot time) <b>{{ethAddress}}</b> to TRON Address “<b>{{tronAddress}}</b>” please do the following steps:",
-      "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
-    }
-  },
-  "AIRDROP_TRONISH_TOOL": {
-    "NO_ACCOUNT_CONNECTED": "没有TRON地址连接 <br/>如果你刚连接它，请等待10分钟。",
-    "FIELDS": {
-      "ETH_ADDRESS": {
-        "CHECK_TEXTS": {
-          "ACCOUNT_CONNECTED": "此ETH地址已连接到 <b>{{checkedEOSAccount}}</b> TRON地址。"
-        }
-      },
-      "EOS_ADDRESS": {
-        "DESCRIPTION": "输入您的EOS帐户 EOSISH 代币存储。请检查您是否有相应的私钥。",
-        "CHECK_TEXTS": {
-          "ACCOUNT_CONNECTED": "此EOS帐户已连接到 <b>{{checkedEOSAccount}}</b> TRON地址。"
-        }
-      },
-      "TRON_ADDRESS": {
-        "LABEL": "TRON地址:",
-        "DESCRIPTION": "输入您的TRON地址 TRX 代币存储。请检查您是否有相应的私钥。",
-        "DESCRIPTION_GETTING": "输入您的TRON地址以获取 TRONISH 代币（在空投日期之后）"
-      }
-    }
-  },
   "PARTNERS_DISCLAIMERS": {
     "MEETONE": {
       "TEXT": "我们为MEETONE用户提供15％的折扣<br/> 折扣可应用于所有EOS帐户和合同的部署<br/><br/> 请输入促销代码 <b>MEETONE</b>  在付款之前。"
@@ -1644,5 +1605,3 @@
     }
   }
 }
-
-

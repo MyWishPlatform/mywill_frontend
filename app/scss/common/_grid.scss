@@ -203,12 +203,6 @@
   }
 }
 
-
-@media screen and (min-width: 681px) {
-  .show-ps {
-    display: none;
-  }
-}
 @media screen and (max-width: 680px) {
   .grid-cell {
     &.grid-cell-ps-1 {
@@ -244,6 +238,9 @@
     &.grid-cell-ps-3-4 {
       width: 75%;
     }
+    &.mb-1 {
+      margin-bottom: 1em
+    }
   }
   &.grid-cell-ps-padding-top {
     padding-top: 2em;
@@ -253,9 +250,6 @@
   }
   .text-left-ps {
     text-align: left!important;
-  }
-  .show-ps {
-    display: block;
   }
 }
 

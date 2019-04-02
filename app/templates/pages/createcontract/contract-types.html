@@ -32,9 +32,9 @@
         </div>
     </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="sitemode === 'default'">
+    <div class="shadow-block__content shadow-block__content_min-padding" ng-if="sitemode === 'default'">
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+            <div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'ETH'})"
                    ng-click="blockChainNetwork.type = 'ETH'"
                    class="btn btn-gray with-icon width-100 nowrap" ng-class="{'active': blockChainNetwork.type === 'ETH'}">
@@ -43,8 +43,7 @@
                     <span translate="BLOCKCHAIN_NETWORKS.ETH"></span>
                 </a>
             </div>
-            <div class="show-ps clearfix"><br/></div>
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+            <div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"
                    ng-click="blockChainNetwork.type = 'RSK'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'RSK'}">
@@ -53,7 +52,7 @@
                     <span translate="BLOCKCHAIN_NETWORKS.BTC"></span>
                 </a>
             </div>
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+            <div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'NEO'})"
                    ng-click="blockChainNetwork.type = 'NEO'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'NEO'}">
@@ -62,6 +61,24 @@
                     <span translate="BLOCKCHAIN_NETWORKS.NEO"></span>
                 </a>
             </div>
+            <div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
+              <a ui-sref="main.createcontract.types({blockchain: 'EOS'})"
+                 ng-click="blockChainNetwork.type = 'EOS'"
+                 class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'EOS'}">
+                  <img src="/static/images/blockchain/eos.png" width="20" style="vertical-align: middle">
+                  &nbsp;&nbsp;
+                  <span translate="BLOCKCHAIN_NETWORKS.EOS"></span>
+              </a>
+            </div>
+            <div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
+              <a ui-sref="main.createcontract.types({blockchain: 'TRON'})"
+                ng-click="blockChainNetwork.type = 'TRON'"
+                class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'TRON'}">
+                  <img src="/static/images/blockchain/tron.png" width="20" style="vertical-align: middle">
+                  &nbsp;&nbsp;
+                  <span translate="BLOCKCHAIN_NETWORKS.TRON"></span>
+              </a>
+          </div>
         </div>
     </div>
 

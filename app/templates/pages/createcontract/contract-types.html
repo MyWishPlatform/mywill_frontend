@@ -13,23 +13,6 @@
                       translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TRON_TITLE"></span>
             </div>
         </div>
-        <div class="shadow-block__content__blue-description">
-            <p class="normal-text">
-                <span>
-                    Switch  to
-                    <a href="https://contracts.mywish.io/create"
-                       ng-if="sitemode !== 'default'">ETH / NEO</a>
-                    <span ng-if="sitemode !== 'default'">or </span>
-
-                    <a href="https://tron.mywish.io/create"
-                       ng-if="sitemode !== 'tron'">TRON</a>
-
-                    <span ng-if="sitemode === 'default'">or </span>
-                    <a href="https://eos.mywish.io/create"
-                       ng-if="sitemode !== 'eos'">EOS</a>
-                </span>
-            </p>
-        </div>
     </div>
 
     <div class="shadow-block__content shadow-block__content_min-padding" ng-if="sitemode === 'default'">

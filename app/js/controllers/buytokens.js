@@ -152,4 +152,30 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         }).then(console.log);
     };
 
+}).controller('buytokensTronController', function($scope) {
+    var rate = $scope.exRate.TRX;
+    $scope.checkWishesAmount = function() {
+        var wishesAmount = new BigNumber($scope.formData.tronAmount || 0);
+        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
+        $scope.formData.amount = $scope.formData.tronAmount;
+    };
+    $scope.checkTronAmount = function() {
+        if (!$scope.formData.wishesAmount) return;
+        var tronAmount = new BigNumber($scope.formData.wishesAmount);
+        $scope.formData.tronAmount = tronAmount.times(rate).round(2).toString(10);
+        $scope.formData.amount = $scope.formData.tronAmount;
+    };
+}).controller('buytokensEosController', function($scope) {
+    var rate = $scope.exRate.EOS;
+    $scope.checkWishesAmount = function() {
+        var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);
+        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
+        $scope.formData.amount = $scope.formData.eosAmount;
+    };
+    $scope.checkEosAmount = function() {
+        if (!$scope.formData.wishesAmount) return;
+        var eosAmount = new BigNumber($scope.formData.wishesAmount);
+        $scope.formData.eosAmount = eosAmount.times(rate).round(2).toString(10);
+        $scope.formData.amount = $scope.formData.eosAmount;
+    };
 });

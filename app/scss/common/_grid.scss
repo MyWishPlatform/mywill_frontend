@@ -34,6 +34,9 @@
     padding-left: 0;
     padding-right: 0;
   }
+  &.mb-1 {
+    margin-bottom: 1em
+  }
   &.float-right {
     float: right!important;
   }
@@ -237,9 +240,6 @@
     }
     &.grid-cell-ps-3-4 {
       width: 75%;
-    }
-    &.mb-1 {
-      margin-bottom: 1em
     }
   }
   &.grid-cell-ps-padding-top {

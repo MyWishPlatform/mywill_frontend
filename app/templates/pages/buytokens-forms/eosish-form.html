@@ -6,12 +6,11 @@
                     <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
                     <input type="text" placeholder="0"
                            class="form-control-input with-currency"
-                           required
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
-                           ng-model="amountsValues.TRX"
-                           ng-change="convertAmountFrom('TRX')">
-                    <div class="input-after">TRX</div>
+                           ng-model="amountsValues.EOSISH"
+                           ng-change="convertAmountFrom('EOSISH')">
+                    <div class="input-after">EOSISH</div>
                 </div>
             </div>
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
@@ -22,7 +21,7 @@
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
                            ng-model="amountsValues.WISH"
-                           ng-change="convertAmountTo('TRX')">
+                           ng-change="convertAmountFrom('EOSISH')">
                     <div class="input-after">WISH</div>
                 </div>
             </div>
@@ -32,25 +31,59 @@
         </div><br/>
 
         <div class="grid-row">
-            <div class="grid-cell grid-cell-2-3 grid-cell-ps-1">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label" translate="PAGES.TRON_BUY_TOKENS.TRON_ACCOUNT.LABEL"></label>
+                    <label class="form-control-label" translate="PAGES.EOS_BUY_TOKENS.EOS_ACCOUNT.LABEL"></label>
                     <div class="form-control-input-container">
-                        <input ng-model="currentUser.tron_address"
+                        <input ng-model="currentUser.eos_address"
                                disabled="disabled"
                                type="text" class="form-control-input">
 
                         <div class="input-after dynamic-info">
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
-                                    ng-class="{copied: formData.copied['tron-address']}"
-                                    text="tronAccountAddress"
-                                    on-copied="$root.successCodeCopy(formData, 'tron-address')">
+                                    ng-class="{copied: formData.copied['mywish-account']}"
+                                    text="eosAccountAddress"
+                                    on-copied="$root.successCodeCopy(formData, 'mywish-account')">
                                 <i class="icon-content_copy"></i>
                             </button>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="PAGES.EOS_BUY_TOKENS.EOS_ACCOUNT.DESCRIPTION"></span>
+            </div>
+        </div>
+
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                <div class="form-control">
+                    <label class="form-control-label"
+                           translate="PAGES.EOS_BUY_TOKENS.MEMO_FIELD.LABEL"></label>
+                    <div class="form-control-input-container">
+                        <input disabled="disabled"
+                               ng-value="currentUser.memo"
+                               type="text" class="form-control-input">
+
+                        <div class="input-after dynamic-info">
+                            <button class="instruction-for-copy-button relative"
+                                    clipboard supported="supported"
+                                    ng-class="{copied: formData.copied['memo']}"
+                                    text="currentUser.memo"
+                                    on-copied="$root.successCodeCopy(formData, 'memo')">
+                                <i class="icon-content_copy"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="PAGES.EOS_BUY_TOKENS.MEMO_FIELD.DESCRIPTION"></span>
             </div>
         </div>
     </div>

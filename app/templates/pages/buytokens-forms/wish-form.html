@@ -1,4 +1,4 @@
-<form ng-controller="buytokensWishController" name="buyTokensForm" ng-init="formData.addressChecked = true">
+<form ng-controller="buyWishByWishController" name="buyTokensForm" ng-init="formData.addressChecked = true">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
@@ -6,7 +6,7 @@
                     <label class="form-control-label"
                            translate="PAGES.BUY_TOKENS.SEND_WISH"></label>
                     <input type="text" class="form-control-input form-control-input--wish"
-                           disabled ng-model="formData.toAddress">
+                           disabled ng-model="currentUser.internal_address">
                 </div>
             </div>
             <div class="grid-cell hide-ps grid-cell-1-4">
@@ -14,7 +14,7 @@
                     <span class="form-control-label">&nbsp;</span>
                     <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
-                            text="formData.toAddress"
+                            text="currentUser.internal_address"
                             on-copied="$root.successCodeCopy(copied, 'to_address')"
                             on-error="failCodeCopy(err)"
                             ng-show="!copied.copied['to_address']"
@@ -131,7 +131,7 @@
                 <div class="form-control">
                     <label class="form-control-label" translate="PAGES.BUY_TOKENS.ENTER_AMOUNT"></label>
                     <input type="text"
-                           ng-model="formData.amount"
+                           ng-model="amountsValues.WISH"
                            class="form-control-input"
                            commaseparator="{notNull: true, regexp: '^([0]{1}|([1-9]{1}[0-9]{0,24}))([.](([0]{3}([1-9][0-9]{0,14})?)|([0]{0,3}([1-9][0-9]{0,18})?))?)?$'}"
                            pattern="^([0]|([1-9][0-9,]{0,24}))([.](([0]{3}[1-9][0-9]{0,14})|([0]{0,3}[1-9][0-9]{0,18})))?$"
@@ -163,7 +163,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?data=' + checkedTransferData + '&value=0&to=' + formData.wishAddress + '&gaslimit=' + formData.gaslimit + '#send-transaction' : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?data=' + checkedTransferData + '&value=0&to=' + wishAddress + '&gaslimit=' + formData.gaslimit + '#send-transaction' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                 </div>

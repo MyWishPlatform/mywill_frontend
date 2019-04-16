@@ -54,12 +54,23 @@
     border: 1px solid #eee;
     display: inline-block;
     vertical-align: middle;
- }
-  span {
-    font-size: 1.6em;
-    color: #aaa;
-    line-height: 1em;
-    vertical-align: middle;
+    color: #444;
+    .price-icon {
+      color: inherit;
+      vertical-align: middle;
+      &.icon-dollar {
+        font-size: 1.4em;
+        color: #0072ff;
+      }
+      &.icon-mywish {
+        font-size: 1.65em;
+      }
+    }
+    > span {
+      font-size: 1.6em;
+      line-height: 1em;
+      vertical-align: middle;
+    }
   }
   img {
     width: 1.6em;

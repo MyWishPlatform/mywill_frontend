@@ -1,14 +1,15 @@
-<form ng-controller="buytokensEosController" name="buyTokensForm">
+<form name="buyTokensForm">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
                     <input type="text" placeholder="0"
-                           class="form-control-input with-currency" ng-model="formData.eosAmount"
+                           class="form-control-input with-currency"
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
-                           ng-change="checkWishesAmount()">
+                           ng-model="amountsValues.EOS"
+                           ng-change="convertAmountFrom('EOS')">
                     <div class="input-after">EOS</div>
                 </div>
             </div>
@@ -19,9 +20,13 @@
                            class="form-control-input with-currency"
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
-                           ng-model="formData.wishesAmount" ng-change="checkEosAmount()">
+                           ng-model="amountsValues.WISH"
+                           ng-change="convertAmountFrom('EOS')">
                     <div class="input-after">WISH</div>
                 </div>
+            </div>
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1 form-control-description"
+                 ng-include="getTemplate('pages/buytokens-forms/usdt')">
             </div>
         </div><br/>
 
@@ -30,7 +35,7 @@
                 <div class="form-control">
                     <label class="form-control-label" translate="PAGES.EOS_BUY_TOKENS.EOS_ACCOUNT.LABEL"></label>
                     <div class="form-control-input-container">
-                        <input ng-model="eosAccountAddress"
+                        <input ng-model="currentUser.eos_address"
                                disabled="disabled"
                                type="text" class="form-control-input">
 

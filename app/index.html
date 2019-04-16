@@ -73,19 +73,29 @@
          ng-class="{'start-loading': globalProgress, 'finish-loading': finishGlobalProgress}">
 
         <div class="pre-release-information-container">
-            <div class="main-content-holder">
+            <div class="main-content-holder" ng-init="usdtBalance = false;">
                 <div class="main-section-content">
                     <div class="user-balance">
                         <div class="user-balance-value">
-                            <i class="user-balance-icon icon-mywish"
-                               ng-class="{'tron-mode': sitemode === 'tron'}"
-                               ng-if="sitemode === 'default'">
-                                <span class="path1"></span><span class="path2"></span>
-                            </i>
+
+                            <div ng-if="sitemode === 'default'"
+                                 ng-click="currentUser.usdtBalance = !currentUser.usdtBalance">
+
+                                <i class="icon-mywish user-balance-icon"
+                                   ng-if="!currentUser.usdtBalance">
+                                    <span class="path1"></span><span class="path2"></span>
+                                </i>
+                                <i class="icon-dollar user-balance-icon"
+                                   ng-if="currentUser.usdtBalance">
+                                </i>
+                            </div>
+
                             <i class="user-balance-icon icon-eosish-logo" ng-if="sitemode === 'eos'"></i>
                             <i class="user-balance-icon icon-tronish-logo" ng-if="sitemode === 'tron'"></i>
-                            <div ng-bind="currentUser.visibleBalance" ui-sref="main.buytokens"
-                                 class="text-left form-control-input_short small-input user-balance-value_input form-control-input"></div>
+                            <div ui-sref="main.buytokens"
+                                 class="text-left form-control-input_short small-input user-balance-value_input form-control-input">
+                                {{!currentUser.usdtBalance ? currentUser.visibleBalance : currentUser.visibleBalanceUSDT}}
+                            </div>
 
                             <button class="btn only-icon user-balance-refresh"
                                     ng-class="{'in-progress': currentUser.balanceInRefresh}"

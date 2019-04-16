@@ -1,8 +1,58 @@
 angular.module('app').controller('buytokensController', function($scope, $timeout, $rootScope, $state, exRate,
-                                                                 APP_CONSTANTS, web3Service, $filter, ENV_VARS) {
+                                                                 APP_CONSTANTS, $filter) {
 
     $scope.exRate = exRate.data;
     $scope.wallets = {metamask: [], parity: []};
+
+    if (window['BRWidget']) {
+        $timeout(function() {
+            var widget = window['BRWidget'].init('bestrate-widget', 'mywish-widget');
+            widget.send({
+                tokenWithdrawalWallet: $rootScope.currentUser.internal_address,
+                email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
+            } , {}, {});
+        });
+    }
+
+    $scope.copied = {};
+
+    var resetForm = function() {
+        $scope.formData = {};
+        $scope.amountsValues = {};
+    };
+
+    resetForm();
+
+    $scope.$watch('visibleForm', function() {
+        resetForm();
+    });
+
+    $scope.payDone = function() {
+        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
+    };
+
+    $scope.convertAmountTo = function(toField) {
+        var rate = $scope.exRate[toField];
+        var currencyValue = new BigNumber($scope.amountsValues.WISH || 0);
+        $scope.amountsValues[toField]  = currencyValue.times(rate).round(2).toString(10);
+        convertToUSDT();
+    };
+
+    $scope.convertAmountFrom = function(fromField) {
+        var rate = $scope.exRate[fromField];
+        var currencyValue = new BigNumber($scope.amountsValues[fromField] || 0);
+        $scope.amountsValues.WISH  = currencyValue.div(rate).round(2).toString(10);
+        convertToUSDT();
+    };
+
+    var convertToUSDT = function() {
+        var rate = $scope.exRate['USDT'];
+        var currencyValue = new BigNumber($scope.amountsValues.WISH || 0);
+        $scope.amountsValues['USDT']  = currencyValue.times(rate).round(2).toString(10);
+    };
+
+}).controller('buyWishByEthController', function($scope, web3Service) {
+
 
     $scope.getProvider = function(name) {
         web3Service.setProvider(name, 1);
@@ -18,78 +68,33 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
-            value: new BigNumber($scope.formData.amount).times(new BigNumber(10).toPower(18)).toString(10),
+            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).toPower(18)).toString(10),
             from: $scope.formData.address,
-            to: $scope.formData.toAddress
+            to: $scope.currentUser.internal_address
         }, function() {
             console.log(arguments);
         });
     };
 
-    if (window['BRWidget']) {
-        $timeout(function() {
-            var widget = window['BRWidget'].init('bestrate-widget', 'mywish-widget');
-            widget.send({
-                tokenWithdrawalWallet: $rootScope.currentUser.internal_address,
-                email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
-            } , {}, {});
+
+}).controller('buyWishByBnbController', function($scope, web3Service) {
+
+    $scope.bnbAddress = '0xB8c77482e45F1F44dE1745F52C74426C631bDD52';
+
+    $scope.getProvider = function(name) {
+        web3Service.setProvider(name, 1);
+        return web3Service.web3();
+    };
+
+    web3Service.setProvider(name, 1);
+    web3Service.getAccounts(1).then(function(response) {
+        response.map(function(wallet) {
+            $scope.wallets[wallet.type].push(wallet.wallet);
         });
-    }
-
-    $scope.checkWishAddress = function() {
-        $scope.formData.addressChecked = true;
-    };
-
-    $scope.copied = {};
-
-    var resetForm = function() {
-        $scope.formData = {
-            toAddress: $rootScope.currentUser.internal_address,
-            toBtcAddress: $rootScope.currentUser.internal_btc_address,
-            wishAddress: APP_CONSTANTS.WISH.ADDRESS
-        };
-    };
-
-    resetForm();
-
-    $scope.$watch('visibleForm', function() {
-        resetForm();
     });
 
-    $scope.payDone = function() {
-        $state.go($rootScope.currentUser.contracts ? 'main.contracts.list' : 'main.createcontract.types');
-    };
-}).controller('buytokensEthController', function($scope) {
-    var rate = $scope.exRate.ETH;
-    $scope.checkWishesAmount = function() {
-        var wishesAmount = new BigNumber($scope.formData.ethAmount || 0);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.ethAmount;
-    };
-    $scope.checkEthAmount = function() {
-        if (!$scope.formData.wishesAmount) return;
-        var ethAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.ethAmount = ethAmount.times(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.ethAmount;
-    };
-}).controller('buytokensBnbController', function($scope) {
-    var rate = $scope.exRate.BNB;
-    $scope.checkWishesAmount = function() {
-        var wishesAmount = new BigNumber($scope.formData.bnbAmount || 0);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.bnbAmount;
-    };
-    $scope.checkBnbAmount = function() {
-        if (!$scope.formData.wishesAmount) return;
-        var ethAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.bnbAmount = ethAmount.times(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.bnbAmount;
-    };
-
-
-    $scope.$watch('formData.amount', function() {
-        if (!$scope.formData.amount) return;
-
+    $scope.$watch('amountsValues.BNB', function() {
+        if (!$scope.amountsValues.BNB) return;
         $scope.checkedTransferData = (new Web3).eth.abi.encodeFunctionCall({
             name: 'transfer',
             type: 'function',
@@ -100,10 +105,11 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 type: 'uint256',
                 name: 'value'
             }]
-        }, [$scope.formData.toAddress, new BigNumber($scope.formData.amount).times(Math.pow(10, 18)).toString(10)]);
+        }, [
+            $scope.currentUser.internal_address,
+            new BigNumber($scope.amountsValues.BNB).times(Math.pow(10, 18)).toString(10)
+        ]);
     });
-
-    $scope.bnbAddress = '0xB8c77482e45F1F44dE1745F52C74426C631bDD52';
 
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
@@ -112,24 +118,24 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             to: $scope.bnbAddress
         }).then(console.log);
     };
+}).controller('buyWishByWishController', function($scope, $state, $rootScope, APP_CONSTANTS, web3Service) {
 
+    $scope.wishAddress = APP_CONSTANTS.WISH.ADDRESS;
 
-}).controller('buytokensBtcController', function($scope) {
-    var rate = $scope.exRate.BTC;
-    $scope.checkWishesAmount = function() {
-        if (!$scope.formData.btcAmount) return;
-        var wishesAmount = new BigNumber($scope.formData.btcAmount);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
-    };
-    $scope.checkBtcAmount = function() {
-        if (!$scope.formData.wishesAmount) return;
-        var btcAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.btcAmount = btcAmount.times(rate).round(2).toString(10);
+    $scope.getProvider = function(name) {
+        web3Service.setProvider(name, 1);
+        return web3Service.web3();
     };
 
-}).controller('buytokensWishController', function($scope, $state, $rootScope) {
-    $scope.$watch('formData.amount', function() {
-        if (!$scope.formData.amount) return;
+    web3Service.setProvider(name, 1);
+    web3Service.getAccounts(1).then(function(response) {
+        response.map(function(wallet) {
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
+    });
+
+    $scope.$watch('amountsValues.WISH', function() {
+        if (!$scope.amountsValues.WISH) return;
 
         $scope.checkedTransferData = (new Web3).eth.abi.encodeFunctionCall({
             name: 'transfer',
@@ -141,41 +147,18 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 type: 'uint256',
                 name: 'value'
             }]
-        }, [$scope.formData.toAddress, new BigNumber($scope.formData.amount).times(Math.pow(10, 18)).toString(10)]);
+        }, [
+            $scope.currentUser.internal_address,
+            new BigNumber($scope.amountsValues.WISH).times(Math.pow(10, 18)).toString(10)
+        ]);
     });
 
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
             from: $scope.formData.address,
-            to: $scope.formData.wishAddress,
+            to: APP_CONSTANTS.WISH.ADDRESS,
             data: $scope.checkedTransferData
         }).then(console.log);
     };
 
-}).controller('buytokensTronController', function($scope) {
-    var rate = $scope.exRate.TRX;
-    $scope.checkWishesAmount = function() {
-        var wishesAmount = new BigNumber($scope.formData.tronAmount || 0);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.tronAmount;
-    };
-    $scope.checkTronAmount = function() {
-        if (!$scope.formData.wishesAmount) return;
-        var tronAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.tronAmount = tronAmount.times(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.tronAmount;
-    };
-}).controller('buytokensEosController', function($scope) {
-    var rate = $scope.exRate.EOS;
-    $scope.checkWishesAmount = function() {
-        var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.eosAmount;
-    };
-    $scope.checkEosAmount = function() {
-        if (!$scope.formData.wishesAmount) return;
-        var eosAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.eosAmount = eosAmount.times(rate).round(2).toString(10);
-        $scope.formData.amount = $scope.formData.eosAmount;
-    };
 });

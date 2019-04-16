@@ -209,7 +209,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         contract.authioPrices = {
                             WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).round(2).toString(10),
                             ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).round(2).toString(10),
-                            BTC: new BigNumber(response.data.BTC).div(Math.pow(10, 18)).round(2).toString(10)
+                            BTC: new BigNumber(response.data.BTC).div(Math.pow(10, 18)).round(2).toString(10),
+                            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 18)).round(2).toString(10),
                         };
                     });
                 }

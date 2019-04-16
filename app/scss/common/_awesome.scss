@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?spquv');
-  src:  url('fonts/icomoon.eot?spquv#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?spquv') format('truetype'),
-  url('fonts/icomoon.woff?spquv') format('woff'),
-  url('fonts/icomoon.svg?spquv#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?wd3odg');
+  src:  url('fonts/icomoon.eot?wd3odg#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?wd3odg') format('truetype'),
+  url('fonts/icomoon.woff?wd3odg') format('woff'),
+  url('fonts/icomoon.svg?wd3odg#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-dollar:before {
+  content: "\e957";
+}
 .icon-tronish-logo:before {
   content: "\e956";
   color: #bd2e21;
@@ -283,6 +286,9 @@
 }
 .icon-eye:before {
   content: "\e916";
+}
+.icon-network-google:before {
+  content: "\e940";
 }
 .icon-cart:before {
   content: "\e920";

@@ -199,7 +199,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         currentCurrency = 'TRONISH';
                         break;
                     default:
-                        currencies = ['ETH','BTC','BNB', 'TRX', 'EOS'];
+                        currencies = ['ETH','BTC','BNB', 'TRX', 'EOS', 'TRONISH', 'EOSISH', 'USDT'];
                         currentCurrency = 'WISH';
                         break;
                 }
@@ -214,7 +214,15 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                                 data: loadedCurrencies
                             });
                         }
-                    }, defer.resolve);
+                    }, function() {
+                        loadedCurrenciesCount++;
+                    }).finally(function() {
+                        if (loadedCurrenciesCount === currencies.length) {
+                            defer.resolve({
+                                data: loadedCurrencies
+                            });
+                        }
+                    });
                 };
                 for (var k = 0; k < currencies.length; k++) {
                     getRate(currencies[k]);
@@ -395,7 +403,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             };
 
             for (var key in allCosts.data) {
-                allCosts.data[key] = new BigNumber(allCosts.data[key]+'').round(3).toString(10);
+                allCosts.data[key] = {
+                    WISH: new BigNumber(allCosts.data[key]['WISH']+'').round(3).toString(10),
+                    USDT: new BigNumber(allCosts.data[key]['USDT']+'').round(3).toString(10)
+                };
             }
             $scope.allCosts = allCosts.data;
             $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;

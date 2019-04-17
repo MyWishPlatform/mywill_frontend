@@ -1,16 +1,15 @@
-<form name="buyTokensForm">
+<form ng-controller="tronBuytokensBtcController" name="buyTokensForm">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
                     <input type="text" placeholder="0"
-                           class="form-control-input with-currency"
+                           class="form-control-input with-currency" ng-model="formData.btcAmount"
                            required
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
-                           ng-model="amountsValues.BTC"
-                           ng-change="convertAmountFrom('BTC')">
+                           ng-change="checkTronishAmount()">
                     <div class="input-after">BTC</div>
                 </div>
             </div>
@@ -22,13 +21,9 @@
                            required
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
-                           ng-model="amountsValues.WISH"
-                           ng-change="convertAmountTo('BTC')">
-                    <div class="input-after">WISH</div>
+                           ng-model="formData.tronishAmount" ng-change="checkBtcAmount()">
+                    <div class="input-after">TRONISH</div>
                 </div>
-            </div>
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1 form-control-description"
-                 ng-include="getTemplate('pages/buytokens-forms/usdt')">
             </div>
         </div><br/>
         <div class="grid-row">
@@ -36,7 +31,7 @@
                 <div class="form-control">
                     <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND_BTC'|translate}}</label>
                     <input type="text" class="form-control-input form-control-input--wish"
-                           disabled ng-model="currentUser.internal_btc_address">
+                           disabled ng-model="formData.toBtcAddress">
                 </div>
             </div>
 
@@ -45,7 +40,7 @@
                     <span class="form-control-label">&nbsp;</span>
                     <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
-                            text="currentUser.internal_btc_address"
+                            text="formData.toBtcAddress"
                             on-copied="$root.successCodeCopy(copied, 'to_btc_address')"
                             on-error="failCodeCopy(err)"
                             ng-show="!copied.copied['to_btc_address']"

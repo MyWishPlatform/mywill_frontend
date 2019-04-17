@@ -149,10 +149,29 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
     }).state('main.buytokens', {
         url: '/buy',
         controllerProvider: function(ENV_VARS) {
-            return (ENV_VARS.mode === 'eos') ? 'eosBuytokensController' : 'buytokensController'
+            switch (ENV_VARS.mode) {
+                case 'eos':
+                    return 'eosBuytokensController';
+                case 'tron':
+                    return 'tronBuytokensController';
+                default:
+                    return 'buytokensController';
+            }
         },
         templateProvider: function ($templateCache, ENV_VARS) {
-            var buyTokensTpl = (ENV_VARS.mode === 'eos') ? 'eos-buytokens' : 'buytokens';
+            var buyTokensTpl;
+            switch (ENV_VARS.mode) {
+                case 'eos':
+                    buyTokensTpl = 'eos-buytokens';
+                    break;
+                case 'tron':
+                    buyTokensTpl = 'tron-buytokens';
+                    break;
+                default:
+                    buyTokensTpl = 'buytokens';
+                    break;
+            }
+
             return $templateCache.get(templatesPath + buyTokensTpl + '.html');
         },
         data: {
@@ -166,14 +185,38 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 var defer = $q.defer();
                 var loadedCurrencies = {};
                 var loadedCurrenciesCount = 0;
-                var currencies = (ENV_VARS.mode === 'eos') ? ['EOS', 'ETH', 'BTC'] : ['ETH','BTC', 'BNB'];
+                var currencies;
+                var currentCurrency;
 
-                var currentCurrency = ENV_VARS.mode === 'eos' ? 'EOSISH' : 'WISH';
+
+                switch (ENV_VARS.mode) {
+                    case 'eos':
+                        currencies = ['EOS', 'ETH', 'BTC'];
+                        currentCurrency = 'EOSISH';
+                        break;
+                    case 'tron':
+                        currencies = ['TRX', 'ETH', 'BTC'];
+                        currentCurrency = 'TRONISH';
+                        break;
+                    default:
+                        currencies = ['ETH','BTC','BNB', 'TRX', 'EOS', 'TRONISH', 'EOSISH', 'USDT'];
+                        currentCurrency = 'WISH';
+                        break;
+                }
+
 
                 var getRate = function(currency) {
                     contractService.getCurrencyRate({fsym: currency, tsyms: currentCurrency}).then(function(result) {
                         loadedCurrencies[currency] = (1 / result.data[currentCurrency]).toString();
                         loadedCurrenciesCount++;
+                        if (loadedCurrenciesCount === currencies.length) {
+                            defer.resolve({
+                                data: loadedCurrencies
+                            });
+                        }
+                    }, function() {
+                        loadedCurrenciesCount++;
+                    }).finally(function() {
                         if (loadedCurrenciesCount === currencies.length) {
                             defer.resolve({
                                 data: loadedCurrencies
@@ -192,27 +235,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         abstract: true,
         template: '<div ui-view></div>',
         controller: 'baseContractsController'
-    }).state('main.join_tronish_airdrop', {
-        url: '/join_tronish_airdrop',
-        templateUrl: templatesPath + 'join_tronish_airdrop.html',
-        controller: 'joinTronishAirdropController',
-        onEnter: function($rootScope, $state) {
-            if ($rootScope.sitemode !== 'tron') {
-                $state.go('main.base');
-            }
-        }
-    }).state('main.tronish_calculator', {
-        url: '/tronish_calculator',
-        templateUrl: templatesPath + 'tronish_calculator.html',
-        controller: 'tronishCalculatorController'
-    // }).state('main.join_airdrop', {
-    //     url: '/join_airdrop',
-    //     templateUrl: templatesPath + 'join_airdrop.html',
-    //     controller: 'joinAirdropController'
-    // }).state('main.eosish_calculator', {
-    //     url: '/eosish_calculator',
-    //     templateUrl: templatesPath + 'eosish_calculator.html',
-    //     controller: 'eosishCalculatorController'
     }).state('main.contracts.list', {
         url: '/contracts',
         controller: 'contractsController',
@@ -381,7 +403,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             };
 
             for (var key in allCosts.data) {
-                allCosts.data[key] = new BigNumber(allCosts.data[key]+'').round(3).toString(10);
+                allCosts.data[key] = {
+                    WISH: new BigNumber(allCosts.data[key]['WISH']+'').round(3).toString(10),
+                    USDT: new BigNumber(allCosts.data[key]['USDT']+'').round(3).toString(10)
+                };
             }
             $scope.allCosts = allCosts.data;
             $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;

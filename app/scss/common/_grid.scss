@@ -26,9 +26,16 @@
   float: left;
   box-sizing: border-box;
   padding: 0 1em;
+  &.cell-min-padding {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
   &.without-padding {
     padding-left: 0;
     padding-right: 0;
+  }
+  &.mb-1 {
+    margin-bottom: 1em
   }
   &.float-right {
     float: right!important;
@@ -199,12 +206,6 @@
   }
 }
 
-
-@media screen and (min-width: 681px) {
-  .show-ps {
-    display: none;
-  }
-}
 @media screen and (max-width: 680px) {
   .grid-cell {
     &.grid-cell-ps-1 {
@@ -249,9 +250,6 @@
   }
   .text-left-ps {
     text-align: left!important;
-  }
-  .show-ps {
-    display: block;
   }
 }
 

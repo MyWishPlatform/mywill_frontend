@@ -21,9 +21,7 @@
     "BUY_TOKENS": "Buy tokens",
     "SUPPORT": "Support",
     "LOG_OUT": "Log out",
-    "JOIN_AIRDROP": "Airdrop Tool",
     "EOSISH_CALCULATOR": "EOSISH Calculator",
-    "TRONISH_CALCULATOR": "TRONISH Calculator",
     "VERSION": "version"
   },
   "HEADER": {
@@ -152,7 +150,8 @@
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
     "NEO": "NEO",
-    "EOS": "EOS"
+    "EOS": "EOS",
+    "TRON": "TRON"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -386,6 +385,16 @@
       "MEMO_FIELD": {
         "LABEL": "Fill MEMO field:",
         "DESCRIPTION": "Please enter your unique code to MEMO field during the payment. It's unique for your account on MyWish platform."
+      }
+    },
+    "TRON_BUY_TOKENS": {
+      "TRON_ACCOUNT": {
+        "LABEL": "Send TRON to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
+      },
+      "TRONISH_ACCOUNT": {
+        "LABEL": "Send TRONISH to:",
+        "DESCRIPTION": "You can send EOS tokens from an exchange or your EOS personal account. You can create account here: <a href=\"/create/eosWallet?network=10\" target=\"_blank\">https://contracts.mywish.io/createAccount</a>"
       }
     },
     "BUY_TOKENS": {
@@ -1637,101 +1646,6 @@
           }
         }
       }
-    }
-  },
-  "JOIN_AIRDROP": {
-    "DISCLAIMER": {
-      "TITLE": "Airdrop Tool information",
-      "TEXTS": {
-        "ITEM_1": "This tool was developed for WISH token holders only.",
-        "ITEM_2": "This tool helps WISH holders to specify EOS account for getting EOSISH.",
-        "ITEM_3": "User should be able to make a transaction from ETH address.",
-        "ITEM_4": "User can use tool until the 16-Jan-19 3 pm GMT.",
-        "ITEM_5": "All transactions can be found in Ethereum blockchain, no cheats are possible.",
-        "ITEM_6": "Tool is not responsible for sending EOSISH tokens."
-      }
-    },
-    "INSTRUCTION": {
-      "TITLE": "Save EOS address",
-      "DESCRIPTION": " To connect your ETH address (which will have some WISH by Snapshot time) <b>{{ethAddress}}</b> to EOS Address “<b>{{eosAddress}}</b>” please do the following steps:",
-      "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
-    }
-  },
-  "JOIN_TRONISH_AIRDROP": {
-    "DISCLAIMER": {
-      "TITLE": "Airdrop Tool information",
-      "TEXTS": {
-        "ITEM_1": "This tool was developed for WISH token holders only.",
-        "ITEM_2": "This tool helps WISH holders to specify EOS account for getting EOSISH.",
-        "ITEM_3": "User should be able to make a transaction from ETH address.",
-        "ITEM_4": "User can use tool until the 16-Jan-19 3 pm GMT.",
-        "ITEM_5": "All transactions can be found in Ethereum blockchain, no cheats are possible.",
-        "ITEM_6": "Tool is not responsible for sending EOSISH tokens."
-      }
-    },
-    "INSTRUCTION": {
-      "TITLE": "Save TRON address",
-      "DESCRIPTION": " To connect your ETH address (which will have some WISH by Snapshot time) <b>{{ethAddress}}</b> to TRON Address “<b>{{tronAddress}}</b>” please do the following steps:",
-      "ITEM_1": "Send transaction (0 ETH) from your ETH address with WISHs:"
-    }
-  },
-  "AIRDROP_TOOL": {
-    "RULES": "Official rules for Airdrop is listed here.",
-    "FIELDS": {
-      "ETH_ADDRESS": {
-        "LABEL": "ETH address:",
-        "DESCRIPTION": "Enter your ETH address where WISH tokens are stored. Please check that you have corresponding private key.",
-        "CHECK_TEXTS": {
-          "NO_ACCOUNT_CONNECTED": "No EOS account connected. <br/>If you just connected it please wait 10 minutes.",
-          "ACCOUNT_CONNECTED": "This ETH address is connected to <b>{{checkedEOSAccount}}</b> EOS account."
-        }
-      },
-      "EOS_ACCOUNT": {
-        "LABEL": "EOS account:",
-        "DESCRIPTION": "Enter Your EOS account for getting EOSISH token (after Airdrop date). If you do not have EOS account, you can create it <a href=\"/create/eosWallet?network=10\" target=\"_blank\">here</a>"
-      }
-    },
-    "SAVE_BUTTON": "Save EOS address",
-    "SAVE_TRON_BUTTON": "Save TRON address",
-    "SAVE_ETH_BUTTON": "Save ETH address"
-  },
-  "AIRDROP_TRONISH_TOOL": {
-    "NO_ACCOUNT_CONNECTED": "No TRON address connected. <br/>If you just connected it please wait 10 minutes.",
-    "FIELDS": {
-      "ETH_ADDRESS": {
-        "CHECK_TEXTS": {
-          "ACCOUNT_CONNECTED": "This ETH address is connected to <b>{{checkedTRONAddress}}</b> TRON address."
-        }
-      },
-      "EOS_ADDRESS": {
-        "DESCRIPTION": "Enter your EOS account where EOSISH tokens are stored. Please check that you have corresponding private key.",
-        "CHECK_TEXTS": {
-          "ACCOUNT_CONNECTED": "This EOS account is connected to <b>{{checkedTRONAddress}}</b> TRON address."
-        }
-      },
-      "TRON_ADDRESS": {
-        "LABEL": "TRON address:",
-        "DESCRIPTION": "Enter your TRON address where TRX tokens are stored. Please check that you have corresponding private key.",
-        "DESCRIPTION_GETTING": "Enter Your TRON address for getting TRONISH token (after Airdrop date)."
-      }
-    }
-  },
-  "EOSISH_CALCULATOR": {
-    "DESCRIPTION": "This tool shows how many TRONISH you will get after the airdrop.",
-    "FIELDS": {
-      "ETH_ADDRESS": {
-        "TITLE": "Your ETH address:",
-        "DESCRIPTION": "Enter your ETH address where WISH tokens were stored on the snapshot date."
-      },
-      "EOS_ACCOUNT": {
-        "TITLE": "Your EOS account:",
-        "DESCRIPTION": "Enter your EOS account where EOSISH  tokens were stored on the snapshot date."
-      }
-    },
-    "CHECK_TEXTS": {
-      "BALANCE_TEXT": "You will get {{eosishBalances}} TRONISH.",
-      "CONNECTED_TEXT": "EOS account <b>{{checkedEOSAccount}}</b> connected",
-      "NO_CONNECTED_TEXT": "Please connect TRON address by Airdrop tool!"
     }
   },
   "PARTNERS_DISCLAIMERS": {

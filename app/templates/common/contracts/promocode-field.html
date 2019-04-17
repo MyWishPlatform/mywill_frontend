@@ -30,7 +30,7 @@
     </div><br/>
 </form>
 
-<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode !== 'eos')">
+<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'default')">
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
         <div class="show-vs"></div>
@@ -40,14 +40,17 @@
         <span class="grey-text-color">
             {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).toString(10), 'ether')).round(3)|separateNumber}}
             ETH
-            <span ng-if="contract.contract_type != 11">/
+            /
+            {{bigNumber(contract.cost.USDT).div(1000000).round(3).toString(10)|separateNumber}}
+            USD
+            <!-- span ng-if="contract.contract_type != 11">/
                 {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).toString(10), 'ether')).round(4)|separateNumber}}
                 BTC
-            </span>
+            </span -->
         </span>
     </div>
 </div>
-<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'eos')">
+<!-- div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'eos')">
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
         <div class="show-vs"></div>
@@ -57,4 +60,15 @@
         </span>
     </div>
 </div>
+
+<div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'tron')">
+    <div class="form-control-label">
+        <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
+        <div class="show-vs"></div>
+        {{bigNumber(contract.cost.TRONISH).div(1000000).round(4) | separateNumber}} TRONISH&nbsp;&nbsp;&nbsp;
+        <span class="grey-text-color">
+            {{bigNumber(contract.cost.TRX).div(1000000).round(4) | separateNumber}} TRX
+        </span>
+    </div>
+</div -->
 

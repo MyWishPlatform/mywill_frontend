@@ -2,8 +2,8 @@
     <div class="shadow-block__content shadow-block__content_no-lr-padding">
         <div class="alert-window-title"
              translate-values="{
-                price: $root.bigNumber(ngPopUp.params.contractCost).round(2),
-                currency: ($root.sitemode !== 'eos') ? 'WISH' : 'EOSISH'
+                price: ngPopUp.params.contractCost,
+                currency: ngPopUp.params.currency
              }"
              translate="CONFIRMATIONS.CONTRACT_PAY.TEXT"></div>
     </div>

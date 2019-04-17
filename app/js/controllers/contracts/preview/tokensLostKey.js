@@ -49,7 +49,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
             var tokens = result.data;
             lostKeyContract.methods.getTokenAddresses().call().then(function(addedTokens) {
                 tokens.forEach(function(token) {
-                    var tokenInfo = token.token_info;
+                    var tokenInfo = token.token_info || token.tokenInfo;
                     tokenInfo.balanceOf = token.balance;
                     var tokenIsConfirmed = !!addedTokens.filter(function(t) {
                         return t.toLowerCase() === tokenInfo.address;
@@ -57,7 +57,7 @@ angular.module('app').controller('tokensLostKeyPreviewController', function($tim
                     addedTokens = addedTokens.filter(function(t) {
                         return t.toLowerCase() !== tokenInfo.address;
                     });
-                    checkTokenInfo(tokenInfo.address, ['allowance', 'balanceOf'], tokenInfo).then(function(tokenResult) {
+                    checkTokenInfo(tokenInfo.address).then(function(tokenResult) {
                         tokenResult.confirmed = tokenIsConfirmed;
                         $scope.visibleTokensList.push(tokenResult);
                     });

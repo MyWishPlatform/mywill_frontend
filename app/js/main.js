@@ -166,10 +166,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 4)).toFormat(2);
                 break;
             case 'tron':
-                profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 18)).toFormat(2);
+                profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 6)).toFormat(2);
                 break;
             default:
                 profile.visibleBalance = (new BigNumber(profile.balance)).div(Math.pow(10, 18)).toFormat(2);
+                profile.visibleBalanceUSDT = (new BigNumber(profile.usdt_balance.split('.')[0])).div(Math.pow(10, 6)).toFormat(2);
                 break;
         }
 

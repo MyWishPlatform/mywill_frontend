@@ -74,8 +74,13 @@
     line-height: 9.5em;
   }
   &__text {
-    font-size: 1.1em;
-    color: #878787;
+    &:not(.normal) {
+      font-size: 1.1em;
+      color: #878787;
+    }
+    &.normal {
+      font-size: 1.4em;
+    }
     display: inline-block;
     line-height: 1.2em;
     vertical-align: middle;

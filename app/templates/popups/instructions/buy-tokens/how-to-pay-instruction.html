@@ -10,7 +10,7 @@
         <ul class="new-instruction-list">
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text">
-                    {{'PAGES.BUY_TOKENS.HOW_TO_DO_IT_INSTRUCTION.LIST.LIST_ITEM_1'|translate}} (Parity, <a href="https://www.myetherwallet.com/" target="_blank">MyEtherWallet</a>)
+                    {{'PAGES.BUY_TOKENS.HOW_TO_DO_IT_INSTRUCTION.LIST.LIST_ITEM_1'|translate}} (Parity, <a href="https://vintage.myetherwallet.com/" target="_blank">MyEtherWallet</a>)
                 </div>
             </li>
             <li class="new-instruction-list__item">
@@ -24,9 +24,10 @@
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
-                                text="ngPopUp.params.createdContract.toAddress"
+                                text="$root.currentUser.internal_address"
                                 ng-class="{copied: ngPopUp.params.createdContract.copied['toAddress']}"
-                                on-copied="$root.successCodeCopy(ngPopUp.params.createdContract, 'toAddress')">&nbsp;
+                                on-copied="$root.successCodeCopy(ngPopUp.params.createdContract, 'toAddress')"
+                                type="button">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
                         <div class="copy-block__text">{{ngPopUp.params.createdContract.toAddress}}</div>

@@ -5,36 +5,19 @@
                 <span class="big-size"
                       ng-if="sitemode === 'default'"
                       translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TITLE"></span>
-                <span class="big-size"
+                <!-- span class="big-size"
                       ng-if="sitemode === 'eos'"
                       translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.EOS_TITLE"></span>
                 <span class="big-size"
                       ng-if="sitemode === 'tron'"
-                      translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TRON_TITLE"></span>
+                      translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TRON_TITLE"></span -->
             </div>
-        </div>
-        <div class="shadow-block__content__blue-description">
-            <p class="normal-text">
-                <span>
-                    Switch  to
-                    <a href="https://contracts.mywish.io/create"
-                       ng-if="sitemode !== 'default'">ETH / NEO</a>
-                    <span ng-if="sitemode !== 'default'">or </span>
-
-                    <a href="https://tron.mywish.io/create"
-                       ng-if="sitemode !== 'tron'">TRON</a>
-
-                    <span ng-if="sitemode === 'default'">or </span>
-                    <a href="https://eos.mywish.io/create"
-                       ng-if="sitemode !== 'eos'">EOS</a>
-                </span>
-            </p>
         </div>
     </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="sitemode === 'default'">
+    <div class="shadow-block__content shadow-block__content_min-padding" ng-if="sitemode === 'default'">
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'ETH'})"
                    ng-click="blockChainNetwork.type = 'ETH'"
                    class="btn btn-gray with-icon width-100 nowrap" ng-class="{'active': blockChainNetwork.type === 'ETH'}">
@@ -43,17 +26,25 @@
                     <span translate="BLOCKCHAIN_NETWORKS.ETH"></span>
                 </a>
             </div>
-            <div class="show-ps clearfix"><br/></div>
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
-                <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"
-                   ng-click="blockChainNetwork.type = 'RSK'"
-                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'RSK'}">
-                    <img src="/static/images/blockchain/bitcoin.png" width="20" style="vertical-align: middle">
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'TRON'})"
+                   ng-click="blockChainNetwork.type = 'TRON'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'TRON'}">
+                    <img src="/static/images/blockchain/tron.png" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
-                    <span translate="BLOCKCHAIN_NETWORKS.BTC"></span>
+                    <span translate="BLOCKCHAIN_NETWORKS.TRON"></span>
                 </a>
             </div>
-            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'EOS'})"
+                   ng-click="blockChainNetwork.type = 'EOS'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'EOS'}">
+                    <img src="/static/images/blockchain/eos.png" width="20" style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.EOS"></span>
+                </a>
+            </div>
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'NEO'})"
                    ng-click="blockChainNetwork.type = 'NEO'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'NEO'}">
@@ -62,6 +53,15 @@
                     <span translate="BLOCKCHAIN_NETWORKS.NEO"></span>
                 </a>
             </div>
+            <!-- div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"
+                   ng-click="blockChainNetwork.type = 'RSK'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'RSK'}">
+                    <img src="/static/images/blockchain/bitcoin.png" width="20" style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.BTC"></span>
+                </a>
+            </div -->
         </div>
     </div>
 
@@ -98,7 +98,7 @@
             </div>
 
 
-            <div ng-if="blockChainNetwork.isTest" ng-pop-up="{
+            <!-- div ng-if="blockChainNetwork.isTest" ng-pop-up="{
                 opened: true,
                 newPopupContent: true,
                 template: '/templates/popups/disclaimers/all/test-net-disclaimer.html'
@@ -116,7 +116,7 @@
                         }
                     ]
                 }
-            }"></div>
+            }"></div -->
             <div class="grid-cell grid-cell-1">
                 <span class="normal-text" translate="PAGES.CREATE_CONTRACT.BLOCKCHAIN_BLOCK.TEST_NETWORK_DESCRIPTION"></span>
             </div>
@@ -131,10 +131,18 @@
         <div class="shadow-block__content">
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
                 <div class="contract-price-block_content">
-                    <span>{{(contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber])|separateNumber}}</span>
-                    <img src="/static/images/blockchain/ethereum.png" ng-if="sitemode === 'default'">
-                    <img src="/static/images/blockchain/eos-counter.svg" style="width: 1.2em" ng-if="sitemode === 'eos'">
-                    <img src="/static/images/blockchain/tron.svg" style="width: 1.8em" ng-if="sitemode === 'tron'">
+                    <i class="price-icon icon-mywish">
+                        <span class="path1"></span><span class="path2"></span>
+                    </i><span>
+                        {{(contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]['WISH'])|separateNumber}}
+                    </span>
+                    &nbsp;<span>/</span>&nbsp;
+                    <i class="price-icon icon-dollar"></i><span>
+                        {{(contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]['USDT'])|separateNumber}}
+                    </span>
+                    <!--<img src="/static/images/blockchain/ethereum.png" ng-if="sitemode === 'default'">-->
+                    <!-- img src="/static/images/blockchain/eos-counter.svg" style="width: 1.2em" ng-if="sitemode === 'eos'">
+                    <img src="/static/images/blockchain/tron.svg" style="width: 1.8em" ng-if="sitemode === 'tron'" -->
                 </div>
             </div>
             <div class="grid-row">

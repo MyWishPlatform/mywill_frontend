@@ -43,8 +43,9 @@
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: formData.copied['mywish-account']}"
-                                    text="eosAccountAddress"
-                                    on-copied="$root.successCodeCopy(formData, 'mywish-account')">
+                                    text="currentUser.eos_address"
+                                    on-copied="$root.successCodeCopy(formData, 'mywish-account')"
+                                    type="button">
                                 <i class="icon-content_copy"></i>
                             </button>
                         </div>

@@ -41,7 +41,7 @@
                     <span class="form-control-label">&nbsp;</span>
                     <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
-                            text="formData.toAddress"
+                            text="currentUser.internal_address"
                             on-copied="$root.successCodeCopy(copied, 'to_address')"
                             on-error="failCodeCopy(err)"
                             ng-show="!copied.copied['to_address']"
@@ -186,7 +186,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?data=' + checkedTransferData + '&value=0&to=' + bnbAddress + '&gaslimit=' + formData.gaslimit + '#send-transaction' : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://vintage.myetherwallet.com/?data=' + checkedTransferData + '&value=0&to=' + bnbAddress + '&gaslimit=' + formData.gaslimit + '#send-transaction' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                 </div>

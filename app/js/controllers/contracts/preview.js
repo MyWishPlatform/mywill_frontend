@@ -30,12 +30,12 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
             ['symbol']
         ).then(function(result) {
             $scope.depositUrl =
-                'https://www.myetherwallet.com/?sendMode=token&to=' +
+                'https://vintage.myetherwallet.com/?sendMode=token&to=' +
                 contractDetails.eth_contract.address + '&gaslimit=100000&value=0&symbol=' + result.symbol + '#send-transaction';
         });
     } else {
         $scope.depositUrl =
-            'https://www.myetherwallet.com/?sendMode=ether&to=' +
+            'https://vintage.myetherwallet.com/?sendMode=ether&to=' +
             contractDetails.eth_contract.address + '&gaslimit=30000&value=0#send-transaction';
     }
 }).controller('instructionsController', function($scope, web3Service) {

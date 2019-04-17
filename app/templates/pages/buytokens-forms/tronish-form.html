@@ -42,9 +42,10 @@
 
                         <div class="input-after dynamic-info">
                             <button class="instruction-for-copy-button relative"
+                                    type="button"
                                     clipboard supported="supported"
                                     ng-class="{copied: formData.copied['tron-address']}"
-                                    text="tronAccountAddress"
+                                    text="currentUser.tron_address"
                                     on-copied="$root.successCodeCopy(formData, 'tron-address')">
                                 <i class="icon-content_copy"></i>
                             </button>

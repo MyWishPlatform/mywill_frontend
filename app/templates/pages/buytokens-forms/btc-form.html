@@ -45,7 +45,7 @@
                     <span class="form-control-label">&nbsp;</span>
                     <button class="btn btn-gray center-input-field"
                             clipboard supported="supported"
-                            text="formData.toBtcAddress"
+                            text="currentUser.internal_btc_address"
                             on-copied="$root.successCodeCopy(copied, 'to_btc_address')"
                             on-error="failCodeCopy(err)"
                             ng-show="!copied.copied['to_btc_address']"

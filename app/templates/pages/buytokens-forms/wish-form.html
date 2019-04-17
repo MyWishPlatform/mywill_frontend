@@ -31,6 +31,7 @@
                 </div>
             </div>
         </div>
+
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
                 <div class="form-control">
@@ -163,7 +164,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://www.myetherwallet.com/?data=' + checkedTransferData + '&value=0&to=' + wishAddress + '&gaslimit=' + formData.gaslimit + '#send-transaction' : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://vintage.myetherwallet.com/?data=' + checkedTransferData + '&value=0&to=' + wishAddress + '&gaslimit=' + formData.gaslimit + '#send-transaction' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                 </div>

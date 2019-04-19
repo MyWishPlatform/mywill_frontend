@@ -22,7 +22,11 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         icon: 'icon-contracts',
         route: 'main.contracts.list',
         parent: 'main.contracts'
-    }, /*{
+    }, {
+        title: 'MAIN_MENU.WISH_SWAP',
+        icon: 'icon-binance',
+        route: 'main.swapbwish'
+    },/*{
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-eosish-circle',
         route: 'main.join_airdrop',

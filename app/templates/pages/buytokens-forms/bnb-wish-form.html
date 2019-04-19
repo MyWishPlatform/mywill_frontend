@@ -1,11 +1,11 @@
 <form name="buyTokensForm">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
-            <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+            <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label" translate="PAGES.EOS_BUY_TOKENS.EOS_ACCOUNT.LABEL"></label>
+                    <label class="form-control-label" translate="PAGES.BUY_TOKENS.SEND_BWISH"></label>
                     <div class="form-control-input-container">
-                        <input ng-model="currentUser.eos_address"
+                        <input ng-model="currentUser.bnb_address"
                                disabled="disabled"
                                type="text" class="form-control-input">
 
@@ -13,7 +13,7 @@
                             <button class="instruction-for-copy-button relative"
                                     clipboard supported="supported"
                                     ng-class="{copied: formData.copied['mywish-account']}"
-                                    text="currentUser.eos_address"
+                                    text="currentUser.bnb_address"
                                     on-copied="$root.successCodeCopy(formData, 'mywish-account')"
                                     type="button">
                                 <i class="icon-content_copy"></i>

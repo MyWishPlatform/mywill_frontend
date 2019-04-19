@@ -291,6 +291,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         data: {
             top: 'main.contracts.list'
         }
+    }).state('main.swapbwish', {
+        controller: 'swapBwishController',
+        url: '/wish-swap',
+        templateUrl: templatesPath + 'swap-bwish.html',
     }).state('main.createcontract', {
         abstract: true,
         templateUrl: templatesPath + 'createcontract.html',

@@ -1,0 +1,85 @@
+<div class="shadow-block" ng-controller="sawpBNBInstruction">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title static-width">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size">WISH SWAP WISH SWAP</span>
+            </div>
+        </div>
+        <div class="shadow-block__content__description">
+            <span>
+                SWAP SWAP WISH SWAP SWAP WISH WISH BNB SWAP WISH SWAP BNB
+            </span>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <a ng-attr-href="{{
+            'https://vintage.myetherwallet.com/?data=' + assignAddressSignature +
+            '&value=0&to=' + contractDetails.address}}#send-transaction"
+           target="_blank" class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>MyEtherwallet</span>
+        </a>
+        <button ng-click="sendRegisterAccountTransaction()"
+                ng-if="currentWallet && (currentWallet.type === 'parity')"
+                class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Parity</span>
+        </button>
+        <button  ng-click="sendRegisterAccountTransaction()"
+                 ng-if="currentWallet && (currentWallet.type === 'metamask')"
+                 class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Metamask</span>
+        </button>
+    </div>
+
+    <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="normal-text visible-text">
+            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_1'|translate}}
+            <div class="copy-block">
+                <button class="copy-block__button relative"
+                        clipboard supported="supported"
+                        text="formParams.eth_address|toCheckSum"
+                        ng-class="{copied: formParams.copied['register_eth_address']}"
+                        on-copied="$root.successCodeCopy(formParams, 'register_eth_address')">&nbsp;
+                    <i class="icon-content_copy"></i>
+                </button>
+                <div class="copy-block__text">{{formParams.eth_address|toCheckSum}}</div>
+            </div>
+        </div>
+        <div class="normal-text visible-text">
+            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_2'|translate}}
+            <div class="copy-block">
+                <button class="copy-block__button relative"
+                        clipboard supported="supported"
+                        text="contractDetails.address|toCheckSum"
+                        ng-class="{copied: formParams.copied['register_contract_address']}"
+                        on-copied="$root.successCodeCopy(formParams, 'register_contract_address')">&nbsp;
+                    <i class="icon-content_copy"></i>
+                </button>
+                <div class="copy-block__text">{{contractDetails.address|toCheckSum}}</div>
+            </div>
+        </div>
+        <div class="normal-text visible-text">
+            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_3'|translate}}
+            <div class="copy-block">
+                <button class="copy-block__button relative"
+                        clipboard supported="supported"
+                        text="assignAddressSignature"
+                        ng-class="{copied: formParams.copied['register_data_field']}"
+                        on-copied="$root.successCodeCopy(formParams, 'register_data_field')">&nbsp;
+                    <i class="icon-content_copy"></i>
+                </button>
+                <div class="copy-block__text">{{assignAddressSignature}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+</div>

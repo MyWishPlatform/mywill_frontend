@@ -11,7 +11,8 @@ module.constant('APP_CONSTANTS', {
         "EOS": "mywishtestac",
         "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
         "NEO": "AYhjNHgTs9sG8B2TbnRT5HxwTA2HAuhthq",
-        "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69"
+        "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69",
+        "BNB": "bnb108w2492d60yurmw6dvrvx8wlecnvuedsuysskq"
     },
     'EOS_ADDRESSES': {
         'DEVELOPMENT': {

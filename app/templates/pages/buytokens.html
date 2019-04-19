@@ -183,13 +183,13 @@
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="visibleForm == 'tronish'" ng-include="getTemplate('pages/buytokens-forms/tronish-form')"></div>
 
-        <!--<div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"-->
-             <!--ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>-->
-
-
-
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
-             ng-if="visibleForm == 'eosish'" ng-include="getTemplate('pages/buytokens-forms/eosish-form')"></div>
+             ng-if="visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
+
+
+
+        <!--<div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"-->
+             <!--ng-if="visibleForm == 'eosish'" ng-include="getTemplate('pages/buytokens-forms/eosish-form')"></div>-->
 
         <div class="form-fieldset-delimiter"
              ng-hide="visibleForm"><span class="uppercase ng-scope" translate="OR">or</span></div>
@@ -200,7 +200,7 @@
             <div class="form-control-label">Use <img class="bestrate-logo" src="/static/images/BestRate.svg"/> service for getting WISH</div>
         </div>
 
-        <div ng-hide="visibleForm"
+        <div ng-hide="true && visibleForm"
              class="shadow-block__content shadow-block__content_no-tb-padding no-border shadow-block__content_no-lr-padding">
             <br/><br/>
             <div id="bestrate-widget"></div>

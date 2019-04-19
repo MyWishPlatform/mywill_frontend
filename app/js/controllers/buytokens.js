@@ -23,6 +23,8 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
     resetForm();
 
+    $scope.visibleForm = 'bnb-wish';
+
     $scope.$watch('visibleForm', function() {
         resetForm();
     });

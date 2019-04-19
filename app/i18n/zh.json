@@ -413,6 +413,7 @@
       "SEND_ETH": "发送您的ETH到：",
       "SEND_BTC": "发送您的BTC到：",
       "SEND_BNB": "Send your BNB to:",
+      "SEND_BWISH": "Send BWISH to:",
       "ENTER_AMOUNT": "输入金额：",
       "BTC_ATTENTION": {
         "RED_TEXT": "注意！",

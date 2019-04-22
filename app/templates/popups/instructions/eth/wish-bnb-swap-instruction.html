@@ -2,12 +2,13 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
-                <span class="big-size">WISH SWAP WISH SWAP</span>
+                <span class="big-size">BINANCE Account Connection</span>
             </div>
         </div>
         <div class="shadow-block__content__description">
             <span>
-                SWAP SWAP WISH SWAP SWAP WISH WISH BNB SWAP WISH SWAP BNB
+                Please make the following transaction from your Ethereum address (where WISH are stored) to Contract.
+                Contract will record your Binance address against your Ethereum address.
             </span>
         </div>
     </div>
@@ -21,13 +22,13 @@
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="sendRegisterAccountTransaction()"
-                ng-if="currentWallet && (currentWallet.type === 'parity')"
+                ng-disabled="currentWallet.type !== 'parity'"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
         <button  ng-click="sendRegisterAccountTransaction()"
-                 ng-if="currentWallet && (currentWallet.type === 'metamask')"
+                 ng-disabled="currentWallet.type !== 'metamask'"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>

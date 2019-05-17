@@ -10,6 +10,7 @@
   "BUTTONS": {
     "LOG_IN": "登录",
     "FORGOT_PASSWORD": "忘记密码了吗？",
+    "LOGIN_METAMASK": "通过MetaMask登录",
     "LOGIN_FACEBOOK": "通过Facebook登录",
     "LOGIN_GOOGLE": "通过Google登录",
     "CREATE_ACCOUNT": "创建帐号",

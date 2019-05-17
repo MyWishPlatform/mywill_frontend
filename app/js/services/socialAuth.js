@@ -1,5 +1,5 @@
 var module = angular.module('Services');
-module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS, $rootScope) {
+module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS, $rootScope, requestService) {
 
     var googleAppId = APP_CONSTANTS.SOCIAL_APP_ID.GOOGLE;
     var facebookAppId = APP_CONSTANTS.SOCIAL_APP_ID.FACEBOOK;
@@ -9,6 +9,10 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
         var height = 400;
         window.open( url, '', 'width=' + width + ',height=' + height + ',left=' + ((window.innerWidth - width)/2) + ',top=' + ((window.innerHeight - height)/2));
     };
+
+
+
+    $rootScope.MMInited = !!window['ethereum'];
 
     if (window.FB) {
         $rootScope.FBInited = true;
@@ -93,6 +97,24 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
                 response_type: 'id_token permission',
                 prompt: 'select_account'
             }, onLogged);
+        },
+        metaMaskAuth: function(data, callback, errCallback, advancedData) {
+            var requestData = angular.merge(data, advancedData || {});
+            authService.auth({
+                path: 'metamask/',
+                data: requestData
+            }).then(function(response) {
+                callback ? callback(response) : false;
+            }, function(response) {
+                errCallback(response, requestData, 'google');
+            });
+        },
+        getMetaMaskAuthMsg: function() {
+            var params = {
+                path: 'get_metamask_message/'
+            };
+            return requestService.get(params);
         }
     };
 });
+

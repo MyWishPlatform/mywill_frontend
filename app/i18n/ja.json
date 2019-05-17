@@ -108,6 +108,7 @@
     "BUTTONS": {
       "LOG_IN": "ログイン",
       "FORGOT_PASSWORD": "パスワードを忘れましらか",
+      "LOGIN_METAMASK": "MetaMask経由でログイン",
       "LOGIN_FACEBOOK": "Facebook経由でログイン",
       "LOGIN_GOOGLE": "Google経由でログイン",
       "CREATE_ACCOUNT": "アカウントを作成する"

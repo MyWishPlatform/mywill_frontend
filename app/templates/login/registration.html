@@ -55,14 +55,7 @@
             </div>
 
 
-            <div class="network-auth-buttons" ng-if="!$root.eoslynx">
-                <button class="network-auth-button network-auth-button-mm width-100" type="button"
-                        ng-disabled="!$root.MMInited" ng-click="mmLogin()">
-                    <i>
-                        <img src="/static/images/web3clients/metamask.svg" class="as-icon"/>
-                    </i>
-                    <span translate="BUTTONS.LOGIN_METAMASK"></span>
-                </button>
+            <div class="network-auth-buttons" ng-if="($root.FBInited || $root.GAInited) && !$root.eoslynx">
                 <a href="#" class="network-auth-button network-auth-button-fb width-100" ng-if="$root.FBInited" ng-click="fbLogin()">
                     <i class="icon-network-facebook"></i>
                     <span translate="BUTTONS.LOGIN_FACEBOOK"></span>

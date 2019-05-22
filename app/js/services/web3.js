@@ -122,14 +122,14 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             //     });
             // });
 
-            window['ethereum'].enable().then((accounts) => {
+            window['ethereum'].enable().then(function(accounts) {
                 callback(accounts.map(function(wallet) {
                     return {
                         type: providerName,
                         wallet: wallet
                     }
                 }));
-            }, () => {
+            }, function() {
                 callback([]);
             });
         } else {

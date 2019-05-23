@@ -29,7 +29,6 @@
                     </div>
                 </div>
             </div><br/>
-
             <div class="grid-row">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-1">
                     <div class="form-control">
@@ -50,25 +49,26 @@
                     </div>
                 </div>
             </div>
-            <div class="grid-row">
+            <div class="grid-row"
+                 ng-if="!registeredEthAddress">
                 <div class="grid-cell grid-cell-2-3 grid-cell-ps-1">&nbsp;</div>
                 <div class="grid-cell grid-cell-1-3">
                     <div class="form-control">
                         <br/>
                         <button class="btn btn-submit center-input-field width-100"
-                                ng-disabled="!swapForm.$valid || registeredEthAddress || checkETHProgress"
                                 type="button"
+                                ng-disabled="!swapForm.$valid || checkETHProgress"
                                 ng-pop-up="{
-                            template: '/templates/popups/instructions/eth/wish-bnb-swap-instruction.html',
-                            newPopupContent: true,
-                            params: {
-                                request: request,
-                                contract: {
-                                    abi: abi,
-                                    address: address
-                                }
-                            }
-                        }">
+                                    template: '/templates/popups/instructions/eth/wish-bnb-swap-instruction.html',
+                                    newPopupContent: true,
+                                    params: {
+                                        request: request,
+                                        contract: {
+                                            abi: abi,
+                                            address: address
+                                        }
+                                    }
+                                }">
                             <span>Connect accounts</span>
                         </button>
                     </div>
@@ -76,10 +76,49 @@
             </div>
         </form>
 
-        <div class="shadow-block__content">
+        <div class="shadow-block__content"
+             ng-if="!registeredEthAddress">
             <div class="normal-text dark-grey-text-color">
                 After connection you can send Ethereum WISH to contract address and get Binance WISH to your Binance account.
                 You must use the same account for sending as for connection.
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="registeredEthAddress">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
+                        <div class="form-control">
+                            <label class="form-control-label">
+                                Отправьте Ваши ETH-WISH`и в топку на адрес:
+                            </label>
+                            <input type="text" class="form-control-input form-control-input--wish"
+                                   disabled ng-model="burn_address">
+                        </div>
+                    </div>
+                    <div class="grid-cell hide-ps grid-cell-1-4">
+                        <div class="form-control text-right">
+                            <span class="form-control-label">&nbsp;</span>
+                            <button class="btn btn-gray center-input-field"
+                                    clipboard supported="supported"
+                                    text="burn_address"
+                                    on-copied="$root.successCodeCopy(copied, 'to_address')"
+                                    on-error="failCodeCopy(err)"
+                                    ng-show="!copied.copied['to_address']"
+                                    type="button">
+                                <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.COPY'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                            </button>
+
+                            <button class="btn btn-as-link center-input-field"
+                                    disabled
+                                    ng-if="copied.copied['to_address']"
+                                    type="button">
+                                <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

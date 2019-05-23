@@ -1,5 +1,11 @@
 angular.module('Constants').constant('SWAP_WISH_BNB', {
-    'ADDRESS': '0x58dab2f7a864d4fa66918fbcb4edf92c43a45ab4',
+
+    'TEST_CONNECT_ADDRESS': '0x58dab2f7a864d4fa66918fbcb4edf92c43a45ab4',
+    'CONNECT_ADDRESS': '0x58dab2f7a864d4fa66918fbcb4edf92c43a45ab4',
+
+    'TEST_BURN_ADDRESS': '0x09330972ef9c7fc12d4b803c80024d54f5aa4e31',
+    'BURN_ADDRESS': '0x346a8e2a7fe29e32b9174c408a84ef1c7ed7408f',
+
     'ABI': [
         {
             "constant": true,
@@ -232,18 +238,24 @@ angular.module('Constants').constant('SWAP_WISH_BNB', {
     ]
 });
 
-angular.module('app').controller('swapBwishController', function($scope, SWAP_WISH_BNB, web3Service) {
+
+
+
+
+
+angular.module('app').controller('swapBwishController', function($scope, SWAP_WISH_BNB, web3Service, $timeout) {
+
+    var isProduction = location.protocol === "https:";
 
     $scope.abi = SWAP_WISH_BNB.ABI;
-    $scope.address = SWAP_WISH_BNB.ADDRESS;
+
+    $scope.address = isProduction ? SWAP_WISH_BNB.CONNECT_ADDRESS : SWAP_WISH_BNB.TEST_CONNECT_ADDRESS;
+    $scope.burn_address = isProduction ? SWAP_WISH_BNB.BURN_ADDRESS : SWAP_WISH_BNB.TEST_BURN_ADDRESS;
 
     $scope.request = {};
     $scope.registeredEthAddress = false;
 
-
     web3Service.setProviderByNumber(1);
-
-
     $scope.web3Contract = web3Service.createContractFromAbi($scope.address, $scope.abi);
 
     $scope.sendTransaction = function() {
@@ -252,25 +264,40 @@ angular.module('app').controller('swapBwishController', function($scope, SWAP_WI
         }).then(console.log);
     };
 
+
+    var latestCheckAddress, addressCheckTimeout;
+
+
     $scope.checkETHProgress = false;
-    $scope.checkETHAddress = function() {
-        if (!$scope.request.eth_address) {
+    $scope.checkETHAddress = function(repeatAddress) {
+        $scope.registeredEthAddress = false;
+        if (!$scope.request.eth_address || (repeatAddress && (repeatAddress !== $scope.request.eth_address))) {
             return;
         }
-        $scope.registeredEthAddress = false;
+        latestCheckAddress = $scope.request.eth_address;
         $scope.checkETHProgress = true;
         $scope.web3Contract.methods.registers($scope.request.eth_address.toLowerCase()).call(function(error, result) {
+            if (latestCheckAddress !== $scope.request.eth_address) {
+                return;
+            }
             if (result) {
                 $scope.registeredEthAddress = true;
                 $scope.request.bnb_address = result;
+            } else {
+                addressCheckTimeout = $timeout(function() {
+                    $scope.checkETHAddress(latestCheckAddress);
+                }, 5000);
             }
             $scope.checkETHProgress = false;
             $scope.$apply();
         });
     };
-    $scope.makeSwap = function() {
 
-    };
+    $scope.$on('$destroy', function() {
+        addressCheckTimeout ?
+            $timeout.cancel(addressCheckTimeout) : false;
+    });
+
 }).controller('sawpBNBInstruction', function(web3Service, $scope) {
 
     var web3Contract;
@@ -292,15 +319,20 @@ angular.module('app').controller('swapBwishController', function($scope, SWAP_WI
         web3Contract = web3Service.createContractFromAbi($scope.ngPopUp.params.contract.address, $scope.ngPopUp.params.contract.abi);
 
         var registerMethod = web3Service.getMethodInterface('put', $scope.contractDetails.abi);
-        $scope.assignAddressSignature = (new Web3()).eth.abi.encodeFunctionCall(registerMethod, [$scope.formParams.bnb_address]);
+        $scope.assignAddressSignature =
+            (new Web3()).eth.abi.encodeFunctionCall(registerMethod, [$scope.formParams.bnb_address]);
 
     });
 
     $scope.sendRegisterAccountTransaction = function() {
         web3Contract.methods.put($scope.formParams.bnb_address).send({
             from: $scope.currentWallet.wallet
-        }).then(console.log);
+        }).then(function(result) {
+            console.log(result);
+        }, function(error) {
+            console.log(error);
+        });
     };
 
-
+    $scope.copied = {};
 });

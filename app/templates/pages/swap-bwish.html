@@ -76,11 +76,21 @@
             </div>
         </form>
 
-        <div class="shadow-block__content"
-             ng-if="!registeredEthAddress">
-            <div class="normal-text dark-grey-text-color">
+        <div class="shadow-block__content">
+            <div class="normal-text dark-grey-text-color"
+                 ng-if="!registeredEthAddress">
                 After connection you can send Ethereum WISH to contract address and get Binance WISH to your Binance account.
                 You must use the same account for sending as for connection.
+            </div>
+
+            <div class="normal-text dark-grey-text-color"
+                 ng-if="registeredEthAddress">
+                Your Binance Chain address is connected now!<br/><br/>
+
+                After sending the Ethereum tokens you will get WISH BEP2 tokens during 48h.
+                Please send WISH ERC-20 tokens to burning address (check it in
+                <a href="https://medium.com/@VladimirTikhomirov" target="_blank">official medium</a>
+                before sending):
             </div>
         </div>
 
@@ -91,17 +101,19 @@
                     <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                         <div class="form-control">
                             <label class="form-control-label">
-                                Отправьте Ваши ETH-WISH`и в топку на адрес:
+                                You can send your WISH Ethereum tokens for burning to:
                             </label>
                             <input type="text" class="form-control-input form-control-input--wish"
                                    disabled ng-model="burn_address">
                         </div>
                     </div>
+
                     <div class="grid-cell hide-ps grid-cell-1-4">
                         <div class="form-control text-right">
                             <span class="form-control-label">&nbsp;</span>
                             <button class="btn btn-gray center-input-field"
-                                    clipboard supported="supported"
+                                    clipboard
+                                    supported="supported"
                                     text="burn_address"
                                     on-copied="$root.successCodeCopy(copied, 'to_address')"
                                     on-error="failCodeCopy(err)"
@@ -116,6 +128,12 @@
                                     type="button">
                                 <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
                             </button>
+                        </div>
+                    </div>
+
+                    <div class="grid-cell grid-cell-3-4 grid-cell-ps-1 form-control-description">
+                        <div class="form-control-description__text">
+                            Please contact <a href="mailto:support@mywish.io">support@mywish.io</a> in case of any questions.
                         </div>
                     </div>
                 </div>

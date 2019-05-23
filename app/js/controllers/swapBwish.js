@@ -247,6 +247,8 @@ angular.module('app').controller('swapBwishController', function($scope, SWAP_WI
 
     var isProduction = location.protocol === "https:";
 
+    $scope.copied = {};
+
     $scope.abi = SWAP_WISH_BNB.ABI;
 
     $scope.address = isProduction ? SWAP_WISH_BNB.CONNECT_ADDRESS : SWAP_WISH_BNB.TEST_CONNECT_ADDRESS;
@@ -275,7 +277,9 @@ angular.module('app').controller('swapBwishController', function($scope, SWAP_WI
             return;
         }
         latestCheckAddress = $scope.request.eth_address;
-        $scope.checkETHProgress = true;
+        if (!repeatAddress) {
+            $scope.checkETHProgress = true;
+        }
         $scope.web3Contract.methods.registers($scope.request.eth_address.toLowerCase()).call(function(error, result) {
             if (latestCheckAddress !== $scope.request.eth_address) {
                 return;
@@ -333,6 +337,4 @@ angular.module('app').controller('swapBwishController', function($scope, SWAP_WI
             console.log(error);
         });
     };
-
-    $scope.copied = {};
 });

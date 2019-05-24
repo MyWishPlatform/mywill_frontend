@@ -81,6 +81,15 @@ angular.module('app').controller('authController', function (authService, $rootS
         }
     };
 
+    var metaMaskAuthRequest = function(advancedData, reloadPage, inService) {
+        SocialAuthService.metaMaskAuth({
+            address: advancedData.address,
+            signed_msg: advancedData.signature
+        }, function(response) {
+            checkLoginAction(reloadPage, inService);
+        }, errorSocialAuth, advancedData);
+    };
+
     $scope.mmLogin = function(advancedData, reloadPage, inService) {
 
         var web3 = new window['Web3']();
@@ -96,15 +105,10 @@ angular.module('app').controller('authController', function (authService, $rootS
                     undefined,
                     function(signError, signature) {
                         if (!signError) {
-                            SocialAuthService.metaMaskAuth({
+                            metaMaskAuthRequest({
                                 address: address,
-                                signed_msg: signature,
-                                msg: msg
-                            }, function(response) {
-                                checkLoginAction(reloadPage, inService);
-                            }, errorSocialAuth, advancedData);
-
-                            console.log(signature);
+                                signed_msg: signature
+                            }, reloadPage, inService);
                         } else {
                             // console.log(signError);
                         }
@@ -135,7 +139,7 @@ angular.module('app').controller('authController', function (authService, $rootS
                 $scope.fbLogin($scope.socialAuthInfo.request, reloadPage, inService);
                 break;
             case 'metamask':
-                $scope.mmLogin($scope.socialAuthInfo.request, reloadPage, inService);
+                metaMaskAuthRequest($scope.socialAuthInfo.request, reloadPage, inService);
                 break;
         }
     };

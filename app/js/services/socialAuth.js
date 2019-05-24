@@ -106,7 +106,7 @@ module.service('SocialAuthService', function(authService, API, $q, APP_CONSTANTS
             }).then(function(response) {
                 callback ? callback(response) : false;
             }, function(response) {
-                errCallback(response, requestData, 'google');
+                errCallback(response, requestData, 'metamask');
             });
         },
         getMetaMaskAuthMsg: function() {

@@ -1,7 +1,7 @@
 angular.module('Constants').constant('SWAP_WISH_BNB', {
 
     'TEST_CONNECT_ADDRESS': '0x58dab2f7a864d4fa66918fbcb4edf92c43a45ab4',
-    'CONNECT_ADDRESS': '0x58dab2f7a864d4fa66918fbcb4edf92c43a45ab4',
+    'CONNECT_ADDRESS': '0x8b748672f7ff9c46647106c7c735e33bfbaca47b',
 
     'TEST_BURN_ADDRESS': '0x09330972ef9c7fc12d4b803c80024d54f5aa4e31',
     'BURN_ADDRESS': '0x346a8e2a7fe29e32b9174c408a84ef1c7ed7408f',

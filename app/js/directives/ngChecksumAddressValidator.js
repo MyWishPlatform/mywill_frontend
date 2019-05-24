@@ -16,6 +16,8 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                 case 'TRON':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.TRON);
                     break;
+                case 'BNB':
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.BNB);
             }
 
             var validator = function(value) {
@@ -30,6 +32,9 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                 switch(scope.ngChecksumAddressValidator.network) {
                     case 'TRON':
                         validAddress = TronWeb.isAddress(val);
+                        break;
+                    case 'BNB':
+                        validAddress = new RegExp(/(t)?bnb1[0-9a-z]{38}/).test(val);
                         break;
                     default:
                         validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);

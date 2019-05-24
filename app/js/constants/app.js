@@ -4,14 +4,16 @@ module.constant('APP_CONSTANTS', {
         'PATH': '/templates'
     },
     'WISH': {
-        'ADDRESS': '0x1b22c32cd936cb97c28c5690a0695a82abf688e6'
+        'ADDRESS': '0x1b22c32cd936cb97c28c5690a0695a82abf688e6',
+        'TEST_ADDRESS': '0xa9CcA3bC3867C8D833682AF3Fec46Ad5bdF1A1b8'
     },
     'TEST_ADDRESSES': {
         "ETH": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "EOS": "mywishtestac",
         "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
         "NEO": "AYhjNHgTs9sG8B2TbnRT5HxwTA2HAuhthq",
-        "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69"
+        "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69",
+        "BNB": "bnb108w2492d60yurmw6dvrvx8wlecnvuedsuysskq"
     },
     'EOS_ADDRESSES': {
         'DEVELOPMENT': {

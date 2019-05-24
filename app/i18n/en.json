@@ -22,7 +22,8 @@
     "SUPPORT": "Support",
     "LOG_OUT": "Log out",
     "EOSISH_CALCULATOR": "EOSISH Calculator",
-    "VERSION": "version"
+    "VERSION": "version",
+    "WISH_SWAP": "WISH Swap to Binance"
   },
   "HEADER": {
     "BUTTONS": {
@@ -413,6 +414,7 @@
       "SEND_ETH": "Send your ETH to:",
       "SEND_BTC": "Send your BTC to:",
       "SEND_BNB": "Send your BNB to:",
+      "SEND_BWISH": "Send WISH-1EF to:",
       "ENTER_AMOUNT": "Enter Amount:",
       "BTC_ATTENTION": {
         "RED_TEXT": "Attention!",

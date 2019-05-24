@@ -22,7 +22,8 @@
     "SUPPORT": "支持",
     "LOG_OUT": "登出",
     "EOSISH_CALCULATOR": "EOSISH 计算器",
-    "VERSION": "版"
+    "VERSION": "版",
+    "WISH_SWAP": "WISH Swap to Binance"
   },
   "HEADER": {
     "BUTTONS": {
@@ -413,6 +414,7 @@
       "SEND_ETH": "发送您的ETH到：",
       "SEND_BTC": "发送您的BTC到：",
       "SEND_BNB": "Send your BNB to:",
+      "SEND_BWISH": "Send WISH-1EF to:",
       "ENTER_AMOUNT": "输入金额：",
       "BTC_ATTENTION": {
         "RED_TEXT": "注意！",

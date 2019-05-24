@@ -10,6 +10,7 @@
   "BUTTONS": {
     "LOG_IN": "Log in",
     "FORGOT_PASSWORD": "Forgot your password?",
+    "LOGIN_METAMASK": "Log in via MetaMask",
     "LOGIN_FACEBOOK": "Log in via Facebook",
     "LOGIN_GOOGLE": "Log in via Google",
     "CREATE_ACCOUNT": "Create account",

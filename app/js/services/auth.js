@@ -31,6 +31,7 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
             });
             return promise;
         },
+
         auth: function(params) {
             params.API_PATH = params.API_PATH || API.HOSTS.AUTH_PATH;
             params.path = params.path || API.LOGIN;
@@ -130,3 +131,15 @@ module.service('authService', function(requestService, API, $q, $timeout, $cooki
         }
     };
 });
+
+
+
+//
+// public metaMaskAuth(data) {
+//     return new Promise((resolve, reject) => {
+//         this.httpService.post('metamask/', data, URLS.HOSTS.AUTH_PATH).toPromise().then((response) => {
+//             this.updateUser();
+//             resolve(response);
+//         }, reject);
+//     });
+// }

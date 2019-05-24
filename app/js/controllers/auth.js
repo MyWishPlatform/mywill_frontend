@@ -81,6 +81,40 @@ angular.module('app').controller('authController', function (authService, $rootS
         }
     };
 
+    $scope.mmLogin = function(advancedData, reloadPage, inService) {
+
+        var web3 = new window['Web3']();
+        web3.setProvider(window['ethereum']);
+
+        window['ethereum'].enable().then(function(accounts) {
+            SocialAuthService.getMetaMaskAuthMsg().then(function(response) {
+                var msg = response.data;
+                var address = accounts[0];
+                web3.eth.personal.sign(
+                    msg,
+                    address,
+                    undefined,
+                    function(signError, signature) {
+                        if (!signError) {
+                            SocialAuthService.metaMaskAuth({
+                                address: address,
+                                signed_msg: signature,
+                                msg: msg
+                            }, function(response) {
+                                checkLoginAction(reloadPage, inService);
+                            }, errorSocialAuth, advancedData);
+
+                            console.log(signature);
+                        } else {
+                            // console.log(signError);
+                        }
+                    }
+                );
+            });
+        });
+    };
+
+
     $scope.fbLogin = function(advancedData, reloadPage, inService) {
         SocialAuthService.facebookAuth(function(response) {
             checkLoginAction(reloadPage, inService);
@@ -99,6 +133,9 @@ angular.module('app').controller('authController', function (authService, $rootS
                 break;
             case 'facebook':
                 $scope.fbLogin($scope.socialAuthInfo.request, reloadPage, inService);
+                break;
+            case 'metamask':
+                $scope.mmLogin($scope.socialAuthInfo.request, reloadPage, inService);
                 break;
         }
     };

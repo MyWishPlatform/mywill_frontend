@@ -22,7 +22,8 @@
     "SUPPORT": "Support",
     "LOG_OUT": "Log out",
     "EOSISH_CALCULATOR": "EOSISH Calculator",
-    "VERSION": "version"
+    "VERSION": "version",
+    "WISH_SWAP": "WISH Swap to Binance"
   },
   "HEADER": {
     "BUTTONS": {
@@ -108,6 +109,7 @@
     "BUTTONS": {
       "LOG_IN": "Log in",
       "FORGOT_PASSWORD": "Forgot your password?",
+      "LOGIN_METAMASK": "Log in via MetaMask",
       "LOGIN_FACEBOOK": "Log in via Facebook",
       "LOGIN_GOOGLE": "Log in via Google",
       "CREATE_ACCOUNT": "Create account"
@@ -412,6 +414,7 @@
       "SEND_ETH": "Send your ETH to:",
       "SEND_BTC": "Send your BTC to:",
       "SEND_BNB": "Send your BNB to:",
+      "SEND_BWISH": "Send WISH-1EF to:",
       "ENTER_AMOUNT": "Enter Amount:",
       "BTC_ATTENTION": {
         "RED_TEXT": "Attention!",

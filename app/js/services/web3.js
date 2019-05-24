@@ -103,10 +103,51 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         }
     };
 
+    var checkMetamaskNetwork = function(network) {
+        var networkVersion = parseInt(window['ethereum'].networkVersion, 10);
+        return ((networkVersion === 1) && (network === 1)) ||
+            ((networkVersion === 3) && (network === 2));
+    };
+
+    var getMetamaskAccounts = function(providerName, network, callback) {
+        if (window['ethereum'] && window['ethereum'].isMetaMask) {
+            if (!checkMetamaskNetwork(network)) {
+                callback([]);
+                return;
+            }
+            // window['ethereum'].on('accountsChanged', (accounts) => {
+            //     observer.next({
+            //         type: providerName,
+            //         addresses: accounts
+            //     });
+            // });
+
+            window['ethereum'].enable().then(function(accounts) {
+                callback(accounts.map(function(wallet) {
+                    return {
+                        type: providerName,
+                        wallet: wallet
+                    }
+                }));
+            }, function() {
+                callback([]);
+            });
+        } else {
+            callback([]);
+        }
+    };
 
     var getAccounts = function(providerName, network) {
         var defer = $q.defer();
         _this.setProvider(providerName, network);
+
+        if (providerName === 'metamask') {
+            $timeout(function() {
+                getMetamaskAccounts(providerName, network, defer.resolve);
+            });
+
+            return defer.promise;
+        }
 
         try {
             web3.eth.getAccounts(function(err, addresses) {
@@ -129,6 +170,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 defer.resolve([]);
             });
         }
+
         return defer.promise;
     };
 

@@ -22,7 +22,16 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         icon: 'icon-contracts',
         route: 'main.contracts.list',
         parent: 'main.contracts'
-    }, /*{
+    }, {
+        title: 'MAIN_MENU.BUY_TOKENS',
+        icon: 'icon-but-tokens',
+        route: 'main.buytokens',
+        noactive: false
+    }, {
+        title: 'MAIN_MENU.WISH_SWAP',
+        icon: 'icon-binance',
+        route: 'main.swapbwish'
+    },/*{
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-eosish-circle',
         route: 'main.join_airdrop',
@@ -58,11 +67,6 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         route: 'main.faq',
         noactive: true,
         noshow: true
-    }, {
-        title: 'MAIN_MENU.BUY_TOKENS',
-        icon: 'icon-but-tokens',
-        route: 'main.buytokens',
-        noactive: false
     }, {
         title: 'Developer API',
         icon: 'icon-framew',

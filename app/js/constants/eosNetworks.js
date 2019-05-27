@@ -1,4 +1,7 @@
 var module = angular.module('Constants');
+
+// https://monitor.jungletestnet.io/#apiendpoints
+
 module.constant('EOS_NETWORKS_CONSTANTS', [
     {
         "name": "MAINNET",
@@ -94,6 +97,16 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
                 "port": 443,
                 "url": "jungle.eosio.cr",
                 "description": "Public node provided by EOS Costa Rica"
+            },
+            {
+                "protocol": "http",
+                "url": "jungle2.cryptolions.io",
+                "port": 80
+            },
+            {
+                "protocol": "https",
+                "url": "jungle2.cryptolions.io",
+                "port": 443
             },
             {
                 "name": "EOSMetal",

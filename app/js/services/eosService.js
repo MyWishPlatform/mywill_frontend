@@ -67,60 +67,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
     var currentNetwork, currentNetworkName, currentEndPoint, displayingNetwork;
 
-    this.createEosChain = function(network, callback) {
-        var oldNetworkName = currentNetworkName;
-        switch(network) {
-            case 10:
-                displayingNetwork = 'MAINNET';
-                currentNetworkName = isProduction ? 'MAINNET' : 'TESTNET';
-                break;
-            case 11:
-                displayingNetwork = 'TESTNET';
-                currentNetworkName = 'TESTNET';
-                break;
-        }
-        currentNetwork = network;
-        currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
-
-        if (currentNetworkName === oldNetworkName) {
-            var defer = $q.defer();
-            if (chainChecked) {
-                callback ? callback() : false;
-            } else {
-                callback ? chainCallbacks.push(callback) : false;
-            }
-            $timeout(function() {
-                defer.resolve();
-            });
-            return defer.promise;
-        } else {
-            chainCallbacks = callback ? [callback] : [];
-        }
-        chainChecked = false;
-        eos = Eos({
-            httpEndpoint: EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['url'],
-            verbose: false
-        });
-        return checkNetwork();
-    };
-
-    var checkNetwork = function() {
-        var defer = $q.defer();
-        _this.getInfo().then(function(response) {
-            chainChecked = true;
-            chainCallbacks.map(function(callback) {
-                callback();
-            });
-            defer.resolve(response);
-        }, function(error) {
-            currentNetworks[currentNetworkName]++;
-            currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
-            _this.createEosChain(currentNetwork, callback);
-            defer.reject(error);
-        });
-        return defer.promise;
-    };
-
     this.getInfo = function() {
         var defer = $q.defer();
         eos.getInfo(function(error, response) {
@@ -136,23 +82,21 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     this.checkAddress = function(address, network) {
         var defer = $q.defer();
         network*= 1;
-        var getAccount = function() {
-            eos.getAccount(address, function (error, response) {
-                if (error) {
-                    defer.reject(error);
-                } else {
-                    defer.resolve(response);
-                }
-            });
-        };
-        network  ? _this.createEosChain(network, getAccount).then(undefined, defer.reject) : checkNetwork(getAccount);
+        connectToNetwork(network).then(function() {eos.getAccount(address, function (error, response) {
+            if (error) {
+                defer.reject(error);
+            } else {
+                defer.resolve(response);
+            }
+        });
 
+        });
         return defer.promise;
     };
 
     this.callCustomMethod = function(method, data, network) {
         var defer = $q.defer();
-        network  ? _this.createEosChain(network, function() {
+        connectToNetwork(network).then(function() {
             $http({
                 method: 'post',
                 url: 'https://' + currentEndPoint.url + '/v1/chain-ext/' + method,
@@ -160,26 +104,99 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
             }).then(function(response) {
                 defer.resolve(response);
             }, defer.reject)
-        }) : false;
+        });
         return defer.promise;
     };
 
+
+
+    var networkConnectionModel;
+
+    var networkConnection = function(network) {
+        this.network = network;
+
+        if (networkConnectionModel) {
+            networkConnectionModel.abort();
+        }
+
+        networkConnectionModel = this;
+
+        var state = 'pending';
+
+        this.abort = function() {
+            state = 'aborted';
+            this.promise.reject();
+        };
+
+        var defer = $q.defer();
+        this.promise = defer.promise;
+
+        switch(network) {
+            case 10:
+                displayingNetwork = 'MAINNET';
+                currentNetworkName = isProduction ? 'MAINNET' : 'TESTNET';
+                break;
+            case 11:
+                displayingNetwork = 'TESTNET';
+                currentNetworkName = 'TESTNET';
+                break;
+        }
+
+        currentNetwork = network;
+        currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
+
+        var reconnect = function() {
+            eos = Eos({
+                httpEndpoint: EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['url'],
+                verbose: false
+            });
+            getInfo();
+        };
+
+
+        var getInfo = function() {
+            return _this.getInfo().then(function(result) {
+                if (state === 'aborted') {
+                    return;
+                }
+                state = 'connected';
+                return result;
+            }, function() {
+                currentNetworks[currentNetworkName]++;
+                currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
+                reconnect();
+            });
+        };
+
+        reconnect();
+
+        this.check = getInfo;
+    };
+
+    this.createEosChain = networkConnection;
+
+    var connectToNetwork = function(network) {
+        network = network || (networkConnectionModel ? networkConnectionModel.network : 10);
+        if (!(networkConnectionModel && (networkConnectionModel.network === network))) {
+            new networkConnection(network);
+        }
+        return networkConnectionModel.check();
+    };
+
+
     this.getTableRows = function(scope, table, code, network, key) {
         var defer = $q.defer();
-        network  ? _this.createEosChain(network, function() {
-
+        connectToNetwork(network).then(function(node) {
             var getTableParams = {
                 code: code || eosAccounts[displayingNetwork]['TOKEN'],
                 scope: scope,
                 table: table || 'stat',
                 json: true
             };
-
             if (key) {
                 getTableParams.lower_bound =
                     getTableParams.upper_bound = key;
             }
-
             eos.getTableRows(getTableParams, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -187,13 +204,13 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                     defer.resolve(response);
                 }
             });
-        }) : false;
+        });
         return defer.promise;
     };
 
     this.coinInfo = function(short_name, network, tokenAddress) {
         var defer = $q.defer();
-        var getStats = function() {
+        connectToNetwork(network).then(function() {
             eos.getCurrencyStats(tokenAddress || eosAccounts[displayingNetwork]['TOKEN'], short_name, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -201,14 +218,14 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                     defer.resolve(response);
                 }
             });
-        };
-        network  ? _this.createEosChain(network, getStats) : checkNetwork(getStats);
+        });
+
         return defer.promise;
     };
 
     this.getBalance = function(code, account, symbol, network) {
         var defer = $q.defer();
-        network  ? _this.createEosChain(network, function() {
+        connectToNetwork(network).then(function() {
             eos.getCurrencyBalance(code, account, symbol, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -216,7 +233,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                     defer.resolve(response);
                 }
             });
-        }) : false;
+        });
         return defer.promise;
     };
 
@@ -320,8 +337,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         });
         return defer.promise;
     };
-
-
 
     var checkIdentity = function(success, error) {
         var requiredFields = {

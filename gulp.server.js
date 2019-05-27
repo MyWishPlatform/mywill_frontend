@@ -54,7 +54,7 @@ var getBrowserSyncConfig = function () {
             server: {
                 //baseDir: [paths.build.root]
             },
-            port: 9990,
+            port: 80,
             https: false,
             files: [
                 //path.join(paths.build.root, "**/*")

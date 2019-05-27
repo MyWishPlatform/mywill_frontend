@@ -4,10 +4,16 @@
     <span ng-mousedown="toggleList($event)"
           ng-if="!ngSelectOptions.autocomplete"
           class="select-active-area"
-          translate
           ng-class="{ 'disabled-value': selectedOption.disabled }">
-        {{ !selectedOption.information ? ngSelectOptions.label ? getLabelModel(selectedOption, ngSelectOptions.label) : selectedOption : '' }}
+
+        <img ng-if="selectedOption['select-icon']"
+             class="select-active-area_ico"
+             ng-src="{{selectedOption['select-icon']}}"/>
+
+        {{(!selectedOption.information ? ngSelectOptions.label ? getLabelModel(selectedOption, ngSelectOptions.label) : selectedOption : '') | translate }}
+
     </span>
+
     <input class="select-active-area"
            type="text"
            ng-model="ngAutocompleteField"
@@ -20,9 +26,7 @@
            ng-blur="inputBlur()"
     ><i ng-if="ngSelectOptions.autocomplete" class="select-arrow-icon"></i>
     <span class="hidden-items">
-        <span
-                class="no-visibility block"
-                ng-repeat="option in showedList">
+        <span ng-repeat="option in showedList">
             {{ ngSelectOptions.label ? getLabelModel(option, ngSelectOptions.label) : option }}
         </span>
     </span>
@@ -54,8 +58,12 @@
                 <span class="select-optiongroup" ng-if="ngSelectOptions.groupBy && (ngSelectOptions.prevGroup!=option[ngSelectOptions.groupBy])">
                     {{ngSelectOptions.prevGroup=option[ngSelectOptions.groupBy]}}
                 </span>
-                <span class="select-option-text" translate>
-                    {{(ngSelectOptions.label ? (getLabelModel(option, ngSelectOptions.label)|translate) : option) || 'n/a' }}
+                <span class="select-option-text" ng-class="{'with-ico': option['select-icon']}">
+                    <i class="select-option_ico">
+                        <img ng-if="option['select-icon']"
+                             ng-src="{{option['select-icon']}}"/>
+                    </i>
+                    {{(ngSelectOptions.label ? (getLabelModel(option, ngSelectOptions.label)|translate) : option) | translate }}
                 </span>
 
                 <span class="select-list-container"

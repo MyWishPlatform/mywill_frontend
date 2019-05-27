@@ -53,6 +53,53 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         $scope.amountsValues['USDT']  = currencyValue.times(rate).round(2).toString(10);
     };
 
+
+    $scope.paymentSelect = {
+        methods: [
+            {
+                'label': 'WISH BINANCE',
+                'value': 'bnb-wish',
+                'select-icon': '/static/images/blockchain/mwbnb2.svg'
+            }, {
+                'label': 'WISH ETHEREUM',
+                'value': 'wish',
+                'select-icon': '/static/images/blockchain/mweth2.svg'
+            }, {
+                'label': 'BNB',
+                'value': 'bnb',
+                'select-icon': '/static/images/blockchain/binance-coin-logo.svg'
+            }, {
+                'label': 'ETH',
+                'value': 'eth',
+                'select-icon': '/static/images/blockchain/ethereum.png'
+            }, {
+                'label': 'BTC',
+                'value': 'btc',
+                'select-icon': '/static/images/blockchain/bitcoin.svg'
+            }, {
+                'label': 'EOS',
+                'value': 'eos',
+                'select-icon': '/static/images/blockchain/eos.svg'
+            }, {
+                'label': 'TRON',
+                'value': 'tron',
+                'select-icon': '/static/images/blockchain/tron.svg'
+            }, {
+                'label': 'TRONISH',
+                'value': 'tronish',
+                'select-icon': '/static/images/logos/tronish-logo.svg'
+            }, {
+                'label': 'EOSISH',
+                'value': 'eosish',
+                'select-icon': '/static/images/blockchain/eosish-logo.svg'
+            }
+        ]
+    };
+
+    $scope.changeToken = function() {
+
+    };
+
 }).controller('buyWishByEthController', function($scope, web3Service) {
 
 

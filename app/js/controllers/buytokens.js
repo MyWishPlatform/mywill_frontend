@@ -57,11 +57,11 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.paymentSelect = {
         methods: [
             {
-                'label': 'WISH BINANCE',
+                'label': 'WISH Binance',
                 'value': 'bnb-wish',
                 'select-icon': '/static/images/blockchain/mwbnb2.svg'
             }, {
-                'label': 'WISH ETHEREUM',
+                'label': 'WISH Ethereum',
                 'value': 'wish',
                 'select-icon': '/static/images/blockchain/mweth2.svg'
             }, {
@@ -128,45 +128,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
 }).controller('buyWishByBnbController', function($scope, web3Service) {
 
-    $scope.bnbAddress = '0xB8c77482e45F1F44dE1745F52C74426C631bDD52';
 
-    $scope.getProvider = function(name) {
-        web3Service.setProvider(name, 1);
-        return web3Service.web3();
-    };
-
-    web3Service.setProvider(name, 1);
-    web3Service.getAccounts(1).then(function(response) {
-        response.map(function(wallet) {
-            $scope.wallets[wallet.type].push(wallet.wallet);
-        });
-    });
-
-    $scope.$watch('amountsValues.BNB', function() {
-        if (!$scope.amountsValues.BNB) return;
-        $scope.checkedTransferData = (new Web3).eth.abi.encodeFunctionCall({
-            name: 'transfer',
-            type: 'function',
-            inputs: [{
-                type: 'address',
-                name: 'to'
-            }, {
-                type: 'uint256',
-                name: 'value'
-            }]
-        }, [
-            $scope.currentUser.internal_address,
-            new BigNumber($scope.amountsValues.BNB).times(Math.pow(10, 18)).toString(10)
-        ]);
-    });
-
-    $scope.sendTransaction = function() {
-        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
-            from: $scope.formData.address,
-            data: $scope.checkedTransferData,
-            to: $scope.bnbAddress
-        }).then(console.log);
-    };
 }).controller('buyWishByWishController', function($scope, $state, $rootScope, APP_CONSTANTS, web3Service) {
 
     $scope.wishAddress = APP_CONSTANTS.WISH.ADDRESS;

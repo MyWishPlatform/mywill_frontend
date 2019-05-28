@@ -90,7 +90,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
         EOSService.sendTx({
             actions: actions,
             owner: $scope.contract.contract_details.admin_address
-        }).then(function(result) {
+        }, $scope.contract.network).then(function(result) {
             $scope.successTx = result;
         }, function(error) {
             switch(error.code) {
@@ -123,7 +123,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
                 data: {}
             }],
             owner: $scope.contract.contract_details.admin_address
-        }).then(function(result) {
+        }, $scope.contract.network).then(function(result) {
             $scope.successTx = result;
         }, function(error) {
             switch(error.code) {
@@ -156,7 +156,7 @@ angular.module('app').controller('eosCrowdSalePreviewController', function($time
                 data: {}
             }]
             // owner: $scope.contract.contract_details.admin_address
-        }).then(function(result) {
+        }, $scope.contract.network).then(function(result) {
             $scope.successTx = result;
         }, function(error) {
             switch(error.code) {

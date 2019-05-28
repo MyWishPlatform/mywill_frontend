@@ -115,7 +115,8 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             contract.token_short_name,
             new BigNumber($scope.recipient.amount).toFormat(contract.decimals).toString(10).replace(/,/g, ''),
             '',
-            (fullContract.contract_type == 14) ? contract.token_account : contract.eos_contract.address
+            (fullContract.contract_type == 14) ? contract.token_account : contract.eos_contract.address,
+            fullContract.network
         ).then(function(result) {
             $scope.mintInProgress = false;
             $scope.successTransaction = result;

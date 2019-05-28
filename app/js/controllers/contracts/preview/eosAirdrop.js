@@ -531,7 +531,7 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                 }
             }],
             owner: contract.contract_details.admin_address
-        }).then(function(result) {
+        }, contract.network).then(function(result) {
             $scope.successTx = result;
         }, function(error) {
             if (error.error) {
@@ -576,7 +576,7 @@ angular.module('app').controller('eosAirdropPreviewController', function($timeou
                     memo: contract.id
                 }
             }]
-        }).then(function(result) {
+        }, contract.network).then(function(result) {
             $scope.successTx = result;
         }, function(error) {
             switch(error.code) {

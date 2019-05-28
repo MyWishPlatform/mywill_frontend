@@ -113,12 +113,22 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     var networkConnectionModel;
 
     var networkConnection = function(network) {
-        this.network = network;
+        network = network * 1;
 
         if (networkConnectionModel) {
+            if (networkConnectionModel.network === network) {
+                switch (networkConnectionModel.state) {
+                    case 'pending':
+                    case 'check':
+                        return networkConnectionModel.promise;
+                    case 'connected':
+                        return networkConnectionModel.check();
+                }
+            }
             networkConnectionModel.abort();
         }
 
+        this.network = network;
         networkConnectionModel = this;
 
         var state = 'pending';
@@ -135,6 +145,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
             case 10:
                 displayingNetwork = 'MAINNET';
                 currentNetworkName = isProduction ? 'MAINNET' : 'TESTNET';
+                // currentNetworkName = 'MAINNET';
                 break;
             case 11:
                 displayingNetwork = 'TESTNET';
@@ -143,9 +154,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         }
 
         currentNetwork = network;
-        currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
 
         var reconnect = function() {
+            currentEndPoint = EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['params'];
             eos = Eos({
                 httpEndpoint: EOSNetworks[currentNetworkName][currentNetworks[currentNetworkName]]['url'],
                 verbose: false
@@ -155,6 +166,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
 
         var getInfo = function() {
+            state = 'check';
             return _this.getInfo().then(function(result) {
                 if (state === 'aborted') {
                     return;
@@ -164,6 +176,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
             }, function() {
                 currentNetworks[currentNetworkName]++;
                 currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
+                if (state === 'aborted') {
+                    return;
+                }
                 reconnect();
             });
         };
@@ -276,6 +291,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     };
 
     var getNetwork = function() {
+        console.log(currentEndPoint);
         return {
             blockchain: 'eos',
             chainId: currentEndPoint.chainId,
@@ -285,7 +301,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         }
     };
 
-    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, tokenAccount) {
+    this.mintTokens = function(tokenOwner, tokensTo, tokenSymbol, amount, memo, tokenAccount, network) {
         return _this.sendTx({
             owner: tokenOwner,
             actions: [{
@@ -298,11 +314,11 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                     memo: memo || ''
                 }
             }]
-        });
+        }, network);
     };
 
-    this.sendTx = function(params, defer) {
-        defer = defer || $q.defer();
+    this.sendTx = function(params, network) {
+        var defer = $q.defer();
         var createTransaction = function(tokenOwnerAccount, signature) {
             if (!tokenOwnerAccount) {
                 defer.reject({
@@ -330,11 +346,15 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
                 });
             });
         };
-        _this.connectScatter(params['owner'], createTransaction, function(error) {
-            defer.reject({
-                error: error
+
+        connectToNetwork(network).then(function() {
+            _this.connectScatter(params['owner'], createTransaction, function(error) {
+                defer.reject({
+                    error: error
+                });
             });
         });
+
         return defer.promise;
     };
 

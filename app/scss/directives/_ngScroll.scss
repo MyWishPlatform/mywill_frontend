@@ -6,9 +6,9 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 .scroller-ranger {
-  width: 12px;
+  width: 8px;
   cursor: pointer;
-  background-color: rgba(0,0,0,0.4);
+  //background-color: rgba(0,0,0,0.4);
 }
 .fn-scroller-line {
   right: 0;
@@ -24,16 +24,18 @@
 
 .select-1-container {
   .fn-scroller-line {
-    right: 2px;
-    top: 1px;
-    bottom: 1px;
+    right: 3px;
+    top: 2px;
+    bottom: 2px;
   }
   .scroller-line-container {
-    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    background-color: rgba(32, 110, 255, 0.1);
   }
   .scroller-ranger {
-    background-color: #ddd;
-    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0.3;
   }
 }
 

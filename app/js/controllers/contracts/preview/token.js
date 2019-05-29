@@ -149,20 +149,6 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
     web3Service.setProviderByNumber(contract.network);
     var web3Contract;
 
-    web3Service.getAccounts(contract.network).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, contract.network);
-        }
-        $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
-        web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
-        getTotalSupply();
-        $timeout(function() {
-            $scope.$apply();
-        });
-    });
 
     $scope.minStartDate = moment();
     contract.contract_details.token_holders = [];
@@ -178,6 +164,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
 
     var getTotalSupply = function() {
         web3Service.setProviderByNumber(contract.network);
+        web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
         web3Contract.methods.totalSupply().call(function(error, result) {
             if (error) {
                 result = 0;
@@ -193,6 +180,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             });
         });
     };
+    getTotalSupply();
 
     var beforeDistributed = {
         amount: 0,
@@ -219,7 +207,9 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         $scope.chartOptions.updater ? $scope.chartOptions.updater() : false;
     };
     $scope.mintSignature = {};
-    $scope.ngPopUp.mintInfo = $scope.ngPopUp.mintInfo || {};
+
+    // $scope.ngPopUp.mintInfo =
+    //     $scope.ngPopUp.mintInfo || {};
 
     $scope.generateSignature = function() {
         var mintInterfaceMethod = web3Service.getMethodInterface(
@@ -228,7 +218,7 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
-        var params = [$scope.recipient.address, amount];
+        var params = [$scope.recipient.address.toLowerCase()    , amount];
 
         if ($scope.recipient.isFrozen) {
             params.push($scope.recipient.freeze_date.format('X'));
@@ -236,6 +226,22 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         $scope.mintSignature.string = (new Web3()).eth.abi.encodeFunctionCall(
             mintInterfaceMethod, params
         );
+
+
+        web3Service.getAccounts(contract.network).then(function(result) {
+            $scope.currentWallet = result.filter(function(wallet) {
+                return wallet.wallet.toLowerCase() === contract.contract_details.admin_address.toLowerCase();
+            })[0];
+            if ($scope.currentWallet) {
+                web3Service.setProvider($scope.currentWallet.type, contract.network);
+            }
+            $scope.currentWallet = $scope.currentWallet ? $scope.currentWallet : true;
+            web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
+            $timeout(function() {
+                $scope.$apply();
+            });
+        });
+
     };
 
     $scope.sendMintTransaction = function() {
@@ -243,7 +249,9 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
         var txProgress;
-        $scope.ngPopUp.mintInfo.isProgress = true;
+        if ($scope.ngPopUp.mintInfo) {
+            $scope.ngPopUp.mintInfo.isProgress = true;
+        }
 
         if ($scope.recipient.isFrozen) {
             txProgress = web3Contract.methods.mintAndFreeze(
@@ -254,15 +262,18 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
                 from: $scope.currentWallet.wallet
             });
         } else {
-            txProgress = web3Contract.methods.mint($scope.recipient.address, amount).send({
+            txProgress = web3Contract.methods.mint($scope.recipient.address.toLowerCase(), amount).send({
                 from: $scope.currentWallet.wallet
             });
         }
         txProgress.then(function() {
-            $scope.ngPopUp.mintInfo.updateData ?
+            if ($scope.ngPopUp.mintInfo) {$scope.ngPopUp.mintInfo.updateData ?
                 $scope.ngPopUp.mintInfo.updateData() : false;
+            }
         }).finally(function() {
-            $scope.ngPopUp.mintInfo.isProgress = false;
+            if ($scope.ngPopUp.mintInfo) {
+                $scope.ngPopUp.mintInfo.isProgress = false;
+            }
             $scope.$apply();
         })
     };

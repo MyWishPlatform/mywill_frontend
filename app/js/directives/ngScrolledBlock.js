@@ -68,7 +68,7 @@ module.directive('ngScrolledBlock', function($timeout) {
             };
 
             var heightScrollBlockIni = function() {
-                defaultParams.maxHeight = 300; //defaultParams.children.first().outerHeight() * defaultParams.itemsCount;
+                defaultParams.maxHeight = 280; //defaultParams.children.first().outerHeight() * defaultParams.itemsCount;
                 if (defaultParams['showed']) {
                     scrolledContainer.scrollTop(oldScroll);
                 }

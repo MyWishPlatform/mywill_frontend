@@ -82,13 +82,14 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     this.checkAddress = function(address, network) {
         var defer = $q.defer();
         network*= 1;
-        connectToNetwork(network).then(function() {eos.getAccount(address, function (error, response) {
-            if (error) {
-                defer.reject(error);
-            } else {
-                defer.resolve(response);
-            }
-        });
+        connectToNetwork(network).then(function() {
+            eos.getAccount(address, function (error, response) {
+                if (error) {
+                    defer.reject(error);
+                } else {
+                    defer.resolve(response);
+                }
+            });
 
         });
         return defer.promise;
@@ -115,37 +116,21 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     var networkConnection = function(network) {
         network = network * 1;
 
-        if (networkConnectionModel) {
-            if (networkConnectionModel.network === network) {
-                switch (networkConnectionModel.state) {
-                    case 'pending':
-                    case 'check':
-                        return networkConnectionModel.promise;
-                    case 'connected':
-                        return networkConnectionModel.check();
-                }
-            }
-            networkConnectionModel.abort();
-        }
-
         this.network = network;
-        networkConnectionModel = this;
 
         var state = 'pending';
 
         this.abort = function() {
             state = 'aborted';
-            this.promise.reject();
+            if (thisPromise) {
+                thisPromise.reject();
+            }
         };
-
-        var defer = $q.defer();
-        this.promise = defer.promise;
 
         switch(network) {
             case 10:
                 displayingNetwork = 'MAINNET';
                 currentNetworkName = isProduction ? 'MAINNET' : 'TESTNET';
-                // currentNetworkName = 'MAINNET';
                 break;
             case 11:
                 displayingNetwork = 'TESTNET';
@@ -165,22 +150,35 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         };
 
 
+        var thisPromise;
+
         var getInfo = function() {
+            if (state === 'check') {
+                return thisPromise.promise;
+            }
             state = 'check';
-            return _this.getInfo().then(function(result) {
+            if (!thisPromise) {
+                thisPromise = $q.defer();
+            }
+            _this.getInfo().then(function(result) {
                 if (state === 'aborted') {
                     return;
                 }
                 state = 'connected';
+                thisPromise.resolve(result);
+                thisPromise = false;
                 return result;
             }, function() {
-                currentNetworks[currentNetworkName]++;
-                currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
                 if (state === 'aborted') {
                     return;
                 }
+                state = 'error';
+                currentNetworks[currentNetworkName]++;
+                currentNetworks[currentNetworkName] = (currentNetworks[currentNetworkName] > (EOSNetworks[currentNetworkName].length - 1)) ? 0 : currentNetworks[currentNetworkName];
                 reconnect();
             });
+
+            return thisPromise.promise;
         };
 
         reconnect();
@@ -188,15 +186,19 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         this.check = getInfo;
     };
 
-    this.createEosChain = networkConnection;
-
     var connectToNetwork = function(network) {
         network = network || (networkConnectionModel ? networkConnectionModel.network : 10);
+
         if (!(networkConnectionModel && (networkConnectionModel.network === network))) {
-            new networkConnection(network);
+            networkConnectionModel = new networkConnection(network);
         }
-        return networkConnectionModel.check();
+        var check = networkConnectionModel.check();
+        return check;
     };
+
+
+    this.createEosChain = connectToNetwork;
+
 
 
     this.getTableRows = function(scope, table, code, network, key) {
@@ -225,7 +227,7 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
     this.coinInfo = function(short_name, network, tokenAddress) {
         var defer = $q.defer();
-        connectToNetwork(network).then(function() {
+        connectToNetwork(network).then(function(result) {
             eos.getCurrencyStats(tokenAddress || eosAccounts[displayingNetwork]['TOKEN'], short_name, function (error, response) {
                 if (error) {
                     defer.reject(error);
@@ -291,7 +293,6 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
     };
 
     var getNetwork = function() {
-        console.log(currentEndPoint);
         return {
             blockchain: 'eos',
             chainId: currentEndPoint.chainId,

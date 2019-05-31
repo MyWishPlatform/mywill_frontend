@@ -58,8 +58,8 @@ module.constant('APP_CONSTANTS', {
     "NEO_TESTNET_ADDRESS": 'http://neoscan.mywish.io/',
     "NEO_MAINNET_ADDRESS": 'http://neoscan.mywish.io/',
 
-    "EOS_MAINNET_ADDRESS": "https://eospark.com/MainNet/",
-    "EOS_TESTNET_ADDRESS": "https://eospark.com/Jungle/",
+    "EOS_MAINNET_ADDRESS": "https://bloks.io/",
+    "EOS_TESTNET_ADDRESS": "https://jungle.bloks.io/",
 
     "TRON_MAINNET_ADDRESS": "https://tronscan.org/",
     "TRON_TESTNET_ADDRESS": "http://tronscan.mywish.io/",

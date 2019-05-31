@@ -27,6 +27,11 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
     });
 
+    $scope.notCookiesAccept = !$cookies.get('cookies-accepts');
+    $scope.closeCookiesInfo = function() {
+        $scope.notCookiesAccept = false;
+        $cookies.put('cookies-accept', '1');
+    };
 
     $rootScope.toggleMenu = function(state, event) {
         if (angular.element('body').is('.popup-showed')) return;

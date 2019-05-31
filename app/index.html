@@ -178,6 +178,22 @@
      ng-class="{visible: visibleGirl}"
      class="anime-girl"/ -->
 
-</body>
+<div class="cookies-info" ng-if="notCookiesAccept" style="display: none;"
+     ng-style="{display: notCookiesAccept ? 'block': 'none'}">
+    <div class="cookies-info_content">
+        <div class="cookies-info_content_text">
+            We use cookies to enhance your experience.
+            By using MyWish platform, you agree to our
+            <a href="https://mywish.io/privacy" target="_blank">Privacy Policy</a>
+        </div>
+        <div class="cookies-info_content_button">
+            <button class="btn btn-submit" ng-click="closeCookiesInfo()">
+                <span>Accept</span>
+            </button>
+        </div>
+    </div>
+</div>
 
+
+</body>
 </html>

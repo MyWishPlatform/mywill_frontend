@@ -25,3 +25,29 @@
 .icon-padlock:before {
   margin-left: 0.1em;
 }
+
+.cookies-info {
+  position: fixed;
+  left: 2em;
+  bottom: 2em;
+  padding: 1.5em;
+  width: 28em;
+  background-color: rgba(10, 10, 10, 0.9);
+  border-radius: 0.5em;
+  z-index: 10;
+  box-shadow: 0 0.2em 1em rgba(10, 10, 10, 0.5);
+  &_content {
+    color: #fff;
+    &_text {
+      font-size: 1.4em;
+      line-height: 1.45em;
+    }
+    &_button {
+      margin-top: 1.5em;
+      .btn {
+        float: right;
+        width: 50%;
+      }
+    }
+  }
+}

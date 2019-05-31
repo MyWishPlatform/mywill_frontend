@@ -41,14 +41,14 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 addressPaths.account = 'account';
                 addressPaths.token = 'address/info';
                 addressPaths.symbol = 'token';
-                addressPaths.tx = 'tx';
+                addressPaths.tx = 'transaction';
                 break;
             case 11:
                 networkUrl = (path !== 'symbol') ? APP_CONSTANTS.EOS_TESTNET_ADDRESS : APP_CONSTANTS.EOS_FLARE_MAINNET_ADDRESS;
                 addressPaths.account = 'account';
                 addressPaths.token = 'address/info';
                 addressPaths.symbol = 'token';
-                addressPaths.tx = 'tx';
+                addressPaths.tx = 'transaction';
                 break;
             case 14:
                 networkUrl = APP_CONSTANTS.TRON_MAINNET_ADDRESS;

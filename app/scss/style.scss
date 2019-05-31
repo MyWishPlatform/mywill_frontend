@@ -31,13 +31,15 @@
   left: 2em;
   bottom: 2em;
   padding: 1.5em;
-  width: 28em;
-  background-color: rgba(10, 10, 10, 0.9);
+  width: 29em;
+  background-color: rgba(30, 30, 30, 0.9);
   border-radius: 0.5em;
   z-index: 10;
   box-shadow: 0 0.2em 1em rgba(10, 10, 10, 0.5);
   &_content {
     color: #fff;
+    position: relative;
+    padding-right: 1em;
     &_text {
       font-size: 1.4em;
       line-height: 1.45em;
@@ -47,6 +49,38 @@
       .btn {
         float: right;
         width: 50%;
+        background: none;
+        border: 2px solid #fff;
+        color: #fff;
+      }
+    }
+
+    &_close {
+      position: absolute;
+      top: -1em;
+      right: -1em;
+      cursor: pointer;
+      height: 1.6em;
+      opacity: 0.6;
+      &:hover {
+        opacity: 1;
+      }
+      &:after, &:before {
+        content: '';
+        display: block;
+        width: 1.6em;
+        height: 3px;
+        border-radius: 1px;
+        background-color: rgb(255, 255, 255);
+        position: relative;
+        top: 0.8em;
+      }
+      &:after {
+        margin-top: -3px;
+        transform: rotate(45deg);
+      }
+      &:before {
+        transform: rotate(-45deg);
       }
     }
   }

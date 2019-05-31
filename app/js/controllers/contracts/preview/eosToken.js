@@ -121,7 +121,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
             $scope.mintInProgress = false;
             $scope.successTransaction = result;
         }, function(error) {
-            alert(JSON.stringify(error));
+            // alert(JSON.stringify(error));
             $scope.mintInProgress = false;
             switch(error.code) {
                 case 1:

@@ -27,10 +27,12 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }
     });
 
-    $scope.notCookiesAccept = !$cookies.get('cookies-accepts');
-    $scope.closeCookiesInfo = function() {
+    $scope.notCookiesAccept = !$cookies.get('cookies-accept');
+    $scope.closeCookiesInfo = function(withoutCookie) {
         $scope.notCookiesAccept = false;
-        $cookies.put('cookies-accept', '1');
+        if (!withoutCookie) {
+            $cookies.put('cookies-accept', '1');
+        }
     };
 
     $rootScope.toggleMenu = function(state, event) {

@@ -102,10 +102,9 @@
 .authio-logo-link {
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
-  transition: all linear 0.2s;
+  transition: all linear 0.1s;
   position: relative;
   z-index: 2;
-  opacity: 0.5;
   vertical-align: middle;
   display: inline-block;
   &__absolute {
@@ -121,8 +120,8 @@
   }
   img {
     border: 0 none;
-    width: 10em;
     vertical-align: middle;
+    width: 100%;
   }
   &.no-right {
     img {

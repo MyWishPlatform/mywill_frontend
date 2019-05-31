@@ -395,13 +395,19 @@
     </div>
 
     <div class="shadow-block__content no-border shadow-block__content_no-tb-padding" ng-if="request.authio">
-        <div class="form-control no-padding with-authio-logo">
-            <a href="https://authio.org/" target="_blank" class="authio-logo-link authio-logo-link__absolute">
-                <img class="authio-logo" src="/static/images/logos/authio.svg">
-            </a>
-            <div class="form-control-label"
-                 translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.SECOND_DESCRIPTION"></div>
-        </div><br/><br/>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-5 float-right">
+                <a href="https://www.oceanico.io/" target="_blank" class="authio-logo-link">
+                    <img class="authio-logo" src="/static/images/logos/logo-oceanico.png">
+                </a>
+            </div>
+            <div class="grid-cell grid-cell-3-5">
+
+                <div class="form-control-label"
+                     translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.SECOND_DESCRIPTION"></div>
+            </div>
+        </div>
+        <br/><br/>
     </div>
     <div class="shadow-block__content" ng-if="request.authio">
         <div class="form-control">

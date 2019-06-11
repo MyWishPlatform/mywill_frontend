@@ -231,7 +231,8 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
                 };
                 reGenerateChart();
                 $scope.$apply();
-            }, function() {
+            }, function(error) {
+                alert(JSON.stringify(error));
                 $scope.txServerError = true;
                 $scope.$apply();
             });
@@ -242,7 +243,8 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
                 };
                 reGenerateChart();
                 $scope.$apply();
-            }, function(response) {
+            }, function(error) {
+                alert(JSON.stringify(error));
                 $scope.txServerError = true;
                 $scope.$apply();
             });

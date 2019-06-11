@@ -310,23 +310,28 @@ angular.module('app').controller('swapBwishController', function($scope, SWAP_WI
 
     $scope.formParams = $scope.ngPopUp.params.request;
 
-    web3Service.getAccounts(1).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === $scope.ngPopUp.params.request.eth_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, 1);
-        } else {
-            web3Service.setProviderByNumber(1);
-        }
+    var createWeb3Contract = function() {
 
         web3Contract = web3Service.createContractFromAbi($scope.ngPopUp.params.contract.address, $scope.ngPopUp.params.contract.abi);
 
         var registerMethod = web3Service.getMethodInterface('put', $scope.contractDetails.abi);
         $scope.assignAddressSignature =
             (new Web3()).eth.abi.encodeFunctionCall(registerMethod, [$scope.formParams.bnb_address]);
+    };
 
+    web3Service.setProviderByNumber(1);
+    createWeb3Contract();
+
+    web3Service.getAccounts(1).then(function(result) {
+        $scope.currentWallet = result.filter(function(wallet) {
+            return wallet.wallet.toLowerCase() === $scope.ngPopUp.params.request.eth_address.toLowerCase();
+        })[0];
+        if ($scope.currentWallet) {
+            web3Service.setProvider($scope.currentWallet.type, 1);
+            createWeb3Contract();
+        }
     });
+
 
     $scope.sendRegisterAccountTransaction = function() {
         web3Contract.methods.put($scope.formParams.bnb_address).send({

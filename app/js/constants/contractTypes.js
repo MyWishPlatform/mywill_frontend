@@ -43,6 +43,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     17: 'tronAirdrop',
     18: 'tronLostKey',
     19: 'tokensLostKey',
+    22: 'wavesSto',
     '-1': 'wedding',
     '-2': 'custom'
 
@@ -135,6 +136,18 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
             'typeNumber': 7,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[7]
+        }]
+    };
+
+    var waves = {
+        'networks': [16, 17],
+        'list': [customContract, {
+            'icon': 'icon-waves-ico',
+            'title': 'STO Crowdsale Contract',
+            'description': 'Start your STO/Token sale with a few clicks',
+            'typeNumber': 22,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[22],
+            'directLink': 'https://waves.mywish.io/create/crowdsale'
         }]
     };
 
@@ -240,7 +253,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 NEO: neo,
                 RSK: rsk,
                 TRON: tronDefault,
-                EOS: eosDefault
+                EOS: eosDefault,
+                WAVES: waves
             };
             break;
     }

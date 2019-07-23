@@ -416,6 +416,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             $scope.contractsTypes = CONTRACT_TYPES_FOR_CREATE;
             iniListParams();
 
+            $scope.redirectTo = function(link, e) {
+                e.preventDefault();
+                e.stopPropagation();
+                location.href = link;
+            };
+
             $scope.$on('$locationChangeSuccess', function(event, oldLocation, newLocation) {
                 if (oldLocation == newLocation) return;
                 iniListParams();

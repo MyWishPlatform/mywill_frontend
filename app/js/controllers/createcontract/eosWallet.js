@@ -167,12 +167,14 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     };
     $scope.generateKeysPairs = function() {
         $scope.copiedKeys = false;
-        Eos.modules.ecc.randomKey().then(function(privateKey) {
-            $scope.generated_keys.active_public_key = Eos.modules.ecc.privateToPublic(privateKey);
+
+        window.eosjs_ecc.randomKey().then(function(privateKey) {
+            $scope.generated_keys.active_public_key = window.eosjs_ecc.privateToPublic(privateKey);
             $scope.generated_keys.active_private_key = privateKey;
         });
-        Eos.modules.ecc.randomKey().then(function(privateKey) {
-            $scope.generated_keys.owner_public_key = Eos.modules.ecc.privateToPublic(privateKey);
+
+        window.eosjs_ecc.randomKey().then(function(privateKey) {
+            $scope.generated_keys.owner_public_key = window.eosjs_ecc.privateToPublic(privateKey);
             $scope.generated_keys.owner_private_key = privateKey;
         });
     };

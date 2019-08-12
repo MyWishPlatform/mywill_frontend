@@ -65,7 +65,7 @@ angular.module('Directives').directive('ngEosAccount', function() {
                             $scope.ngEosAccountOptions.change(ctrl, addressInfo) : false;
                         ctrl.$setValidity('check-sum', !$scope.ngEosAccountOptions.invert);
                     }, function(response) {
-
+                        console.log(arguments);
                         if (currValue !== ctrl.$modelValue) return;
                         ctrl.$setValidity('not-checked', true);
                         switch (response.status) {

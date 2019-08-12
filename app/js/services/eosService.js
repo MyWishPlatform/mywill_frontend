@@ -66,7 +66,13 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
         var defer = $q.defer();
         network*= 1;
         connectToNetwork(network).then(function() {
-            eos.get_account(address).then(defer.resolve, defer.reject);
+            eos.get_account(address).then(function(response) {
+                defer.resolve(response);
+            }, function(error) {
+                defer.reject({
+                    status: error.json.code
+                });
+            });
         });
         return defer.promise;
     };

@@ -235,6 +235,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         abstract: true,
         template: '<div ui-view></div>',
         controller: 'baseContractsController'
+    }).state('main.try_swap', {
+        url: '/swaps-network',
+        templateUrl: templatesPath + 'try-swap.html',
+        controller: 'trySwapController'
     }).state('main.contracts.list', {
         url: '/contracts',
         controller: 'contractsController',

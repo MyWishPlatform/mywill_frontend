@@ -1,0 +1,103 @@
+.custom-widget {
+  .w-sn-wrapper {
+    background: none;
+    padding: 0;
+    display: block;
+  }
+  .w-sn-fields {
+    width: initial;
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+  .w-sn-one-field_label {
+    text-shadow: 0 1px 0 #fff;
+    font-size: 1.5em;
+    line-height: 1.2em;
+    color: #000;
+    padding: 0.4em 0;
+    text-transform: initial;
+  }
+  .w-sn-fields input {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 1.5em;
+    line-height: 1.4em;
+    padding: 0.7em 1em;
+    color: #000;
+    border-radius: 0.3em;
+    outline: none;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow linear 0.1s;
+    &:focus {
+      border-color: #206EFF;
+      box-shadow: 0 0 3px #206EFF;
+    }
+  }
+  .w-sn-one-field_inputs {
+    margin-top: 0.3em;
+    overflow: visible;
+  }
+  .w-sn-one-field_inputs_bt {
+    position: absolute;
+    border: 1px solid #ccc;
+    line-height: 1.2em;
+    font-size: 1.5em;
+    border-radius: 0.2em;
+    font-family: inherit;
+    padding: 8px 10px;
+    right: 4px;
+    top: 4px;
+    cursor: pointer;
+    color: #777;
+    background: #fff;
+    &:focus {
+      border-color: #206EFF;
+      box-shadow: 0 0 3px #206EFF;
+    }
+  }
+  .w-sn-submit-btn {
+    width: auto;
+    margin-top: 1.5em;
+
+  }
+  .w-sn-submit-btn_control {
+    width: initial;
+    background: #206EFF;
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    border: 0 none;
+    padding: 0 4em;
+    outline: none;
+    font-size: 1em;
+    height: 4em;
+    line-height: 3.88em;
+    border-radius: 2em;
+    display: inline-block;
+    vertical-align: middle;
+    transition: box-shadow 0.05s linear;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+    span {
+      font-size: 1.5em;
+    }
+  }
+
+
+}
+
+
+body .w-sn-ac-container {
+  border: 1px solid #eee;
+  margin-top: 4px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+body .w-sn-ac-item + .w-sn-ac-item {
+  border-top: 1px solid #eee;
+}

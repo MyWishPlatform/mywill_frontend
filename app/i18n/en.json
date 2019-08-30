@@ -23,7 +23,8 @@
     "LOG_OUT": "Log out",
     "EOSISH_CALCULATOR": "EOSISH Calculator",
     "VERSION": "version",
-    "WISH_SWAP": "WISH Swap to Binance"
+    "WISH_SWAP": "WISH Swap to Binance",
+    "TRY_SWAP": "Try SWAPS.NETWORK"
   },
   "HEADER": {
     "BUTTONS": {

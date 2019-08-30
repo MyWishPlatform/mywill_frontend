@@ -77,6 +77,10 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         static: true,
         url: 'support@mywish.io',
         type: 'mail'
+    }, {
+        title: 'MAIN_MENU.TRY_SWAP',
+        icon: 'icon-sn',
+        route: 'main.try_swap'
     },
     // {
     //     title: 'Log out',

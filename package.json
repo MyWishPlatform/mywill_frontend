@@ -14,7 +14,7 @@
     "@babel/core": "^7.4.0",
     "babelify": "^10.0.0",
     "browser-sync": "^2.24.4",
-    "bufferutil": "^1.2.1",
+    "bufferutil": "^4.0.1",
     "connect-modrewrite": "^0.9.0",
     "del": "^2.2.2",
     "envify": "^4.1.0",

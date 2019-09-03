@@ -1,5 +1,19 @@
 <div class="main-section-content">
-    <div class="shadow-block" ng-init="initSwapsWidget()">
+
+    <div class="contract-preview-tabs">
+        <div class="contract-preview-one-tab"
+             ng-class="{active: showedTab == 'form'}"
+             ng-click="setTab('form')">
+            <span>New SWAP</span>
+        </div>
+        <div class="contract-preview-one-tab"
+             ng-class="{active: showedTab == 'list'}"
+             ng-click="setTab('list')">
+            <span>My SWAPS</span>
+        </div>
+    </div>
+
+    <div class="shadow-block after-tabs">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">
                 <i class="shadow-block__content__blue-title__icon icon-sn"></i>
@@ -8,17 +22,20 @@
                 </div>
             </div>
         </div>
-        <div class="shadow-block__content"
-             ng-hide="successSwapForm">
-            <div id="swaps-network-widget" class="custom-widget"></div>
+
+        <div ng-init="initSwapsWidget()">
+            <div ng-if="swapIsInit">
+                <div class="shadow-block__content"
+                     ng-if="showedTab === 'form'">
+                    <div id="swaps-network-widget"
+                         ng-init="iniSwapsForm()"
+                         class="custom-widget"></div>
+                </div>
+                <div ng-if="showedTab === 'list'">
+                    <div id="orders-list" ng-init="iniSwapsList()"></div>
+                </div>
+            </div>
         </div>
-        <div class="shadow-block__content"
-             ng-hide="!successSwapForm">
-            <p class="normal-text">
-                Поздравляем!<br/>
-                Всё ништяк 😉<br/>
-                Можешь проверить <a href="http://devswaps.mywish.io/trades" target="_blank">тут</a>
-            </p>
-        </div>
+
     </div>
 </div>

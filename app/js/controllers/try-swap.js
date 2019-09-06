@@ -1,14 +1,12 @@
-angular.module('app').controller('trySwapController', function($scope) {
+angular.module('app').controller('trySwapController', function($scope, requestService) {
 
     $scope.showedTab = 'list';
+    $scope.swapIsInit = false;
 
     $scope.iniSwapsList = function() {
-        // SwapsNetwork.getSwapOrdersList().then(function(result) {
-        // });
-        SwapsNetwork.drawOrdersList('orders-list').then((orders) => {
-            console.log(orders);
-        });
+        SwapsNetwork.drawOrdersList('orders-list');
     };
+
 
     $scope.iniSwapsForm = function() {
         SwapsNetwork.drawForm('swaps-network-widget', {
@@ -19,17 +17,28 @@ angular.module('app').controller('trySwapController', function($scope) {
         });
     };
 
-    $scope.swapIsInit = false;
 
-    $scope.initSwapsWidget = function() {
-        SwapsNetwork.init({
-            userId: $scope.currentUser ? $scope.currentUser.id : 'DEFAULT',
-            onError: function(error) {
-                console.log(error);
-            }
-        }).then((result) => {
+    var updateSessionToken = function() {
+        return requestService.post({
+            data: {
+                origin: location.origin
+            },
+            path: 'generate_mywish_swap_token/',
+            method: 'POST'
+        }).then(function(response) {
+            return response.data.session_token;
+        });
+    };
+
+
+    $scope.initSwapsWidget = function () {
+        return SwapsNetwork.init({
+            updateSessionToken: function () {
+                return updateSessionToken();
+            },
+        }).then(function (result) {
             $scope.swapIsInit = true;
-            $scope.$apply();
+            return result;
         });
     };
 

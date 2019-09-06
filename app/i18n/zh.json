@@ -23,7 +23,8 @@
     "LOG_OUT": "登出",
     "EOSISH_CALCULATOR": "EOSISH 计算器",
     "VERSION": "版",
-    "WISH_SWAP": "WISH Swap to Binance"
+    "WISH_SWAP": "WISH Swap to Binance",
+    "TRY_SWAP": "OTC Trades"
   },
   "HEADER": {
     "BUTTONS": {

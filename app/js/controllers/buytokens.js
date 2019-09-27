@@ -34,14 +34,14 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     };
 
     $scope.convertAmountTo = function(toField) {
-        var rate = $scope.exRate[toField] || 2;
+        var rate = $scope.exRate[toField];
         var currencyValue = new BigNumber($scope.amountsValues.WISH || 0);
         $scope.amountsValues[toField]  = currencyValue.times(rate).round(2).toString(10);
         convertToUSDT();
     };
 
     $scope.convertAmountFrom = function(fromField) {
-        var rate = $scope.exRate[fromField] || 2;
+        var rate = $scope.exRate[fromField];
         var currencyValue = new BigNumber($scope.amountsValues[fromField] || 0);
         $scope.amountsValues.WISH  = currencyValue.div(rate).round(2).toString(10);
         convertToUSDT();

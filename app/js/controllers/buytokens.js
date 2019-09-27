@@ -65,6 +65,10 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'value': 'wish',
                 'select-icon': '/static/images/blockchain/mweth2.svg'
             }, {
+                'label': 'SWAP',
+                'value': 'swap',
+                'select-icon': '/static/images/logos/swap-logo.svg'
+            }, {
                 'label': 'BNB',
                 'value': 'bnb',
                 'select-icon': '/static/images/blockchain/binance-coin-logo.svg'
@@ -172,4 +176,48 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         }).then(console.log);
     };
 
+}).controller('buyWishByWishController', function($scope, $state, $rootScope, APP_CONSTANTS, web3Service) {
+
+    $scope.wishAddress = APP_CONSTANTS.SWAP.ADDRESS;
+
+    $scope.getProvider = function(name) {
+        web3Service.setProvider(name, 1);
+        return web3Service.web3();
+    };
+
+    web3Service.setProvider(name, 1);
+    web3Service.getAccounts(1).then(function(response) {
+        response.map(function(wallet) {
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
+    });
+
+    $scope.$watch('amountsValues.SWAP', function() {
+        if (!$scope.amountsValues.SWAP) return;
+
+        $scope.checkedTransferData = (new Web3).eth.abi.encodeFunctionCall({
+            name: 'transfer',
+            type: 'function',
+            inputs: [{
+                type: 'address',
+                name: 'to'
+            }, {
+                type: 'uint256',
+                name: 'value'
+            }]
+        }, [
+            $scope.currentUser.internal_address,
+            new BigNumber($scope.amountsValues.SWAP).times(Math.pow(10, 18)).toString(10)
+        ]);
+    });
+
+    $scope.sendTransaction = function() {
+        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
+            from: $scope.formData.address,
+            to: APP_CONSTANTS.SWAP.ADDRESS,
+            data: $scope.checkedTransferData
+        }).then(console.log);
+    };
+
 });
+

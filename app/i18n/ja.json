@@ -411,6 +411,7 @@
       "CHOOSE_PAYMENT_METHOD": "支払い方法を選択する",
       "CHOOSE_WALLET": "お財布を選択する",
       "SEND_WISH": "WISHトークンを送信する",
+      "SEND_SWAP": "SWAPトークンを送信する",
       "SEND_ETH": "あなたのETHを送信する",
       "SEND_BTC": "あなたのBTCを送信する",
       "SEND_BNB": "Send your BNB to:",

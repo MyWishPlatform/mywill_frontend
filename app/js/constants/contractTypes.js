@@ -147,7 +147,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'Start your STO/Token sale with a few clicks',
             'typeNumber': 22,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[22],
-            'directLink': 'https://waves.mywish.io/create/crowdsale'
+            'directLink': 'https://waves.mywish.io/create/crowdsale',
+            'price': true
         }]
     };
 

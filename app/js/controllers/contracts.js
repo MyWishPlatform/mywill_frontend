@@ -545,7 +545,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     var showPriceLaunchContract = function(contract) {
 
-        if ((contract.cost.WISH == 0) && (contract.cost.EOSISH == 0) && (contract.cost.TRX == 0)) {
+        if (contract.cost.WISH == 0) {
             launchContract(contract);
             return;
         }

@@ -153,7 +153,8 @@
     "BTC": "BTC",
     "NEO": "NEO",
     "EOS": "EOS",
-    "TRON": "TRON"
+    "TRON": "TRON",
+    "WAVES": "WAVES"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {

@@ -364,7 +364,7 @@
     },
     "EXTERNAL_DEVELOPERS": {
       "TITLE": "External Developers",
-      "DESCRIPTION": "To add your contract to the MyWish library and start audit process, fill the form below.",
+      "DESCRIPTION": "If you need any kind of custom development please fill the form below.",
       "FIELDS": {
         "USER_NAME": {
           "LABEL": "User name"
@@ -376,7 +376,8 @@
           "LABEL": "Contract name"
         },
         "DESCRIPTION": {
-          "PLACEHOLDER": "Contract description"
+          "LABEL": "Your Request",
+          "PLACEHOLDER": "Please describe what kind of the development do you need (new blockchain creation, token contract, individual smart contract etc.)"
         }
       }
     },
@@ -408,7 +409,7 @@
       "TITLE": "Buy Tokens",
       "NOTE": {
         "RED_TEXT": "Please note!",
-        "TEXT": "After replenish you will be not able to transfer/exchange tokens. You can use it only for contracts creation inside the Platform"
+        "TEXT": "After replenish you will not be able to transfer/exchange tokens. You can use it only for contracts creation inside the Platform"
       },
       "GET": "Get",
       "SEND": "Send",

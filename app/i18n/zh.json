@@ -364,7 +364,7 @@
     },
     "EXTERNAL_DEVELOPERS": {
       "TITLE": "外部开发人员",
-      "DESCRIPTION": "若你想要将合同添加到MyWish库并开始审计过程，请填写下面的表单。",
+      "DESCRIPTION": "If you need any kind of custom development please fill the form below.",
       "FIELDS": {
         "USER_NAME": {
           "LABEL": "用户名"
@@ -376,7 +376,8 @@
           "LABEL": "合约名称"
         },
         "DESCRIPTION": {
-          "PLACEHOLDER": "合约描述"
+          "LABEL": "Your Request",
+          "PLACEHOLDER": "Please describe what kind of the development do you need (new blockchain creation, token contract, individual smart contract etc.)"
         }
       }
     },

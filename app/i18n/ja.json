@@ -364,7 +364,7 @@
     },
     "EXTERNAL_DEVELOPERS": {
       "TITLE": "外部開発者",
-      "DESCRIPTION": "MyWishライブラリにご契約を追加し、監査プロセスを開始するには、以下のフォームに記入してください。",
+      "DESCRIPTION": "If you need any kind of custom development please fill the form below.",
       "FIELDS": {
         "USER_NAME": {
           "LABEL": "ユーザー名"
@@ -376,7 +376,8 @@
           "LABEL": "契約名"
         },
         "DESCRIPTION": {
-          "PLACEHOLDER": "契約の説明"
+          "LABEL": "Your Request",
+          "PLACEHOLDER": "Please describe what kind of the development do you need (new blockchain creation, token contract, individual smart contract etc.)"
         }
       }
     },

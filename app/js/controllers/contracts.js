@@ -202,7 +202,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 }
                 break;
             case 5:
-                contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE');
+                contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE') || (contract.state === 'ENDED');
                 contract.withAuthioForm = contract.isAuthioToken && !contract.contract_details.authio;
                 if (contract.withAuthioForm) {
                     contractService.getAuthioCost().then(function(response) {

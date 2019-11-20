@@ -31,13 +31,15 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             contractDetails.eth_contract_token.abi
         );
 
-        contractWeb3.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
-            if (error) return;
-            if (result * 1) {
-                $scope.tokensFreezed = true;
-            }
-            $scope.$apply();
-        });
+        if (contractWeb3.methods.freezingBalanceOf) {
+            contractWeb3.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+                if (error) return;
+                if (result * 1) {
+                    $scope.tokensFreezed = true;
+                }
+                $scope.$apply();
+            });
+        }
     }
 
     $scope.currencyPow = $scope.blockchain === 'NEO' ? 0 : 18;

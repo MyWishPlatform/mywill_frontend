@@ -582,7 +582,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "Due to high deployment costs, you need to contact <a href=\"mailto:support@mywish.io\">support@mywish.io</a> before the creation in Main Net"
+          "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
       }
     }

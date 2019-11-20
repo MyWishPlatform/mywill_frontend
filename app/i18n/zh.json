@@ -581,7 +581,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "由于开发成本较高，您需在主网创建合约前联系<a href=\"mailto:support@mywish.io\"> support@mywish.io </a> "
+          "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
       }
     }

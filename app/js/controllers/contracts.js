@@ -93,6 +93,34 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
 
     var setContractStatValues = function(contract) {
+        switch (contract.contract_type) {
+            case 11:
+                switch (contract.state) {
+                    case 'CREATED':
+                        contract.state = 'DRAFT';
+                        break;
+                    case 'WAITING_FOR_DEPLOYMENT':
+                        contract.state = 'CREATING';
+                        break;
+                }
+                break;
+            case 8:
+                if (contract.contract_details.processing_count) {
+                    contract.state = 'SENDING_TOKENS';
+                }
+                break;
+            case 9:
+                if (($rootScope.getNowDateTime(true).format('X') * 1 > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
+                    contract.state = 'CANCELLED';
+                }
+                break;
+            case 13:
+                if (contract.contract_details.processing_count) {
+                    contract.state = 'SENDING_TOKENS';
+                }
+                break;
+
+        }
         contract.stateValue = $scope.statuses[contract.state]['value'];
         contract.stateTitle = $scope.statuses[contract.state]['title'];
     };
@@ -165,11 +193,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     });
                 }
                 break;
-            case 13:
-                if (contract.contract_details.processing_count) {
-                    contract.state = 'SENDING_TOKENS';
-                }
-                break;
         }
     };
 
@@ -181,26 +204,6 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
         switch (contract.contract_type) {
-            case 11:
-                switch (contract.state) {
-                    case 'CREATED':
-                        contract.state = 'DRAFT';
-                        break;
-                    case 'WAITING_FOR_DEPLOYMENT':
-                        contract.state = 'CREATING';
-                        break;
-                }
-                break;
-            case 8:
-                if (contract.contract_details.processing_count) {
-                    contract.state = 'SENDING_TOKENS';
-                }
-                break;
-            case 9:
-                if (($rootScope.getNowDateTime(true).format('X') * 1 > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
-                    contract.state = 'CANCELLED';
-                }
-                break;
             case 5:
                 contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE') || (contract.state === 'ENDED');
                 contract.withAuthioForm = contract.isAuthioToken && !contract.contract_details.authio;
@@ -388,22 +391,22 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.network) {
             case 1:
             case 2:
-                iniETHContract(contract, fullScan);
                 setContractStatValues(contract);
+                iniETHContract(contract, fullScan);
                 break;
             case 3:
             case 4:
-                iniRSKContract(contract, fullScan);
                 setContractStatValues(contract);
+                iniRSKContract(contract, fullScan);
                 break;
             case 6:
-                iniNeoContract(contract, fullScan);
                 setContractStatValues(contract);
+                iniNeoContract(contract, fullScan);
                 break;
             case 10:
             case 11:
-                iniEOSContract(contract, fullScan);
                 setContractStatValues(contract);
+                iniEOSContract(contract, fullScan);
                 if ($cookies.get('partnerpromo') && ($state.current.name === "main.contracts.preview.byId") && (contract.stateValue === 1)) {
                     contract.promo = $cookies.get('partnerpromo');
                     $scope.getDiscount(contract, true);

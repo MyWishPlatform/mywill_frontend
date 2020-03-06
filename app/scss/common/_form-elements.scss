@@ -316,7 +316,6 @@
         }
       }
     }
-
     &.ng-invalid-contract-address {
       ~ {
         .form-field_error-contract-address {
@@ -331,6 +330,9 @@
   }
 }
 
+.form-field_error-check-sum {
+  display: none!important;
+}
 
 .form-control-little {
   float: left;

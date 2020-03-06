@@ -44,6 +44,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     18: 'tronLostKey',
     19: 'tokensLostKey',
     22: 'wavesSto',
+    23: 'tokenProtector',
     '-1': 'wedding',
     '-2': 'custom'
 
@@ -68,12 +69,20 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[5],
             'price': true
         }, {
-          'icon': 'icon-crowdsale',
-          'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
-          'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
-          'typeNumber': 4,
-          'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
-          'price': true
+            'icon': 'icon-token-protector',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN_PROTECTOR.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN_PROTECTOR.DESCRIPTION',
+            'typeNumber': 23,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[23],
+            'directLink': 'https://protector.mywish.io/create',
+            'price': true
+        }, {
+            'icon': 'icon-crowdsale',
+            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
+            'typeNumber': 4,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
+            'price': true
         }, {
             'icon': 'icon-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',

@@ -269,6 +269,10 @@
         "TITLE": "クラウド セール契約",
         "DESCRIPTION": "数回のクリックでICO・トークンの販売を開始する"
       },
+      "TOKEN_PROTECTOR": {
+        "TITLE": "Token Protector",
+        "DESCRIPTION": "Protect your tokens in case of losing private keys"
+      },
       "TOKEN": {
         "TITLE": "トークン契約",
         "DESCRIPTION": "トークンを作成し、自分で配布するか、クラウドセールの契約で配布する"

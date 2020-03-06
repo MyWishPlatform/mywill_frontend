@@ -270,6 +270,10 @@
         "TITLE": "Crowdsale contract",
         "DESCRIPTION": "Start your ICO/Token sale with a few clicks"
       },
+      "TOKEN_PROTECTOR": {
+        "TITLE": "Token Protector",
+        "DESCRIPTION": "Protect your tokens in case of losing private keys"
+      },
       "TOKEN": {
         "TITLE": "Token contract",
         "DESCRIPTION": "Create a Token and distribute it yourself or by our Crowdsale Contract"

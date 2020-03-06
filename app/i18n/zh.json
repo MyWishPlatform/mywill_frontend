@@ -269,6 +269,10 @@
         "TITLE": "ICO合约",
         "DESCRIPTION": "点击几下即可开始您的ICO /代币销售"
       },
+      "TOKEN_PROTECTOR": {
+        "TITLE": "Token Protector",
+        "DESCRIPTION": "Protect your tokens in case of losing private keys"
+      },
       "TOKEN": {
         "TITLE": "代币合约",
         "DESCRIPTION": "创建一个代币并自行或与代币销售合约一起分发"

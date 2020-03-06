@@ -127,10 +127,11 @@
       &__icon {
         display: inline-block;
         vertical-align: middle;
-        margin-left: -1.4em;
+        margin-left: -1.45em;
         font-size: 5em;
-        width: 1.3em;
+        width: 1em;
         color: $main-color;
+        text-align: center;
       }
     }
     &__blue-title {

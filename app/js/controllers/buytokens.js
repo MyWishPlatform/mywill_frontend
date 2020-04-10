@@ -60,11 +60,11 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'label': 'WISH Binance',
                 'value': 'bnb-wish',
                 'select-icon': '/static/images/blockchain/mwbnb2.svg'
-            }, {
+            }/*, {
                 'label': 'WISH Ethereum',
                 'value': 'wish',
                 'select-icon': '/static/images/blockchain/mweth2.svg'
-            }, {
+            }*/, {
                 'label': 'SWAP',
                 'value': 'swap',
                 'select-icon': '/static/images/logos/swap-logo.svg'

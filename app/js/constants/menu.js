@@ -27,11 +27,11 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         icon: 'icon-but-tokens',
         route: 'main.buytokens',
         noactive: false
-    }, {
+    },/*{
         title: 'MAIN_MENU.WISH_SWAP',
         icon: 'icon-binance',
         route: 'main.swapbwish'
-    },/*{
+    }, {
         title: 'MAIN_MENU.JOIN_AIRDROP',
         icon: 'icon-eosish-circle',
         route: 'main.join_airdrop',
@@ -67,11 +67,11 @@ angular.module('Constants').constant('MENU_CONSTANTS', [
         route: 'main.faq',
         noactive: true,
         noshow: true
-    }, {
+    }/*, {
         title: 'Developer API',
         icon: 'icon-framew',
         route: 'main.api'
-    }, {
+    }*/, {
         title: 'MAIN_MENU.SUPPORT',
         icon: 'icon-at',
         static: true,

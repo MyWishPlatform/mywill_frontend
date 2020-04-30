@@ -170,6 +170,19 @@
                     </div>
                 </div>
             </div>
+            <div ng-if="contractForCreate.additional_link"
+                 ng-click="$event.preventDefault(); $event.stopPropagation()"
+                 ng-pop-up="{
+                    template: '/templates/popups/additional-link.html',
+                    class: 'deleting-contract',
+                    params: {
+                        content: contractForCreate.additional_link.content
+                    },
+                    newPopupContent: true
+                }"
+                 class="contract-type_additional-link">
+                {{ contractForCreate.additional_link.text }}
+            </div>
         </div>
     </div>
 </div>

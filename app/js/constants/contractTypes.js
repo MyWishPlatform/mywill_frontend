@@ -188,21 +188,36 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_PERSONAL.DESCRIPTION',
             'typeNumber': 14,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[14],
-            'price': true
+            'price': true,
+            'additional_link': {
+                type: 'modal',
+                content: 'alcor',
+                text: 'Free listing on Alcor.exchange'
+            }
         }, {
             'icon': 'icon-token-eos',
             'title': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.DESCRIPTION',
             'typeNumber': 10,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[10],
-            'price': true
+            'price': true,
+            'additional_link': {
+                type: 'modal',
+                content: 'alcor',
+                text: 'Free listing on Alcor.exchange'
+            }
         }, {
             'icon': 'icon-eos-ico',
             'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
             'typeNumber': 12,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[12],
-            'price': true
+            'price': true,
+            'additional_link': {
+                type: 'modal',
+                content: 'alcor',
+                text: 'Free listing on Alcor.exchange'
+            }
         }, {
             'icon': 'icon-eos-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',

@@ -34,6 +34,16 @@
 
   }
 }
+.contract-type_additional-link {
+  float: right;
+  color: $main-color;
+  cursor: pointer;
+  padding: 0.2em 0;
+  font-size: 1.4em;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 .contract-price-block {
   position: absolute;
   top: 1.8em;

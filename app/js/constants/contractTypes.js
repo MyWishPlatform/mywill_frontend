@@ -89,7 +89,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
             'typeNumber': 8,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[8],
-            'price': true
+            'price': false
         }, {
             'icon': 'icon-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.INVESTMENT_POOL.TITLE',

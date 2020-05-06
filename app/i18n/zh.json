@@ -1566,6 +1566,7 @@
         "PREVIEW_DESCRIPTION": "合同部署后，您将能够添加要分发的地址列表",
         "ADDED_ADDRESSES": "你添加了 {{count}}地址",
         "SENT_ADDRESSES": "代币发送给  {{count}} 地址",
+        "TOTAL_SENT_ADDRESSES": "Total tokens sent to {{count}} addresses",
         "PROCESSING_ADDRESSES": "现在发送到地址 #{{from}} - {{to}}",
         "NOT_SEND_ADDRESSES": "没有发送到 {{count}}  地址",
         "LOW_BALANCE": "没有足够的代币 <br/>请存入合同 (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) 在执行之前",

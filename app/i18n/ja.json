@@ -1567,6 +1567,7 @@
         "PREVIEW_DESCRIPTION": "契約の展開後、配布するアドレスのリストを追加することができます。",
         "ADDED_ADDRESSES": "あなたは{{count}}のアドレスを追加しました",
         "SENT_ADDRESSES": "トークンは{{count}}のアドレスに送信されました",
+        "TOTAL_SENT_ADDRESSES": "Total tokens sent to {{count}} addresses",
         "PROCESSING_ADDRESSES": "今は#{{from}} - {{to}}のアドレスへ送ります",
         "NOT_SEND_ADDRESSES": "{{count}}のアドレスには送信されません",
         "LOW_BALANCE": "トークンが足りません。<br/>実行前に契約書(<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) を堆積してください",

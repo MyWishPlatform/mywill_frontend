@@ -60,6 +60,7 @@
             </div>
             <div class="grid-cell grid-cell-1-2 text-right">
                 <button class="btn btn-transparent"
+                        ng-click="closeCurrentPopup()"
                         ng-disabled="!airdrop_enabled"
                         type="button" ng-pop-up="{
                         template: '/templates/popups/instructions/eth/airdrop-send-instruction.html',

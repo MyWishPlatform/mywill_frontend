@@ -135,7 +135,7 @@
                 <div translate="CONTRACTS.PREVIEW.AIRDROP.NO_ADDRESSES"></div>
             </div>
         </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.all_count">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.contract_details.all_count || contract.contract_details.total_sent_count">
             <div class="form-control-label" ng-if="contract.contract_details.sent_count != contract.contract_details.all_count">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
@@ -157,28 +157,7 @@
                           translate="CONTRACTS.PREVIEW.AIRDROP.ADDED_ADDRESSES"></span>
                 </a>
             </div>
-            <div class="form-control-label"  ng-if="contract.contract_details.sent_count">
-                <a href="#" class="as-link dotted"
-                   ng-pop-up="{
-                        template: '/templates/popups/data-preview/airdrop-addresses-preview.html',
-                        newPopupContent: true,
-                        class: 'page-size',
-                        params: {
-                            filter: 'sent',
-                            contract: contract,
-                            tokenInfo: tokenInfo,
-                            title: 'CONTRACTS.PREVIEW.AIRDROP.SENT_ADDRESSES',
-                            titleParams: {
-                                count: contract.contract_details.sent_count
-                            }
-                        }
-                   }">
-                    <span translate="CONTRACTS.PREVIEW.AIRDROP.SENT_ADDRESSES"
-                          translate-values="{
-                            count: contract.contract_details.sent_count
-                      }"></span>
-                </a>
-            </div>
+
             <div class="form-control-label" ng-if="contract.contract_details.processing_count">
                 <a href="#" class="as-link dotted"
                    ng-pop-up="{
@@ -224,6 +203,38 @@
                             count: contract.contract_details.added_count
                           }"></span>
                 </a>
+            </div>
+
+            <div class="form-control-label"  ng-if="contract.contract_details.total_sent_count">
+                <a href="#" class="as-link dotted"
+                   ng-pop-up="{
+                        template: '/templates/popups/data-preview/airdrop-addresses-preview.html',
+                        newPopupContent: true,
+                        class: 'page-size',
+                        params: {
+                            filter: 'all_sent',
+                            contract: contract,
+                            tokenInfo: tokenInfo,
+                            title: 'CONTRACTS.PREVIEW.AIRDROP.TOTAL_SENT_ADDRESSES',
+                            titleParams: {
+                                count: contract.contract_details.total_sent_count
+                            }
+                        }
+                   }">
+                    <span translate="CONTRACTS.PREVIEW.AIRDROP.TOTAL_SENT_ADDRESSES"
+                          translate-values="{
+                            count: contract.contract_details.total_sent_count
+                      }"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <div>
+                    Please do not continue distribution until the information is updated in the contract
+                </div>
             </div>
         </div>
 

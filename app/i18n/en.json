@@ -1568,6 +1568,7 @@
         "PREVIEW_DESCRIPTION": "After Contract deployment you will be able to add the list of the addresses for distribution.",
         "ADDED_ADDRESSES": "You have added {{count}} addresses",
         "SENT_ADDRESSES": "Tokens sent to {{count}} addresses",
+        "TOTAL_SENT_ADDRESSES": "Total tokens sent to {{count}} addresses",
         "PROCESSING_ADDRESSES": "Sending now to addresses #{{from}} - {{to}}",
         "NOT_SEND_ADDRESSES": "Not sent to {{count}} addresses",
         "LOW_BALANCE": "Not enough tokens. <br/>Please deposit the contract (<b>{{require|separateNumber}}&nbsp;{{tokenSymbol}}</b>) before the execution",

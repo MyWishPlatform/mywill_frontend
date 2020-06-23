@@ -72,6 +72,15 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 4:
                 web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.RSK_TESTNET_NET_ADDRESS));
                 break;
+
+            case 22:
+                web3.setProvider(new Web3.providers.HttpProvider(isProduction ? APP_CONSTANTS.BNB_NET_ADDRESS : APP_CONSTANTS.BNB_TESTNET_NET_ADDRESS));
+                break;
+            case 23:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.BNB_TESTNET_NET_ADDRESS));
+                break;
+
+
         }
     };
 
@@ -80,6 +89,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
         switch (network) {
             case 1:
                 network = isProduction ? network : 2;
+                break;
+            case 22:
+                network = isProduction ? network : 23;
                 break;
         }
 
@@ -91,7 +103,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                     ((networkVersion == 31) && (network == 4)) ||
                     ((networkVersion == 30) && (network == 3)) ||
                     ((networkVersion == 1) && (network == 1)) ||
-                    ((networkVersion == 3) && (network == 2))
+                    ((networkVersion == 3) && (network == 2)) ||
+                    ((networkVersion == 96) && (network == 23))
                 ) {
                     currentProvider = web3Providers[providerName];
                     web3.setProvider(currentProvider);
@@ -106,7 +119,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     var checkMetamaskNetwork = function(network) {
         var networkVersion = parseInt(window['ethereum'].networkVersion, 10);
         return ((networkVersion === 1) && (network === 1)) ||
-            ((networkVersion === 3) && (network === 2));
+            ((networkVersion === 3) && (network === 2)) ||
+            ((networkVersion === 96) && (network === 23));
     };
 
     var getMetamaskAccounts = function(providerName, network, callback) {
@@ -184,6 +198,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 1:
                 network = isProduction ? network : 2;
                 break;
+            case 22:
+                network = isProduction ? network : 23;
+                break;
         }
 
         for (var clientName in web3Providers) {
@@ -238,7 +255,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             path: API.GET_ETH_TOKENS_FOR_ADDRESS,
             query: {
                 address: address,
-                network: ((network === 1) && isProduction) ? 'mainnet' : 'testnet'
+                network: ((network === 1 || network === 22) && isProduction) ? 'mainnet' : 'testnet'
             }
         };
         return requestService.get(params);

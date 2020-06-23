@@ -10,76 +10,85 @@
                   translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.DESCRIPTION"></span>
             <span ng-if="ngPopUp.instructionParams.specifyDescription"
                   translate-values="{
-                    coinName: ngPopUp.instructionParams.coinName
+                    coinName: tokenInfo.symbol
                   }"
                   translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.{{ngPopUp.instructionParams.specifyDescription}}"></span>
         </div>
     </div>
-    <div class="shadow-block__content shadow-block__content_min-tb-padding">
-        <ul class="new-instruction-list">
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate-values="{depositUrl: depositUrl}"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_1"
-                ></div>
-            </li>
 
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_2">
-                </div>
-            </li>
 
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    {{'CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_3'|translate}}
-                    <div class="copy-block">
-                        <button class="copy-block__button relative"
-                                clipboard supported="supported"
-                                text="ngPopUp.params.contract.contract_details.eth_contract.address"
-                                ng-class="{copied: ngPopUp.params.contract.copied['address']}"
-                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'address')">&nbsp;
-                            <i class="icon-content_copy"></i>
-                        </button>
-                        <div class="copy-block__text">{{ngPopUp.params.contract.contract_details.eth_contract.address}}</div>
-                    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="!dataFields.sendTransaction">
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="address-amount" class="form-control-label"
+                           translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.AMOUNT.LABEL"></label>
+                    <input class="form-control-input"
+                           id="address-amount"
+                           ng-disabled="!tokenInfo.decimals"
+                           pattern="[0-9,]+{{(tokenInfo.decimals * 1 > 0) ? '(\.[0-9]{1,' + tokenInfo.decimals + '})?' : ''}}$"
+                           commaseparator="{
+                                regexp: '^(([0]{1})||([1-9][0-9]{0,25}))(\.[0-9]*)?$',
+                                min: 1/$root.pow(10, tokenInfo.decimals),
+                                max: tokenInfo.balanceOf
+                           }"
+                           required
+                           ng-model="dataFields.amount"/>
                 </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate-values="{
-                        coinName: ngPopUp.instructionParams.coinName
-                     }"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_4">
-                </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate-values="{
-                        gasLimit: ngPopUp.instructionParams.gasLimit
-                     }"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_5">
-                </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_6">
-                </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.ETH.DEPOSIT.LIST.ITEM_7">
-                </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
+
+
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="dataFields.sendTransaction">
+        <a ng-attr-href="{{
+            'https://myetherwallet.com/interface/send-transaction/?data=' + transferSignature +
+            '&value=0&to=' + ngPopUp.params.contract.contract_details.token_address}}"
+           ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
+           target="_blank" class="btn btn-gray with-icon nowrap">
+            <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>MyEtherwallet</span>
+        </a>
+        <button ng-click="sendTransaction()"
+                ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
+                ng-disabled="currentWallet.type !== 'parity'"
+                class="btn btn-gray with-icon nowrap">
+            <span class="lds-ellipsis" ng-if="!currentWallet">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
+            <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Parity</span>
+        </button>
+        <button  ng-click="sendTransaction()"
+                 ng-disabled="currentWallet.type !== 'metamask'"
+                 class="btn btn-gray with-icon nowrap">
+            <span class="lds-ellipsis" ng-if="!currentWallet">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
+            <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
+            <span>Metamask</span>
+        </button>
+
+    </div>
+
+    <div class="form-fieldset-delimiter" ng-if="dataFields.sendTransaction"><span class="uppercase" translate="OR"></span></div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-if="dataFields.sendTransaction"
+         ng-init="instructionData = instructionDataModal"
+         ng-include="'/templates/popups/instructions/transaction-template.html'">
+    </div>
+
     <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
-        <button class="btn btn-submit" ng-click="closeCurrentPopup()">
-            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        <button class="btn btn-submit" ng-click="goToTransaction()" ng-if="!dataFields.sendTransaction">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.SEND'|translate}}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+        <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.CANCEL'|translate}}&nbsp;&nbsp;&nbsp;</span>
         </button>
     </div>
 </div>

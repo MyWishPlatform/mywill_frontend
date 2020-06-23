@@ -1,5 +1,10 @@
 @font-face {
   font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?d5fnw6');
+  src:  url('fonts/icomoon.eot?d5fnw6#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?d5fnw6') format('truetype'),
+  url('fonts/icomoon.woff?d5fnw6') format('woff'),
+  url('fonts/icomoon.svg?d5fnw6#icomoon') format('svg');
   src:  url('fonts/icomoon.eot?uqvbm');
   src:  url('fonts/icomoon.eot?uqvbm#iefix') format('embedded-opentype'),
   url('fonts/icomoon.ttf?uqvbm') format('truetype'),
@@ -13,7 +18,7 @@
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -27,6 +32,18 @@
 
 .icon-token-protector:before {
   content: "\e95a";
+}
+.icon-bnb-investment-pool:before {
+  content: "\e95a";
+}
+.icon-bnb-airdrop:before {
+  content: "\e95b";
+}
+.icon-bnb-crowdsale:before {
+  content: "\e95c";
+}
+.icon-bnb-token:before {
+  content: "\e95d";
 }
 .icon-waves-ico:before {
   content: "\e959";
@@ -252,8 +269,17 @@
 .icon-checkmark:before {
   content: "\ea10";
 }
-.icon-dollar:before {
-  content: "\e957";
+.icon-padlock:before {
+  content: "\e927";
+}
+.icon-trash:before {
+  content: "\e917";
+}
+.icon-warning:before {
+  content: "\e933";
+}
+.icon-note-list:before {
+  content: "\e945";
 }
 .icon-eye-off:before {
   content: "\e953";
@@ -275,18 +301,6 @@
 }
 .icon-alert-circle:before {
   content: "\e936";
-}
-.icon-padlock:before {
-  content: "\e927";
-}
-.icon-trash:before {
-  content: "\e917";
-}
-.icon-warning:before {
-  content: "\e933";
-}
-.icon-note-list:before {
-  content: "\e945";
 }
 .icon-download:before {
   content: "\e944";
@@ -335,4 +349,7 @@
 }
 .icon-exit:before {
   content: "\e939";
+}
+.icon-dollar:before {
+  content: "\e957";
 }

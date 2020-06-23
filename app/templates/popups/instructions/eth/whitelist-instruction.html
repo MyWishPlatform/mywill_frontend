@@ -13,18 +13,20 @@
         <a ng-attr-href="{{
             'https://myetherwallet.com/interface/send-transaction/?data=' + addWhiteListSignature +
             '&value=0&to=' + contract.contract_details.eth_contract_crowdsale.address}}"
+           ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="sendTransaction()"
-                ng-if="currentWallet && (currentWallet.type === 'parity')"
+                ng-disabled="currentWallet.type !== 'parity'"
+                ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
         <button  ng-click="sendTransaction()"
-                 ng-if="currentWallet && (currentWallet.type === 'metamask')"
+                 ng-disabled="currentWallet.type !== 'metamask'"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>
@@ -36,11 +38,10 @@
          ng-init="instructionData = {
             'dataField': addWhiteListSignature,
             'ownerAddress': contract.contract_details.admin_address,
-            'contractAddress': contract.contract_type === 4 ?
-                contract.contract_details.eth_contract_crowdsale.address :
-                contract.contract_details.eth_contract.address,
+            'contractAddress': contract.contract_details[contracInfoKey].address,
             'contract': {
-                network: contract.network
+                network: contract.network,
+                blockchain: contract.blockchain
             }
          }"
          ng-include="'/templates/popups/instructions/transaction-template.html'">

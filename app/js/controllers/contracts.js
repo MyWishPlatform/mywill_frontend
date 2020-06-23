@@ -105,11 +105,13 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 }
                 break;
             case 8:
+            case 29:
                 if (contract.contract_details.processing_count) {
                     contract.state = 'SENDING_TOKENS';
                 }
                 break;
             case 9:
+            case 30:
                 if (($rootScope.getNowDateTime(true).format('X') * 1 > contract.contract_details.stop_date) && (contract.stateValue === 4)) {
                     contract.state = 'CANCELLED';
                 }
@@ -222,6 +224,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 1:
             case 2:
             case 4:
+            case 24:
+            case 25:
+            case 26:
+            case 27:
                 if (contract.contract_details.eth_contract) {
                     contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
                         ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
@@ -235,6 +241,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 }
             break;
             case 19:
+            case 31:
                 contract.maxTokensLimit = 400;
                 if (contract.state === 'ACTIVE') {
                     web3Service.setProviderByNumber(contract.network);
@@ -253,7 +260,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         if (!contract.contract_details.eth_contract) return;
 
-        if (contract.contract_type === 8) {
+        if (contract.contract_type === 8 || contract.contract_type === 29) {
             contract.balance = undefined;
         }
 
@@ -262,6 +269,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         switch (contract.contract_type) {
             case 9:
+            case 30:
                 var nowDateTime = $rootScope.getNowDateTime(true).format('X') * 1;
 
                 contract.contract_details.raised_amount = contract.contract_details.balance || '0';
@@ -391,6 +399,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.network) {
             case 1:
             case 2:
+            case 22:
+            case 23:
                 setContractStatValues(contract);
                 iniETHContract(contract, fullScan);
                 break;

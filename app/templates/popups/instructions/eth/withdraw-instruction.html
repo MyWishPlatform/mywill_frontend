@@ -2,7 +2,7 @@
     <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
         <div class="shadow-block__content__blue-title static-width">
             <div class="shadow-block__content__blue-title__name">
-                <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.ETH.MINT.TITLE'|translate}}&nbsp;</span>
+                <span class="big-size">{{'CONTRACTS_INSTRUCTIONS.ETH.WILL_WITHDRAW.TITLE'|translate}}&nbsp;</span>
             </div>
         </div>
         <div class="shadow-block__content__description">
@@ -16,18 +16,20 @@
         <a ng-attr-href="{{
             'https://myetherwallet.com/interface/send-transaction/?data=' + ngPopUp.params.withdrawSignature.string +
             '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
+           ng-if="ngPopUp.params.contract.blockchain !== 'BNB'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="ngPopUp.actions.sendWithdrawTransaction()"
-                ng-if="ngPopUp.params.currentWallet && (ngPopUp.params.currentWallet.type === 'parity')"
+                ng-disabled="ngPopUp.params.currentWallet.type !== 'parity'"
+                ng-if="ngPopUp.params.contract.blockchain !== 'BNB'"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
         <button  ng-click="ngPopUp.actions.sendWithdrawTransaction()"
-                 ng-if="ngPopUp.params.currentWallet && (ngPopUp.params.currentWallet.type === 'metamask')"
+                 ng-disabled="ngPopUp.params.currentWallet.type !== 'metamask'"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>
@@ -41,7 +43,8 @@
             'ownerAddress': ngPopUp.params.contract.contract_details.admin_address,
             'contractAddress': ngPopUp.params.contract.contract_details.eth_contract.address,
             'contract': {
-                network: ngPopUp.params.contract.network
+                network: ngPopUp.params.contract.network,
+                blockchain: ngPopUp.params.contract.blockchain
             }
          }"
          ng-include="'/templates/popups/instructions/transaction-template.html'">

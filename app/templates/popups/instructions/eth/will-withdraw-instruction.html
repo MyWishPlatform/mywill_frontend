@@ -16,7 +16,8 @@
             'ownerAddress': ngPopUp.params.contract.contract_details.user_address,
             'contractAddress': ngPopUp.params.contract.contract_details.eth_contract.address,
             'contract': {
-                network: ngPopUp.params.contract.network
+                network: ngPopUp.params.contract.network,
+                blockchain: ngPopUp.params.contract.blockchain
             }
          }"
          ng-include="'/templates/popups/instructions/transaction-template.html'">

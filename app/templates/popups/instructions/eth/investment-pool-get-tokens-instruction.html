@@ -14,6 +14,7 @@
         <a ng-attr-href="{{
                 'https://myetherwallet.com/interface/send-transaction/?data=' + withdrawTokensSignature +
                 '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
+           ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
@@ -34,7 +35,7 @@
         </div>
 
         <button  ng-click="sendTransaction('metamask', wallets['metamask'][0])"
-                 ng-if="wallets['metamask']"
+                 ng-disabled="!wallets['metamask']"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>

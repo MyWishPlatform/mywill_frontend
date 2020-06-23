@@ -460,6 +460,12 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     case '11':
                         curencyValue = 'EOS';
                         break;
+                    case 22:
+                    case '22':
+                    case 23:
+                    case '23':
+                        curencyValue = 'BNB';
+                        break;
                     default:
                         curencyValue = 'ETH';
                         break;
@@ -471,7 +477,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return false;
             },
             tokensList: function($stateParams, contractService) {
-                if ($stateParams.selectedType === 'crowdSale') {
+                if ($stateParams.selectedType === 'crowdSale' || $stateParams.selectedType === 'bnbCrowdSale') {
                     return contractService.getTokenContracts($stateParams.network || 1);
                 }
                 return undefined;
@@ -516,7 +522,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return contractService.getCurrencyRate({fsym: curencyValue, tsyms: 'USD'});
             },
             tokensList: function($stateParams, contractService, CONTRACT_TYPES_NAMES_CONSTANTS, openedContract) {
-                if (CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale') {
+                if (
+                    CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale' ||
+                    CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'bnbCrowdSale'
+                ) {
                     return contractService.getTokenContracts(openedContract.data.network || 1);
                 }
                 return undefined;

@@ -1,0 +1,476 @@
+<div class="contract-preview-tabs">
+    <div class="contract-preview-one-tab"
+         ng-class="{active: showedTab == 'tokens'}"
+         ng-click="showedTab = 'tokens'"
+         ng-show="showTokensTab">
+        <span>Tokens</span>
+    </div>
+    <div class="contract-preview-one-tab"
+         ng-class="{active: (showedTab == 'info') || (!showTokensTab && (showedTab == 'tokens'))}"
+         ng-click="showedTab = 'info'">
+        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
+    </div>
+
+    <div class="contract-preview-one-tab"
+         ng-class="{active: showedTab == 'code'}"
+         ng-click="showedTab = 'code'"
+         ng-show="contract.contract_details.eth_contract.address">
+        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
+    </div>
+</div>
+
+<div ng-show="showedTab == 'code'">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content" ng-if="contract.network == 23">
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text">
+                <span>{{'CONTRACTS.PREVIEW.LOST_KEY_SOURCE_CODE'|translate}}
+                    <span class="as-link dotted"
+                          ng-if="contract.network == 22"
+                          ng-click="saveAsFile(contract.contract_details.eth_contract.source_code, contract.name + '(lost key)')">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                    <span class="grey-text-color"
+                          ng-if="contract.network == 23">
+                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+                    </span>
+                </span>
+            </p>
+
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
+                      translate-values="{gitHubLink: 'https://github.com/MyWishPlatform/eth-lost-key-token'}"></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div ng-show="(showedTab == 'tokens')" ng-if="showTokensTab">
+
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content">
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1">
+                    <div class="shadow-block__content__title">
+                        <i class="shadow-block__content__title__icon icon-key"></i>
+                        <span class="shadow-block__content__title__text">
+                            {{'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.TITLE' | translate}}
+                        </span>
+                    </div>
+                    <div class="shadow-block__content__text shadow-block__content__text_description">
+                        <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_DESCRIPTION"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block" ng-if="!visibleTokensList || (visibleTokensList | filter : {checked: false }).length">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding no-border">
+            <p class="normal-text">Please wait...</p>
+        </div>
+    </div>
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.TITLE"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="!(visibleTokensList | filter : {allowed: false}).length && ((
+                (visibleTokensList | filter : {confirmed: true}).length
+            ) < maximumTokens)">
+            <p class="normal-text warning-text">
+                <i class="icon-warning"></i>&nbsp;
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.NO_AVAILABLE"></span><br/>
+            </p>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(visibleTokensList | filter : {allowed: false}).length && ((
+                (visibleTokensList | filter : {confirmed: true}).length
+            ) < maximumTokens)">
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.MAIN"></span>
+                <br/><br/>
+                <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.MAXIMUM_TOKENS"
+                      translate-values="{maximumTokens: maximumTokens}"></span>
+                <br/>
+            </p>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="((visibleTokensList | filter : {confirmed: true}).length) >= maximumTokens">
+            <p class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.LIMIT_TOKENS"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(visibleTokensList | filter : {allowed: false}).length">
+            <table class="token-balances-table">
+                <tr ng-repeat="token in visibleTokensList|filter:{allowed: false}">
+                    <td>
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token') + '/' + token.address}}" target="_blank">
+                            {{token.name}} ({{ token.symbol }})
+                        </a>
+                    </td>
+                    <td>{{ token.balance | separateNumber }}</td>
+                    <td class="normal-size with-lds" ng-if="((
+                            (visibleTokensList | filter : {confirmed: true}).length
+                        ) < maximumTokens) && contract.stateValue === 4">
+                        <span class="lds-ellipsis" ng-if="token.isAllowProgress">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                        <button type="button" class="btn btn-transparent width-100" ng-click="allowToken(token)"
+                                ng-if="!token.isAllowProgress">
+                            <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.BUTTONS.ALLOW"></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <form name="ercTokenAddress" class="no-check-submitted shadow-block__content shadow-block__content_min-tb-padding"
+              ng-if="contract.stateValue === 4">
+            <div class="as-table">
+                <div class="as-table-cell">
+                    <input id="contract-name" type="text"
+                           placeholder="Custom BEP2E token address"
+                           ng-model="address"
+                           name="tokenAddress"
+                           ng-change="resetTokenAddress(ercTokenAddress.tokenAddress)"
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           required
+                           ng-disabled="(visibleTokensList | filter : {confirmed: true}).length >= maximumTokens"
+                           class="form-control-input"/>
+                </div>
+                <div class="as-table-cell min-width">
+                    <button class="btn btn-transparent"
+                            ng-disabled="((visibleTokensList | filter : {confirmed: true}).length >= maximumTokens) || customAddressCheck.isProgressAddresses[address.toLowerCase()] || !ercTokenAddress.$valid"
+                            ng-click="allowCustomToken(ercTokenAddress.tokenAddress)">
+                        <span class="lds-ellipsis" ng-if="customAddressCheck.isProgressAddresses[address.toLowerCase()]">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                        <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.BUTTONS.ALLOW"></span>
+                    </button>
+                </div>
+            </div>
+
+            <span class="field-error form-field_error-contract-address"
+                  style="display: block"
+                  ng-if="ercTokenAddress.tokenAddress.$error['contract-address']"
+                  translate="CONTRACTS.FORMS.AIRDROP.FIELDS.ERRORS.WRONG_TOKEN_ADDRESS"></span>
+
+            <span class="field-error form-field_error-allowance-address"
+                  style="display: block"
+                  ng-if="ercTokenAddress.tokenAddress.$error['allowance-address']"
+                  translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.ERRORS.TOKEN_IS_ALREADY">
+            </span>
+
+        </form>
+
+    </div>
+
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.TITLE"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="!(visibleTokensList | filter : {confirmed: false, allowed: true}).length && ((
+                (visibleTokensList | filter : {confirmed: true}).length
+            ) < maximumTokens)">
+            <p class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.NO_AVAILABLE"></span><br/>
+            </p>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(((visibleTokensList | filter : {confirmed: true}).length) < maximumTokens) && (visibleTokensList | filter : {confirmed: false, allowed: true}).length">
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.CONFIRM_TEXTS.MAIN"></span>
+                <br/><br/>
+                <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ADD_TOKENS.CONFIRM_TEXTS.NOT_CONFIRMED"></span>
+                <br/><br/>
+                <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.MAXIMUM_TOKENS"
+                      translate-values="{maximumTokens: maximumTokens}"></span>
+            </p>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="((visibleTokensList | filter : {confirmed: true}).length) >= maximumTokens">
+            <p class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.ALLOW_TOKENS.ALLOW_TEXTS.LIMIT_TOKENS"></span>
+            </p>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="(visibleTokensList | filter : {confirmed: false, allowed: true}).length">
+            <table class="token-balances-table">
+                <tr ng-repeat="token in visibleTokensList|filter:{confirmed: false, allowed: true}">
+                    <td>
+                        <a ng-attr-href="{{ (contract.network|etherscanUrl:'token') + '/' + token.address}}" target="_blank">
+                            {{token.name}} ({{ token.symbol }})
+                        </a>
+                    </td>
+                    <td>{{ token.balance | separateNumber }}</td>
+                    <td class="normal-size with-lds"
+                        ng-if="((
+                            (visibleTokensList | filter : {confirmed: true}).length
+                        ) < maximumTokens) && (contract.stateValue === 4)">
+                        <span class="lds-ellipsis" ng-if="token.isConfirmProgress">
+                            <span class="lds-ellipsis-container">
+                                <span></span><span></span><span></span><span></span>
+                            </span>
+                        </span>
+                        <button type="button"
+                                class="btn btn-transparent width-100" ng-click="confirmToken(token)"
+                                ng-if="!token.isConfirmProgress">
+                            <span translate="BUTTONS.CONFIRM"></span>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="((visibleTokensList | filter : {confirmed: false, allowed: true}).length && (
+                (visibleTokensList | filter : {confirmed: false, allowed: true}).length +
+                (visibleTokensList | filter : {confirmed: true}).length
+            ) <= maximumTokens) && (contract.stateValue === 4)">
+            <button type="button"
+                    ng-click="callAddTokens()"
+                    ng-disabled="(visibleTokensList | filter : {isConfirmProgress: true}).length && ((visibleTokensList | filter : {confirmed: false, allowed: true}).length === (visibleTokensList | filter : {isConfirmProgress: true}).length)"
+                    class="btn btn-transparent mobile-width-100 float-right">
+                <span class="lds-ellipsis"
+                      ng-if="(visibleTokensList | filter : {isConfirmProgress: true}).length && ((visibleTokensList | filter : {confirmed: false, allowed: true}).length === (visibleTokensList | filter : {isConfirmProgress: true}).length)">
+                    <span class="lds-ellipsis-container">
+                        <span></span><span></span><span></span><span></span>
+                    </span>
+                </span>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.BUTTONS.CONFIRM_ALL"></span>
+            </button>
+        </div>
+    </div>
+
+
+    <div ng-if="visibleTokensList && !(visibleTokensList | filter : {checked: false }).length"
+         class="shadow-block">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size"
+                          translate-values="{
+                            confirmedCount: (visibleTokensList | filter : {confirmed: true}).length,
+                            totalCount: maximumTokens
+                          }"
+                          translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.TITLE">
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="!(visibleTokensList | filter : {confirmed: true}).length">
+            <p class="normal-text warning-text">
+                <i class="icon-warning"></i>
+                <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.EMPTY_LIST"></span><br/>
+            </p>
+        </div>
+
+        <div ng-if="(visibleTokensList | filter : {confirmed: true}).length">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
+                <p class="normal-text">
+                    <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.CONFIRMED_TOKENS"></span>
+                    <br/><br/>
+                    <i class="main-blue-color icon-alert-circle"></i>&nbsp;
+                    <span translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.CONFIRMED_TOKENS_NOTE"></span><br/>
+                </p>
+            </div>
+            <div class="shadow-block__content shadow-block__content_min-tb-padding">
+                <table class="token-balances-table">
+                    <tr ng-repeat="token in visibleTokensList | filter : { confirmed: true }">
+                        <td>
+                            <a ng-attr-href="{{ (contract.network|etherscanUrl:'token') + '/' + token.address}}" target="_blank">
+                                {{token.name}} ({{ token.symbol }})
+                            </a>
+                        </td>
+                        <td>{{ token.balance | separateNumber }}</td>
+                        <td class="normal-size">
+                            <div class="normal-text token-confirmed">
+                                <i class="icon-check_circle icon-check_circle"></i>
+                                <span class="capitalize"
+                                      translate="CONTRACTS.PREVIEW.TOKENS_LOST_KEY.TOKENS_TAB.SAVED_TOKENS.STATE"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="(showedTab == 'info') || (!showTokensTab && (showedTab == 'tokens'))">
+    <div class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
+             ng-include="'/templates/common/contracts/preview-title.html'">
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding"
+             ng-if="contract.contract_details.eth_contract.address">
+            <div class="form-control-label" translate="CONTRACTS.PREVIEW.CONTRACT_ADDRESS"></div>
+            <br class="show-ls"/>
+            <span class="identicon-container">
+                <img class="identicon-image" ng-src="{{contract.contract_details.eth_contract.address.toLowerCase()|blockies}}"/>
+            </span>
+            <div class="contract-wallet-information-wallet">
+                <a ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.eth_contract.address}}"
+                   target="_blank"
+                   ng-bind="contract.contract_details.eth_contract.address|toCheckSum"></a>
+                <button class="instruction-for-copy-button relative"
+                        clipboard supported="supported"
+                        ng-class="{copied: contract.copied['address']}"
+                        text="contract.contract_details.eth_contract.address"
+                        on-copied="$root.successCodeCopy(contract, 'address')" on-error="failCodeCopy(err)">
+                    <i class="icon-content_copy"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-wallet form-control-label-icon"></i>
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.MANAGEMENT_ADDR.LABEL'|translate}}
+                </div><br/>
+                <div class="contract-wallet-information-float contract-wallet-information">
+                    <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{contract.contract_details.user_address|blockies}}"/>
+                    </span>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-bind="contract.contract_details.user_address|toCheckSum"
+                           target="_blank"
+                           ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + contract.contract_details.user_address}}"></a>
+                    </div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-after_wallet"
+                         ng-bind="contract.contract_details.email"></div>
+                </div>
+            </div><br/>
+
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-in-wallet form-control-label-icon"></i>
+                    {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.RESERVE_ADDRESS.LABEL'|translate}}
+                </div>
+                <div class="contract-wallet-information-float contract-wallet-information" ng-repeat="heir in contract.contract_details.heirs">
+                    <br/>
+                    <span class="identicon-container relative-top">
+                        <img class="identicon-image" ng-src="{{heir.address.toLowerCase()|blockies}}"/>
+                    </span>
+
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-wallet">
+                        <a ng-bind="heir.address|toCheckSum"
+                           target="_blank"
+                           ng-attr-href="{{ (contract.network|etherscanUrl:'address') + '/' + heir.address}}"></a>
+                    </div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-percentage" ng-bind="heir.percentage+'%'"></div>
+                    <div class="contract-wallet-information-float-cell contract-wallet-information-email" ng-bind="heir.email"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="shadow-block__content grey-color shadow-block__content_min-tb-padding">
+            <div class="contract-wallets-information-one-block">
+                <div class="form-control-label">
+                    <i class="icon-conditions form-control-label-icon"></i>
+                    {{'CONTRACTS.PREVIEW.CONTRACT_CONDITIONS'|translate}}
+                </div>
+                <div class="normal-text contract-preview-base-value">
+                    <div>
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.DUE_DATE.LABEL'|translate}}&nbsp;&nbsp;
+                        {{contract.contract_details.active_to|date:'yyyy-MM-dd'}}
+                    </div><br/>
+                    <div>
+                        {{'CONTRACTS.FORMS.LOST_KEY.FIELDS.CHECK_EVERY.LABEL'|translate}}&nbsp;&nbsp;
+                        {{contract.contract_details.check_interval.period}}
+                        {{contract.contract_details.check_interval.periodUnit|translate}}
+                    </div><br/>
+                    <div ng-if="contract.contract_details.next_check">
+                        Next confirmation transaction should be before:
+                        {{contract.contract_details.next_check|date:'yyyy-MM-dd'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="shadow-block after-tabs"
+         ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
+         ng-include="'/templates/common/contracts/promocode-field.html'"></div>
+    <div class="main-section-chapter-fieldset"
+         ng-include="'/templates/pages/contracts/preview/elements/buttons/bnb.html'"></div>
+</div>
+
+<div ng-if="tokenAddressReady"
+     ng-pop-up="{
+        template: '/templates/popups/instructions/eth/token-lost-key-allow-instruction.html',
+        newPopupContent: true,
+        params: tokenAddressReady,
+        actions: {},
+        onClose: closeAllowTokenPopup,
+        opened: true
+     }">
+</div>
+
+<div ng-if="tokenConfirmAddressReady"
+     ng-pop-up="{
+        template: '/templates/popups/instructions/eth/token-lost-key-confirm-instruction.html',
+        newPopupContent: true,
+        params: tokenConfirmAddressReady,
+        actions: {},
+        onClose: closeConfirmTokenPopup,
+        opened: true
+     }">
+</div>
+
+<div ng-if="allTokenConfirmAddressReady"
+     ng-pop-up="{
+        template: '/templates/popups/instructions/eth/token-lost-key-all-confirm-instruction.html',
+        newPopupContent: true,
+        params: allTokenConfirmAddressReady,
+        actions: {},
+        onClose: closeAllConfirmTokenPopup,
+        opened: true
+     }">
+</div>
+

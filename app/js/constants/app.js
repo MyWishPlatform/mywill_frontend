@@ -59,6 +59,9 @@ module.constant('APP_CONSTANTS', {
     'RSK_NET_ADDRESS': '/endpoint/rsk',
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
+    'BNB_TESTNET_NET_ADDRESS': 'https://data-seed-prebsc-1-s1.binance.org:8545',
+
+
     "NEO_TESTNET_ADDRESS": 'http://neoscan.mywish.io/',
     "NEO_MAINNET_ADDRESS": 'http://neoscan.mywish.io/',
 

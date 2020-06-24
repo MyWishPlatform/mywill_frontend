@@ -92,6 +92,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
 
     $rootScope.testAddresses = {
         "ETH": "0xD0593B233Be4411A236F22b42087345E1137170b",
+        "BNB": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "EOS": "mywishtestac",
         "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
         "NEO": "AYhjNHgTs9sG8B2TbnRT5HxwTA2HAuhthq",
@@ -106,23 +107,21 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             case 1:
             case 2:
                 return 'eth';
-                break;
             case 3:
             case 4:
                 return 'rsk';
-                break;
             case 5:
             case 6:
                 return 'neo';
-                break;
             case 10:
             case 11:
                 return 'eos';
-                break;
             case 14:
             case 15:
                 return 'tron';
-                break;
+            case 22:
+            case 23:
+                return 'bnb';
         }
     };
 

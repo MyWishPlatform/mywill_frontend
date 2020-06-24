@@ -17,18 +17,20 @@
         <a ng-attr-href="{{
             'https://myetherwallet.com/interface/send-transaction/?data=' + finalizeSignature +
             '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract_token.address}}"
+           ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="sendTransaction()"
-                ng-if="currentWallet && (currentWallet.type === 'parity')"
+                ng-disabled="!(currentWallet && (currentWallet.type === 'parity'))"
+                ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>
         </button>
         <button  ng-click="sendTransaction()"
-                 ng-if="currentWallet && (currentWallet.type === 'metamask')"
+                 ng-disabled="!(currentWallet && (currentWallet.type === 'metamask'))"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>

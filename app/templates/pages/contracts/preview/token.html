@@ -12,7 +12,7 @@
     </div>
     <div class="contract-preview-one-tab"
          ng-click="goTo('audit')"
-         ng-show="details[contractInfo].address && contract.isAuthioToken"
+         ng-show="details[contractInfo].address && contract.isAuthioToken && contract.network === 1"
          ng-class="{'active': showedTab == 'audit'}">
         <span translate="CONTRACTS.PREVIEW.TABS.AUDIT"></span>
     </div>
@@ -396,7 +396,7 @@
          ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
 </div>
 
-<div ng-show="showedTab == 'audit'" ng-if="blockchain === 'ETH'">
+<div ng-show="showedTab == 'audit'" ng-if="contract.network === 1">
     <div ng-if="!contract.withAuthioForm" class="shadow-block after-tabs">
         <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
             <div class="shadow-block__content__blue-title">

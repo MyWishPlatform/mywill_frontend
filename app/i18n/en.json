@@ -61,7 +61,9 @@
     "NETWORK_10": "EOS MainNet",
     "NETWORK_11": "EOS TestNet",
     "NETWORK_14": "TRON MainNet",
-    "NETWORK_15": "TRON TestNet"
+    "NETWORK_15": "TRON TestNet",
+    "NETWORK_22": "Binance MainNet",
+    "NETWORK_23": "Binance TestNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -154,7 +156,8 @@
     "NEO": "NEO",
     "EOS": "EOS",
     "TRON": "TRON",
-    "WAVES": "WAVES"
+    "WAVES": "WAVES",
+    "BINANCE": "Binance"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -302,6 +305,10 @@
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any ERC-20/ERC-223 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
+      "BNB_AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "Distribute any BEP2E tokens among many addresses (for example, after Bounty program or Crowdsale)"
+      },
       "EOS_AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any EOS tokens among many accounts (for example, after Bounty program or Crowdsale)"
@@ -310,9 +317,17 @@
         "TITLE": "Investment pool",
         "DESCRIPTION": "The contract for ETH accumulation before the investment. Create it and share the address with others."
       },
+      "BNB_INVESTMENT_POOL": {
+        "TITLE": "Investment pool",
+        "DESCRIPTION": "The contract for BNB accumulation before the investment. Create it and share the address with others."
+      },
       "LOST_KEY": {
         "TITLE": "Lost key",
         "DESCRIPTION": "The smart contract has all the same features as the standard Ethereum wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
+      },
+      "BNB_LOST_KEY": {
+        "TITLE": "Lost key",
+        "DESCRIPTION": "The smart contract has all the same features as the standard Binance smart chain wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
       },
       "TRON_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
@@ -321,6 +336,10 @@
       "ETH_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
         "DESCRIPTION": "The Lost Key smart contract ensures your (ERC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
+      },
+      "BNB_TOKENS_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The Lost Key smart contract ensures your (BEP2E standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "Deferred payment",
@@ -364,7 +383,7 @@
     },
     "EXTERNAL_DEVELOPERS": {
       "TITLE": "External Developers",
-      "DESCRIPTION": "To add your contract to the MyWish library and start audit process, fill the form below.",
+      "DESCRIPTION": "If you need any kind of custom development please fill the form below.",
       "FIELDS": {
         "USER_NAME": {
           "LABEL": "User name"
@@ -376,7 +395,8 @@
           "LABEL": "Contract name"
         },
         "DESCRIPTION": {
-          "PLACEHOLDER": "Contract description"
+          "LABEL": "Your Request",
+          "PLACEHOLDER": "Please describe what kind of the development do you need (new blockchain creation, token contract, individual smart contract etc.)"
         }
       }
     },
@@ -408,7 +428,7 @@
       "TITLE": "Buy Tokens",
       "NOTE": {
         "RED_TEXT": "Please note!",
-        "TEXT": "After replenish you will be not able to transfer/exchange tokens. You can use it only for contracts creation inside the Platform"
+        "TEXT": "After replenish you will not be able to transfer/exchange tokens. You can use it only for contracts creation inside the Platform"
       },
       "GET": "Get",
       "SEND": "Send",
@@ -581,7 +601,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "Due to high deployment costs, you need to contact <a href=\"mailto:support@mywish.io\">support@mywish.io</a> before the creation in Main Net"
+          "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
       }
     }
@@ -639,10 +659,10 @@
         }
       },
       "ANY_TRANSACTION": {
-        "PART_1": "Send transaction ({{amount||'0'}} ETH) from your management address",
+        "PART_1": "Send transaction ({{amount||'0'}} {{blockchain || 'ETH'}}) from your management address",
         "PART_2": "To contract address",
         "PART_3": "With Data field",
-        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address",
+        "PART_GUEST": "Send transaction ({{amount||'0'}} {{blockchain || 'ETH'}}) to contract address",
         "GAS_LIMIT": "Gas limit"
       },
       "ACTIVATE": {
@@ -735,7 +755,7 @@
       },
       "SEND_FUNDS": {
         "TITLE": "Send Funds",
-        "DESCRIPTION": "For sending ({{amount}} ETH) to Destination address ({{address}}) please make the following steps:"
+        "DESCRIPTION": "For sending ({{amount}} {{currency || 'ETH'}}) to Destination address ({{address}}) please make the following steps:"
       },
       "GET_TOKENS": {
         "TITLE": "Get tokens",
@@ -905,7 +925,7 @@
           "SEND_TO_WALLET": {
             "LABEL": "Send to wallet",
             "PLACEHOLDER": "Enter the address of the recipient's wallet",
-            "DESCRIPTION": "Enter the recipient's ETH address. This address will get transfer."
+            "DESCRIPTION": "Enter the recipient's {{blockchain || 'ETH'}} address. This address will get transfer."
           },
           "NOTIFICATION_EMAIL": {
             "LABEL": "E-mail for notification",
@@ -941,7 +961,7 @@
           },
           "SOFT_CAP": {
             "LABEL": "Pool volume (minimum)",
-            "DESCRIPTION": "Defines minimum ETH needed for investments. If minimum is not reached - contributors get their ETHs back. You can set it to 0 (no minimum)."
+            "DESCRIPTION": "Defines minimum {{currency || 'ETH'}} needed for investments. If minimum is not reached - contributors get their {{currency || 'ETH'}}s back. You can set it to 0 (no minimum)."
           },
           "START_DATE": {
             "LABEL": "Start date",
@@ -977,7 +997,7 @@
           },
           "INVESTMENT_ADDRESS": {
             "LABEL": "Destination address:",
-            "DESCRIPTION": "ETH address for sending all funds from the pool. It can be Contract address. Double check it before the submission."
+            "DESCRIPTION": "{{currency || 'ETH'}} address for sending all funds from the pool. It can be Contract address. Double check it before the submission."
           },
           "BONUS": {
             "LABEL": "Personal bonus (in Tokens) for the pool's owner:",
@@ -1056,6 +1076,7 @@
             "LABEL": "Management address",
             "PLACEHOLDER": "Enter your {{networkName}} wallet address",
             "ETH_DESCRIPTION": "ETH address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission",
+            "BNB_DESCRIPTION": "BNB address (not exchange address). This address will manage the will contract. Double check the address (and access to it) before submission",
             "RSK_DESCRIPTION": "This address will manage your contract. You can create it by <a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a> wallet. Double check it before submission."
           },
           "YOUR_EMAIL": {
@@ -1067,6 +1088,7 @@
             "LABEL": "Beneficiary address",
             "PLACEHOLDER": "Enter {{networkName}} address",
             "ETH_DESCRIPTION": "Enter ETH address of beneficiary. After contract execution funds will be sent to that address.",
+            "BNB_DESCRIPTION": "Enter BNB address of beneficiary. After contract execution funds will be sent to that address.",
             "RSK_DESCRIPTION": "Enter RSK address of beneficiary. After contract execution funds will be sent to that address. Heir can create it by <a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> too."
           },
           "SHARE": {
@@ -1152,6 +1174,7 @@
           "TOKEN_SYMBOL": {
             "LABEL": "Token symbol:",
             "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_BNB": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
             "DESCRIPTION_TRON": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
             "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
           },
@@ -1162,7 +1185,9 @@
           "TOKEN_TYPE": {
             "LABEL": "Choose Type of Token",
             "DESCRIPTION_1": "ERC-20 is recommended option. Accepted by the most exchanges.",
-            "DESCRIPTION_2": "ERC-223 is almost the same as ERC-20. Provides extra safety during token transfers."
+            "DESCRIPTION_2": "ERC-223 is almost the same as ERC-20. Provides extra safety during token transfers.",
+            "DESCRIPTION_3": "BEP2E is recommended option. Accepted by the most exchanges.",
+            "DESCRIPTION_4": "ERC-223 is almost the same as BEP2E. Provides extra safety during token transfers."
           },
           "TOKEN_OWNER": {
             "LABEL": "Token Owner",
@@ -1241,7 +1266,7 @@
           },
           "STORAGE_ADDRESS": {
             "LABEL": "Investments Storage Address",
-            "DESCRIPTION": "ETH address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it"
+            "DESCRIPTION": "{{blockchain || 'ETH'}} address (not exchange address). All contributions will be sent to that address after finish date if soft cap is reached. Double check the address before entering it"
           },
           "TOKEN_RATE": {
             "LABEL": "Token rate",
@@ -1322,7 +1347,7 @@
             "LABEL": "Max Amount",
             "DESCRIPTION": "Maximum contribution for getting specified bonus{{last ? ' (you can left it empty if there is no limit)' : ''}}"
           },
-          "AMOUNT_BONUS_DESCRIPTION": "You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ ETH contributions"
+          "AMOUNT_BONUS_DESCRIPTION": "You can define bonus depending on contribution Amount. For example, give extra 5% tokens for 10+ {{currency || 'ETH'}} contributions"
         }
       },
       "AIRDROP": {
@@ -1331,7 +1356,7 @@
         "FIELDS": {
           "MANAGEMENT_ADDR": {
             "LABEL": "Management address",
-            "PLACEHOLDER": "Enter your ETH wallet address",
+            "PLACEHOLDER": "Enter your {{currency || 'ETH'}} wallet address",
             "DESCRIPTION": "Owner of this address will be able to manage the contract (it's the only one)"
           },
           "TOKEN_ADDR": {

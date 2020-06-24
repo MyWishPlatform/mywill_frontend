@@ -1,4 +1,4 @@
-<form ng-controller="buyWishByWishController" name="buyTokensForm" ng-init="formData.addressChecked = true">
+<form ng-controller="buyWishBySwapController" name="buyTokensForm" ng-init="formData.addressChecked = true">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
 
@@ -197,7 +197,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://myetherwallet.com/interface/send-transaction/?data=' + checkedTransferData + '&value=0&to=' + wishAddress + '&gaslimit=' + formData.gaslimit + '' : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://myetherwallet.com/interface/send-transaction/?data=' + checkedTransferData + '&value=0&to=' + swapAddress + '&gaslimit=' + formData.gaslimit + '' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                 </div>

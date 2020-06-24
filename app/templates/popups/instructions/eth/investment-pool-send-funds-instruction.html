@@ -8,8 +8,9 @@
         </div>
         <div class="shadow-block__content__description">
             <span translate-values="{
-                    amount: ($root.web3Utils.fromWei(ngPopUp.params.contract.contract_details.balance, 'ether')|separateNumber),
-                    address: ngPopUp.params.contract.contract_details.investment_address
+                    amount: ($root.web3Utils.fromWei(ngPopUp.params.contract.contract_details.balance || '0', 'ether') | separateNumber),
+                    address: ngPopUp.params.contract.contract_details.investment_address,
+                    currency: ngPopUp.params.contract.blockchain
                   }"
                   translate="CONTRACTS_INSTRUCTIONS.ETH.SEND_FUNDS.DESCRIPTION"></span>
         </div>
@@ -18,6 +19,7 @@
         <a ng-attr-href="{{
                 'https://myetherwallet.com/interface/send-transaction/?data=' + sendFundsSignature +
                 '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
+           ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
@@ -38,7 +40,7 @@
         </div>
 
         <button  ng-click="sendTransaction('metamask', wallets['metamask'][0])"
-                 ng-if="wallets['metamask']"
+                 ng-disabled="!wallets['metamask']"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>
@@ -49,7 +51,8 @@
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="normal-text visible-text" ng-if="!contract.contract_details.buttons.send_funds_only_author">
-            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_GUEST'|translate}}
+            <span translate="CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_GUEST"
+                  translate-values="{blockchain: ' + ngPopUp.params.contract.blockchain + '}"></span>
             <div class="copy-block">
                 <button class="copy-block__button relative"
                         clipboard supported="supported"
@@ -62,7 +65,8 @@
             </div>
         </div>
         <div class="normal-text visible-text" ng-if="contract.contract_details.buttons.send_funds_only_author">
-            {{'CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_1'|translate}}
+            <span translate="CONTRACTS_INSTRUCTIONS.ETH.ANY_TRANSACTION.PART_1"
+                  translate-values="{blockchain: ngPopUp.params.contract.blockchain }"></span>
             <div class="copy-block">
                 <button class="copy-block__button relative"
                         clipboard supported="supported"

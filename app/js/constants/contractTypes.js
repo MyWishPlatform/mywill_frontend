@@ -21,7 +21,17 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'TRON_LOST_KEY': 18,
     'TOKENS_LOST_KEY': 19,
     'WEDDING': '-1',
-    'CUSTOM': '-2'
+    'CUSTOM': '-2',
+
+    'BNB_LAST_WILL': 24,
+    'BNB_LOST_KEY': 25,
+    'BNB_DEFERRED': 26,
+    'BNB_CROWD_SALE': 27,
+    'BNB_TOKEN': 28,
+    'BNB_AIRDROP': 29,
+    'BNB_INVESTMENT_PULL': 30,
+    'BNB_TOKENS_LOST_KEY': 31
+
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',
@@ -46,7 +56,16 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     22: 'wavesSto',
     23: 'tokenProtector',
     '-1': 'wedding',
-    '-2': 'custom'
+    '-2': 'custom',
+
+    24: 'bnbLastWill',
+    25: 'bnbLostKey',
+    26: 'bnbDeferred',
+    27: 'bnbCrowdSale',
+    28: 'bnbToken',
+    29: 'bnbAirdrop',
+    30: 'bnbInvestmentPull',
+    31: 'bnbTokensLostKey',
 
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
 
@@ -130,6 +149,66 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'type': CONTRACT_TYPES_NAMES_CONSTANTS['-1']
         }]
     };
+
+
+    var bnb = {
+        'networks': [22, 23],
+        'list':[customContract,  {
+            'icon': 'icon-bnb-token',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'typeNumber': 28,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[28],
+            // 'price': true
+        }, {
+            'icon': 'icon-bnb-crowdsale',
+            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
+            'typeNumber': 27,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[27],
+            // 'price': true
+        }, {
+            'icon': 'icon-bnb-airdrop',
+            'title': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.DESCRIPTION',
+            'typeNumber': 29,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[29],
+            // 'price': true
+        }/*, {
+            'icon': 'icon-bnb-investment-pool',
+            'title': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.DESCRIPTION',
+            'typeNumber': 30,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[30],
+            // 'price': true
+        }, {
+            'icon': 'icon-key',
+            'title': 'PAGES.CREATE_CONTRACT.BNB_TOKENS_LOST_KEY.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.BNB_TOKENS_LOST_KEY.DESCRIPTION',
+            'typeNumber': 31,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[31],
+            // 'price': true
+        }, {
+            'icon': 'icon-key',
+            'title': 'PAGES.CREATE_CONTRACT.BNB_LOST_KEY.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.BNB_LOST_KEY.DESCRIPTION',
+            'typeNumber': 25,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[25]
+        }, {
+            'icon': 'icon-deferred',
+            'title': 'PAGES.CREATE_CONTRACT.DEFERRED.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.DEFERRED.DESCRIPTION',
+            'typeNumber': 26,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[26]
+        }, {
+            'icon': 'icon-lastwill',
+            'title': 'PAGES.CREATE_CONTRACT.WILL.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.WILL.DESCRIPTION',
+            'typeNumber': 24,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[24]
+        }*/]
+    };
+
 
     var neo = {
         'networks': [6, 6],
@@ -266,12 +345,10 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             return {
                 EOS: eosDefault
             };
-            break;
         case 'tron':
             return {
                 TRON: tronDefault
             };
-            break;
         default:
             return {
                 ETH: eth,
@@ -279,8 +356,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 RSK: rsk,
                 TRON: tronDefault,
                 EOS: eosDefault,
-                WAVES: waves
+                WAVES: waves,
+                BNB: bnb
             };
-            break;
     }
 });

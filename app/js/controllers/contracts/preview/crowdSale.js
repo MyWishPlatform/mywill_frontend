@@ -31,13 +31,15 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
             contractDetails.eth_contract_token.abi
         );
 
-        contractWeb3.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
-            if (error) return;
-            if (result * 1) {
-                $scope.tokensFreezed = true;
-            }
-            $scope.$apply();
-        });
+        if (contractWeb3.methods.freezingBalanceOf) {
+            contractWeb3.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+                if (error) return;
+                if (result * 1) {
+                    $scope.tokensFreezed = true;
+                }
+                $scope.$apply();
+            });
+        }
     }
 
     $scope.currencyPow = $scope.blockchain === 'NEO' ? 0 : 18;
@@ -293,7 +295,19 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     }
     var methodName = (!startDateIdent && !endDateIdent) ? 'setTimes' : (!startDateIdent ? 'setStartTime' : 'setEndTime');
 
-    var contractInfo = contractDetails[$scope.ngPopUp.params.contract.contract_type !== 4 ? 'eth_contract' : 'eth_contract_crowdsale'];
+
+    switch($scope.ngPopUp.params.contract.contract_type) {
+        case 4:
+        case 27:
+            $scope.contracInfoKey = 'eth_contract_crowdsale';
+            break;
+        default:
+            $scope.contracInfoKey  = 'eth_contract';
+            break;
+    }
+
+    var contractInfo = contractDetails[$scope.contracInfoKey];
+
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
     if (!interfaceMethod) return;
 
@@ -577,7 +591,18 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var methodName = 'addAddressesToWhitelist';
 
-    var contractInfo = contractDetails[$scope.ngPopUp.params.contract.contract_type !== 4 ? 'eth_contract' : 'eth_contract_crowdsale'];
+
+    switch($scope.ngPopUp.params.contract.contract_type) {
+        case 4:
+        case 27:
+            $scope.contracInfoKey = 'eth_contract_crowdsale';
+            break;
+        default:
+            $scope.contracInfoKey  = 'eth_contract';
+            break;
+    }
+
+    var contractInfo = contractDetails[$scope.contracInfoKey];
 
     var interfaceMethod = web3Service.getMethodInterface(methodName, contractInfo.abi);
     try {

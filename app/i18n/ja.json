@@ -61,7 +61,9 @@
     "NETWORK_10": "EOS MainNet",
     "NETWORK_11": "EOS TestNet",
     "NETWORK_14": "TRON MainNet",
-    "NETWORK_15": "TRON TestNet"
+    "NETWORK_15": "TRON TestNet",
+    "NETWORK_22": "Binance MainNet",
+    "NETWORK_23": "Binance TestNet"
   },
   "BUTTONS": {
     "ENABLE": "有効にする",
@@ -153,7 +155,9 @@
     "BTC": "Bitcoin",
     "NEO": "NEO",
     "EOS": "EOS",
-    "TRON": "TRON"
+    "TRON": "TRON",
+    "WAVES": "WAVES",
+    "BINANCE": "Binance"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -301,6 +305,10 @@
         "TITLE": "Airdrop",
         "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
       },
+      "BNB_AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "多くのアドレスにBEP2Eトークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
+      },
       "EOS_AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "Distribute any EOS tokens among many accounts (for example, after Bounty program or Crowdsale)"
@@ -309,9 +317,17 @@
         "TITLE": "投資プール",
         "DESCRIPTION": "ETHの蓄積のための契約は、投資の前にあります。それを作成し、そのアドレスを他の人と共有する。"
       },
+      "BNB_INVESTMENT_POOL": {
+        "TITLE": "投資プール",
+        "DESCRIPTION": "BNBの蓄積のための契約は、投資の前にあります。それを作成し、そのアドレスを他の人と共有する。"
+      },
       "LOST_KEY": {
         "TITLE": "失われたキー",
         "DESCRIPTION": "スマート契約は、標準のEthereumウォレットと同じ機能を備えています。また、アクセス/秘密キーを失うと、資金をバックアップウォレットにリダイレクトします。"
+      },
+      "BNB_LOST_KEY": {
+        "TITLE": "失われたキー",
+        "DESCRIPTION": "スマート契約は、標準のBinanceウォレットと同じ機能を備えています。また、アクセス/秘密キーを失うと、資金をバックアップウォレットにリダイレクトします。"
       },
       "TRON_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
@@ -320,6 +336,10 @@
       "ETH_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
         "DESCRIPTION": "The Lost Key smart contract ensures your (ERC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
+      },
+      "BNB_TOKENS_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The Lost Key smart contract ensures your (BEP2E standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "後払い",
@@ -363,7 +383,7 @@
     },
     "EXTERNAL_DEVELOPERS": {
       "TITLE": "外部開発者",
-      "DESCRIPTION": "MyWishライブラリにご契約を追加し、監査プロセスを開始するには、以下のフォームに記入してください。",
+      "DESCRIPTION": "If you need any kind of custom development please fill the form below.",
       "FIELDS": {
         "USER_NAME": {
           "LABEL": "ユーザー名"
@@ -375,7 +395,8 @@
           "LABEL": "契約名"
         },
         "DESCRIPTION": {
-          "PLACEHOLDER": "契約の説明"
+          "LABEL": "Your Request",
+          "PLACEHOLDER": "Please describe what kind of the development do you need (new blockchain creation, token contract, individual smart contract etc.)"
         }
       }
     },
@@ -580,7 +601,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "デプロイメントコストが高いなので,Main Netに作成する前に<a　href=\"mailto:support@mywish.io\">support@mywish.io</a>　に連絡する必要があります"
+          "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
       }
     }
@@ -638,10 +659,10 @@
         }
       },
       "ANY_TRANSACTION": {
-        "PART_1": "管理アドレスからトランザクション ({{amount||'0'}} ETH) を送信する",
+        "PART_1": "管理アドレスからトランザクション ({{amount||'0'}} {{blockchain || 'ETH'}}) を送信する",
         "PART_2": "契約アドレスに",
         "PART_3": "データ フィールド付き",
-        "PART_GUEST": "Send transaction ({{amount||'0'}} ETH) to contract address",
+        "PART_GUEST": "Send transaction ({{amount||'0'}} {{blockchain || 'ETH'}}) to contract address",
         "GAS_LIMIT": "Gas limit"
       },
       "ACTIVATE": {
@@ -940,7 +961,7 @@
           },
           "SOFT_CAP": {
             "LABEL": "プール容量（最小）",
-            "DESCRIPTION": "投資のために必要なETH最小容量を定義します。最小に達していない場合、寄稿者はETHを取り戻します。 あなたは0に（最低なし）設定することができます"
+            "DESCRIPTION": "投資のために必要な{{currency || 'ETH'}}最小容量を定義します。最小に達していない場合、寄稿者は{{currency || 'ETH'}}を取り戻します。 あなたは0に（最低なし）設定することができます"
           },
           "START_DATE": {
             "LABEL": "開始日",
@@ -976,7 +997,7 @@
           },
           "INVESTMENT_ADDRESS": {
             "LABEL": "目的地のアドレス：",
-            "DESCRIPTION": "ETHアドレスはプールからすべての資金を送信するためです。 契約アドレスにすることもできます。提出前にダブルチェックをしてください。"
+            "DESCRIPTION": "{{currency || 'ETH'}}アドレスはプールからすべての資金を送信するためです。 契約アドレスにすることもできます。提出前にダブルチェックをしてください。"
           },
           "BONUS": {
             "LABEL": "プールの所有者のための個人のボーナス（トークンで）：",
@@ -1055,6 +1076,7 @@
             "LABEL": "管理アドレス",
             "PLACEHOLDER": "お財布のアドレス {{networkName}} を入力する",
             "ETH_DESCRIPTION": "ETHアドレス（交換アドレスではない）。 このアドレスはウィル契約を管理します。 提出する前にアドレスをダブルチェックしてください",
+            "BNB_DESCRIPTION": "BNBアドレス（交換アドレスではない）。 このアドレスはウィル契約を管理します。 提出する前にアドレスをダブルチェックしてください",
             "RSK_DESCRIPTION": "このアドレスは、ご契約を管理します。 あなたは<a href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a>財布でそれを作成することができます。 提出する前にアドレスをダブルチェックしてください。"
           },
           "YOUR_EMAIL": {
@@ -1066,6 +1088,7 @@
             "LABEL": "受取人アドレス",
             "PLACEHOLDER": "アドレス {{networkName}} を入力する",
             "ETH_DESCRIPTION": "受取人のETHアドレスを入力する。契約実行後、資金はそのアドレスに送付されます。",
+            "BNB_DESCRIPTION": "受取人のBNBアドレスを入力する。契約実行後、資金はそのアドレスに送付されます。",
             "RSK_DESCRIPTION": "受取人のRSKアドレスを入力する。契約実行後、資金はそのアドレスに送付されます。相続人は、あまりにも<a href=\"https://jaxx.io/\" target=\"_blank\">JAXX</a>でそれを作成することができます"
           },
           "SHARE": {
@@ -1151,6 +1174,7 @@
           "TOKEN_SYMBOL": {
             "LABEL": "トークン記号：",
             "DESCRIPTION": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_BNB": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_TRON": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）"
           },
@@ -1161,7 +1185,9 @@
           "TOKEN_TYPE": {
             "LABEL": "トークンのタイプを選択します。",
             "DESCRIPTION_1": "ERC-20をお勧めします。 ほとんどの取引所で受け入れます。",
-            "DESCRIPTION_2": "ERC-223はERC-20とほとんど同じです。 トークンの転送中に余分な安全性を提供します。"
+            "DESCRIPTION_2": "ERC-223はERC-20とほとんど同じです。 トークンの転送中に余分な安全性を提供します。",
+            "DESCRIPTION_3": "BEP2Eをお勧めします。 ほとんどの取引所で受け入れます。",
+            "DESCRIPTION_4": "ERC-223はBEP2Eとほとんど同じです。 トークンの転送中に余分な安全性を提供します。"
           },
           "TOKEN_OWNER": {
             "LABEL": "トークン所有者",
@@ -1240,7 +1266,7 @@
           },
           "STORAGE_ADDRESS": {
             "LABEL": "投資ストレージアドレス",
-            "DESCRIPTION": "ETHアドレス（エクスチェンジアドレスではない）。ソフトキャップに達した場合、すべての投稿は終了日後にその住所に送信されます。入力する前に住所を再確認してください"
+            "DESCRIPTION": "{{blockchain || 'ETH'}}アドレス（エクスチェンジアドレスではない）。ソフトキャップに達した場合、すべての投稿は終了日後にその住所に送信されます。入力する前に住所を再確認してください"
           },
           "TOKEN_RATE": {
             "LABEL": "トークンレート",
@@ -1321,7 +1347,7 @@
             "LABEL": "最大金額",
             "DESCRIPTION": "特定のボーナスを得るための最大金額　{{last ? '（制限がない場合は空にしておくことができます）': ''}}"
           },
-          "AMOUNT_BONUS_DESCRIPTION": "あなたは寄付金額に応じたボーナスを定義することができます。たとえば、10+ ETHの貢献のための余分な5％のトークンを与えます"
+          "AMOUNT_BONUS_DESCRIPTION": "あなたは寄付金額に応じたボーナスを定義することができます。たとえば、10+ {{currency || 'ETH'}}の貢献のための余分な5％のトークンを与えます"
         }
       },
       "AIRDROP": {
@@ -1330,7 +1356,7 @@
         "FIELDS": {
           "MANAGEMENT_ADDR": {
             "LABEL": "管理アドレス",
-            "PLACEHOLDER": "あなたのETHの財布アドレスを入力してください",
+            "PLACEHOLDER": "あなたの{{currency || 'ETH'}}の財布アドレスを入力してください",
             "DESCRIPTION": "このアドレスの所有者が契約を管理できるようになります（それは一つだけです）"
           },
           "TOKEN_ADDR": {

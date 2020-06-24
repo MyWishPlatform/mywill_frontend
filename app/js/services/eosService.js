@@ -3,7 +3,9 @@ module.service('EOSService', function($q, EOS_NETWORKS_CONSTANTS, APP_CONSTANTS,
 
     var scatter;
 
-    window.ScatterJS.plugins( new window.ScatterEOS() );
+    if (window.ScatterJS && window.ScatterEOS) {
+        window.ScatterJS.plugins( new window.ScatterEOS() );
+    }
 
     var chainCallbacks, chainChecked;
 

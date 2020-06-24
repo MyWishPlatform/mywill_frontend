@@ -48,13 +48,15 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             contractDetails.eth_contract_token.abi
         );
 
-        web3Contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
-            if (error) return;
-            if (result * 1) {
-                $scope.tokensFreezed = true;
-            }
-            $scope.$apply();
-        });
+        if (web3Contract.methods.freezingBalanceOf) {
+            web3Contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+                if (error) return;
+                if (result * 1) {
+                    $scope.tokensFreezed = true;
+                }
+                $scope.$apply();
+            });
+        }
         updateTotalSupply();
     } else {
         $scope.chartData = angular.copy(contractDetails.token_holders);

@@ -176,10 +176,9 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         }).then(console.log);
     };
 
-}).controller('buyWishByWishController', function($scope, $state, $rootScope, APP_CONSTANTS, web3Service) {
+}).controller('buyWishBySwapController', function($scope, $state, $rootScope, APP_CONSTANTS, web3Service) {
 
-    $scope.wishAddress = APP_CONSTANTS.SWAP.ADDRESS;
-
+    $scope.swapAddress = APP_CONSTANTS.SWAP.ADDRESS;
     $scope.getProvider = function(name) {
         web3Service.setProvider(name, 1);
         return web3Service.web3();

@@ -20,24 +20,108 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
     };
 
 
-}).controller('depositInstructionController', function($scope, web3Service) {
-    var contractDetails = $scope.ngPopUp.params.contract.contract_details;
-    if ($scope.ngPopUp.params.contract.contract_type === 8) {
+}).controller('depositInstructionController', function($scope, web3Service, $timeout) {
+    var contract;
+    var contractData = $scope.ngPopUp.params.contract;
+    var contractDetails = contractData.contract_details;
+    $scope.dataFields = {};
+
+    var contractType;
+    switch (contractData.contract_type) {
+        case 8:
+        case 29:
+            contractType = 'token';
+            break;
+        default:
+            contractType = 'coin';
+            break;
+    }
+
+    if (contractType === 'token') {
+        web3Service.setProviderByNumber(contractData.network);
         web3Service.getTokenInfo(
-            $scope.ngPopUp.params.contract.network,
-            $scope.ngPopUp.params.contract.contract_details.token_address,
+            contractData.network,
+            contractDetails.token_address,
             false,
-            ['symbol']
+            ['decimals', 'symbol']
         ).then(function(result) {
-            $scope.depositUrl =
-                'https://myetherwallet.com/interface/send-transaction/?sendMode=token&to=' +
-                contractDetails.eth_contract.address + '&gaslimit=100000&value=0&symbol=' + result.symbol + '';
+            $scope.tokenInfo = result;
         });
     } else {
-        $scope.depositUrl =
-            'https://myetherwallet.com/interface/send-transaction/?sendMode=ether&to=' +
-            contractDetails.eth_contract.address + '&gaslimit=30000&value=0';
+        $scope.tokenInfo = {
+            decimals: '18',
+            symbol: contractData.blockchain || 'ETH'
+        };
     }
+
+    var decimalsAmount = '0';
+    var adminAddress = contractDetails.admin_address || contractDetails.user_address;
+
+    $scope.goToTransaction = function() {
+        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
+        decimalsAmount = new BigNumber($scope.dataFields.amount).times(powerNumber).toString(10);
+
+        web3Service.getAccounts(contractData.network).then(function(result) {
+            $scope.currentWallet = result.filter(function(wallet) {
+                return wallet.wallet.toLowerCase() === adminAddress.toLowerCase();
+            })[0];
+            if ($scope.currentWallet) {
+                web3Service.setProvider($scope.currentWallet.type, contractData.network);
+            }
+
+            if (contractType === 'token') {
+                contract = web3Service.createContractFromAbi(
+                    contractDetails.token_address, window.abi
+                );
+                var interfaceMethod = web3Service.getMethodInterface('transfer', window.abi);
+                var transferSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod, [contractDetails.eth_contract.address, decimalsAmount]);
+                $scope.instructionDataModal = {
+                    'dataField': transferSignature,
+                    'ownerAddress': adminAddress,
+                    'contractAddress': contractDetails.eth_contract.address,
+                    'contract': {
+                        network: contractData.network,
+                        blockchain: contractData.blockchain
+                    }
+                }
+            } else {
+                $scope.instructionDataModal = {
+                    'dataField': false,
+                    'ownerAddress': adminAddress,
+                    'contractAddress': contractDetails.eth_contract.address,
+                    'amount': $scope.dataFields.amount,
+                    'contract': {
+                        network: contractData.network,
+                        blockchain: contractData.blockchain
+                    }
+                }
+            }
+
+            $timeout(function() {
+                $scope.dataFields.sendTransaction = true;
+                $scope.$apply();
+                $scope.$parent.$broadcast('changeContent');
+            });
+        });
+
+    };
+
+    $scope.sendTransaction = function() {
+        if (contractType === 'token') {
+            contract.methods.transfer(contractDetails.eth_contract.address, decimalsAmount).send({
+                from: $scope.currentWallet.wallet
+            }).then(console.log);
+        } else {
+            web3Service.web3().eth.sendTransaction({
+                value: decimalsAmount,
+                from: adminAddress,
+                to: contractDetails.eth_contract.address
+            }, function() {
+                console.log(arguments);
+            });
+        }
+    };
+
 }).controller('instructionsController', function($scope, web3Service) {
     var web3 = web3Service.web3();
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;

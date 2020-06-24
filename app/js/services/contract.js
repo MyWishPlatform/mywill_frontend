@@ -1,4 +1,15 @@
 angular.module('Services').service('contractService', function(requestService, API) {
+
+    var setBlockchain = function(contractData) {
+        switch(contractData.network) {
+            case 22:
+            case 23:
+                contractData.blockchain = 'BNB';
+                break;
+
+        }
+    };
+
     return {
         getBalance: function (address, network) {
             var params = {
@@ -92,13 +103,19 @@ angular.module('Services').service('contractService', function(requestService, A
                 path: API.CONTRACTS,
                 query: data
             };
-            return requestService.get(params);
+            return requestService.get(params).then(function(result) {
+                result.data.results.forEach(setBlockchain);
+                return result;
+            });
         },
         getContract: function(contractId) {
             var params = {
                 path: API.CONTRACTS + contractId + '/'
             };
-            return requestService.get(params);
+            return requestService.get(params).then(function(result) {
+                setBlockchain(result.data);
+                return result;
+            });
         },
         getContractForLink: function(contractKey) {
             var params = {
@@ -107,7 +124,10 @@ angular.module('Services').service('contractService', function(requestService, A
                     link: contractKey
                 }
             };
-            return requestService.get(params);
+            return requestService.get(params).then(function(result) {
+                setBlockchain(result.data);
+                return result;
+            });
         },
 
         patchParams: function(id, data) {

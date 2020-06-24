@@ -153,7 +153,7 @@
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
             <button class="btn btn-submit" type="button"
-                    ng-if="contract.contract_type == 4"
+                    ng-if="contract.contract_type == 4  || contract.contract_type == 9  || contract.contract_type == 30  || contract.contract_type == 27"
                     ng-pop-up="{
                         template: '/templates/popups/instructions/eth/change-date-instruction.html',
                         newPopupContent: true,

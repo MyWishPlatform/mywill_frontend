@@ -61,7 +61,9 @@
     "NETWORK_10": "EOS MainNet",
     "NETWORK_11": "EOS TestNet",
     "NETWORK_14": "TRON MainNet",
-    "NETWORK_15": "TRON TestNet"
+    "NETWORK_15": "TRON TestNet",
+    "NETWORK_22": "Binance MainNet",
+    "NETWORK_23": "Binance TestNet"
   },
   "BUTTONS": {
     "ENABLE": "启用",
@@ -153,7 +155,9 @@
     "BTC": "BTC",
     "NEO": "NEO",
     "EOS": "EOS",
-    "TRON": "TRON"
+    "TRON": "TRON",
+    "WAVES": "WAVES",
+    "BINANCE": "Binance"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -301,6 +305,10 @@
         "TITLE": "空投",
         "DESCRIPTION": "将ERC-20/ERC-223代币分发到许多地址（例如赏金计划或者公开销售）"
       },
+      "BNB_AIRDROP": {
+        "TITLE": "空投",
+        "DESCRIPTION": "将BEP2E代币分发到许多地址（例如赏金计划或者公开销售）"
+      },
       "EOS_AIRDROP": {
         "TITLE": "空投",
         "DESCRIPTION": "将ERC-20/ERC-223代币分发到许多地址（例如赏金计划或者公开销售）"
@@ -309,9 +317,17 @@
         "TITLE": "投资池",
         "DESCRIPTION": "需在投资前收集ETH合， 创建它并与他人共享地址"
       },
+      "BNB_INVESTMENT_POOL": {
+        "TITLE": "投资池",
+        "DESCRIPTION": "需在投资前收集BNB合， 创建它并与他人共享地址"
+      },
       "LOST_KEY": {
         "TITLE": "遗失私钥",
         "DESCRIPTION": "智能合约与标准以太坊钱包具有完全相同的功能，此外，如果您遗失了访问权限/私钥，您的资金将被重新发送到备份钱包。"
+      },
+      "BNB_LOST_KEY": {
+        "TITLE": "Lost key",
+        "DESCRIPTION": "The smart contract has all the same features as the standard Binance smart chain wallet and, in addition, redirecting your funds to the backup wallet, if you will lose the access/private key."
       },
       "TRON_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
@@ -320,6 +336,10 @@
       "ETH_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
         "DESCRIPTION": "The Lost Key smart contract ensures your (ERC-20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
+      },
+      "BNB_TOKENS_LOST_KEY": {
+        "TITLE": "Lost key for Tokens",
+        "DESCRIPTION": "The Lost Key smart contract ensures your (BEP2E standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "延期付款",
@@ -363,7 +383,7 @@
     },
     "EXTERNAL_DEVELOPERS": {
       "TITLE": "外部开发人员",
-      "DESCRIPTION": "若你想要将合同添加到MyWish库并开始审计过程，请填写下面的表单。",
+      "DESCRIPTION": "If you need any kind of custom development please fill the form below.",
       "FIELDS": {
         "USER_NAME": {
           "LABEL": "用户名"
@@ -375,7 +395,8 @@
           "LABEL": "合约名称"
         },
         "DESCRIPTION": {
-          "PLACEHOLDER": "合约描述"
+          "LABEL": "Your Request",
+          "PLACEHOLDER": "Please describe what kind of the development do you need (new blockchain creation, token contract, individual smart contract etc.)"
         }
       }
     },
@@ -579,7 +600,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "由于开发成本较高，您需在主网创建合约前联系<a href=\"mailto:support@mywish.io\"> support@mywish.io </a> "
+          "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
       }
     }
@@ -637,10 +658,10 @@
         }
       },
       "ANY_TRANSACTION": {
-        "PART_1": "从您的管理地址发送交易（{{amount||'0'}} ETH）",
+        "PART_1": "从您的管理地址发送交易（{{amount||'0'}} {{blockchain || 'ETH'}}）",
         "PART_2": "发送至合约地址",
         "PART_3": "含有数据字段",
-        "PART_GUEST": "发送交易 ({{amount||'0'}} ETH) 到合同地址",
+        "PART_GUEST": "发送交易 ({{amount||'0'}} {{blockchain || 'ETH'}}) 到合同地址",
         "GAS_LIMIT": "交易费用限制"
       },
       "ACTIVATE": {
@@ -939,7 +960,7 @@
           },
           "SOFT_CAP": {
             "LABEL": "币池容积（最小）",
-            "DESCRIPTION": "定义投资所需的最低ETH。如果没有达到最低限度 - 将退回贡献者们的ETH。您可以将其设置为0（无最小值）"
+            "DESCRIPTION": "定义投资所需的最低{{currency || 'ETH'}}。如果没有达到最低限度 - 将退回贡献者们的{{currency || 'ETH'}}。您可以将其设置为0（无最小值）"
           },
           "START_DATE": {
             "LABEL": "开始日期",
@@ -975,7 +996,7 @@
           },
           "INVESTMENT_ADDRESS": {
             "LABEL": "目的地址：",
-            "DESCRIPTION": "ETH地址用于发送池中所有的资金。它可以是合同地址。在提交之前请仔细检查它。"
+            "DESCRIPTION": "{{currency || 'ETH'}}地址用于发送池中所有的资金。它可以是合同地址。在提交之前请仔细检查它。"
           },
           "BONUS": {
             "LABEL": "池所有者的个人奖励（在代币中）：",
@@ -1054,6 +1075,7 @@
             "LABEL": "管理地址",
             "PLACEHOLDER": "输入您的{{networkName}}钱包地址",
             "ETH_DESCRIPTION": " ETH地址（不是交易地址）。 该地址将管理遗嘱合约。 仔细检查地址（及其访问权限）后再提交",
+            "BNB_DESCRIPTION": " BNB地址（不是交易地址）。 该地址将管理遗嘱合约。 仔细检查地址（及其访问权限）后再提交",
             "RSK_DESCRIPTION": "该地址将管理您的合约。 你可以使用<a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">Jaxx</a>创建地址。仔细检查后再提交。"
           },
           "YOUR_EMAIL": {
@@ -1065,6 +1087,7 @@
             "LABEL": "受益人地址",
             "PLACEHOLDER": "输入{{networkName}}地址",
             "ETH_DESCRIPTION": "输入受益人的ETH地址。 合约执行后，资金将被发送到该地址。",
+            "BNB_DESCRIPTION": "输入受益人的BNB地址。 合约执行后，资金将被发送到该地址。",
             "RSK_DESCRIPTION": "输入受益人的RSK地址。 合约执行后，资金将被发送到该地址。 继承人可以使用<a tabindex=\"-1\" href=\"https://jaxx.io/\" target=\"_blank\">jaxx</a> 创建地址."
           },
           "SHARE": {
@@ -1150,6 +1173,7 @@
           "TOKEN_SYMBOL": {
             "LABEL": "代币符号：",
             "DESCRIPTION": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。请在提交之前检查它是否是唯一的(<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_BNB": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
             "DESCRIPTION_TRON": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
             "DESCRIPTION_NEO": "该符号应该较短（建议使用3-8个字符），不得有空白字符或换行符，并应限制为大写拉丁字母（即英文中使用的26个字母）"
           },
@@ -1159,8 +1183,10 @@
           },
           "TOKEN_TYPE": {
             "LABEL": "选择代币类型",
-            "DESCRIPTION_1": " ERC-20是推荐项，被大多数交易所接受。",
-            "DESCRIPTION_2": " ERC-223与ERC-20几乎相同，代币转账安全性更高"
+            "DESCRIPTION_1": "ERC-20是推荐项，被大多数交易所接受。",
+            "DESCRIPTION_2": "ERC-223与ERC-20几乎相同，代币转账安全性更高",
+            "DESCRIPTION_3": "BEP2E是推荐项，被大多数交易所接受。",
+            "DESCRIPTION_4": "ERC-223与BEP2E几乎相同，代币转账安全性更高"
           },
           "TOKEN_OWNER": {
             "LABEL": "代币所有者",
@@ -1239,7 +1265,7 @@
           },
           "STORAGE_ADDRESS": {
             "LABEL": "投资存储地址",
-            "DESCRIPTION": " ETH地址（不是交易地址）。 如果资金总额达到软上限，所有资金将在结束后发送到该地址。仔细检查后再输入地址"
+            "DESCRIPTION": "{{blockchain || 'ETH'}}地址（不是交易地址）。 如果资金总额达到软上限，所有资金将在结束后发送到该地址。仔细检查后再输入地址"
           },
           "TOKEN_RATE": {
             "LABEL": "代币率",
@@ -1320,7 +1346,7 @@
             "LABEL": "最大金额",
             "DESCRIPTION": "获得指定奖金的最大贡献额{{last ? ' (如果没有限制，您可以将其留空)' : ''}}"
           },
-          "AMOUNT_BONUS_DESCRIPTION": "您可以根据贡献金额定义奖金额。 例如，为10个以上的ETH贡献者奖励额外的5％代币"
+          "AMOUNT_BONUS_DESCRIPTION": "您可以根据贡献金额定义奖金额。 例如，为10个以上的{{currency || 'ETH'}}贡献者奖励额外的5％代币"
         }
       },
       "AIRDROP": {
@@ -1329,7 +1355,7 @@
         "FIELDS": {
           "MANAGEMENT_ADDR": {
             "LABEL": "管理地址",
-            "PLACEHOLDER": "输入您的ETH钱包地址",
+            "PLACEHOLDER": "输入您的{{currency || 'ETH'}}钱包地址",
             "DESCRIPTION": "该地址的所有者将拥有该合约（唯一的）的管理权"
           },
           "TOKEN_ADDR": {

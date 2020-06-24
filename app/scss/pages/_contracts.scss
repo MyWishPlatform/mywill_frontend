@@ -71,7 +71,7 @@
     }
   }
 
-  &_10, &_11 {
+  &_10, &_11, &_22, &_23 {
     &:before {
       transform: rotate(45deg);
     }
@@ -88,6 +88,20 @@
     color: #e37700;
     &:before {
       background: #e37700;
+    }
+  }
+
+  &_22 {
+    color: #36b049;
+    &:before {
+      background: #36b049;
+    }
+  }
+
+  &_23 {
+    color: #e34400;
+    &:before {
+      background: #e34400;
     }
   }
 

@@ -1,15 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?d5fnw6');
-  src:  url('fonts/icomoon.eot?d5fnw6#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?d5fnw6') format('truetype'),
-  url('fonts/icomoon.woff?d5fnw6') format('woff'),
-  url('fonts/icomoon.svg?d5fnw6#icomoon') format('svg');
-  src:  url('fonts/icomoon.eot?uqvbm');
-  src:  url('fonts/icomoon.eot?uqvbm#iefix') format('embedded-opentype'),
-  url('fonts/icomoon.ttf?uqvbm') format('truetype'),
-  url('fonts/icomoon.woff?uqvbm') format('woff'),
-  url('fonts/icomoon.svg?uqvbm#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?l2u4zv');
+  src:  url('fonts/icomoon.eot?l2u4zv#iefix') format('embedded-opentype'),
+  url('fonts/icomoon.ttf?l2u4zv') format('truetype'),
+  url('fonts/icomoon.woff?l2u4zv') format('woff'),
+  url('fonts/icomoon.svg?l2u4zv#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -34,16 +29,16 @@
   content: "\e95a";
 }
 .icon-bnb-investment-pool:before {
-  content: "\e95a";
-}
-.icon-bnb-airdrop:before {
   content: "\e95b";
 }
-.icon-bnb-crowdsale:before {
+.icon-bnb-airdrop:before {
   content: "\e95c";
 }
-.icon-bnb-token:before {
+.icon-bnb-crowdsale:before {
   content: "\e95d";
+}
+.icon-bnb-token:before {
+  content: "\e95e";
 }
 .icon-waves-ico:before {
   content: "\e959";

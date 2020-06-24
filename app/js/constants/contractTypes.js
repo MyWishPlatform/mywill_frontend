@@ -174,7 +174,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 29,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[29],
             // 'price': true
-        }, {
+        }/*, {
             'icon': 'icon-bnb-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.DESCRIPTION',
@@ -206,7 +206,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.WILL.DESCRIPTION',
             'typeNumber': 24,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[24]
-        }]
+        }*/]
     };
 
 

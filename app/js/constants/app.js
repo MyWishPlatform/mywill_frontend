@@ -73,6 +73,8 @@ module.constant('APP_CONSTANTS', {
 
     "EOS_FLARE_MAINNET_ADDRESS": "https://eosflare.io/",
 
+    "BNB_TESTNET_ADDRESS": "https://explorer.binance.org/smart-testnet/",
+
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

@@ -85,3 +85,54 @@
     }
   }
 }
+
+
+
+.birthday-block {
+  font-size: 22px;
+  line-height: 33px;
+  color: #333;
+  text-align: center;
+  &__text {
+    padding: 40px 0 20px;
+  }
+  &__image {
+    width: 90%;
+    max-width: 480px;
+    vertical-align: middle;
+  }
+}
+.jssocials {
+  padding: 20px 0;
+}
+.jssocials-share {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+.jssocials-share-label {
+  display: none;
+}
+.jssocials-share-logo {
+  &.fa {
+    display: block;
+    width: 48px;
+    height: 48px;
+    background: no-repeat center center;
+    background-size: contain;
+    opacity: 0.8;
+    &:hover {
+      opacity: 1;
+    }
+    &-twitter {
+      background-image: url('images/social/twitter.png');
+    }
+    &-facebook {
+      background-image: url('images/social/facebook.png');
+    }
+    &-linkedin {
+      background-image: url('images/social/linkedin.png');
+    }
+  }
+}

@@ -365,6 +365,54 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         }, 1000);
     };
 
+}).controller('birthdayController', function($scope) {
+    console.log($scope.contract);
+    var btn = jQuery("#share");
+    var contractDetails = $scope.contract.contract_details;
+
+    if (contractDetails.eth_contract) {
+        $scope.contractInfoPath = 'eth_contract';
+    } else if (contractDetails.eth_contract_crowdsale) {
+        $scope.contractInfoPath = 'eth_contract_crowdsale';
+    } else if (contractDetails.eth_contract_token) {
+        $scope.contractInfoPath = 'eth_contract_token';
+    } else if (contractDetails.eos_contract) {
+        $scope.contractInfoPath = 'eos_contract';
+    } else if (contractDetails.eos_contract_crowdsale) {
+        $scope.contractInfoPath = 'eos_contract_crowdsale';
+    } else if (contractDetails.eos_contract_token) {
+        $scope.contractInfoPath = 'eos_contract_token';
+    } else if (contractDetails.tron_contract) {
+        $scope.contractInfoPath = 'tron_contract';
+    } else if (contractDetails.tron_contract_crowdsale) {
+        $scope.contractInfoPath = 'tron_contract_crowdsale';
+    } else if (contractDetails.tron_contract_token) {
+        $scope.contractInfoPath = 'tron_contract_token';
+    } else if (contractDetails.neo_contract) {
+        $scope.contractInfoPath = 'neo_contract';
+    } else if (contractDetails.neo_contract_crowdsale) {
+        $scope.contractInfoPath = 'neo_contract_crowdsale';
+    } else if (contractDetails.neo_contract_token) {
+        $scope.contractInfoPath = 'neo_contract_token';
+    } else if (contractDetails.rsk_contract) {
+        $scope.contractInfoPath = 'rsk_contract';
+    } else if (contractDetails.rsk_contract_crowdsale) {
+        $scope.contractInfoPath = 'rsk_contract_crowdsale';
+    } else if (contractDetails.rsk_contract_token) {
+        $scope.contractInfoPath = 'rsk_contract_token';
+    }
+
+
+    jQuery(function() {
+        btn.jsSocials({
+            shares: ["twitter", "facebook", "linkedin"],
+            url: btn.data('url'),
+            text: "I've created a smart contract via @mywishplatform #MyWish3years",
+            shareIn: "popup",
+            hashtags: "MyWish3years"
+        });
+    });
+
 })
     .config(function($httpProvider, $qProvider, $compileProvider, $translateProvider) {
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
@@ -375,6 +423,5 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             prefix: '/static/i18n/',
             suffix: '.json?_=' + (new Date()).getTime()
         });
-
     });
 

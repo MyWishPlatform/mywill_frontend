@@ -407,7 +407,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         btn.jsSocials({
             shares: ["twitter", "facebook", "linkedin"],
             url: btn.data('url'),
-            text: "I've created smart contract via @mywishplatform #MyWish3years",
+            text: "I've created a smart contract via @mywishplatform #MyWish3years",
             shareIn: "popup",
             hashtags: "MyWish3years"
         });

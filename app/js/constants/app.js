@@ -9,6 +9,10 @@ module.constant('APP_CONSTANTS', {
     },
     'SWAP': {
         'ADDRESS': '0xc958e9fb59724f8b0927426a8836f1158f0d03cf',
+        'TEST_ADDRESS': '0x354F43e88a279bd4Fb53F32614C9D6300bB0F25a'
+    },
+    'OKB': {
+        'ADDRESS': '0xc958e9fb59724f8b0927426a8836f1158f0d03cf',
         'TEST_ADDRESS': '0x88c37052d55112ac3CfE2b04d2d5663edCc4b2a4'
     },
     'TEST_ADDRESSES': {

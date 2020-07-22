@@ -119,6 +119,7 @@ gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:eos-lynx', 'app:
             path.join(folders['npm'], 'papaparse', 'papaparse.min.js'),
             path.join(folders['npm'], 'ua-parser-js', 'dist', 'ua-parser.min.js'),
             path.join(folders['npm'], 'qrious', 'dist', 'qrious.min.js'),
+            path.join(folders['npm'], 'jssocials', 'dist', 'jssocials.min.js'),
             // path.join(folders['npm'], 'eosjs', 'dist', 'index.js'),
             path.join(folders['npm'], 'angular', 'angular.min.js'),
             path.join(folders['npm'], 'angular-resource', 'angular-resource.min.js'),

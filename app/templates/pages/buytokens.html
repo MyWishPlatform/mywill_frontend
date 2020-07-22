@@ -79,6 +79,9 @@
              ng-if="paymentSelect.visibleForm == 'swap'" ng-include="getTemplate('pages/buytokens-forms/swap-form')"></div>
 
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="paymentSelect.visibleForm == 'okb'" ng-include="getTemplate('pages/buytokens-forms/okb-form')"></div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="paymentSelect.visibleForm == 'eosish'" ng-include="getTemplate('pages/buytokens-forms/eosish-form')"></div>
 
         <div class="form-fieldset-delimiter"

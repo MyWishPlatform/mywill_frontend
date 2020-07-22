@@ -1,0 +1,11 @@
+<div class="birthday-block" ng-if="contract.stateValue" ng-controller="birthdayController">
+    <div class="birthday-block__text">
+        Share your contract with #MyWish3years in social networks<br/>
+        to participate in the contest and win 3,000 WISH
+    </div>
+    <img src="/static/images/birthday.svg" class="birthday-block__image">
+    <div class="birthday-block__buttons"
+         data-url="{{(contract.network|etherscanUrl:'address') + '/' + contract.contract_details[contractInfoPath].address|toCheckSum}}"
+         id="share">
+    </div>
+</div>

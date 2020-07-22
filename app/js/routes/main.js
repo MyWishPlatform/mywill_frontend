@@ -199,7 +199,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         currentCurrency = 'TRONISH';
                         break;
                     default:
-                        currencies = ['ETH','BTC','BNB', 'TRX', 'EOS', 'TRONISH', 'EOSISH', 'USDT', 'SWAP'];
+                        currencies = ['ETH','BTC','BNB', 'TRX', 'EOS', 'TRONISH', 'EOSISH', 'USDT', 'SWAP', "OKB"];
                         currentCurrency = 'WISH';
                         break;
                 }

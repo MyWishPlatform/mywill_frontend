@@ -80,7 +80,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var eth = {
         'networks': [1, 2],
-        'list':[customContract,  {
+        'list':[{
             'icon': 'icon-token',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
@@ -153,7 +153,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var bnb = {
         'networks': [22, 23],
-        'list':[customContract,  {
+        'list':[{
             'icon': 'icon-bnb-token',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
@@ -212,7 +212,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var neo = {
         'networks': [6, 6],
-        'list': [customContract, {
+        'list': [{
             'icon': 'icon-token',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
@@ -229,7 +229,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var waves = {
         'networks': [16, 17],
-        'list': [customContract, {
+        'list': [{
             'icon': 'icon-waves-ico',
             'title': 'STO Crowdsale Contract',
             'description': 'Start your STO/Token sale with a few clicks',
@@ -242,7 +242,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var rsk = {
         'networks': [3, 4],
-        'list': [customContract, {
+        'list': [{
             'icon': 'icon-lastwill',
             'title': 'PAGES.CREATE_CONTRACT.WILL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.WILL.DESCRIPTION',
@@ -254,7 +254,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var eosDefault = {
         'networks': [10, 11],
-        'list': [customContract, {
+        'list': [{
             'icon': 'icon-eos-wallet',
             'title': 'PAGES.CREATE_CONTRACT.EOS_WALLET.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.EOS_WALLET.DESCRIPTION',
@@ -309,7 +309,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     var tronDefault = {
         'networks': [14, 15],
-        'list': [customContract, {
+        'list': [{
             'icon': 'icon-tron-token',
             'title': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_TOKEN.DESCRIPTION',

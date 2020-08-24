@@ -93,17 +93,18 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
 
         switch (providerName) {
             case 'metamask':
-
-                var networkVersion = Number(window['ethereum'].networkVersion);
-                if (
-                    ((networkVersion == 31) && (network == 4)) ||
-                    ((networkVersion == 30) && (network == 3)) ||
-                    ((networkVersion == 1) && (network == 1)) ||
-                    ((networkVersion == 3) && (network == 2)) ||
-                    ((networkVersion == 96) && (network == 23))
-                ) {
-                    currentProvider = web3Providers[providerName];
-                    web3.setProvider(currentProvider);
+                if (window['ethereum'] && window['ethereum'].isMetaMask) {
+                    var networkVersion = Number(window['ethereum'].networkVersion);
+                    if (
+                        ((networkVersion == 31) && (network == 4)) ||
+                        ((networkVersion == 30) && (network == 3)) ||
+                        ((networkVersion == 1) && (network == 1)) ||
+                        ((networkVersion == 3) && (network == 2)) ||
+                        ((networkVersion == 96) && (network == 23))
+                    ) {
+                        currentProvider = web3Providers[providerName];
+                        web3.setProvider(currentProvider);
+                    }
                 }
                 break;
             default:
@@ -113,10 +114,14 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     };
 
     var checkMetamaskNetwork = function(network) {
-        var networkVersion = parseInt(window['ethereum'].networkVersion, 10);
-        return ((networkVersion === 1) && (network === 1)) ||
-            ((networkVersion === 3) && (network === 2)) ||
-            ((networkVersion === 96) && (network === 23));
+        if (window['ethereum'] && window['ethereum'].isMetaMask) {
+            var networkVersion = parseInt(window['ethereum'].networkVersion, 10);
+            return ((networkVersion === 1) && (network === 1)) ||
+                ((networkVersion === 3) && (network === 2)) ||
+                ((networkVersion === 96) && (network === 23));
+        } else {
+            return false;
+        }
     };
 
     var getMetamaskAccounts = function(providerName, network, callback) {
@@ -131,7 +136,6 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             //         addresses: accounts
             //     });
             // });
-
             window['ethereum'].enable().then(function(accounts) {
                 callback(accounts.map(function(wallet) {
                     return {

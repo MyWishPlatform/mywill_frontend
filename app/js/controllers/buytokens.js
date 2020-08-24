@@ -60,22 +60,18 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'label': 'WISH Binance',
                 'value': 'bnb-wish',
                 'select-icon': '/static/images/blockchain/mwbnb2.svg'
+            }, {
+                'label': 'OKB',
+                'value': 'okb',
+                'select-icon': '/static/images/blockchain/okb.svg'
             }/*, {
                 'label': 'WISH Ethereum',
                 'value': 'wish',
                 'select-icon': '/static/images/blockchain/mweth2.svg'
             }*/, {
-                'label': 'SWAP',
-                'value': 'swap',
-                'select-icon': '/static/images/logos/swap-logo.svg'
-            }, {
                 'label': 'BNB',
                 'value': 'bnb',
                 'select-icon': '/static/images/blockchain/binance-coin-logo.svg'
-            }, {
-                'label': 'OKB',
-                'value': 'okb',
-                'select-icon': '/static/images/blockchain/okb.svg'
             }, {
                 'label': 'ETH',
                 'value': 'eth',
@@ -100,6 +96,10 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'label': 'EOSISH',
                 'value': 'eosish',
                 'select-icon': '/static/images/blockchain/eosish-logo.svg'
+            }, {
+                'label': 'SWAP',
+                'value': 'swap',
+                'select-icon': '/static/images/logos/swap-logo.svg'
             }
         ]
     };

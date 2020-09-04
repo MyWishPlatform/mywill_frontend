@@ -74,7 +74,7 @@ module.constant('APP_CONSTANTS', {
     "EOS_TESTNET_ADDRESS": "https://jungle.bloks.io/",
 
     "TRON_MAINNET_ADDRESS": "https://tronscan.org/",
-    "TRON_TESTNET_ADDRESS": "http://tronscan.mywish.io/",
+    "TRON_TESTNET_ADDRESS": "https://shasta.tronscan.org/",
 
     "EOS_FLARE_MAINNET_ADDRESS": "https://eosflare.io/",
 

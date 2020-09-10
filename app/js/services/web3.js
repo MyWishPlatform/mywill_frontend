@@ -100,7 +100,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                         ((networkVersion == 30) && (network == 3)) ||
                         ((networkVersion == 1) && (network == 1)) ||
                         ((networkVersion == 3) && (network == 2)) ||
-                        ((networkVersion == 96) && (network == 23))
+                        ((networkVersion == 97) && (network == 23)) ||
+                        ((networkVersion == 56) && (network == 22))
                     ) {
                         currentProvider = web3Providers[providerName];
                         web3.setProvider(currentProvider);
@@ -118,7 +119,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             var networkVersion = parseInt(window['ethereum'].networkVersion, 10);
             return ((networkVersion === 1) && (network === 1)) ||
                 ((networkVersion === 3) && (network === 2)) ||
-                ((networkVersion === 96) && (network === 23));
+                ((networkVersion === 97) && (network === 23)) ||
+                ((networkVersion === 56) && (network === 22));
         } else {
             return false;
         }

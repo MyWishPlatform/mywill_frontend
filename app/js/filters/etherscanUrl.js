@@ -64,13 +64,13 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 addressPaths.tx = '#/transaction';
                 addressPaths.token20 = '#/token20';
                 break;
-            // case 22:
-            //     networkUrl = APP_CONSTANTS.TRON_TESTNET_ADDRESS;
-            //     addressPaths.address = '#/address';
-            //     addressPaths.token = '#/contract';
-            //     addressPaths.tx = '#/transaction';
-            //     addressPaths.token20 = '#/token20';
-            //     break;
+            case 22:
+                networkUrl = APP_CONSTANTS.BNB_MAINNET_ADDRESS;
+                addressPaths.address = '/address';
+                addressPaths.token = '/address';
+                addressPaths.tx = '/tx';
+                addressPaths.token20 = '/address';
+                break;
             case 23:
                 networkUrl = APP_CONSTANTS.BNB_TESTNET_ADDRESS;
                 addressPaths.address = '/address';

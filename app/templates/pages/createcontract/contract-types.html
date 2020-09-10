@@ -103,8 +103,8 @@
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'BNB')"
-                           ng-disabled="(blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'BNB')">
+                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO')"
+                           ng-disabled="(blockChainNetwork.type === 'NEO')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>
@@ -151,7 +151,7 @@
     <div ng-repeat="contractForCreate in blockChainData.list"
          ng-click="
          contractForCreate.directLink ? redirectTo(contractForCreate.directLink + (blockChainNetwork.isTest ? '?network=testnet' : ''), $event) : false"
-         ui-sref="main.createcontract.form({selectedType: contractForCreate.type, network: blockChainData.networks[blockChainNetwork.isTest || blockChainNetwork.type === 'BNB' ? 1 : 0]})"
+         ui-sref="main.createcontract.form({selectedType: contractForCreate.type, network: blockChainData.networks[blockChainNetwork.isTest ? 1 : 0]})"
          class="shadow-block shadow-block_hovered" ng-class="contractForCreate.class">
         <div class="shadow-block__content">
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">

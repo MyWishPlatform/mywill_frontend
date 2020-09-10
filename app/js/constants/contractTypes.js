@@ -159,21 +159,21 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 28,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[28],
-            // 'price': true
+            'price': true
         }, {
             'icon': 'icon-bnb-crowdsale',
             'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
             'typeNumber': 27,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[27],
-            // 'price': true
+            'price': true
         }, {
             'icon': 'icon-bnb-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.DESCRIPTION',
             'typeNumber': 29,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[29],
-            // 'price': true
+            'price': true
         }/*, {
             'icon': 'icon-bnb-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.TITLE',

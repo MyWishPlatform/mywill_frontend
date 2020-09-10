@@ -65,6 +65,7 @@ module.constant('APP_CONSTANTS', {
     'RSK_TESTNET_NET_ADDRESS': '/endpoint/rsk-testnet',
 
     'BNB_TESTNET_NET_ADDRESS': 'https://data-seed-prebsc-1-s1.binance.org:8545',
+    'BNB_NET_ADDRESS': 'https://bsc-dataseed1.binance.org',
 
 
     "NEO_TESTNET_ADDRESS": 'http://neoscan.mywish.io/',
@@ -79,6 +80,7 @@ module.constant('APP_CONSTANTS', {
     "EOS_FLARE_MAINNET_ADDRESS": "https://eosflare.io/",
 
     "BNB_TESTNET_ADDRESS": "https://explorer.binance.org/smart-testnet/",
+    "BNB_MAINNET_ADDRESS": "https://explorer.binance.org/smart/",
 
     'EMPTY_PROFILE': {
         "email":"",

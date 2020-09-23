@@ -466,7 +466,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         14: 'eos_i_token',
         15: 'tron_token',
         16: 'game_assets',
-        17: 'tron_airdrop'
+        17: 'tron_airdrop',
+        27: 'bnb_crowdsale',
+        28: 'bnb_token',
+        29: 'bnb_airdrop'
     };
 
     var launchContract = function(contract) {

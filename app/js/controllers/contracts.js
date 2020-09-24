@@ -482,7 +482,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             contract.launchProgress = false;
 
             // add event to GTM
-            var testNetwork = [2, 4, 6, 11, 15].indexOf(contract.network) > -1;
+            var testNetwork = [2, 4, 6, 11, 15, 23].indexOf(contract.network) > -1;
             var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
 
             if (window['dataLayer']) {

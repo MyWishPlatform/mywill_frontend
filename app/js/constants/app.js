@@ -52,8 +52,8 @@ module.constant('APP_CONSTANTS', {
             'COMING': 'mywishcoming'
         }
     },
-    'INFURA_ADDRESS': "https://mainnet.infura.io/v3/e65462856a9b46fbbec5d0fde337f2b0",
-    'ROPSTEN_INFURA_ADDRESS': 'https://ropsten.infura.io/v3/e65462856a9b46fbbec5d0fde337f2b0',
+    'INFURA_ADDRESS': "https://mainnet.infura.io/v3/ecf1e6d0427b458b89760012a8500abf",
+    'ROPSTEN_INFURA_ADDRESS': 'https://ropsten.infura.io/v3/ecf1e6d0427b458b89760012a8500abf',
 
     'ETHERSCAN_ADDRESS': 'https://etherscan.io/',
     'ROPSTEN_ETHERSCAN_ADDRESS': 'https://ropsten.etherscan.io/',

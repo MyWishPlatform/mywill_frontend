@@ -97,9 +97,9 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'value': 'eosish',
                 'select-icon': '/static/images/blockchain/eosish-logo.svg'
             }, {
-                'label': 'SWAP',
-                'value': 'swap',
-                'select-icon': '/static/images/logos/swap-logo.svg'
+                'label': 'RBC',
+                'value': 'rbc',
+                'select-icon': '/static/images/logos/rubic.svg'
             }
         ]
     };
@@ -180,9 +180,9 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         }).then(console.log);
     };
 
-}).controller('buyWishBySwapController', function($scope, $state, $rootScope, APP_CONSTANTS, web3Service) {
+}).controller('buyWishByRbcController', function($scope, $state, $rootScope, APP_CONSTANTS, web3Service) {
 
-    $scope.swapAddress = APP_CONSTANTS.SWAP.ADDRESS;
+    $scope.rbcAddress = APP_CONSTANTS.RBC.ADDRESS;
     $scope.getProvider = function(name) {
         web3Service.setProvider(name, 1);
         return web3Service.web3();
@@ -195,8 +195,8 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         });
     });
 
-    $scope.$watch('amountsValues.SWAP', function() {
-        if (!$scope.amountsValues.SWAP) return;
+    $scope.$watch('amountsValues.RBC', function() {
+        if (!$scope.amountsValues.RBC) return;
 
         $scope.checkedTransferData = (new Web3).eth.abi.encodeFunctionCall({
             name: 'transfer',
@@ -210,14 +210,14 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             }]
         }, [
             $scope.currentUser.internal_address,
-            new BigNumber($scope.amountsValues.SWAP).times(Math.pow(10, 18)).toString(10)
+            new BigNumber($scope.amountsValues.RBC).times(Math.pow(10, 18)).toString(10)
         ]);
     });
 
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
             from: $scope.formData.address,
-            to: APP_CONSTANTS.SWAP.ADDRESS,
+            to: APP_CONSTANTS.RBC.ADDRESS,
             data: $scope.checkedTransferData
         }).then(console.log);
     };

@@ -1,4 +1,4 @@
-<form ng-controller="buyWishBySwapController" name="buyTokensForm" ng-init="formData.addressChecked = true">
+<form ng-controller="buyWishByRbcController" name="buyTokensForm" ng-init="formData.addressChecked = true">
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <div class="grid-row">
 
@@ -9,9 +9,9 @@
                            class="form-control-input with-currency"
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
-                           ng-model="amountsValues.SWAP"
-                           ng-change="convertAmountFrom('SWAP')">
-                    <div class="input-after">SWAP</div>
+                           ng-model="amountsValues.RBC"
+                           ng-change="convertAmountFrom('RBC')">
+                    <div class="input-after">RBC</div>
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
                            ng-model="amountsValues.WISH"
-                           ng-change="convertAmountTo('SWAP')">
+                           ng-change="convertAmountTo('RBC')">
                     <div class="input-after">WISH</div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                 <div class="form-control">
                     <label class="form-control-label"
-                           translate="PAGES.BUY_TOKENS.SEND_SWAP"></label>
+                           translate="PAGES.BUY_TOKENS.SEND_RBC"></label>
                     <input type="text" class="form-control-input form-control-input--wish"
                            disabled ng-model="currentUser.internal_address">
                 </div>
@@ -165,7 +165,7 @@
                 <div class="form-control">
                     <label class="form-control-label" translate="PAGES.BUY_TOKENS.ENTER_AMOUNT"></label>
                     <input type="text"
-                           ng-model="amountsValues.SWAP"
+                           ng-model="amountsValues.RBC"
                            class="form-control-input"
                            commaseparator="{notNull: true, regexp: '^([0]{1}|([1-9]{1}[0-9]{0,24}))([.](([0]{3}([1-9][0-9]{0,14})?)|([0]{0,3}([1-9][0-9]{0,18})?))?)?$'}"
                            pattern="^([0]|([1-9][0-9,]{0,24}))([.](([0]{3}[1-9][0-9]{0,14})|([0]{0,3}[1-9][0-9]{0,18})))?$"
@@ -197,7 +197,7 @@
                     <a class="btn btn-transparent center-input-field"
                        ng-if="formData.activeService == 'myetherwallet'"
                        ng-disabled="!buyTokensForm.$valid" target="_blank"
-                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://myetherwallet.com/interface/send-transaction/?data=' + checkedTransferData + '&value=0&to=' + swapAddress + '&gaslimit=' + formData.gaslimit + '' : undefined }}">
+                       ng-attr-href="{{ buyTokensForm.$valid ? 'https://myetherwallet.com/interface/send-transaction/?data=' + checkedTransferData + '&value=0&to=' + rbcAddress + '&gaslimit=' + formData.gaslimit + '' : undefined }}">
                         <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.PAY'|translate}}&nbsp;&nbsp;&nbsp;</span>
                     </a>
                 </div>

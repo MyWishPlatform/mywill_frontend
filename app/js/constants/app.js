@@ -7,8 +7,8 @@ module.constant('APP_CONSTANTS', {
         'ADDRESS': '0x1b22c32cd936cb97c28c5690a0695a82abf688e6',
         'TEST_ADDRESS': '0xa9CcA3bC3867C8D833682AF3Fec46Ad5bdF1A1b8'
     },
-    'SWAP': {
-        'ADDRESS': '0xc958e9fb59724f8b0927426a8836f1158f0d03cf',
+    'RBC': {
+        'ADDRESS': '0xa4eed63db85311e22df4473f87ccfc3dadcfa3e3',
         'TEST_ADDRESS': '0x88c37052d55112ac3CfE2b04d2d5663edCc4b2a4'
     },
     'OKB': {

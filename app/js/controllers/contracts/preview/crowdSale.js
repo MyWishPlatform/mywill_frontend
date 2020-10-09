@@ -299,6 +299,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     switch($scope.ngPopUp.params.contract.contract_type) {
         case 4:
         case 27:
+        case 32:
             $scope.contracInfoKey = 'eth_contract_crowdsale';
             break;
         default:
@@ -595,6 +596,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     switch($scope.ngPopUp.params.contract.contract_type) {
         case 4:
         case 27:
+        case 32:
             $scope.contracInfoKey = 'eth_contract_crowdsale';
             break;
         default:

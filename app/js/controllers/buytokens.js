@@ -81,6 +81,10 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'value': 'btc',
                 'select-icon': '/static/images/blockchain/bitcoin.svg'
             }, {
+                'label': 'RBC',
+                'value': 'rbc',
+                'select-icon': '/static/images/logos/rubic.svg'
+            }, {
                 'label': 'EOS',
                 'value': 'eos',
                 'select-icon': '/static/images/blockchain/eos.svg'
@@ -96,10 +100,6 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'label': 'EOSISH',
                 'value': 'eosish',
                 'select-icon': '/static/images/blockchain/eosish-logo.svg'
-            }, {
-                'label': 'RBC',
-                'value': 'rbc',
-                'select-icon': '/static/images/logos/rubic.svg'
             }
         ]
     };

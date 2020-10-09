@@ -38,6 +38,17 @@
             </div>
 
             <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'MATIC'})"
+                   ng-click="blockChainNetwork.type = 'MATIC'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'MATIC'}">
+                    <img src="/static/images/blockchain/matic.svg" width="20"
+                         style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.MATIC"></span>
+                </a>
+            </div>
+
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'TRON'})"
                    ng-click="blockChainNetwork.type = 'TRON'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'TRON'}">

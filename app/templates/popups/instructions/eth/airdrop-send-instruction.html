@@ -12,14 +12,14 @@
 
     <div class="shadow-block__content shadow-block__content_min-tb-padding">
         <a href="https://myetherwallet.com/interface/send-transaction/"
-           ng-if="contract.blockchain != 'BNB'"
+           ng-if="contract.blockchain === 'ETH'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="sendTransaction()"
                 ng-disabled="currentWallet.type !== 'parity'"
-                ng-if="contract.blockchain != 'BNB'"
+                ng-if="contract.blockchain === 'ETH'"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>

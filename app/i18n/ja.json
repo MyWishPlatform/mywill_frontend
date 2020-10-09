@@ -63,7 +63,9 @@
     "NETWORK_14": "TRON MainNet",
     "NETWORK_15": "TRON TestNet",
     "NETWORK_22": "Binance MainNet",
-    "NETWORK_23": "Binance TestNet"
+    "NETWORK_23": "Binance TestNet",
+    "NETWORK_24": "Matic MainNet",
+    "NETWORK_25": "Matic TestNet"
   },
   "BUTTONS": {
     "ENABLE": "有効にする",
@@ -157,7 +159,8 @@
     "EOS": "EOS",
     "TRON": "TRON",
     "WAVES": "WAVES",
-    "BINANCE": "Binance"
+    "BINANCE": "Binance",
+    "MATIC": "Matic"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -302,6 +305,10 @@
         "DESCRIPTION": "多くのアドレスにTRC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
       },
       "AIRDROP": {
+        "TITLE": "Airdrop",
+        "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
+      },
+      "MATIC_AIRDROP": {
         "TITLE": "Airdrop",
         "DESCRIPTION": "多くのアドレスにERC-20トークンを配布する（例えば、バウンティプログラムまたはクラウドセール後）"
       },
@@ -1177,6 +1184,7 @@
             "LABEL": "トークン記号：",
             "DESCRIPTION": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
             "DESCRIPTION_BNB": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
+            "DESCRIPTION_MATIC": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_TRON": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）"
           },

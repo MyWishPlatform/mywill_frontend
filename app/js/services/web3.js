@@ -6,7 +6,6 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
     /* Определение провайдеров клиентов */
     var web3Providers = {};
     var createWeb3Providers = function() {
-        var metamask, parity, infura;
         try {
             web3Providers['metamask'] = Web3.givenProvider || new Web3.providers.WebsocketProvider("ws://localhost:8546");
         } catch(err) {
@@ -76,6 +75,13 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.BNB_TESTNET_NET_ADDRESS));
                 break;
 
+            case 24:
+                web3.setProvider(new Web3.providers.HttpProvider(isProduction ? APP_CONSTANTS.MATIC_MAINNET_PROVIDER : APP_CONSTANTS.MATIC_TESTNET_PROVIDER));
+                break;
+            case 25:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.MATIC_TESTNET_PROVIDER));
+                break;
+
 
         }
     };
@@ -89,6 +95,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 22:
                 network = isProduction ? network : 23;
                 break;
+            case 24:
+                network = isProduction ? network : 25;
+                break;
         }
 
         switch (providerName) {
@@ -101,7 +110,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                         ((networkVersion == 1) && (network == 1)) ||
                         ((networkVersion == 3) && (network == 2)) ||
                         ((networkVersion == 97) && (network == 23)) ||
-                        ((networkVersion == 56) && (network == 22))
+                        ((networkVersion == 56) && (network == 22)) ||
+                        ((networkVersion == 80001) && (network == 25)) ||
+                        ((networkVersion == 137) && (network == 24))
                     ) {
                         currentProvider = web3Providers[providerName];
                         web3.setProvider(currentProvider);
@@ -120,7 +131,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             return ((networkVersion === 1) && (network === 1)) ||
                 ((networkVersion === 3) && (network === 2)) ||
                 ((networkVersion === 97) && (network === 23)) ||
-                ((networkVersion === 56) && (network === 22));
+                ((networkVersion === 56) && (network === 22)) ||
+                ((networkVersion === 80001) && (network === 25)) ||
+                ((networkVersion === 137) && (network === 24));
         } else {
             return false;
         }
@@ -203,6 +216,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 22:
                 network = isProduction ? network : 23;
                 break;
+            case 24:
+                network = isProduction ? network : 25;
+                break;
         }
 
         for (var clientName in web3Providers) {
@@ -257,7 +273,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             path: API.GET_ETH_TOKENS_FOR_ADDRESS,
             query: {
                 address: address,
-                network: ((network === 1 || network === 22) && isProduction) ? 'mainnet' : 'testnet'
+                network: ((network === 1 || network === 22 || network === 24) && isProduction) ? 'mainnet' : 'testnet'
             }
         };
         return requestService.get(params);

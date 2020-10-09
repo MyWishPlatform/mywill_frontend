@@ -13,7 +13,7 @@
         <a ng-attr-href="{{
             'https://myetherwallet.com/interface/send-transaction/?data=' + confirmTokenSignature +
             '&value=0&to=' + contract.address}}"
-           ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
+           ng-if="ngPopUp.params.contract.blockchain === 'ETH'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
@@ -21,7 +21,7 @@
 
         <button ng-click="sendTransaction()"
                 ng-disabled="currentWallet.type !== 'parity'"
-                ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
+                ng-if="ngPopUp.params.contract.blockchain === 'ETH'"
                 class="btn btn-gray with-icon nowrap">
             <span class="lds-ellipsis" ng-if="!currentWallet">
                 <span class="lds-ellipsis-container">

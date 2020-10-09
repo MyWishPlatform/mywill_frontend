@@ -106,6 +106,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 break;
             case 8:
             case 29:
+            case 34:
                 if (contract.contract_details.processing_count) {
                     contract.state = 'SENDING_TOKENS';
                 }
@@ -227,6 +228,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 25:
             case 26:
             case 27:
+            case 32:
                 if (contract.contract_details.eth_contract) {
                     contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
                         ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
@@ -400,6 +402,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 2:
             case 22:
             case 23:
+            case 24:
+            case 25:
                 setContractStatValues(contract);
                 iniETHContract(contract, fullScan);
                 break;
@@ -469,7 +473,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         17: 'tron_airdrop',
         27: 'bnb_crowdsale',
         28: 'bnb_token',
-        29: 'bnb_airdrop'
+        29: 'bnb_airdrop',
+        32: 'matic_crowdsale',
+        33: 'matic_token',
+        34: 'matic_airdrop'
     };
 
     var launchContract = function(contract) {
@@ -482,7 +489,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             contract.launchProgress = false;
 
             // add event to GTM
-            var testNetwork = [2, 4, 6, 11, 15, 23].indexOf(contract.network) > -1;
+            var testNetwork = [2, 4, 6, 11, 15, 23, 25].indexOf(contract.network) > -1;
             var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
 
             if (window['dataLayer']) {

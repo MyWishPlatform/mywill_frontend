@@ -14,14 +14,14 @@
         <a ng-attr-href="{{
                 'https://myetherwallet.com/interface/send-transaction/?data=' + killSignature +
                 '&value=0&to=' + ngPopUp.params.contract.contract_details.eth_contract.address}}"
-           ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
+           ng-if="ngPopUp.params.contract.blockchain === 'ETH'"
            target="_blank" class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/myetherwallet.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>MyEtherwallet</span>
         </a>
         <button ng-click="killContract()"
                 ng-disable="currentWallet.type !== 'parity'"
-                ng-if="ngPopUp.params.contract.blockchain != 'BNB'"
+                ng-if="ngPopUp.params.contract.blockchain === 'ETH'"
                 class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/parity.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Parity</span>

@@ -30,7 +30,11 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'BNB_TOKEN': 28,
     'BNB_AIRDROP': 29,
     'BNB_INVESTMENT_PULL': 30,
-    'BNB_TOKENS_LOST_KEY': 31
+    'BNB_TOKENS_LOST_KEY': 31,
+
+    'MATIC_TOKEN': 33,
+    'MATIC_CROWD_SALE': 32,
+    'MATIC_AIRDROP': 34,
 
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
@@ -66,6 +70,11 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     29: 'bnbAirdrop',
     30: 'bnbInvestmentPull',
     31: 'bnbTokensLostKey',
+
+    33: 'maticToken',
+    32: 'maticCrowdSale',
+    34: 'maticAirdrop',
+
 
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
 
@@ -150,6 +159,31 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         }]
     };
 
+    var matic = {
+        'networks': [24, 25],
+        'list':[{
+            'icon': 'icon-matic-token',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'typeNumber': 33,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[33],
+            'price': true
+        }, {
+            'icon': 'icon-matic-crowdsale',
+            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
+            'typeNumber': 32,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[32],
+            'price': true
+        }, {
+            'icon': 'icon-matic-airdrop',
+            'title': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.DESCRIPTION',
+            'typeNumber': 34,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[34],
+            'price': true
+        }]
+    }
 
     var bnb = {
         'networks': [22, 23],
@@ -357,7 +391,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 TRON: tronDefault,
                 EOS: eosDefault,
                 WAVES: waves,
-                BNB: bnb
+                BNB: bnb,
+                MATIC: matic
             };
     }
 });

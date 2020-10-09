@@ -82,6 +82,9 @@ module.constant('APP_CONSTANTS', {
     "BNB_TESTNET_ADDRESS": "https://explorer.binance.org/smart-testnet/",
     "BNB_MAINNET_ADDRESS": "https://explorer.binance.org/smart/",
 
+    "MATIC_MAINNET_PROVIDER": "https://rpc-mainnet.maticvigil.com/",
+    "MATIC_TESTNET_PROVIDER": "https://rpc-mumbai.matic.today/",
+
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

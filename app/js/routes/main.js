@@ -477,7 +477,11 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 return false;
             },
             tokensList: function($stateParams, contractService) {
-                if ($stateParams.selectedType === 'crowdSale' || $stateParams.selectedType === 'bnbCrowdSale') {
+                if (
+                    $stateParams.selectedType === 'crowdSale' ||
+                    $stateParams.selectedType === 'bnbCrowdSale' ||
+                    $stateParams.selectedType === 'maticCrowdSale'
+                ) {
                     return contractService.getTokenContracts($stateParams.network || 1);
                 }
                 return undefined;
@@ -524,7 +528,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             tokensList: function($stateParams, contractService, CONTRACT_TYPES_NAMES_CONSTANTS, openedContract) {
                 if (
                     CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'crowdSale' ||
-                    CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'bnbCrowdSale'
+                    CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'bnbCrowdSale' ||
+                    CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type] === 'maticCrowdSale'
                 ) {
                     return contractService.getTokenContracts(openedContract.data.network || 1);
                 }

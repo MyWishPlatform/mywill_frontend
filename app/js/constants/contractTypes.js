@@ -392,7 +392,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 EOS: eosDefault,
                 WAVES: waves,
                 BNB: bnb,
-                MATIC: matic
+                // MATIC: matic
             };
     }
 });

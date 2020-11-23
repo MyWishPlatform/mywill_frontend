@@ -146,6 +146,12 @@
   }
 }
 
+.verification-icon {
+  vertical-align: middle;
+  width: 28px;
+  margin-left: -5px;
+}
+
 @media screen and (max-width: 380px) {
   .form-control {
     &.with-authio-logo {

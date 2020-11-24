@@ -1229,7 +1229,7 @@
           },
           "AUTHIO": {
             "LABEL": "Branded report",
-            "DESCRIPTION": "Branded report is needed for exchanges and gives the estimation of the security of your token contract. Every contract is verified independently. Please <a href=\"https://rocknblock.io/pdf/navi_rocknblock.pdf\" target=\"_blank\">check the example</a>. <br/><b>Branded report cost is $450</b>.",
+            "DESCRIPTION": "Branded report is needed for exchanges and gives the estimation of the security of your token contract. Every contract is verified independently.<br/><b>Branded report cost is $450</b>.",
             "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
             "EMAIL_LABEL": "To request a branded report please enter your email",
             "EMAIL_DESCRIPTION": "At this address you will receive an branded report of your contract. Please be careful and check it again.",
@@ -1562,7 +1562,7 @@
           "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contact you as soon as possible.",
           "FORM_TEXTS": {
             "PART_1": "Rock`n`block is a full service smart contract security firm focused of mitigating technical debt and security risk for projects building decentralised applications on Ethereum. <a href=\"https://rocknblock.io/\" target=\"_blank\">Learn more</a>",
-            "PART_2": "What you get:<br/> 1. A beautifully designed branded report with your company's branding (name, logo, URL)<br/> 2. A credible attestation that your token contracts have passed review and testing by security experts<br/> <a href=\"https://rocknblock.io/pdf/navi_rocknblock.pdf\" target=\"_blank\">Check an example</a>"
+            "PART_2": "What you get:<br/> 1. A beautifully designed branded report with your company's branding (name, logo, URL)<br/> 2. A credible attestation that your token contracts have passed review and testing by security experts"
           },
           "FORM_NOTICE": "The branded report will be delivered in 3 working days by email after the date of payment.",
           "AUDIT_BUTTON": "REQUEST / PAY"

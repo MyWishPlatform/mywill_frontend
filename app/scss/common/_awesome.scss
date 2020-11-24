@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-etherscan:before {
+  content: "\e962";
+}
 .icon-matic-airdrop:before {
   content: "\e95f";
 }

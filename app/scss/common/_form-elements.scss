@@ -20,8 +20,9 @@
     }
   }
   &.inline-label {
-    display: inline-block;
+    display: flex;
     vertical-align: middle;
+    align-items: center;
   }
   &-icon {
     color: $main-color;
@@ -38,7 +39,7 @@
     &.floated {
       float: left;
       + .after-floated {
-        margin-left: 1.7em;
+        margin-left: 6px;
         display: block;
       }
     }

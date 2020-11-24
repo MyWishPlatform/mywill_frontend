@@ -16,6 +16,12 @@
          ng-class="{'active': showedTab == 'audit'}">
         <span translate="CONTRACTS.PREVIEW.TABS.AUDIT"></span>
     </div>
+    <div class="contract-preview-one-tab"
+         ng-click="goTo('verification')"
+         ng-show="contract.network === 1"
+         ng-class="{'active': showedTab == 'verification'}">
+        <span>Verification</span>
+    </div>
 </div>
 
 <div ng-show="showedTab == 'code'">
@@ -387,6 +393,30 @@
             </div>
         </div>
 
+        <!-- Verification -->
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="blockchain === 'ETH'">
+            <span class="form-control-label">
+                <i class="form-control-label-icon floated">
+                    <img src="/static/images/verification/ethereum.png"
+                         class="verification-icon">
+                </i>
+                Etherscan verification
+            </span>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="normal-text contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': true}"></i>
+                            <span translate="YES" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+            </div><br/>
+
+            <div class="normal-text" ng-if="details.authio" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FEEL_FORM_TEXT">
+            </div>
+        </div>
+
     </div>
 
     <div class="shadow-block"
@@ -523,3 +553,6 @@
     </form>
 </div>
 
+<div ng-show="showedTab == 'verification'" ng-if="contract.network === 1">
+    <ng-include src="'/templates/common/contracts/verification/preview/eth-verification.html'"></ng-include>
+</div>

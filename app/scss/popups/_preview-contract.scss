@@ -118,9 +118,8 @@
 .contract-preview-one-tab {
   border-top-left-radius: 0.9em;
   border-top-right-radius: 0.9em;
-  padding: 0.25em 0;
+  padding: 0.25em 2em;
   float: left;
-  width: 17.25em;
   text-align: center;
   cursor: pointer;
   background-color: #EBEBEB;
@@ -415,4 +414,25 @@
 .instruction-for-copy-button {
   @extend .copy-block__button;
   margin-top: 0;
+}
+
+.verification {
+  &-info {
+    background-color: #ffffff;
+    border-radius: 1.2em;
+    margin-bottom: 3em;
+    &_logo {
+      margin-bottom: 3em;
+    }
+    &_text {
+      font-size: 1.5em;
+    }
+  }
+  &-price {
+    display: flex;
+    font-size: 1.5em;
+    &_label {
+      font-weight: bold;
+    }
+  }
 }

@@ -78,6 +78,20 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 addressPaths.tx = '/tx';
                 addressPaths.token20 = '/address';
                 break;
+            case 24:
+                networkUrl = APP_CONSTANTS.MATIC_MAINNET_ADDRESS;
+                addressPaths.address = '/address';
+                addressPaths.token = '/address';
+                addressPaths.tx = '/tx';
+                addressPaths.token20 = '/address';
+                break;
+            case 25:
+                networkUrl = APP_CONSTANTS.MATIC_TESTNET_ADDRESS;
+                addressPaths.address = '/address';
+                addressPaths.token = '/address';
+                addressPaths.tx = '/tx';
+                addressPaths.token20 = '/address';
+                break;
 
         }
         return networkUrl + (addressPaths[path] || '');

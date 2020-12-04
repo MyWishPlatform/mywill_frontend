@@ -310,7 +310,7 @@
       },
       "MATIC_AIRDROP": {
         "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any ERC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+        "DESCRIPTION": "Distribute any MRC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
       "BNB_AIRDROP": {
         "TITLE": "Airdrop",
@@ -490,7 +490,7 @@
     "AIRDROP": {
       "DISCLAIMER": {
         "ITEM_1": "For adding addresses & amount of tokens you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one address in Ethereum (column A) and amount of tokens to distribute (column B)",
+        "ITEM_2": "Every row must contain one address (column A) and amount of tokens to distribute (column B)",
         "ITEM_TEXT": "There are 2 types of the format for amount of tokens field. For example, your token has 18 decimals and you want to send 26.5 tokens to somebody. If you choose “No Decimals” you need to put 26.5 to column B. “With Decimals” - 26500000000000000000 (26.5 * 10^18)."
       },
       "FILE_ERRORS": {
@@ -516,7 +516,7 @@
     "WHITELIST": {
       "DISCLAIMER": {
         "ITEM_1": "For adding whitelisted addresses you need to upload the table in *.csv format",
-        "ITEM_2": "Every row must contain one address in Ethereum format",
+        "ITEM_2": "Every row must contain one address in 0x format",
         "ITEM_3": "Only the first 100 addresses will be processed",
         "ITEM_4": "You can add as many addresses as you need, but not more than 100 at a time<br/>Table example:"
       },

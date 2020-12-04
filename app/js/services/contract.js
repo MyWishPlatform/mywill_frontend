@@ -6,6 +6,10 @@ angular.module('Services').service('contractService', function(requestService, A
             case 23:
                 contractData.blockchain = 'BNB';
                 break;
+            case 24:
+            case 25:
+                contractData.blockchain = 'MATIC';
+                break;
 
         }
     };

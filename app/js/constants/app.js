@@ -85,6 +85,9 @@ module.constant('APP_CONSTANTS', {
     "MATIC_MAINNET_PROVIDER": "https://rpc-mainnet.maticvigil.com/",
     "MATIC_TESTNET_PROVIDER": "https://rpc-mumbai.matic.today/",
 
+    "MATIC_TESTNET_ADDRESS": "https://explorer-mumbai.maticvigil.com",
+    "MATIC_MAINNET_ADDRESS": "https://explorer-mainnet.maticvigil.com",
+
     'EMPTY_PROFILE': {
         "email":"",
         "username":"",

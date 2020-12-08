@@ -111,6 +111,14 @@
     </div>
 </form>
 
+<form class="shadow-block"
+      name="verificationFrom"
+      ng-if="network == 14"
+      ng-init="request = request.contract_details"
+      ng-class="{'no-active': !(managementAddressForm.$valid && tokenAddressForm.$valid && checkedTokenAddress)}">
+    <ng-include src="'/templates/common/contracts/verification/tron-verification.html'"></ng-include>
+</form>
+
 <br/><br/><br/>
 
 <div class="grid-row">

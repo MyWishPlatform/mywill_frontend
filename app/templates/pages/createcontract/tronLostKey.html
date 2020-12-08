@@ -210,6 +210,13 @@
     </div>
 </form>
 
+<form class="shadow-block"
+      name="verificationFrom"
+      ng-if="network == 14"
+      ng-class="{'no-active': !(mainForm.$valid && contractNameForm.$valid && hairsForm.$valid && conditionsForm.$valid) || (percentageSum !== 100)}">
+    <ng-include src="'/templates/common/contracts/verification/tron-verification.html'"></ng-include>
+</form>
+
 <br/><br/><br/>
 
 <div class="grid-row">

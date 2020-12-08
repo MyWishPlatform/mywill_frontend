@@ -25,6 +25,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-tronscan:before {
+  content: "\e963";
+}
 .icon-etherscan:before {
   content: "\e962";
 }

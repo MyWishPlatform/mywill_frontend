@@ -17,6 +17,12 @@
          ng-show="contract.contract_details.tron_contract.address">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
+    <div class="contract-preview-one-tab"
+         ng-click="showedTab = 'verification'"
+         ng-show="contract.network === 14"
+         ng-class="{'active': showedTab == 'verification'}">
+        <span>Verification</span>
+    </div>
 </div>
 
 <div ng-show="showedTab == 'code'">
@@ -333,6 +339,24 @@
                 </div>
             </div>
         </div>
+        <!-- Verification -->
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <span class="form-control-label">
+                <i class="form-control-label-icon floated icon-tronscan"></i>
+                TronScan verification
+            </span>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="normal-text contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': contract.contract_details.verification, 'icon-cancel': !contract.contract_details.verification}"></i>
+                            <span ng-if="contract.contract_details.verification" translate="YES" class="uppercase"></span>
+                            <span ng-if="!contract.contract_details.verification" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -345,3 +369,8 @@
 
 <div ng-if="contract.stateValue === 4"
      ng-include="'/templates/popups/forms/tron/new-extensions-alerts.html'"></div>
+
+
+<div ng-show="showedTab == 'verification'" ng-if="contract.network === 14">
+    <ng-include src="'/templates/common/contracts/verification/preview/tron-verification.html'"></ng-include>
+</div>

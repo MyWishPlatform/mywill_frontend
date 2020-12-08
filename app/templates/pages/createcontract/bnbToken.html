@@ -333,6 +333,12 @@
     </div>
 </form>
 
+<form class="shadow-block"
+      name="verificationFrom"
+      ng-if="network == 22"
+      ng-class="{'no-active': !(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid && feedbackForm.$valid)}">
+    <ng-include src="'/templates/common/contracts/verification/bnb-verification.html'"></ng-include>
+</form>
 
 <br/><br/><br/>
 

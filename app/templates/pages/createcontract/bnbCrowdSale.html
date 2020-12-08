@@ -151,6 +151,12 @@
     </div>
 </form>
 
+<form class="shadow-block"
+      name="verificationFrom"
+      ng-if="network == 22"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid  && saleTokensParamsForm.$valid && distributionForm.$valid && feedbackForm.$valid && ((storageForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid)))}">
+    <ng-include src="'/templates/common/contracts/verification/bnb-verification.html'"></ng-include>
+</form>
 <br/><br/><br/>
 
 <div class="grid-row">

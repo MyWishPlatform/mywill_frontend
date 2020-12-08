@@ -100,7 +100,8 @@ angular.module('app').controller('tokensLostKeyCreateController', function($scop
                 email: $scope.request.email,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-                heirs: heirs
+                heirs: heirs,
+                verification: $scope.request.verification
             }
         }
     };

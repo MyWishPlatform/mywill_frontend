@@ -592,6 +592,7 @@
 <form class="shadow-block"
       name="verificationFrom"
       ng-if="network == 1"
+      ng-init="request = request.contract_details"
       ng-class="{'no-active': !(managementAddressForm.$valid && datesForm.$valid && investmentLimitationsForm.$valid && bonusForm.$valid && (investAddressForm.$valid || !additionalParams.investmentAddress) && (tokenAddressForm.$valid || !additionalParams.tokenAddress))}">
     <ng-include src="'/templates/common/contracts/verification/eth-verification.html'"></ng-include>
 </form>

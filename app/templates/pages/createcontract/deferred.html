@@ -147,7 +147,9 @@
       name="verificationFrom"
       ng-if="network == 1"
       ng-class="{'no-active': !checkedBalance || !hairsForm.$valid || !conditionsForm.$valid}">
-    <ng-include src="'/templates/common/contracts/verification/eth-verification.html'"></ng-include>
+    <ng-include
+            ng-init="request = request.contract_details"
+            src="'/templates/common/contracts/verification/eth-verification.html'"></ng-include>
 </form>
 
 <br/><br/><br/>

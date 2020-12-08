@@ -32,7 +32,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         );
 
         if (contractWeb3.methods.freezingBalanceOf) {
-            contractWeb3.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+            contractWeb3.methods.freezingBalanceOf(contractDetails.admin_address.toLowerCase()).call(function(error, result) {
                 if (error) return;
                 if (result * 1) {
                     $scope.tokensFreezed = true;

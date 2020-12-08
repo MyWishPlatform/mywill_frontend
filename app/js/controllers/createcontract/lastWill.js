@@ -93,7 +93,8 @@ angular.module('app').controller('lastWillCreateController', function($scope, co
                 email: $scope.request.email,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-                heirs: angular.copy($scope.hairsList)
+                heirs: angular.copy($scope.hairsList),
+                verification: $scope.request.verification,
             }
         }
     };

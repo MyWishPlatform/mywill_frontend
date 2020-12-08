@@ -406,14 +406,12 @@
                 <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
                     <div class="normal-text contract-preview-base-value">
                         <div class="contract-preview-base-value-string">
-                            <i ng-class="{'icon-check_circle': true}"></i>
-                            <span translate="YES" class="uppercase"></span>
+                            <i ng-class="{'icon-check_circle': details.verification, 'icon-cancel': !details.verification}"></i>
+                            <span ng-if="details.verification" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.verification" translate="NO" class="uppercase"></span>
                         </div>
                     </div>
                 </div>
-            </div><br/>
-
-            <div class="normal-text" ng-if="details.authio" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FEEL_FORM_TEXT">
             </div>
         </div>
 

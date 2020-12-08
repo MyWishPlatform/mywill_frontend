@@ -440,6 +440,28 @@
                 </div>
             </div>
         </div>
+
+        <!-- Verification -->
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <span class="form-control-label">
+                <i class="form-control-label-icon floated">
+                    <img src="/static/images/verification/ethereum.png"
+                         class="verification-icon">
+                </i>
+                Etherscan verification
+            </span>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="normal-text contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': contract.contract_details.verification, 'icon-cancel': !contract.contract_details.verification}"></i>
+                            <span ng-if="contract.contract_details.verification" translate="YES" class="uppercase"></span>
+                            <span ng-if="!contract.contract_details.verification" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

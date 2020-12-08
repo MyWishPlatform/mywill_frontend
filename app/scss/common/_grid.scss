@@ -1,9 +1,16 @@
 .grid-row {
   margin: 0 -1em;
-  &:after, &:before {
-    display: table;
-    width: 100%;
-    content: '';
+  &:not(.as-flex) {
+    &:after, &:before {
+      display: table;
+      width: 100%;
+      content: '';
+    }
+  }
+  &.as-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   &.no-active {
     position: relative;

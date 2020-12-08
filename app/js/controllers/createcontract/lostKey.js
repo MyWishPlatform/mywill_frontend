@@ -140,7 +140,8 @@ angular.module('app').controller('lostKeyCreateController', function($scope, con
                 user_address: $scope.walletAddress,
                 check_interval: $scope.checkPeriod * $scope.checkPeriodSelect * 3600 * 24,
                 active_to: $scope.dueDate.format('YYYY-MM-DD 00:00'),
-                heirs: angular.copy($scope.hairsList)
+                heirs: angular.copy($scope.hairsList),
+                verification: $scope.request.verification
             }
         };
     };

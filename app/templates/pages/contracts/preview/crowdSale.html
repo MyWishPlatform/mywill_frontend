@@ -503,6 +503,24 @@
                     </div>
                 </div>
 
+                <div class="clearfix show-ls"><br/></div>
+                <!-- Verification -->
+                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                    <div class="form-control-label">
+                        <i class="form-control-label-icon floated">
+                            <img src="/static/images/verification/ethereum.png"
+                                 class="verification-icon">
+                        </i>
+                        Etherscan verification
+                    </div>
+                    <div class="normal-text contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.verification, 'icon-cancel': !details.verification}"></i>
+                            <span ng-if="details.verification" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.verification" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

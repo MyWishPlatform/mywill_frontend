@@ -143,6 +143,13 @@
     </div>
 </form>
 
+<form class="shadow-block"
+      name="verificationFrom"
+      ng-if="network == 1"
+      ng-class="{'no-active': !checkedBalance || !hairsForm.$valid || !conditionsForm.$valid}">
+    <ng-include src="'/templates/common/contracts/verification/eth-verification.html'"></ng-include>
+</form>
+
 <br/><br/><br/>
 
 <div class="grid-row">

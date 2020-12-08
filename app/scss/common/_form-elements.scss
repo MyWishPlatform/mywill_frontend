@@ -24,6 +24,10 @@
     vertical-align: middle;
     align-items: center;
   }
+  .radio-button-decoration + &.inline-label {
+    display: inline-block;
+    vertical-align: middle;
+  }
   &-icon {
     color: $main-color;
     display: inline-block;

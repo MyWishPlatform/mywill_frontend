@@ -129,6 +129,13 @@
          ng-include="getTemplate('pages/createcontract/crowdSale/holders')"></div>
 </form>
 
+<form class="shadow-block"
+      name="verificationFrom"
+      ng-if="network == 1"
+      ng-class="{'no-active': !(tokenInfoForm.$valid && contractNameForm.$valid && tokenOwnerForm.$valid && saleTokensParamsForm.$valid && storageForm.$valid && minMaxInvestmentsForm.$valid && timeBonusForm.$valid && amountBonusForm.$valid)}">
+    <ng-include src="'/templates/common/contracts/verification/eth-verification.html'"></ng-include>
+</form>
+
 <br/><br/><br/>
 
 <div class="grid-row">

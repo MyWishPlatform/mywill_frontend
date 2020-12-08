@@ -17,6 +17,12 @@
          ng-show="contract.contract_details.eth_contract.address">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
+    <div class="contract-preview-one-tab"
+         ng-click="showedTab = 'verification'"
+         ng-show="contract.network === 1"
+         ng-class="{'active': showedTab == 'verification'}">
+        <span>Verification</span>
+    </div>
 </div>
 
 <div ng-show="showedTab == 'code'">
@@ -442,6 +448,10 @@
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>
     <div class="main-section-chapter-fieldset"
          ng-include="'/templates/pages/contracts/preview/elements/buttons/eth.html'"></div>
+</div>
+
+<div ng-show="showedTab == 'verification'" ng-if="contract.network === 1">
+    <ng-include src="'/templates/common/contracts/verification/preview/eth-verification.html'"></ng-include>
 </div>
 
 <div ng-if="tokenAddressReady"

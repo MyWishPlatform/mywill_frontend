@@ -431,8 +431,35 @@
   &-price {
     display: flex;
     font-size: 1.5em;
+    align-items: center;
+    margin-bottom: 25px;
     &_label {
       font-weight: bold;
+      margin-right: 10px;
+    }
+    &_curr {
+      color: #121212;
+      border-radius: 4px;
+      font-size: 15px;
+      line-height: 17.24px;
+      padding: 6px;
+      &__usd {
+        background-color: #FBD430;
+      }
+      &__eth, &__wish {
+        background-color: #ffffff;
+      }
+      &_icon {
+        height: 16px;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+      &_value {
+        vertical-align: middle;
+      }
+    }
+    &_curr + &_curr {
+      margin-left: 10px;
     }
   }
 }

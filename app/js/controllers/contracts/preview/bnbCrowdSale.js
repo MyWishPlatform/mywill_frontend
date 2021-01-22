@@ -3,7 +3,7 @@ angular.module('app').controller('bnbCrowdSalePreviewController', function($time
     $scope.contract = openedContract.data;
 
     var tokenTypes = {
-        ERC20: 'BEP2E',
+        ERC20: 'BEP20',
         ERC223: 'ERC223',
 
     };

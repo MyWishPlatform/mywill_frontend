@@ -314,7 +314,7 @@
       },
       "BNB_AIRDROP": {
         "TITLE": "空投",
-        "DESCRIPTION": "将BEP2E代币分发到许多地址（例如赏金计划或者公开销售）"
+        "DESCRIPTION": "将BEP20代币分发到许多地址（例如赏金计划或者公开销售）"
       },
       "EOS_AIRDROP": {
         "TITLE": "空投",
@@ -346,7 +346,7 @@
       },
       "BNB_TOKENS_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
-        "DESCRIPTION": "The Lost Key smart contract ensures your (BEP2E standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
+        "DESCRIPTION": "The Lost Key smart contract ensures your (BEP20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "延期付款",
@@ -1195,8 +1195,8 @@
             "LABEL": "选择代币类型",
             "DESCRIPTION_1": "ERC-20是推荐项，被大多数交易所接受。",
             "DESCRIPTION_2": "ERC-223与ERC-20几乎相同，代币转账安全性更高",
-            "DESCRIPTION_3": "BEP2E是推荐项，被大多数交易所接受。",
-            "DESCRIPTION_4": "ERC-223与BEP2E几乎相同，代币转账安全性更高"
+            "DESCRIPTION_3": "BEP20是推荐项，被大多数交易所接受。",
+            "DESCRIPTION_4": "ERC-223与BEP20几乎相同，代币转账安全性更高"
           },
           "TOKEN_OWNER": {
             "LABEL": "代币所有者",

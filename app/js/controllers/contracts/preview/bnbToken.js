@@ -5,7 +5,7 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
     $scope.contract = openedContract.data;
 
     var tokenTypes = {
-        ERC20: 'BEP2E',
+        ERC20: 'BEP20',
         ERC223: 'ERC223',
 
     };

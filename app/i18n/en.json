@@ -314,7 +314,7 @@
       },
       "BNB_AIRDROP": {
         "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any BEP2E tokens among many addresses (for example, after Bounty program or Crowdsale)"
+        "DESCRIPTION": "Distribute any BEP20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
       "EOS_AIRDROP": {
         "TITLE": "Airdrop",
@@ -346,7 +346,7 @@
       },
       "BNB_TOKENS_LOST_KEY": {
         "TITLE": "Lost key for Tokens",
-        "DESCRIPTION": "The Lost Key smart contract ensures your (BEP2E standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
+        "DESCRIPTION": "The Lost Key smart contract ensures your (BEP20 standard) tokens and redirects them to backup wallets, if you lost the access/private key or in case of a long inactivity period of time (death, accidents, etc..)."
       },
       "DEFERRED": {
         "TITLE": "Deferred payment",
@@ -1196,8 +1196,8 @@
             "LABEL": "Choose Type of Token",
             "DESCRIPTION_1": "ERC-20 is recommended option. Accepted by the most exchanges.",
             "DESCRIPTION_2": "ERC-223 is almost the same as ERC-20. Provides extra safety during token transfers.",
-            "DESCRIPTION_3": "BEP2E is recommended option. Accepted by the most exchanges.",
-            "DESCRIPTION_4": "ERC-223 is almost the same as BEP2E. Provides extra safety during token transfers."
+            "DESCRIPTION_3": "BEP20 is recommended option. Accepted by the most exchanges.",
+            "DESCRIPTION_4": "ERC-223 is almost the same as BEP20. Provides extra safety during token transfers."
           },
           "TOKEN_OWNER": {
             "LABEL": "Token Owner",

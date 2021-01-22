@@ -79,8 +79,8 @@ module.constant('APP_CONSTANTS', {
 
     "EOS_FLARE_MAINNET_ADDRESS": "https://eosflare.io/",
 
-    "BNB_TESTNET_ADDRESS": "https://explorer.binance.org/smart-testnet/",
-    "BNB_MAINNET_ADDRESS": "https://explorer.binance.org/smart/",
+    "BNB_TESTNET_ADDRESS": "https://testnet.bscscan.com",
+    "BNB_MAINNET_ADDRESS": "https://bscscan.com/",
 
     "MATIC_MAINNET_PROVIDER": "https://rpc-mainnet.maticvigil.com/",
     "MATIC_TESTNET_PROVIDER": "https://rpc-mumbai.matic.today/",

@@ -57,9 +57,19 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.paymentSelect = {
         methods: [
             {
-                'label': 'WISH Binance',
+                'label': 'BWISH',
                 'value': 'bnb-wish',
-                'select-icon': '/static/images/blockchain/mwbnb2.svg'
+                'select-icon': '/static/images/blockchain/wish-bnb.svg'
+            },
+            {
+                'label': 'WISH',
+                'value': 'wish',
+                'select-icon': '/static/images/blockchain/wish.svg'
+            },
+            {
+                'label': 'WWISH',
+                'value': 'eth-wish',
+                'select-icon': '/static/images/blockchain/wish-eth.svg'
             }, {
                 'label': 'OKB',
                 'value': 'okb',

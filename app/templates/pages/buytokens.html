@@ -54,6 +54,12 @@
              ng-if="paymentSelect.visibleForm == 'bnb-wish'" ng-include="getTemplate('pages/buytokens-forms/bnb-wish-form')"></div>
 
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="paymentSelect.visibleForm == 'wish'" ng-include="getTemplate('pages/buytokens-forms/wish-form')"></div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
+             ng-if="paymentSelect.visibleForm == 'eth-wish'" ng-include="getTemplate('pages/buytokens-forms/eth-wish-form')"></div>
+
+        <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"
              ng-if="paymentSelect.visibleForm == 'bnb'" ng-include="getTemplate('pages/buytokens-forms/bnb-form')"></div>
 
         <div class="shadow-block__content shadow-block__content_no-tb-padding shadow-block__content_no-lr-padding"

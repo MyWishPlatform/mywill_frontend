@@ -32,22 +32,99 @@
 
 <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'default')">
     <div class="form-control-label">
-        <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
-        <div class="show-vs"></div>
+        <div class="form-table">
+            <div class="form-table-row-header">
+                <div class="form-table-col-header">
+                    Position
+                </div>
+                <div class="form-table-col">
+                    Price
+                </div>
+                <div class="form-table-col">
+                    Wish
+                </div>
+            </div>
+            <div class="form-table-row">
+                <div class="form-table-col-image">
+                    <img src="/static/images/contract.png" alt="">
+                </div>
+                <div class="form-table-col-header-blue">
+                    Create contact
+                </div>
+                <div class="form-table-col">
+                    ${{ bigNumber(contract.cost.USDT).div(1000000)
+                    .minus(bigNumber(contract.contract_details.authio ? contract.authioPrices.USDT : 0))
+                    .minus(bigNumber(contract.contract_details.verification ?
+                    contract.verificationCost.USDT : 0))
+                    .round(2).toString(10)|separateNumber }}
+                </div>
+                <div class="form-table-col">
+                    {{ bigNumber(contract.cost.WISH).div(10e17)
+                    .minus(bigNumber(contract.contract_details.authio ? contract.authioPrices.WISH : 0))
+                    .minus(bigNumber(contract.contract_details.verification ?
+                    contract.verificationCost.WISH : 0))
+                    .round(2).toString(10)|separateNumber }}
+                </div>
+            </div>
+            <div class="form-table-row" ng-if="contract.contract_details.authio">
+                <div class="form-table-col-image">
+                    <img src="/static/images/brand.png" alt="">
+                </div>
+                <div class="form-table-col-header-blue">
+                    Brand report
+                </div>
+                <div class="form-table-col">
+                    ${{ contract.authioPrices.USDT|separateNumber }}
+                </div>
+                <div class="form-table-col">
+                    {{ contract.authioPrices.WISH|separateNumber }}
+                </div>
+            </div>
+            <div class="form-table-row" ng-if="contract.contract_details.verification">
+                <div class="form-table-col-image">
+                    <img src="/static/images/etherscan.png" alt="">
+                </div>
+                <div class="form-table-col-header-blue">
+                    Verification
+                </div>
+                <div class="form-table-col">
+                    ${{ contract.verificationCost.USDT|separateNumber }}
+                </div>
+                <div class="form-table-col">
+                    {{ contract.verificationCost.WISH|separateNumber }}
+                </div>
+            </div>
+            <div class="form-table-row">
+                <div class="form-table-col-image"></div>
+                <div class="form-table-col-header-blue">
+                    Total
+                </div>
+                <div class="form-table-col-bold">
+                    ${{ bigNumber(contract.cost.USDT).div(1000000)
+                    .round(3).toString(10)|separateNumber }}
+                </div>
+                <div class="form-table-col-bold">
+                    {{ bigNumber(contract.cost.WISH).div(10e17)
+                    .round(2).toString(10)|separateNumber }}
+                </div>
+            </div>
+        </div>
+<!--        <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>-->
+<!--        <div class="show-vs"></div>-->
 
-        {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.WISH).toString(10), 'ether')).round(2)|separateNumber}} WISH&nbsp;&nbsp;&nbsp;
+<!--        {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.WISH).toString(10), 'ether')).round(2)|separateNumber}} WISH&nbsp;&nbsp;&nbsp;-->
 
-        <span class="grey-text-color">
-            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).toString(10), 'ether')).round(3)|separateNumber}}
-            ETH
-            /
-            {{bigNumber(contract.cost.USDT).div(1000000).round(3).toString(10)|separateNumber}}
-            USD
-            <!-- span ng-if="contract.contract_type != 11">/
-                {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).toString(10), 'ether')).round(4)|separateNumber}}
-                BTC
-            </span -->
-        </span>
+<!--        <span class="grey-text-color">-->
+<!--            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).toString(10), 'ether')).round(3)|separateNumber}}-->
+<!--            ETH-->
+<!--            /-->
+<!--            {{bigNumber(contract.cost.USDT).div(1000000).round(3).toString(10)|separateNumber}}-->
+<!--            USD-->
+<!--            &lt;!&ndash; span ng-if="contract.contract_type != 11">/-->
+<!--                {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).toString(10), 'ether')).round(4)|separateNumber}}-->
+<!--                BTC-->
+<!--            </span &ndash;&gt;-->
+<!--        </span>-->
     </div>
 </div>
 <!-- div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'eos')">

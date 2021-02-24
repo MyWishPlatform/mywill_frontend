@@ -16,6 +16,12 @@
          ng-class="{'active': showedTab == 'audit'}">
         <span translate="CONTRACTS.PREVIEW.TABS.AUDIT"></span>
     </div>
+    <div class="contract-preview-one-tab"
+         ng-click="goTo('verification')"
+         ng-show="details[contractInfo].address && contract.network === 1"
+         ng-class="{'active': showedTab == 'verification'}">
+        <span translate="CONTRACTS.PREVIEW.TABS.VERIFICATION"></span>
+    </div>
 </div>
 
 <div ng-show="showedTab == 'code'">
@@ -230,6 +236,65 @@
                         <span class="contract-preview-grey-font-color"
                               translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_TYPE"></span><br/>
                         {{ contract.contract_details.token_type }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Token verification -->
+        <div
+        class="shadow-block__content shadow-block__content_min-tb-padding"
+        ng-if="contract.state === 'ACTIVE'"
+        >
+            <div class="grid-row">
+                <span
+                class="verification-label"
+                translate="CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION_STATUS.LABEL"
+                ></span><br/>
+                <div
+                class="verification-status"
+                ng-if="contract.contract_details.verification_status === 'VERIFIED'"
+                >
+                    Contract source code verified
+                </div>
+                <div
+                class="verification-status"
+                ng-if="contract.contract_details.verification_status === 'IN_PROCESS'"
+                >
+                    Contract source code in the process of verification
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div
+                        class="verification-desc"
+                        ng-if="!contract.contract_details.verification || contract.contract_details.verification_status === 'NOT_VERIFIED'"
+                        >
+                            Verification is necessary to apply for a listing on the exchanges. After verification, it will be possible to place the logo on Etherscan. You will get the source code of the contract to compare and check for the declared developer functions. Verification cost is ${{contract.verificationCost.USDT}}.
+                        </div>
+                    </div>
+                    <div
+                    class="grid-cell grid-cell-1-2 grid-cell-ls-1"
+                    ng-if="!contract.contract_details.verification || contract.contract_details.verification_status === 'NOT_VERIFIED'"
+                    >
+                        <form class="verification-form" name="verificationForm">
+                            <button
+                            type="button"
+                            class="btn btn-submit"
+                            ng-pop-up="{
+                                newPopupContent: true,
+                                template: '/templates/popups/confirmations/validation-confirm-pay.html',
+                                params: { popup: verificationBuyPopup }
+                            }"
+                            ng-disabled="!verificationForm.$valid || verificationBuyRequest"
+                            >
+                                <span class="lds-ellipsis" ng-if="verificationBuyRequest">
+                                    <span class="lds-ellipsis-container">
+                                        <span></span><span></span><span></span><span></span>
+                                    </span>
+                                </span>
+                                <span translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.VERIFICATION.ORDER_BUTTON"></span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -460,24 +525,6 @@
                 <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_TEXTS.PART_2"></p>
             </div>
 
-            <div class="shadow-block__content">
-                <div class="form-control">
-                    <div class="form-control-label"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_LABEL"></div>
-                    <div class="grid-row">
-                        <div class="grid-cell grid-cell-1-2">
-                            <input id="authio_email"
-                                   type="email"
-                                   ng-model="authioFormRequest.authio_email"
-                                   required
-                                   class="form-control-input"/>
-                            <span class="field-error form-field_error-required form-field_error-email"
-                                  translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_ERROR">
-                        </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="shadow-block">
@@ -522,4 +569,6 @@
 
     </form>
 </div>
+
+
 

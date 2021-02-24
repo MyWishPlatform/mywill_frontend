@@ -1,4 +1,5 @@
-angular.module('app').controller('contractsPreviewController', function($scope, $rootScope, CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
+angular.module('app').controller('contractsPreviewController', function($scope, $rootScope, contractService, CONTRACT_STATUSES_CONSTANTS, FileSaver, web3Service) {
+    console.log('contractsPreviewController',$scope)
     $scope.statuses = CONTRACT_STATUSES_CONSTANTS;
     $scope.contract = false;
 
@@ -19,8 +20,17 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
         contract.cost = contract.original_cost;
     };
 
+    contractService.getVerificationCost().then(function(response) {
+        console.log('contractsPreviewController getVerificationCost',response.data)
+        contract.verificationCost = {
+            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).round(2).toString(10),
+            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).round(2).toString(10),
+            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).round(2).toString(10),
+        };
+    });
 
 }).controller('depositInstructionController', function($scope, web3Service, $timeout) {
+    console.log('depositInstructionController',$scope)
     var contract;
     var contractData = $scope.ngPopUp.params.contract;
     var contractDetails = contractData.contract_details;
@@ -123,6 +133,7 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
     };
 
 }).controller('instructionsController', function($scope, web3Service) {
+    console.log('instructionsController',$scope)
     var web3 = web3Service.web3();
     var contractDetails = $scope.ngPopUp.params.contract.contract_details, contract;
 
@@ -160,6 +171,7 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
         }).then(console.log);
     };
 }).controller('setAddressController', function($scope, $rootScope, web3Service, $timeout) {
+    console.log('setAddressController',$scope)
 
     $scope.showInstruction = function() {
         createSignature();

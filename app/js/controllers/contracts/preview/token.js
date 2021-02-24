@@ -1,11 +1,40 @@
-angular.module('app').controller('tokenPreviewController', function($timeout, $rootScope, contractService, $location,
-                                                                    openedContract, $scope, $filter, web3Service) {
+angular.module('app').controller('tokenPreviewController', function(
+    $timeout,
+    $rootScope,
+    contractService,
+    $location,
+    openedContract,
+    $scope,
+    $filter,
+    web3Service
+) {
+    console.log('tokenPreviewController',$scope,$rootScope);
     $scope.contract = openedContract.data;
 
     $scope.iniContract($scope.contract);
 
     var contractDetails = $scope.contract.contract_details, web3Contract;
 
+    var getVerificationStatus = function () {
+        contractService.getContract($scope.contract.id).then(function(response) {
+            console.log('tokenPreviewController getVerificationStatus',response);
+            $scope.contract.verification_status = response.data.contract_details.verification_status;
+        });
+    }
+    getVerificationStatus();
+
+    var getVerificationCost = function () {
+        contractService.getVerificationCost().then(function(response) {
+            console.log('tokenPreviewController getVerificationCost',response);
+            $scope.contract.verificationCost = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+            };
+        });
+    }
+    getVerificationCost();
 
     var tabs = ['code', 'info'];
 
@@ -78,6 +107,12 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
         };
     }
 
+    if ($scope.contract.withVerificationForm) {
+        $scope.verificationFormRequest = {
+            contract_id: $scope.contract.id,
+        };
+    }
+
     if ($location.$$hash && (/^tab-.+/.test($location.$$hash))) {
         var tab = $location.$$hash.replace(/^tab-(.+$)/, '$1');
         if (tabs.indexOf(tab) !== -1) {
@@ -142,6 +177,31 @@ angular.module('app').controller('tokenPreviewController', function($timeout, $r
             confirmAuthioPayment: authioBuy
         }
     };
+    
+    var verificationBuy = function() {
+        const params = {contract_id: $scope.contract.id}
+        contractService.buyVerification(params).then(function(response) {
+            console.log('buyVerification',response.data)
+        }, function(err) {
+            switch (err.status) {
+                case 400:
+                    switch(err.data.result) {
+                        case 3:
+                        case "3":
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/authio-less-balance';
+                            break;
+                    }
+                    break;
+            }
+            $scope.verificationBuyRequest = false;
+        });
+    };
+
+    $rootScope.contract = $scope.contract
+    $rootScope.confirmVerificationPayment = verificationBuy
 
 }).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
 

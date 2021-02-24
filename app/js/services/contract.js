@@ -33,15 +33,32 @@ angular.module('Services').service('contractService', function(requestService, A
             return requestService.get(params);
         },
         getAuthioCost: function (data) {
+            // console.log('getAuthioCost');
             var params = {
                 path: API.GET_AUTHIO_COST,
                 query: data
             };
             return requestService.get(params);
         },
+        getVerificationCost: function (data) {
+            // console.log('getVerificationCost');
+            var params = {
+                path: API.GET_VERIFICATION_COST,
+                query: data
+            };
+            return requestService.get(params);
+        },
         buyAuthio: function(data) {
+            // console.log('buyAuthio');
             return requestService.post({
                 path: API.BUY_BRAND_REPORT,
+                data: data
+            });
+        },
+        buyVerification: function(data) {
+            // console.log('buyVerification');
+            return requestService.post({
+                path: API.BUY_VERIFICATION,
                 data: data
             });
         },

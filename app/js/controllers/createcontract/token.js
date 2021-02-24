@@ -1,5 +1,6 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, $filter) {
+    console.log('tokenCreateController')
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,
@@ -99,12 +100,12 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         });
         $scope.request.future_minting = $scope.request.future_minting || !$scope.token_holders.length;
         $scope.checkTokensAmount();
+        console.log('resetFormData',$scope.request,contract)
     };
-
-
 
     var storage = window.localStorage || {};
     $scope.createContract = function() {
+        console.log('createContract',generateContractData())
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
             delete storage.draftContract;
@@ -137,6 +138,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
         }
 
         if ($scope.network === 1) {
+            contractDetails.verification = !!contractDetails.verification;
             contractDetails.authio = !!contractDetails.authio;
             contractDetails.authio_email = contractDetails.authio ? contractDetails.authio_email : null;
         }
@@ -152,6 +154,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
 
     $scope.contractInProgress = false;
     var createContract = function() {
+        console.log('createContract',$scope.request,contract);
         if ($scope.contractInProgress) return;
         $scope.contractInProgress = true;
 

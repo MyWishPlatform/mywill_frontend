@@ -9,9 +9,80 @@
 .form-control-label-checkbox span {
   display: inline-block;
 }
-.form-control-label {
-  padding: 0.4em 0;
-  display: block;
+.form-table {
+  width: 100%;
+  &-row {
+    box-sizing: border-box;
+    padding: 17px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
+    background-color: #FAFAFA;
+    font-weight: 400;
+    font-size: 15px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 9px;
+  }
+  &-row-header {
+    box-sizing: border-box;
+    padding: 10px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: left;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  &-col-image {
+    padding: 0px 10px;
+    width: 22px;
+  }
+  &-col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    flex: 1;
+  }
+  &-col-bold {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px 10px;
+    flex: 1;
+    font-weight: 700;
+  }
+  &-col-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0px 10px 0px 52px;
+    flex: 2;
+  }
+  &-col-header-blue {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-sizing: border-box;
+    color: #206EFF;
+    padding: 0px 10px;
+    flex: 2;
+  }
+  img {
+    width: 22px;
+    height: 22px;
+  }
+}
+.form-control-label {f
   .as-link {
     color: inherit;
     opacity: 0.8;

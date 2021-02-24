@@ -1223,6 +1223,9 @@
           "FROZEN_UNTIL_SHORT": {
             "LABEL": "Frozen till"
           },
+          "VERIFICATION_STATUS": {
+            "LABEL": "Etherscan Verification contract:"
+          },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting",
             "DESCRIPTION": "Yes - you can create more tokens in the future & use token for Crowdsale. <br/>No - no more tokens will be created in the future. Crowdsale is impossible.",
@@ -1235,6 +1238,13 @@
             "EMAIL_LABEL": "To request a branded report please enter your email",
             "EMAIL_DESCRIPTION": "At this address you will receive an branded report of your contract. Please be careful and check it again.",
             "EMAIL_ERROR": "Please enter email"
+          },
+          "VERIFICATION": {
+            "LABEL": "Etherscan Verification contract:",
+            "DESCRIPTION": "Verification is necessary to apply for a listing on the exchanges. After verification, it will be possible to place the logo on Etherscan. You will get the source code of the contract to compare and check for the declared developer functions.<br/><b>Verification cost is $15</b>.",
+            "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
+            "STATUS_IN_PROCESS": "Contract source code in the process of verification",
+            "STATUS_VERIFIED": " Contract source code verified"
           }
         }
       },
@@ -1504,7 +1514,8 @@
         "INFO": "Preview contract",
         "ACCOUNT_INFO": "Preview account",
         "SOURCE": "Source code",
-        "AUDIT": "Branded report"
+        "AUDIT": "Branded report",
+        "VERIFICATION": "Verification"
       },
       "FREE_VERSION_MSG": "In free version (Test Net) sources codes are not available for loading.",
       "WILL_SOURCE_CODE": "Your Will source code",
@@ -1566,7 +1577,13 @@
             "PART_2": "What you get:<br/> 1. A beautifully designed branded report with your company's branding (name, logo, URL)<br/> 2. A credible attestation that your token contracts have passed review and testing by security experts<br/> <a href=\"https://rocknblock.io/pdf/navi_rocknblock.pdf\" target=\"_blank\">Check an example</a>"
           },
           "FORM_NOTICE": "The branded report will be delivered in 3 working days by email after the date of payment.",
-          "AUDIT_BUTTON": "REQUEST / PAY"
+          "AUDIT_BUTTON": "REQUEST / PAY",
+          "VERIFICATION": {
+            "TITLE": "Verification by Etherscan",
+            "DESCRIPTION": "<p>You can request verification by <a href=\"https://etherscan.io\" target=\"_blank\">Etherscan</a></p><p>Etherscan is the leading BlockChain Explorer, Search, API and Analytics Platform for Ethereum, a decentralized smart contracts platform</p><p>Etherscan verification allows you approve token ownership to publish token logo on the Etherscan</p>",
+            "FEE": "Verification fee is",
+            "ORDER_BUTTON": "Verification Now"
+          }
         }
       },
       "CROWD_SALE": {

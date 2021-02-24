@@ -219,6 +219,17 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         };
                     });
                 }
+                contract.withVerificationForm = contract.isAuthioToken && !contract.contract_details.verification;
+                if (contract.withVerificationForm) {
+                    contractService.getVerificationCost().then(function(response) {
+                        console.log('getVerificationCost',response.data)
+                        contract.verificationPrices = {
+                            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).round(2).toString(10),
+                            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).round(2).toString(10),
+                            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).round(2).toString(10),
+                        };
+                    });
+                }
                 break;
             case 0:
             case 1:

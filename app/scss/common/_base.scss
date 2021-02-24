@@ -287,6 +287,32 @@ nav, main, footer, header {
   }
 }
 
+.verification-label {
+  padding: 0.4em 0.7em;
+  display: block;
+  font-size: 1.5em;
+}
+
+.verification-status {
+  margin-left: 1em;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.verification-desc {
+  margin-left: 1em;
+}
+
+.verification-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4em;
+}
+
 .normal-text {
   font-size: 1.5em;
   margin: 0;

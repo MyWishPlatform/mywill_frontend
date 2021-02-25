@@ -57,20 +57,21 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.paymentSelect = {
         methods: [
             {
-                'label': 'BWISH',
-                'value': 'bnb-wish',
-                'select-icon': '/static/images/blockchain/wish-bnb.svg'
-            },
-            {
                 'label': 'WISH',
                 'value': 'wish',
                 'select-icon': '/static/images/blockchain/wish.svg'
             },
+            // {
+            //     'label': 'BWISH',
+            //     'value': 'bnb-wish',
+            //     'select-icon': '/static/images/blockchain/wish-bnb.svg'
+            // },
+            // {
+            //     'label': 'WWISH',
+            //     'value': 'eth-wish',
+            //     'select-icon': '/static/images/blockchain/wish-eth.svg'
+            // },
             {
-                'label': 'WWISH',
-                'value': 'eth-wish',
-                'select-icon': '/static/images/blockchain/wish-eth.svg'
-            }, {
                 'label': 'OKB',
                 'value': 'okb',
                 'select-icon': '/static/images/blockchain/okb.svg'

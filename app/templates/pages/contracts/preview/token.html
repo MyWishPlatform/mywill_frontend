@@ -390,7 +390,7 @@
         <!-- Token verification when Created (not deployed)-->
         <div
         class="shadow-block__content shadow-block__content_min-tb-padding"
-        ng-if="contract.state === 'CREATED' || contract.state === 'WAITING_FOR_DEPLOYMENT'"
+        ng-if="contract.network === 1 ? (contract.state === 'CREATED' || contract.state === 'WAITING_FOR_DEPLOYMENT') : false"
         >
             <span class="form-control-label">
                 <div class="form-control-label-inner">
@@ -435,7 +435,7 @@
         <!-- Token verification when ACTIVE (deployed)-->
         <div
         class="shadow-block__content shadow-block__content_min-tb-padding"
-        ng-if="contract.state === 'ACTIVE'"
+        ng-if="contract.network === 1 && contract.state === 'ACTIVE'"
         >
             <div class="grid-row">
                 <div class="grid-row">

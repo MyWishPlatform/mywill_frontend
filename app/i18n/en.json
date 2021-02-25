@@ -1224,7 +1224,7 @@
             "LABEL": "Frozen till"
           },
           "VERIFICATION_STATUS": {
-            "LABEL": "Etherscan Verification contract:"
+            "LABEL": "Etherscan Verification"
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting",
@@ -1240,8 +1240,8 @@
             "EMAIL_ERROR": "Please enter email"
           },
           "VERIFICATION": {
-            "LABEL": "Etherscan Verification contract:",
-            "DESCRIPTION": "Verification is necessary to apply for a listing on the exchanges. After verification, it will be possible to place the logo on Etherscan. You will get the source code of the contract to compare and check for the declared developer functions.<br/><b>Verification cost is $15</b>.",
+            "LABEL": "Etherscan Verification",
+            "DESCRIPTION": "Source code verification provides transparency for users interacting with smart contracts.\n<br/><b>Verification cost is $15</b>.",
             "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
             "STATUS_IN_PROCESS": "Contract source code in the process of verification",
             "STATUS_VERIFIED": " Contract source code verified"
@@ -1582,7 +1582,7 @@
             "TITLE": "Verification by Etherscan",
             "DESCRIPTION": "<p>You can request verification by <a href=\"https://etherscan.io\" target=\"_blank\">Etherscan</a></p><p>Etherscan is the leading BlockChain Explorer, Search, API and Analytics Platform for Ethereum, a decentralized smart contracts platform</p><p>Etherscan verification allows you approve token ownership to publish token logo on the Etherscan</p>",
             "FEE": "Verification fee is",
-            "ORDER_BUTTON": "Verification Now"
+            "ORDER_BUTTON": "Verify Now"
           }
         }
       },

@@ -287,20 +287,27 @@ nav, main, footer, header {
   }
 }
 
+.verification-label-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0em 0.7em;
+}
+
 .verification-label {
-  padding: 0.4em 0.7em;
+  padding: 0.4em;
   display: block;
   font-size: 1.5em;
 }
 
 .verification-status {
-  margin-left: 1em;
-  font-weight: bold;
+  margin-left: 0.7em;
   font-size: 1.5em;
 }
 
 .verification-desc {
   margin-left: 1em;
+  font-size: 1.2em;
 }
 
 .verification-form {
@@ -311,6 +318,10 @@ nav, main, footer, header {
   align-items: center;
   justify-content: center;
   padding: 0.4em;
+}
+
+.h100p {
+  height: 100%;
 }
 
 .normal-text {

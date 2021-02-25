@@ -6,21 +6,15 @@
     </div>
     <div class="contract-preview-one-tab"
          ng-click="goTo('code', contractInfo)"
-         ng-show="details[contractInfo].address"
+         ng-if="details[contractInfo].address"
          ng-class="{'active': showedTab == 'code'}">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
     <div class="contract-preview-one-tab"
          ng-click="goTo('audit')"
-         ng-show="details[contractInfo].address && contract.isAuthioToken && contract.network === 1"
+         ng-if="details[contractInfo].address && contract.isAuthioToken && contract.network === 1"
          ng-class="{'active': showedTab == 'audit'}">
         <span translate="CONTRACTS.PREVIEW.TABS.AUDIT"></span>
-    </div>
-    <div class="contract-preview-one-tab"
-         ng-click="goTo('verification')"
-         ng-show="details[contractInfo].address && contract.network === 1"
-         ng-class="{'active': showedTab == 'verification'}">
-        <span translate="CONTRACTS.PREVIEW.TABS.VERIFICATION"></span>
     </div>
 </div>
 
@@ -241,65 +235,6 @@
             </div>
         </div>
 
-        <!-- Token verification -->
-        <div
-        class="shadow-block__content shadow-block__content_min-tb-padding"
-        ng-if="contract.state === 'ACTIVE'"
-        >
-            <div class="grid-row">
-                <span
-                class="verification-label"
-                translate="CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION_STATUS.LABEL"
-                ></span><br/>
-                <div
-                class="verification-status"
-                ng-if="contract.contract_details.verification_status === 'VERIFIED'"
-                >
-                    Contract source code verified
-                </div>
-                <div
-                class="verification-status"
-                ng-if="contract.contract_details.verification_status === 'IN_PROCESS'"
-                >
-                    Contract source code in the process of verification
-                </div>
-                <div class="grid-row">
-                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                        <div
-                        class="verification-desc"
-                        ng-if="!contract.contract_details.verification || contract.contract_details.verification_status === 'NOT_VERIFIED'"
-                        >
-                            Verification is necessary to apply for a listing on the exchanges. After verification, it will be possible to place the logo on Etherscan. You will get the source code of the contract to compare and check for the declared developer functions. Verification cost is ${{contract.verificationCost.USDT}}.
-                        </div>
-                    </div>
-                    <div
-                    class="grid-cell grid-cell-1-2 grid-cell-ls-1"
-                    ng-if="!contract.contract_details.verification || contract.contract_details.verification_status === 'NOT_VERIFIED'"
-                    >
-                        <form class="verification-form" name="verificationForm">
-                            <button
-                            type="button"
-                            class="btn btn-submit"
-                            ng-pop-up="{
-                                newPopupContent: true,
-                                template: '/templates/popups/confirmations/validation-confirm-pay.html',
-                                params: { popup: verificationBuyPopup }
-                            }"
-                            ng-disabled="!verificationForm.$valid || verificationBuyRequest"
-                            >
-                                <span class="lds-ellipsis" ng-if="verificationBuyRequest">
-                                    <span class="lds-ellipsis-container">
-                                        <span></span><span></span><span></span><span></span>
-                                    </span>
-                                </span>
-                                <span translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.VERIFICATION.ORDER_BUTTON"></span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Future minting -->
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
             <span class="form-control-label">
@@ -452,8 +387,115 @@
             </div>
         </div>
 
-    </div>
+        <!-- Token verification when Created (not deployed)-->
+        <div
+        class="shadow-block__content shadow-block__content_min-tb-padding"
+        ng-if="contract.state === 'CREATED' || contract.state === 'WAITING_FOR_DEPLOYMENT'"
+        >
+            <span class="form-control-label">
+                <div class="form-control-label-inner">
+                    <img
+                    src="/static/images/etherscan.png"
+                    width="22px"
+                    height="22px"
+                    style="margin-right: 0.4em;"
+                    alt=""
+                    />
+                    <div>
+                        {{'CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION_STATUS.LABEL'|translate}}
+                    </div>
+                </div>
+            </span>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="normal-text contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i
+                            ng-class="{
+                            'icon-check_circle': contract.contract_details.verification,
+                            'icon-cancel': !contract.contract_details.verification
+                            }"
+                            ></i>
+                            <span
+                            ng-if="contract.contract_details.verification"
+                            translate="YES"
+                            class="uppercase"
+                            ></span>
+                            <span
+                            ng-if="!contract.contract_details.verification"
+                            translate="NO"
+                            class="uppercase"
+                            ></span>
+                        </div>
+                    </div>
+                </div>
+            </div><br/>
+        </div>
 
+        <!-- Token verification when ACTIVE (deployed)-->
+        <div
+        class="shadow-block__content shadow-block__content_min-tb-padding"
+        ng-if="contract.state === 'ACTIVE'"
+        >
+            <div class="grid-row">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
+                        <div class="verification-label-container">
+                            <img src="/static/images/etherscan.png" width="22px" height="22px" alt=""/>
+                            <span
+                            class="verification-label"
+                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION_STATUS.LABEL"
+                            ></span>
+                        </div>
+                        <br/>
+                        <div
+                        class="verification-status"
+                        ng-if="contract.contract_details.verification_status === 'VERIFIED'"
+                        >
+                            Contract source code verified
+                        </div>
+                        <div
+                        class="verification-status"
+                        ng-if="contract.contract_details.verification_status === 'IN_PROCESS'"
+                        >
+                            Verification request has been sent
+                        </div>
+                        <div
+                        class="verification-desc"
+                        ng-if="!contract.contract_details.verification || contract.contract_details.verification_status === 'NOT_VERIFIED'"
+                        >
+                            Source code verification provides transparency for users interacting with smart contracts.
+                            Verification cost is ${{contract.verificationCost.USDT}}.
+                        </div>
+                    </div>
+                    <div
+                    class="grid-cell grid-cell-1-2 grid-cell-ls-1 h100p"
+                    ng-if="!contract.contract_details.verification || contract.contract_details.verification_status === 'NOT_VERIFIED'"
+                    >
+                        <form class="verification-form" name="verificationForm">
+                            <button
+                            type="button"
+                            class="btn btn-submit"
+                            ng-pop-up="{
+                                newPopupContent: true,
+                                template: '/templates/popups/confirmations/verification-confirm-pay.html',
+                                params: { popup: verificationBuyPopup }
+                            }"
+                            ng-disabled="!verificationForm.$valid || verificationBuyRequest"
+                            >
+                                <span class="lds-ellipsis" ng-if="verificationBuyRequest">
+                                    <span class="lds-ellipsis-container">
+                                        <span></span><span></span><span></span><span></span>
+                                    </span>
+                                </span>
+                                <span translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.VERIFICATION.ORDER_BUTTON"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="shadow-block"
          ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
          ng-include="'/templates/common/contracts/promocode-field.html'"></div>

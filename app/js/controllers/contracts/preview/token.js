@@ -6,7 +6,8 @@ angular.module('app').controller('tokenPreviewController', function(
     openedContract,
     $scope,
     $filter,
-    web3Service
+    web3Service,
+    $state,
 ) {
     console.log('tokenPreviewController',$scope,$rootScope);
     $scope.contract = openedContract.data;
@@ -35,6 +36,19 @@ angular.module('app').controller('tokenPreviewController', function(
         });
     }
     getVerificationCost();
+
+    var getAuthioCost = function () {
+        contractService.getAuthioCost().then(function(response) {
+            console.log('tokenPreviewController getAuthioCost',response);
+            $scope.contract.authioPrices = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+            };
+        });
+    }
+    getAuthioCost();
 
     var tabs = ['code', 'info'];
 
@@ -177,11 +191,18 @@ angular.module('app').controller('tokenPreviewController', function(
             confirmAuthioPayment: authioBuy
         }
     };
-    
+
+    $scope.verificationBuyRequest = false;
     var verificationBuy = function() {
+        $scope.verificationBuyRequest = true;
         const params = {contract_id: $scope.contract.id}
         contractService.buyVerification(params).then(function(response) {
             console.log('buyVerification',response.data)
+            $scope.verificationBuyRequest = false;
+            window.location.reload();
+            // contractService.getContract($scope.contract.id).then(function(response) {
+            //     var newContractDetails = response.data.contract_details;
+            // })
         }, function(err) {
             switch (err.status) {
                 case 400:

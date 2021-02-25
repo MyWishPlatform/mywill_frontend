@@ -1,8 +1,8 @@
 <div class="shadow-block">
     <div class="shadow-block__content shadow-block__content_no-lr-padding">
         <div class="alert-window-title">
-            Please confirm your request for a verification on Etherscan
-            ({{$root.contract.verificationCost.USDT|separateNumber}}$)
+            Please confirm your request for a verification
+            ({{$root.contract.verificationCost.WISH|separateNumber}} WISH)
         </div>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">
@@ -13,7 +13,7 @@
         >
             <span translate="BUTTONS.CONFIRM"></span>
         </button>
-        <button ng-click="closeCurrentPopup()" class="btn btn-transparent">
+        <button ng-click="closeCurrentPopup();" class="btn btn-transparent">
             <span translate="BUTTONS.CANCEL"></span>
         </button><br/><br/>
     </div>

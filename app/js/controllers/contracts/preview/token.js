@@ -6,10 +6,9 @@ angular.module('app').controller('tokenPreviewController', function(
     openedContract,
     $scope,
     $filter,
-    web3Service,
-    $state,
+    web3Service
 ) {
-    console.log('tokenPreviewController',$scope,$rootScope);
+    // console.log('tokenPreviewController',$scope,$rootScope);
     $scope.contract = openedContract.data;
 
     $scope.iniContract($scope.contract);

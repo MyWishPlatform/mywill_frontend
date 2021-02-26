@@ -61,16 +61,16 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'value': 'wish',
                 'select-icon': '/static/images/blockchain/wish.svg'
             },
-            // {
-            //     'label': 'BWISH',
-            //     'value': 'bnb-wish',
-            //     'select-icon': '/static/images/blockchain/wish-bnb.svg'
-            // },
-            // {
-            //     'label': 'WWISH',
-            //     'value': 'eth-wish',
-            //     'select-icon': '/static/images/blockchain/wish-eth.svg'
-            // },
+            {
+                'label': 'BWISH',
+                'value': 'bnb-wish',
+                'select-icon': '/static/images/blockchain/wish-bnb.svg'
+            },
+            {
+                'label': 'WWISH',
+                'value': 'eth-wish',
+                'select-icon': '/static/images/blockchain/wish-eth.svg'
+            },
             {
                 'label': 'OKB',
                 'value': 'okb',

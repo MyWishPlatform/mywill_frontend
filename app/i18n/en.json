@@ -1528,7 +1528,7 @@
       "HERE": "here",
       "SUPPORT_CONTRACT_CODE": "If you need any help or consult please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
       "ETHERSCAN_VERIFY_SUPPORT": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a>.",
-      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify contract on Etherscan please contact us by <a href=\"mailto:support@mywish.io\">email</a> or follow the instruction:",
+      "ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW": "If you need to verify the contract on Etherscan please submit an <a \nui-sref=\"main.contracts.preview.byId({id: contract.id, '#': 'verification-deployed'})\">request</a> or follow the instructions:",
       "LIBRARIES_AND_FILES": "Libraries & other files can be found <a href=\"{{gitHubLink}}\" target=\"_blank\">here</a>",
       "VERIFY_INSTRUCTION": {
         "ITEM_1": "Open contract address on <a target=\"_blank\" href=\"{{address_url}}\">etherscan</a>",

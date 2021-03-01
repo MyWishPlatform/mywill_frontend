@@ -10,6 +10,7 @@ angular.module('app').controller('tokenPreviewController', function(
 ) {
     // console.log('tokenPreviewController',$scope,$rootScope);
     $scope.contract = openedContract.data;
+    $scope.location = window.location;
 
     $scope.iniContract($scope.contract);
 

@@ -206,6 +206,10 @@
     &:not(.only-icon) {
       min-width: 12em;
     }
+    &-image {
+      vertical-align: middle;
+      margin-right: 0.3em;
+    }
   }
 }
 
@@ -230,3 +234,4 @@
     margin-right: 0;
   }
 }
+

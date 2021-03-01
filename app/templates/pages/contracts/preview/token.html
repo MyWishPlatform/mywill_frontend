@@ -47,7 +47,10 @@
             </p>
         </div>
         <div class="shadow-block__content" ng-if="contractInfo === 'eth_contract_token'">
-            <p class="normal-text" translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"></p>
+            <p
+            class="normal-text"
+            translate="CONTRACTS.PREVIEW.ETHERSCAN_VERIFY_SUPPORT_OR_FOLLOW"
+            ></p>
         </div>
         <div class="shadow-block__content" ng-if="selectedContract == 'eth_contract_token'">
             <ul class="new-instruction-list">
@@ -389,6 +392,7 @@
 
         <!-- Token verification when Created (not deployed)-->
         <div
+        id="verification-not-deployed"
         class="shadow-block__content shadow-block__content_min-tb-padding"
         ng-if="contract.network === 1 ? (contract.state === 'CREATED' || contract.state === 'WAITING_FOR_DEPLOYMENT') : false"
         >
@@ -434,6 +438,7 @@
 
         <!-- Token verification when ACTIVE (deployed)-->
         <div
+        id="verification-deployed"
         class="shadow-block__content shadow-block__content_min-tb-padding"
         ng-if="contract.network === 1 && contract.state === 'ACTIVE'"
         >

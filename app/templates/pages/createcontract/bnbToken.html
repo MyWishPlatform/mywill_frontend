@@ -336,6 +336,7 @@
 
 <form class="shadow-block"
       name="verificationForm"
+      ng-if="network == 22"
       ng-class="{'no-active': !(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid)}">
     <div class="shadow-block__content">
         <div class="grid-row">
@@ -376,10 +377,7 @@
             </div>
             <div class="grid-cell grid-cell-7-12 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
                 <span class="form-control-description__text"
-                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION.DESCRIPTION">
-                </span>
-                <span class="form-control-description__text">
-                    Verification cost is $50.
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION.DESCRIPTION_WITH_COST">
                 </span>
             </div>
         </div>

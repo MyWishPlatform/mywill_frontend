@@ -19,7 +19,7 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
 
     var getVerificationStatus = function () {
         contractService.getContract($scope.contract.id).then(function(response) {
-            // console.log('tokenPreviewController getVerificationStatus',response);
+            console.log('bnbTokenPreviewController getVerificationStatus',response);
             $scope.contract.verification_status = response.data.contract_details.verification_status;
         });
     }
@@ -27,7 +27,7 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
 
     var getVerificationCost = function () {
         contractService.getVerificationCost().then(function(response) {
-            // console.log('tokenPreviewController getVerificationCost',response);
+            console.log('bnbTokenPreviewController getVerificationCost',response);
             $scope.contract.verificationCost = {
                 USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
                 WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
@@ -114,4 +114,36 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
             $scope.contractInfo = 'eth_contract_token';
             break;
     }
+
+
+    $scope.verificationBuyRequest = false;
+    var verificationBuy = function() {
+        $scope.verificationBuyRequest = true;
+        const params = {contract_id: $scope.contract.id}
+        contractService.buyVerification(params).then(function(response) {
+            console.log('buyVerification',response.data)
+            $scope.verificationBuyRequest = false;
+            window.location.reload();
+            // contractService.getContract($scope.contract.id).then(function(response) {
+            //     var newContractDetails = response.data.contract_details;
+            // })
+        }, function(err) {
+            switch (err.status) {
+                case 400:
+                    switch(err.data.result) {
+                        case 3:
+                        case "3":
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/authio-less-balance';
+                            break;
+                    }
+                    break;
+            }
+            $scope.verificationBuyRequest = false;
+        });
+    };
+    $rootScope.contract = $scope.contract
+    $rootScope.confirmVerificationPayment = verificationBuy
 });

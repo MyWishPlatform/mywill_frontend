@@ -1224,7 +1224,8 @@
             "LABEL": "Frozen till"
           },
           "VERIFICATION_STATUS": {
-            "LABEL": "Etherscan Verification"
+            "LABEL": "Etherscan Verification",
+            "LABEL_BNB": "Bscscan Verification"
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting",
@@ -1241,7 +1242,8 @@
           },
           "VERIFICATION": {
             "LABEL": "Etherscan Verification",
-            "DESCRIPTION": "Source code verification provides transparency for users interacting with smart contracts.<br/>",
+            "LABEL_BNB": "Bscscan Verification",
+            "DESCRIPTION": "Source code verification provides transparency for users interacting with smart contracts.",
             "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
             "STATUS_IN_PROCESS": "Contract source code in the process of verification",
             "STATUS_VERIFIED": " Contract source code verified"
@@ -1581,6 +1583,12 @@
           "VERIFICATION": {
             "TITLE": "Verification by Etherscan",
             "DESCRIPTION": "<p>You can request verification by <a href=\"https://etherscan.io\" target=\"_blank\">Etherscan</a></p><p>Etherscan is the leading BlockChain Explorer, Search, API and Analytics Platform for Ethereum, a decentralized smart contracts platform</p><p>Etherscan verification allows you approve token ownership to publish token logo on the Etherscan</p>",
+            "FEE": "Verification fee is",
+            "ORDER_BUTTON": "Verify Now"
+          },
+          "VERIFICATION_BNB": {
+            "TITLE": "Verification by Bscscan",
+            "DESCRIPTION": "<p>You can request verification by <a href=\"https://bscscan.io\" target=\"_blank\">Bscscan</a></p><p>Bscscan is the leading BlockChain Explorer, Search, API and Analytics Platform for Ethereum, a decentralized smart contracts platform</p><p>Bscscan verification allows you approve token ownership to publish token logo on the Bscscan</p>",
             "FEE": "Verification fee is",
             "ORDER_BUTTON": "Verify Now"
           }

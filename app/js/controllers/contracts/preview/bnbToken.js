@@ -1,6 +1,6 @@
 angular.module('app').controller('bnbTokenPreviewController', function($timeout, $rootScope, contractService, $location,
                                                                     openedContract, $scope, $filter, web3Service) {
-
+    console.log('bnbTokenPreviewController',$scope,$rootScope);
 
     $scope.contract = openedContract.data;
 
@@ -16,6 +16,27 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
 
     var contractDetails = $scope.contract.contract_details, web3Contract;
 
+
+    var getVerificationStatus = function () {
+        contractService.getContract($scope.contract.id).then(function(response) {
+            // console.log('tokenPreviewController getVerificationStatus',response);
+            $scope.contract.verification_status = response.data.contract_details.verification_status;
+        });
+    }
+    getVerificationStatus();
+
+    var getVerificationCost = function () {
+        contractService.getVerificationCost().then(function(response) {
+            // console.log('tokenPreviewController getVerificationCost',response);
+            $scope.contract.verificationCost = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+            };
+        });
+    }
+    getVerificationCost();
 
     var tabs = ['code', 'info'];
 

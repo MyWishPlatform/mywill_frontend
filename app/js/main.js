@@ -208,7 +208,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     var getCurrentUser = function() {
         authService.profile().then(function(data) {
             if (data) {
-                console.log('getCurrentUser',data)
+                // console.log('getCurrentUser',data)
                 dateRange = (new Date(data.headers('date'))).getTime() - (new Date()).getTime();
                 $rootScope.setCurrentUser(data.data);
                 iniApplication();

@@ -124,6 +124,7 @@ angular.module('app').controller('bnbTokenCreateController', function($scope, co
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
+        contractDetails.verification = !!contractDetails.verification;
 
         return {
             feedback_email: $scope.feedback_email,

@@ -334,6 +334,58 @@
 </form>
 
 
+<form class="shadow-block"
+      name="verificationForm"
+      ng-class="{'no-active': !(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid)}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <div class="checkbox-decoration-container">
+                            <img
+                            src="/static/images/etherscan.svg"
+                            width="24px" height="24px" alt=""
+                            style="margin-right: 0.3em;"
+                            />
+                            <label for="verification" class="form-control-label inline-label">
+                                <span class="after-floated">{{'CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION.LABEL_BNB'|translate}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input
+                        type="checkbox"
+                        id="verification"
+                        ng-model="request.verification"
+                        >
+                        <span class="checkbox-decoration-displaying">
+                            <span
+                            class="checkbox-decoration-val checkbox-decoration-val_on"
+                            translate="YES"></span>
+                            <span
+                            class="checkbox-decoration-val checkbox-decoration-val_off"
+                            translate="NO"></span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-7-12 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.VERIFICATION.DESCRIPTION">
+                </span>
+                <span class="form-control-description__text">
+                    Verification cost is $50.
+                </span>
+            </div>
+        </div>
+    </div>
+</form>
+
 <br/><br/><br/>
 
 <div class="grid-row">

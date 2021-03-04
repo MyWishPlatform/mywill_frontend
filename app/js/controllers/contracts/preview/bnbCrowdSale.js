@@ -1,6 +1,6 @@
 angular.module('app').controller('bnbCrowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
                                                                         openedContract, $scope, $filter) {
-    console.log('bnbCrowdSalePreviewController',$scope,$rootScope);
+    // console.log('bnbCrowdSalePreviewController',$scope,$rootScope);
     $scope.contract = openedContract.data;
 
     var tokenTypes = {

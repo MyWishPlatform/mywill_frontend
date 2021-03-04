@@ -1,5 +1,6 @@
 angular.module('app').controller('bnbAirdropCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service) {
+  // console.log('bnbAirdropCreateController', $scope)
 
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
@@ -12,6 +13,7 @@ angular.module('app').controller('bnbAirdropCreateController', function($scope, 
     $scope.editContractMode = !!contract.id;
     var resetForm = function() {
         $scope.request = angular.copy(contract);
+        $scope.request.verification = contract.contract_details.verification;
     };
     $scope.resetForms = resetForm;
     $scope.contractInProgress = false;

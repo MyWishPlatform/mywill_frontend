@@ -1,6 +1,6 @@
 angular.module('app').controller('bnbTokenPreviewController', function($timeout, $rootScope, contractService, $location,
                                                                     openedContract, $scope, $filter, web3Service) {
-    console.log('bnbTokenPreviewController',$scope,$rootScope);
+    // console.log('bnbTokenPreviewController',$scope,$rootScope);
 
     $scope.contract = openedContract.data;
 

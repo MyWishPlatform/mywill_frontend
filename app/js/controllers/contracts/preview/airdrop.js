@@ -6,7 +6,7 @@ $scope,
 contractService,
 $rootScope
 ) {
-    console.log('airdropPreviewController',$scope,$rootScope);
+    // console.log('airdropPreviewController',$scope,$rootScope);
     $scope.contract = openedContract.data;
 
     var getVerificationStatus = function () {

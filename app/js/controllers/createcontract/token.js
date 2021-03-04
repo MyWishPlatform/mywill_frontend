@@ -1,6 +1,6 @@
 angular.module('app').controller('tokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, $filter) {
-    console.log('tokenCreateController', $scope)
+    // console.log('tokenCreateController', $scope)
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,

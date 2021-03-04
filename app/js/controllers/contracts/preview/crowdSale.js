@@ -1,6 +1,6 @@
 angular.module('app').controller('crowdSalePreviewController', function($timeout, $rootScope, contractService, web3Service,
                                                                         openedContract, $scope, $filter) {
-    console.log('crowdSalePreviewController',$scope,$rootScope);
+    // console.log('crowdSalePreviewController',$scope,$rootScope);
     $scope.contract = openedContract.data;
 
 

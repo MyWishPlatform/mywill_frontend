@@ -32,8 +32,11 @@ angular.module('app').controller('bnbAirdropCreateController', function($scope, 
     };
     var createContract = function() {
         if ($scope.contractInProgress) return;
+        var contractDetails = angular.copy($scope.request);
+        contractDetails.decimals = contractDetails.decimals * 1;
+        contractDetails.verification = !!contractDetails.verification;
+        $scope.request.contract_details.verification = !!contractDetails.verification;
         var data = angular.copy($scope.request);
-
         $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});

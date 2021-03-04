@@ -1,6 +1,6 @@
 angular.module('app').controller('airdropCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, web3Service) {
-
+    console.log('airdropCreateController', $scope)
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyAirdrop' + ($rootScope.currentUser.contracts + 1),
@@ -12,6 +12,7 @@ angular.module('app').controller('airdropCreateController', function($scope, con
     $scope.editContractMode = !!contract.id;
     var resetForm = function() {
         $scope.request = angular.copy(contract);
+        console.log('resetForm',$scope.request,contract);
     };
     $scope.resetForms = resetForm;
     $scope.contractInProgress = false;
@@ -32,8 +33,11 @@ angular.module('app').controller('airdropCreateController', function($scope, con
     };
     var createContract = function() {
         if ($scope.contractInProgress) return;
+        var contractDetails = angular.copy($scope.request);
+        contractDetails.decimals = contractDetails.decimals * 1;
+        contractDetails.verification = !!contractDetails.verification;
+        $scope.request.contract_details.verification = !!contractDetails.verification;
         var data = angular.copy($scope.request);
-
         $scope.contractInProgress = true;
         contractService[!$scope.editContractMode ? 'createContract' : 'updateContract'](data).then(function(response) {
             $state.go('main.contracts.preview.byId', {id: response.data.id});

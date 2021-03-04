@@ -351,7 +351,7 @@
 <a
 ng-if="((contract.stateValue == 4) || (contract.stateValue == 11)) &&
 (contract.network == 1) &&
-(contract.contract_type == 5) &&
+((contract.contract_type == 5) || (contract.contract_type == 8)) &&
 !contract.contract_details.verification"
 ui-sref="main.contracts.preview.byId({id: contract.id, '#': 'verification-deployed'})"
 class="btn btn-transparent btn-with-image hide-ps"

@@ -1,7 +1,6 @@
 angular.module('app').controller('tronAirdropCreateController', function($scope, contractService, $timeout, $state, $rootScope,
                                                                       CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, TronService) {
-
-
+    console.log('tronAirdropCreateController', $scope)
 
     var contract = openedContract && openedContract.data ? openedContract.data : {
         name:  'MyAirdrop' + ($rootScope.currentUser.contracts + 1),
@@ -13,6 +12,7 @@ angular.module('app').controller('tronAirdropCreateController', function($scope,
     $scope.editContractMode = !!contract.id;
     var resetForm = function() {
         $scope.request = angular.copy(contract);
+        $scope.request.verification = contract.contract_details.verification;
     };
     $scope.resetForms = resetForm;
     $scope.contractInProgress = false;
@@ -33,6 +33,9 @@ angular.module('app').controller('tronAirdropCreateController', function($scope,
     };
     var createContract = function() {
         if ($scope.contractInProgress) return;
+        var contractDetails = angular.copy($scope.request);
+        contractDetails.verification = !!contractDetails.verification;
+        $scope.request.contract_details.verification = !!contractDetails.verification;
         var data = angular.copy($scope.request);
         data.contract_details.tron_contract = undefined;
         $scope.contractInProgress = true;

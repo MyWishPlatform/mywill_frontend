@@ -1225,7 +1225,8 @@
           },
           "VERIFICATION_STATUS": {
             "LABEL": "Etherscan Verification",
-            "LABEL_BNB": "Bscscan Verification"
+            "LABEL_BNB": "Bscscan Verification",
+            "LABEL_TRON": "Tronscan Verification"
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting",
@@ -1243,6 +1244,7 @@
           "VERIFICATION": {
             "LABEL": "Etherscan Verification",
             "LABEL_BNB": "Bscscan Verification",
+            "LABEL_TRON": "Tronscan Verification",
             "DESCRIPTION": "Source code verification provides transparency for users interacting with smart contracts.",
             "DESCRIPTION_WITH_COST": "Source code verification provides transparency for users interacting with smart contracts.<br/><b>Verification cost is $50</b>.",
             "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",

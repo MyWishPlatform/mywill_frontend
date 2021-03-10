@@ -114,6 +114,7 @@ angular.module('app').controller('tronTokenCreateController', function($scope, c
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
+        contractDetails.verification = !!contractDetails.verification;
 
         return {
             name: $scope.request.token_name,

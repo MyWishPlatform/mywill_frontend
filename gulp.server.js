@@ -28,7 +28,7 @@ switch (currentBlockChainMode) {
         proxyUrl = url.parse("http://trondev.mywish.io");
         break;
     default:
-        proxyUrl = url.parse("http://dev.mywish.io");
+        proxyUrl = url.parse("https://dev2.mywish.io");
         break;
 }
 
@@ -44,8 +44,6 @@ var getBrowserSyncConfig = function () {
     var proxy = proxyMiddleware(devServerApi.path, {
         target: devServerApi.url,
         changeOrigin: true,
-        cookieDomainRewrite: '*',
-        ws: false,
         // auth: devServerApi.auth
     });
 
@@ -55,7 +53,7 @@ var getBrowserSyncConfig = function () {
                 //baseDir: [paths.build.root]
             },
             port: 9990,
-            https: false,
+            https: true,
             files: [
                 //path.join(paths.build.root, "**/*")
             ],

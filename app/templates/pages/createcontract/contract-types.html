@@ -99,7 +99,25 @@
         </div>
     </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+    <div class="shadow-block__content no-border shadow-block__content_no-tb-padding" ng-if="blockChainNetwork.type === 'BNB'">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1 cell-min-padding">
+                <div class="binance-trust">
+                    <img class="binance-trust_icon" src="/static/images/blockchain/binance-coin-logo.svg">
+                    <div class="binance-trust_text">
+                        <div class="binance-trust_title">
+                            Trusted Binance Partner since 2018
+                        </div>
+                        <div class="binance-trust_description">
+                            Certified Infrastructure Tool of the Binance Smart Chain Ecosystem.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-class="{'no-border': blockChainNetwork.type === 'BNB'}">
         <div class="grid-row">
             <div class="grid-cell">
                 <div class="checkbox-decoration">
@@ -114,8 +132,8 @@
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO')"
-                           ng-disabled="(blockChainNetwork.type === 'NEO')">
+                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'EOS')"
+                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'EOS')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>

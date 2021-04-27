@@ -167,5 +167,34 @@
 }
 
 
+.binance-trust {
+  background: #FFFFFF;
+  border: 2px solid #F4BB2B;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  &_icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  &_text {
+    width: 100%;
+  }
+  &_title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+  }
+  &_description {
+    font-size: 12px;
+    line-height: 14px;
+    padding: 5px 0;
+  }
+}
 
 

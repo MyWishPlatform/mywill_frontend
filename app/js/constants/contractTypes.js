@@ -287,7 +287,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
 
     var eosDefault = {
-        'networks': [10, 11],
+        // 'networks': [10, 11],
+        'networks': [11, 11],
         'list': [{
             'icon': 'icon-eos-wallet',
             'title': 'PAGES.CREATE_CONTRACT.EOS_WALLET.TITLE',

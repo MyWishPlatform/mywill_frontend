@@ -106,10 +106,10 @@
                     <img class="binance-trust_icon" src="/static/images/blockchain/binance-coin-logo.svg">
                     <div class="binance-trust_text">
                         <div class="binance-trust_title">
-                            Trusted Binance Partner since 2018
+                            Binance Partner since 2018
                         </div>
                         <div class="binance-trust_description">
-                            Certified Infrastructure Tool of the Binance Smart Chain Ecosystem.
+                            Infrastructure Tool of the Binance Smart Chain Ecosystem.
                         </div>
                     </div>
                 </div>
@@ -184,16 +184,24 @@
          class="shadow-block shadow-block_hovered" ng-class="contractForCreate.class">
         <div class="shadow-block__content">
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
-                <div class="contract-price-block_content">
+                <div class="contract-price-block_content" ng-if="contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]">
                     <i class="price-icon icon-mywish">
                         <span class="path1"></span><span class="path2"></span>
-                    </i><span>
+                    </i>
+                    <span>
                         {{(contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]['WISH'])|separateNumber}}
                     </span>
-                    &nbsp;<span>/</span>&nbsp;
+                    <span>/</span>&nbsp;
                     <i class="price-icon icon-dollar"></i><span>
                         {{(contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]['USDT'])|separateNumber}}
                     </span>
+                    <!--<img src="/static/images/blockchain/ethereum.png" ng-if="sitemode === 'default'">-->
+                    <!-- img src="/static/images/blockchain/eos-counter.svg" style="width: 1.2em" ng-if="sitemode === 'eos'">
+                    <img src="/static/images/blockchain/tron.svg" style="width: 1.8em" ng-if="sitemode === 'tron'" -->
+                </div>
+                <div class="contract-price-block_content" ng-if="contractForCreate.simplePrice">
+                    <span>from&nbsp;</span>
+                    <i class="price-icon icon-dollar"></i><span>{{contractForCreate.simplePrice}}</span>
                     <!--<img src="/static/images/blockchain/ethereum.png" ng-if="sitemode === 'default'">-->
                     <!-- img src="/static/images/blockchain/eos-counter.svg" style="width: 1.2em" ng-if="sitemode === 'eos'">
                     <img src="/static/images/blockchain/tron.svg" style="width: 1.8em" ng-if="sitemode === 'tron'" -->
@@ -202,13 +210,17 @@
             <div class="grid-row">
                 <div class="grid-cell grid-cell-1">
                     <div class="shadow-block__content__title">
-                        <i class="shadow-block__content__title__icon" ng-class="contractForCreate.icon"></i>
+                        <i class="shadow-block__content__title__icon"
+                           ng-if="contractForCreate.icon"
+                           ng-class="contractForCreate.icon"></i>
+                        <img  class="shadow-block__content__title__icon image"
+                              ng-src="{{contractForCreate.iconImg}}" ng-if="contractForCreate.iconImg"/>
                         <span class="shadow-block__content__title__text">
                             {{contractForCreate.title | translate}}
                         </span>
                     </div>
                     <div class="shadow-block__content__text shadow-block__content__text_description">
-                        <span translate="{{contractForCreate.description}}"></span>
+                        <span>{{contractForCreate.description | translate}}</span>
                     </div>
                 </div>
             </div>

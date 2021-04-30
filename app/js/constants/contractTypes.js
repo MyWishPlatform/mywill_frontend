@@ -87,6 +87,18 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'class': 'lighter-type'
     };
 
+    var airdropService = {
+        'iconImg': '/static/images/airdrop/airdrop-service.svg',
+        'title': 'Airdrop service',
+        'description': 'The Smart token distribution to thousands of addresses in batches.\n' +
+            'ERC-20 / BEP-20',
+        'typeNumber': -1,
+        'type': 'AirdropService',
+        'directLink': 'https://airdrop.mywish.io/',
+        'simplePrice': "125",
+        'price': true
+    };
+
     var eth = {
         'networks': [1, 2],
         'list':[{
@@ -118,7 +130,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 8,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[8],
             'price': true
-        }, {
+        }, airdropService, {
             'icon': 'icon-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.INVESTMENT_POOL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.INVESTMENT_POOL.DESCRIPTION',
@@ -208,7 +220,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 29,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[29],
             'price': true
-        }/*, {
+        }, airdropService /*, {
             'icon': 'icon-bnb-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.DESCRIPTION',
@@ -365,7 +377,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 17,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[17],
             'price': true
-        }, {
+        }, airdropService, {
             'icon': 'icon-key',
             'title': 'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.DESCRIPTION',

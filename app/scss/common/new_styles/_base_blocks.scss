@@ -132,6 +132,10 @@
         width: 1em;
         color: $main-color;
         text-align: center;
+        &.image {
+          width: 1.3em;
+          margin-left: -1.55em;
+        }
       }
     }
     &__blue-title {
@@ -232,7 +236,7 @@
     &__content {
       &__text {
         &_description {
-
+          white-space: pre-line;
         }
       }
       &__title {

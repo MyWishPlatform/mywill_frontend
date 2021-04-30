@@ -1,0 +1,55 @@
+.airdrop-service-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #F4F4F4;
+  border-radius: 9px;
+  padding: 14px;
+  margin-top: 60px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  &_img {
+    margin-right: 8px;
+    width: 99px;
+    margin-top: -56px;
+  }
+  &_text {
+    &_title {
+      font-weight: 500;
+      font-size: 1.6em;
+      span {
+        font-size: 0.875em;
+        font-weight: 400;
+        color: rgba(0, 0, 0, .5);
+      }
+    }
+    &_desc {
+      font-size: 1.4em;
+      margin-top: 0.45em;
+    }
+  }
+  &_btn {
+    display: inline-block;
+    width: 2.7em;
+    height: 2.7em;
+    border-radius: 50%;
+    background: #2873FB;
+    line-height: 2.7em;
+    text-align: center;
+    margin-left: auto;
+    &:after {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: 6px;
+      height: 6px;
+      border-width: 1px 1px 0 0;
+      border-style: solid;
+      border-color: #fff;
+      transform: rotate(45deg);
+      margin-top: -2px;
+      margin-left: -2px;
+    }
+  }
+}

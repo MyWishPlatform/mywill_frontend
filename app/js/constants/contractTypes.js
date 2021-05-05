@@ -95,7 +95,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'typeNumber': -1,
         'type': 'AirdropService',
         'directLink': 'https://airdrop.mywish.io/',
-        'simplePrice': "125",
+        'simplePrice': "50",
         'price': true
     };
 

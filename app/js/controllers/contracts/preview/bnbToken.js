@@ -38,7 +38,24 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
     }
     getVerificationCost();
 
+    var getAuthioCost = function () {
+        contractService.getAuthioCost().then(function(response) {
+            console.log('tokenPreviewController getAuthioCost',response);
+            $scope.contract.authioPrices = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+            };
+        });
+    }
+    getAuthioCost();
+
     var tabs = ['code', 'info'];
+
+    if ($scope.contract.isAuthioToken) {
+        tabs.push('audit');
+    }
 
 
     var updateTotalSupply = function() {
@@ -76,7 +93,7 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
         );
 
         if (web3Contract.methods.freezingBalanceOf) {
-            web3Contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+            web3Contract.methods.freezingBalanceOf(contractDetails.admin_address.toLowerCase()).call(function(error, result) {
                 if (error) return;
                 if (result * 1) {
                     $scope.tokensFreezed = true;
@@ -98,6 +115,13 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
         updateData: updateTotalSupply
     };
 
+    if ($scope.contract.withAuthioForm) {
+        $scope.authioFormRequest = {
+            contract_id: $scope.contract.id,
+            authio_email: $filter('isEmail')($rootScope.currentUser.username) ? $rootScope.currentUser.username : undefined
+        };
+    }
+
 
     if ($location.$$hash && (/^tab-.+/.test($location.$$hash))) {
         var tab = $location.$$hash.replace(/^tab-(.+$)/, '$1');
@@ -115,6 +139,47 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
             break;
     }
 
+    var authioBuy = function() {
+        if ($scope.authioBuyRequest) return;
+        $scope.authioBuyRequest = true;
+        contractService.buyAuthio($scope.authioFormRequest).then(function(response) {
+            contractService.getContract($scope.contract.id).then(function(response) {
+                var newContractDetails = response.data.contract_details;
+                $scope.contract.withAuthioForm = !newContractDetails.authio;
+                if (!$scope.contract.withAuthioForm) {
+                    $scope.contract.contract_details.authio = true;
+                    $scope.contract.contract_details.authio_email = newContractDetails.authio_email;
+                    $scope.contract.contract_details.authio_date_payment = newContractDetails.authio_date_payment;
+                    $scope.contract.contract_details.authio_date_getting = newContractDetails.authio_date_getting;
+                }
+                $scope.authioBuyRequest = false;
+            });
+        }, function(err) {
+            switch (err.status) {
+                case 400:
+                    switch(err.data.result) {
+                        case 3:
+                        case "3":
+                            $rootScope.commonOpenedPopupParams = {
+                                newPopupContent: true
+                            };
+                            $rootScope.commonOpenedPopup = 'errors/authio-less-balance';
+                            break;
+                    }
+                    break;
+            }
+            $scope.authioBuyRequest = false;
+        });
+    };
+
+    $scope.authioBuyPopup = {
+        template: '/templates/popups/confirmations/authio-confirm-pay.html',
+        class: 'deleting-contract',
+        params: {
+            contract: $scope.contract,
+            confirmAuthioPayment: authioBuy
+        }
+    };
 
     $scope.verificationBuyRequest = false;
     var verificationBuy = function() {

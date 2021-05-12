@@ -44,6 +44,10 @@ var getBrowserSyncConfig = function () {
     var proxy = proxyMiddleware(devServerApi.path, {
         target: devServerApi.url,
         changeOrigin: true,
+        headers: {
+            Origin: 'https://dev2.mywish.io',
+            Referer: 'https://dev2.mywish.io'
+},
         // auth: devServerApi.auth
     });
 

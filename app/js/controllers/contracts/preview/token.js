@@ -92,7 +92,7 @@ angular.module('app').controller('tokenPreviewController', function(
         );
 
         if (web3Contract.methods.freezingBalanceOf) {
-            web3Contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
+            web3Contract.methods.freezingBalanceOf(contractDetails.admin_address.toLowerCase()).call(function(error, result) {
                 if (error) return;
                 if (result * 1) {
                     $scope.tokensFreezed = true;
@@ -247,7 +247,10 @@ angular.module('app').controller('tokenPreviewController', function(
 
     var getTotalSupply = function() {
         web3Service.setProviderByNumber(contract.network);
-        web3Contract = web3Service.createContractFromAbi(contract.contract_details.eth_contract_token.address, contract.contract_details.eth_contract_token.abi);
+        web3Contract = web3Service.createContractFromAbi(
+            contract.contract_details.eth_contract_token.address,
+            contract.contract_details.eth_contract_token.abi
+        );
         web3Contract.methods.totalSupply().call(function(error, result) {
             if (error) {
                 result = 0;

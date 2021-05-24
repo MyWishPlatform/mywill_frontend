@@ -1246,7 +1246,7 @@
             "LABEL_BNB": "Bscscan Verification",
             "LABEL_TRON": "Tronscan Verification",
             "DESCRIPTION": "Source code verification provides transparency for users interacting with smart contracts.",
-            "DESCRIPTION_WITH_COST": "Source code verification provides transparency for users interacting with smart contracts.<br/><b>Verification cost is $299</b>.",
+            "DESCRIPTION_WITH_COST": "Source code verification provides transparency for users interacting with smart contracts.<br/><b>Verification cost is $450</b>.",
             "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
             "STATUS_IN_PROCESS": "Contract source code in the process of verification",
             "STATUS_VERIFIED": " Contract source code verified"

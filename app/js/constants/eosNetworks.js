@@ -86,34 +86,68 @@ module.constant('EOS_NETWORKS_CONSTANTS', [
         "endpoints": [
             {
                 "protocol": "https",
-                "url": "jungle2.cryptolions.io",
+                "url": "jungle3.cryptolions.io",
                 "port": 443
             },
             {
                 "protocol": "http",
-                "url": "jungle2.cryptolions.io",
+                "url": "jungle3.cryptolions.io",
                 "port": 80
             },
             {
-                "name": "MyWish",
                 "protocol": "https",
-                "port": 443,
-                "url": "jungle-node.mywish.io",
-                "description": ""
+                "url": "jungle.eosn.io",
+                "port": 443
             },
             {
-                "name": "EOS Costa Rica",
-                "protocol": "https",
-                "port": 443,
-                "url": "jungle.eosio.cr",
-                "description": "Public node provided by EOS Costa Rica"
+                "protocol": "http",
+                "url": "jungle3.atticlab.net",
+                "port": 12875
             },
             {
-                "name": "EOSMetal",
+                "protocol": "http",
+                "url": "159.69.74.183",
+                "port": 2888
+            },
+            {
                 "protocol": "https",
-                "port": 443,
-                "url": "junglenodes.eosmetal.io",
-                "description": "HA Proxy node provided by EOSMetal"
+                "url": "jungle.eosphere.io",
+                "port": 443
+            },
+            {
+                "protocol": "https",
+                "url": "jungle3.eossweden.org",
+                "port": 443
+            },
+            {
+                "protocol": "https",
+                "url": "api.jungle3.alohaeos.com",
+                "port": 443
+            },
+            {
+                "protocol": "https",
+                "url": "jungle3.cryptolions.io",
+                "port": 8888
+            },
+            {
+                "protocol": "http",
+                "url": "15.165.171.27",
+                "port": 5666
+            },
+            {
+                "protocol": "http",
+                "url": "jungle2.cryptolions.io",
+                "port": 8888
+            },
+            {
+                "protocol": "http",
+                "url": "54.206.215.92",
+                "port": 8888
+            },
+            {
+                "protocol": "http",
+                "url": "116.203.76.160",
+                "port": 8888
             }
         ]
     }

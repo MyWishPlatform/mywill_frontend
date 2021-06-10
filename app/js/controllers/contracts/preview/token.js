@@ -225,7 +225,6 @@ angular.module('app').controller('tokenPreviewController', function(
     $rootScope.confirmVerificationPayment = verificationBuy
 
 }).controller('tokenMintController', function($scope, $timeout, APP_CONSTANTS, web3Service, $filter) {
-
     var contract = angular.copy($scope.ngPopUp.params.contract);
     $scope.contract = contract;
 
@@ -298,6 +297,10 @@ angular.module('app').controller('tokenPreviewController', function(
     //     $scope.ngPopUp.mintInfo || {};
 
     $scope.generateSignature = function() {
+        if ($scope.recipient.address.slice(0,3) === "xdc"){
+            $scope.recipient.address = "0x" + $scope.recipient.address.slice(3);
+        }
+
         var mintInterfaceMethod = web3Service.getMethodInterface(
             !$scope.recipient.isFrozen ? 'mint' : 'mintAndFreeze',
             contract.contract_details.eth_contract_token.abi);
@@ -368,6 +371,12 @@ angular.module('app').controller('tokenPreviewController', function(
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
+    $scope.isXinfin = function (item) {
+        if (item.slice(0,3) === 'xdc') {
+            return "0x" + item.slice(3);
+        }
+        return item;
+    }
 
 
 }).controller('tokenMintFinalize', function($scope, web3Service) {
@@ -393,4 +402,10 @@ angular.module('app').controller('tokenPreviewController', function(
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
+    $scope.isXinfin = function (item) {
+        if (item.slice(0,3) === 'xdc') {
+            return "0x" + item.slice(3);
+        }
+        return item;
+    }
 });

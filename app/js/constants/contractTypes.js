@@ -36,6 +36,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'MATIC_CROWD_SALE': 32,
     'MATIC_AIRDROP': 34,
 
+    'XINFIN_TOKEN': 35
+
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
     1: 'lostKey',
@@ -74,6 +76,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     33: 'maticToken',
     32: 'maticCrowdSale',
     34: 'maticAirdrop',
+
+    35: 'xinfinToken'
 
 
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
@@ -193,6 +197,19 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.DESCRIPTION',
             'typeNumber': 34,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[34],
+            'price': true
+        }]
+    }
+
+    var xinfin = {
+        'networks': [35],
+        'list': [{
+            'iconImg': '/static/images/blockchain/xinfin-blue.svg',
+            'icon': 'icon-bnb-token',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'typeNumber': 35,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[35],
             'price': true
         }]
     }
@@ -405,7 +422,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 EOS: eosDefault,
                 WAVES: waves,
                 BNB: bnb,
-                MATIC: matic
+                MATIC: matic,
+                XINFIN: xinfin,
             };
     }
 });

@@ -65,7 +65,8 @@
     "NETWORK_22": "Binance MainNet",
     "NETWORK_23": "Binance TestNet",
     "NETWORK_24": "Matic MainNet",
-    "NETWORK_25": "Matic TestNet"
+    "NETWORK_25": "Matic TestNet",
+    "NETWORK_35": "Xinfin MainNet"
   },
   "BUTTONS": {
     "ENABLE": "启用",
@@ -160,7 +161,8 @@
     "TRON": "TRON",
     "WAVES": "WAVES",
     "BINANCE": "Binance",
-    "MATIC": "Matic"
+    "MATIC": "Matic",
+    "XINFIN": "Xinfin"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -1185,7 +1187,8 @@
             "DESCRIPTION_BNB": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
             "DESCRIPTION_MATIC": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
             "DESCRIPTION_TRON": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
-            "DESCRIPTION_NEO": "该符号应该较短（建议使用3-8个字符），不得有空白字符或换行符，并应限制为大写拉丁字母（即英文中使用的26个字母）"
+            "DESCRIPTION_NEO": "该符号应该较短（建议使用3-8个字符），不得有空白字符或换行符，并应限制为大写拉丁字母（即英文中使用的26个字母）",
+            "DESCRIPTION_XINFIN": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。"
           },
           "DECIMALS": {
             "LABEL": "小数位数:",

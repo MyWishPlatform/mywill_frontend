@@ -157,7 +157,6 @@
                            ng-model="address"
                            name="tokenAddress"
                            ng-change="resetTokenAddress(ercTokenAddress.tokenAddress)"
-                           ng-checksum-address-validator="{'network': 'ETH'}"
                            required
                            ng-disabled="(visibleTokensList | filter : {confirmed: true}).length >= maximumTokens"
                            class="form-control-input"/>

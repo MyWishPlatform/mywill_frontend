@@ -20,7 +20,7 @@
                                class="form-control-label"></label>
                         <input id="out-wallet-key" type="text"
                                placeholder="{{'POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.PLACEHOLDER'|translate}}"
-                               ng-pattern="/^0x[0-9a-f]{40}$/i"
+                               ng-pattern="/^(0x|xdc)[0-9a-f]{40}$/i"
                                ng-model="recipient.address"
                                ng-change="!recipient.name ? checkTokensAmount() : false"
                                required

@@ -94,6 +94,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         "ETH": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "BNB": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "MATIC": "0xD0593B233Be4411A236F22b42087345E1137170b",
+        "XINFIN": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "EOS": "mywishtestac",
         "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
         "NEO": "AYhjNHgTs9sG8B2TbnRT5HxwTA2HAuhthq",
@@ -126,6 +127,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             case 24:
             case 25:
                 return 'matic';
+            case 35:
+                return 'xinfin';
         }
     };
 

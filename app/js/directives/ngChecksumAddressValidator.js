@@ -18,14 +18,15 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                     break;
                 case 'BNB':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.BNB);
+                case 'XINFIN':
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.XINFIN);
             }
 
             var validator = function(value) {
                 if (!value) return;
+
                 var val = value;
-                if (scope.ngChecksumAddressValidator.network === 'ETH') {
-                    val = $filter('toCheckSum')(val);
-                }
+
 
                 var validAddress;
 
@@ -35,6 +36,9 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function($f
                         break;
                     case 'BNB':
                         validAddress = new RegExp(/(t)?bnb1[0-9a-z]{38}/).test(val);
+                        break;
+                    case 'XINFIN':
+                        validAddress = (val.slice(0,3) === 'xdc' && Web3.utils.isAddress('0x' + val.slice(3)));
                         break;
                     default:
                         validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);

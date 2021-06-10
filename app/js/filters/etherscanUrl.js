@@ -92,6 +92,13 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 addressPaths.tx = '/tx';
                 addressPaths.token20 = '/address';
                 break;
+            case 35:
+                networkUrl = APP_CONSTANTS.XINFIN_MAINNET_ADDRESS;
+                addressPaths.address = '/addr';
+                addressPaths.token = '/addr';
+                addressPaths.tx = '/tx';
+                addressPaths.token20 = '/addr';
+                break;
 
         }
         return networkUrl + (addressPaths[path] || '');

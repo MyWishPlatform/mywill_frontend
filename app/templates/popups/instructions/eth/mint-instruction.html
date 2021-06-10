@@ -6,12 +6,21 @@
             </div>
         </div>
         <div class="shadow-block__content__description">
-            <span translate="CONTRACTS_INSTRUCTIONS.ETH.MINT.DESCRIPTION"
+            <span ng-if="ngPopUp.params.contract.blockchain !== 'XINFIN'" translate="CONTRACTS_INSTRUCTIONS.ETH.MINT.DESCRIPTION"
                   translate-values="{
                     amount: (ngPopUp.params.recipient.amount|separateNumber),
                     tokenName: ngPopUp.params.contract.contract_details.token_short_name,
-                    recipient: ngPopUp.params.recipient.address,
+                    recipient: (ngPopUp.params.recipient.address),
                     admin: ngPopUp.params.contract.contract_details.admin_address,
+                    etherscanUrl: (ngPopUp.params.contract.network|etherscanUrl:'address')
+                }">
+            </span>
+            <span ng-if="ngPopUp.params.contract.blockchain === 'XINFIN'" translate="CONTRACTS_INSTRUCTIONS.ETH.MINT.DESCRIPTION_XINFIN"
+                  translate-values="{
+                    amount: (ngPopUp.params.recipient.amount|separateNumber),
+                    tokenName: ngPopUp.params.contract.contract_details.token_short_name,
+                    recipient: 'xdc' + (ngPopUp.params.recipient.address.slice(2)),
+                    admin: 'xdc' + ngPopUp.params.contract.contract_details.admin_address.slice(2),
                     etherscanUrl: (ngPopUp.params.contract.network|etherscanUrl:'address')
                 }">
             </span>
@@ -40,7 +49,7 @@
             <span>Parity</span>
         </button>
         <button  ng-click="ngPopUp.actions.sendMintTransaction()"
-                 ng-disabled="ngPopUp.params.currentWallet.type !== 'metamask'"
+                 ng-disabled="ngPopUp.params.currentWallet.type !== 'metamask' || ngPopUp.params.contract.blockchain === 'XINFIN'"
                  class="btn btn-gray with-icon nowrap">
             <span class="lds-ellipsis" ng-if="!ngPopUp.params.currentWallet">
                 <span class="lds-ellipsis-container">
@@ -55,9 +64,23 @@
 
     <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-if="ngPopUp.params.contract.blockchain !== 'XINFIN'"
          ng-init="instructionData = {
             'dataField': ngPopUp.params.mintSignature.string,
             'ownerAddress': ngPopUp.params.contract.contract_details.admin_address,
+            'contractAddress': ngPopUp.params.contract.contract_details.eth_contract_token.address,
+            'contract': {
+                network: ngPopUp.params.contract.network,
+                blockchain: ngPopUp.params.contract.blockchain
+            }
+         }"
+         ng-include="'/templates/popups/instructions/transaction-template.html'">
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding"
+         ng-if="ngPopUp.params.contract.blockchain === 'XINFIN'"
+         ng-init="instructionData = {
+            'dataField': ngPopUp.params.mintSignature.string,
+            'ownerAddress': 'xdc' + ngPopUp.params.contract.contract_details.admin_address.slice(2),
             'contractAddress': ngPopUp.params.contract.contract_details.eth_contract_token.address,
             'contract': {
                 network: ngPopUp.params.contract.network,

@@ -49,11 +49,20 @@
             </div>
 
             <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'XINFIN'})"
+                   ng-click="blockChainNetwork.type = 'XINFIN'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'XINFIN'}">
+                    <img src="/static/images/blockchain/xinfin.svg" width="20"
+                         style="vertical-align: middle">
+                    <span translate="BLOCKCHAIN_NETWORKS.XINFIN"></span>
+                </a>
+            </div>
+
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'TRON'})"
                    ng-click="blockChainNetwork.type = 'TRON'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'TRON'}">
                     <img src="/static/images/blockchain/tron.png" width="20" style="vertical-align: middle">
-                    &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.TRON"></span>
                 </a>
             </div>
@@ -117,7 +126,7 @@
         </div>
     </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-class="{'no-border': blockChainNetwork.type === 'BNB'}">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-class="{'no-border': blockChainNetwork.type === 'BNB'}" ng-if="blockChainNetwork.type !== 'XINFIN'">
         <div class="grid-row">
             <div class="grid-cell">
                 <div class="checkbox-decoration">
@@ -128,12 +137,12 @@
                     </div>
                 </div>
             </div>
-            <div class="grid-cell">
+            <div class="grid-cell" ng-if="blockChainNetwork.type !== 'XINFIN'">
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="blockChainNetwork.isTest || (blockChainNetwork.type === 'NEO') || (blockChainNetwork.type === 'EOS')"
-                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'EOS')">
+                           ng-checked="blockChainNetwork.isTest"
+                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'EOS'  || blockChainNetwork.type === 'XINFIN')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>

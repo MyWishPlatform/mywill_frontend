@@ -35,6 +35,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
 
     this.createContractFromAbi = function(contractAddress, abi) {
         var contract = new web3.eth.Contract(abi);
+        if (contractAddress.slice(0,3) === 'xdc'){
+            contractAddress = "0x" + contractAddress.slice(3);
+        }
         contract.options.address = Web3.utils.toChecksumAddress(contractAddress);
         return contract;
     };
@@ -81,6 +84,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 25:
                 web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.MATIC_TESTNET_PROVIDER));
                 break;
+            case 35:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.XINFIN_MAINNET_PROVIDER))
 
 
         }
@@ -98,6 +103,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 24:
                 network = isProduction ? network : 25;
                 break;
+            case 35:
+                network = 35;
+                break;
         }
 
         switch (providerName) {
@@ -112,7 +120,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                         ((networkVersion == 97) && (network == 23)) ||
                         ((networkVersion == 56) && (network == 22)) ||
                         ((networkVersion == 80001) && (network == 25)) ||
-                        ((networkVersion == 137) && (network == 24))
+                        ((networkVersion == 137) && (network == 24)) ||
+                        ((networkVersion === 50) && (network === 35))
                     ) {
                         currentProvider = web3Providers[providerName];
                         web3.setProvider(currentProvider);
@@ -133,7 +142,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 ((networkVersion === 97) && (network === 23)) ||
                 ((networkVersion === 56) && (network === 22)) ||
                 ((networkVersion === 80001) && (network === 25)) ||
-                ((networkVersion === 137) && (network === 24));
+                ((networkVersion === 137) && (network === 24)) ||
+                ((networkVersion === 50) && (network === 35));
         } else {
             return false;
         }
@@ -219,6 +229,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 24:
                 network = isProduction ? network : 25;
                 break;
+            case 35:
+                network = 35;
+                break;
         }
 
         for (var clientName in web3Providers) {
@@ -273,7 +286,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             path: API.GET_ETH_TOKENS_FOR_ADDRESS,
             query: {
                 address: address,
-                network: ((network === 1 || network === 22 || network === 24) && isProduction) ? 'mainnet' : 'testnet'
+                network: ((network === 1 || network === 22 || network === 24 || network === 35) && isProduction) ? 'mainnet' : 'testnet'
             }
         };
         return requestService.get(params);

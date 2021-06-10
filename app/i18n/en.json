@@ -65,7 +65,8 @@
     "NETWORK_22": "Binance MainNet",
     "NETWORK_23": "Binance TestNet",
     "NETWORK_24": "Matic MainNet",
-    "NETWORK_25": "Matic TestNet"
+    "NETWORK_25": "Matic TestNet",
+    "NETWORK_35": "Xinfin MainNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -160,7 +161,8 @@
     "TRON": "TRON",
     "WAVES": "WAVES",
     "BINANCE": "Binance",
-    "MATIC": "Matic"
+    "MATIC": "Matic",
+    "XINFIN": "Xinfin"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -716,11 +718,13 @@
       },
       "MINT_FINALIZE": {
         "TITLE": "Finalize",
-        "DESCRIPTION": "To finalize Token {{token_short_name}} please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)"
+        "DESCRIPTION": "To finalize Token {{token_short_name}} please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}address/{{admin_address}}\">{{admin_address}}</a>)",
+        "DESCRIPTION_XINFIN": "To finalize Token {{token_short_name}} please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscan_url}}/{{admin_address}}\">{{admin_address}}</a>)"
       },
       "MINT": {
         "TITLE": "Mint",
-        "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)"
+        "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)",
+        "DESCRIPTION_XINFIN": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}/{{admin}}\">{{admin}}</a>)"
       },
       "PARITY": {
         "TITLE": "Add to parity",
@@ -1186,7 +1190,8 @@
             "DESCRIPTION_BNB": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
             "DESCRIPTION_MATIC": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
             "DESCRIPTION_TRON": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
-            "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)"
+            "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)",
+            "DESCRIPTION_XINFIN": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.."
           },
           "DECIMALS": {
             "LABEL": "Decimals:",

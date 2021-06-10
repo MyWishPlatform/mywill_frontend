@@ -38,7 +38,6 @@ angular.module('Services').service('requestService', function($http, API, GITHUB
     return {
         get: function (params) {
             var defer = $q.defer();
-
             var url = API.HOSTS.TEST;
             url += params.API_PATH || API.HOSTS.PATH;
             url += params.path || '';

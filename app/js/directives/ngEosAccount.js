@@ -188,7 +188,7 @@ angular.module('Directives').directive('ngEosAccount', function() {
                 }, !withoutTimeout ? 500 : 0);
             };
 
-            var addressRegExp = /[a-z1-5]{12}/;
+            var addressRegExp = /[a-z1-5_.]{12}/;
 
             $scope.$watch('ngEosTokenOptions.tokenAddress', function() {
                 if (!addressRegExp.test($scope.ngEosTokenOptions.tokenAddress)) return;

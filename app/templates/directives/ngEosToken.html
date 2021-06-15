@@ -2,7 +2,7 @@
     <input id="{{ngEosTokenOptions.name}}" type="text"
            ng-eos-token-validator
            placeholder="NEW"
-           pattern='[a-zA-Z]+'
+           pattern='[a-zA-Z_.]+'
            ng-model="ngModel"
            ng-disabled="ngEosTokenOptions.disabled"
            name="{{ngEosTokenOptions.name}}"

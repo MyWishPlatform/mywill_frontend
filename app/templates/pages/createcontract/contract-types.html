@@ -142,7 +142,7 @@
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
                            ng-checked="blockChainNetwork.isTest"
-                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'EOS'  || blockChainNetwork.type === 'XINFIN')">
+                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>

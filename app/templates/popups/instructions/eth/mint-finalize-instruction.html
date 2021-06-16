@@ -16,7 +16,7 @@
             <span translate-values="{
                 token_short_name: ngPopUp.params.contract.contract_details.token_short_name,
                 etherscan_url: (ngPopUp.params.contract.network|etherscanUrl:'address'),
-                admin_address: 'xdc' + ngPopUp.params.contract.contract_details.admin_address
+                admin_address: 'xdc' + ngPopUp.params.contract.contract_details.admin_address.slice(2)
             }" translate="CONTRACTS_INSTRUCTIONS.ETH.MINT_FINALIZE.DESCRIPTION_XINFIN"></span>
         </div>
     </div>

@@ -86,6 +86,11 @@ module.constant('APP_CONSTANTS', {
     "MATIC_MAINNET_PROVIDER": "https://rpc-mainnet.maticvigil.com/",
     "MATIC_TESTNET_PROVIDER": "https://rpc-mumbai.matic.today/",
 
+    "HECOCHAIN_MAINNET_PROVIDER": "https://http-mainnet-node.huobichain.com/",
+    "HECOCHAIN_TESTNET_PROVIDER": "https://http-testnet.hecochain.com/",
+
+    "HECOCHAIN_ADDRESS": "https://www.hecochain.com/",
+
     "MATIC_TESTNET_ADDRESS": "https://explorer-mumbai.maticvigil.com",
     "MATIC_MAINNET_ADDRESS": "https://explorer-mainnet.maticvigil.com",
 

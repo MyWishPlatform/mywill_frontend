@@ -240,8 +240,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 25:
             case 26:
             case 27:
+            case 28:
             case 32:
             case 35:
+            case 36:
                 if (contract.contract_details.eth_contract) {
                     contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
                         ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
@@ -417,7 +419,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 23:
             case 24:
             case 25:
+            case 28:
             case 35:
+            case 36:
                 setContractStatValues(contract);
                 iniETHContract(contract, fullScan);
                 break;
@@ -491,7 +495,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         32: 'matic_crowdsale',
         33: 'matic_token',
         34: 'matic_airdrop',
-        35: 'xinfin_token'
+        35: 'xinfin_token',
+        36: 'hecochain_token'
     };
 
     var launchContract = function(contract) {
@@ -504,8 +509,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             contract.launchProgress = false;
 
             // add event to GTM
-            //todo test network to xinfin
-            var testNetwork = [2, 4, 6, 11, 15, 23, 25].indexOf(contract.network) > -1;
+            var testNetwork = [2, 4, 6, 11, 15, 23, 25, 36].indexOf(contract.network) > -1;
             var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
 
             if (window['dataLayer']) {

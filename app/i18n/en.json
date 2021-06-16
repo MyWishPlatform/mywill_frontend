@@ -727,7 +727,7 @@
       "MINT": {
         "TITLE": "Mint",
         "DESCRIPTION": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}address/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}address/{{admin}}\">{{admin}}</a>)",
-        "DESCRIPTION_XINFIN": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address (<a target=\"_blank\" href=\"{{etherscanUrl}}/{{admin}}\">{{admin}}</a>)"
+        "DESCRIPTION_XINFIN": "To Mint {{amount}} {{tokenName}} tokens to <a target=\"_blank\" href=\"{{etherscanUrl}}/{{recipient}}\">{{recipient}}</a> address please make the following transaction from token owner's address ()"
       },
       "PARITY": {
         "TITLE": "Add to parity",
@@ -1236,7 +1236,8 @@
             "LABEL": "Etherscan Verification",
             "LABEL_BNB": "Bscscan Verification",
             "LABEL_TRON": "Tronscan Verification",
-            "LABEL_XINFIN": "Xinfin Verification"
+            "LABEL_XINFIN": "Xinfin Verification",
+            "LABEL_HECOCHAIN": "Hecochain Verification"
           },
           "FUTURE_MINTING": {
             "LABEL": "Future Minting",
@@ -1256,6 +1257,7 @@
             "LABEL_BNB": "Bscscan Verification",
             "LABEL_TRON": "Tronscan Verification",
             "LABEL_XINFIN": "Xinfin Verification",
+            "LABEL_HECOCHAIN": "Hecochain Verification",
             "DESCRIPTION": "Source code verification provides transparency for users interacting with smart contracts.",
             "DESCRIPTION_WITH_COST": "Source code verification provides transparency for users interacting with smart contracts.<br/><b>Verification cost is $450</b>.",
             "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",

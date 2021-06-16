@@ -20,8 +20,22 @@
                 <span>{{('CONTRACTS_NETWORKS.NETWORK_' + contract.network)|translate}}</span>
             </div>
 
-            <div class="shadow-block__content__blue-title static-width">
+            <div class="shadow-block__content__blue-title static-width" ng-if="contract.contract_type !== 35 && contract.contract_type !== 28 && contract.contract_type !== 36">
                 <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
+                <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+                    <span>{{ contract.name || 'Not defined'}}</span>
+                </div>
+            </div>
+
+            <div class="shadow-block__content__blue-title static-width" style="display: flex; flex-direction: row; height: 56px" ng-if="contract.contract_type === 35" >
+                <img style="height: 40px; margin: 0 12px 0 -4px" src="/static/images/blockchain/xinfin-white.svg">
+                <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+                    <span>{{ contract.name || 'Not defined'}}</span>
+                </div>
+            </div>
+
+            <div class="shadow-block__content__blue-title static-width" style="display: flex; flex-direction: row; height: 56px" ng-if="contract.contract_type === 28 || contract.contract_type === 36" >
+                <img style="margin: 4px 18px 0 0 ; height: 30px; margin-left: -2px" src="/static/images/blockchain/hecochain-white.svg">
                 <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
                     <span>{{ contract.name || 'Not defined'}}</span>
                 </div>

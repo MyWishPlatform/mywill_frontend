@@ -59,6 +59,17 @@
             </div>
 
             <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'HECOCHAIN'})"
+                   ng-click="blockChainNetwork.type = 'HECOCHAIN'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'HECOCHAIN'}">
+                    <img src="/static/images/blockchain/hecochain.svg" width="20" height="20"
+                         style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.HECOCHAIN"></span>
+                </a>
+            </div>
+
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'TRON'})"
                    ng-click="blockChainNetwork.type = 'TRON'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'TRON'}">

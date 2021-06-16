@@ -36,7 +36,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     'MATIC_CROWD_SALE': 32,
     'MATIC_AIRDROP': 34,
 
-    'XINFIN_TOKEN': 35
+    'XINFIN_TOKEN': 35,
+
+    'HECOCHAIN_TOKEN': 36
 
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
@@ -77,7 +79,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     32: 'maticCrowdSale',
     34: 'maticAirdrop',
 
-    35: 'xinfinToken'
+    35: 'xinfinToken',
+
+    36: 'hecochainToken'
 
 
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
@@ -210,6 +214,18 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 35,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[35],
+            'price': true
+        }]
+    }
+        
+    var hecochain = {
+        'networks': [28, 36],
+        'list':[{
+            'iconImg': '/static/images/blockchain/hecochain-blue.svg',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'typeNumber': 36,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[36],
             'price': true
         }]
     }
@@ -424,6 +440,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 BNB: bnb,
                 MATIC: matic,
                 XINFIN: xinfin,
+                HECOCHAIN: hecochain
             };
     }
 });

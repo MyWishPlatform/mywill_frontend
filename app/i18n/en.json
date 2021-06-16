@@ -66,7 +66,9 @@
     "NETWORK_23": "Binance TestNet",
     "NETWORK_24": "Matic MainNet",
     "NETWORK_25": "Matic TestNet",
-    "NETWORK_35": "Xinfin MainNet"
+    "NETWORK_28": "Hecochain MainNet",
+    "NETWORK_35": "Xinfin MainNet",
+    "NETWORK_36": "Hecochain TestNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -162,7 +164,8 @@
     "WAVES": "WAVES",
     "BINANCE": "Binance",
     "MATIC": "Matic",
-    "XINFIN": "Xinfin"
+    "XINFIN": "Xinfin",
+    "HECOCHAIN": "Hecochain"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -1189,6 +1192,7 @@
             "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
             "DESCRIPTION_BNB": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
             "DESCRIPTION_MATIC": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
+            "DESCRIPTION_HECOCHAIN": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
             "DESCRIPTION_TRON": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
             "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)",
             "DESCRIPTION_XINFIN": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.."

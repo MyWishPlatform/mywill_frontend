@@ -77,7 +77,7 @@
     }
   }
 
-  &_10, &_14, &_24, &_35 {
+  &_10, &_14, &_24, &_35{
     color: $main-color;
     &:before {
       background: $main-color;
@@ -102,6 +102,13 @@
     color: #e34400;
     &:before {
       background: #e34400;
+    }
+  }
+
+  &_28, &_36 {
+    color: $main-color;
+    &:before {
+      background: $main-color;
     }
   }
 

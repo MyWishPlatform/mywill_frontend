@@ -29,7 +29,7 @@ angular.module('app').controller('hecochainTokenPreviewController', function($ti
 
     var getVerificationStatus = function () {
         contractService.getContract($scope.contract.id).then(function(response) {
-            console.log('xinfinPreviewController getVerificationStatus',response);
+            console.log('hecochainPreviewController getVerificationStatus',response);
             $scope.contract.verification_status = response.data.contract_details.verification_status;
         });
     }
@@ -37,14 +37,14 @@ angular.module('app').controller('hecochainTokenPreviewController', function($ti
 
     var getVerificationCost = function () {
         contractService.getVerificationCost().then(function(response) {
-            console.log('xinfinPreviewController getVerificationCost',response);
+            console.log('hecochainPreviewController getVerificationCost',response);
             $scope.contract.verificationCost = {
                 USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
                 WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
                 ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
                 BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
             };
-            console.log(111, 'xinfinPreviewController getVerificationStatus',$scope.contract);
+            console.log('hecochainPreviewController getVerificationStatus',$scope.contract);
         });
     }
     getVerificationCost();

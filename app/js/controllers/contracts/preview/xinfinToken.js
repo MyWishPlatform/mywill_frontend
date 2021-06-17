@@ -43,7 +43,7 @@ angular.module('app').controller('xinfinTokenPreviewController', function($timeo
                 ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
                 BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
             };
-            console.log(111, 'xinfinPreviewController getVerificationStatus',$scope.contract);
+            console.log('xinfinPreviewController getVerificationStatus',$scope.contract);
         });
     }
     getVerificationCost();

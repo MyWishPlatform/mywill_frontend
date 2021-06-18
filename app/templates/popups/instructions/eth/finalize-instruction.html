@@ -26,7 +26,7 @@
             <span>Parity</span>
         </button>
         <button  ng-click="sendTransaction()"
-                 ng-disabled="!(currentWallet && (currentWallet.type === 'metamask'))"
+                 ng-disabled="!(currentWallet && (currentWallet.type === 'metamask')) || ngPopUp.params.contract.blockchain === 'XINFIN' || ngPopUp.params.contract.contract_type === 36"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>

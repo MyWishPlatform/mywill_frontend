@@ -92,12 +92,26 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 addressPaths.tx = '/tx';
                 addressPaths.token20 = '/address';
                 break;
+            case 28:
+                networkUrl = APP_CONSTANTS.HECOCHAIN_MAINNET_ADDRESS;
+                addressPaths.address = '/address';
+                addressPaths.token = '/address';
+                addressPaths.tx = '/tx';
+                addressPaths.token20 = '/address';
+                break;
             case 35:
                 networkUrl = APP_CONSTANTS.XINFIN_MAINNET_ADDRESS;
                 addressPaths.address = '/addr';
                 addressPaths.token = '/addr';
                 addressPaths.tx = '/tx';
                 addressPaths.token20 = '/addr';
+                break;
+            case 36:
+                networkUrl = APP_CONSTANTS.HECOCHAIN_TESTNET_ADDRESS;
+                addressPaths.address = '/address';
+                addressPaths.token = '/address';
+                addressPaths.tx = '/tx';
+                addressPaths.token20 = '/address';
                 break;
 
         }

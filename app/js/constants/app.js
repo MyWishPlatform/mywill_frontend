@@ -83,7 +83,7 @@ module.constant('APP_CONSTANTS', {
     "BNB_TESTNET_ADDRESS": "https://testnet.bscscan.com",
     "BNB_MAINNET_ADDRESS": "https://bscscan.com/",
 
-    "MATIC_MAINNET_PROVIDER": "https://polygonscan.com/",
+    "MATIC_MAINNET_PROVIDER": "https://rpc-mainnet.maticvigil.com",
     "MATIC_TESTNET_PROVIDER": "https://rpc-mumbai.matic.today/",
 
     "HECOCHAIN_MAINNET_PROVIDER": "https://http-mainnet-node.huobichain.com/",

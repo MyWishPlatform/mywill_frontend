@@ -84,6 +84,11 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'value': 'bnb',
                 'select-icon': '/static/images/blockchain/binance-coin-logo.svg'
             }, {
+                'label': 'BSC BNB',
+                'value': 'bsc-bnb',
+                'select-icon': '/static/images/blockchain/binance-coin-logo.svg'
+            },
+            {
                 'label': 'ETH',
                 'value': 'eth',
                 'select-icon': '/static/images/blockchain/ethereum.png'
@@ -111,7 +116,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'label': 'EOSISH',
                 'value': 'eosish',
                 'select-icon': '/static/images/blockchain/eosish-logo.svg'
-            }
+            },
         ]
     };
 
@@ -273,6 +278,31 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
             to: APP_CONSTANTS.OKB.ADDRESS,
             data: $scope.checkedTransferData
         }).then(console.log);
+    };
+
+}).controller('buyWishByBscBnbController', function($scope, web3Service) {
+
+    $scope.getProvider = function(name) {
+        web3Service.setProvider(name, 1);
+        return web3Service.web3();
+    };
+
+
+    web3Service.setProvider(name, 1);
+    web3Service.getAccounts(1).then(function(response) {
+        response.map(function(wallet) {
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
+    });
+
+    $scope.sendTransaction = function() {
+        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
+            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).toPower(18)).toString(10),
+            from: $scope.formData.address,
+            to: $scope.currentUser.internal_address
+        }, function() {
+            console.log(arguments);
+        });
     };
 
 });

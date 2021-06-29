@@ -1,0 +1,106 @@
+<form ng-controller="buyWishByBscBnbController" name="buyTokensForm">
+  <div class="shadow-block__content shadow-block__content_min-tb-padding">
+    <div class="grid-row">
+
+      <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
+        <div class="form-control">
+          <label class="form-control-label">{{'PAGES.BUY_TOKENS.SEND'|translate}}&nbsp;&nbsp;<img src="/static/images/right-arrow.svg" alt=""></label>
+          <input type="text" placeholder="0"
+                 class="form-control-input with-currency"
+                 commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
+                 pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
+                 ng-model="amountsValues.BNB"
+                 ng-change="convertAmountFrom('BNB')">
+          <div class="input-after">BSC BNB</div>
+        </div>
+      </div>
+
+
+      <div class="grid-cell grid-cell-3-8 grid-cell-ps-1">
+        <div class="form-control">
+          <label class="form-control-label"><img src="/static/images/right-arrow.svg" alt="">&nbsp;&nbsp;{{'PAGES.BUY_TOKENS.GET'|translate}}</label>
+          <input type="text" placeholder="0"
+                 class="form-control-input with-currency"
+                 commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
+                 pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
+                 ng-model="amountsValues.WISH"
+                 ng-change="convertAmountTo('BNB')">
+          <div class="input-after">WISH</div>
+        </div>
+      </div>
+      <div class="grid-cell grid-cell-1-4 grid-cell-ps-1 form-control-description"
+           ng-include="getTemplate('pages/buytokens-forms/usdt')">
+      </div>
+    </div><br/>
+    <div class="grid-row">
+      <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
+        <div class="form-control">
+          <label class="form-control-label">Send your BSC BNB to:</label>
+          <input type="text" class="form-control-input form-control-input--wish"
+                 disabled ng-model="currentUser.internal_address">
+        </div>
+      </div>
+      <div class="grid-cell hide-ps grid-cell-1-4">
+        <div class="form-control text-right">
+          <span class="form-control-label">&nbsp;</span>
+          <button class="btn btn-gray center-input-field"
+                  style="margin-top: 24px"
+                  clipboard
+                  supported="supported"
+                  text="currentUser.internal_address"
+                  on-copied="$root.successCodeCopy(copied, 'to_address')"
+                  on-error="failCodeCopy(err)"
+                  ng-show="!copied.copied['to_address']"
+                  type="button">
+            <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.COPY'|translate}}&nbsp;&nbsp;&nbsp;</span>
+          </button>
+
+          <button class="btn btn-as-link center-input-field"
+                  disabled
+                  ng-if="copied.copied['to_address']"
+                  type="button">
+            <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+        <div class="form-control">
+          <div class="form-control-description one-line">
+            <span class="form-control-description__text">{{'PAGES.BUY_TOKENS.GAS_PRICE'|translate}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+        <div class="form-control">
+          <div class="form-control-description one-line">
+            <span class="form-control-description__text">{{'PAGES.BUY_TOKENS.GAS_LIMIT'|translate}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-2">
+        <div class="form-control text-right text-left-ps">
+          <div class="form-control-description one-line">
+                        <span class="as-link form-control-description__text" ng-pop-up="{
+                            template: '/templates/popups/instructions/buy-tokens/how-to-pay-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                createdContract: formData,
+                                failCodeCopy: failCodeCopy
+                            }
+                        }">{{'PAGES.BUY_TOKENS.HOW_TO_DO_IT'|translate}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">
+    <button class="btn btn-submit float-right"
+            type="button"
+            ng-click="payDone()">
+      <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.DONE'|translate}}&nbsp;&nbsp;&nbsp;</span>
+    </button>
+  </div>
+</form>

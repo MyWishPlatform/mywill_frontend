@@ -1237,6 +1237,7 @@
             "LABEL_BNB": "Bscscan Verification",
             "LABEL_TRON": "Tronscan Verification",
             "LABEL_XINFIN": "Xinfin Verification",
+            "LABEL_MATIC": "PolygonScan Verification",
             "LABEL_HECOCHAIN": "HecoScan Verification"
           },
           "FUTURE_MINTING": {
@@ -1257,6 +1258,7 @@
             "LABEL_BNB": "Bscscan Verification",
             "LABEL_TRON": "Tronscan Verification",
             "LABEL_XINFIN": "Xinfin Verification",
+            "LABEL_MATIC": "PolygonScan Verification",
             "LABEL_HECOCHAIN": "HecoScan Verification",
             "DESCRIPTION": "Source code verification provides transparency for users interacting with smart contracts.",
             "DESCRIPTION_WITH_COST": "Source code verification provides transparency for users interacting with smart contracts.<br/><b>Verification cost is $450</b>.",

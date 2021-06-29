@@ -27,10 +27,10 @@
                                 text="$root.currentUser.internal_address"
                                 ng-class="{copied: ngPopUp.params.createdContract.copied['toAddress']}"
                                 on-copied="$root.successCodeCopy(ngPopUp.params.createdContract, 'toAddress')"
-                                type="button">&nbsp;
+                                type="button">
                             <i class="icon-content_copy"></i>
                         </button>
-                        <div class="copy-block__text">{{ngPopUp.params.createdContract.toAddress}}</div>
+                        <div class="copy-block__text">{{$root.currentUser.internal_address}}</div>
                     </div>
                 </div>
             </li>

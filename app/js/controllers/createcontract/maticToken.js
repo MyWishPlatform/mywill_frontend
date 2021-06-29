@@ -124,6 +124,7 @@ angular.module('app').controller('maticTokenCreateController', function($scope, 
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
+        contractDetails.verification = !!contractDetails.verification;
 
         return {
             feedback_email: $scope.feedback_email,

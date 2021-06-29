@@ -49,7 +49,7 @@
             <span>Parity</span>
         </button>
         <button  ng-click="ngPopUp.actions.sendMintTransaction()"
-                 ng-disabled="ngPopUp.params.currentWallet.type !== 'metamask' || ngPopUp.params.contract.blockchain === 'XINFIN' || ngPopUp.params.contract.contract_type === 36"
+                 ng-disabled="ngPopUp.params.currentWallet.type !== 'metamask' || ngPopUp.params.contract.blockchain === 'XINFIN'"
                  class="btn btn-gray with-icon nowrap">
             <span class="lds-ellipsis" ng-if="!ngPopUp.params.currentWallet">
                 <span class="lds-ellipsis-container">

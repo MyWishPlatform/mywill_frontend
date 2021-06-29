@@ -402,6 +402,14 @@ angular.module('app').controller('tokenPreviewController', function(
             from: $scope.currentWallet.wallet
         }).then(console.log);
     };
+    $scope.openPopup = function () {
+        $scope.wrongNet = true;
+    };
+
+    $scope.checkNet = function() {
+        $scope.wrongNet = false;
+    };
+
     $scope.isXinfin = function (item) {
         if (item.slice(0,3) === 'xdc') {
             return "0x" + item.slice(3);

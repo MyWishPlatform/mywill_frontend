@@ -119,10 +119,14 @@
                             contract: contract,
                             recipient: recipient,
                             mintSignature: mintSignature,
-                            currentWallet: currentWallet
+                            currentWallet: currentWallet,
+                            wrongData: wrongData,
+                            wrongAddress: wrongAddress,
+                            wrongNet: wrongNet
                         },
                         actions: {
-                            sendMintTransaction: sendMintTransaction
+                            sendMintTransaction: sendMintTransaction,
+                            checkNet: checkNet,
                         },
                         onClose: returnToList
                     }"

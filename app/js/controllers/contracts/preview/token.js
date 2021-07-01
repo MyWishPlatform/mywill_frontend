@@ -334,6 +334,10 @@ angular.module('app').controller('tokenPreviewController', function(
     };
 
     $scope.sendMintTransaction = function() {
+        $scope.generateSignature();
+        $scope.wrongAddress = false;
+        $scope.wrongNet = false;
+
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
@@ -342,29 +346,55 @@ angular.module('app').controller('tokenPreviewController', function(
             $scope.ngPopUp.mintInfo.isProgress = true;
         }
 
-        if ($scope.recipient.isFrozen) {
-            txProgress = web3Contract.methods.mintAndFreeze(
-                $scope.recipient.address,
-                amount,
-                $scope.recipient.freeze_date.format('X')
-            ).send({
-                from: $scope.currentWallet.wallet
-            });
-        } else {
-            txProgress = web3Contract.methods.mint($scope.recipient.address.toLowerCase(), amount).send({
-                from: $scope.currentWallet.wallet
-            });
-        }
-        txProgress.then(function() {
-            if ($scope.ngPopUp.mintInfo) {$scope.ngPopUp.mintInfo.updateData ?
-                $scope.ngPopUp.mintInfo.updateData() : false;
+        web3Service.getAccounts($scope.contract.network).then(function(result) {
+            if (!result.length || !result) {
+                $scope.wrongNet = true;
             }
-        }).finally(function() {
-            if ($scope.ngPopUp.mintInfo) {
-                $scope.ngPopUp.mintInfo.isProgress = false;
+
+            $scope.currentWallet = result.filter(function(wallet) {
+                if (wallet.wallet.toLowerCase() !== $scope.contract.contract_details.admin_address.toLowerCase()){
+                    $scope.wrongAddress = true;
+                    $scope.wrongNet = false;
+                } else {
+                    $scope.wrongAddress = false;
+                }
+                return wallet.wallet.toLowerCase() === $scope.contract.contract_details.admin_address.toLowerCase();
+            })[0];
+
+            if ($scope.currentWallet) {
+                if ($scope.recipient.isFrozen) {
+                    txProgress = web3Contract.methods.mintAndFreeze(
+                        $scope.recipient.address,
+                        amount,
+                        $scope.recipient.freeze_date.format('X')
+                    ).send({
+                        from: $scope.currentWallet.wallet
+                    });
+                } else {
+                    txProgress = web3Contract.methods.mint($scope.recipient.address.toLowerCase(), amount).send({
+                        from: $scope.currentWallet.wallet
+                    });
+                }
+                txProgress.then(function() {
+                    if ($scope.ngPopUp.mintInfo) {$scope.ngPopUp.mintInfo.updateData ?
+                        $scope.ngPopUp.mintInfo.updateData() : false;
+                    }
+                }).finally(function() {
+                    if ($scope.ngPopUp.mintInfo) {
+                        $scope.ngPopUp.mintInfo.isProgress = false;
+                    }
+                    $scope.$apply();
+                })
+
+            } else {
+                if ($scope.ngPopUp.mintInfo) {
+                    $scope.ngPopUp.mintInfo.isProgress = false;
+                }
+                $scope.openPopup();
             }
-            $scope.$apply();
-        })
+        });
+
+
     };
     $scope.sendFinalizeTransaction = function() {
         web3Contract.methods.finishMinting().send({
@@ -377,6 +407,15 @@ angular.module('app').controller('tokenPreviewController', function(
         }
         return item;
     }
+    $scope.openPopup = function () {
+        $scope.wrongData = true;
+    };
+
+    $scope.checkNet = function() {
+        $scope.wrongData = false;
+        $scope.wrongAddress = false;
+        $scope.wrongNet = false;
+    };
 
 
 }).controller('tokenMintFinalize', function($scope, web3Service) {
@@ -388,20 +427,48 @@ angular.module('app').controller('tokenPreviewController', function(
     var interfaceMethod = web3Service.getMethodInterface('finishMinting', contractDetails.eth_contract_token.abi);
     $scope.finalizeSignature = (new Web3()).eth.abi.encodeFunctionCall(interfaceMethod);
 
-    web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
-        $scope.currentWallet = result.filter(function(wallet) {
-            return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
-        })[0];
-        if ($scope.currentWallet) {
-            web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
-            contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
-        }
-    });
     $scope.sendTransaction = function() {
-        contract.methods.finishMinting().send({
-            from: $scope.currentWallet.wallet
-        }).then(console.log);
+
+        $scope.wrongAddress = false;
+        $scope.wrongNet = false;
+
+        web3Service.getAccounts($scope.ngPopUp.params.contract.network).then(function(result) {
+            if (!result.length || !result) {
+                $scope.wrongNet = true;
+            }
+            $scope.currentWallet = result.filter(function(wallet) {
+                if (wallet.wallet.toLowerCase() !== contractDetails.admin_address.toLowerCase()){
+                    $scope.wrongAddress = true;
+                } else {
+                    $scope.wrongAddress = false;
+                }
+                return wallet.wallet.toLowerCase() === contractDetails.admin_address.toLowerCase();
+            })[0];
+
+            if ($scope.currentWallet) {
+                web3Service.setProvider($scope.currentWallet.type, $scope.ngPopUp.params.contract.network);
+                contract = web3Service.createContractFromAbi(contractDetails.eth_contract_token.address, contractDetails.eth_contract_token.abi);
+
+                contract.methods.finishMinting().send({
+                    from: $scope.currentWallet.wallet
+                }).then(console.log);
+
+            } else {
+                $scope.openPopup();
+            }
+        });
+
     };
+    $scope.openPopup = function () {
+        $scope.wrongData = true;
+    };
+
+    $scope.checkNet = function() {
+        $scope.wrongData = false;
+        $scope.wrongAddress = false;
+        $scope.wrongNet = false;
+    };
+
     $scope.isXinfin = function (item) {
         if (item.slice(0,3) === 'xdc') {
             return "0x" + item.slice(3);

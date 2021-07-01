@@ -37,11 +37,22 @@
             <span>Parity</span>
         </button>
         <button  ng-click="sendTransaction()"
-                 ng-disabled="!(currentWallet && (currentWallet.type === 'metamask')) || ngPopUp.params.contract.blockchain === 'XINFIN' || ngPopUp.params.contract.contract_type === 36"
                  class="btn btn-gray with-icon nowrap">
             <img src="/static/images/web3clients/metamask.svg" width="20" style="vertical-align: middle">&nbsp;&nbsp;
             <span>Metamask</span>
         </button>
+        <div ng-if="wrongData" ng-pop-up="{
+            template: '/templates/popups/alerts/extension-wrong-net.html',
+            onClose: checkNet,
+            opened: true,
+            params: {
+                'contract' : ngPopUp.params.contract,
+                'wrongNet': wrongNet,
+                'wrongAddress': wrongAddress,
+            }
+            }"
+        >
+        </div>
     </div>
     <div class="form-fieldset-delimiter"><span class="uppercase" translate="OR"></span></div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="ngPopUp.params.contract.blockchain !== 'XINFIN'"
@@ -69,3 +80,4 @@
         </button>
     </div>
 </div>
+

@@ -1,7 +1,18 @@
 <div class="shadow-block">
   <div class="shadow-block__content shadow-block__content_no-lr-padding">
     <div class="alert-window-title">
-      Please choose {{ ('CONTRACTS_NETWORKS.NETWORK_' + ngPopUp.params.contract.network)|translate }} network in your Matamask wallet
+      Please
+      <span ng-if="ngPopUp.params.wrongNet && !ngPopUp.params.wrongAddress">
+        choose {{ ('CONTRACTS_NETWORKS.NETWORK_' + ngPopUp.params.contract.network)|translate }} network in your Matamask wallet
+      </span>
+      <span ng-if="ngPopUp.params.wrongAddress">
+        switch your account to:
+        <div class="copy-block">
+          <div class="copy-block__text" style="font-size: 15px">
+            {{  ngPopUp.params.contract.contract_details.admin_address }}
+          </div>
+        </div>
+      </span>
     </div>
   </div>
   <div class="shadow-block__content shadow-block__content_min-tb-padding no-border text-center">

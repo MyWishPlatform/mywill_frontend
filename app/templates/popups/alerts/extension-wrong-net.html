@@ -3,12 +3,12 @@
     <div class="alert-window-title">
       Please
       <span ng-if="ngPopUp.params.wrongNet && !ngPopUp.params.wrongAddress">
-        choose {{ ('CONTRACTS_NETWORKS.NETWORK_' + ngPopUp.params.contract.network)|translate }} network in your Matamask wallet
+        choose {{ ('CONTRACTS_NETWORKS.NETWORK_' + ngPopUp.params.contract.network)|translate }} network in your Metamask wallet
       </span>
       <span ng-if="ngPopUp.params.wrongAddress">
         switch your account to:
         <div class="copy-block">
-          <div class="copy-block__text" style="font-size: 15px">
+          <div class="copy-block__text" style="font-size: 15px; width: 105%;">
             {{  ngPopUp.params.contract.contract_details.admin_address }}
           </div>
         </div>

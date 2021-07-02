@@ -51,6 +51,27 @@ angular.module('app').controller('maticCrowdSaleCreateController', function($sco
 
     $scope.network = contract.network;
 
+    var getVerificationStatus = function () {
+        contractService.getContract(contract.id).then(function(response) {
+            // console.log('tokenPreviewController getVerificationStatus',response);
+            $scope.contract.verification_status = response.data.contract_details.verification_status;
+        });
+    }
+    getVerificationStatus();
+
+    var getVerificationCost = function () {
+        contractService.getVerificationCost().then(function(response) {
+            // console.log('tokenPreviewController getVerificationCost',response);
+            $scope.contract.verificationCost = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+            };
+        });
+    }
+    getVerificationCost();
+
 
     if (!contract.id) {
         contract.contract_details = {
@@ -144,6 +165,7 @@ angular.module('app').controller('maticCrowdSaleCreateController', function($sco
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.start_date = contractDetails.start_date * 1;
         contractDetails.stop_date = contractDetails.stop_date * 1;
+        contractDetails.verification = !!contractDetails.verification;
 
         contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
 

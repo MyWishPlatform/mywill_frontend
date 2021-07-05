@@ -182,7 +182,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     var matic = {
         'networks': [24, 25],
         'list':[{
-            'icon': 'icon-matic-token',
+            'iconImg': '/static/images/blockchain/polygon-blue.svg',
+            // 'icon': 'icon-matic-token',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 33,

@@ -41,7 +41,7 @@
                 <a ui-sref="main.createcontract.types({blockchain: 'MATIC'})"
                    ng-click="blockChainNetwork.type = 'MATIC'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'MATIC'}">
-                    <img src="/static/images/blockchain/matic.svg" width="20"
+                    <img src="/static/images/blockchain/polygon.svg" width="20"
                          style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.MATIC"></span>
@@ -234,6 +234,7 @@
                            ng-if="contractForCreate.icon && blockChainNetwork.type !== 'XINFIN'"
                            ng-class="contractForCreate.icon"></i>
                         <img  class="shadow-block__content__title__icon image"
+                              style="color: #206eff"
                               ng-src="{{contractForCreate.iconImg}}" ng-if="contractForCreate.iconImg"/>
                         <span class="shadow-block__content__title__text">
                             {{contractForCreate.title | translate}}

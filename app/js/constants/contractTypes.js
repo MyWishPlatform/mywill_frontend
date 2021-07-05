@@ -190,14 +190,16 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[33],
             'price': true
         }, {
-            'icon': 'icon-matic-crowdsale',
+            // 'icon': 'icon-matic-crowdsale',
+            'iconImg': '/static/images/blockchain/polygon-crowdsale.svg',
             'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
             'typeNumber': 32,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[32],
             'price': true
         }, {
-            'icon': 'icon-matic-airdrop',
+            // 'icon': 'icon-matic-airdrop',
+            'iconImg': '/static/images/blockchain/polygon-airdrop.svg',
             'title': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.DESCRIPTION',
             'typeNumber': 34,
@@ -210,7 +212,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'networks': [35],
         'list': [{
             'iconImg': '/static/images/blockchain/xinfin-blue.svg',
-            'icon': 'icon-bnb-token',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 35,

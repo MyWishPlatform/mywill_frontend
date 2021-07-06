@@ -20,7 +20,7 @@
                 <span>{{('CONTRACTS_NETWORKS.NETWORK_' + contract.network)|translate}}</span>
             </div>
 
-            <div class="shadow-block__content__blue-title static-width" ng-if="contract.contract_type !== 35 && contract.contract_type !== 28 && contract.contract_type !== 36 && contract.contract_type !== 33 && contract.contract_type !== 32 && contract.contract_type !== 34">
+            <div class="shadow-block__content__blue-title static-width" ng-if="contract.contract_type !== 35 && contract.contract_type !== 36 && contract.contract_type !== 33 && contract.contract_type !== 32 && contract.contract_type !== 34">
                 <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
                 <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
                     <span>{{ contract.name || 'Not defined'}}</span>

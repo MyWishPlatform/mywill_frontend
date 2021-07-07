@@ -51,6 +51,14 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.get(params);
         },
+        getWhitelabelCost: function (data) {
+            // console.log('getWhitelabelCost');
+            var params = {
+                path: API.GET_WHITELABEL_COST,
+                query: data
+            };
+            return requestService.get(params);
+        },
         buyAuthio: function(data) {
             // console.log('buyAuthio');
             return requestService.post({

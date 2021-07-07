@@ -1265,6 +1265,13 @@
             "SECOND_DESCRIPTION": "<a href=\"https://rocknblock.io/\" target=\"_blank\">This service</a> is run by independent US based company specialised in&nbsp;security analyze.",
             "STATUS_IN_PROCESS": "Contract source code in the process of verification",
             "STATUS_VERIFIED": " Contract source code verified"
+          },
+          "WHITE_LABEL": {
+            "LABEL": "White label",
+            "DESCRIPTION": "Contract from a blank address, with no mention and referrence to MyWish Deployer"
+          },
+          "WHITE_LABEL_STATUS": {
+            "LABEL": "White label"
           }
         }
       },

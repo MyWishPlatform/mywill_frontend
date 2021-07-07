@@ -314,6 +314,28 @@
             </div>
         </div>
 
+        <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <span class="form-control-label">
+                <img
+                        src="/static/images/white_label.svg"
+                        width="24px" height="24px" alt=""
+                        style="margin-right: 0.3em;"
+                />
+                {{'CONTRACTS.FORMS.TOKEN.FIELDS.WHITE_LABEL.LABEL'|translate}}
+            </span>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="normal-text contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': contract.contract_details.white_label, 'icon-cancel': !contract.contract_details.white_label}"></i>
+                            <span ng-if="contract.contract_details.white_label" translate="YES" class="uppercase"></span>
+                            <span ng-if="!contract.contract_details.white_label" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+            </div><br/>
+        </div>
+
         <!-- Token verification when ACTIVE (deployed)-->
         <div
         id="verification-deployed"

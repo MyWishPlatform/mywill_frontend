@@ -21,6 +21,7 @@ angular.module('Constants').constant('API', {
     "GET_COST": "get_cost/",
     "GET_AUTHIO_COST": "get_authio_cost/",
     "GET_VERIFICATION_COST": "get_verification_cost/",
+    "GET_WHITELABEL_COST": "get_whitelabel_cost/",
     "BUY_BRAND_REPORT": "buy_brand_report/",
     "BUY_VERIFICATION": "buy_verification/",
     "GET_EOS_COST": "get_eos_cost/",

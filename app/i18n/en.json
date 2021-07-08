@@ -64,8 +64,8 @@
     "NETWORK_15": "TRON TestNet",
     "NETWORK_22": "Binance MainNet",
     "NETWORK_23": "Binance TestNet",
-    "NETWORK_24": "Matic MainNet",
-    "NETWORK_25": "Matic TestNet",
+    "NETWORK_24": "Polygon MainNet",
+    "NETWORK_25": "Polygon TestNet",
     "NETWORK_28": "Hecochain MainNet",
     "NETWORK_35": "Xinfin MainNet",
     "NETWORK_36": "Hecochain TestNet"

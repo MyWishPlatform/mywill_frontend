@@ -139,7 +139,8 @@ angular.module('app').controller('bnbTokenCreateController', function($scope, co
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.verification = !!contractDetails.verification;
-        contractDetails.white_label = !!contractDetails.verification;
+        var white_label = !!contractDetails.white_label;
+        delete contractDetails.white_label;
 
 
         return {
@@ -148,7 +149,8 @@ angular.module('app').controller('bnbTokenCreateController', function($scope, co
             network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.BNB_TOKEN,
             contract_details: contractDetails,
-            id: contract.id
+            id: contract.id,
+            white_label: white_label
         };
     };
 

@@ -27,6 +27,7 @@ angular.module('app').controller('hecochainTokenCreateController', function($sco
 
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;
+    console.log(111, contract);
 
     contract.contract_details.token_type = 'ERC20';
     $scope.blockchain = 'HECOCHAIN';
@@ -139,7 +140,8 @@ angular.module('app').controller('hecochainTokenCreateController', function($sco
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.verification = !!contractDetails.verification;
-        contractDetails.white_label = !!contractDetails.white_label;
+        var white_label = !!contractDetails.white_label;
+        delete contractDetails.white_label;
 
         return {
             feedback_email: $scope.feedback_email,
@@ -147,7 +149,8 @@ angular.module('app').controller('hecochainTokenCreateController', function($sco
             network: contract.network,
             contract_type: CONTRACT_TYPES_CONSTANTS.HECOCHAIN_TOKEN,
             contract_details: contractDetails,
-            id: contract.id
+            id: contract.id,
+            white_label: white_label
         };
     };
 

@@ -136,16 +136,21 @@ main.main-content-holder {
   .pre-release-information-container {
     padding: 1.4em 0;
     //promo-fix
-    margin-top: 3.2em;
+    margin-top: 7.9em;
   }
 }
-
+@media screen and (max-width: 1024px) {
+  .main-section-content {
+    //promo-fix padding: 0.4em 1.5% 1em;
+    padding: 10em 1.5% 1em;
+  }
+}
 @media screen and (max-width: 640px) {
   .main-section-chapter-fieldset {
     padding: 1em 1.5%;
   }
   .main-section-content {
     //promo-fix padding: 0.4em 1.5% 1em;
-    padding: 4.4em 1.5% 1em;
+    padding: 9.4em 1.5% 1em;
   }
 }

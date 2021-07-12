@@ -67,7 +67,26 @@
       ng-swipe-right="toggleMenu(true, $event);">
 <div id="all-page-wrapper">
 
-    <header class="main-header-holder" ng-include="getTemplate('common/header')"></header>
+<!--    <header class="main-header-holder" ng-include="getTemplate('common/header')"></header>-->
+
+    <!-- promo-header -->
+    <header class="main-header-holder-promo">
+        <img id="promo-left" src="/static/images/background/promo-left.svg" alt="promo-left">
+        <div class="main-header-text-promo">
+            <div style="margin-bottom: -28px; margin-left: 16px;">
+                MyWish is celebrating
+                <span style="font-weight: 700; font-size: 24px; color: #2873FB">4</span>
+                years anniversary!</div>
+            <br>
+                Get 20% off with
+                <span style="background-color: #2873FB; border-radius: 4px;color: white; padding: 6px;">MyWish4Years</span> promo code
+        </div>
+        <img id="promo-right" src="/static/images/background/promo-right.svg" alt="promo-right">
+        <div class="main-header-text-promo-mobile">
+            <div style="margin-left: 54px">Get 20% off with</div>
+            <span style="background-color: #2873FB; border-radius: 4px;color: white; padding: 6px;">MyWish4Years</span> promo code
+        </div>
+    </header>
     <div class="main-menu-holder" ng-include="getTemplate('common/menu')"></div>
 
     <div class="pre-release-information"

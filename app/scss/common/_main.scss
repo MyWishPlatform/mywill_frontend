@@ -6,7 +6,8 @@ main.main-content-holder {
 .main-content-holder {
   margin-left: 25.5em;
   color: $main-color;
-  padding-top: 5.6em;
+  //promo-fix padding-top: 5.6em;
+  padding-top: 13.6em;
   max-width: 72em;
   position: relative;
   z-index: 1;
@@ -52,7 +53,8 @@ main.main-content-holder {
   }
   left: 25.5em;
   position: fixed;
-  top: 0;
+  //promo-fix
+  top: 78px;
   right: 0;
   z-index: 2;
   color: $black-color;
@@ -133,6 +135,8 @@ main.main-content-holder {
   }
   .pre-release-information-container {
     padding: 1.4em 0;
+    //promo-fix
+    margin-top: 3.2em;
   }
 }
 
@@ -141,6 +145,7 @@ main.main-content-holder {
     padding: 1em 1.5%;
   }
   .main-section-content {
-    padding: 0.4em 1.5% 1em;
+    //promo-fix padding: 0.4em 1.5% 1em;
+    padding: 4.4em 1.5% 1em;
   }
 }

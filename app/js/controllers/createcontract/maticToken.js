@@ -139,8 +139,7 @@ angular.module('app').controller('maticTokenCreateController', function($scope, 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.verification = !!contractDetails.verification;
-        var white_label = !!contractDetails.white_label;
-        delete contractDetails.white_label;
+        contractDetails.white_label = !!contractDetails.white_label;
 
         return {
             feedback_email: $scope.feedback_email,
@@ -149,7 +148,6 @@ angular.module('app').controller('maticTokenCreateController', function($scope, 
             contract_type: CONTRACT_TYPES_CONSTANTS.MATIC_TOKEN,
             contract_details: contractDetails,
             id: contract.id,
-            white_label: white_label
         };
     };
 

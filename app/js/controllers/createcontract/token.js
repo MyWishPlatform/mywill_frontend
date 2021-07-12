@@ -148,8 +148,7 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
-        var white_label = !!contractDetails.white_label;
-        delete contractDetails.white_label;
+        contractDetails.white_label = !!contractDetails.white_label;
         if ($scope.blockchain === 'NEO') {
             contractDetails.token_short_name = contractDetails.token_short_name.toUpperCase();
         }
@@ -166,7 +165,6 @@ angular.module('app').controller('tokenCreateController', function($scope, contr
             contract_type: $scope.blockchain !== 'NEO' ? CONTRACT_TYPES_CONSTANTS.TOKEN : CONTRACT_TYPES_CONSTANTS.TOKEN_NEO,
             contract_details: contractDetails,
             id: contract.id,
-            white_label: white_label
         };
     };
 

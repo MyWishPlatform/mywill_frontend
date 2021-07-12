@@ -17,6 +17,20 @@ angular.module('app').controller('xinfinTokenCreateController', function($scope,
         }
     };
 
+    var getWhitelabelCost = function () {
+        contractService.getWhitelabelCost().then(function(response) {
+            // console.log('xinfinPreviewController getWhitelabelCost',response);
+            contract.whitelabelCost = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+            };
+            $scope.white_label_cost = contract.whitelabelCost.USDT;
+        });
+    }
+    getWhitelabelCost();
+
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;
 
@@ -131,6 +145,7 @@ angular.module('app').controller('xinfinTokenCreateController', function($scope,
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.verification = !!contractDetails.verification;
+        contractDetails.white_label = !!contractDetails.white_label;
 
         return {
             feedback_email: $scope.feedback_email,

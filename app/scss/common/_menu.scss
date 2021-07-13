@@ -9,7 +9,8 @@
 }
 .main-menu-holder {
   position: fixed;
-  top: 0;
+  //promo-fix top: 0;
+  top: 78px;
   left: 0;
   bottom: 0;
   width: 25.5em;
@@ -45,7 +46,8 @@
 .main-menu-navigator {
   position: absolute;
   padding-top: 2.45em;
-  top: 4em;
+  //promo-fix top: 4em;
+  top: 6em;
   bottom: 3.75em;
   left: 0;
   right: 0;

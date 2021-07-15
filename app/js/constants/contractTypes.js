@@ -115,7 +115,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'typeNumber': -3,
         'type': 'deflationaryToken',
         'directLink': 'https://docs.google.com/forms/d/1x5_fpcUCAoo1abuacBpNC6-WjDO_WGhOiutod2yMV1U/edit',
-        'simplePrice': "125",
+        'simplePrice': "1850",
         'price': true
     };
 

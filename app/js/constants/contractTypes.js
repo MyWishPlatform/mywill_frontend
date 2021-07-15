@@ -65,6 +65,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     23: 'tokenProtector',
     '-1': 'wedding',
     '-2': 'custom',
+    '-3': 'deflationary token',
 
     24: 'bnbLastWill',
     25: 'bnbLostKey',
@@ -107,6 +108,17 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'price': true
     };
 
+    var deflationaryToken = {
+        'iconImg': '/static/images/deflationary-token.svg',
+        'title': 'Deflationary token',
+        'description': 'Create a fully customized token with any combination of the following functions:\n burn per transaction, distribution to holders, automatic LP.',
+        'typeNumber': -3,
+        'type': 'deflationaryToken',
+        'directLink': 'https://docs.google.com/forms/d/1x5_fpcUCAoo1abuacBpNC6-WjDO_WGhOiutod2yMV1U/edit',
+        'simplePrice': "125",
+        'price': true
+    };
+
     var eth = {
         'networks': [1, 2],
         'list':[{
@@ -116,6 +128,20 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 5,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[5],
             'price': true
+        },deflationaryToken, {
+            'icon': 'icon-crowdsale',
+            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
+            'typeNumber': 4,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
+            'price': true
+        }, airdropService, {
+                'icon': 'icon-airdrop',
+                'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
+                'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
+                'typeNumber': 8,
+                'type': CONTRACT_TYPES_NAMES_CONSTANTS[8],
+                'price': true
         }, {
             'icon': 'icon-token-protector',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN_PROTECTOR.TITLE',
@@ -125,20 +151,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'directLink': 'https://protector.mywish.io/create',
             'price': true
         }, {
-            'icon': 'icon-crowdsale',
-            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
-            'typeNumber': 4,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
-            'price': true
-        }, {
-            'icon': 'icon-airdrop',
-            'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
-            'typeNumber': 8,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[8],
-            'price': true
-        }, airdropService, {
             'icon': 'icon-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.INVESTMENT_POOL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.INVESTMENT_POOL.DESCRIPTION',
@@ -189,7 +201,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 33,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[33],
             'price': true
-        }, {
+        },deflationaryToken, {
             // 'icon': 'icon-matic-crowdsale',
             'iconImg': '/static/images/blockchain/polygon-crowdsale.svg',
             'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
@@ -197,7 +209,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 32,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[32],
             'price': true
-        }, {
+        },airdropService, {
             // 'icon': 'icon-matic-airdrop',
             'iconImg': '/static/images/blockchain/polygon-airdrop.svg',
             'title': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.TITLE',
@@ -205,7 +217,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 34,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[34],
             'price': true
-        }, airdropService]
+        }]
     }
 
     var xinfin = {
@@ -217,7 +229,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 35,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[35],
             'price': true
-        }]
+        }, deflationaryToken]
     }
         
     var hecochain = {
@@ -229,7 +241,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 36,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[36],
             'price': true
-        }]
+        }, deflationaryToken]
     }
 
     var bnb = {
@@ -241,21 +253,21 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 28,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[28],
             'price': true
-        }, {
+        },deflationaryToken,  {
             'icon': 'icon-bnb-crowdsale',
             'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
             'typeNumber': 27,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[27],
             'price': true
-        }, {
+        }, airdropService, {
             'icon': 'icon-bnb-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.DESCRIPTION',
             'typeNumber': 29,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[29],
             'price': true
-        }, airdropService /*, {
+        }, /*, {
             'icon': 'icon-bnb-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.DESCRIPTION',
@@ -398,6 +410,13 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 15,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
             'price': true
+        },deflationaryToken,  airdropService,  {
+            'icon': 'icon-tron-airdrop',
+            'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',
+            'typeNumber': 17,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[17],
+            'price': true
         }, {
             'icon': 'icon-ga',
             'title': 'PAGES.CREATE_CONTRACT.TRON_GA.TITLE',
@@ -406,13 +425,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[16],
             'price': true
         }, {
-            'icon': 'icon-tron-airdrop',
-            'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',
-            'typeNumber': 17,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[17],
-            'price': true
-        }, airdropService, {
             'icon': 'icon-key',
             'title': 'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_LOST_KEY.DESCRIPTION',

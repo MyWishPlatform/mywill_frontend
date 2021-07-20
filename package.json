@@ -7,8 +7,7 @@
     "eos-serve": "gulp default --eos",
     "serve": "gulp",
     "build": "gulp --production",
-    "deploy-test": "gulp production && rsync -rltzhP --delete dist/ dmitriy@contracts.mywish.io:~/lastwill-frontend",
-    "deploy-lilchizh": "gulp production && rsync -avrltzhP --delete dist/ lilchizh@144.76.201.50:~/home/frontend/lastwill-frontend"
+    "deploy-test": "gulp production && rsync -rltzhP --delete dist/ dmitriy@contracts.mywish.io:~/lastwill-frontend"
   },
   "author": "",
   "license": "ISC",

@@ -73,6 +73,7 @@ angular.module('app').controller('tokenPreviewController', function (
     var updateTotalSupply = function () {
         web3Contract.methods.totalSupply().call(function (error, result) {
             if (error) {
+                console.error(err)
                 result = 0;
             }
             $scope.chartData = angular.copy(contractDetails.token_holders);
@@ -83,6 +84,7 @@ angular.module('app').controller('tokenPreviewController', function (
             $scope.totalSupply = {
                 tokens: new BigNumber(result).div(powerNumber)
             };
+            console.log('ETH SUPPLY', result);
             $scope.$apply();
         });
     };
@@ -92,10 +94,9 @@ angular.module('app').controller('tokenPreviewController', function (
     var holdersSum = new BigNumber(0);
 
     contractDetails.token_holders.map(function (holder) {
-        holdersSum = holdersSum.plus(holder.amount);
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+        holdersSum = holdersSum.plus(holder.amount);
     });
-
 
     if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {
         web3Service.setProviderByNumber($scope.contract.network);
@@ -152,6 +153,9 @@ angular.module('app').controller('tokenPreviewController', function (
 
     } else {
         $scope.chartData = angular.copy(contractDetails.token_holders);
+        $scope.totalSupply = {
+            tokens: holdersSum
+        };
     }
 
     $scope.chartOptions = {
@@ -387,7 +391,6 @@ angular.module('app').controller('tokenPreviewController', function (
         $scope.generateSignature();
         $scope.wrongAddress = false;
         $scope.wrongNet = false;
-        console.log('hrerer')
         var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 

@@ -93,8 +93,8 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
     var holdersSum = new BigNumber(0);
 
     contractDetails.token_holders.map(function(holder) {
-        holdersSum = holdersSum.plus(holder.amount);
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+        holdersSum = holdersSum.plus(holder.amount);
     });
 
 
@@ -117,6 +117,9 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
         updateTotalSupply();
     } else {
         $scope.chartData = angular.copy(contractDetails.token_holders);
+        $scope.totalSupply = {
+            tokens: holdersSum
+        };
     }
 
     $scope.chartOptions = {

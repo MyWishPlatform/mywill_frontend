@@ -56,8 +56,8 @@
     "NETWORK_2": "Ropsten Test Net",
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet",
-    "NETWORK_5": "NEO MainNet",
-    "NETWORK_6": "NEO TestNet",
+    "NETWORK_5": "NEO3 MainNet",
+    "NETWORK_6": "NEO3 TestNet",
     "NETWORK_10": "EOS MainNet",
     "NETWORK_11": "EOS TestNet",
     "NETWORK_14": "TRON MainNet",
@@ -158,7 +158,7 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "ETH",
     "BTC": "BTC",
-    "NEO": "NEO",
+    "NEO": "NEO3",
     "EOS": "EOS",
     "TRON": "TRON",
     "WAVES": "WAVES",
@@ -1186,13 +1186,13 @@
           },
           "TOKEN_SYMBOL": {
             "LABEL": "代币符号：",
-            "DESCRIPTION": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。请在提交之前检查它是否是唯一的(<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
-            "DESCRIPTION_BNB": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
-            "DESCRIPTION_MATIC": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
-            "DESCRIPTION_HECOCHAIN": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
-            "DESCRIPTION_TRON": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。",
+            "DESCRIPTION": "通常有3-4个字母，例如ETH，BTC，NEO3，WISH等。请在提交之前检查它是否是唯一的(<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_BNB": "通常有3-4个字母，例如ETH，BTC，NEO3，WISH等。",
+            "DESCRIPTION_MATIC": "通常有3-4个字母，例如ETH，BTC，NEO3，WISH等。",
+            "DESCRIPTION_HECOCHAIN": "通常有3-4个字母，例如ETH，BTC，NEO3，WISH等。",
+            "DESCRIPTION_TRON": "通常有3-4个字母，例如ETH，BTC，NEO3，WISH等。",
             "DESCRIPTION_NEO": "该符号应该较短（建议使用3-8个字符），不得有空白字符或换行符，并应限制为大写拉丁字母（即英文中使用的26个字母）",
-            "DESCRIPTION_XINFIN": "通常有3-4个字母，例如ETH，BTC，NEO，WISH等。"
+            "DESCRIPTION_XINFIN": "通常有3-4个字母，例如ETH，BTC，NEO3，WISH等。"
           },
           "DECIMALS": {
             "LABEL": "小数位数:",

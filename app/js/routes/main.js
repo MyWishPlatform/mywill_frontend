@@ -439,6 +439,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
             }
         },
         controllerProvider: function($stateParams) {
+            console.log('CONTRACT TYPE', $stateParams.selectedType)
             return $stateParams.selectedType + 'CreateController';
         },
         templateProvider: function ($templateCache, $stateParams) {
@@ -493,6 +494,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         controllerProvider: function(openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {
             openedContract.data.contract_details.eth_contract = undefined;
             var contractType = CONTRACT_TYPES_NAMES_CONSTANTS[openedContract.data.contract_type];
+            console.log('CONTRACT TYPE', contractType)
             return contractType + 'CreateController';
         },
         templateProvider: function ($templateCache, openedContract, CONTRACT_TYPES_NAMES_CONSTANTS) {

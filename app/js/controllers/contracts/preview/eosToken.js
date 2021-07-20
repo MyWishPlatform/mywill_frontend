@@ -17,6 +17,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
         return value.plus(val);
     }, new BigNumber(0));
 
+
     $scope.totalSupply = {
         tokens: holdersSum
     };
@@ -138,6 +139,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
         amount: 0,
         address: ''
     };
+
     var totalSupply = {
         tokens: 0
     };

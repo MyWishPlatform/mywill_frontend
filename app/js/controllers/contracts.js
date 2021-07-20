@@ -93,6 +93,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
 
     var setContractStatValues = function(contract) {
+        console.log('[SET CONTRACT VALUE]', contract)
+        console.log('[STATUS]', $scope.statuses[contract.state])
         switch (contract.contract_type) {
             case 11:
                 switch (contract.state) {

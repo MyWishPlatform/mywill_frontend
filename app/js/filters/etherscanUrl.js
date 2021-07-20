@@ -33,7 +33,7 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
             case 6:
                 networkUrl = APP_CONSTANTS.NEO_TESTNET_ADDRESS;
                 addressPaths.address = 'address';
-                addressPaths.token = 'address';
+                addressPaths.token = 'tokens/nep17';
                 addressPaths.transaction = 'transaction';
                 break;
             case 10:

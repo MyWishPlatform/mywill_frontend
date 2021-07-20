@@ -56,8 +56,8 @@
     "NETWORK_2": "Ropsten Test Net",
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet",
-    "NETWORK_5": "NEO MainNet",
-    "NETWORK_6": "NEO TestNet",
+    "NETWORK_5": "NEO3 MainNet",
+    "NETWORK_6": "NEO3 TestNet",
     "NETWORK_10": "EOS MainNet",
     "NETWORK_11": "EOS TestNet",
     "NETWORK_14": "TRON MainNet",
@@ -158,7 +158,7 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
-    "NEO": "NEO",
+    "NEO": "NEO3",
     "EOS": "EOS",
     "TRON": "TRON",
     "WAVES": "WAVES",
@@ -616,7 +616,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
+          "ITEM_1": "Please contact NEO3 (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
       }
     }
@@ -1188,11 +1188,11 @@
           },
           "TOKEN_SYMBOL": {
             "LABEL": "トークン記号：",
-            "DESCRIPTION": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
-            "DESCRIPTION_BNB": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
-            "DESCRIPTION_MATIC": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
-            "DESCRIPTION_HECOCHAIN": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
-            "DESCRIPTION_TRON": "通常はETH、BTC、NEO、WISHなどのような3〜4文字のレターです。",
+            "DESCRIPTION": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。提出前にユニークであることを確認してください (<a href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_BNB": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
+            "DESCRIPTION_MATIC": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
+            "DESCRIPTION_HECOCHAIN": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
+            "DESCRIPTION_TRON": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）"
           },
           "DECIMALS": {

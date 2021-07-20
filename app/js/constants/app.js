@@ -20,7 +20,7 @@ module.constant('APP_CONSTANTS', {
         "ETH": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "EOS": "mywishtestac",
         "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
-        "NEO": "AYhjNHgTs9sG8B2TbnRT5HxwTA2HAuhthq",
+        "NEO": "NXf4VLBrjUXKtk8NNkeY1zymmbUeQ9RkUu",
         "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69",
         "BNB": "bnb108w2492d60yurmw6dvrvx8wlecnvuedsuysskq",
         "XINFIN": "xdcD0593B233Be4411A236F22b42087345E1137170b"
@@ -69,8 +69,8 @@ module.constant('APP_CONSTANTS', {
     'BNB_NET_ADDRESS': 'https://bsc-dataseed1.binance.org',
 
 
-    "NEO_TESTNET_ADDRESS": 'http://neoscan.mywish.io/',
-    "NEO_MAINNET_ADDRESS": 'http://neoscan.mywish.io/',
+    "NEO_TESTNET_ADDRESS": 'https://neo3.neotube.io/',
+    "NEO_MAINNET_ADDRESS": 'https://neo3.neotube.io/',
 
     "EOS_MAINNET_ADDRESS": "https://bloks.io/",
     "EOS_TESTNET_ADDRESS": "https://jungle.bloks.io/",

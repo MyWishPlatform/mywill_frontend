@@ -43,7 +43,7 @@
 
             <p class="normal-text">
                 <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: contractInfo === 'eth_contract_token' ? 'https://github.com/MyWishPlatform/ico-crowdsale' : 'https://github.com/MyWishPlatform/neo-ico-contracts'}"></span>
+                      translate-values="{gitHubLink: contractInfo === 'eth_contract_token' ? 'https://github.com/MyWishPlatform/ico-crowdsale' : ' https://github.com/MyWishPlatform/neo3-token'}"></span>
             </p>
         </div>
         <div class="shadow-block__content" ng-if="contractInfo === 'eth_contract_token'">
@@ -161,7 +161,7 @@
             <span class="identicon-container" ng-if="blockchain === 'ETH'">
                 <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
             </span>
-            <div class="contract-wallet-information-wallet">
+            <div class="contract-wallet-information-wallet" ng-if="blockchain === 'ETH'">
                 <a ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address|toCheckSum}}"
                    target="_blank"
                    ng-bind="details[contractInfo].address|toCheckSum"></a>
@@ -183,11 +183,11 @@
                 </small>
             </p>
             <div class="clearfix" ng-if="blockchain === 'NEO'">
-                <br/>
-                <div class="form-control-label" translate="CONTRACTS.PREVIEW.CROWD_SALE.TOKEN_SCRIPT_HASH"></div>
                 <br class="show-ls"/>
                 <div class="contract-wallet-information-wallet">
-                    <span ng-bind="details[contractInfo].script_hash"></span>
+                    <a ng-bind="details[contractInfo].script_hash"
+                        ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].script_hash|toCheckSum:true}}"
+                    ></a>
                     <button class="instruction-for-copy-button relative"
                             clipboard supported="supported"
                             ng-class="{copied: contract.copied['token_hash']}"

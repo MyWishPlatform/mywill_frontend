@@ -7,7 +7,6 @@ angular.module('app').controller('eosITokenPreviewController', function($timeout
     contractDetails.maximum_supply = new BigNumber(contractDetails.maximum_supply).div(Math.pow(10, contractDetails.decimals)).toString(10);
 
 
-
     $scope.totalSupply = {
         tokens: 0
     };

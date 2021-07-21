@@ -19,7 +19,7 @@
                                translate="POPUP_FORMS.MINT_TOKENS_FORM.FIELDS.ADDRESS.LABEL"
                                class="form-control-label"></label>
                         <input id="out-wallet-key" type="text"
-                               ng-checksum-address-validator="{'network': 'NEO'}"
+                               ng-async-address-validator="{'network': 'NEO'}"
                                ng-model="recipient.address"
                                required
                                class="form-control-input"/>

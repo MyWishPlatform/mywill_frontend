@@ -85,7 +85,6 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
         }, new BigNumber(0));
 
 
-
         $scope.totalSupply = {
             tokens: contractDetails.totalSupply
         };

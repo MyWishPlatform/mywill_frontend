@@ -114,7 +114,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'description': 'Create a fully customized token with any combination of the following functions:\n burn per transaction, distribution to holders, automatic LP.',
         'typeNumber': -3,
         'type': 'deflationaryToken',
-        'directLink': 'https://mywishplatform.typeform.com/to/Vohpj5r3 ',
+        'directLink': 'https://docs.google.com/forms/d/1x5_fpcUCAoo1abuacBpNC6-WjDO_WGhOiutod2yMV1U/edit',
         'simplePrice': "2500",
         'price': true
     };
@@ -306,18 +306,21 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     var neo = {
         'networks': [6, 6],
         'list': [{
-            'icon': 'icon-token',
+            // 'icon': 'icon-token',
+            'iconImg': '/static/images/blockchain/neo-blue.svg',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 6,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[6]
-        }, {
-            'icon': 'icon-crowdsale',
-            'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
-            'typeNumber': 7,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[7]
-        }]
+        }, 
+        // {
+        //     'icon': 'icon-crowdsale',
+        //     'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
+        //     'description': 'PAGES.CREATE_CONTRACT.CROWDSALE.DESCRIPTION',
+        //     'typeNumber': 7,
+        //     'type': CONTRACT_TYPES_NAMES_CONSTANTS[7]
+        // }
+    ]
     };
 
     var waves = {

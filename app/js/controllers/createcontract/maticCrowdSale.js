@@ -622,6 +622,7 @@ angular.module('app').controller('maticCrowdSaleCreateController', function($sco
                 ethSum = ethSum.plus($scope.token.selectedToken.totalSupply);
             }
 
+
             $scope.totalSupply = {
                 eth: ethSum.div($scope.request.rate).round(2).toString(10),
                 tokens: ethSum.round(2).toString(10)

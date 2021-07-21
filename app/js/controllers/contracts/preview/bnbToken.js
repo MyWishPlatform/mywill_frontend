@@ -117,6 +117,9 @@ angular.module('app').controller('bnbTokenPreviewController', function($timeout,
         updateTotalSupply();
     } else {
         $scope.chartData = angular.copy(contractDetails.token_holders);
+        $scope.totalSupply = {
+            tokens: holdersSum
+        };
     }
 
     $scope.chartOptions = {

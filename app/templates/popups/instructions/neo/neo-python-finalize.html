@@ -25,57 +25,77 @@
             </li>
             <li class="new-instruction-list__item">
                 <div class="new-instruction-list__item__text">
-                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_2"></span>
-                    <div class="copy-block">
-                        <button class="copy-block__button relative"
-                                clipboard supported="supported"
-                                text="'import token ' + ngPopUp.params.contract.contract_details.neo_contract_token.script_hash"
-                                ng-class="{copied: ngPopUp.params.contract.copied['script_hash1']}"
-                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash1')">&nbsp;
-                            <i class="icon-content_copy"></i>
-                        </button>
-                        <div class="copy-block__text"><b>neo</b>> import token {{ngPopUp.params.contract.contract_details.neo_contract_token.script_hash}}</div>
-                    </div>
-                </div>
-            </li>
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
-                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_3"></span>
-                    <div class="copy-block">
-                        <button class="copy-block__button relative"
-                                clipboard supported="supported"
-                                text="'wallet'"
-                                ng-class="{copied: ngPopUp.params.contract.copied['script_hash2']}"
-                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash2')">&nbsp;
-                            <i class="icon-content_copy"></i>
-                        </button>
-                        <div class="copy-block__text"><b>neo</b>> wallet</div>
-                    </div>
-                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_3_1"></span>
-                </div>
-            </li>
-
-            <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text">
                     <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_4"></span>
                     <div class="copy-block">
                         <button class="copy-block__button relative"
                                 clipboard supported="supported"
-                                text="'testinvoke ' + ngPopUp.params.contract.contract_details.neo_contract_token.script_hash + ' finishMinting []'"
+                                text="'invoke ' + ngPopUp.params.contract.contract_details.neo_contract_token.script_hash + ' finishMinting [] ' + ngPopUp.params.contract.contract_details.admin_address_neo_to_0x"
                                 ng-class="{copied: ngPopUp.params.contract.copied['script_hash3']}"
                                 on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash3')">&nbsp;
                             <i class="icon-content_copy"></i>
                         </button>
-                        <div class="copy-block__text"><b>neo</b>> testinvoke {{ngPopUp.params.contract.contract_details.neo_contract_token.script_hash}} finishMinting []</div>
+                        <div class="copy-block__text"><b>neo</b>> invoke {{ngPopUp.params.contract.contract_details.neo_contract_token.script_hash}} finishMinting []  {{ngPopUp.params.contract.contract_details.admin_address_neo_to_0x}}</div>
                     </div>
                 </div>
             </li>
-
             <li class="new-instruction-list__item">
-                <div class="new-instruction-list__item__text"
-                     translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_TOKENS.LIST.ITEM_5">
+                <div class="new-instruction-list__item__text">
+                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_6"></span>
                 </div>
             </li>
+<!--            <li class="new-instruction-list__item">-->
+<!--                <div class="new-instruction-list__item__text">-->
+<!--                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_2"></span>-->
+<!--                    <div class="copy-block">-->
+<!--                        <button class="copy-block__button relative"-->
+<!--                                clipboard supported="supported"-->
+<!--                                text="'import token ' + ngPopUp.params.contract.contract_details.neo_contract_token.script_hash"-->
+<!--                                ng-class="{copied: ngPopUp.params.contract.copied['script_hash1']}"-->
+<!--                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash1')">&nbsp;-->
+<!--                            <i class="icon-content_copy"></i>-->
+<!--                        </button>-->
+<!--                        <div class="copy-block__text"><b>neo</b>> import token {{ngPopUp.params.contract.contract_details.neo_contract_token.script_hash}}</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="new-instruction-list__item">-->
+<!--                <div class="new-instruction-list__item__text">-->
+<!--                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_3"></span>-->
+<!--                    <div class="copy-block">-->
+<!--                        <button class="copy-block__button relative"-->
+<!--                                clipboard supported="supported"-->
+<!--                                text="'wallet'"-->
+<!--                                ng-class="{copied: ngPopUp.params.contract.copied['script_hash2']}"-->
+<!--                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash2')">&nbsp;-->
+<!--                            <i class="icon-content_copy"></i>-->
+<!--                        </button>-->
+<!--                        <div class="copy-block__text"><b>neo</b>> wallet</div>-->
+<!--                    </div>-->
+<!--                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_3_1"></span>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            <li class="new-instruction-list__item">-->
+<!--                <div class="new-instruction-list__item__text">-->
+<!--                    <span translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_FINALIZE.LIST.ITEM_4"></span>-->
+<!--                    <div class="copy-block">-->
+<!--                        <button class="copy-block__button relative"-->
+<!--                                clipboard supported="supported"-->
+<!--                                text="'testinvoke ' + ngPopUp.params.contract.contract_details.neo_contract_token.script_hash + ' finishMinting []'"-->
+<!--                                ng-class="{copied: ngPopUp.params.contract.copied['script_hash3']}"-->
+<!--                                on-copied="$root.successCodeCopy(ngPopUp.params.contract, 'script_hash3')">&nbsp;-->
+<!--                            <i class="icon-content_copy"></i>-->
+<!--                        </button>-->
+<!--                        <div class="copy-block__text"><b>neo</b>> testinvoke {{ngPopUp.params.contract.contract_details.neo_contract_token.script_hash}} finishMinting []</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--            <li class="new-instruction-list__item">-->
+<!--                <div class="new-instruction-list__item__text"-->
+<!--                     translate="CONTRACTS_INSTRUCTIONS.NEO.NEO_PYTHON_MINT_TOKENS.LIST.ITEM_5">-->
+<!--                </div>-->
+<!--            </li>-->
         </ul>
     </div>
     <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color">

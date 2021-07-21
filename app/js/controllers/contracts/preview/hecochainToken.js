@@ -112,6 +112,9 @@ angular.module('app').controller('hecochainTokenPreviewController', function($ti
         updateTotalSupply();
     } else {
         $scope.chartData = angular.copy(contractDetails.token_holders);
+        $scope.totalSupply = {
+            tokens: holdersSum
+        };
     }
 
     $scope.chartOptions = {

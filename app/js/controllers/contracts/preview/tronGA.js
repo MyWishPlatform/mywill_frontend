@@ -129,7 +129,6 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
     var chartData = [beforeDistributed];
     $scope.chartData = [];
 
-
     var totalSupply = {
         tokens: 0
     };

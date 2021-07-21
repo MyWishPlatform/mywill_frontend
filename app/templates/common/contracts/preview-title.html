@@ -2,10 +2,17 @@
     <span>{{('CONTRACTS_NETWORKS.NETWORK_' + contract.network)|translate}}</span>
 </div>
 
-<div class="shadow-block__content__blue-title" ng-if="contract.contract_type !== 35 && contract.contract_type !== 36 && contract.contract_type !== 33 && contract.contract_type !== 34 && contract.contract_type !== 32">
+<div class="shadow-block__content__blue-title" ng-if="contract.contract_type !== 35 && contract.contract_type !== 36 && contract.contract_type !== 33 && contract.contract_type !== 34 && contract.contract_type !== 32 && contract.contract_type !== 6">
     <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
     <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
         <span class="big-size">{{contract.name}}</span>
+    </div>
+</div>
+
+<div class="shadow-block__content__blue-title static-width" style="display: flex; flex-direction: row; height: 56px" ng-if="contract.contract_type === 6" >
+    <img style="margin: 4px 18px 0 0 ; height: 30px; margin-left: -2px" src="/static/images/blockchain/neo-white.svg">
+    <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+        <span>{{ contract.name || 'Not defined'}}</span>
     </div>
 </div>
 

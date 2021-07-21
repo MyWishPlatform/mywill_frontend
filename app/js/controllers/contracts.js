@@ -61,7 +61,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         offset: 100
     };
 
-}).controller('baseContractsController', function($scope, $state, $timeout, contractService, $cookies,
+}).controller('baseContractsController', function($http, $scope, $state, $timeout, contractService, $cookies,
                                                   web3Service, WebSocketService, EOSService, CONTRACT_TYPES_FOR_CREATE,
                                                   $rootScope, $interval, CONTRACT_STATUSES_CONSTANTS) {
 
@@ -126,6 +126,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         }
         contract.stateValue = $scope.statuses[contract.state]['value'];
         contract.stateTitle = $scope.statuses[contract.state]['title'];
+        
     };
 
     var iniSocketHandler = function(contract) {
@@ -700,4 +701,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
+    $scope.to_recipient_hex = function () {
+        return 999;
+    }
 });

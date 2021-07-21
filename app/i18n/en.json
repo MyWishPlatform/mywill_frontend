@@ -56,8 +56,8 @@
     "NETWORK_2": "Ropsten Test Net",
     "NETWORK_3": "RSK Network",
     "NETWORK_4": "RSK Testnet faucet",
-    "NETWORK_5": "NEO MainNet",
-    "NETWORK_6": "NEO TestNet",
+    "NETWORK_5": "NEO3 MainNet",
+    "NETWORK_6": "NEO3 TestNet",
     "NETWORK_10": "EOS MainNet",
     "NETWORK_11": "EOS TestNet",
     "NETWORK_14": "TRON MainNet",
@@ -158,7 +158,7 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
-    "NEO": "NEO",
+    "NEO": "NEO3",
     "EOS": "EOS",
     "TRON": "TRON",
     "WAVES": "WAVES",
@@ -615,7 +615,7 @@
       },
       "NEO_NETWORK": {
         "LIST": {
-          "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
+          "ITEM_1": "Please contact NEO3 (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
       }
     }
@@ -803,8 +803,8 @@
       "NEO_PYTHON": {
         "TITLE": "How to install & use NEO wallet",
         "LIST": {
-          "ITEM_1": "Install neo-python. Instruction: <a href=\"https://github.com/CityOfZion/neo-python#native-installation\" target=\"_blank\">https://github.com/CityOfZion/neo-python#native-installation</a>",
-          "ITEM_2": "After installation run neo-python: <a href=\"https://github.com/CityOfZion/neo-python#running\" target=\"_blank\">https://github.com/CityOfZion/neo-python#running</a> By default neo-python runs in Test net mode.",
+          "ITEM_1": "Install neo-cli. Instruction:  <a href=\"https://docs.neo.org/docs/en-us/node/cli/setup.html\" target=\"_blank\">https://docs.neo.org/docs/en-us/node/cli/setup.html</a>",
+          "ITEM_2": "After installation run neo-cli: <a href=\"https://docs.neo.org/docs/en-us/node/cli/config.html\" target=\"_blank\">https://docs.neo.org/docs/en-us/node/cli/config.html</a> By default neo-cli runs in Testnet mode.",
           "ITEM_3": "After client running you can create wallet file if you don’t have it (you will enter new password 2 times).<br/> Call:",
           "ITEM_4": "You can open existing wallet by calling: ",
           "ITEM_5": "You can import wif to opened wallet by calling:",
@@ -831,7 +831,7 @@
         "TITLE": "Mint",
         "DESCRIPTION": "For Minting <b>{{amount|separateNumber}}</b> tokens to <b>{{address}}</b> address please do the following steps:",
         "LIST": {
-          "ITEM_1": "Open your wallet in neo-python",
+          "ITEM_1": "Open your wallet in neo-cli.",
           "ITEM_2": "Import Token contract to the wallet:",
           "ITEM_3": "Call",
           "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
@@ -848,7 +848,8 @@
           "ITEM_3": "Call",
           "ITEM_3_1": "to Check that Token was added to tokens section in wallet",
           "ITEM_4": "To Finalize the contract call:",
-          "ITEM_5": "Enter your password"
+          "ITEM_5": "Enter your password",
+          "ITEM_6": "Enter <b>yes</b> to confirm the transaction"
         }
       },
       "MINT": {
@@ -859,7 +860,7 @@
           "ITEM_1": "Choose TestNet",
           "ITEM_2": "Put script hash to Script Hash field",
           "ITEM_3": "Put \"mint\" to Operation field",
-          "ITEM_4": "Put NEO address of recipient to Argument1 field",
+          "ITEM_4": "Put NEO3 address of recipient to Argument1 field",
           "ITEM_5": "Put amount of tokens (to mint) to Argument2 field"
         }
       },
@@ -1189,13 +1190,13 @@
           },
           "TOKEN_SYMBOL": {
             "LABEL": "Token symbol:",
-            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.. Please check that it’s unique before submission (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
-            "DESCRIPTION_BNB": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
-            "DESCRIPTION_MATIC": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
-            "DESCRIPTION_HECOCHAIN": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
-            "DESCRIPTION_TRON": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc..",
+            "DESCRIPTION": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc.. Please check that it’s unique before submission (<a tabindex=\"-1\" href=\"https://etherscan.com/tokens\" target=\"_blank\">https://etherscan.com/tokens</a>)",
+            "DESCRIPTION_BNB": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
+            "DESCRIPTION_MATIC": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
+            "DESCRIPTION_HECOCHAIN": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
+            "DESCRIPTION_TRON": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)",
-            "DESCRIPTION_XINFIN": "Usually 3-4 Letters like ETH, BTC, NEO, WISH etc.."
+            "DESCRIPTION_XINFIN": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc.."
           },
           "DECIMALS": {
             "LABEL": "Decimals:",

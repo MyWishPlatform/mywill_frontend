@@ -107,6 +107,9 @@ angular.module('app').controller('xinfinTokenPreviewController', function($timeo
         updateTotalSupply();
     } else {
         $scope.chartData = angular.copy(contractDetails.token_holders);
+        $scope.totalSupply = {
+            tokens: holdersSum
+        };
     }
 
     $scope.chartOptions = {

@@ -84,8 +84,8 @@ angular.module('app').controller('xinfinTokenPreviewController', function($timeo
     var holdersSum = new BigNumber(0);
 
     contractDetails.token_holders.map(function(holder) {
-        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
         holdersSum = holdersSum.plus(holder.amount);
+        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });
 
     if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {

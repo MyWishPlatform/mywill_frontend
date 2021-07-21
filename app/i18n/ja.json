@@ -158,7 +158,7 @@
   "BLOCKCHAIN_NETWORKS": {
     "ETH": "Ethereum",
     "BTC": "Bitcoin",
-    "NEO": "NEO3",
+    "NEO": "neo",
     "EOS": "EOS",
     "TRON": "TRON",
     "WAVES": "WAVES",

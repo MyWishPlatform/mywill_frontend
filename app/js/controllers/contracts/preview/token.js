@@ -94,8 +94,8 @@ angular.module('app').controller('tokenPreviewController', function (
     var holdersSum = new BigNumber(0);
 
     contractDetails.token_holders.map(function (holder) {
-        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
         holdersSum = holdersSum.plus(holder.amount);
+        holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });
 
     if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {
@@ -140,6 +140,7 @@ angular.module('app').controller('tokenPreviewController', function (
             var supply = res ? res.data.result.stack[0].value : 0;
 
             $scope.chartData = angular.copy(contractDetails.token_holders);
+
             $scope.chartData.unshift({
                 amount: new BigNumber(supply).minus(holdersSum).div(powerNumber),
                 address: 'Other'

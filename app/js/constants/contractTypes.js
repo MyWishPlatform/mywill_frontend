@@ -114,7 +114,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'description': 'Create a fully customized token with any combination of the following functions:\n burn per transaction, distribution to holders, automatic LP.',
         'typeNumber': -3,
         'type': 'deflationaryToken',
-        'directLink': 'https://docs.google.com/forms/d/1x5_fpcUCAoo1abuacBpNC6-WjDO_WGhOiutod2yMV1U/edit',
+        'directLink': 'https://mywishplatform.typeform.com/to/Vohpj5r3',
         'simplePrice': "2500",
         'price': true
     };

@@ -154,11 +154,12 @@ angular.module('app').controller('tokenPreviewController', function (
             headers: {
                 'Content-Type': 'application/json'
             }
-            .catch(function (e) {
-                    console.error('Error from convert_neo3_address_to_hex', e);
-                    return null;
-            })
-        }).then(function (res) {
+        })
+        .catch(function (e) {
+            console.error('Error from /api/v1/convert_neo3_address_to_hex/', e);
+            return null;
+        })
+        .then(function (res) {
             contractDetails.admin_address_neo_to_0x = res.data.address;
         })
     } else {

@@ -150,10 +150,14 @@ angular.module('app').controller('tokenPreviewController', function (
             $scope.$apply();
 
         })
-        $http.post('https://dev2.mywish.io/api/v1/convert_neo3_address_to_hex/', {'address': contractDetails.admin_address },{
+        $http.post('https://contracts.mywish.io/api/v1/convert_neo3_address_to_hex/', {'address': contractDetails.admin_address },{
             headers: {
                 'Content-Type': 'application/json'
             }
+            .catch(function (e) {
+                    console.error('Error from convert_neo3_address_to_hex', e);
+                    return null;
+            })
         }).then(function (res) {
             contractDetails.admin_address_neo_to_0x = res.data.address;
         })

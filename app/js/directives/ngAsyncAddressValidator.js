@@ -28,7 +28,7 @@ angular.module('Directives').directive('ngAsyncAddressValidator', function ($htt
                     return false;
                 }
 
-                return $http.post('https://dev2.mywish.io/api/v1/check_neo3_address/', {
+                return $http.post('https://contracts.mywish.io/api/v1/check_neo3_address/', {
                     "address": modelValue
                 }, {
                     headers: {

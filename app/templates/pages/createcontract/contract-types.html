@@ -89,7 +89,7 @@
             <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'NEO'})"
                    ng-click="blockChainNetwork.type = 'NEO'"
-                   style="display: flex; padding-left: 1.7em;"
+                   style="padding-left: 1.7em;"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'NEO'}">
                     <img src="/static/images/blockchain/neo.svg" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
@@ -153,7 +153,7 @@
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="blockChainNetwork.isTest"
+                           ng-checked="blockChainNetwork.isTest || blockChainNetwork.type === 'NEO'"
                            ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"

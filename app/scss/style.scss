@@ -30,6 +30,7 @@
 
 .cookies-info {
   position: fixed;
+  -webkit-transform: translateZ(0);
   left: 2em;
   bottom: 2em;
   padding: 1.5em;

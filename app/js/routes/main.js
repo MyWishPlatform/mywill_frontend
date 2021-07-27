@@ -146,6 +146,18 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'faq.html',
         resolve: {
         }
+    }).state('main.terms', {
+        url: '/terms',
+        controller: 'termsController',
+        templateUrl: templatesPath + 'terms.html',
+        resolve: {
+        }
+    }).state('main.privacy', {
+        url: '/privacy',
+        controller: 'privacyController',
+        templateUrl: templatesPath + 'privacy.html',
+        resolve: {
+        }
     }).state('main.buytokens', {
         url: '/buy',
         controllerProvider: function(ENV_VARS) {

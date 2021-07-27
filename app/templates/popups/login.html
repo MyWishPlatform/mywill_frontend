@@ -123,7 +123,9 @@
                             <span class="field-error" style="display: block"
                                   ng-if="regServerErrors.non_field_errors">{{regServerErrors.non_field_errors.join(' ')}}</span>
                         </div>
-
+                        <div class="form-control contract-form-row"><br/>
+                            <span style="color: black">By using the service, you accept the <a ng-click="closeCurrentPopup()" style="font-weight: 500; cursor: pointer" ui-sref="main.terms" >Terms or Service</a> </span>
+                        </div>
                         <div class="form-control contract-form-row"><br/>
                             <button type="submit" class="btn btn-submit">
                                 <span translate="AUTH_POPUP.BUTTONS.CREATE_ACCOUNT"></span>

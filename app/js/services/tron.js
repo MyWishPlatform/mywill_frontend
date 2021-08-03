@@ -102,7 +102,14 @@ angular.module('Services').service('TronService', function(TRON_NETWORKS_CONSTAN
                 if (tokenInfo['propertiesLength'] === tokenProperties.length) {
                     if (balanceAddress) {
                         contract.balanceOf(balanceAddress).call().then(function(result) {
-                            tokenInfo.balance = new BigNumber(result.balance).div(Math.pow(10, tokenInfo['decimals'])).toString(10);
+                            var balance;
+                            if (!result.balance) {
+                                balance = result._hex;
+                            }
+                            if (result.balance) {
+                                balance = result.balance;
+                            }
+                            tokenInfo.balance = new BigNumber(balance).div(Math.pow(10, tokenInfo['decimals'])).toString(10);
                             defer.resolve(tokenInfo);
                         });
                     } else {

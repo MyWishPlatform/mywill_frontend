@@ -477,7 +477,7 @@ $rootScope
         });
     };
 }).controller('tronAirdropSendAddressesPreview', function($scope, contractService, $timeout, TronService, FileSaver) {
-    var countLimit = 100;
+    var countLimit = 30;
     var contract = $scope.contract = $scope.ngPopUp.params.contract;
     $scope.tokenInfo = $scope.ngPopUp.params.tokenInfo || false;
 
@@ -489,7 +489,7 @@ $rootScope
             state: 'added'
         }).then(function(response) {
             $scope.next_addresses = response.data.results;
-            $scope.maxCount = Math.min(100, response.data.count);
+            $scope.maxCount = Math.min(30, response.data.count);
             if ($scope.next_addresses.length) {
                 $scope.next_addresses.map(function(address) {
                     allAmounts = allAmounts.plus(address.amount);

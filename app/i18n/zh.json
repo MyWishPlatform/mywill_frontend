@@ -616,6 +616,9 @@
         "LIST": {
           "ITEM_1": "Please contact NEO (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
+      },
+      "WAVES_MAINTANANCE": {
+        "TEXT": "不幸的是，WAVES 的合約正在維護中。\n給您帶來的不便，我們深表歉意。"
       }
     }
   },

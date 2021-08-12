@@ -197,6 +197,9 @@
     },
     "NEO_CROWDSALE_FINALIZE_ERR": {
       "TEXT": "Error! Finalize can be executed<br/>after {{stopDate|date:'yyyy-MM-dd HH:mm'}} only."
+    },
+    "WAVES_UNDER_MAINTENANCE": {
+      "TEXT": "Waves contracts creation is under maintanance"
     }
   },
   "CONFIRMATIONS": {
@@ -617,6 +620,9 @@
         "LIST": {
           "ITEM_1": "Please contact NEO3 (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
+      },
+      "WAVES_MAINTANANCE": {
+        "TEXT": "Unfortunately, contracts on WAVES are under maintenance.\nWe are apologizing for the inconvenience."
       }
     }
   },

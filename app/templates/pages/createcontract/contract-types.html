@@ -100,7 +100,12 @@
             <div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'WAVES'})"
                    ng-click="blockChainNetwork.type = 'WAVES'"
-                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'WAVES'}">
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'WAVES'}"
+                   ng-pop-up="{
+                    template: '/templates/popups/alerts/waves-under-maintanance.html',
+                    newPopupContent: true,
+                }"
+                >
                     <img src="/static/images/blockchain/waves.svg" width="20" style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.WAVES"></span>
@@ -199,10 +204,11 @@
 
 <div ng-repeat="(key, blockChainData) in contractsTypes" ng-if="blockChainNetwork.type === key">
     <div ng-repeat="contractForCreate in blockChainData.list"
+         ui-sref-disabled="blockChainNetwork.type === 'WAVES'"
          ng-click="
-         contractForCreate.directLink ? redirectTo(contractForCreate.directLink + (blockChainNetwork.isTest ? '?network=testnet' : ''), $event) : false"
+         contractForCreate.directLink && blockChainNetwork.type !== 'WAVES' ? redirectTo(contractForCreate.directLink + (blockChainNetwork.isTest ? '?network=testnet' : ''), $event) : false"
          ui-sref="main.createcontract.form({selectedType: contractForCreate.type, network: blockChainData.networks[blockChainNetwork.isTest ? 1 : 0]})"
-         class="shadow-block shadow-block_hovered" ng-class="contractForCreate.class">
+         class="shadow-block shadow-block_hovered" ng-class="{contractForCreate: true, 'contract-disabled': blockChainNetwork.type === 'WAVES'}">
         <div class="shadow-block__content">
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
                 <div class="contract-price-block_content" ng-if="contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]">

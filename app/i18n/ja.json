@@ -164,9 +164,8 @@
     "WAVES": "WAVES",
     "BINANCE": "Binance",
     "MATIC": "Matic",
-    "NETWORK_28": "Hecochain MainNet",
-    "NETWORK_35": "Xinfin MainNet",
-    "NETWORK_36": "Hecochain TestNet"
+    "XINFIN": "Xinfin",
+    "HECOCHAIN": "HECO"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -618,6 +617,9 @@
         "LIST": {
           "ITEM_1": "Please contact NEO3 (<a href=\"mailto:eg@neo.org\">eg@neo.org</a>) about smart contract deployment fee subsidy."
         }
+      },
+      "WAVES_MAINTANANCE": {
+        "TEXT": "残念ながら、WAVESの契約は現在維持中です。\nご不便をおかけして申し訳ございません。"
       }
     }
   },

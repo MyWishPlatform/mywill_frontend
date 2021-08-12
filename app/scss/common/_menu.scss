@@ -9,7 +9,7 @@
 }
 .terms-link {
   position: absolute;
-  bottom: 34px;
+  bottom: 26px;
   font-size: 1.2em;
   padding: 1em;
   text-align: left;
@@ -245,7 +245,7 @@
       content: '';
       background-color: rgba(255, 255, 255, 0);
       transform: translateZ(0);
-      transition: background-color 0.2s, ;
+      transition: background-color 0.2s;
     }
     &.with-menu {
       overflow: hidden;

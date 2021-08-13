@@ -6,12 +6,12 @@ angular.module('app').controller('authController', function (authService, $rootS
     $scope.$parent.socialAuthError = false;
 
     var checkLoginAction = function(reloadPage, inService) {
-        if (inService) {
-            onAuth();
-            return;
-        }
         if (!reloadPage) {
             window.location = '/';
+        if (inService) {
+                onAuth();
+                return;
+        }
         } else {
             $state.transitionTo($state.current, {}, {
                 reload: true,
@@ -91,7 +91,6 @@ angular.module('app').controller('authController', function (authService, $rootS
     };
 
     $scope.mmLogin = function(advancedData, reloadPage, inService) {
-
         var web3 = new window['Web3']();
         web3.setProvider(window['ethereum']);
 

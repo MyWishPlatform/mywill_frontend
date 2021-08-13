@@ -82,7 +82,7 @@ module.controller('baseController', function($scope, $translate, $cookies) {
     }).state('main.registration', {
         url: '/registration',
         templateUrl: templatesPath + 'registration.html',
-        controller: function ($scope, authService, $state, $cookies) {
+        controller: function ($scope, authService, $state, $cookies, SocialAuthService) {
             $scope.request = {};
             $scope.$parent.socialAuthError = false;
             $scope.sendRegForm = function(regForm) {
@@ -101,6 +101,108 @@ module.controller('baseController', function($scope, $translate, $cookies) {
                             $scope.serverErrors = response.data;
                             break;
                     }
+                });
+            };
+            $scope.socialAuthError = false;
+            var checkLoginAction = function(reloadPage, inService) {
+                if (!reloadPage) {
+                    window.location.href = 'https://contracts.mywish.io/';
+                } else {
+                    $state.transitionTo($state.current, {}, {
+                        reload: true,
+                        inherit: false,
+                        notify: true
+                    });
+                }
+            };
+            var onAuth = function(response) {
+                $rootScope.$broadcast('$userOnLogin', $scope.ngPopUp.params.onLogin || false);
+                $scope.closeCurrentPopup();
+                $scope.closeCommonPopup();
+            };
+            $scope.serverErrors = {};
+            $scope.socialAuthInfo = {};
+            var errorSocialAuth = function(response, request, type) {
+                $scope.socialAuthInfo = {
+                    network: type,
+                    request: request
+                };
+                switch (response.status) {
+                    case 403:
+                        $scope.socialAuthError = response.data.detail;
+                        switch ($scope.socialAuthError) {
+                            case '1030':
+
+                                break;
+                            case '1031':
+
+                                break;
+                            case '1032':
+
+                                break;
+                            case '1033':
+                                $scope.serverErrors = {totp: 'Invalid code'};
+                                break;
+                        }
+                        break;
+                }
+            };
+            $scope.fbLogin = function(advancedData, reloadPage, inService) {
+                SocialAuthService.facebookAuth(function(response) {
+                    checkLoginAction(reloadPage, inService);
+                }, errorSocialAuth, advancedData);
+            };
+            $scope.googleLogin = function(advancedData, reloadPage, inService) {
+                SocialAuthService.googleAuth(function(response) {
+                    checkLoginAction(reloadPage, inService);
+                }, errorSocialAuth, advancedData);
+            };
+            $scope.continueSocialAuth = function(form, reloadPage, inService) {
+                if (!form.$valid) return;
+                switch ($scope.socialAuthInfo.network) {
+                    case 'google':
+                        $scope.googleLogin($scope.socialAuthInfo.request, reloadPage, inService);
+                        break;
+                    case 'facebook':
+                        $scope.fbLogin($scope.socialAuthInfo.request, reloadPage, inService);
+                        break;
+                    case 'metamask':
+                        metaMaskAuthRequest($scope.socialAuthInfo.request, reloadPage, inService);
+                        break;
+                }
+            };
+            var metaMaskAuthRequest = function(advancedData, reloadPage, inService) {
+                SocialAuthService.metaMaskAuth({
+                    address: advancedData.address,
+                    signed_msg: advancedData.signature
+                }, function(response) {
+                    checkLoginAction(reloadPage, inService);
+                }, errorSocialAuth, advancedData);
+            };
+            $scope.mmLogin = function(advancedData, reloadPage, inService) {
+                var web3 = new window['Web3']();
+                web3.setProvider(window['ethereum']);
+
+                window['ethereum'].enable().then(function(accounts) {
+                    SocialAuthService.getMetaMaskAuthMsg().then(function(response) {
+                        var msg = response.data;
+                        var address = accounts[0];
+                        web3.eth.personal.sign(
+                            msg,
+                            address,
+                            undefined,
+                            function(signError, signature) {
+                                if (!signError) {
+                                    metaMaskAuthRequest({
+                                        address: address,
+                                        signed_msg: signature
+                                    }, reloadPage, inService);
+                                } else {
+                                    // console.log(signError);
+                                }
+                            }
+                        );
+                    });
                 });
             };
         }

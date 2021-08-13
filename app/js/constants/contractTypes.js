@@ -66,6 +66,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     '-1': 'wedding',
     '-2': 'custom',
     '-3': 'deflationary token',
+    '-4': 'bridge',
 
     24: 'bnbLastWill',
     25: 'bnbLostKey',
@@ -119,6 +120,17 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'price': true
     };
 
+    var bridge = {
+        'iconImg': '/static/images/bridge.svg',
+        'title': 'Cross-Chain Bridge Development',
+        'description': 'Have your token available on different blockchains at the same time. Apply for Cross-Chain bridge development to have your token wrapped to other blockchain standards.',
+        'typeNumber': -4,
+        'type': 'bridge',
+        'directLink': 'https://mywishplatform.typeform.com/to/tlf8MEbl',
+        'simplePrice': "7000",
+        'price': true
+    };
+
     var eth = {
         'networks': [1, 2],
         'list':[{
@@ -135,7 +147,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 4,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
             'price': true
-        }, airdropService, {
+        }, airdropService, bridge, {
                 'icon': 'icon-airdrop',
                 'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
                 'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
@@ -209,7 +221,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 32,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[32],
             'price': true
-        },airdropService, {
+        },airdropService, bridge, {
             // 'icon': 'icon-matic-airdrop',
             'iconImg': '/static/images/blockchain/polygon-airdrop.svg',
             'title': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.TITLE',
@@ -229,7 +241,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 35,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[35],
             'price': true
-        }, deflationaryToken]
+        }, deflationaryToken, bridge]
     }
         
     var hecochain = {
@@ -241,7 +253,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 36,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[36],
             'price': true
-        }, deflationaryToken]
+        }, deflationaryToken, bridge]
     }
 
     var bnb = {
@@ -260,7 +272,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 27,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[27],
             'price': true
-        }, airdropService, {
+        }, airdropService, bridge, {
             'icon': 'icon-bnb-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.DESCRIPTION',
@@ -312,7 +324,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 6,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[6]
-        }, 
+        }, bridge,
         // {
         //     'icon': 'icon-crowdsale',
         //     'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',
@@ -370,7 +382,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 content: 'alcor',
                 text: 'Free listing on Alcor.exchange'
             }
-        }, {
+        }, bridge, {
             'icon': 'icon-token-eos',
             'title': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.EOS_TOKEN_MYWISH.DESCRIPTION',
@@ -413,7 +425,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 15,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
             'price': true
-        },deflationaryToken,  airdropService,  {
+        },deflationaryToken,  airdropService, bridge, {
             'icon': 'icon-tron-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',

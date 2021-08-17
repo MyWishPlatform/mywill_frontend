@@ -324,7 +324,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
             'typeNumber': 6,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[6]
-        }, bridge,
+        },
         // {
         //     'icon': 'icon-crowdsale',
         //     'title': 'PAGES.CREATE_CONTRACT.CROWDSALE.TITLE',

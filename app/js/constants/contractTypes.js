@@ -380,7 +380,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'additional_link': {
                 type: 'modal',
                 content: 'alcor',
-                text: 'Free listing on Alcor.exchange'
             }
         }, bridge, {
             'icon': 'icon-token-eos',
@@ -392,7 +391,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'additional_link': {
                 type: 'modal',
                 content: 'alcor',
-                text: 'Free listing on Alcor.exchange'
             }
         }, {
             'icon': 'icon-eos-ico',
@@ -404,7 +402,6 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'additional_link': {
                 type: 'modal',
                 content: 'alcor',
-                text: 'Free listing on Alcor.exchange'
             }
         }, {
             'icon': 'icon-eos-airdrop',

@@ -116,7 +116,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'typeNumber': -3,
         'type': 'deflationaryToken',
         'directLink': 'https://mywishplatform.typeform.com/to/Vohpj5r3',
-        'simplePrice': "2500",
+        'simplePrice': "3900",
         'price': true
     };
 

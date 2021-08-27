@@ -210,6 +210,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.contract_type) {
             case 5:
             case 33:
+            case 99:
             case 28:
                 contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE') || (contract.state === 'ENDED');
                 contract.withAuthioForm = contract.isAuthioToken && !contract.contract_details.authio;
@@ -243,6 +244,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 26:
             case 27:
             case 28:
+            case 99:
             case 32:
             case 35:
             case 36:
@@ -422,6 +424,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 24:
             case 25:
             case 28:
+            case 99:
             case 35:
             case 36:
                 setContractStatValues(contract);
@@ -493,6 +496,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         17: 'tron_airdrop',
         27: 'bnb_crowdsale',
         28: 'bnb_token',
+        99: 'moonriver_token',
         29: 'bnb_airdrop',
         32: 'matic_crowdsale',
         33: 'matic_token',

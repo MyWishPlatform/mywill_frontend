@@ -90,6 +90,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 28:
                 web3.setProvider(new Web3.providers.HttpProvider(isProduction ? APP_CONSTANTS.HECOCHAIN_MAINNET_PROVIDER : APP_CONSTANTS.HECOCHAIN_TESTNET_PROVIDER));
                 break;
+            case 99:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.MOONRIVER_MAINNET_PROVIDER));
+                break;
             case 36:
                 web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.HECOCHAIN_TESTNET_PROVIDER));
                 break;
@@ -115,6 +118,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 28:
                 network = isProduction ? network : 36;
                 break;
+            case 99:
+                network = 99;
+                break;
         }
 
         switch (providerName) {
@@ -132,7 +138,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                         ((networkVersion == 137) && (network == 24)) ||
                         ((networkVersion === 50) && (network === 35)) ||
                         ((networkVersion == 128) && (network == 28)) ||
-                        ((networkVersion == 256) && (network == 36))
+                        ((networkVersion == 256) && (network == 36)) ||
+                        ((networkVersion == 1285) && (network == 99))
                     ) {
                         currentProvider = web3Providers[providerName];
                         web3.setProvider(currentProvider);
@@ -156,7 +163,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 ((networkVersion === 137) && (network === 24)) ||
                 ((networkVersion === 50) && (network === 35)) ||
                 ((networkVersion == 128) && (network == 28)) ||
-                ((networkVersion == 256) && (network == 36));
+                ((networkVersion == 256) && (network == 36)) ||
+                ((networkVersion == 1285) && (network == 99));
         } else {
             return false;
         }
@@ -248,6 +256,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 28:
                 network = isProduction ? network : 36;
                 break;
+            case 99:
+                network = 99;
+                break;
         }
 
         for (var clientName in web3Providers) {
@@ -302,7 +313,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             path: API.GET_ETH_TOKENS_FOR_ADDRESS,
             query: {
                 address: address,
-                network: ((network === 1 || network === 22 || network === 24 || network === 35 || network === 28) && isProduction) ? 'mainnet' : 'testnet'
+                network: ((network === 1 || network === 22 || network === 24 || network === 35 || network === 28 || network === 99) && isProduction) ? 'mainnet' : 'testnet'
             }
         };
         return requestService.get(params);

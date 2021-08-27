@@ -1,0 +1,139 @@
+<button class="btn only-icon float-right" type="button"
+        ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)"
+        ng-pop-up="{
+            template: '/templates/popups/confirmations/delete-contract.html',
+            newPopupContent: true,
+            params: contract,
+            class: 'deleting-contract',
+            actions: {
+                deleteContract: deleteContract
+            }
+        }">
+  <i class="icon-trash"></i>
+</button>
+
+<!-- Activate instruction button -->
+<button ng-pop-up="{
+            template: '/templates/popups/disclaimers/eth/activate-disclaimer.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'conditions',
+            onClose: returnToList
+        }"
+        ng-if="contract.stateValue == 10"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.ACTIVATE"></span>
+</button>
+
+<!-- Pay instruction button -->
+<button ng-click="payContract(contract)"
+        ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)"
+        class="btn btn-transparent hide-ps">
+  <i class="icon-rocket-ship"></i>
+  <span translate="CONTRACTS_BUTTONS.LAUNCH"></span>
+</button>
+
+<!-- Investment pool deposit instruction button -->
+<button ng-if="contract.contract_details.buttons.investment_pool_deposit"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+</button>
+
+<!-- Settings changing form button -->
+<button ng-if="contract.contract_details.buttons.settings"
+        ng-pop-up="{
+            template: '/templates/popups/forms/eth/contract-settings.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'language-switcher-popup',
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.SETTINGS"></span>
+</button>
+
+<!-- Investment pool send funds instruction -->
+<button ng-if="contract.contract_details.buttons.send_funds"
+        ng-pop-up="{
+          template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',
+                newPopupContent: true,
+                params: {
+                    contract: contract
+                }
+            }"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>
+</button>
+
+
+<!-- Investment pool refund instruction -->
+<button ng-if="contract.contract_details.buttons.investment_refund"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/investment-pool-refund-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            }
+        }"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.REFUND"></span>
+</button>
+
+
+<!-- Investment pool send tokens -->
+<button ng-if="(contract.contract_details.buttons.send_tokens !== undefined)"
+        ng-pop-up="{
+            template: '/templates/popups/instructions/eth/investment-pool-send-tokens-instruction.html',
+            newPopupContent: true,
+            params: {
+                contract: contract,
+                page: contract.contract_details.buttons.send_tokens
+            }
+        }"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.SEND_TOKENS"></span>
+</button>
+
+
+<!-- Mint form button -->
+<button ng-if="(contract.stateValue == 4) && (contract.contract_type == 36) && contract.contract_details.future_minting"
+        ng-pop-up="{
+            template: '/templates/popups/forms/eth/mint-token-form.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'page-size',
+            onClose: returnToList
+        }"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.MINT"></span>
+</button>
+
+
+<!-- Finalize token contract form button -->
+<button ng-pop-up="{
+            template: '/templates/popups/disclaimers/eth/mint-finalize-disclaimer.html',
+            newPopupContent: true,
+            params: {
+                contract: contract
+            },
+            class: 'conditions',
+            onClose: returnToList
+        }"
+        ng-if="(contract.stateValue == 4) && (contract.contract_type == 36) && contract.contract_details.future_minting"
+        class="btn btn-transparent hide-ps">
+  <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
+</button>

@@ -1,0 +1,361 @@
+<!-- div class="just-text">
+    <i class="icon-help"></i>
+    <a href="https://youtu.be/WWtObEFdrhc"
+       target="_blank"
+       translate="CONTRACTS.FORMS.WATCH_INSTRUCTION">
+    </a>
+</div -->
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="contract-info__network"
+             ng-class="'contract-info__network_' + network">
+            <span>{{('CONTRACTS_NETWORKS.NETWORK_' + network)|translate}}</span>
+        </div>
+        <div class="shadow-block__content__blue-title" style="display: flex; flex-direction: row">
+            <img style="margin: 4px 18px 0 0 ; height: 30px" src="/static/images/blockchain/moonriver-white.svg">
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size" translate="CONTRACTS.FORMS.TOKEN.TITLE"></span>
+            </div>
+        </div>
+    </div>
+    <form class="shadow-block__content shadow-block__content_no-tb-padding no-border" name="contractParamsForm">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="contract-name" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.LABEL"></label>
+                    <input id="contract-name" type="text"
+                           placeholder="MyNewProjectToken"
+                           ng-model="request.token_name"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.DESCRIPTION"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="token-symbol" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></label>
+                    <input id="token-symbol" type="text"
+                           placeholder="NEW"
+                           ng-pattern='"[^\"]+"'
+                           ng-model="request.token_short_name"
+                           maxlength="64"
+                           minlength="1"
+                           required
+                           class="form-control-input"/>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.DESCRIPTION_MOONRIVER"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-8 grid-cell-ps-1-5 grid-cell-vs-1-4">
+                <div class="form-control">
+                    <label for="decimals" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></label>
+                    <input id="decimals" type="text"
+                           placeholder="8"
+                           ng-model="request.decimals"
+                           pattern="^[0-9]+$"
+                           commaseparator="{
+                                min: 0,
+                                max: 50
+                           }"
+                           required
+                           class="form-control-input text-center"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
+                <div class="form-control-label hide-vs">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate-values="{
+                            max_decimals: 50,
+                            default_decimals: 8
+                       }"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.DESCRIPTION"></span>
+            </div>
+        </div>
+        <br/><br/>
+    </form>
+</div>
+
+<!-- form class="shadow-block" name="contractTypeForm">
+    <div class="shadow-block__content">
+        <div class="form-control-label"
+             translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_TYPE.LABEL"></div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="radio-button-decoration">
+                            <input type="radio" id="token_type_20" name="token_type" ng-model="request.token_type" value="ERC20">
+                            <span ng-class="{'icon-radio-checked': request.token_type == 'ERC20', 'icon-radio-unchecked': request.token_type !== 'ERC20'}"></span>
+                        </label>
+                        <label class="form-control-label inline-label" for="token_type_20">BEP2E</label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_TYPE.DESCRIPTION_3"></span>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-3 grid-cell-ls-1">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label class="radio-button-decoration">
+                            <input type="radio" id="token_type_223" name="token_type" ng-model="request.token_type" value="ERC223">
+                            <span ng-class="{'icon-radio-checked': request.token_type == 'ERC223', 'icon-radio-unchecked': request.token_type !== 'ERC223'}"></span>
+                        </label>
+                        <label class="form-control-label inline-label" for="token_type_223">ERC223</label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-3 grid-cell-ls-1 form-control-description">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_TYPE.DESCRIPTION_4"></span>
+            </div>
+        </div>
+    </div>
+</form -->
+<form class="shadow-block" ng-class="{'no-active': !contractParamsForm.$valid}" name="tokenOwnerForm">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="owner-address" class="form-control-label">
+                        <span translate-values="{blockchain: 'MOONRIVER'}"
+                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></span>
+                        <span ng-if="network == 25">
+                            <span class="as-link"
+                                  translate="CONTRACTS.FORMS.PASTE_ADDRESS"
+                                  ng-click="request.admin_address = testAddresses.MOONRIVER"></span>
+                        </span>
+                    </label>
+                    <input id="owner-address" type="text"
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           ng-model="request.admin_address"
+                           required
+                           class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"
+                          ng-if="(request.admin_address ? !web3Utils.checkAddressChecksum(request.admin_address) : false)"></span>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-4-5 grid-cell-ls-1 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate-values="{blockchain: 'MOONRIVER'}"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="shadow-block" ng-class="{'no-active': !(contractParamsForm.$valid && tokenOwnerForm.$valid)}" name="defineAddresses">
+    <div class="shadow-block__content" ng-repeat="recipient in token_holders">
+
+        <div class="grid-row contract-form-row">
+            <div class="grid-cell grid-cell-1" ng-if="!$index">
+                <div class="form-control">
+                    <div class="form-control-label"
+                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.TITLE"></div>
+                </div>
+            </div>
+
+            <div class="grid-cell grid-cell-2-3 grid-cell-ps-4-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <label for="out-wallet-key-{{$index}}" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"></label>
+                    <input id="out-wallet-key-{{$index}}" type="text"
+                           placeholder="{{'CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.PLACEHOLDER'|translate}}"
+                           ng-checksum-address-validator="{'network': 'ETH'}"
+                           ng-model="recipient.address"
+                           ng-change="!recipient.name ? checkTokensAmount() : false"
+                           required
+                           class="form-control-input"/>
+                    <span class="field-error form-field_error-check-sum"
+                          ng-if="recipient.address ? !web3Utils.checkAddressChecksum(recipient.address) : false"
+                          style="display: block" translate="FIELDS_ERRORS.ADDRESS_NOT_CHECKSUMMED"></span>
+                </div>
+            </div>
+            <div class="clearfix show-ps"><br/></div>
+            <div class="grid-cell grid-cell-1-3 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="address-name-{{$index}}" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_NAME.LABEL"></label>
+                    <input id="address-name-{{$index}}" type="text"
+                           ng-change="checkTokensAmount()"
+                           ng-model="recipient.name"
+                           class="form-control-input"/>
+                </div>
+            </div>
+
+            <div class="clearfix show-full hide-ps show-vs"><br/></div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-2-5 grid-cell-ls-1-2 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="address-amount-{{$index}}" class="form-control-label"
+                           translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></label>
+                    <input class="form-control-input"
+                           id="address-amount-{{$index}}"
+                           commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
+                           required
+                           ng-change="checkTokensAmount()"
+                           ng-model="recipient.amount"/>
+                </div>
+            </div>
+            <div class="clearfix show-ps"><br/></div>
+            <div class="grid-cell grid-cell-1-2 grid-cell-ps-4-5 grid-cell-ls-1">
+                <label class="form-control-label">
+                    <i class="icon-snowflake form-control-label-icon floated"></i>
+                    <span  class="after-floated">{{'CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL.LABEL'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;<span class="form-control-label-grey-text">UTC{{currentTimezone}}</span></span>
+                </label>
+                <div class="form-control">
+                    <div class="grid-row contract-form-row">
+                        <div class="grid-cell grid-cell-2-5">
+                            <label class="checkbox-decoration">
+                                <input type="checkbox" ng-model="recipient.isFrozen"/>
+                                <span class="checkbox-decoration-displaying">
+                                    <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                                    <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="grid-cell grid-cell-3-5">
+                            <input type="datetime"
+                                   ng-if="recipient.isFrozen"
+                                   required
+                                   ng-model="recipient.freeze_date"
+                                   date-change="onChangeDateOfRecipient"
+                                   auto-close="true"
+                                   readonly
+                                   date-time
+                                   min-date="minStartDate"
+                                   min-view="date"
+                                   view="year"
+                                   format="YYYY-MM-DD"
+                                   position="fixed"
+                                   class="form-control-input form-control-input-date"/>
+                            <input type="datetime"
+                                   ng-if="!recipient.isFrozen"
+                                   disabled
+                                   ng-model="recipient.freeze_date"
+                                   readonly
+                                   date-time
+                                   view="year"
+                                   format="YYYY-MM-DD"
+                                   class="form-control-input form-control-input-date"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <i class="icon-cancel float-right form-fieldset-info-button"
+           ng-click="removeRecipient(recipient); checkTokensAmount();"
+           ng-if="token_holders.length"></i>
+    </div>
+    <div class="shadow-block__content" ng-if="token_holders.length < 5">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-7-12 grid-cell-ls-1 float-right form-control-description">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.DESCRIPTION_BLOCK"></span><br/>
+            </div>
+            <div class="grid-cell grid-cell-5-12 grid-cell-ls-1 form-control-description">
+                <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
+                    <i class="icon-plus"></i>
+                    <span translate="CONTRACTS.FORMS.TOKEN.BUTTONS.ADD_ADDRESS"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content grey-color"
+         ng-if="token_holders.length && !tokensAmountError">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1">
+                <div class="form-control-label">
+                    {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}} {{totalSupply.tokens|separateNumber}} {{request.token_short_name}}
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
+                <div id="chartdiv" class="chart-container" style="height: 240px"
+                     ng-chart
+                     ng-chart-data="chartData"
+                     ng-chart-options="chartOptions"></div>
+            </div>
+            <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
+                <div class="chart-legend">
+                    <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
+                        <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
+                        <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="shadow-block" name="feedbackForm"
+      ng-show="network === 26483"
+      ng-class="{'no-active': !(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid)}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control">
+                    <label for="feedback-email" class="form-control-label"
+                           translate="FEEDBACK_EMAIL"></label>
+                    <input id="feedback-email" type="email"
+                           placeholder="mail@mail.com"
+                           ng-model="feedback_email"
+                           ng-required="network === 26483"
+                           class="form-control-input"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-5 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <div class="form-control-label hide-ps">&nbsp;</div>
+                <span class="form-control-description__text"
+                      translate="FEEDBACK_EMAIL_DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<br/><br/><br/>
+
+<div class="grid-row">
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="uppercase btn btn-submit mobile-width-100"
+                type="button"
+                ng-disabled="!(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid && feedbackForm.$valid)"
+                ng-click="createContract()">
+            <span class="lds-ellipsis" ng-if="contractInProgress">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
+            <span ng-if="!editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.CREATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+            <span ng-if="editContractMode">&nbsp;&nbsp;&nbsp;{{ "BUTTONS.UPDATE"|translate }}&nbsp;&nbsp;&nbsp;</span>
+        </button>
+    </div>
+    <div class="grid-cell grid-cell-vs-1-2">
+        <button class="btn btn-transparent btn-transparent-red with-icon mobile-width-100" ng-click="resetFormData($event)">
+            <i class="icon-delete-button"></i>
+            <span ng-if="!editContractMode" translate="BUTTONS.CLEAN"></span>
+            <span ng-if="editContractMode" translate="BUTTONS.RESET"></span>
+        </button>
+    </div>
+</div>

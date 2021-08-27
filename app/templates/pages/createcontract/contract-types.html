@@ -112,6 +112,16 @@
                 </a>
             </div>
 
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'MOONRIVER'})"
+                   ng-click="blockChainNetwork.type = 'MOONRIVER'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'MOONRIVER'}">
+                    <img src="/static/images/blockchain/moonriver.svg" width="20" height="20"
+                         style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.MOONRIVER"></span>
+                </a>
+            </div>
 
             <!-- div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"

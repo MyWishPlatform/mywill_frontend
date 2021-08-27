@@ -40,7 +40,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     'HECOCHAIN_TOKEN': 36,
 
-    "MOONRIVER_TOKEN": 99
+    "MOONRIVER_TOKEN": 38
 
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
@@ -87,7 +87,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     36: 'hecochainToken',
 
-    99: 'moonriverToken'
+    38: 'moonriverToken'
 
 
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
@@ -261,13 +261,13 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     }
 
     var moonriver = {
-        'networks': [99],
+        'networks': [37],
         'list':[{
             'iconImg': '/static/images/blockchain/moonriver-blue.svg',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
-            'typeNumber': 99,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[99],
+            'typeNumber': 38,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[38],
             'price': true
         }]
     }

@@ -85,7 +85,7 @@ angular.module('app').controller('moonriverTokenPreviewController', function($ti
 
 
     switch ($scope.contract.network) {
-        case 99:
+        case 37:
             $scope.blockchain = 'MOONRIVER';
             $scope.contractInfo = 'eth_contract_token';
             break;

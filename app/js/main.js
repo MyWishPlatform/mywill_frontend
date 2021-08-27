@@ -134,7 +134,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             case 28:
             case 36:
                 return 'hecochain';
-            case 99:
+            case 37:
                 return 'moonriver';
         }
     };

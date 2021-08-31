@@ -422,7 +422,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 15,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
             'price': true
-        },deflationaryToken, bridge, {
+        }, bridge, {
             'icon': 'icon-tron-airdrop',
             'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',

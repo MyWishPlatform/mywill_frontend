@@ -244,10 +244,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 26:
             case 27:
             case 28:
-            case 38:
             case 32:
             case 35:
             case 36:
+            case 38:
                 if (contract.contract_details.eth_contract) {
                     contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
                         ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
@@ -424,9 +424,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 24:
             case 25:
             case 28:
-            case 38:
             case 35:
             case 36:
+            case 37:
                 setContractStatValues(contract);
                 iniETHContract(contract, fullScan);
                 break;
@@ -496,13 +496,13 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         17: 'tron_airdrop',
         27: 'bnb_crowdsale',
         28: 'bnb_token',
-        38: 'moonriver_token',
         29: 'bnb_airdrop',
         32: 'matic_crowdsale',
         33: 'matic_token',
         34: 'matic_airdrop',
         35: 'xinfin_token',
         36: 'hecochain_token',
+        38: 'moonriver_token',
     };
 
     var launchContract = function(contract) {

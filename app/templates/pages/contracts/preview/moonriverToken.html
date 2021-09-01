@@ -14,11 +14,17 @@
 
 <div ng-show="showedTab == 'code'">
     <div class="shadow-block after-tabs">
+        <div class="shadow-block__content" ng-if="(contract.network == 36)">
+            <p class="normal-text">
+                <span translate="CONTRACTS.PREVIEW.FREE_VERSION_MSG"></span>
+            </p>
+        </div>
+
         <div class="shadow-block__content">
             <p class="normal-text">
                 <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
                     <span class="as-link dotted"
-                          ng-if="(contract.network == 99)"
+                          ng-if="(contract.network == 37)"
                           ng-click="saveAsFile(contract.contract_details[contractInfo].source_code, contract.name + '(token)')">
                         <span translate="CONTRACTS.PREVIEW.HERE"></span>
                     </span>
@@ -227,7 +233,8 @@
 
     <div class="shadow-block"
          ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
-         ng-include="'/templates/common/contracts/promocode-field.html'"></div>
+         ng-include="'/templates/common/contracts/promocode-field.html'">
+    </div>
     <div class="main-section-chapter-fieldset"
          ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
 </div>

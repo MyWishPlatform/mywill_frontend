@@ -1,234 +1,494 @@
-<div class="contract-preview-tabs" ng-init="details = contract.contract_details;">
-    <div class="contract-preview-one-tab"
-         ng-click="goTo('info')"
-         ng-class="{'active': showedTab == 'info'}">
-        <span translate="CONTRACTS.PREVIEW.TABS.INFO"></span>
-    </div>
-    <div class="contract-preview-one-tab"
-         ng-click="goTo('code', contractInfo)"
-         ng-show="details[contractInfo].address"
-         ng-class="{'active': showedTab == 'code'}">
-        <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
-    </div>
-</div>
+<div class="contract-form-fieldset without-padding">
+    <div class="contract-form-information-btns">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-vs-1-2 float-right"
+                 ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-transparent btn-transparent-red with-icon mobile-width-100 with-icon initial-padding text-center"
+                        ng-pop-up="{
+                            template: '/templates/popups/confirmations/delete-contract.html',
+                            newPopupContent: true,
+                            params: contract,
+                            class: 'deleting-contract',
+                            actions: {
+                                deleteContract: deleteContract
+                            }
+                        }">
+                    <i class="icon-trash"></i>
+                    <span translate="CONTRACTS_BUTTONS.DELETE"></span>
+                </button><br/><br/>
+            </div>
 
-<div ng-show="showedTab == 'code'">
-    <div class="shadow-block after-tabs">
+            <!-- Launch button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)">
+                <button class="btn btn-transparent mobile-width-100 text-center"
+                        ng-click="payContract(contract)">
+                    <i class="icon-rocket-ship"></i>
+                    <span translate="CONTRACTS_BUTTONS.LAUNCH"></span>
+                </button><br/><br/>
+            </div>
 
-        <div class="shadow-block__content">
-            <p class="normal-text">
-                <span>{{'CONTRACTS.PREVIEW.TOKEN_SOURCE_CODE'|translate}}
-                    <span class="as-link dotted"
-                          ng-if="(contract.network == 99)"
-                          ng-click="saveAsFile(contract.contract_details[contractInfo].source_code, contract.name + '(token)')">
-                        <span translate="CONTRACTS.PREVIEW.HERE"></span>
+            <!-- Activate button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
+                <button class="btn btn-transparent mobile-width-100 text-center"
+                        ng-pop-up="{
+                            template: '/templates/popups/disclaimers/eth/activate-disclaimer.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'conditions',
+                            onClose: returnToList
+                        }">
+                    <span translate="CONTRACTS_BUTTONS.ACTIVATE"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Mint form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(
+                 ((contract.stateValue == 4) && (contract.contract_type == 38) && contract.contract_details.future_minting))">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/mint-token-form.html',
+                            newPopupContent: true,
+                            mintInfo: forMintInfo,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'page-size',
+                            onClose: returnToList
+                        }"
+                        ng-disabled="forMintInfo.isProgress"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span class="lds-ellipsis" ng-if="forMintInfo.isProgress">
+                        <span class="lds-ellipsis-container">
+                            <span></span><span></span><span></span><span></span>
+                        </span>
                     </span>
-                </span>
-            </p>
+                    <span translate="CONTRACTS_BUTTONS.MINT"></span>
+                </button><br/><br/>
+            </div>
 
-            <p class="normal-text">
-                <span translate="CONTRACTS.PREVIEW.LIBRARIES_AND_FILES"
-                      translate-values="{gitHubLink: contractInfo === 'eth_contract_token' ? 'https://github.com/MyWishPlatform/ico-crowdsale' : 'https://github.com/MyWishPlatform/neo-ico-contracts'}"></span>
-            </p>
+            <!-- CrowdSale refund instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 32) && (contract.contract_details.soft_cap != 0)">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/crowdsale-refunding.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.REFUND"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Unfreezing token contract form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="tokensFreezed">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/unfreezing-instruction.html',
+                            newPopupContent: true,
+                            instructionParams: {
+                                coinName: tokenInfo.symbol,
+                                gasLimit: 100000,
+                                specifyDescription: 'UNFREEZING'
+                            },
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.UNFREEZING"></span>
+                </button><br/><br/>
+            </div>
+
+
+            <!-- Finalize token contract form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 38) && contract.contract_details.future_minting">
+                <button ng-pop-up="{
+                            template: '/templates/popups/disclaimers/eth/mint-finalize-disclaimer.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'conditions',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100 text-center">
+                    <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Edit button -->
+            <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 1">
+                <a ui-sref="main.createcontract.edit({id: contract.id})" class="text-center btn btn-transparent mobile-width-100 with-icon initial-padding">
+                    <i class="icon-edit"></i>
+                    <span translate="CONTRACTS_BUTTONS.EDIT"></span>
+                </a><br/><br/>
+            </div>
+
+            <!-- Deposit instruction button -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 25) || (contract.contract_type == 26) || (contract.contract_type == 24))">-->
+            <!--                <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/instructions/eth/deposit-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
+
+            <!-- Airdrop deposit button -->
+            <!--      <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 34)">-->
+            <!--        <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/instructions/eth/deposit-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            instructionParams: {-->
+            <!--                                coinName: tokenInfo.symbol,-->
+            <!--                                gasLimit: 100000,-->
+            <!--                                specifyDescription: 'AIRDROP_DESCRIPTION'-->
+            <!--                            },-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                class="btn btn-transparent mobile-width-100">-->
+            <!--          <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>-->
+            <!--        </button><br/><br/>-->
+            <!--      </div>-->
+
+            <!-- Airdrop add addresses button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 34) && !contract.contract_details.sent_count">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/airdrop-addresses-form.html',
+                            newPopupContent: true,
+                            actions: {
+                                updateBalanceInfo: updateBalanceInfo
+                            },
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.ADD_ADDRESSES"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Airdrop send table instruction button -->
+            <!--      <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--           ng-if="(contract.stateValue == 4) && (contract.contract_type == 34) && contract.contract_details.added_count">-->
+
+            <!--        <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/data-preview/airdrop-next-send-table.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            class: 'page-size',-->
+            <!--                            params: {-->
+            <!--                                filter: 'added',-->
+            <!--                                contract: contract,-->
+            <!--                                tokenInfo: tokenInfo-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                class="btn btn-transparent mobile-width-100">-->
+            <!--          <span translate="CONTRACTS_BUTTONS.SEND_AIRDROP_ADDRESSES"></span>-->
+            <!--        </button><br/><br/>-->
+            <!--      </div>-->
+
+            <!-- Cancel instruction button (Deferred, Lost Key) -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 4) && ((contract.contract_type == 25) || (contract.contract_type == 26))">-->
+            <!--                <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/instructions/eth/cancel-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
+
+            <!-- I Alive instruction button (Will | platform_alive == false) -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 24)">-->
+            <!--                <button ng-pop-up="{-->
+            <!--                            template: !contract.contract_details.platform_alive ?-->
+            <!--                                '/templates/popups/instructions/eth/i-alive-instruction.html' :-->
+            <!--                                '/templates/popups/instructions/networks/i-alive-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span translate="CONTRACTS_BUTTONS.I_ALIVE"></span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
+
+            <!-- Cancel instruction button (Will | platform_cancel == false) -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 24)">-->
+            <!--                <button ng-pop-up="{-->
+            <!--                            template: !contract.contract_details.platform_cancel ?-->
+            <!--                                '/templates/popups/instructions/eth/will-cancel-instruction.html' :-->
+            <!--                                '/templates/popups/instructions/networks/will-cancel-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
+
+            <!-- Withdraw instruction button (Will | platform_cancel == false) -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 5) && (contract.contract_type == 24)">-->
+            <!--                <button ng-pop-up="{-->
+            <!--                            template: !contract.contract_details.platform_cancel ?-->
+            <!--                                '/templates/popups/instructions/eth/will-withdraw-instruction.html' :-->
+            <!--                                '/templates/popups/instructions/networks/will-withdraw-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
+
+            <!-- Finalize button -->
+            <!--      <div class="grid-cell grid-cell-vs-1-2" ng-if="(contract.stateValue == 4) && (contract.contract_type == 32)">-->
+            <!--        <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/instructions/eth/finalize-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                class="btn btn-transparent mobile-width-100">-->
+            <!--          <span translate="CONTRACTS_BUTTONS.FINALIZE"></span>-->
+            <!--        </button><br/><br/>-->
+            <!--      </div>-->
+
+
+            <!-- Date changing form button -->
+            <!--      <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--           ng-if="(getNowDateTime(true).format('X') * 1 < contract.contract_details.stop_date) && (contract.stateValue == 4) && (contract.contract_type == 32) && contract.contract_details.allow_change_dates">-->
+            <!--        <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/forms/eth/change-dates-form.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            },-->
+            <!--                            class: 'page-size',-->
+            <!--                            onClose: returnToList-->
+            <!--                        }"-->
+            <!--                class="btn btn-transparent mobile-width-100">-->
+            <!--          <span translate="CONTRACTS_BUTTONS.CHANGE_DATES"></span>-->
+            <!--        </button><br/><br/>-->
+            <!--      </div>-->
+
+            <!-- Whitelist form button -->
+            <!--      <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--           ng-if="(contract.stateValue == 4) && (contract.contract_type == 32) && contract.contract_details.whitelist">-->
+            <!--        <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/forms/eth/whitelist-form.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            },-->
+            <!--                            class: 'page-size',-->
+            <!--                            onClose: returnToList-->
+            <!--                        }"-->
+            <!--                class="btn btn-transparent mobile-width-100">-->
+            <!--          <span translate="CONTRACTS_BUTTONS.WHITELIST"></span>-->
+            <!--        </button><br/><br/>-->
+            <!--      </div>-->
+
+
+            <!-- Investment pool deposit instruction button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.investment_pool_deposit">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/deposit-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.DEPOSIT"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Settings form button -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.settings">
+                <button ng-pop-up="{
+                            template: '/templates/popups/forms/eth/contract-settings.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            },
+                            class: 'language-switcher-popup',
+                            onClose: returnToList
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SETTINGS"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool send funds instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.send_funds">
+
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-send-funds-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_FUNDS"></span>
+                </button><br/><br/>
+            </div>
+
+
+            <!-- Investment pool refund instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.investment_refund">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-refund-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.REFUND"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool get tokens instruction -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 11) && (contract.contract_type == 30) && contract.balance">-->
+            <!--                <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/instructions/eth/investment-pool-get-tokens-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span translate="CONTRACTS_BUTTONS.GET_TOKENS"></span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
+
+
+            <!-- Investment pool cancel instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="contract.contract_details.buttons.cancel">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-cancel-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.CANCEL"></span>
+                </button><br/><br/>
+            </div>
+
+            <!-- Investment pool cancel instruction -->
+            <div class="grid-cell grid-cell-vs-1-2"
+                 ng-if="(contract.contract_details.buttons.send_tokens !== undefined)">
+                <button ng-pop-up="{
+                            template: '/templates/popups/instructions/eth/investment-pool-send-tokens-instruction.html',
+                            newPopupContent: true,
+                            params: {
+                                contract: contract,
+                                page: contract.contract_details.buttons.send_tokens
+                            }
+                        }"
+                        class="btn btn-transparent mobile-width-100">
+                    <span translate="CONTRACTS_BUTTONS.SEND_TOKENS"></span>
+                </button><br/><br/>
+            </div>
+
+
+
+            <!-- Aitdrop WITHDRAW button -->
+            <!--      <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--           ng-if="(((contract.stateValue == 4) || (contract.stateValue == 11)) && (contract.contract_type == 34))">-->
+            <!--        <button ng-pop-up="{-->
+            <!--                            template: '/templates/popups/forms/eth/withdraw-airdrop-form.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            },-->
+            <!--                            class: 'page-size',-->
+            <!--                            onClose: returnToList-->
+            <!--                        }"-->
+            <!--                class="btn btn-transparent mobile-width-100 text-center">-->
+            <!--          <span translate="CONTRACTS_BUTTONS.WITHDRAW"></span>-->
+            <!--        </button><br/><br/>-->
+            <!--      </div>-->
+
+
+            <!-- Tokens Lost key i'm good -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 31)">-->
+            <!--                <button type="button"-->
+            <!--                        ng-pop-up="{-->
+            <!--                            template: '/templates/popups/instructions/eth/tokens-lost-key-alive-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span class="lds-ellipsis" ng-if="contract.imAliveProgress">-->
+            <!--                        <span class="lds-ellipsis-container">-->
+            <!--                            <span></span><span></span><span></span><span></span>-->
+            <!--                        </span>-->
+            <!--                    </span>-->
+            <!--                    <span>Confirm access</span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
+
+            <!-- Lost key cancel -->
+            <!--            <div class="grid-cell grid-cell-vs-1-2"-->
+            <!--                 ng-if="(contract.stateValue == 4) && (contract.contract_type == 31)">-->
+            <!--                <button type="button"-->
+            <!--                        ng-pop-up="{-->
+            <!--                            template: '/templates/popups/instructions/eth/tokens-lost-key-kill-instruction.html',-->
+            <!--                            newPopupContent: true,-->
+            <!--                            params: {-->
+            <!--                                contract: contract-->
+            <!--                            }-->
+            <!--                        }"-->
+            <!--                        class="btn btn-transparent mobile-width-100">-->
+            <!--                    <span class="lds-ellipsis" ng-if="contract.killProgress">-->
+            <!--                        <span class="lds-ellipsis-container">-->
+            <!--                            <span></span><span></span><span></span><span></span>-->
+            <!--                        </span>-->
+            <!--                    </span>-->
+            <!--                    <span>Cancel contract</span>-->
+            <!--                </button><br/><br/>-->
+            <!--            </div>-->
         </div>
     </div>
-</div>
-
-<div ng-show="showedTab == 'info'">
-    <div class="shadow-block after-tabs">
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding"
-             ng-include="'/templates/common/contracts/preview-title.html'">
-        </div>
-
-        <!-- Token contract address -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractInfo].address">
-            <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
-            <br class="show-ls"/>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
-            </span>
-            <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address|toCheckSum}}"
-                   target="_blank"
-                   ng-bind="details[contractInfo].address|toCheckSum"></a>
-
-                <button class="instruction-for-copy-button relative"
-                        clipboard supported="supported"
-                        ng-class="{copied: contract.copied['token_address']}"
-                        text="details[contractInfo].address|toCheckSum"
-                        on-copied="$root.successCodeCopy(contract, 'token_address')">
-                    <i class="icon-content_copy"></i>
-                </button>
-            </div>
-        </div>
-
-
-        <!-- Token info -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="normal-text">
-                        <span class="contract-preview-grey-font-color"
-                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_NAME.LABEL"></span><br/>
-                        {{ contract.contract_details.token_name }}
-                    </div>
-                </div>
-                <div class="clearfix show-ls"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="normal-text">
-                        <span class="contract-preview-grey-font-color"
-                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_SYMBOL.LABEL"></span><br/>
-                        {{ contract.contract_details.token_short_name }}
-                    </div>
-                </div>
-                <div class="clearfix"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1">
-                    <div class="normal-text">
-                        <span class="contract-preview-grey-font-color"
-                              translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></span><br/>
-                        {{ contract.contract_details.decimals }}
-                    </div>
-                </div>
-                <div class="clearfix show-ls"><br/></div>
-                <div class="grid-cell grid-cell-1-2 grid-cell-ls-1" ng-if="contract.contract_details.token_type">
-                    <div class="normal-text">
-                        <span class="contract-preview-grey-font-color"
-                              translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_TYPE"></span><br/>
-                        {{ contract.contract_details.token_type }}
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Future minting -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <span class="form-control-label">
-                <i class="icon-feature-minting form-control-label-icon"></i>
-                {{'CONTRACTS.FORMS.TOKEN.FIELDS.FUTURE_MINTING.LABEL'|translate}}
-            </span>
-            <div class="normal-text contract-preview-base-value">
-                <div class="contract-preview-base-value-string">
-                    <i ng-class="{'icon-check_circle': details.future_minting, 'icon-cancel': !details.future_minting}"></i>
-                    <span ng-if="details.future_minting" translate="YES" class="uppercase"></span>
-                    <span ng-if="!details.future_minting" translate="NO" class="uppercase"></span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Token holder -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="form-control-label"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.TOKEN_OWNER.LABEL"></div>
-                    <br class="show-ls"/>
-                    <span class="identicon-container">
-                        <img class="identicon-image" ng-src="{{details.admin_address|blockies}}"/>
-                    </span>
-                    <div class="contract-wallet-information-wallet">
-                        <a ng-attr-href="{{(contract.network|etherscanUrl:'address')}}/{{details.admin_address}}"
-                           target="_blank"
-                           ng-bind="details.admin_address|toCheckSum"></a>
-
-                        <button class="instruction-for-copy-button relative"
-                                clipboard supported="supported"
-                                ng-class="{copied: contract.copied['admin_address']}"
-                                text="details.admin_address"
-                                on-copied="$root.successCodeCopy(contract, 'admin_address')">
-                            <i class="icon-content_copy"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Distribution info -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding light-color"
-             ng-if="details.token_holders.length">
-            <div class="shadow-block__content__blue-title">
-                <i class="shadow-block__content__blue-title__icon icon-distribution"></i>
-                <div class="shadow-block__content__blue-title__name">
-                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_DISTRIBUTION"></span>
-                </div>
-            </div>
-        </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding light-color"
-             ng-class="{'no-border': !$index}"
-             ng-repeat="holder in details.token_holders">
-            <div class="form-control-label bold"
-                 translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_ADDRESS.LABEL"></div>
-            <br class="show-ls"/>
-            <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{holder.address|blockies}}"/>
-            </span>
-            <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{(contract.network|etherscanUrl:'address')}}/{{holder.address}}"
-                   target="_blank"
-                   ng-bind="holder.address|toCheckSum"></a>
-                <button class="instruction-for-copy-button relative"
-                        clipboard supported="supported"
-                        ng-class="{copied: contract.copied['holder_address_' + $index]}"
-                        text="holder.address"
-                        on-copied="$root.successCodeCopy(contract, 'holder_address_' + $index)">
-                    <i class="icon-content_copy"></i>
-                </button>
-            </div><br/>
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_NAME.LABEL"></div>
-                    <div class="form-control-preview-value">{{holder.name || '-'}}</div>
-                </div>
-                <div class="clearfix show-vs"><br/></div>
-                <div class="grid-cell grid-cell-2-5 grid-cell-ps-1-2 grid-cell-vs-1">
-                    <div class="form-control-label bold"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></div>
-                    <div class="form-control-preview-value" ng-bind="holder.amount|separateNumber"></div>
-                </div>
-                <div class="clearfix show-ps"><br/></div>
-                <div class="grid-cell grid-cell-1-5 grid-cell-ps-1">
-                    <div class="form-control-label bold"
-                         translate="CONTRACTS.FORMS.TOKEN.FIELDS.FROZEN_UNTIL_SHORT.LABEL"></div>
-                    <div class="form-control-preview-value">
-                        {{holder.freeze_date ? (holder.freeze_date * 1000 | date : 'yyyy-MM-dd') : '-'}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="shadow-block__content shadow-block__content_min-tb-padding">
-            <div class="grid-row">
-                <div class="grid-cell grid-cell-1">
-                    <div class="form-control-label">
-                        {{'CONTRACTS.FORMS.TOKEN.TOTAL_SUPPLY'|translate}}
-                        {{totalSupply.tokens|separateNumber}} {{details.token_short_name}}</div>
-                    <div class="form-control-description one-line without-padding" ng-if="!details.future_minting">
-                        <span class="form-control-description__text" translate="CONTRACTS.FORMS.CROWD_SALE.CHART_TOKEN_DISTRIBUTED_MESSAGE"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid-row" ng-if="chartData.length">
-                <div class="grid-cell grid-cell-4-7 grid-cell-ps-1">
-                    <div class="chart-container" style="height: 240px"
-                         ng-chart
-                         ng-chart-data="chartData"
-                         ng-chart-options="chartOptions"></div>
-                </div>
-                <div class="grid-cell grid-cell-3-7 grid-cell-ps-1">
-                    <div class="chart-legend">
-                        <div class="chart-legend-item" ng-repeat="chartDataItem in chartData">
-                            <span class="chart-legend-item_color" style="background-color: {{chartDataItem.color}}"></span>
-                            <span class="chart-legend-item_name" ng-attr-title="{{chartDataItem.address}}">{{chartDataItem.name || chartDataItem.address}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="shadow-block"
-         ng-if="(contract.stateValue < 3) && (contract.cost.WISH != 0)"
-         ng-include="'/templates/common/contracts/promocode-field.html'"></div>
-    <div class="main-section-chapter-fieldset"
-         ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
+    <!--    <div ng-include="'/templates/pages/contracts/preview/elements/birthday.html'"></div>-->
 </div>

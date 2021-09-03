@@ -112,6 +112,13 @@
     }
   }
 
+  &_37 {
+    color: $main-color;
+    &:before {
+      background: $main-color;
+    }
+  }
+
   &_14, &_15 {
     &:before {
       background: none;

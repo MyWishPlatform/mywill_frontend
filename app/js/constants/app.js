@@ -92,6 +92,10 @@ module.constant('APP_CONSTANTS', {
     "HECOCHAIN_TESTNET_ADDRESS": "https://testnet.hecoinfo.com",
     "HECOCHAIN_MAINNET_ADDRESS": "https://hecoinfo.com",
 
+    "MOONRIVER_MAINNET_PROVIDER": "https://rpc.moonriver.moonbeam.network",
+
+    "MOONRIVER_MAINNET_ADDRESS": "https://moonriver.subscan.io/",
+
     "MATIC_TESTNET_ADDRESS": "https://explorer-mumbai.maticvigil.com",
     "MATIC_MAINNET_ADDRESS": "https://explorer-mainnet.maticvigil.com",
 

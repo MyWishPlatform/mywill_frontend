@@ -422,6 +422,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         break;
                 }
                 $scope.blockChainNetwork.isTest = !!$stateParams.isTestNet;
+                if ($scope.blockChainNetwork.type === 'MOONRIVER' || $scope.blockChainNetwork.type === 'XINFIN') {
+                    $scope.blockChainNetwork.isTest = false;
+                }
             };
 
             for (var key in allCosts.data) {

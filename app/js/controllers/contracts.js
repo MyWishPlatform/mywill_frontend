@@ -210,6 +210,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.contract_type) {
             case 5:
             case 33:
+            case 38:
             case 28:
                 contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE') || (contract.state === 'ENDED');
                 contract.withAuthioForm = contract.isAuthioToken && !contract.contract_details.authio;
@@ -246,6 +247,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 32:
             case 35:
             case 36:
+            case 38:
                 if (contract.contract_details.eth_contract) {
                     contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
                         ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
@@ -424,6 +426,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 28:
             case 35:
             case 36:
+            case 37:
                 setContractStatValues(contract);
                 iniETHContract(contract, fullScan);
                 break;
@@ -498,7 +501,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         33: 'matic_token',
         34: 'matic_airdrop',
         35: 'xinfin_token',
-        36: 'hecochain_token'
+        36: 'hecochain_token',
+        38: 'moonriver_token',
     };
 
     var launchContract = function(contract) {

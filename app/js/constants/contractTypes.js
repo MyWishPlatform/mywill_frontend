@@ -38,7 +38,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     'XINFIN_TOKEN': 35,
 
-    'HECOCHAIN_TOKEN': 36
+    'HECOCHAIN_TOKEN': 36,
+
+    "MOONRIVER_TOKEN": 38
 
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
@@ -83,7 +85,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     35: 'xinfinToken',
 
-    36: 'hecochainToken'
+    36: 'hecochainToken',
+
+    38: 'moonriverToken'
 
 
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
@@ -254,6 +258,18 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[36],
             'price': true
         }, deflationaryToken, bridge]
+    }
+
+    var moonriver = {
+        'networks': [37],
+        'list':[{
+            'iconImg': '/static/images/blockchain/moonriver-blue.svg',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'typeNumber': 38,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[38],
+            'price': true
+        }]
     }
 
     var bnb = {
@@ -466,7 +482,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 BNB: bnb,
                 MATIC: matic,
                 XINFIN: xinfin,
-                HECOCHAIN: hecochain
+                HECOCHAIN: hecochain,
+                MOONRIVER: moonriver
             };
     }
 });

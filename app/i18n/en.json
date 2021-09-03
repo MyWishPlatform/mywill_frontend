@@ -69,7 +69,7 @@
     "NETWORK_28": "Hecochain MainNet",
     "NETWORK_35": "Xinfin MainNet",
     "NETWORK_36": "Hecochain TestNet",
-    "NETWORK_37": "MoonRiver MainNet"
+    "NETWORK_37": "Moonriver MainNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -167,7 +167,7 @@
     "MATIC": "Polygon",
     "XINFIN": "Xinfin",
     "HECOCHAIN": "HECO",
-    "MOONRIVER": "MoonRiver"
+    "MOONRIVER": "Moonriver"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {

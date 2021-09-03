@@ -153,7 +153,8 @@
         </div>
     </div>
 
-    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-class="{'no-border': blockChainNetwork.type === 'BNB'}" ng-if="blockChainNetwork.type !== 'XINFIN'">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-class="{'no-border': blockChainNetwork.type === 'BNB'}"
+         ng-if="blockChainNetwork.type !== 'XINFIN' && blockChainNetwork.type !== 'MOONRIVER'">
         <div class="grid-row">
             <div class="grid-cell">
                 <div class="checkbox-decoration">
@@ -168,8 +169,8 @@
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="blockChainNetwork.isTest || blockChainNetwork.type === 'NEO'"
-                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN')">
+                           ng-checked="(blockChainNetwork.isTest || blockChainNetwork.type === 'NEO') && blockChainNetwork.type !== 'MOONRIVER'"
+                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN' || blockChainNetwork.type === 'MOONRIVER')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>

@@ -85,8 +85,8 @@
                 </div>
             </div>
 
-            <div class="contract-status-block">
-                <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']">
+            <div class="contract-status-block" style="display: flex">
+                <div class="contract-status-name" ng-class="'contract-status-' + statuses[contract.state]['value']" >
                     <div class="contract-status-text">
                         <span>{{'CONTRACTS_STATUSES.' + contract.state|translate}}</span>
                     </div>
@@ -103,6 +103,7 @@
                     <img class="btn-icon refresh-icon" src="/static/images/refresher-red.svg" ng-if="sitemode === 'tron'">
                 </button>
             </div>
+            <div ng-if="contract.state === 'WAITING_FOR_DEPLOYMENT' &amp;&amp; contract.contract_type === 38" style="text-align: right; font-size: 1.1em; color: #878787; position: absolute; bottom: 18px; right: 60px" class="ng-scope">(Estimated time: 5-15 min)</div>
 
             <div class="contract-block__buttons"
                  ng-include="'/templates/pages/contracts/list/' + getNetworkPath(contract.network) + '-buttons.html'"></div>

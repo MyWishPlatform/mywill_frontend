@@ -62,15 +62,17 @@
         <div class="grid-row">
             <div class="grid-cell grid-cell-1-8 grid-cell-ps-1-5 grid-cell-vs-1-4">
                 <div class="form-control">
-                    <label for="decimals" class="form-control-label"
+<!--                    for="decimals"-->
+                    <label
+                           class="form-control-label"
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></label>
                     <input id="decimals" type="text"
-                           placeholder="8"
+                           placeholder="18"
                            ng-model="request.decimals"
                            pattern="^[0-9]+$"
                            commaseparator="{
                                 min: 0,
-                                max: 50
+                                max: 18
                            }"
                            required
                            class="form-control-input text-center"/>

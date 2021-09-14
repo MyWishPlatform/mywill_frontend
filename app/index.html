@@ -182,22 +182,68 @@
      ng-class="{visible: visibleGirl}"
      class="anime-girl"/ -->
 
-<div class="cookies-info" ng-if="notCookiesAccept" style="display: none;"
-     ng-style="{display: notCookiesAccept ? 'block': 'none'}">
-    <div class="cookies-info_content">
-        <div class="cookies-info_content_text">
-            We use cookies to enhance your experience.
-            By using MyWish platform, you agree to our
-            <a ui-sref="main.privacy">Privacy Policy</a>
-        </div>
-        <div class="cookies-info_content_button">
-            <button class="btn" ng-click="closeCookiesInfo()">
-                <span>Accept</span>
-            </button>
-        </div>
-        <span class="cookies-info_content_close" ng-click="closeCookiesInfo(true)"></span>
+<!--<div class="cookies-info" ng-if="notCookiesAccept" style="display: none;"-->
+<!--     ng-style="{display: notCookiesAccept ? 'block': 'none'}">-->
+<!--    <div class="cookies-info_content">-->
+<!--        <div class="cookies-info_content_text">-->
+<!--            We use cookies to enhance your experience.-->
+<!--            By using MyWish platform, you agree to our-->
+<!--            <a ui-sref="main.privacy">Privacy Policy</a>-->
+<!--        </div>-->
+<!--        <div class="cookies-info_content_button">-->
+<!--            <button class="btn" ng-click="closeCookiesInfo()">-->
+<!--                <span>Accept</span>-->
+<!--            </button>-->
+<!--        </div>-->
+<!--        <span class="cookies-info_content_close" ng-click="closeCookiesInfo(true)"></span>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!-- -->
+<!-- Cookies -->
+<div style="display: none" class="cookies-notification">
+    <div style="text-align: right">
+<!--        <img id="close-cookie" src="/assets/img/close.svg" alt="close" style="height: 8px; margin-top: -16px; cursor: pointer">-->
+            <span id="cookies-info_content_close" class="cookies-info_content_close"></span>
+    </div>
+    We use cookies to enhance your experience.
+    By using MyWish platform, you agree to our <br> <a ui-sref="main.privacy">Privacy Policy</a><br>
+    <div style="text-align: end">
+        <button id="accept-cookies-btn" style="font-size: 14px; padding: 8px 16px" class="accept-cookies-btn">Accept</button>
     </div>
 </div>
+
+<script>
+    (function () {
+        let cookieDate = localStorage.getItem('cookieDate');
+        let cookieNotification = document.getElementsByClassName('cookies-notification')[0];
+        let cookieBtn = document.getElementById(
+            "accept-cookies-btn"
+        );
+        let closeNotification = document.getElementById(
+            "cookies-info_content_close"
+        );
+
+        if(!cookieDate || (+cookieDate + 31536000000) < Date.now() ){
+            cookieNotification.classList.add('cookies-notification--visible');
+            setTimeout(function() {
+                cookieNotification.removeAttribute("style");
+            }, 2000);
+        }
+
+        function setCookies() {
+            localStorage.setItem( 'cookieDate', Date.now() );
+            cookieNotification.classList.remove('cookies-notification--visible');
+        }
+
+        function handleCloseNotification() {
+            cookieNotification.classList.remove('cookies-notification--visible');
+        }
+
+        cookieBtn.addEventListener("click", setCookies);
+        closeNotification.addEventListener("click", handleCloseNotification);
+    })();
+</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

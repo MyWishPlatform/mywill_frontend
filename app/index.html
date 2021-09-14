@@ -233,20 +233,28 @@
 <!-- /Yandex.Metrika counter -->
 
 <!-- Twitter universal website tag code -->
-<script>
-    !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-    },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',
-        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-    // Insert Twitter Pixel ID and Standard Event data below
-    twq('init','twitter_pixel_id');
-    twq('track','Purchase', {
-        //required parameters
-        value: '29.95',
-        currency: 'USD',
-        num_items: '3',
-    });
-</script>
+<!--<script>-->
+<!--    !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);-->
+<!--    },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='//static.ads-twitter.com/uwt.js',-->
+<!--        a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');-->
+<!--    // Insert Twitter Pixel ID and Standard Event data below-->
+<!--    twq('init','twitter_pixel_id');-->
+<!--    twq('track','Purchase', {-->
+<!--        //required parameters-->
+<!--        value: '29.95',-->
+<!--        currency: 'USD',-->
+<!--        num_items: '3',-->
+<!--    });-->
+<!--</script>-->
 <!-- End Twitter universal website tag code -->
+
+<script>
+    (function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){
+        var o={ti:"137004937"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){
+        var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)
+    },i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)
+    })(window,document,"script","//bat.bing.com/bat.js","uetq");
+</script>
 
 </body>
 </html>

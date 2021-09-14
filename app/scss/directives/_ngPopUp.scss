@@ -9,9 +9,20 @@
   min-width: 32em;
   visibility: hidden;
   .popup-showed & {
+    animation: test .5s;
     visibility: visible;
   }
 }
+
+@keyframes test {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .popup-window-wrapper {
   position: relative;
   float: left;
@@ -20,7 +31,6 @@
   height: 0;
   overflow: hidden;
   .popup-window {
-    transition: opacity linear 0.1s;
     opacity: 0;
   }
 

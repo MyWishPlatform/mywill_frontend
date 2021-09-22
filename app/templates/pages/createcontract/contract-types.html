@@ -214,12 +214,15 @@
 </div><br/><br/>
 
 <div ng-repeat="(key, blockChainData) in contractsTypes" ng-if="blockChainNetwork.type === key">
+    <div></div>
     <div ng-repeat="contractForCreate in blockChainData.list"
          ui-sref-disabled="blockChainNetwork.type === 'WAVES'"
          ng-click="
          contractForCreate.directLink && blockChainNetwork.type !== 'WAVES' ? redirectTo(contractForCreate.directLink + (blockChainNetwork.isTest ? '?network=testnet' : ''), $event) : false"
          ui-sref="main.createcontract.form({selectedType: contractForCreate.type, network: blockChainData.networks[blockChainNetwork.isTest ? 1 : 0]})"
-         class="shadow-block shadow-block_hovered" ng-class="{contractForCreate: true, 'contract-disabled': blockChainNetwork.type === 'WAVES'}">
+         class="shadow-block shadow-block_hovered" ng-class="{contractForCreate: true, 'contract-disabled': blockChainNetwork.type === 'WAVES'}"
+         ng-if="!((contractForCreate.title | translate).includes('Crowdsale') && blockChainNetwork.isTest && (blockChainNetwork.type === 'EOS'))"
+    >
         <div class="shadow-block__content">
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
                 <div class="contract-price-block_content" ng-if="contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]">

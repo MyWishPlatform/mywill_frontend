@@ -28,6 +28,7 @@
                     && contract.contract_type !== 34
                     && contract.contract_type !== 6
                     && contract.contract_type !== 38
+                    && contract.contract_type !== 39
                 ">
                 <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
                 <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
@@ -80,6 +81,13 @@
 
             <div class="shadow-block__content__blue-title static-width" style="display: flex; flex-direction: row; height: 56px" ng-if="contract.contract_type === 34" >
                 <img style="margin: 4px 18px 0 0 ; height: 30px; margin-left: -2px" src="/static/images/blockchain/polygon-airdrop-white.svg">
+                <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+                    <span>{{ contract.name || 'Not defined'}}</span>
+                </div>
+            </div>
+
+            <div class="shadow-block__content__blue-title static-width" style="display: flex; flex-direction: row; height: 56px" ng-if="contract.contract_type === 39" >
+                <img style="margin: 4px 18px 0 0 ; height: 30px; margin-left: -2px" src="/static/images/blockchain/solana-white.svg">
                 <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
                     <span>{{ contract.name || 'Not defined'}}</span>
                 </div>

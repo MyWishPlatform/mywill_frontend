@@ -97,6 +97,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         "XINFIN": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "HECOCHAIN": "0xD0593B233Be4411A236F22b42087345E1137170b",
         "MOONRIVER": "0xD0593B233Be4411A236F22b42087345E1137170b",
+        "SOLANA": "HtHf9rJbEeWwpmAbNwZAg5H6sBkRRgwfpLE9ZpysiuQ9",
         "EOS": "mywishtestac",
         "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
         "NEO": "NXf4VLBrjUXKtk8NNkeY1zymmbUeQ9RkUu",
@@ -136,6 +137,8 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 return 'hecochain';
             case 37:
                 return 'moonriver';
+            case 38:
+                return 'solana';
         }
     };
 

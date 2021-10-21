@@ -69,7 +69,8 @@
     "NETWORK_28": "Hecochain MainNet",
     "NETWORK_35": "Xinfin MainNet",
     "NETWORK_36": "Hecochain TestNet",
-    "NETWORK_37": "Moonriver MainNet"
+    "NETWORK_37": "Moonriver MainNet",
+    "NETWORK_38": "Solana DevNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -131,6 +132,7 @@
     "I_ALIVE": "I Alive",
     "WITHDRAW": "Withdraw",
     "FINALIZE": "Finalize",
+    "CLOSE": "CLOSE",
     "MINT": "Mint",
     "DELETE": "Delete",
     "EDIT": "Edit",
@@ -167,7 +169,8 @@
     "MATIC": "Polygon",
     "XINFIN": "Xinfin",
     "HECOCHAIN": "HECO",
-    "MOONRIVER": "Moonriver"
+    "MOONRIVER": "Moonriver",
+    "SOLANA": "Solana"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -605,6 +608,13 @@
       "MINT_FINALIZE": {
         "LIST": {
           "ITEM_0": "After finalization no more tokens can be minted, no new crowdsales can be created"
+        }
+      }
+    },
+    "SOL": {
+      "CLOSE": {
+        "LIST": {
+          "ITEM_1": "After closing no more tokens can be minted, no new crowdsales can be created"
         }
       }
     },
@@ -1202,6 +1212,7 @@
             "DESCRIPTION_BNB": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_MATIC": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_HECOCHAIN": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
+            "DESCRIPTION_SOLANA": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_MOONRIVER": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_TRON": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)",
@@ -1209,7 +1220,8 @@
           },
           "DECIMALS": {
             "LABEL": "Decimals:",
-            "DESCRIPTION": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice"
+            "DESCRIPTION": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice",
+            "DESCRIPTION_SOLANA": "Defines the number of decimals for the token. 0-9 numerals are accepted. 9 as common practice"
           },
           "TOKEN_TYPE": {
             "LABEL": "Choose Type of Token",

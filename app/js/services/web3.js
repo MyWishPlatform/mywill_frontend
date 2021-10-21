@@ -96,7 +96,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 36:
                 web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.HECOCHAIN_TESTNET_PROVIDER));
                 break;
-
+            case 38:
+                web3.setProvider(new Web3.providers.HttpProvider(APP_CONSTANTS.SOLANA_TESTNET_PROVIDER));
+                break;
         }
     };
 
@@ -120,6 +122,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 break;
             case 37:
                 network = 37;
+                break;
+            case 38:
+                network = 38;
                 break;
         }
 
@@ -258,6 +263,9 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
                 break;
             case 37:
                 network = 37;
+                break;
+            case 38:
+                network = 38;
                 break;
         }
 

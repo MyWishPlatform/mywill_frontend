@@ -123,6 +123,17 @@
                 </a>
             </div>
 
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'SOLANA'})"
+                   ng-click="blockChainNetwork.type = 'SOLANA'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'SOLANA'}">
+                    <img src="/static/images/blockchain/solana.svg" width="20" height="20"
+                         style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.SOLANA"></span>
+                </a>
+            </div>
+
             <!-- div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"
                    ng-click="blockChainNetwork.type = 'RSK'"
@@ -169,8 +180,8 @@
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="(blockChainNetwork.isTest || blockChainNetwork.type === 'NEO') && blockChainNetwork.type !== 'MOONRIVER'"
-                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN' || blockChainNetwork.type === 'MOONRIVER')">
+                           ng-checked="(blockChainNetwork.isTest || blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'SOLANA') && blockChainNetwork.type !== 'MOONRIVER'"
+                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN' || blockChainNetwork.type === 'MOONRIVER' || blockChainNetwork.type === 'SOLANA')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>
@@ -225,7 +236,7 @@
     >
         <div class="shadow-block__content">
             <div class="contract-price-block" ng-if="!blockChainNetwork.isTest && contractForCreate.price">
-                <div class="contract-price-block_content" ng-if="contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber]">
+                <div class="contract-price-block_content" ng-if="(contractForCreate.fixPrice || allCosts[contractForCreate.typeNumber])">
                     <i class="price-icon icon-mywish">
                         <span class="path1"></span><span class="path2"></span>
                     </i>

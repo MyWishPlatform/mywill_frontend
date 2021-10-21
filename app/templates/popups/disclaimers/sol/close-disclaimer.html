@@ -1,0 +1,33 @@
+<div class="shadow-block">
+    <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+        <div class="shadow-block__content__blue-title">
+            <i class="shadow-block__content__blue-title__icon icon-warning"></i>
+            <div class="shadow-block__content__blue-title__name">
+                <span class="big-size" translate="DISCLAIMER">&nbsp;</span>
+            </div>
+        </div>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <ul class="condition-text">
+            <li class="condition-text-item" translate="CONTRACTS_DISCLAIMERS.SOL.CLOSE.LIST.ITEM_1"></li>
+        </ul>
+    </div>
+    <div class="shadow-block__content shadow-block__content_min-tb-padding">
+        <div class="text-center">
+            <button class="btn btn-transparent" ng-click="closeCurrentPopup()">
+                <span translate="BUTTONS.CANCEL"></span>
+            </button>
+            <button class="btn btn-submit"
+                    ng-click="closeCurrentPopup()"
+                    ng-pop-up="{
+                        template: '/templates/popups/instructions/sol/close-instruction.html',
+                        newPopupContent: true,
+                        params: ngPopUp.params,
+                        actions: ngPopUp.actions,
+                        onClose: closeCommonPopup
+                    }">
+                <span translate="BUTTONS.CONTINUE"></span>
+            </button>
+        </div>
+    </div>
+</div>

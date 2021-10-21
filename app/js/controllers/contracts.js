@@ -204,6 +204,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     var iniRSKContract = function(contract, fullScan) {};
 
+    var iniSOLContract = function(contract, fullScan) {};
+
     var iniETHContract = function(contract, fullScan) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
@@ -453,6 +455,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 // iniEOSContract(contract, fullScan);
                 contract.cost.TRONISH = contract.cost.TRONISH || contract.cost.TRX;
                 setContractStatValues(contract);
+                break;
+            case 38:
+                setContractStatValues(contract);
+                iniSOLContract(contract, fullScan);
+                break;
         }
     };
 
@@ -503,6 +510,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         35: 'xinfin_token',
         36: 'hecochain_token',
         38: 'moonriver_token',
+        39: 'solana_token'
     };
 
     var launchContract = function(contract) {
@@ -515,7 +523,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             contract.launchProgress = false;
 
             // add event to GTM
-            var testNetwork = [2, 4, 6, 11, 15, 23, 25, 36].indexOf(contract.network) > -1;
+            var testNetwork = [2, 4, 6, 11, 15, 23, 25, 36, 38].indexOf(contract.network) > -1;
             var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
 
             if (window['dataLayer']) {

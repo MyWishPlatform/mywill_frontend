@@ -71,7 +71,7 @@
     }
   }
 
-  &_10, &_11, &_22, &_23 {
+  &_10, &_11, &_22, &_23, &_38 {
     &:before {
       transform: rotate(45deg);
     }
@@ -98,14 +98,14 @@
     }
   }
 
-  &_23 {
+  &_23, &_38  {
     color: #e34400;
     &:before {
       background: #e34400;
     }
   }
 
-  &_28, &_36 {
+  &_28, &_36{
     color: $main-color;
     &:before {
       background: $main-color;

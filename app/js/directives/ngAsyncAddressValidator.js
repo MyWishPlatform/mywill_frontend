@@ -6,11 +6,14 @@ angular.module('Directives').directive('ngAsyncAddressValidator', function ($htt
         },
         link: function (scope, elem, attrs, ctrl) {
 
+            var checkAddressLink;
+            // console.log(1, scope.ngAsyncAddressValidator.network);
             switch (scope.ngAsyncAddressValidator.network) {
                 case 'ETH':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.ETH);
                     break;
                 case 'NEO':
+                    checkAddressLink = 'check_neo3_address';
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.NEO);
                     break;
                 case 'TRON':
@@ -20,15 +23,21 @@ angular.module('Directives').directive('ngAsyncAddressValidator', function ($htt
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.BNB);
                 case 'XINFIN':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.XINFIN);
+                case 'SOLANA':
+                    checkAddressLink = 'check_solana_address';
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.SOLANA);
             }
 
             ctrl.$asyncValidators.validAddress = function (modelValue, viewValue) {
+            // console.log(2, modelValue);
+            // console.log(3, viewValue);
 
                 if(!modelValue) {
                     return false;
                 }
 
-                return $http.post('https://contracts.mywish.io/api/v1/check_neo3_address/', {
+                console.log(checkAddressLink);
+                return $http.post('https://contracts.mywish.io/api/v1/'+ checkAddressLink + '/', {
                     "address": modelValue
                 }, {
                     headers: {

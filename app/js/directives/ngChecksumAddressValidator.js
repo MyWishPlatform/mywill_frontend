@@ -20,6 +20,8 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function ($
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.BNB);
                 case 'XINFIN':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.XINFIN);
+                case 'SOLANA':
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.SOLANA)
             }
 
             var validator = function (value) {
@@ -39,6 +41,9 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function ($
                         break;
                     case 'XINFIN':
                         validAddress = (val.slice(0, 3) === 'xdc' && Web3.utils.isAddress('0x' + val.slice(3)));
+                        break;
+                    case 'SOLANA':
+                        validAddress = true;
                         break;
                     default:
                         validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);

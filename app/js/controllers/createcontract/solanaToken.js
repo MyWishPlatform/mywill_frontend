@@ -1,4 +1,4 @@
-angular.module('app').controller('moonriverTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
+angular.module('app').controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                             CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, currentUser) {
 
     var user = currentUser.data;
@@ -14,8 +14,8 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;
 
-    contract.contract_details.token_type = 'ERC20';
-    $scope.blockchain = 'MOONRIVER';
+    contract.contract_details.token_type = 'SPL';
+    $scope.blockchain = 'SOLANA';
 
 
     $scope.minStartDate = moment().add(1, 'days');
@@ -112,7 +112,6 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
 
     var generateContractData = function() {
         $scope.request.token_holders = [];
-        console.log(11, $scope.token_holders);
         var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({
@@ -122,24 +121,15 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
                 name: holder.name || null
             });
         });
-        console.log(22, $scope.token_holders);
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
 
-        console.log(33, {
-            feedback_email: $scope.feedback_email,
-            name: $scope.request.token_name,
-            network: contract.network,
-            contract_type: CONTRACT_TYPES_CONSTANTS.MOONRIVER_TOKEN,
-            contract_details: contractDetails,
-            id: contract.id
-        });
         return {
             feedback_email: $scope.feedback_email,
             name: $scope.request.token_name,
             network: contract.network,
-            contract_type: CONTRACT_TYPES_CONSTANTS.MOONRIVER_TOKEN,
+            contract_type: CONTRACT_TYPES_CONSTANTS.SOLANA_TOKEN,
             contract_details: contractDetails,
             id: contract.id
         };
@@ -178,7 +168,7 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
         if (localStorage.draftContract) {
             if (!contract.id) {
                 var draftContract = JSON.parse(localStorage.draftContract);
-                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.MOONRIVER_TOKEN) {
+                if (draftContract.contract_type == CONTRACT_TYPES_CONSTANTS.SOLANA_TOKEN) {
                     contract = draftContract;
                 }
             }

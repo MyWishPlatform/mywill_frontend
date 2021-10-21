@@ -69,7 +69,8 @@
     "NETWORK_28": "Hecochain MainNet",
     "NETWORK_35": "Xinfin MainNet",
     "NETWORK_36": "Hecochain TestNet",
-    "NETWORK_37": "Moonriver MainNet"
+    "NETWORK_37": "Moonriver MainNet",
+    "NETWORK_38": "Solana DevNet"
   },
   "BUTTONS": {
     "ENABLE": "有効にする",
@@ -167,7 +168,8 @@
     "MATIC": "Matic",
     "XINFIN": "Xinfin",
     "HECOCHAIN": "HECO",
-    "MOONRIVER": "Moonriver"
+    "MOONRIVER": "Moonriver",
+    "SOLANA": "Solana"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -602,6 +604,13 @@
       "MINT_FINALIZE": {
         "LIST": {
           "ITEM_0": "ファイナライズの後、トークンをもうけることはできません。新しいクラウドセールを作成することはできません。"
+        }
+      }
+    },
+    "SOL": {
+      "CLOSE": {
+        "LIST": {
+          "ITEM_1": "閉じた後は、トークンを作成できなくなり、新しいクラウドセールスを作成できなくなります。"
         }
       }
     },
@@ -1196,6 +1205,7 @@
             "DESCRIPTION_BNB": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_MATIC": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_HECOCHAIN": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
+            "DESCRIPTION_SOLANA": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_MOONRIVER": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_TRON": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）"

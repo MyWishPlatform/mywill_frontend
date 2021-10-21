@@ -23,7 +23,8 @@ module.constant('APP_CONSTANTS', {
         "NEO": "NXf4VLBrjUXKtk8NNkeY1zymmbUeQ9RkUu",
         "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69",
         "BNB": "bnb108w2492d60yurmw6dvrvx8wlecnvuedsuysskq",
-        "XINFIN": "xdcD0593B233Be4411A236F22b42087345E1137170b"
+        "XINFIN": "xdcD0593B233Be4411A236F22b42087345E1137170b",
+        "SOLANA": "HtHf9rJbEeWwpmAbNwZAg5H6sBkRRgwfpLE9ZpysiuQ9"
     },
     'EOS_ADDRESSES': {
         'DEVELOPMENT': {
@@ -98,6 +99,10 @@ module.constant('APP_CONSTANTS', {
 
     "MATIC_TESTNET_ADDRESS": "https://explorer-mumbai.maticvigil.com",
     "MATIC_MAINNET_ADDRESS": "https://explorer-mainnet.maticvigil.com",
+
+    "SOLANA_TESTNET_PROVIDER": "http://localhost:8899",
+
+    "SOLANA_TESTNET_ADDRESS": "https://explorer.solana.com",
 
     "XINFIN_MAINNET_PROVIDER": "https://rpc.xinfin.network",
 

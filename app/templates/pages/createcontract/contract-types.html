@@ -38,6 +38,17 @@
             </div>
 
             <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'SOLANA'})"
+                   ng-click="blockChainNetwork.type = 'SOLANA'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'SOLANA'}">
+                    <img src="/static/images/blockchain/solana.svg" width="20" height="20"
+                         style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.SOLANA"></span>
+                </a>
+            </div>
+
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'MATIC'})"
                    ng-click="blockChainNetwork.type = 'MATIC'"
                    class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'MATIC'}">
@@ -120,17 +131,6 @@
                          style="vertical-align: middle">
                     &nbsp;&nbsp;
                     <span translate="BLOCKCHAIN_NETWORKS.MOONRIVER"></span>
-                </a>
-            </div>
-
-            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
-                <a ui-sref="main.createcontract.types({blockchain: 'SOLANA'})"
-                   ng-click="blockChainNetwork.type = 'SOLANA'"
-                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'SOLANA'}">
-                    <img src="/static/images/blockchain/solana.svg" width="20" height="20"
-                         style="vertical-align: middle">
-                    &nbsp;&nbsp;
-                    <span translate="BLOCKCHAIN_NETWORKS.SOLANA"></span>
                 </a>
             </div>
 

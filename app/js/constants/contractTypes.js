@@ -155,14 +155,16 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 4,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[4],
             'price': true
-        }, airdropService, bridge, {
-                'icon': 'icon-airdrop',
-                'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
-                'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
-                'typeNumber': 8,
-                'type': CONTRACT_TYPES_NAMES_CONSTANTS[8],
-                'price': true
-        }, {
+        }, airdropService, bridge,
+        //     {
+        //         'icon': 'icon-airdrop',
+        //         'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
+        //         'description': 'PAGES.CREATE_CONTRACT.AIRDROP.DESCRIPTION',
+        //         'typeNumber': 8,
+        //         'type': CONTRACT_TYPES_NAMES_CONSTANTS[8],
+        //         'price': true
+        // },
+            {
             'icon': 'icon-token-protector',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN_PROTECTOR.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TOKEN_PROTECTOR.DESCRIPTION',
@@ -229,15 +231,17 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 32,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[32],
             'price': true
-        },airdropService, bridge, {
-            // 'icon': 'icon-matic-airdrop',
-            'iconImg': '/static/images/blockchain/polygon-airdrop.svg',
-            'title': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.DESCRIPTION',
-            'typeNumber': 34,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[34],
-            'price': true
-        }]
+        },airdropService, bridge,
+        //     {
+        //     'icon': 'icon-matic-airdrop',
+        //     'iconImg': '/static/images/blockchain/polygon-airdrop.svg',
+        //     'title': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.TITLE',
+        //     'description': 'PAGES.CREATE_CONTRACT.MATIC_AIRDROP.DESCRIPTION',
+        //     'typeNumber': 34,
+        //     'type': CONTRACT_TYPES_NAMES_CONSTANTS[34],
+        //     'price': true
+        // }
+        ]
     }
 
     var xinfin = {
@@ -304,14 +308,16 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 27,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[27],
             'price': true
-        }, airdropService, bridge, {
-            'icon': 'icon-bnb-airdrop',
-            'title': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.DESCRIPTION',
-            'typeNumber': 29,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[29],
-            'price': true
-        }, /*, {
+        }, airdropService, bridge,
+        //     {
+        //     'icon': 'icon-bnb-airdrop',
+        //     'title': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.TITLE',
+        //     'description': 'PAGES.CREATE_CONTRACT.BNB_AIRDROP.DESCRIPTION',
+        //     'typeNumber': 29,
+        //     'type': CONTRACT_TYPES_NAMES_CONSTANTS[29],
+        //     'price': true
+        // },
+            /*, {
             'icon': 'icon-bnb-investment-pool',
             'title': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.BNB_INVESTMENT_POOL.DESCRIPTION',
@@ -435,14 +441,16 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 type: 'modal',
                 content: 'alcor',
             }
-        }, {
-            'icon': 'icon-eos-airdrop',
-            'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.EOS_AIRDROP.DESCRIPTION',
-            'typeNumber': 13,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[13],
-            'price': true
-        }]
+        },
+        //     {
+        //     'icon': 'icon-eos-airdrop',
+        //     'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
+        //     'description': 'PAGES.CREATE_CONTRACT.EOS_AIRDROP.DESCRIPTION',
+        //     'typeNumber': 13,
+        //     'type': CONTRACT_TYPES_NAMES_CONSTANTS[13],
+        //     'price': true
+        // }
+        ]
     };
 
     var tronDefault = {
@@ -454,14 +462,16 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 15,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
             'price': true
-        }, bridge, {
-            'icon': 'icon-tron-airdrop',
-            'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
-            'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',
-            'typeNumber': 17,
-            'type': CONTRACT_TYPES_NAMES_CONSTANTS[17],
-            'price': true
-        }, {
+        }, bridge,
+        //     {
+        //     'icon': 'icon-tron-airdrop',
+        //     'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',
+        //     'description': 'PAGES.CREATE_CONTRACT.TRON_AIRDROP.DESCRIPTION',
+        //     'typeNumber': 17,
+        //     'type': CONTRACT_TYPES_NAMES_CONSTANTS[17],
+        //     'price': true
+        // },
+            {
             'icon': 'icon-ga',
             'title': 'PAGES.CREATE_CONTRACT.TRON_GA.TITLE',
             'description': 'PAGES.CREATE_CONTRACT.TRON_GA.DESCRIPTION',

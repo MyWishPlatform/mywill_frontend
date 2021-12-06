@@ -158,12 +158,6 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
         templateUrl: templatesPath + 'privacy.html',
         resolve: {
         }
-    }).state('main.company', {
-        url: '/company',
-        controller: 'companyController',
-        templateUrl: templatesPath + 'company.html',
-        resolve: {
-        }
     }).state('main.buytokens', {
         url: '/buy',
         controllerProvider: function(ENV_VARS) {

@@ -28,7 +28,7 @@ switch (currentBlockChainMode) {
         proxyUrl = url.parse("http://trondev.mywish.io");
         break;
     default:
-        proxyUrl = url.parse("https://dev2.mywish.io");
+        proxyUrl = url.parse("https://dev.mywish.io/");
         break;
 }
 
@@ -45,8 +45,8 @@ var getBrowserSyncConfig = function () {
         target: devServerApi.url,
         changeOrigin: true,
         headers: {
-            Origin: 'https://dev2.mywish.io',
-            Referer: 'https://dev2.mywish.io'
+            Origin: 'https://dev.mywish.io/',
+            Referer: 'https://dev.mywish.io/'
 },
         // auth: devServerApi.auth
     });

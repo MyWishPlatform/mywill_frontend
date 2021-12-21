@@ -63,6 +63,10 @@
   transition: transform cubic-bezier(0, 2, 1, 1) 0.2s;
   border-radius: 0.9em;
   position: relative;
+  //promo-fix
+  @media screen and (max-width: 481px) {
+    margin-top: 88px;
+  }
   &.popup-normalize {
     transform: scale(1) translateZ(0);
     .popup-window-closer {

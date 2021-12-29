@@ -2,3 +2,4 @@
 yarn.lock
 .idea
 /dist
+/build/config.gypi

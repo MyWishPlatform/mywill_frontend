@@ -3,3 +3,4 @@ yarn.lock
 .idea
 /dist
 /build/config.gypi
+vargant.xml

@@ -6,8 +6,7 @@ main.main-content-holder {
 .main-content-holder {
   margin-left: 25.5em;
   color: $main-color;
-  //promo-fix padding-top: 5.6em;
-  padding-top: 13.6em;
+  padding-top: 5.6em;
   max-width: 72em;
   position: relative;
   z-index: 1;
@@ -53,9 +52,6 @@ main.main-content-holder {
   }
   left: 25.5em;
   position: fixed;
-  //promo-fix
-  top: 78px;
-
   right: 0;
   z-index: 2;
   color: $black-color;
@@ -136,20 +132,16 @@ main.main-content-holder {
   }
   .pre-release-information-container {
     padding: 1.4em 0;
-    //promo-fix
-    margin-top: 7.9em;
   }
 }
 @media screen and (max-width: 1024px) {
   .main-section-content {
-    //promo-fix padding: 0.4em 1.5% 1em;
-    padding: 10em 1.5% 1em;
+    padding: 0.4em 1.5% 1em;
   }
 }
 @media screen and (max-width: 1024px) {
   .main-section-content {
-    //promo-fix padding: 0.4em 1.5% 1em;
-    padding: 9.4em 1.5% 1em;
+    padding: 0.4em 1.5% 1em;
   }
 }
 @media screen and (max-width: 640px) {

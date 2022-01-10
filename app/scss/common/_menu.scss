@@ -18,9 +18,7 @@
 }
 .main-menu-holder {
   position: fixed;
-  //promo-fix top: 0;
-  top: 78px;
-
+  top: 0;
   left: 0;
   bottom: 0;
   width: 25.5em;
@@ -38,12 +36,6 @@
   width: 100%;
   box-sizing: border-box;
   padding-bottom: 3em;
-  background-image: url('/static/images/background/wrapper-promo.jpg');
-  animation: snow 20s linear infinite;
-}
-@keyframes snow {
-  0% {background-position: 0px 0px}
-  100% {background-position: 1000px 1000px}
 }
 
 .main-menu-logo {
@@ -63,9 +55,7 @@
 .main-menu-navigator {
   position: absolute;
   padding-top: 2.45em;
-  //promo-fix top: 4em;
-  top: 6em;
-
+  top: 4em;
   bottom: 3.75em;
   left: 0;
   right: 0;

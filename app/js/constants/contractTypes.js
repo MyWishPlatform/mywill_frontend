@@ -135,7 +135,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'typeNumber': -4,
         'type': 'bridge',
         'directLink': 'https://mywishplatform.typeform.com/to/tlf8MEbl',
-        'simplePrice': "7000",
+        'simplePrice': "10000",
         'price': true
     };
 

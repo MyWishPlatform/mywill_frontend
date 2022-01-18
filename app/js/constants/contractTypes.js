@@ -281,7 +281,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
     }
 
     var solana = {
-        'networks': [38,38],
+        'networks': [38,39],
         'list':[{
             'iconImg': '/static/images/blockchain/solana-blue.svg',
             'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',

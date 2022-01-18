@@ -457,6 +457,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 setContractStatValues(contract);
                 break;
             case 38:
+            case 39:
                 setContractStatValues(contract);
                 iniSOLContract(contract, fullScan);
                 break;

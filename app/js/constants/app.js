@@ -101,8 +101,11 @@ module.constant('APP_CONSTANTS', {
     "MATIC_MAINNET_ADDRESS": "https://explorer-mainnet.maticvigil.com",
 
     "SOLANA_TESTNET_PROVIDER": "http://localhost:8899",
+    "SOLANA_MAINNET_PROVIDER": "http://localhost:8899",
+
 
     "SOLANA_TESTNET_ADDRESS": "https://explorer.solana.com",
+    "SOLANA_MAINNET_ADDRESS": "https://explorer.solana.com",
 
     "XINFIN_MAINNET_PROVIDER": "https://rpc.xinfin.network",
 

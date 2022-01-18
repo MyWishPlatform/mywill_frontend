@@ -138,6 +138,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             case 37:
                 return 'moonriver';
             case 38:
+            case 39:
                 return 'solana';
         }
     };

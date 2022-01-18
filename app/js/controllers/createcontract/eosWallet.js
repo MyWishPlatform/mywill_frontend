@@ -148,7 +148,8 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
     });
 
     $scope.checkPublicKey = function(keysForm, field) {
-        keysForm[field].$setValidity('public-key', Eos.modules.ecc.isValidPublic(keysForm[field].$viewValue));
+        // keysForm[field].$setValidity('public-key', Eos.modules.ecc.isValidPublic(keysForm[field].$viewValue));
+        keysForm[field].$setValidity('public-key', NewEos.isValidPublic(keysForm[field].$viewValue));
     };
 
     $scope.generated_keys = {};

@@ -70,7 +70,7 @@
                            pattern="^[0-9]+$"
                            commaseparator="{
                                 min: 0,
-                                max: 9
+                                max: 20
                            }"
                            required
                            class="form-control-input text-center"/>
@@ -80,7 +80,7 @@
                 <div class="form-control-label hide-vs">&nbsp;</div>
                 <span class="form-control-description__text"
                       translate-values="{
-                            max_decimals: 50,
+                            max_decimals: 20,
                             default_decimals: 8
                        }"
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.DESCRIPTION_SOLANA"></span>
@@ -213,7 +213,9 @@
                            commaseparator="{regexp: '^(([1-9][0-9]{0,25})|(1[0]{26}))$'}"
                            required
                            ng-change="checkTokensAmount()"
-                           ng-model="recipient.amount"/>
+                           ng-model="recipient.amount"
+                           ng-check-token-amount-validator
+                     />
                 </div>
             </div>
             <div class="clearfix show-ps"><br/></div>

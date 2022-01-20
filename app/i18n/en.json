@@ -1221,7 +1221,7 @@
           "DECIMALS": {
             "LABEL": "Decimals:",
             "DESCRIPTION": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice",
-            "DESCRIPTION_SOLANA": "Defines the number of decimals for the token. 0-9 numerals are accepted. 9 as common practice"
+            "DESCRIPTION_SOLANA": "Defines the number of decimals for the token. 0-{{max_decimals}} numerals are accepted. {{default_decimals}} as common practice"
           },
           "TOKEN_TYPE": {
             "LABEL": "Choose Type of Token",

@@ -71,7 +71,7 @@
     "NETWORK_36": "Hecochain TestNet",
     "NETWORK_37": "Moonriver MainNet",
     "NETWORK_38": "Solana DevNet",
-    "NETOWORK_39": "Solana MainNet"
+    "NETWORK_39": "Solana MainNet"
   },
   "BUTTONS": {
     "ENABLE": "启用",

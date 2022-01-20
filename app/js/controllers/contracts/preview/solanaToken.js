@@ -87,6 +87,7 @@ angular.module('app').controller('solanaTokenPreviewController', function($timeo
     //
     switch ($scope.contract.network) {
         case 38:
+        case 39:
             $scope.blockchain = 'SOLANA';
             $scope.contractInfo = 'solana_contract_token';
             break;

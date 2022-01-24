@@ -264,8 +264,8 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             case 37:
                 network = 37;
                 break;
-            case 38:
-                network = 38;
+            case 39:
+                network = isProduction ? network : 38;
                 break;
         }
 

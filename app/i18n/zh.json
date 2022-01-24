@@ -70,7 +70,8 @@
     "NETWORK_35": "Xinfin MainNet",
     "NETWORK_36": "Hecochain TestNet",
     "NETWORK_37": "Moonriver MainNet",
-    "NETWORK_38": "Solana DevNet"
+    "NETWORK_38": "Solana DevNet",
+    "NETWORK_39": "Solana MainNet"
   },
   "BUTTONS": {
     "ENABLE": "启用",

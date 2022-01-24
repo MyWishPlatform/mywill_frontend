@@ -180,8 +180,8 @@
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="(blockChainNetwork.isTest || blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'SOLANA') && blockChainNetwork.type !== 'MOONRIVER'"
-                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN' || blockChainNetwork.type === 'MOONRIVER' || blockChainNetwork.type === 'SOLANA')">
+                           ng-checked="(blockChainNetwork.isTest || blockChainNetwork.type === 'NEO') && blockChainNetwork.type !== 'MOONRIVER'"
+                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN' || blockChainNetwork.type === 'MOONRIVER')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>

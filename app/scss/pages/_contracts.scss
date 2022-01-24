@@ -71,13 +71,13 @@
     }
   }
 
-  &_10, &_11, &_22, &_23, &_38 {
+  &_10, &_11, &_22, &_23, &_38, &_39 {
     &:before {
       transform: rotate(45deg);
     }
   }
 
-  &_10, &_14, &_24, &_35{
+  &_10, &_14, &_24, &_35, &_39{
     color: $main-color;
     &:before {
       background: $main-color;

@@ -1253,7 +1253,7 @@
           "AUTHIO": {
             "LABEL": "Branded report",
             "DESCRIPTION": "Branded report is needed for exchanges and gives the estimation of the security of your token contract. Every contract is verified independently.<br/><b>Branded report cost is $1500</b>.",
-            "SECOND_DESCRIPTION": "The service is run by an independent security analysis specializing <a href=\"https://rocknblock.io/\" target=\"_blank\">company</a>.<br><a href=\"https://rocknblock.io/pdf/navi_rocknblock.pdf\" target=\"_blank\">Check example</a>.",
+            "SECOND_DESCRIPTION": "The service is run by an independent security analysis specializing <a href=\"https://rocknblock.io/\" target=\"_blank\">company</a>.<br><a href=\"https://rocknblock.io/storage/app/media/Navi_rocknblock.pdf\" target=\"_blank\">Check example</a>.",
             "EMAIL_LABEL": "To request a branded report please enter your email",
             "EMAIL_DESCRIPTION": "At this address you will receive an branded report of your contract. Please be careful and check it again.",
             "EMAIL_ERROR": "Please enter email"

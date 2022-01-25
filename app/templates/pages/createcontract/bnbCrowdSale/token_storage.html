@@ -7,7 +7,7 @@
                 <input id="admin-address" type="text"
                        placeholder="0x1234567890adfbced543567acbedf34565437e8f"
                        ng-model="request.cold_wallet_address"
-                       ng-pattern="/^0x[0-9a-f]{40}$/i"
+                       ng-pattern="/^(?!0x0000000000000000000000000000000000000000)(0x[0-9a-f]{40})$/i"
                        required
                        class="form-control-input"/>
                 <span class="field-error form-field_error-check-sum"

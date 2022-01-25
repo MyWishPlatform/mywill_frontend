@@ -46,7 +46,7 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function ($
                         validAddress = true;
                         break;
                     default:
-                        validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network);
+                        validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network) && val !== '0x0000000000000000000000000000000000000000';
                         break;
                 }
 

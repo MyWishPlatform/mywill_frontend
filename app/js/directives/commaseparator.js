@@ -19,7 +19,7 @@ angular.module('Directives').directive('commaseparator', function($filter, $time
                     ctrl.$setValidity('min-max', true);
                     return '';
                 }
-                var plainNumber = viewValue.replace(/[\,\-\+]/g, '').replace(/^0+/g, '0').replace(/^0+([1-9]+)/g, (match, p1) => p1);
+                var plainNumber = viewValue.replace(/[\,\-\+]/g, '').replace(/[^0-9\.]/g, '').replace(/^0+/g, '0').replace(/^0+([1-9]+)/g, (match, p1) => p1);
 
                 var valid = plainNumber ? new RegExp(scope.commaseparator.regexp).test(plainNumber) : true;
 

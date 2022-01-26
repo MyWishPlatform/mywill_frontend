@@ -1,8 +1,7 @@
 angular.module('app').controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                             CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, currentUser) {
-
     var user = currentUser.data;
-    var maxIntForSoland = Math.pow(2,64);
+    var maxIntForSolana = Math.pow(2,64);
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,
         feedback_email: !user.is_social ? user.latest_feedback_email || user.username : '',
@@ -42,10 +41,10 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
             return value.plus(val);
         }, new BigNumber(0));
         var stringValue = holdersSum.toString(10);
-        $scope.tokensAmountError = (holdersSum.toString(10) == 0) || isNaN(stringValue) || holdersSum.toString(10) > maxIntForSoland;
+        $scope.tokensAmountError = (holdersSum.toString(10) == 0) || isNaN(stringValue) || holdersSum.toString(10) > maxIntForSolana;
         if (!$scope.tokensAmountError) {
             $scope.totalSupply = {
-                tokens: holdersSum.round(2).toString(10)
+                tokens: holdersSum.toString(10)
             };
             $timeout(function() {
                 $scope.dataChanged();

@@ -66,6 +66,7 @@
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></label>
                     <input id="decimals" type="text"
                            placeholder="8"
+                           ng-change="saveDecimalsToRoot()"
                            ng-model="request.decimals"
                            pattern="^[0-9]+$"
                            commaseparator="{
@@ -216,6 +217,9 @@
                            ng-model="recipient.amount"
                            ng-check-token-amount-validator
                      />
+                </div>
+                <div style="opacity: .5; padding: 0 36px 8px 0">
+                    Max total supply you can enter: {{ maxSupply }}
                 </div>
             </div>
             <!-- <div class="clearfix show-ps"><br/></div>

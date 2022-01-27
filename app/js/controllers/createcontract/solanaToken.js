@@ -1,4 +1,4 @@
-angular.module('app').controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
+angular.module('app', ['mathjs']).controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                             CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, currentUser) {
     var user = currentUser.data;
     var maxIntForSolana = Math.pow(2,64);
@@ -35,13 +35,40 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         }
     };
 
+    $scope.saveDecimalsToRoot = function() {
+        if($scope.request.decimals) {
+            $rootScope.decimalsSolana = +$scope.request.decimals;
+        } else {
+            return;
+        }
+        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        $scope.token_holders.map(function(holder) {
+            if (holder.amount) {
+                holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+            }
+        });
+        $scope.checkTokensAmount();
+    }
+
     $scope.checkTokensAmount = function() {
+        if($scope.request.decimals) {
+            $rootScope.decimalsSolana = +$scope.request.decimals;
+        }
+        // console.log('checkTokensAmount rootScopeDecimalsSolana', $rootScope.decimalsSolana);
+        $scope.maxSupply = maxIntForSolana / Math.pow(10, $scope.request.decimals);
         var holdersSum = $scope.token_holders.reduce(function (val, item) {
             var value = new BigNumber(item.amount || 0);
             return value.plus(val);
         }, new BigNumber(0));
         var stringValue = holdersSum.toString(10);
-        $scope.tokensAmountError = (holdersSum.toString(10) == 0) || isNaN(stringValue) || holdersSum.toString(10) > maxIntForSolana;
+        $scope.tokensAmountError = (holdersSum.toString(10) == 0)
+            || isNaN(holdersSum)
+            || holdersSum.toString(10) > (maxIntForSolana / Math.pow(10, $scope.request.decimals))
+        if (holdersSum.toString(10).split('.')[1]) {
+            if (holdersSum.toString(10).split('.')[1].length > 20 - $scope.request.decimals) {
+                $scope.tokensAmountError = true;
+            }
+        }
         if (!$scope.tokensAmountError) {
             $scope.totalSupply = {
                 tokens: holdersSum.toString(10)

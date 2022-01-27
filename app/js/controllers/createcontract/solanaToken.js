@@ -1,7 +1,7 @@
 angular.module('app').controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                             CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, currentUser) {
     var user = currentUser.data;
-    var maxIntForSolana = Math.pow(2,64);
+    var maxIntForSolana = math.bignumber('18446744073709551615');
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,
         feedback_email: !user.is_social ? user.latest_feedback_email || user.username : '',
@@ -51,11 +51,15 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
     }
 
     $scope.checkTokensAmount = function() {
+        let a = math.bignumber('18446744073709551615');
+        console.log(a.toString());
         if($scope.request.decimals) {
             $rootScope.decimalsSolana = +$scope.request.decimals;
         }
         // console.log('checkTokensAmount rootScopeDecimalsSolana', $rootScope.decimalsSolana);
-        $scope.maxSupply = maxIntForSolana / Math.pow(10, $scope.request.decimals);
+        // $scope.maxSupply = maxIntForSolana / Math.pow(10, $scope.request.decimals);
+        $scope.maxSupply = math.divide(maxIntForSolana, math.pow(10, $scope.request.decimals)).toString();
+        // console.log(1, $scope.maxSupply);
         var holdersSum = $scope.token_holders.reduce(function (val, item) {
             var value = new BigNumber(item.amount || 0);
             return value.plus(val);
@@ -63,7 +67,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         var stringValue = holdersSum.toString(10);
         $scope.tokensAmountError = (holdersSum.toString(10) == 0)
             || isNaN(holdersSum)
-            || holdersSum.toString(10) > (maxIntForSolana / Math.pow(10, $scope.request.decimals))
+            || holdersSum.toString(10) > $scope.maxSupply
         if (holdersSum.toString(10).split('.')[1]) {
             if (holdersSum.toString(10).split('.')[1].length > 20 - $scope.request.decimals) {
                 $scope.tokensAmountError = true;

@@ -172,7 +172,7 @@
 <!--             ng-class="{'no-visibility': getCostProgress}">-->
 <!--            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST" translate="CONTRACTS.ENTER_PROMO_BLOCK.COST"></span>-->
 <!--            <div class="show-vs"></div>-->
-<!--            {{bigNumber(eosAirdropCost.WISH).round(2).toString(10)|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;-->
+<!--            {{bigNumber(eosAirdropCost.WISH).decimalPlaces(2).toString(10)|separateNumber}}&nbsp;WISH&nbsp;&nbsp;&nbsp;-->
 <!--            <span class="grey-text-color">-->
 <!--                {{(eosAirdropCost.ETH||'0')|separateNumber}}&nbsp;ETH-->
 <!--            </span>-->
@@ -182,7 +182,7 @@
 <!--             ng-class="{'no-visibility': getCostProgress}">-->
 <!--            <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST" translate="CONTRACTS.ENTER_PROMO_BLOCK.COST"></span>-->
 <!--            <div class="show-vs"></div>-->
-<!--            {{bigNumber(eosAirdropCost.EOSISH).round(2).toString(10)|separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;-->
+<!--            {{bigNumber(eosAirdropCost.EOSISH).decimalPlaces(2).toString(10)|separateNumber}}&nbsp;EOSISH&nbsp;&nbsp;&nbsp;-->
 <!--            <span class="grey-text-color">-->
 <!--                {{eosAirdropCost.EOS | separateNumber}}&nbsp;EOS-->
 <!--            </span>-->

@@ -128,16 +128,16 @@
 <!--        <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>-->
 <!--        <div class="show-vs"></div>-->
 
-<!--        {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.WISH).toString(10), 'ether')).round(2)|separateNumber}} WISH&nbsp;&nbsp;&nbsp;-->
+<!--        {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.WISH).toString(10), 'ether')).decimalPlaces(2)|separateNumber}} WISH&nbsp;&nbsp;&nbsp;-->
 
 <!--        <span class="grey-text-color">-->
-<!--            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).toString(10), 'ether')).round(3)|separateNumber}}-->
+<!--            {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.ETH).toString(10), 'ether')).decimalPlaces(3)|separateNumber}}-->
 <!--            ETH-->
 <!--            /-->
-<!--            {{bigNumber(contract.cost.USDT).div(1000000).round(3).toString(10)|separateNumber}}-->
+<!--            {{bigNumber(contract.cost.USDT).div(1000000).decimalPlaces(3).toString(10)|separateNumber}}-->
 <!--            USD-->
 <!--            &lt;!&ndash; span ng-if="contract.contract_type != 11">/-->
-<!--                {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).toString(10), 'ether')).round(4)|separateNumber}}-->
+<!--                {{bigNumber(web3Utils.fromWei(bigNumber(contract.cost.BTC).toString(10), 'ether')).decimalPlaces(4)|separateNumber}}-->
 <!--                BTC-->
 <!--            </span &ndash;&gt;-->
 <!--        </span>-->
@@ -147,9 +147,9 @@
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
         <div class="show-vs"></div>
-        {{bigNumber(contract.cost.EOSISH).div(10000).round(4) | separateNumber}} EOSISH&nbsp;&nbsp;&nbsp;
+        {{bigNumber(contract.cost.EOSISH).div(10000).decimalPlaces(4) | separateNumber}} EOSISH&nbsp;&nbsp;&nbsp;
         <span class="grey-text-color">
-            {{bigNumber(contract.cost.EOS).div(10000).round(4) | separateNumber}} EOS
+            {{bigNumber(contract.cost.EOS).div(10000).decimalPlaces(4) | separateNumber}} EOS
         </span>
     </div>
 </div>
@@ -158,9 +158,9 @@
     <div class="form-control-label">
         <span translate="CONTRACTS.ENTER_PROMO_BLOCK.COST">Contract`s cost: </span>
         <div class="show-vs"></div>
-        {{bigNumber(contract.cost.TRONISH).div(1000000).round(4) | separateNumber}} TRONISH&nbsp;&nbsp;&nbsp;
+        {{bigNumber(contract.cost.TRONISH).div(1000000).decimalPlaces(4) | separateNumber}} TRONISH&nbsp;&nbsp;&nbsp;
         <span class="grey-text-color">
-            {{bigNumber(contract.cost.TRX).div(1000000).round(4) | separateNumber}} TRX
+            {{bigNumber(contract.cost.TRX).div(1000000).decimalPlaces(4) | separateNumber}} TRX
         </span>
     </div>
 </div -->

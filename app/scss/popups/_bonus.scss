@@ -1,0 +1,87 @@
+
+
+.bonus{
+    &-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 20px;
+        @media screen and (max-width: 674px) {
+            padding: 0 10px;
+        }
+    }
+    &-logo{
+        margin-bottom: 20px;
+    }
+    &-title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 0 20px 20px;
+        padding: 32px 10px;
+        border-radius: 30px;
+        font-size: 30px;
+        line-height: 34px;
+        color: #fff;
+        background-color: #3470F6;
+        box-sizing: border-box;
+        @media screen and (max-width: 674px) {
+            font-size: 20px;
+            padding: 14px 5px;
+            margin: 0 10px 0;
+        }
+    }
+    &-checked{
+        width: 28px;
+        height: 28px;
+        margin-right: 16px;
+        @media screen and (max-width: 674px) {
+            margin-right: 8px;
+        }
+    }
+    &-text{
+        display: flex;
+        flex-direction: column;
+        padding: 30px;
+        border-radius: 30px;
+        background-color: #fff;
+        color: #4D525D;
+        &-title{
+            margin-bottom: 20px;
+            font-size: 30px;
+            line-height: 34px;
+        }
+        &-description{
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 23px;     
+        }
+        &-added{
+            padding: 25px 5px;
+            border: 2px dashed #FFFFFF;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 23px;
+            color: #fff;
+            background-color: #3470F6;
+        }
+        @media screen and (max-width: 674px) {
+            &-text{
+                padding: 20px;
+                &-title{
+                    font-size: 20px;
+                }
+                &-description{
+                    font-size: 14px;
+                }
+                &-added{
+                    font-size: 14px;
+                    padding: 12px 5px;
+                }
+            }
+        }
+    }
+}

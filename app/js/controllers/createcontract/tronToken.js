@@ -71,7 +71,7 @@ angular.module('app').controller('tronTokenCreateController', function($scope, c
         $scope.minStartDate = moment();
         $scope.token_holders = angular.copy($scope.request.token_holders);
 
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.minStartDate;
@@ -102,7 +102,7 @@ angular.module('app').controller('tronTokenCreateController', function($scope, c
 
     var generateContractData = function() {
         $scope.request.token_holders = [];
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({
                 freeze_date: holder.isFrozen ? holder.freeze_date.add(1, 'seconds').format('X') * 1 : null,

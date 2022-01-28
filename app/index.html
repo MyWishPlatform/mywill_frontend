@@ -80,34 +80,39 @@
             <div class="main-content-holder" ng-init="usdtBalance = false;">
                 <div class="main-section-content">
                     <div class="user-balance">
-                        <div class="user-balance-value">
-
-                            <div ng-if="sitemode === 'default'"
-                                 ng-click="currentUser.usdtBalance = !currentUser.usdtBalance">
-
-                                <i class="icon-mywish user-balance-icon"
-                                   ng-if="!currentUser.usdtBalance">
-                                    <span class="path1"></span><span class="path2"></span>
-                                </i>
-                                <i class="icon-dollar user-balance-icon"
-                                   ng-if="currentUser.usdtBalance">
-                                </i>
+                        <div class="user-balance-wrapper">
+                            <div class="user-balance-present"
+                                ng-if="currentUser.havePresent">
+                                <img class="user-balance-present-img" src="/static/images/present.png" alt="present">
+                                <span class="user-balance-present-text">
+                                    Use your bonus WISH
+                                </span>
                             </div>
-
-                            <i class="user-balance-icon icon-eosish-logo" ng-if="sitemode === 'eos'"></i>
-                            <i class="user-balance-icon icon-tronish-logo" ng-if="sitemode === 'tron'"></i>
-                            <div ui-sref="main.buytokens"
-                                 class="text-left form-control-input_short small-input user-balance-value_input form-control-input">
-                                {{!currentUser.usdtBalance ? currentUser.visibleBalance : currentUser.visibleBalanceUSDT}}
+                            <div class="user-balance-value">
+                                <div ng-if="sitemode === 'default'"
+                                     ng-click="currentUser.usdtBalance = !currentUser.usdtBalance">
+                                    <i class="icon-mywish user-balance-icon"
+                                       ng-if="!currentUser.usdtBalance">
+                                        <span class="path1"></span><span class="path2"></span>
+                                    </i>
+                                    <i class="icon-dollar user-balance-icon"
+                                       ng-if="currentUser.usdtBalance">
+                                    </i>
+                                </div>
+                                <i class="user-balance-icon icon-eosish-logo" ng-if="sitemode === 'eos'"></i>
+                                <i class="user-balance-icon icon-tronish-logo" ng-if="sitemode === 'tron'"></i>
+                                <div ui-sref="main.buytokens"
+                                     class="text-left form-control-input_short small-input user-balance-value_input form-control-input">
+                                    {{!currentUser.usdtBalance ? currentUser.visibleBalance : currentUser.visibleBalanceUSDT}}
+                                </div>
+                                <button class="btn only-icon user-balance-refresh"
+                                        ng-class="{'in-progress': currentUser.balanceInRefresh}"
+                                        ng-click="getCurrentBalance()">
+                                    <img class="btn-icon refresh-icon" src="/static/images/refresher.svg" ng-if="sitemode === 'default'">
+                                    <img class="btn-icon refresh-icon" src="/static/images/refresher-grey.svg" ng-if="sitemode === 'eos'">
+                                    <img class="btn-icon refresh-icon" src="/static/images/refresher-red.svg" ng-if="sitemode === 'tron'">
+                                </button>
                             </div>
-
-                            <button class="btn only-icon user-balance-refresh"
-                                    ng-class="{'in-progress': currentUser.balanceInRefresh}"
-                                    ng-click="getCurrentBalance()">
-                                <img class="btn-icon refresh-icon" src="/static/images/refresher.svg" ng-if="sitemode === 'default'">
-                                <img class="btn-icon refresh-icon" src="/static/images/refresher-grey.svg" ng-if="sitemode === 'eos'">
-                                <img class="btn-icon refresh-icon" src="/static/images/refresher-red.svg" ng-if="sitemode === 'tron'">
-                            </button>
                         </div>
                         <a ui-sref="main.buytokens" class="user-balance-buy btn btn-submit with-icon hide-ls">
                             <i class="icon-create-contract"></i>
@@ -125,13 +130,21 @@
                                 }">
                             <span translate="HEADER.BUTTONS.SIGN_UP"></span>
                         </button>
-                        <button class="btn btn-transparent uppercase"
+                        <!-- <button class="btn btn-transparent uppercase"
                                 ng-pop-up="{
                                     'template': '/templates/popups/login.html',
                                     'class': 'login-form',
                                     'params': {
                                         page: 'auth'
                                     }
+                                }">
+                            <span translate="HEADER.BUTTONS.SIGN_IN"></span>
+                        </button> -->
+                        <button class="btn btn-transparent uppercase"
+                                ng-pop-up="{
+                                    template: '/templates/popups/bonus/bonus.html',
+                                    class: 'deleting-contract',
+                                    newPopupContent: true
                                 }">
                             <span translate="HEADER.BUTTONS.SIGN_IN"></span>
                         </button>

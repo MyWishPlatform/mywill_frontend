@@ -80,7 +80,7 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
         $scope.feedback_email = contract.feedback_email;
         $scope.agreed = contract.id && contract.contract_details.authio;
 
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.minStartDate;
@@ -113,7 +113,7 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
     var generateContractData = function() {
         $scope.request.token_holders = [];
         console.log(11, $scope.token_holders);
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({
                 freeze_date: holder.isFrozen ? holder.freeze_date.add(1, 'seconds').format('X') * 1 : null,

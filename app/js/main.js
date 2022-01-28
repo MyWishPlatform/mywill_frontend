@@ -15,7 +15,6 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
     $scope.menuList = MENU_CONSTANTS;
 }).controller('baseController', function($scope, $rootScope, $translate, $timeout, $cookies, authService) {
     $rootScope.showedMenu = false;
-
     $timeout(function() {
         $rootScope.eoslynx = !!$cookies.get('eoslynx');
         if (window['lynxMobile']) {
@@ -197,7 +196,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
                 profile.visibleBalanceUSDT = (new BigNumber(profile.usdt_balance.split('.')[0])).div(Math.pow(10, 6)).toFormat(2);
                 break;
         }
-
+        profile.havePresent = true;
         profile.balanceInRefresh = $rootScope.currentUser ? $rootScope.currentUser.balanceInRefresh : false;
         $rootScope.currentUser = profile;
         return profile;

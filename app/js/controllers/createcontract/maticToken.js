@@ -15,10 +15,10 @@ angular.module('app').controller('maticTokenCreateController', function($scope, 
         contractService.getWhitelabelCost().then(function(response) {
             // console.log('maticPreviewController getWhitelabelCost',response);
             contract.whitelabelCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
             };
             $scope.white_label_cost = contract.whitelabelCost.USDT;
         });
@@ -94,7 +94,7 @@ angular.module('app').controller('maticTokenCreateController', function($scope, 
         $scope.feedback_email = contract.feedback_email;
         $scope.agreed = contract.id && contract.contract_details.authio;
 
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.minStartDate;
@@ -126,7 +126,7 @@ angular.module('app').controller('maticTokenCreateController', function($scope, 
 
     var generateContractData = function() {
         $scope.request.token_holders = [];
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({
                 freeze_date: holder.isFrozen ? holder.freeze_date.add(1, 'seconds').format('X') * 1 : null,

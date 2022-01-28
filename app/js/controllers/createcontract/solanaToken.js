@@ -1,4 +1,4 @@
-angular.module('app', ['mathjs']).controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
+angular.module('app').controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                             CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, currentUser) {
     var user = currentUser.data;
     var maxIntForSolana = Math.pow(2,64);
@@ -9,6 +9,7 @@ angular.module('app', ['mathjs']).controller('solanaTokenCreateController', func
             token_holders: []
         }
     };
+
 
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;
@@ -41,7 +42,7 @@ angular.module('app', ['mathjs']).controller('solanaTokenCreateController', func
         } else {
             return;
         }
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             if (holder.amount) {
                 holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
@@ -51,6 +52,7 @@ angular.module('app', ['mathjs']).controller('solanaTokenCreateController', func
     }
 
     $scope.checkTokensAmount = function() {
+        console.log(math.round(math.e, 3));
         if($scope.request.decimals) {
             $rootScope.decimalsSolana = +$scope.request.decimals;
         }
@@ -106,7 +108,7 @@ angular.module('app', ['mathjs']).controller('solanaTokenCreateController', func
         $scope.feedback_email = contract.feedback_email;
         $scope.agreed = contract.id && contract.contract_details.authio;
 
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.minStartDate;
@@ -138,7 +140,7 @@ angular.module('app', ['mathjs']).controller('solanaTokenCreateController', func
 
     var generateContractData = function() {
         $scope.request.token_holders = [];
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({
                 freeze_date: holder.isFrozen ? holder.freeze_date.add(1, 'seconds').format('X') * 1 : null,

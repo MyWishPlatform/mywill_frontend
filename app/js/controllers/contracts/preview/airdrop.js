@@ -21,10 +21,10 @@ $rootScope
         contractService.getVerificationCost().then(function(response) {
             console.log('airdropPreviewController getVerificationCost',response);
             $scope.contract.verificationCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
             };
         });
     }
@@ -615,7 +615,7 @@ $rootScope
     $scope.checkAirdropToken();
 
     $scope.generateSignature = function() {
-        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.tokenInfo.decimals || 0);
         var amount = new BigNumber($scope.dataField.amount).times(powerNumber).toString(10);
         var params = [$scope.dataField.address, amount];
 
@@ -627,7 +627,7 @@ $rootScope
     };
 
     $scope.sendWithdrawTransaction = function() {
-        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.tokenInfo.decimals || 0);
         var amount = new BigNumber($scope.dataField.amount).times(powerNumber).toString(10);
 
         web3Contract.methods.withdrawToken($scope.dataField.address, amount).send({

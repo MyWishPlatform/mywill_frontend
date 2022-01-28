@@ -10,6 +10,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         }
     };
 
+
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;
 

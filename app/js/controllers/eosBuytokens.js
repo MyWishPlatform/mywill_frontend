@@ -43,14 +43,14 @@ angular.module('app').controller('eosBuytokensController', function($scope, $tim
 
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.eosAmount || 0);
-        $scope.formData.wishesAmount  = wishesAmount.div(rate).round(2).toString(10);
+        $scope.formData.wishesAmount  = wishesAmount.div(rate).decimalPlaces(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
 
     $scope.checkEosAmount = function() {
         if (!$scope.formData.wishesAmount) return;
         var ethAmount = new BigNumber($scope.formData.wishesAmount);
-        $scope.formData.eosAmount = ethAmount.times(rate).round(2).toString(10);
+        $scope.formData.eosAmount = ethAmount.times(rate).decimalPlaces(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
 

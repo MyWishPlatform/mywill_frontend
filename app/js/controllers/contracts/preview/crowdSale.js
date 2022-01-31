@@ -19,10 +19,10 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         contractService.getVerificationCost().then(function(response) {
             console.log('crowdSalePreviewController getVerificationCost',response);
             $scope.contract.verificationCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
             };
         });
     }
@@ -86,8 +86,8 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     contractDetails.time_bonuses = contractDetails.time_bonuses || [];
     contractDetails.time_bonuses.map(function(bonus) {
-        bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10) : undefined;
-        bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10) : undefined;
+        bonus.min_amount = bonus.min_amount ? new BigNumber(bonus.min_amount).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10) : undefined;
+        bonus.max_amount = bonus.max_amount ? new BigNumber(bonus.max_amount).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10) : undefined;
         bonus.min_time = bonus.min_time ? bonus.min_time * 1000 : undefined;
         bonus.max_time = bonus.max_time ? bonus.max_time * 1000 : undefined;
     });
@@ -156,18 +156,18 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     });
 
     if ($scope.blockchain === 'ETH') {
-        contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
-        contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,$scope.currencyPow)).round(Math.min(2, contractDetails.decimals)).toString(10);
+        contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).div(Math.pow(10,$scope.currencyPow)).decimalPlaces(Math.min(2, contractDetails.decimals)).toString(10);
+        contractDetails.soft_cap_eth = new BigNumber(contractDetails.soft_cap).div(Math.pow(10,$scope.currencyPow)).decimalPlaces(Math.min(2, contractDetails.decimals)).toString(10);
 
-        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
-        contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+        contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(contractDetails.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
 
         contractDetails.min_wei = contractDetails.min_wei !== null ? contractDetails.min_wei : undefined;
         contractDetails.max_wei = contractDetails.max_wei !== null ? contractDetails.max_wei : undefined;
     }
     if ($scope.blockchain === 'NEO') {
-        contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).round(Math.min(2, contractDetails.decimals)).toString(10);
-        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).round().toString(10);
+        contractDetails.hard_cap_eth = new BigNumber(contractDetails.hard_cap).decimalPlaces(Math.min(2, contractDetails.decimals)).toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(contractDetails.rate).decimalPlaces().toString(10);
     }
     $scope.timeBonusChartParams = {
         max_time: contractDetails.stop_date,
@@ -178,8 +178,8 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     contractDetails.amount_bonuses = contractDetails.amount_bonuses || [];
     contractDetails.amount_bonuses.map(function(bonus) {
-        bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
-        bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,$scope.currencyPow)).round().toString(10);
+        bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+        bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
     });
 
     if (contractDetails.eth_contract_crowdsale) {
@@ -189,7 +189,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
         };
     }
 
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
     contractDetails.token_holders.map(function(holder) {
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });
@@ -201,7 +201,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
 
     var ethSum = holdersSum.plus(contractDetails.hard_cap);
     $scope.totalSupply = {
-        eth: ethSum.div(contractDetails.rate).round(2).toString(10),
+        eth: ethSum.div(contractDetails.rate).decimalPlaces(2).toString(10),
         tokens: ethSum.round(2).toString(10)
     };
 

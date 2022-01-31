@@ -23,9 +23,9 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
     contractService.getVerificationCost().then(function(response) {
         console.log('contractsPreviewController getVerificationCost',response.data)
         contract.verificationCost = {
-            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).round(2).toString(10),
-            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).round(2).toString(10),
-            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).round(2).toString(10),
+            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
+            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
+            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).decimalPlaces(2).toString(10),
         };
     });
 
@@ -68,7 +68,7 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
     var adminAddress = contractDetails.admin_address || contractDetails.user_address;
 
     $scope.goToTransaction = function() {
-        var powerNumber = new BigNumber('10').toPower($scope.tokenInfo.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.tokenInfo.decimals || 0);
         decimalsAmount = new BigNumber($scope.dataFields.amount).times(powerNumber).toString(10);
 
         web3Service.getAccounts(contractData.network).then(function(result) {

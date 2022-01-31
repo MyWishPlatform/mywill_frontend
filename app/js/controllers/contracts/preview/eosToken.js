@@ -4,7 +4,7 @@ angular.module('app').controller('eosTokenPreviewController', function($timeout,
     $scope.iniContract($scope.contract);
     var contractDetails = $scope.contract.contract_details;
 
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
     contractDetails.token_holders.map(function(holder) {
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });

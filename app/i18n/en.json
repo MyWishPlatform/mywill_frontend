@@ -206,6 +206,9 @@
     },
     "WAVES_UNDER_MAINTENANCE": {
       "TEXT": "Waves contracts creation is under maintanance"
+    },
+    "SOLANA_CREATE_MAINNET": {
+      "TEXT": "Please, note: <br/><br/>The tokens are first deployed to Solana as Unknown Token (with no name) The name can be assigned to the token only after the deployment by the Solana token list manually on a weekly basis.<br/><br/>You will be able to request the name and token Logo assignment in the contract creation form and later in your MyWish account."
     }
   },
   "CONFIRMATIONS": {

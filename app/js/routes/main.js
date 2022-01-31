@@ -423,8 +423,8 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
 
             for (var key in allCosts.data) {
                 allCosts.data[key] = {
-                    WISH: new BigNumber(allCosts.data[key]['WISH']+'').round(3).toString(10),
-                    USDT: new BigNumber(allCosts.data[key]['USDT']+'').round(3).toString(10)
+                    WISH: new BigNumber(allCosts.data[key]['WISH']+'').decimalPlaces(3).toString(10),
+                    USDT: new BigNumber(allCosts.data[key]['USDT']+'').decimalPlaces(3).toString(10)
                 };
             }
             $scope.allCosts = allCosts.data;

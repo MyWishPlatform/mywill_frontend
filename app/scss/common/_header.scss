@@ -45,21 +45,20 @@
   font-size: 0.84em;
   display: flex;
   align-items: center;
+  position: relative;
   &-wrapper{
     display: flex;
     align-items: center;
     border: 1px solid #C4C4C4;
     border-radius: 12px;
+    overflow-x: hidden;
   }
   &-present{
     display: flex;
     align-items: center;
-    position: relative;
     background-color: #F5D135;
-    height: 40px;
+    height: 41px;
     padding: 0 8px 0 18px;
-    border-top-left-radius: 11px;
-    border-bottom-left-radius: 11px;
     
     &-text{
       font-weight: 700;

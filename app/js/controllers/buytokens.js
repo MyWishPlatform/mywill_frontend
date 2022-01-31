@@ -36,21 +36,21 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
     $scope.convertAmountTo = function(toField) {
         var rate = $scope.exRate[toField];
         var currencyValue = new BigNumber($scope.amountsValues.WISH || 0);
-        $scope.amountsValues[toField]  = currencyValue.times(rate).round(2).toString(10);
+        $scope.amountsValues[toField]  = currencyValue.times(rate).decimalPlaces(2).toString(10);
         convertToUSDT();
     };
 
     $scope.convertAmountFrom = function(fromField) {
         var rate = $scope.exRate[fromField];
         var currencyValue = new BigNumber($scope.amountsValues[fromField] || 0);
-        $scope.amountsValues.WISH  = currencyValue.div(rate).round(2).toString(10);
+        $scope.amountsValues.WISH  = currencyValue.div(rate).decimalPlaces(2).toString(10);
         convertToUSDT();
     };
 
     var convertToUSDT = function() {
         var rate = $scope.exRate['USDT'];
         var currencyValue = new BigNumber($scope.amountsValues.WISH || 0);
-        $scope.amountsValues['USDT']  = currencyValue.times(rate).round(2).toString(10);
+        $scope.amountsValues['USDT']  = currencyValue.times(rate).decimalPlaces(2).toString(10);
     };
 
 
@@ -141,7 +141,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
-            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).toPower(18)).toString(10),
+            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).exponentiatedBy(18)).toString(10),
             from: $scope.formData.address,
             to: $scope.currentUser.internal_address
         }, function() {
@@ -297,7 +297,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
     $scope.sendTransaction = function() {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
-            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).toPower(18)).toString(10),
+            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).exponentiatedBy(18)).toString(10),
             from: $scope.formData.address,
             to: $scope.currentUser.internal_address
         }, function() {

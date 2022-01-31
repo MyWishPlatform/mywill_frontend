@@ -66,8 +66,8 @@
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.DECIMALS.LABEL"></label>
                     <input id="decimals" type="text"
                            placeholder="8"
-                           ng-change="saveDecimalsToRoot()"
                            ng-model="request.decimals"
+                           ng-change="cleanAmount()"
                            pattern="^[0-9]+$"
                            commaseparator="{
                                 min: 0,
@@ -77,8 +77,17 @@
                            class="form-control-input text-center"/>
                 </div>
             </div>
-            <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 grid-cell-vs-1 form-control-description">
-                <div class="form-control-label hide-vs">&nbsp;</div>
+            <div class="grid-cell grid-cell-3-5 grid-cell-ps-4-5 grid-cell-vs-1" style="width: 298px">
+                <div class="form-control">
+                    <label for="decimals" class="form-control-label">Max total supply you can enter:</label>
+                    <input id="totalSupply" type="text"
+                           ng-model="maxSupply"
+                           disabled
+                           class="form-control-input text-left"/>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-2-5 grid-cell-ps-3-5 form-control-description">
+                <div class="form-control-label hide-ps">&nbsp;</div>
                 <span class="form-control-description__text"
                       translate-values="{
                             max_decimals: 20,
@@ -211,11 +220,10 @@
                            translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT_AMOUNT.LABEL"></label>
                     <input class="form-control-input"
                            id="address-amount-{{$index}}"
-                           commaseparator="{regexp: '^((([1-9][0-9]*)|0)(\.[0-9]*)?)$'}"
                            required
                            ng-change="checkTokensAmount()"
                            ng-model="recipient.amount"
-                           ng-check-token-amount-validator
+                           ng-check-token-amount-validator="{regexp: '^((([1-9][0-9]*)|0)(\.[0-9]*)?)$', decimals: request.decimals}"
                      />
                 </div>
                 <div style="opacity: .5; padding: 0 36px 8px 0">

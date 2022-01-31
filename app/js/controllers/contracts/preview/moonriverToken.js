@@ -36,7 +36,7 @@ angular.module('app').controller('moonriverTokenPreviewController', function($ti
     };
 
 
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
     var holdersSum = new BigNumber(0);
 
     contractDetails.token_holders.map(function(holder) {

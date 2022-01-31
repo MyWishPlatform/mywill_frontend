@@ -161,7 +161,27 @@
     line-height: 1.2em;
     vertical-align: middle;
   }
+  &__info {
+    padding: 4px;
+    background-color: white;
+    width: 89%;
+    margin-left: 45px;
+    border-radius: 4px;
+    padding: 0.7em 1em;
+    border: 1px solid #ccc;
+  }
+  @media screen and (max-width: 682px) {
+    &__info {
+      margin-left: 0;
+    }
+  }
+  @media screen and (max-width: 440px) {
+    &__info {
+    }
+  }
 }
+
+
 
 .contract-form-fieldset {
   margin-left: -$fieldsets-padding;

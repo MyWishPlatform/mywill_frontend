@@ -20,10 +20,10 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
         contractService.getVerificationCost().then(function(response) {
             console.log('tronAirdropPreviewController getVerificationCost',response);
             $scope.contract.verificationCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
             };
         });
     }
@@ -32,7 +32,7 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
 
     contractDetails.admin_address = TronWeb.address.fromHex(contractDetails.admin_address);
 
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
     contractDetails.token_holders.map(function(holder) {
         if (TronWeb.isAddress(holder.address)) {
             holder.address = TronWeb.address.fromHex(holder.address);
@@ -72,7 +72,7 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
     });
 
     var generateChart = function() {
-        var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
 
         var beforeDistributed = {
             amount: 0,
@@ -267,7 +267,7 @@ angular.module('app').controller('tronTokenPreviewController', function($timeout
         }
 
 
-        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
         if ($scope.recipient.isFrozen) {

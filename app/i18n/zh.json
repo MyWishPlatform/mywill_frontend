@@ -1425,7 +1425,7 @@
           },
           "OWNER_PUBLIC_KEY": {
             "TITLE": "输入你的Owner 公钥",
-            "DESCRIPTION": "填写前请确保你有相应的私钥，你可以通过<a href=\"https://get-scatter.com/\" target=\"_blank\">scatter</a>或者我们来生成公/私钥对"
+            "DESCRIPTION": "填写前请确保您有相应的私钥. 您可以使用Scatter或我们的服务进行私人/公共配对生成。"
           },
           "GENERATED_ACTIVE_PUBLIC_KEY": {
             "TITLE": "您的活动公钥",

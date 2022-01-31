@@ -137,7 +137,6 @@ gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:eos-lynx', 'app:
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'pie.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'themes', 'light.js'),
             path.join(folders['npm'], 'bignumber.js', 'bignumber.js'),
-            path.join(folders['npm'], 'mathjs', 'lib', 'browser', 'math.js'),
             path.join(input, 'static', 'web3', 'web3.js'),
             path.join(output, 'vendors', '**/*')
         ])

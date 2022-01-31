@@ -63,7 +63,6 @@
     "human-standard-token-abi": "^1.0.2",
     "jquery": "^3.1.1",
     "jssocials": "^1.5.0",
-    "mathjs": "^10.1.0",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "ng-webworker": "^0.2.3",

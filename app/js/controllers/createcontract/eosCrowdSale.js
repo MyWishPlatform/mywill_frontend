@@ -75,7 +75,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     };
     $scope.checkHardCapEth = function() {
         var hard_cap = $scope.request.hard_cap || 0;
-        $scope.additionalParams.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).round(2).toString(10);
+        $scope.additionalParams.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).decimalPlaces(2).toString(10);
         $scope.additionalParams.usdHardCap = $filter('number')(hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
     };
 
@@ -108,18 +108,18 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
         contractDetails.admin_address = contractDetails.admin_address.toLowerCase();
         contractDetails.crowdsale_address = contractDetails.crowdsale_address.toLowerCase();
 
-        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(Math.pow(10, contractDetails.decimals)).round().toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).times(Math.pow(10, contractDetails.decimals)).decimalPlaces().toString(10);
 
         if (contractDetails.soft_cap) {
-            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(Math.pow(10, contractDetails.decimals)).round().toString(10);
+            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).times(Math.pow(10, contractDetails.decimals)).decimalPlaces().toString(10);
         }
 
         if (!$scope.additionalParams.investsLimit) {
             contractDetails.min_wei = null;
             contractDetails.max_wei = null;
         } else {
-            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
-            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,$scope.currencyPow)).round().toString(10);
+            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
         }
 
         return {
@@ -193,15 +193,15 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
 
         $scope.additionalParams.investsLimit = !!contract.contract_details.min_wei;
         if ($scope.additionalParams.investsLimit) {
-            $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,$scope.currencyPow)).round(2).toString(10);
-            $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,$scope.currencyPow)).round(2).toString(10);
+            $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,$scope.currencyPow)).decimalPlaces(2).toString(10);
+            $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,$scope.currencyPow)).decimalPlaces(2).toString(10);
         }
 
         if ($scope.request.hard_cap) {
-            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).div(Math.pow(10, $scope.request.decimals)).round().toString(10);
+            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).div(Math.pow(10, $scope.request.decimals)).decimalPlaces().toString(10);
         }
         if ($scope.request.soft_cap) {
-            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).div(Math.pow(10, $scope.request.decimals)).round().toString(10);
+            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).div(Math.pow(10, $scope.request.decimals)).decimalPlaces().toString(10);
         }
         setStartTimestamp();
         setStopTimestamp();
@@ -264,7 +264,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
             if ($scope.tokensAmountError) return;
 
             $scope.totalSupply = {
-                eth: ethSum.div($scope.request.rate).round(2).toString(10),
+                eth: ethSum.div($scope.request.rate).decimalPlaces(2).toString(10),
                 tokens: ethSum.round(2).toString(10)
             };
             $timeout(function() {
@@ -288,14 +288,14 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
     };
 
     var resetFormData = function() {
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders = angular.copy($scope.request.token_holders);
         $scope.token_holders.map(function(holder) {
             holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
         });
     };
     var createdContractData = function() {
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.request.token_holders = [];
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({

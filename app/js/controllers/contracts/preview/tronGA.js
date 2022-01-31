@@ -170,7 +170,7 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
         }
 
 
-        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
         if ($scope.recipient.isFrozen) {

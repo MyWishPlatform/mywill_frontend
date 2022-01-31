@@ -37,7 +37,7 @@ angular.module('app').controller('solanaTokenPreviewController', function($timeo
     // };
     //
     //
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
     var holdersSum = new BigNumber(0);
     //
     contractDetails.token_holders.map(function(holder) {

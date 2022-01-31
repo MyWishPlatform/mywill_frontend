@@ -1,7 +1,7 @@
 angular.module('app').controller('solanaTokenCreateController', function($scope, contractService, $timeout, $state, $rootScope, NETWORKS_TYPES_CONSTANTS,
                                                                             CONTRACT_TYPES_CONSTANTS, openedContract, $stateParams, currentUser) {
     var user = currentUser.data;
-    var maxIntForSolana = math.bignumber('18446744073709551615');
+    var maxIntForSolana = new BigNumber('18446744073709551615');
     var contract = openedContract && openedContract.data ? openedContract.data : {
         network: $stateParams.network,
         feedback_email: !user.is_social ? user.latest_feedback_email || user.username : '',
@@ -35,31 +35,21 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         }
     };
 
-    $scope.saveDecimalsToRoot = function() {
-        if($scope.request.decimals) {
-            $rootScope.decimalsSolana = +$scope.request.decimals;
-        } else {
-            return;
-        }
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+    $scope.cleanAmount = function() {
         $scope.token_holders.map(function(holder) {
             if (holder.amount) {
-                holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
+                holder.amount = 0;
             }
         });
         $scope.checkTokensAmount();
     }
 
     $scope.checkTokensAmount = function() {
-        let a = math.bignumber('18446744073709551615');
-        console.log(a.toString());
         if($scope.request.decimals) {
             $rootScope.decimalsSolana = +$scope.request.decimals;
         }
-        // console.log('checkTokensAmount rootScopeDecimalsSolana', $rootScope.decimalsSolana);
-        // $scope.maxSupply = maxIntForSolana / Math.pow(10, $scope.request.decimals);
-        $scope.maxSupply = math.divide(maxIntForSolana, math.pow(10, $scope.request.decimals)).toString();
-        // console.log(1, $scope.maxSupply);
+        $scope.maxSupply = new BigNumber(maxIntForSolana).dividedBy(new BigNumber(10).pow($scope.request.decimals)).toString();
+        if ($scope.maxSupply == 'NaN' || $scope.request.decimals > 20) $scope.maxSupply = 0;
         var holdersSum = $scope.token_holders.reduce(function (val, item) {
             var value = new BigNumber(item.amount || 0);
             return value.plus(val);
@@ -69,7 +59,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
             || isNaN(holdersSum)
             || holdersSum.toString(10) > $scope.maxSupply
         if (holdersSum.toString(10).split('.')[1]) {
-            if (holdersSum.toString(10).split('.')[1].length > 20 - $scope.request.decimals) {
+            if (holdersSum.toString(10).split('.')[1].length > $scope.request.decimals) {
                 $scope.tokensAmountError = true;
             }
         }
@@ -110,7 +100,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         $scope.feedback_email = contract.feedback_email;
         $scope.agreed = contract.id && contract.contract_details.authio;
 
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             holder.isFrozen = !!holder.freeze_date;
             holder.freeze_date = holder.freeze_date ? moment(holder.freeze_date * 1000) : $scope.minStartDate;
@@ -142,7 +132,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
 
     var generateContractData = function() {
         $scope.request.token_holders = [];
-        var powerNumber = new BigNumber('10').toPower($scope.request.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder, index) {
             $scope.request.token_holders.push({
                 freeze_date: holder.isFrozen ? holder.freeze_date.add(1, 'seconds').format('X') * 1 : null,

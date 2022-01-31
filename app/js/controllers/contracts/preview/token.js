@@ -29,10 +29,10 @@ angular.module('app').controller('tokenPreviewController', function (
         contractService.getVerificationCost().then(function (response) {
             console.log('tokenPreviewController getVerificationCost', response);
             $scope.contract.verificationCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
             };
         });
     }
@@ -42,10 +42,10 @@ angular.module('app').controller('tokenPreviewController', function (
         contractService.getAuthioCost().then(function (response) {
             console.log('tokenPreviewController getAuthioCost', response);
             $scope.contract.authioPrices = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
             };
         });
     }
@@ -55,10 +55,10 @@ angular.module('app').controller('tokenPreviewController', function (
         contractService.getWhitelabelCost().then(function (response) {
             // console.log('hecochainPreviewController getWhitelabelCost',response);
             $scope.contract.whitelabelCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
             };
         });
     }
@@ -90,7 +90,7 @@ angular.module('app').controller('tokenPreviewController', function (
     };
 
 
-    var powerNumber = new BigNumber('10').toPower(contractDetails.decimals || 0);
+    var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
     var holdersSum = new BigNumber(0);
 
     contractDetails.token_holders.map(function (holder) {
@@ -369,7 +369,7 @@ angular.module('app').controller('tokenPreviewController', function (
         var mintInterfaceMethod = web3Service.getMethodInterface(
             !$scope.recipient.isFrozen ? 'mint' : 'mintAndFreeze',
             contract.contract_details.eth_contract_token.abi);
-        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
         var params = [$scope.recipient.address.toLowerCase(), amount];
@@ -402,7 +402,7 @@ angular.module('app').controller('tokenPreviewController', function (
         $scope.generateSignature();
         $scope.wrongAddress = false;
         $scope.wrongNet = false;
-        var powerNumber = new BigNumber('10').toPower(contract.contract_details.decimals || 0);
+        var powerNumber = new BigNumber('10').exponentiatedBy(contract.contract_details.decimals || 0);
         var amount = new BigNumber($scope.recipient.amount).times(powerNumber).toString(10);
 
         var txProgress;

@@ -1461,11 +1461,11 @@
           },
           "ACTIVE_PUBLIC_KEY": {
             "TITLE": "Enter your active public key",
-            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use Scatter or our service for private/public pair generation."
           },
           "OWNER_PUBLIC_KEY": {
             "TITLE": "Enter your owner public key",
-            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use <a href=\"https://get-scatter.com/\" target=\"_blank\">https://get-scatter.com/</a> or our service for private/public pair generation."
+            "DESCRIPTION": "Please make sure that you have corresponding private key before filling. You can use Scatter or our service for private/public pair generation."
           },
           "GENERATED_ACTIVE_PUBLIC_KEY": {
             "TITLE": "Your active public key",

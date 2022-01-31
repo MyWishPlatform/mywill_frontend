@@ -10,6 +10,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         }
     };
 
+
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;
 
@@ -35,7 +36,13 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         }
     };
 
-    $scope.cleanAmount = function() {
+    $scope.saveDecimalsToRoot = function() {
+        if($scope.request.decimals) {
+            $rootScope.decimalsSolana = +$scope.request.decimals;
+        } else {
+            return;
+        }
+        var powerNumber = new BigNumber('10').exponentiatedBy($scope.request.decimals || 0);
         $scope.token_holders.map(function(holder) {
             if (holder.amount) {
                 holder.amount = 0;
@@ -119,6 +126,9 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
         if (!isWaitingOfLogin) {
+            if (+$stateParams.network === 39) {
+                $rootScope.commonOpenedPopup = 'alerts/solana-create-mainnet';
+            }
             delete storage.draftContract;
             createContract();
             return;

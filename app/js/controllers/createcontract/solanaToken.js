@@ -36,7 +36,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         }
     };
 
-    $scope.saveDecimalsToRoot = function() {
+    $scope.cleanAmount = function() {
         if($scope.request.decimals) {
             $rootScope.decimalsSolana = +$scope.request.decimals;
         } else {

@@ -146,6 +146,8 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 }
             };
 
+            // $scope.
+
             $scope.$parent.$on('$closePopUp', function() {
                 // $scope.$broadcast('$destroy');
             });

@@ -125,7 +125,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
     var storage = window.localStorage || {};
     $scope.createContract = function() {
         var isWaitingOfLogin = $scope.checkUserIsGhost();
-        if (isWaitingOfLogin) {
+        if (!isWaitingOfLogin) {
             if (+$stateParams.network === 39) {
                 $rootScope.commonOpenedPopup = 'alerts/solana-create-mainnet';
             }
@@ -139,11 +139,6 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         });
         return true;
     };
-
-    $scope.createSolanaContract = function(){
-        delete storage.draftContract;
-        createContract();
-    }
 
     var generateContractData = function() {
         $scope.request.token_holders = [];
@@ -171,7 +166,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
     };
 
     $scope.contractInProgress = false;
-    var createContract = function() {
+    $rootScope.createSolanaContract = function() {
         if ($scope.contractInProgress) return;
         $scope.contractInProgress = true;
 

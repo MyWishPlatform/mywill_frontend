@@ -146,7 +146,11 @@ module.directive('ngPopUp', function($sce, $templateRequest, $compile, $rootScop
                 }
             };
 
-            // $scope.
+            $scope.createSolanaContract = function () {
+                var storage = window.localStorage || {};
+                delete storage.draftContract;
+                $rootScope.createSolanaContract();
+            }
 
             $scope.$parent.$on('$closePopUp', function() {
                 // $scope.$broadcast('$destroy');

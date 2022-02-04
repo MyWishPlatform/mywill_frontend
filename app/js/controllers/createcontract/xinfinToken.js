@@ -65,7 +65,7 @@ angular.module('app').controller('xinfinTokenCreateController', function($scope,
         $scope.tokensAmountError = (holdersSum.toString(10) == 0) || isNaN(stringValue);
         if (!$scope.tokensAmountError) {
             $scope.totalSupply = {
-                tokens: holdersSum.round(2).toString(10)
+                tokens: holdersSum.toFixed(2).toString(10)
             };
             $timeout(function() {
                 $scope.dataChanged();

@@ -45,7 +45,7 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
         $scope.tokensAmountError = (holdersSum.toString(10) == 0) || isNaN(stringValue);
         if (!$scope.tokensAmountError) {
             $scope.totalSupply = {
-                tokens: holdersSum.round(2).toString(10)
+                tokens: holdersSum.toFixed(2).toString(10)
             };
             $timeout(function() {
                 $scope.dataChanged();

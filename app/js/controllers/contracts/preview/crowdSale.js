@@ -202,7 +202,7 @@ angular.module('app').controller('crowdSalePreviewController', function($timeout
     var ethSum = holdersSum.plus(contractDetails.hard_cap);
     $scope.totalSupply = {
         eth: ethSum.div(contractDetails.rate).decimalPlaces(2).toString(10),
-        tokens: ethSum.round(2).toString(10)
+        tokens: ethSum.toFixed(2).toString(10)
     };
 
 

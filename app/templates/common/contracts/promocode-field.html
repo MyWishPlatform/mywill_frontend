@@ -49,7 +49,7 @@
                     <img src="/static/images/contract.svg" alt="">
                 </div>
                 <div class="form-table-col-header-blue">
-                    Create contact
+                    Create contact1
                 </div>
                 <div class="form-table-col">
                     ${{ bigNumber(contract.cost.USDT).div(1000000)
@@ -57,7 +57,7 @@
                     .minus(bigNumber(contract.contract_details.verification ?
                     contract.verificationCost.USDT : 0))
                     .minus(bigNumber(contract.contract_details.white_label ? contract.whitelabelCost.USDT : 0))
-                    .round(2).toString(10)|separateNumber }}
+                    .toFixed(2).toString(10)|separateNumber }}
                 </div>
                 <div class="form-table-col">
                     {{ bigNumber(contract.cost.WISH).div(10e17)
@@ -65,7 +65,7 @@
                     .minus(bigNumber(contract.contract_details.verification ?
                     contract.verificationCost.WISH : 0))
                     .minus(bigNumber(contract.contract_details.white_label ? contract.whitelabelCost.WISH : 0))
-                    .round(2).toString(10)|separateNumber }}
+                    .toFixed(2).toString(10)|separateNumber }}
                 </div>
             </div>
             <div class="form-table-row" ng-if="contract.contract_details.authio">
@@ -117,11 +117,11 @@
                 </div>
                 <div class="form-table-col-bold">
                     ${{ bigNumber(contract.cost.USDT).div(1000000)
-                    .round(3).toString(10)|separateNumber }}
+                    .toFixed(3).toString(10)|separateNumber }}
                 </div>
                 <div class="form-table-col-bold">
                     {{ bigNumber(contract.cost.WISH).div(10e17)
-                    .round(2).toString(10)|separateNumber }}
+                    .toFixed(2).toString(10)|separateNumber }}
                 </div>
             </div>
         </div>

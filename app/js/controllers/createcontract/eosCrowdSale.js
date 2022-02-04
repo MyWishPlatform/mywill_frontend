@@ -265,7 +265,7 @@ angular.module('app').controller('eosCrowdSaleCreateController', function(
 
             $scope.totalSupply = {
                 eth: ethSum.div($scope.request.rate).decimalPlaces(2).toString(10),
-                tokens: ethSum.round(2).toString(10)
+                tokens: ethSum.toFixed(2).toString(10)
             };
             $timeout(function() {
                 $scope.dataChanged();

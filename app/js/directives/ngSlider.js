@@ -87,7 +87,7 @@ angular.module('Directives').directive('ngSlider', function ($rootScope, $timeou
                     marginLeft: 0
                 });
                 var endDownPosition = lastPosition - startDownPosition;
-                var addSlides = -Math.round(endDownPosition / (items.eq(0).width()));
+                var addSlides = -Math.toFixed(endDownPosition / (items.eq(0).width()));
                 changedPosition = 0;
 
                 $timeout(function() {

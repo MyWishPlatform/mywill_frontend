@@ -17,7 +17,7 @@ angular.module('Directives').directive('ngRanger', function($rootScope) {
 
             var changePercentage = function() {
                 $scope.percentage = Math.min(100, Math.max($scope.ngRanger.min || 0, $scope.percentage));
-                $scope.value = Math.round($scope.percentage);
+                $scope.value = Math.toFixed($scope.percentage);
                 $scope.ngRanger.model.percentage = $scope.value;
                 $scope.ngRanger.onChange ? $scope.ngRanger.onChange() : true;
             };
@@ -62,7 +62,7 @@ angular.module('Directives').directive('ngRanger', function($rootScope) {
 
             $scope.$watch('ngRanger.model.percentage', function() {
                 $scope.percentage = $scope.ngRanger.model.percentage || 0;
-                $scope.value = Math.round($scope.percentage);
+                $scope.value = Math.toFixed($scope.percentage);
                 changePercentage();
             });
         }

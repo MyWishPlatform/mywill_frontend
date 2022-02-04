@@ -18,7 +18,7 @@ module.directive('ngTimePicker', function($rootScope, $timeout, $window) {
             $scope.minutes = [];
             $scope.minutes[59] = true;
 
-            $scope.idFIeld = new Date().getTime() + '_' + Math.round(10000000 * Math.random());
+            $scope.idFIeld = new Date().getTime() + '_' + Math.toFixed(10000000 * Math.random());
 
             $scope.closeTimePicker = function(event) {
                 $scope.activated = false;

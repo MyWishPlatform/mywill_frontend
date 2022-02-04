@@ -104,7 +104,7 @@ angular.module('app').controller('eosTokenCreateController', function($scope, co
     $scope.editContractMode = !!contract.id;
 
     $scope.checkMaxTokenSupply = function() {
-        $scope.maxSupply = Math.round(4611686018427387903 / Math.pow(10, $scope.request.decimals));
+        $scope.maxSupply = Math.toFixed(4611686018427387903 / Math.pow(10, $scope.request.decimals));
     };
 
     var checkDraftContract = function(redirect) {

@@ -226,8 +226,13 @@
                            ng-check-token-amount-validator="{regexp: '^((([1-9][0-9]*)|0)(\.[0-9]*)?)$', decimals: request.decimals}"
                      />
                 </div>
-                <div style="opacity: .5; padding: 0 36px 8px 0">
-                    Max total supply you can enter: {{ maxSupply }}
+                <div style="padding: 0 36px 8px 0">
+                    <div style="opacity: .5">Max total supply you can enter: {{ maxSupply }}</div><br><br>
+                    <div>
+                        <div style="opacity: .5">Total supply left:</div>
+                        <div ng-class="{'error-text': supplyLeft < 0 }">
+                            {{ supplyLeft }}</div>
+                        </div>
                 </div>
             </div>
             <!-- <div class="clearfix show-ps"><br/></div>
@@ -354,7 +359,7 @@
     <div class="grid-cell grid-cell-vs-1-2">
         <button class="uppercase btn btn-submit mobile-width-100"
                 type="button"
-                ng-disabled="!(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid && feedbackForm.$valid) || tokensAmountError"
+                ng-disabled="!(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid && feedbackForm.$valid  && !tokensAmountError)"
                 ng-click="createContract()">
             <span class="lds-ellipsis" ng-if="contractInProgress">
                 <span class="lds-ellipsis-container">

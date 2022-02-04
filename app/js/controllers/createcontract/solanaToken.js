@@ -62,7 +62,9 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
             return value.plus(val);
         }, new BigNumber(0));
         var stringValue = holdersSum.toString(10);
-        $scope.tokensAmountError = isNaN(holdersSum)
+        $scope.supplyLeft = new BigNumber($scope.maxSupply).minus(new BigNumber(holdersSum));
+        $scope.tokensAmountError = (holdersSum.toString(10) == 0)
+            || isNaN(holdersSum)
             || holdersSum.toString(10) > $scope.maxSupply
         if (holdersSum.toString(10).split('.')[1]) {
             if (holdersSum.toString(10).split('.')[1].length > $scope.request.decimals) {

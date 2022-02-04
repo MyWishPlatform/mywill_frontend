@@ -1,0 +1,86 @@
+<div class="shadow-block" ng-controller="solanaAddTokenController">
+    <form name="solanaFormAddToken">
+        <div class="shadow-block__content shadow-block__content_no-lr-padding shadow-block__content_min-tb-padding">
+            <div class="shadow-block__content__blue-title solana-info-title">
+                <img src="/static/images/blockchain/solana-whitest.svg" class="solana-info-title-img" />
+                <div class="solana-info-title-text">
+                    <span class="big-size">MB contract&nbsp;</span>
+                </div>
+            </div>
+        </div>
+        <div class="solana-info">
+            <div class="solana-info-main">
+                <label class="solana-info-label">Token Logo</label>
+                <div class="solana-info-img">
+                    <input 
+                        name="img" 
+                        id="solana-info-img-load" 
+                        class="solana-info-img-load" 
+                        type="file" 
+                        accept=".jpeg,.png,.svg,.jpg" 
+                        ng-model="img"
+                        custom-on-change="setFile"
+                    >
+                    <label for="solana-info-img-load" class="solana-info-img-input solana-info-input" ng-class="{'invalid': !isValidFile}">
+                        <span class="solana-info-img-name solana-info-img-placeholder">{{ filePlaceHolder }}</span>
+                        <span class="solana-info-img-btn">Choose File</span>
+                    </label>
+                    <span class="solana-info-img-note solana-info-note" ng-class="{'invalidSize': !isValidFile}">JPEG, SVG, PNG, Max&nbsp;file&nbsp;size&nbsp;200&nbsp;Kb</span>
+                </div>
+                <label class="solana-info-label">Link to the official homepage of token</label>
+                <input 
+                    ng-model="link"
+                    type="text" 
+                    class="solana-info-input" 
+                    name="link"
+                    ng-pattern="/^((ftp|http|https):\/\/)?(www\.)?([A-Za-z0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-z0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/"
+                    required
+                >
+                <label class="solana-info-label">Coingecko ID if available</label>
+                <span class="solana-info-link">https://www.coingecko.com/api/documentations/v3#/coins/get_coins__id_</span>
+                <input type="text" class="solana-info-input" name="coingecko" required>
+                <label class="solana-info-label">Description</label>
+                <div class="solana-info-description">
+                    <input 
+                        type="text" 
+                        class="solana-info-input solana-info-description-input" 
+                        name="description"
+                        ng-model="description"
+                        required
+                    >
+                    <span class="solana-info-description-note solana-info-note">The first decentralized, capital efficient and over-collateralized stablecoin protocol</span>
+                </div>
+            </div>
+
+            <div class="solana-info-socials">
+                <div class="solana-info-socials-discord solana-info-socials-social">
+                    <label class="solana-info-label solana-info-socials-label">Link to Discord server</label>
+                    <input 
+                        placeholder="Discord Server" 
+                        type="text" 
+                        class="solana-info-input" 
+                        name="discord"
+                        ng-model="discord"
+                        ng-pattern="/^https:\/\/discord.gg\/.+/"
+                        required
+                    >
+                </div>
+                <div class="solana-info-socials-twitter solana-info-socials-social">
+                    <label class="solana-info-label solana-info-socials-label">Link to Twitter account</label>
+                    <input 
+                        placeholder="Twitter Account" 
+                        type="text" 
+                        class="solana-info-input" 
+                        name="twitter"
+                        ng-model="twitter"
+                        ng-pattern="/^https:\/\/twitter.com\/.+/"
+                        required
+                    >
+                </div>
+            </div>
+            <button ng-disabled="!(solanaFormAddToken.$valid && isValidFile && !isFileEmpty)" type="submit" class="uppercase btn btn-submit solana-info-btn">Submit</button>
+        </div>
+    </form>
+</div>
+
+

@@ -129,8 +129,10 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
             if (+$stateParams.network === 39) {
                 $rootScope.commonOpenedPopup = 'alerts/solana-create-mainnet';
             }
-            delete storage.draftContract;
-            createContract();
+            else{
+                delete storage.draftContract;
+                $rootScope.createSolanaContract();
+            }
             return;
         }
         storage.draftContract = JSON.stringify(generateContractData());
@@ -166,7 +168,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
     };
 
     $scope.contractInProgress = false;
-    var createContract = function() {
+    $rootScope.createSolanaContract = function() {
         if ($scope.contractInProgress) return;
         $scope.contractInProgress = true;
 

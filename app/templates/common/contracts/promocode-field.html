@@ -32,6 +32,14 @@
 
 <div class="shadow-block__content shadow-block__content_min-tb-padding grey-color no-border" ng-if="(sitemode === 'default')">
     <div class="form-control-label">
+        <pre>{{ contract.cost }}</pre>
+        <pre>{{ contract.contract_details }}</pre>
+        <pre>{{ bigNumber(contract.cost.USDT).div(1000000)
+                .minus(bigNumber(contract.contract_details.authio ? contract.authioPrices.USDT : 0))
+                .minus(bigNumber(contract.contract_details.verification ?
+                        contract.verificationCost.USDT : 0))
+                .minus(bigNumber(contract.contract_details.white_label ? contract.whitelabelCost.USDT : 0))
+                .toString(10)|separateNumber }}</pre>
         <div class="form-table">
             <div class="form-table-row-header">
                 <div class="form-table-col-header">
@@ -49,7 +57,7 @@
                     <img src="/static/images/contract.svg" alt="">
                 </div>
                 <div class="form-table-col-header-blue">
-                    Create contact
+                    Create contact1
                 </div>
                 <div class="form-table-col">
                     ${{ bigNumber(contract.cost.USDT).div(1000000)
@@ -57,7 +65,7 @@
                     .minus(bigNumber(contract.contract_details.verification ?
                     contract.verificationCost.USDT : 0))
                     .minus(bigNumber(contract.contract_details.white_label ? contract.whitelabelCost.USDT : 0))
-                    .round(2).toString(10)|separateNumber }}
+                    .toFixed(2).toString(10)|separateNumber }}
                 </div>
                 <div class="form-table-col">
                     {{ bigNumber(contract.cost.WISH).div(10e17)
@@ -65,7 +73,7 @@
                     .minus(bigNumber(contract.contract_details.verification ?
                     contract.verificationCost.WISH : 0))
                     .minus(bigNumber(contract.contract_details.white_label ? contract.whitelabelCost.WISH : 0))
-                    .round(2).toString(10)|separateNumber }}
+                    .toFixed(2).toString(10)|separateNumber }}
                 </div>
             </div>
             <div class="form-table-row" ng-if="contract.contract_details.authio">

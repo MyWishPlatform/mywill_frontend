@@ -13,14 +13,14 @@
   <i class="icon-trash"></i>
 </button>
 
-<button class="btn only-icon float-right" type="button"
-        ng-if="(contract.stateValue == 1) || (contract.stateValue == 2)"
+<button class="btn btn-transparent hide-ps" type="button"
+        ng-if="contract.stateValue > 2"
         ng-pop-up="{
             template: '/templates/popups/forms/solana/mb_contract.html',
             newPopupContent: true,
             class: 'solana-info',
         }">
-  <i class="icon-trash"></i>
+        Add token info
 </button>
 
 <!-- Activate instruction button -->

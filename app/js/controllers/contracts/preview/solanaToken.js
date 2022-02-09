@@ -1,5 +1,5 @@
 angular.module('app').controller('solanaTokenPreviewController', function($timeout, $rootScope, contractService, $location,
-                                                                             openedContract, $scope, $filter, web3Service) {
+                                                                             openedContract, $scope, $filter, web3Service, $http, $stateParams) {
 
 
     $scope.contract = openedContract.data;
@@ -8,83 +8,57 @@ angular.module('app').controller('solanaTokenPreviewController', function($timeo
         ERC223: 'SPL',
     };
     $scope.contract.contract_details.token_type = tokenTypes[$scope.contract.contract_details.token_type];
-    //
-    //
     $scope.iniContract($scope.contract);
-    //
-    // var contractDetails = $scope.contract.contract_details, web3Contract;
+
     var contractDetails = $scope.contract.contract_details;
-    //
     var tabs = ['code', 'info'];
+
     console.log(77, $scope.contract.contract_details);
-    //
-    //
-    // var updateTotalSupply = function() {
-    //     web3Contract.methods.totalSupply().call(function(error, result) {
-    //         if (error) {
-    //             result = 0;
-    //         }
-    //         $scope.chartData = angular.copy(contractDetails.token_holders);
-    //         $scope.chartData.unshift({
-    //             amount: new BigNumber(result).minus(holdersSum).div(powerNumber),
-    //             address: 'Other'
-    //         });
-    //         $scope.totalSupply = {
-    //             tokens: new BigNumber(result).div(powerNumber)
-    //         };
-    //         $scope.$apply();
-    //     });
-    // };
-    //
-    //
+    console.log(11,  $stateParams);
+
     var powerNumber = new BigNumber('10').exponentiatedBy(contractDetails.decimals || 0);
     var holdersSum = new BigNumber(0);
-    //
+
+    var updateTotalSupply = function() {
+        console.log(999);
+        $http.post('https://dev.mywish.io/api/v1/get_token_supply/', {'address': 'AWxHRKZBtrUcCCBMerotALNau73vAX84gBGJJjA4UA8i', network: 38 }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (res) {
+            $scope.chartData = angular.copy(contractDetails.token_holders);
+            $scope.chartData.unshift({
+                amount: new BigNumber(res.data.supply).minus(holdersSum).div(powerNumber),
+                address: 'Other'
+            });
+            $scope.totalSupply = {
+                            tokens: new BigNumber(res.data.supply).div(powerNumber).toString(10)
+                        };
+            console.log(888, $scope.totalSupply);
+        })
+            .catch(function (e) {
+                console.error('Error from /api/v1/get_token_supply/', e);
+            })
+    }
+
     contractDetails.token_holders.map(function(holder) {
         holdersSum = holdersSum.plus(holder.amount);
         holder.amount = new BigNumber(holder.amount).div(powerNumber).toString(10);
     });
-    //
-    //
-    // if (contractDetails.eth_contract_token && contractDetails.eth_contract_token.address) {
-    //     web3Service.setProviderByNumber($scope.contract.network);
-    //     web3Contract = web3Service.createContractFromAbi(
-    //         contractDetails.eth_contract_token.address,
-    //         contractDetails.eth_contract_token.abi
-    //     );
-    //
-    //     if (web3Contract.methods.freezingBalanceOf) {
-    //         web3Contract.methods.freezingBalanceOf(contractDetails.admin_address).call(function(error, result) {
-    //             if (error) return;
-    //             if (result * 1) {
-    //                 $scope.tokensFreezed = true;
-    //             }
-    //             $scope.$apply();
-    //         });
-    //     }
-    //     updateTotalSupply();
-    // } else {
-    //     $scope.chartData = angular.copy(contractDetails.token_holders);
-    // }
-    //
-    // $scope.chartOptions = {
-    //     itemValue: 'amount',
-    //     itemLabel: 'address'
-    // };
-    //
-    // $scope.forMintInfo = {
-    //     updateData: updateTotalSupply
-    // };
-    //
-    //
-    // if ($location.$$hash && (/^tab-.+/.test($location.$$hash))) {
-    //     var tab = $location.$$hash.replace(/^tab-(.+$)/, '$1');
-    //     if (tabs.indexOf(tab) !== -1) {
-    //         $scope.$parent.showedTab = tab;
-    //     }
-    // }
-    //
-    //
+
+    $scope.chartData = angular.copy(contractDetails.token_holders);
+    $scope.chartOptions = {
+        itemValue: 'amount',
+        itemLabel: 'address'
+    };
+    $scope.totalSupply = {
+        tokens: holdersSum.div(powerNumber).toString(10)
+    };
+
+    console.log(999, $scope.chartData, $scope.totalSupply);
+
+    console.log(contractDetails.token_holders)
+
     switch ($scope.contract.network) {
         case 38:
         case 39:
@@ -92,4 +66,6 @@ angular.module('app').controller('solanaTokenPreviewController', function($timeo
             $scope.contractInfo = 'solana_contract_token';
             break;
     }
+
+    $rootScope.contract = $scope.contract
 });

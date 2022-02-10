@@ -10,7 +10,7 @@
         </div>
         <div class="solana-info">
             <div class="solana-info-main">
-                <label class="solana-info-label">Token Logo</label>
+                <label class="solana-info-label">Token Logo*</label>
                 <div class="solana-info-img">
                     <input 
                         name="img" 
@@ -27,7 +27,7 @@
                     </label>
                     <span class="solana-info-img-note solana-info-note" ng-class="{'invalidSize': !isValidFile}">JPEG, SVG, PNG, Max&nbsp;file&nbsp;size&nbsp;200&nbsp;Kb</span>
                 </div>
-                <label class="solana-info-label">Link to the official homepage of token</label>
+                <label class="solana-info-label">Link to the official homepage of token*</label>
                 <input 
                     ng-model="link"
                     type="text" 
@@ -38,8 +38,8 @@
                 >
                 <label class="solana-info-label">Coingecko ID if available</label>
                 <span class="solana-info-link">https://www.coingecko.com/api/documentations/v3#/coins/get_coins__id_</span>
-                <input type="text" class="solana-info-input" name="coingecko" required>
-                <label class="solana-info-label">Description</label>
+                <input type="text" class="solana-info-input" name="coingecko" ng-model="coingecko">
+                <label class="solana-info-label">Description*</label>
                 <div class="solana-info-description">
                     <input 
                         type="text" 
@@ -54,7 +54,7 @@
 
             <div class="solana-info-socials">
                 <div class="solana-info-socials-discord solana-info-socials-social">
-                    <label class="solana-info-label solana-info-socials-label">Link to Discord server</label>
+                    <label class="solana-info-label solana-info-socials-label">Link to Discord server*</label>
                     <input 
                         placeholder="Discord Server" 
                         type="text" 
@@ -66,7 +66,7 @@
                     >
                 </div>
                 <div class="solana-info-socials-twitter solana-info-socials-social">
-                    <label class="solana-info-label solana-info-socials-label">Link to Twitter account</label>
+                    <label class="solana-info-label solana-info-socials-label">Link to Twitter account*</label>
                     <input 
                         placeholder="Twitter Account" 
                         type="text" 
@@ -78,7 +78,7 @@
                     >
                 </div>
             </div>
-            <button ng-disabled="!(solanaFormAddToken.$valid && isValidFile && !isFileEmpty)" type="submit" class="uppercase btn btn-submit solana-info-btn">Submit</button>
+            <button ng-disabled="!(solanaFormAddToken.$valid && isValidFile && !isFileEmpty)" ng-click="sendTokenInfo(); closeCurrentPopup();" class="uppercase btn btn-submit solana-info-btn">Submit</button>
         </div>
     </form>
 </div>

@@ -1,4 +1,4 @@
-angular.module('app').controller('solanaAddTokenController', function ($scope){
+angular.module('app').controller('solanaAddTokenController', function ($scope, requestService){
     $scope.isValidFile = true;
     $scope.filePlaceHolder = "Upload toke logo file";
     $scope.isFileEmpty = true;
@@ -34,6 +34,7 @@ angular.module('app').controller('solanaAddTokenController', function ($scope){
                 "disc_link": $scope.discord,
                 "twitter_link": $scope.twitter,
             }
+            //здесь будет отправка через request-сервис
         }
         reader.readAsBinaryString(file);
     }

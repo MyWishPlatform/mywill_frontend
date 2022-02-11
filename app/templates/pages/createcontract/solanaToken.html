@@ -293,7 +293,7 @@
                       translate="CONTRACTS.FORMS.TOKEN.FIELDS.RECIPIENT.DESCRIPTION_BLOCK"></span><br/>
             </div>
             <div class="grid-cell grid-cell-5-12 grid-cell-ls-1 form-control-description">
-                <button class="btn btn-transparent with-icon mobile-width-100" type="button" ng-click="addRecipient(); checkTokensAmount();">
+                <button class="btn btn-transparent with-icon mobile-width-100" ng-disabled="checkLeftSupply()" type="button" ng-click="addRecipient(); checkTokensAmount();">
                     <i class="icon-plus"></i>
                     <span translate="CONTRACTS.FORMS.TOKEN.BUTTONS.ADD_ADDRESS"></span>
                 </button>

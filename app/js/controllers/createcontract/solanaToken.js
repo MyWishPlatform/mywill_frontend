@@ -51,6 +51,11 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
         $scope.checkTokensAmount();
     }
 
+    $scope.checkLeftSupply = function() {
+        console.log($scope.supplyLeft);
+        return !new BigNumber($scope.supplyLeft).isPositive();
+    }
+
     $scope.checkTokensAmount = function() {
         if($scope.request.decimals) {
             $rootScope.decimalsSolana = +$scope.request.decimals;

@@ -343,7 +343,7 @@ angular.module('Services').service('web3Service', function($q, $rootScope, APP_C
             if (!requestsCount) {
                 if (wallet && tokenInfo['balanceOf']) {
                     var decimalsValue = tokenInfo.decimals ? Math.pow(10, tokenInfo.decimals) : 1;
-                    tokenInfo.balance = new BigNumber(tokenInfo.balanceOf).div(decimalsValue).decimalPlaces(2).toString(10);
+                    tokenInfo.balance = new BigNumber(tokenInfo.balanceOf).div(decimalsValue).toFixed(2).toString(10);
                 }
                 defer.resolve(tokenInfo);
             }

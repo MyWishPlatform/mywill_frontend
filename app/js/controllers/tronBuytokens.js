@@ -65,7 +65,7 @@ angular.module('app').controller('tronBuytokensController', function($scope, $ti
 
     $scope.checkTronishAmount = function() {
         var tronishAmount = new BigNumber($scope.formData.tronAmount || 0);
-        $scope.formData.tronishAmount  = tronishAmount.div(rate).decimalPlaces(2).toString(10);
+        $scope.formData.tronishAmount  = tronishAmount.div(rate).toFixed(2).toString(10);
         // $scope.formData.amount = $scope.formData.tronAmount;
     };
 
@@ -75,13 +75,13 @@ angular.module('app').controller('tronBuytokensController', function($scope, $ti
     var rate = $scope.exRate.ETH || 0.5;
     $scope.checkWishesAmount = function() {
         var wishesAmount = new BigNumber($scope.formData.ethAmount || 0);
-        $scope.formData.tronishAmount  = wishesAmount.div(rate).decimalPlaces(2).toString(10);
+        $scope.formData.tronishAmount  = wishesAmount.div(rate).toFixed(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
     $scope.checkEthAmount = function() {
         if (!$scope.formData.tronishAmount) return;
         var ethAmount = new BigNumber($scope.formData.tronishAmount);
-        $scope.formData.ethAmount = ethAmount.times(rate).decimalPlaces(2).toString(10);
+        $scope.formData.ethAmount = ethAmount.times(rate).toFixed(2).toString(10);
         $scope.formData.amount = $scope.formData.ethAmount;
     };
 }).controller('tronBuytokensBtcController', function($scope) {
@@ -89,12 +89,12 @@ angular.module('app').controller('tronBuytokensController', function($scope, $ti
     $scope.checkTronishAmount = function() {
         if (!$scope.formData.btcAmount) return;
         var tronishAmount = new BigNumber($scope.formData.btcAmount);
-        $scope.formData.tronishAmount = tronishAmount.div(rate).decimalPlaces(2).toString(10);
+        $scope.formData.tronishAmount = tronishAmount.div(rate).toFixed(2).toString(10);
     };
     $scope.checkBtcAmount = function() {
         if (!$scope.formData.tronishAmount) return;
         var btcAmount = new BigNumber($scope.formData.tronishAmount);
-        $scope.formData.btcAmount = btcAmount.times(rate).decimalPlaces(2).toString(10);
+        $scope.formData.btcAmount = btcAmount.times(rate).toFixed(2).toString(10);
     };
 
 });

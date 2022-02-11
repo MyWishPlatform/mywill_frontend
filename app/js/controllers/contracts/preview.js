@@ -23,9 +23,9 @@ angular.module('app').controller('contractsPreviewController', function($scope, 
     contractService.getVerificationCost().then(function(response) {
         console.log('contractsPreviewController getVerificationCost',response.data)
         contract.verificationCost = {
-            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
-            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
-            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).decimalPlaces(2).toString(10),
+            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).toFixed(2).toString(10),
+            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).toFixed(2).toString(10),
+            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).toFixed(2).toString(10),
         };
     });
 

@@ -40,7 +40,7 @@ angular.module('app').controller('deferredCreateController', function($scope, co
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
             web3Service.getBalance($scope.request.contract_details.user_address).then(function(balance) {
-                balance = new BigNumber(Web3.utils.fromWei(balance, 'ether')).decimalPlaces(2).toString(10);
+                balance = new BigNumber(Web3.utils.fromWei(balance, 'ether')).toFixed(2).toString(10);
                 $scope.checkedBalance = balance;
                 balanceTimer = false;
                 $scope.balanceInProgress = false;

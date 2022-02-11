@@ -78,7 +78,9 @@
                     >
                 </div>
             </div>
-            <button ng-disabled="!(solanaFormAddToken.$valid && isValidFile && !isFileEmpty)" ng-click="sendTokenInfo(); closeCurrentPopup();" class="uppercase btn btn-submit solana-info-btn">Submit</button>
+            <button ng-disabled="!(solanaFormAddToken.$valid && isValidFile && !isFileEmpty)" 
+                ng-click="sendTokenInfo(ngPopUp.params.contract); closeCurrentPopup();" 
+                class="uppercase btn btn-submit solana-info-btn">Submit</button>
         </div>
     </form>
 </div>

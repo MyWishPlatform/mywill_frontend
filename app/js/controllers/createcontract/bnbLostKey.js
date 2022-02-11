@@ -96,7 +96,7 @@ angular.module('app').controller('bnbLostKeyCreateController', function($scope, 
         $scope.balanceInProgress = true;
         balanceTimer = $timeout(function() {
             web3Service.getBalance($scope.walletAddress).then(function(balance) {
-                balance = new BigNumber(Web3.utils.fromWei(balance, 'ether')).decimalPlaces(4);
+                balance = new BigNumber(Web3.utils.fromWei(balance, 'ether')).toFixed(4);
                 $scope.checkedBalance = isNaN(balance) ? false : balance;
                 balanceTimer = false;
                 $scope.balanceInProgress = false;

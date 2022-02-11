@@ -50,7 +50,7 @@ module.directive('ngBarChart', function($rootScope) {
                     var percentOfValue = Math.toFixed(($scope.bonusesParams.minOpacity + (dataItem.valueY - $scope.bonusesParams.min) / $scope.bonusesParams.rangeBonuses * 0.7) * 1000) / 1000;
 
                     var currentChartItem = {
-                        width: new BigNumber(dataItem.maxValueX).minus(dataItem.minValueX).div(onePercent).times(onePercentForPixel).plus(leftOffset).decimalPlaces(2).toString(10),
+                        width: new BigNumber(dataItem.maxValueX).minus(dataItem.minValueX).div(onePercent).times(onePercentForPixel).plus(leftOffset).toFixed(2).toString(10),
                         left: leftOffset.toFixed(2).toString(10),
                         height: $scope.svgHeight * percentOfValue,
                         bonus: dataItem.valueY / 100,

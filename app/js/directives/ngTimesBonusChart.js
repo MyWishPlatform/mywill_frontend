@@ -24,8 +24,8 @@ module.directive('ngTimesBonusChart', function($rootScope) {
 
 
                 svg.height($scope.svgHeight);
-                var onePercentOfWidth = new BigNumber($scope.svgWidth).minus($scope.leftOffset).div(100).decimalPlaces(5);
-                var onePercentOfHeight = new BigNumber($scope.svgHeight).minus($scope.bottomOffset).div(100).decimalPlaces(5);
+                var onePercentOfWidth = new BigNumber($scope.svgWidth).minus($scope.leftOffset).div(100).toFixed(5);
+                var onePercentOfHeight = new BigNumber($scope.svgHeight).minus($scope.bottomOffset).div(100).toFixed(5);
 
                 var chartData = $scope.ngTimesBonusChart.data;
 
@@ -113,11 +113,11 @@ module.directive('ngTimesBonusChart', function($rootScope) {
 
 
                     var bottomAmountPosition =
-                        new BigNumber(item['min_amount']).minus(minAmountBonus).times(amountOnePercentLength).decimalPlaces(3).toString(10) * 1;
+                        new BigNumber(item['min_amount']).minus(minAmountBonus).times(amountOnePercentLength).toFixed(3).toString(10) * 1;
                     // var prevBottomAmountPosition =
-                    //     new BigNumber(item['prev_min_amount']).minus(minAmountBonus).times(amountOnePercentLength).decimalPlaces(3).toString(10) * 1;
+                    //     new BigNumber(item['prev_min_amount']).minus(minAmountBonus).times(amountOnePercentLength).toFixed(3).toString(10) * 1;
                     var topAmountPosition =
-                        new BigNumber(item['max_amount']).minus(minAmountBonus).times(amountOnePercentLength).decimalPlaces(3).toString(10) * 1;
+                        new BigNumber(item['max_amount']).minus(minAmountBonus).times(amountOnePercentLength).toFixed(3).toString(10) * 1;
                     var leftDatePosition =
                         Math.toFixed((item['min_time'] - minDateBonus) * dateTimeOnePercentLength);
                     // var prevLeftDatePosition =

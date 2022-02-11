@@ -219,9 +219,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 if (contract.withAuthioForm) {
                     contractService.getAuthioCost().then(function(response) {
                         contract.authioPrices = {
-                            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
-                            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
-                            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).decimalPlaces(2).toString(10),
+                            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).toFixed(2).toString(10),
+                            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).toFixed(2).toString(10),
+                            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).toFixed(2).toString(10),
                         };
                     });
                 }
@@ -230,9 +230,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     contractService.getVerificationCost().then(function(response) {
                         console.log('getVerificationCost',response.data)
                         contract.verificationPrices = {
-                            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
-                            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).decimalPlaces(2).toString(10),
-                            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).decimalPlaces(2).toString(10),
+                            WISH: new BigNumber(response.data.WISH).div(Math.pow(10, 18)).toFixed(2).toString(10),
+                            ETH: new BigNumber(response.data.ETH).div(Math.pow(10, 18)).toFixed(2).toString(10),
+                            USDT: new BigNumber(response.data.USDT).div(Math.pow(10, 6)).toFixed(2).toString(10),
                         };
                     });
                 }
@@ -622,15 +622,15 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         switch ($rootScope.sitemode) {
             case 'eos':
-                price = new BigNumber(contract.cost.EOSISH).div(10000).decimalPlaces(2);
+                price = new BigNumber(contract.cost.EOSISH).div(10000).toFixed(2);
                 currency = 'EOSISH';
                 break;
             case 'tron':
-                price = new BigNumber(contract.cost.TRONISH).div(1000000).decimalPlaces(2);
+                price = new BigNumber(contract.cost.TRONISH).div(1000000).toFixed(2);
                 currency = 'TRONISH';
                 break;
             default:
-                price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).decimalPlaces(2);
+                price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).toFixed(2);
                 currency = 'WISH';
         }
 
@@ -662,15 +662,15 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             var price, currency;
             switch ($rootScope.sitemode) {
                 case 'eos':
-                    price = new BigNumber(contract.cost.EOSISH).div(10000).decimalPlaces(2);
+                    price = new BigNumber(contract.cost.EOSISH).div(10000).toFixed(2);
                     currency = 'EOSISH';
                     break;
                 case 'tron':
-                    price = new BigNumber(contract.cost.TRONISH).div(1000000).decimalPlaces(2);
+                    price = new BigNumber(contract.cost.TRONISH).div(1000000).toFixed(2);
                     currency = 'TRONISH';
                     break;
                 default:
-                    price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).decimalPlaces(2);
+                    price = new BigNumber(Web3.utils.fromWei(contract.cost.WISH, 'ether')).toFixed(2);
                     currency = 'WISH';
             }
             $rootScope.commonOpenedPopupParams = {

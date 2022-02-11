@@ -65,10 +65,10 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
         contractService.getVerificationCost().then(function(response) {
             // console.log('tokenPreviewController getVerificationCost',response);
             $scope.contract.verificationCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).decimalPlaces(3).toString(10),
-                WISH: new BigNumber(response.data.WISH).div(10e17).decimalPlaces(3).toString(10),
-                ETH: new BigNumber(response.data.ETH).div(10e17).decimalPlaces(3).toString(10),
-                BTC: new BigNumber(response.data.BTC).div(10e7).decimalPlaces(6).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).toFixed(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).toFixed(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).toFixed(6).toString(10),
             };
         });
     }
@@ -130,7 +130,7 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
 
     $scope.checkHardCapEth = function() {
         var hard_cap = $scope.request.hard_cap || 0;
-        $scope.additionalParams.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).decimalPlaces(2).toString(10);
+        $scope.additionalParams.ethHardCap = new BigNumber(hard_cap).div($scope.request.rate).toFixed(2).toString(10);
         $scope.additionalParams.usdHardCap = 0; // $filter('number')(hard_cap / $scope.request.rate * $scope.currencyRate.USD, 2);
     };
 
@@ -168,18 +168,18 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
         contractDetails.stop_date = contractDetails.stop_date * 1;
         contractDetails.verification = !!contractDetails.verification;
 
-        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+        contractDetails.hard_cap = new BigNumber(contractDetails.hard_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
 
         if (contractDetails.soft_cap) {
-            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+            contractDetails.soft_cap = new BigNumber(contractDetails.soft_cap).div(contractDetails.rate).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
         }
 
         if (!$scope.additionalParams.investsLimit) {
             contractDetails.min_wei = null;
             contractDetails.max_wei = null;
         } else {
-            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
-            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+            contractDetails.min_wei = new BigNumber(contractDetails.min_wei).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
+            contractDetails.max_wei = new BigNumber(contractDetails.max_wei).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
         }
         return {
             feedback_email: $scope.feedback_email,
@@ -256,15 +256,15 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
 
         $scope.additionalParams.investsLimit = !!contract.contract_details.min_wei;
         if ($scope.additionalParams.investsLimit) {
-            $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,$scope.currencyPow)).decimalPlaces(2).toString(10);
-            $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,$scope.currencyPow)).decimalPlaces(2).toString(10);
+            $scope.request.min_wei = new BigNumber($scope.request.min_wei).div(Math.pow(10,$scope.currencyPow)).toFixed(2).toString(10);
+            $scope.request.max_wei = new BigNumber($scope.request.max_wei).div(Math.pow(10,$scope.currencyPow)).toFixed(2).toString(10);
         }
 
         if ($scope.request.hard_cap) {
-            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+            $scope.request.hard_cap = new BigNumber($scope.request.hard_cap).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
         }
         if ($scope.request.soft_cap) {
-            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+            $scope.request.soft_cap = new BigNumber($scope.request.soft_cap).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
         }
         setStartTimestamp();
         setStopTimestamp();
@@ -447,8 +447,8 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
                 };
             }
             if (bonus.isTokensAmount) {
-                bonus.min_amount = new BigNumber(bonus.min_amount).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
-                bonus.max_amount = new BigNumber(bonus.max_amount).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+                bonus.min_amount = new BigNumber(bonus.min_amount).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
+                bonus.max_amount = new BigNumber(bonus.max_amount).times($scope.request.rate).div(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
             }
         });
         $scope.changeTokensBonusData();
@@ -459,8 +459,8 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
         $scope.bonuses.map(function(bonus) {
             $scope.request.time_bonuses.push({
                 bonus: bonus.bonus,
-                max_amount: bonus.max_amount ? new BigNumber(bonus.max_amount).div($scope.request.rate).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10) : undefined,
-                min_amount: (bonus.max_amount && (bonus.forCheckTokens.prev || bonus.min_amount)) ? new BigNumber(bonus.forCheckTokens.prev || bonus.min_amount).div($scope.request.rate).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10) : undefined,
+                max_amount: bonus.max_amount ? new BigNumber(bonus.max_amount).div($scope.request.rate).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10) : undefined,
+                min_amount: (bonus.max_amount && (bonus.forCheckTokens.prev || bonus.min_amount)) ? new BigNumber(bonus.forCheckTokens.prev || bonus.min_amount).div($scope.request.rate).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10) : undefined,
                 max_time: bonus.max_time,
                 min_time: bonus.min_time
             });
@@ -575,8 +575,8 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
     var resetFormData = function() {
         $scope.bonuses = angular.copy($scope.request.amount_bonuses);
         $scope.bonuses.map(function(bonus) {
-            bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
-            bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10);
+            bonus.min_amount = new BigNumber(bonus.min_amount).div(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
+            bonus.max_amount = new BigNumber(bonus.max_amount).div(Math.pow(10,$scope.currencyPow)).toFixed().toString(10);
         });
     };
     var createdContractData = function() {
@@ -584,8 +584,8 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
         $scope.bonuses.map(function(bonus) {
             $scope.request.amount_bonuses.push({
                 bonus: bonus.bonus,
-                max_amount: new BigNumber(bonus.max_amount).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10),
-                min_amount: new BigNumber(bonus.min_amount).times(Math.pow(10,$scope.currencyPow)).decimalPlaces().toString(10)
+                max_amount: new BigNumber(bonus.max_amount).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10),
+                min_amount: new BigNumber(bonus.min_amount).times(Math.pow(10,$scope.currencyPow)).toFixed().toString(10)
             });
         });
     };
@@ -624,7 +624,7 @@ angular.module('app').controller('bnbCrowdSaleCreateController', function($scope
             }
 
             $scope.totalSupply = {
-                eth: ethSum.div($scope.request.rate).decimalPlaces(2).toString(10),
+                eth: ethSum.div($scope.request.rate).toFixed(2).toString(10),
                 tokens: ethSum.toFixed(2).toString(10)
             };
             $timeout(function() {

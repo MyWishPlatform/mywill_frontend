@@ -17,7 +17,7 @@ angular.module('app').controller('xinfinTokenPreviewController', function($timeo
         contractService.getAuthioCost().then(function(response) {
             console.log('tokenPreviewController getAuthioCost',response);
             $scope.contract.authioPrices = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(3).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(2).toString(10),
                 WISH: new BigNumber(response.data.WISH).div(10e17).toFixed(3).toString(10),
                 ETH: new BigNumber(response.data.ETH).div(10e17).toFixed(3).toString(10),
                 BTC: new BigNumber(response.data.BTC).div(10e7).toFixed(6).toString(10),
@@ -38,7 +38,7 @@ angular.module('app').controller('xinfinTokenPreviewController', function($timeo
         contractService.getVerificationCost().then(function(response) {
             console.log('xinfinPreviewController getVerificationCost',response);
             $scope.contract.verificationCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(3).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(2).toString(10),
                 WISH: new BigNumber(response.data.WISH).div(10e17).toFixed(3).toString(10),
                 ETH: new BigNumber(response.data.ETH).div(10e17).toFixed(3).toString(10),
                 BTC: new BigNumber(response.data.BTC).div(10e7).toFixed(6).toString(10),
@@ -52,7 +52,7 @@ angular.module('app').controller('xinfinTokenPreviewController', function($timeo
         contractService.getWhitelabelCost().then(function(response) {
             // console.log('xinfinPreviewController getWhitelabelCost',response);
             $scope.contract.whitelabelCost = {
-                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(3).toString(10),
+                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(2).toString(10),
                 WISH: new BigNumber(response.data.WISH).div(10e17).toFixed(3).toString(10),
                 ETH: new BigNumber(response.data.ETH).div(10e17).toFixed(3).toString(10),
                 BTC: new BigNumber(response.data.BTC).div(10e7).toFixed(6).toString(10),

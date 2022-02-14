@@ -52,8 +52,7 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
     }
 
     $scope.checkLeftSupply = function() {
-        console.log($scope.supplyLeft);
-        return !new BigNumber($scope.supplyLeft).isPositive();
+        return (!new BigNumber($scope.supplyLeft).isPositive()) || (new BigNumber($scope.supplyLeft).toString() == 0);
     }
 
     $scope.checkTokensAmount = function() {

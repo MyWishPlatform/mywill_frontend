@@ -195,6 +195,9 @@ $red-active-color: #bb0d2b;
       font-size: 5em;
     }
   }
+  &-add-token{
+    margin: 0;
+  }
 }
 
 @keyframes refreshProgressElement {

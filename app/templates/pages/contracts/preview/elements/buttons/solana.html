@@ -27,6 +27,20 @@
                 </button><br/><br/>
             </div>
 
+            <button class="btn btn-transparent hide-ps btn-add-token" type="button"
+                ng-if="contract.stateValue == 4 && contract.network === 38"
+                ng-pop-up="{
+                    template: '/templates/popups/forms/solana/mb_contract.html',
+                    newPopupContent: true,
+                    class: 'solana-info',
+                    params: {
+                        contract: contract,
+                    }
+                }",
+                >
+                <span>Add token info</span>
+            </button>
+
             <!-- Activate button -->
             <div class="grid-cell grid-cell-vs-1-2" ng-if="contract.stateValue == 10">
                 <button class="btn btn-transparent mobile-width-100 text-center"

@@ -46,7 +46,7 @@ angular.module('app').controller('solanaAddTokenController', function ($http, $s
         formData.append("twitter_link", $scope.twitter);
         formData.append("contract_id", contract.id);
         formData.append("logo", file);
-        requestService.post({ data: formData, path: API.SEND_TOKEN_INFO, headers: { 'Content-Type': 'application/x-www-form-urlencoded'}});
+        requestService.post({ data: formData, path: API.SEND_TOKEN_INFO, headers: { 'Content-Type': undefined}});
         // var reader = new FileReader();
         // console.log(contract);
         // reader.onload = function(e){

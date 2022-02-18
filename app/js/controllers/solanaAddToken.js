@@ -1,4 +1,4 @@
-angular.module('app').controller('solanaAddTokenController', function ($scope, requestService, API){
+angular.module('app').controller('solanaAddTokenController', function ($http, $scope, requestService, API){
     $scope.isValidFile = true;
     $scope.filePlaceHolder = "Upload toke logo file";
     $scope.isFileEmpty = true;
@@ -22,7 +22,23 @@ angular.module('app').controller('solanaAddTokenController', function ($scope, r
         })
     }
 
+    function getCookie(name) {
+        if (!document.cookie) {
+            return null;
+        }
+
+        const xsrfCookies = document.cookie.split(';')
+            .map(function(c){return c.trim()})
+            .filter(function(c){return c.startsWith(name + '=')});
+
+        if (xsrfCookies.length === 0) {
+            return null;
+        }
+        return decodeURIComponent(xsrfCookies[0].split('=')[1]);
+    }
+    console.log(solanaWeb3);
     $scope.sendTokenInfo = function(contract){
+        // var form = document.querySelector("#solanaFormAddToken");
         var formData = new FormData();
         formData.append("site_link", $scope.link);
         formData.append("coingecko_id", $scope.coingecko);
@@ -31,7 +47,7 @@ angular.module('app').controller('solanaAddTokenController', function ($scope, r
         formData.append("twitter_link", $scope.twitter);
         formData.append("contract_id", contract.id);
         formData.append("logo", file);
-        requestService.post({ data: formData, path: API.SEND_TOKEN_INFO, headers: { 'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'}});
+        requestService.post({ data: formData, path: API.SEND_TOKEN_INFO, headers: { 'Content-Type': 'application/x-www-form-urlencoded'}});
         // var reader = new FileReader();
         // console.log(contract);
         // reader.onload = function(e){

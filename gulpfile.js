@@ -18,6 +18,7 @@ var gulp = require('gulp'),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require('gulp-rename'),
     template = require('gulp-template');
+    // babelify = require('babelify');
 
 var envify = require( 'envify/custom' );
 
@@ -137,6 +138,7 @@ gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:eos-lynx', 'app:
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'pie.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'themes', 'light.js'),
             path.join(folders['npm'], 'bignumber.js', 'bignumber.js'),
+            // path.join(input, 'static', 'babeled', 'babeled.js'),
             path.join(input, 'static', 'web3', 'web3.js'),
             path.join(output, 'vendors', '**/*')
         ])
@@ -191,6 +193,23 @@ gulp.task('app:web3', function() {
         }))
         .pipe(gulp.dest(path.join(input, 'static', 'web3')));
 });
+
+// gulp.task('app:babeled', function () {
+//     return gulp.src(path.join(output, 'babeled.js'))
+//         .pipe(browserify({
+//             insertGlobals: true,
+//             transform: [
+//                 babelify.configure({
+//                     presets: ["@babel/preset-env"]
+//                 }),
+//                 envify({
+//                     MODE: process.env.MODE
+//                 })
+//             ]
+//         }))
+//         .pipe(gulp.dest(path.join(input, 'static', 'babeled')));
+// });
+
 gulp.task('app:polyfills', function() {
     return gulp.src(path.join(output, 'polyfills', 'polyfills.js'))
         .pipe(browserify())

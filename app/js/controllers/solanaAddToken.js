@@ -36,7 +36,6 @@ angular.module('app').controller('solanaAddTokenController', function ($http, $s
         }
         return decodeURIComponent(xsrfCookies[0].split('=')[1]);
     }
-    console.log(solanaWeb3);
     $scope.sendTokenInfo = function(contract){
         // var form = document.querySelector("#solanaFormAddToken");
         var formData = new FormData();

@@ -714,7 +714,12 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         });
     };
 
-    $scope.to_recipient_hex = function () {
-        return 999;
+    $scope.sendMailTo = function () {
+        window.open("mailto:support@mywish.io?subject=Solana Token Info&body=logo:%0D%0A%0D%0A" +
+            "site_link:%0D%0A%0D%0A" +
+            "coingecko_id:%0D%0A%0D%0A" +
+            "description:%0D%0A%0D%0A" +
+            "disc_link:%0D%0A%0D%0A" +
+            "twitter_link:%0D%0A%0D%0A");
     }
 });

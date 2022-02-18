@@ -17,8 +17,9 @@ var gulp = require('gulp'),
     revReplace = require("gulp-rev-replace"),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require('gulp-rename'),
-    template = require('gulp-template');
-    // babelify = require('babelify');
+    template = require('gulp-template'),
+    babel = require('gulp-babel'),
+    babelify = require('babelify');
 
 var envify = require( 'envify/custom' );
 
@@ -52,8 +53,6 @@ let checkModeMethod = function() {
     })[0] || 'default';
 };
 checkModeMethod();
-
-
 
 /* Favicon */
 gulp.task('app:favicon', function() {
@@ -138,8 +137,8 @@ gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:eos-lynx', 'app:
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'pie.js'),
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'themes', 'light.js'),
             path.join(folders['npm'], 'bignumber.js', 'bignumber.js'),
-            // path.join(input, 'static', 'babeled', 'babeled.js'),
             path.join(input, 'static', 'web3', 'web3.js'),
+            // path.join(input, 'static', 'babeled', 'babeled.js'),
             path.join(output, 'vendors', '**/*')
         ])
         .pipe(concat('vendors.js'))
@@ -194,21 +193,21 @@ gulp.task('app:web3', function() {
         .pipe(gulp.dest(path.join(input, 'static', 'web3')));
 });
 
-// gulp.task('app:babeled', function () {
-//     return gulp.src(path.join(output, 'babeled.js'))
-//         .pipe(browserify({
-//             insertGlobals: true,
-//             transform: [
-//                 babelify.configure({
-//                     presets: ["@babel/preset-env"]
-//                 }),
-//                 envify({
-//                     MODE: process.env.MODE
-//                 })
-//             ]
-//         }))
-//         .pipe(gulp.dest(path.join(input, 'static', 'babeled')));
-// });
+gulp.task('app:babeled', function () {
+    return gulp.src(path.join(output, 'babeled.js'))
+        .pipe(browserify({
+            insertGlobals: true,
+            transform: [
+                babelify.configure({
+                    presets: ["@babel/preset-env"]
+                }),
+                envify({
+                    MODE: process.env.MODE
+                })
+            ]
+        }))
+        .pipe(gulp.dest(path.join(input, 'static', 'babeled')));
+});
 
 gulp.task('app:polyfills', function() {
     return gulp.src(path.join(output, 'polyfills', 'polyfills.js'))
@@ -226,10 +225,10 @@ gulp.task('app:js', ['app:js-clean', 'ng-config'], function() {
         path.join(output, folders['js'], '**/*'),
         path.join(input, 'config.js'),
         '!' + path.join(output, folders['js'], 'login.js')])
-        .pipe(concat('main.js'))
         .pipe(sourcemaps.init({
             loadMaps: true
         }))
+        .pipe(concat('main.js'))
         .pipe(sourcemaps.write());
     if (argv.production) {
         js = js.pipe(uglifyjs({mangle: false}));

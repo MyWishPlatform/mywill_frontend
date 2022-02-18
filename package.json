@@ -37,7 +37,7 @@
     "gulp-template": "^5.0.0",
     "gulp-uglifyjs": "^0.6.2",
     "http-proxy-middleware": "^0.18.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "run-sequence": "^1.2.2",
     "url": "^0.11.0"
   },

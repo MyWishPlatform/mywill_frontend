@@ -212,6 +212,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         switch (contract.contract_type) {
             case 5:
             case 33:
+            case 35:
             case 38:
             case 28:
                 contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE') || (contract.state === 'ENDED');

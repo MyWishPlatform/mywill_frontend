@@ -379,6 +379,84 @@
 </form>
 
 <form class="shadow-block"
+      name="authioForm"
+      ng-if="network == 35"
+      ng-class="{'no-active': !(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid)}">
+    <div class="shadow-block__content">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-1-4 grid-cell-ps-1-3 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <div class="checkbox-decoration">
+                        <label for="authio" class="form-control-label inline-label">
+                            <i class="icon-note-list form-control-label-icon floated"></i>
+                            <span class="after-floated">{{'CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.LABEL'|translate}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-1-6 grid-cell-ps-2-5 grid-cell-ls-1-2">
+                <div class="form-control">
+                    <label class="checkbox-decoration">
+                        <input type="checkbox"
+                               id="authio" ng-model="request.authio">
+                        <span class="checkbox-decoration-displaying">
+                        <span class="checkbox-decoration-val checkbox-decoration-val_on" translate="YES"></span>
+                        <span class="checkbox-decoration-val checkbox-decoration-val_off" translate="NO"></span>
+                    </span>
+                    </label>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-7-12 form-control-description grid-cell-ps-4-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.DESCRIPTION">
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="shadow-block__content no-border shadow-block__content_no-tb-padding" ng-if="request.authio">
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-2-5 float-right">
+                <a href="https://rocknblock.io/" target="_blank" class="authio-logo-link">
+                    <img class="authio-logo" src="/static/images/logos/logo-rnb.svg">
+                </a>
+            </div>
+            <div class="grid-cell grid-cell-3-5">
+
+                <div class="form-control-label"
+                     translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.SECOND_DESCRIPTION"></div>
+            </div>
+        </div>
+        <br/><br/>
+    </div>
+    <div class="shadow-block__content" ng-if="request.authio">
+        <div class="form-control">
+            <div class="form-control-label"
+                 translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_LABEL"></div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-5-12 grid-cell-ps-2-5 grid-cell-ls-1">
+                <div class="form-control">
+                    <input id="authio_email"
+                           type="email"
+                           ng-model="request.authio_email"
+                           ng-required="request.authio"
+                           class="form-control-input"/>
+                    <span class="field-error form-field_error-required"
+                          ng-if="!authioForm.$valid" style="display: block;"
+                          translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_ERROR">
+                    </span>
+                </div>
+            </div>
+            <div class="grid-cell grid-cell-7-12 form-control-description grid-cell-ps-3-5 grid-cell-vs-1">
+                <span class="form-control-description__text"
+                      translate="CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.EMAIL_DESCRIPTION"></span>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form class="shadow-block"
       name="whitelabelForm"
       ng-if="network == 35"
       ng-class="{'no-active': !(contractParamsForm.$valid && defineAddresses.$valid && tokenOwnerForm.$valid)}">
@@ -425,6 +503,16 @@
         </div>
     </div>
 </form>
+
+<div ng-if="request.authio && !agreed" ng-pop-up="{
+        opened: true,
+        newPopupContent: true,
+        template: '/templates/popups/terms-conditions/authio.html',
+        params: {
+            iAgreeTerms: iAgreeTerms,
+            iDisAgreeTerms: iDisAgreeTerms
+        }
+    }"></div>
 
 
 <br/><br/><br/>

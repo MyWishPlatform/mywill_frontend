@@ -399,10 +399,8 @@ gulp.task('ng-config', function() {
 });
 
 
-gulp.task('app:rev', ['app:css', 'app:templates'], function() {
-    return runSequence('app:vendors', 'app:solana', 'all:js-start', function(){
+gulp.task('app:rev', ['app:css', 'app:vendors', 'all:js-start', 'app:templates'], function() {
         return gulp.start('app:revision', 'app:zh-revision');
-    });
 });
 gulp.task('css:watcher', ['app:css'], function() {
     return gulp.start('app:revision');

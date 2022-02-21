@@ -196,7 +196,7 @@ angular.module('app').controller('authController', function (authService, $rootS
 
 
     var checkTimer = function() {
-        $scope.allTimerSeconds = requestTimeLength - Math.toFixed(((new Date()).getTime() - startTimerTime) / 1000);
+        $scope.allTimerSeconds = requestTimeLength - Math.round(((new Date()).getTime() - startTimerTime) / 1000);
         $scope.timerSeconds = $scope.allTimerSeconds%60;
         $scope.timerMinutes = Math.floor($scope.allTimerSeconds/60);
         $scope.timerSeconds = ($scope.timerSeconds < 10 ? '0' : '') + $scope.timerSeconds;

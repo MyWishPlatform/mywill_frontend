@@ -63,7 +63,7 @@ angular.module('app').controller('eosWalletCreateController', function($scope, c
                 if (timeout !== $scope.getCostProgress) return;
                 $scope.getCostProgress = false;
                 for (var i in response.data) {
-                    response.data[i] = Math.toFixed(response.data[i] * 100) / 100;
+                    response.data[i] = Math.round(response.data[i] * 100) / 100;
                 }
                 $scope.eosAccountCost = response.data;
             });

@@ -17,7 +17,7 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                 $scope.timesBonusChartData = [];
                 var svg = element.find('svg');
                 $scope.svgWidth = svg.width();
-                $scope.svgHeight = Math.toFixed($scope.originalSvgHeight * ($scope.svgWidth / $scope.originalSvgWidth));
+                $scope.svgHeight = Math.round($scope.originalSvgHeight * ($scope.svgWidth / $scope.originalSvgWidth));
                 $scope.leftOffset = 30;
                 $scope.bottomOffset = 20;
                 $scope.maxPosition = 25;
@@ -119,11 +119,11 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                     var topAmountPosition =
                         new BigNumber(item['max_amount']).minus(minAmountBonus).times(amountOnePercentLength).toFixed(3).toString(10) * 1;
                     var leftDatePosition =
-                        Math.toFixed((item['min_time'] - minDateBonus) * dateTimeOnePercentLength);
+                        Math.round((item['min_time'] - minDateBonus) * dateTimeOnePercentLength);
                     // var prevLeftDatePosition =
-                    //     Math.toFixed((item['prev_min_time'] - minDateBonus) * dateTimeOnePercentLength);
+                    //     Math.round((item['prev_min_time'] - minDateBonus) * dateTimeOnePercentLength);
                     var rightDatePosition =
-                        Math.toFixed((item['max_time'] - minDateBonus) * dateTimeOnePercentLength);
+                        Math.round((item['max_time'] - minDateBonus) * dateTimeOnePercentLength);
                     var yCorrector = $scope.svgHeight - $scope.bottomOffset;
                     var pointX1 = leftDatePosition + $scope.leftOffset;
                     var pointX2 = rightDatePosition + $scope.leftOffset;
@@ -142,7 +142,7 @@ module.directive('ngTimesBonusChart', function($rootScope) {
                     $scope.timesBonusChartData.push({
                         point:  points.join(' '),
                         bonus: item.bonus / 100,
-                        opacity: Math.toFixed(opacity * 1000) / 1000
+                        opacity: Math.round(opacity * 1000) / 1000
                     });
                 });
             };

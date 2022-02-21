@@ -17,9 +17,9 @@ var gulp = require('gulp'),
     revReplace = require("gulp-rev-replace"),
     sourcemaps = require("gulp-sourcemaps"),
     rename = require('gulp-rename'),
-    template = require('gulp-template'),
-    babel = require('gulp-babel'),
-    babelify = require('babelify');
+    template = require('gulp-template');
+    // babel = require('gulp-babel'),
+    // babelify = require('babelify');
 
 var envify = require( 'envify/custom' );
 
@@ -83,7 +83,7 @@ gulp.task('app:templates', ['app:templates-clean'], function () {
             standalone: true,
             root: "/templates/"
         }))
-        //.pipe(uglifyjs({mangle: false}))
+        .pipe(uglifyjs({mangle: false}))
         .pipe(rev())
         .pipe(gulp.dest(path.join(input, 'static', 'tpl')))
         .pipe(rev.manifest('templates.json'))
@@ -138,7 +138,6 @@ gulp.task('app:vendors', ['app:vendors-clean', 'app:web3', 'app:eos-lynx', 'app:
             path.join(folders['npm'], 'amcharts3', 'amcharts', 'themes', 'light.js'),
             path.join(folders['npm'], 'bignumber.js', 'bignumber.js'),
             path.join(input, 'static', 'web3', 'web3.js'),
-            // path.join(input, 'static', 'babeled', 'babeled.js'),
             path.join(output, 'vendors', '**/*')
         ])
         .pipe(concat('vendors.js'))
@@ -185,29 +184,34 @@ gulp.task('app:web3', function() {
         .pipe(browserify({
             insertGlobals : true,
             transform: [
+                // babelify.configure({
+                //     only: [/solana(\/|\\)web3/gi, /crypto\-hash/, /borsh/, /superstruct/],
+                //     presets: ["@babel/preset-env"],
+                // }),
                 envify( {
                     MODE: process.env.MODE
                 } )
             ]
         }))
-        .pipe(gulp.dest(path.join(input, 'static', 'web3')));
+        // .pipe(concat('web3.js'))
+        .pipe(gulp.dest(path.join(input, 'static', 'web3')))
 });
 
-gulp.task('app:babeled', function () {
-    return gulp.src(path.join(output, 'babeled.js'))
-        .pipe(browserify({
-            insertGlobals: true,
-            transform: [
-                babelify.configure({
-                    presets: ["@babel/preset-env"]
-                }),
-                envify({
-                    MODE: process.env.MODE
-                })
-            ]
-        }))
-        .pipe(gulp.dest(path.join(input, 'static', 'babeled')));
-});
+// gulp.task('app:solana', function () {
+//     return gulp.src(path.join(output, 'solana.js'))
+//         .pipe(browserify({
+//             insertGlobals: true,
+//             transform: [
+//                 babelify.configure({
+//                     presets: ["@babel/preset-env"]
+//                 }),
+//                 envify({
+//                     MODE: process.env.MODE
+//                 })
+//             ]
+//         }))
+//         .pipe(gulp.dest(path.join(input, 'static', 'solana')));
+// });
 
 gulp.task('app:polyfills', function() {
     return gulp.src(path.join(output, 'polyfills', 'polyfills.js'))
@@ -395,8 +399,10 @@ gulp.task('ng-config', function() {
 });
 
 
-gulp.task('app:rev', ['app:css', 'app:vendors', 'all:js-start', 'app:templates'], function() {
-    return gulp.start('app:revision', 'app:zh-revision');
+gulp.task('app:rev', ['app:css', 'app:templates'], function() {
+    return runSequence('app:vendors', 'app:solana', 'all:js-start', function(){
+        return gulp.start('app:revision', 'app:zh-revision');
+    });
 });
 gulp.task('css:watcher', ['app:css'], function() {
     return gulp.start('app:revision');

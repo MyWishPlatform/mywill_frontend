@@ -116,6 +116,10 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
                 'label': 'EOSISH',
                 'value': 'eosish',
                 'select-icon': '/static/images/blockchain/eosish-logo.svg'
+            }, {
+                'label': 'XDC',
+                'value': 'xdc',
+                'select-icon': '/static/images/blockchain/xinfin.svg'
             },
         ]
     };
@@ -305,6 +309,30 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
         });
     };
 
+}).controller('buyWishByXdcController', function($scope, web3Service) {
+
+    $scope.getProvider = function (name) {
+        web3Service.setProvider(name, 1);
+        return web3Service.web3();
+    };
+
+
+    web3Service.setProvider(name, 1);
+    web3Service.getAccounts(1).then(function (response) {
+        response.map(function (wallet) {
+            $scope.wallets[wallet.type].push(wallet.wallet);
+        });
+    });
+
+    $scope.sendTransaction = function () {
+        $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
+            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).toPower(18)).toString(10),
+            from: $scope.formData.address,
+            to: $scope.currentUser.internal_address
+        }, function () {
+            console.log(arguments);
+        });
+    };
 });
 
 

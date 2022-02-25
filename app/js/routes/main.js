@@ -211,7 +211,7 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                         currentCurrency = 'TRONISH';
                         break;
                     default:
-                        currencies = ['ETH','BTC','BNB', 'TRX', 'EOS', 'TRONISH', 'EOSISH', 'USDT', 'RBC', "OKB"];
+                        currencies = ['ETH','BTC','BNB', 'TRX', 'EOS', 'TRONISH', 'EOSISH', 'USDT', 'RBC', 'OKB', 'XDC'];
                         currentCurrency = 'WISH';
                         break;
                 }
@@ -480,6 +480,10 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                     case 23:
                     case '23':
                         curencyValue = 'BNB';
+                        break;
+                    case 35:
+                    case '35':
+                        curencyValue = 'XDC';
                         break;
                     default:
                         curencyValue = 'ETH';

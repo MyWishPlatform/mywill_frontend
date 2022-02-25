@@ -9,8 +9,8 @@
                            class="form-control-input with-currency"
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,18})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,18})?$"
-                           ng-model="amountsValues.ETH"
-                           ng-change="convertAmountFrom('ETH')">
+                           ng-model="amountsValues.XDC"
+                           ng-change="convertAmountFrom('XDC')">
                     <div class="input-after">XDC</div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                            commaseparator="{regexp: '^[0-9]{0,25}([.][0-9]{0,2})?$'}"
                            pattern="^[0-9,]{0,25}([.][0-9]{1,2})?$"
                            ng-model="amountsValues.WISH"
-                           ng-change="convertAmountTo('BNB')">
+                           ng-change="convertAmountTo('XDC')">
                     <div class="input-after">WISH</div>
                 </div>
             </div>
@@ -32,12 +32,16 @@
                  ng-include="getTemplate('pages/buytokens-forms/usdt')">
             </div>
         </div><br/>
+        <div>
+            <label class="form-control-label">Send your XDC to:</label>
+        </div>
+        <br/>
         <div class="grid-row">
             <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
                 <div class="form-control">
-                    <label class="form-control-label">Send your XDC to:</label>
+                    <label class="form-control-label bold">For XDCPay</label>
                     <input type="text" class="form-control-input form-control-input--wish"
-                           disabled ng-model="'xdc' + currentUser.internal_address.slice(2)">
+                           disabled ng-model="xdcAddress">
                 </div>
             </div>
             <div class="grid-cell hide-ps grid-cell-1-4">
@@ -47,7 +51,39 @@
                             style="margin-top: 24px"
                             clipboard
                             supported="supported"
-                            text="'xdc' + currentUser.internal_address.slice(2)"
+                            text="xdcAddress"
+                            on-copied="$root.successCodeCopy(copied, 'to_address')"
+                            on-error="failCodeCopy(err)"
+                            ng-show="!copied.copied['to_address']"
+                            type="button">
+                        <span>&nbsp;&nbsp;&nbsp;{{'BUTTONS.COPY'|translate}}&nbsp;&nbsp;&nbsp;</span>
+                    </button>
+
+                    <button class="btn btn-as-link center-input-field"
+                            disabled
+                            ng-if="copied.copied['to_address']"
+                            type="button">
+                        <span>&nbsp;&nbsp;{{'COPIED'|translate}}&nbsp;&nbsp;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-cell grid-cell-3-4 grid-cell-ps-1">
+                <div class="form-control">
+                    <label class="form-control-label bold">For Metamask</label>
+                    <input type="text" class="form-control-input form-control-input--wish"
+                           disabled ng-model="currentUser.internal_address">
+                </div>
+            </div>
+            <div class="grid-cell hide-ps grid-cell-1-4">
+                <div class="form-control text-right">
+                    <span class="form-control-label">&nbsp;</span>
+                    <button class="btn btn-gray center-input-field"
+                            style="margin-top: 24px"
+                            clipboard
+                            supported="supported"
+                            text="currentUser.internal_address"
                             on-copied="$root.successCodeCopy(copied, 'to_address')"
                             on-error="failCodeCopy(err)"
                             ng-show="!copied.copied['to_address']"

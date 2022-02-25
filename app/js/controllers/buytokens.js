@@ -311,6 +311,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
 }).controller('buyWishByXdcController', function($scope, web3Service) {
 
+    $scope.xdcAddress = 'xdc' + $scope.currentUser.internal_address.slice(2);
     $scope.getProvider = function (name) {
         web3Service.setProvider(name, 1);
         return web3Service.web3();
@@ -326,7 +327,7 @@ angular.module('app').controller('buytokensController', function($scope, $timeou
 
     $scope.sendTransaction = function () {
         $scope.getProvider($scope.formData.activeService).eth.sendTransaction({
-            value: new BigNumber($scope.amountsValues['ETH']).times(new BigNumber(10).toPower(18)).toString(10),
+            value: new BigNumber($scope.amountsValues['XDC']).times(new BigNumber(10).toPower(18)).toString(10),
             from: $scope.formData.address,
             to: $scope.currentUser.internal_address
         }, function () {

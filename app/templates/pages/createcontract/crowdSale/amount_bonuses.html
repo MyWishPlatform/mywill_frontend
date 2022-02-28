@@ -30,7 +30,7 @@
                        required
                        commaseparator="{
                             regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$',
-                            min: !$index ? '0' : (bonuses[$index-1].max_amount || bigNumber(request.hard_cap).div(request.rate).floor()),
+                            min: !$index ? '0' : (bonuses[$index-1].max_amount || bigNumber(request.hard_cap).div(request.rate).toFixed(0,1)),
                             max: bigNumber(bonus.max_amount).minus('1')
                        }"
                        class="form-control-input"/>
@@ -59,7 +59,7 @@
                        commaseparator="{
                             regexp: '^(0|([1-9][0-9]{0,25})|(1[0]{26}))$',
                             min: bigNumber(bonus.min_amount).plus('1'),
-                            max: bigNumber(request.hard_cap).div(request.rate).floor()
+                            max: bigNumber(request.hard_cap).div(request.rate).toFixed(0,1)
                         }"
                        class="form-control-input"/>
                 <div class="input-after">ETH</div>

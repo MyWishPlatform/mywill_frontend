@@ -548,7 +548,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
     $scope.addAmountBonus = function() {
         $scope.bonuses.push({
             min_amount: !$scope.bonuses.length ? 0 : $scope.bonuses[$scope.bonuses.length - 1]['max_amount'],
-            max_amount: new BigNumber($scope.request.hard_cap).div($scope.request.rate).floor()
+            max_amount: new BigNumber($scope.request.hard_cap).div($scope.request.rate).toFixed(0,1)
         });
     };
     $scope.deleteAmountBonus = function(bonus) {
@@ -568,7 +568,7 @@ angular.module('app').controller('crowdSaleCreateController', function($scope, c
 
         var firstBonus = bonuses[0];
         var lastBonus = bonuses[bonuses.length - 1];
-        lastBonus.max_amount = lastBonus.max_amount || new BigNumber($scope.request.hard_cap).div($scope.request.rate).floor().toString();
+        lastBonus.max_amount = lastBonus.max_amount || new BigNumber($scope.request.hard_cap).div($scope.request.rate).toFixed(0,1).toString();
 
         if (isNaN(firstBonus.min_amount)) return;
 

@@ -85,8 +85,14 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
             };
             $scope.$apply();
         }, function(response) {
-            $scope.txServerError = true;
-            $scope.$apply();
+            window.tronWeb.trx.getBalance(window.tronWeb.defaultAddress.base58).then(function(response2){
+                if(response2 === 0){
+                    $scope.txServerGameAmountError = true;
+                } else{
+                    $scope.txServerGameError = true;
+                }
+                $scope.$apply();
+            });
         });
     };
 
@@ -196,6 +202,7 @@ angular.module('app').controller('tronGAPreviewController', function($timeout, $
                 reGenerateChart();
                 $scope.$apply();
             }, function(response) {
+                tokenContract.
                 $scope.txServerError = true;
                 $scope.$apply();
             });

@@ -57,7 +57,7 @@ angular.module('app').controller('solanaTokenPreviewController', function($timeo
 
     console.log(999, $scope.chartData, $scope.totalSupply);
 
-    console.log(contractDetails.token_holders)
+    console.log(contractDetails.token_holders);
 
     switch ($scope.contract.network) {
         case 38:

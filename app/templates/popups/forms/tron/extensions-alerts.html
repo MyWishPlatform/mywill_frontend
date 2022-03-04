@@ -47,6 +47,23 @@
                     newPopupContent: true
                 }"></div>
 
+<div ng-if="txServerGameError" ng-pop-up="{
+    template: '/templates/popups/alerts/tron-transaction-game-error.html',
+    class: 'deleting-contract',
+    params: {},
+    opened: true,
+    onClose: closeExtensionAlert,
+    newPopupContent: true
+}"></div>
+<div ng-if="txServerGameAmountError" ng-pop-up="{
+    template: '/templates/popups/alerts/tron-transaction-game-amount-error.html',
+    class: 'deleting-contract',
+    params: {},
+    opened: true,
+    onClose: closeExtensionAlert,
+    newPopupContent: true
+}"></div>
+
 <div ng-if="extensionNotSelectedNetwork" ng-pop-up="{
                     template: '/templates/popups/alerts/tron-ext-network-error.html',
                     class: 'deleting-contract',

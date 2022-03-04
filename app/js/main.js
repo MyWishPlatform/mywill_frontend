@@ -34,7 +34,9 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
             $cookies.put('cookies-accept', '1');
         }
     };
-
+    window.tronWeb.trx.getBalance(window.tronWeb.defaultAddress.base58).then(function(response){
+        console.log(response);
+    });
     $rootScope.toggleMenu = function(state, event) {
         if (angular.element('body').is('.popup-showed')) return;
         if (state === undefined) {

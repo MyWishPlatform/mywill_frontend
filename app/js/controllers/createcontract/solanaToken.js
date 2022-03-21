@@ -9,7 +9,6 @@ angular.module('app').controller('solanaTokenCreateController', function($scope,
             token_holders: []
         }
     };
-    console.log(solanaWeb3);
 
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;

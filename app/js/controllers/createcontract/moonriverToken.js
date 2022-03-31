@@ -122,10 +122,10 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
                 name: holder.name || null
             });
         });
-        console.log(22, $scope.token_holders);
 
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
+        contractDetails.verification = !!contractDetails.verification;
 
         console.log(33, {
             feedback_email: $scope.feedback_email,

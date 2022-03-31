@@ -49,6 +49,19 @@ angular.module('app').controller('moonriverTokenPreviewController', function($ti
     }
     getVerificationCost();
 
+    var getWhitelabelCost = function () {
+        contractService.getWhitelabelCost().then(function(response) {
+            // console.log('moonriverPreviewController getWhitelabelCost',response);
+            $scope.contract.whitelabelCost = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).round(3).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).round(3).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).round(3).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).round(6).toString(10),
+            };
+        });
+    }
+    getWhitelabelCost();
+
     var tabs = ['code', 'info'];
 
 

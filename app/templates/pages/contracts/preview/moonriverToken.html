@@ -10,6 +10,12 @@
          ng-class="{'active': showedTab == 'code'}">
         <span translate="CONTRACTS.PREVIEW.TABS.SOURCE"></span>
     </div>
+    <div class="contract-preview-one-tab"
+         ng-click="goTo('audit')"
+         ng-if="details[contractInfo].address && contract.isAuthioToken && contract.network === 35"
+         ng-class="{'active': showedTab == 'audit'}">
+        <span translate="CONTRACTS.PREVIEW.TABS.AUDIT"></span>
+    </div>
 </div>
 
 <div ng-show="showedTab == 'code'">
@@ -294,10 +300,36 @@
                         </div>
                     </div>
                 </div>
-            </div><br/>
+            </div>
         </div>
 
         <div class="shadow-block__content shadow-block__content_min-tb-padding">
+            <span class="form-control-label">
+                <i class="icon-note-list form-control-label-icon"></i>
+                {{'CONTRACTS.FORMS.TOKEN.FIELDS.AUTHIO.LABEL'|translate}}
+            </span>
+            <div class="grid-row">
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="normal-text contract-preview-base-value">
+                        <div class="contract-preview-base-value-string">
+                            <i ng-class="{'icon-check_circle': details.authio, 'icon-cancel': !details.authio}"></i>
+                            <span ng-if="details.authio" translate="YES" class="uppercase"></span>
+                            <span ng-if="!details.authio" translate="NO" class="uppercase"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell grid-cell-1-2 grid-cell-ps-1">
+                    <div class="normal-text" ng-if="details.authio">
+                        {{details.authio_email}}
+                    </div>
+                </div>
+            </div><br/>
+
+            <div class="normal-text" ng-if="details.authio" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FEEL_FORM_TEXT">
+            </div>
+        </div>
+
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="contract.network === 37 && contract.state === 'ACTIVE'">
             <!-- Token verification when ACTIVE (deployed)-->
             <div
                     id="verification-deployed"
@@ -373,3 +405,113 @@
     <div class="main-section-chapter-fieldset"
          ng-include="'/templates/pages/contracts/preview/elements/buttons/' + getNetworkPath(contract.network) + '.html'"></div>
 </div>
+
+<div ng-show="showedTab == 'audit'" ng-if="contract.network === 37">
+    <div ng-if="!contract.withAuthioForm" class="shadow-block after-tabs">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+            <div class="shadow-block__content__blue-title">
+                <i class="icon-note-list shadow-block__content__blue-title__icon"></i>
+                <div class="shadow-block__content__blue-title__name">
+                    <span class="big-size" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.TITLE"></span>
+                </div>
+            </div>
+            <div class="shadow-block__content__blue-description text-left">
+                <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.AUDITED_DESCRIPTION"></p>
+            </div>
+        </div>
+        <div class="shadow-block__content">
+            <p class="normal-text"
+               translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FEEL_FORM_TEXT"></p>
+        </div>
+
+        <div class="shadow-block__content">
+            <p class="normal-text"
+               translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.PAYMENT_DATE"
+               translate-values="{'paymentDate': contract.contract_details.authio_date_payment}"></p>
+        </div>
+        <div class="shadow-block__content">
+            <p class="normal-text"
+               translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.AUDITED_DATE"
+               translate-values="{'auditedDate': contract.contract_details.authio_date_getting}"></p>
+        </div>
+
+        <div class="shadow-block__content">
+        <span class="form-control-description__text"
+              translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.SUPPORT_DESCRIPTION"></span>
+        </div>
+    </div>
+
+    <form ng-if="contract.withAuthioForm" name="authioForm">
+        <div class="shadow-block after-tabs">
+            <div class="shadow-block__content shadow-block__content_min-tb-padding shadow-block__content_no-lr-padding">
+                <div class="shadow-block__content__blue-title">
+                    <i class="icon-note-list shadow-block__content__blue-title__icon"></i>
+                    <div class="shadow-block__content__blue-title__name">
+                        <span class="big-size" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.TITLE"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shadow-block__content no-border shadow-block__content_min-tb-padding">
+                <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.NO_AUDITED_DESCRIPTION"></p>
+            </div>
+            <div class="shadow-block__content">
+                <div class="grid-row">
+                    <div class="grid-cell grid-cell-2-5">
+                        <a href="https://rocknblock.io" target="_blank" class="authio-logo-link active">
+                            <img class="authio-logo" src="/static/images/logos/logo-rnb.svg">
+                        </a>
+                    </div>
+
+                </div><br/>
+
+                <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_TEXTS.PART_1"></p>
+                <br/>
+                <p class="normal-text" translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_TEXTS.PART_2"></p>
+            </div>
+
+        </div>
+
+        <div class="shadow-block">
+            <div class="shadow-block__content">
+                <div class="form-control no-padding">
+                    <div class="form-control-label inline-label"
+                         translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.FORM_NOTICE">
+                    </div>
+                </div>
+            </div>
+
+            <div class="shadow-block__content" ng-if="contract.authioPrices">
+                <div class="form-control no-padding">
+                    <div class="form-control-label inline-label">
+                        Branded report fees: {{contract.authioPrices.USDT | separateNumber}} USD&nbsp;&nbsp;&nbsp;
+                        <span class="grey-text-color">
+                        {{contract.authioPrices.WISH | separateNumber}} WISH
+                        <span>/ {{contract.authioPrices.ETH | separateNumber}} ETH</span>
+                    </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <button type="button" class="btn btn-submit"
+                ng-pop-up="{
+                    newPopupContent: true,
+                    template: '/templates/popups/terms-conditions/authio.html',
+                    params: {
+                        popup: authioBuyPopup
+                    }
+                }"
+
+                ng-disabled="!authioForm.$valid || authioBuyRequest">
+            <span class="lds-ellipsis" ng-if="authioBuyRequest">
+                <span class="lds-ellipsis-container">
+                    <span></span><span></span><span></span><span></span>
+                </span>
+            </span>
+            <span translate="CONTRACTS.PREVIEW.TOKEN.AUDIT.AUDIT_BUTTON"></span>
+        </button>
+
+    </form>
+</div>
+

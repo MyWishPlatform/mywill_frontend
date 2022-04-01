@@ -11,6 +11,20 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
         }
     };
 
+    var getWhitelabelCost = function () {
+        contractService.getWhitelabelCost().then(function(response) {
+            // console.log('bnbPreviewController getWhitelabelCost',response);
+            contract.whitelabelCost = {
+                USDT: new BigNumber(response.data.USDT).div(10e5).toFixed(2).toString(10),
+                WISH: new BigNumber(response.data.WISH).div(10e17).toFixed(2).toString(10),
+                ETH: new BigNumber(response.data.ETH).div(10e17).toFixed(2).toString(10),
+                BTC: new BigNumber(response.data.BTC).div(10e7).toFixed(2).toString(10),
+            };
+            $scope.white_label_cost = contract.whitelabelCost.USDT;
+        });
+    }
+    getWhitelabelCost();
+
     $scope.feedback_email = contract.feedback_email;
     $scope.network = contract.network * 1;
 
@@ -126,15 +140,8 @@ angular.module('app').controller('moonriverTokenCreateController', function($sco
         var contractDetails = angular.copy($scope.request);
         contractDetails.decimals = contractDetails.decimals * 1;
         contractDetails.verification = !!contractDetails.verification;
+        contractDetails.white_label = !!contractDetails.white_label;
 
-        console.log(33, {
-            feedback_email: $scope.feedback_email,
-            name: $scope.request.token_name,
-            network: contract.network,
-            contract_type: CONTRACT_TYPES_CONSTANTS.MOONRIVER_TOKEN,
-            contract_details: contractDetails,
-            id: contract.id
-        });
         return {
             feedback_email: $scope.feedback_email,
             name: $scope.request.token_name,

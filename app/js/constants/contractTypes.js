@@ -123,7 +123,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'description': 'Create a fully customized token with any combination of the following functions:\n burn per transaction, distribution to holders, automatic LP.',
         'typeNumber': -3,
         'type': 'deflationaryToken',
-        'directLink': 'https://mywishplatform.typeform.com/to/Vohpj5r3',
+        'directLink': 'https://form.typeform.com/to/Vohpj5r3',
         'simplePrice': "3900",
         'price': true
     };
@@ -134,7 +134,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'description': 'Have your token available on different blockchains at the same time. Apply for Cross-Chain bridge development to have your token wrapped to other blockchain standards.',
         'typeNumber': -4,
         'type': 'bridge',
-        'directLink': 'https://mywishplatform.typeform.com/to/tlf8MEbl',
+        'directLink': 'https://form.typeform.com/to/tlf8MEbl',
         'simplePrice': "10000",
         'price': true
     };

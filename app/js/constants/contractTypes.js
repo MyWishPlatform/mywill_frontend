@@ -109,7 +109,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         'iconImg': '/static/images/airdrop/airdrop-service.svg',
         'title': 'Airdrop service',
         'description': 'The Smart token distribution to thousands of addresses in batches.\n' +
-            'ERC-20 / BEP-20',
+            'ERC-20 / BEP-20 / TRC-20',
         'typeNumber': -1,
         'type': 'AirdropService',
         'directLink': 'https://airdrop.mywish.io/',
@@ -462,7 +462,7 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
             'typeNumber': 15,
             'type': CONTRACT_TYPES_NAMES_CONSTANTS[15],
             'price': true
-        }, bridge,
+        }, airdropService, bridge,
         //     {
         //     'icon': 'icon-tron-airdrop',
         //     'title': 'PAGES.CREATE_CONTRACT.AIRDROP.TITLE',

@@ -52,10 +52,12 @@
                 <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address|toCheckSum}}?cluster=devnet"
+                <a ng-if="(contract.network == 38)" ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address|toCheckSum}}?cluster=devnet"
                    target="_blank"
                    ng-bind="details[contractInfo].address|toCheckSum"></a>
-
+                <a ng-if="(contract.network != 38)" ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address|toCheckSum}}"
+                   target="_blank"
+                   ng-bind="details[contractInfo].address|toCheckSum"></a>
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
                         ng-class="{copied: contract.copied['token_address']}"

@@ -1581,7 +1581,7 @@
           "AUDITED_DESCRIPTION": "&nbsp;&nbsp;You requested a contract branded report",
           "NO_AUDITED_DESCRIPTION": "&nbsp;&nbsp;You can request a branded report from our security partner",
           "PAYMENT_DATE": "Request date: {{paymentDate|date:'yyyy-MM-dd'}}",
-          "FEEL_FORM_TEXT": "Please fill the <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSeHf20iCRocWgnpBwHlSIrvzVeP571EgnBdd2j0tmPpVgFbsg/viewform\" target=\"_blank\">form</a> for getting the report",
+          "FEEL_FORM_TEXT": "Please fill the <a href=\"https://forms.gle/b4C3G7uHFW5U9Vx7A\" target=\"_blank\">form</a> for getting the report",
           "AUDITED_DATE": "The planned date of the branded report: {{auditedDate|date:'yyyy-MM-dd'}}",
           "SUPPORT_DESCRIPTION": "If you have questions? you can send them to us at <a href=\"mailto:support@mywish.io\">support@mywish.io</a> or livechat.<br/> We will contact you as soon as possible.",
           "FORM_TEXTS": {

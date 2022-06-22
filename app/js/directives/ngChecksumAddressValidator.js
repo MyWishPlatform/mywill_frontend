@@ -5,7 +5,6 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function ($
             ngChecksumAddressValidator: '='
         },
         link: function (scope, elem, attrs, ctrl) {
-
             switch (scope.ngChecksumAddressValidator.network) {
                 case 'ETH':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.ETH);
@@ -18,13 +17,20 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function ($
                     break;
                 case 'BNB':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.BNB);
+                    break;
                 case 'XINFIN':
                     elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.XINFIN);
+                    break;
                 case 'SOLANA':
-                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.SOLANA)
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.SOLANA);
+                    break;
+                case 'NEAR':
+                    elem.attr('placeholder', elem.attr('placeholder') || APP_CONSTANTS.TEST_ADDRESSES.NEAR);
+                    break;
             }
 
             var validator = function (value) {
+                console.log(777, value);
 
                 if (!value) return;
 
@@ -44,6 +50,38 @@ angular.module('Directives').directive('ngChecksumAddressValidator', function ($
                         break;
                     case 'SOLANA':
                         validAddress = true;
+                        break;
+                    case 'NEAR':
+                        validAddress = new RegExp(/^(([a-z\d]+[\-_])*[a-z\d]+\.)*([a-z\d]+[\-_])*[a-z\d]+$/).test(val);
+                        if (!validAddress) {
+                            validAddress = new RegExp(/^[a-fA-F\d]{64}$/).test(val);
+                        }
+
+                        var encodedData = JSON.stringify ( {
+                            "jsonrpc": "2.0",
+                            "method": "query",
+                            "params": {    request_type: "view_account", finality: "final", account_id: value },
+                            "id": "doncare"
+                        } );
+                        $http.post('https://rpc.testnet.near.org/', encodedData, {
+                            headers: {
+                                'Content-Type': 'application/json',
+                            }
+                        })
+                            .catch(function (e) {
+                                console.error('Error from https://rpc.testnet.near.org/', e);
+                                return null;
+                            })
+                            .then(function (res) {
+                                console.log(111, 'https://rpc.testnet.near.org/', res);
+                                console.log(222, res.data.error);
+                                console.log(333, res.data.result);
+                                if (res.data.error) {
+                                    console.log(444);
+                                    validAddress = false;
+                                }
+                            })
+                        console.log('validAddress', validAddress);
                         break;
                     default:
                         validAddress = WAValidator.validate(val, scope.ngChecksumAddressValidator.network) && val !== '0x0000000000000000000000000000000000000000';

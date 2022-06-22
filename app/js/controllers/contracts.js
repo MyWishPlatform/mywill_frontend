@@ -206,6 +206,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     var iniSOLContract = function(contract, fullScan) {};
 
+    var iniNearContract = function(contract, fullScan) {};
+
     var iniETHContract = function(contract, fullScan) {
         $scope.isAuthor = contract.user === $rootScope.currentUser.id;
 
@@ -215,6 +217,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 35:
             case 38:
             case 28:
+            case 40:
                 contract.isAuthioToken = (contract.state === 'ACTIVE') || (contract.state === 'DONE') || (contract.state === 'ENDED');
                 contract.withAuthioForm = contract.isAuthioToken && !contract.contract_details.authio;
                 if (contract.withAuthioForm) {
@@ -251,6 +254,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
             case 35:
             case 36:
             case 38:
+            case 40:
                 if (contract.contract_details.eth_contract) {
                     contract.currency = ((contract.network == 1) || (contract.network == 2)) ? 'ETH' :
                         ((contract.network == 3) || (contract.network == 4)) ? 'SBTC' : 'Unknown';
@@ -462,6 +466,10 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 setContractStatValues(contract);
                 iniSOLContract(contract, fullScan);
                 break;
+            case 40:
+                setContractStatValues(contract);
+                iniNearContract(contract, fullScan);
+                break;
         }
     };
 
@@ -512,7 +520,8 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         35: 'xinfin_token',
         36: 'hecochain_token',
         38: 'moonriver_token',
-        39: 'solana_token'
+        39: 'solana_token',
+        40: 'near_token',
     };
 
     var launchContract = function(contract) {
@@ -521,11 +530,64 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
         $rootScope.closeCommonPopup();
 
+        if($rootScope.contract.network === 40) {
+            contractService.deployContractNear(contract.id, contract.promo).then(function() {
+                contract.launchProgress = false;
+
+                // add event to GTM
+                var testNetwork = [2, 4, 6, 11, 15, 23, 25, 36, 38, 40].indexOf(contract.network) > -1;
+                var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
+
+                if (window['dataLayer']) {
+                    window['dataLayer'].push({'event': contractType + '_contract_launch_success' + (testNetwork ? '_test' : '')});
+                }
+
+                if ($state.current.name === 'main.contracts.list') {
+                    $scope.refreshContract(contract);
+                } else {
+                    $state.go('main.contracts.list');
+                }
+            }, function(data) {
+                $rootScope.closeCommonPopup();
+                contract.launchProgress = false;
+                switch(data.status) {
+                    case 400:
+                        switch(data.data.result) {
+                            case 1:
+                            case '1':
+                                $rootScope.commonOpenedPopupParams = {
+                                    newPopupContent: true
+                                };
+                                $rootScope.commonOpenedPopup = 'errors/contract_date_incorrect';
+                                break;
+                            case 2:
+                            case '2':
+                                $rootScope.commonOpenedPopupParams = {
+                                    newPopupContent: true
+                                };
+                                $rootScope.commonOpenedPopup = 'errors/contract_freeze_date_incorrect';
+                                break;
+                            case 3:
+                            case '3':
+                                $rootScope.commonOpenedPopupParams = {
+                                    noBackgroundCloser: true,
+                                    newPopupContent: true
+                                };
+                                $rootScope.commonOpenedPopup = 'errors/less-balance';
+
+                                break;
+                        }
+                        break;
+                }
+            });
+            return;
+        }
+
         contractService.deployContract(contract.id, contract.promo, ($rootScope.sitemode === 'eos') ? true : undefined).then(function() {
             contract.launchProgress = false;
 
             // add event to GTM
-            var testNetwork = [2, 4, 6, 11, 15, 23, 25, 36, 38].indexOf(contract.network) > -1;
+            var testNetwork = [2, 4, 6, 11, 15, 23, 25, 36, 38, 40].indexOf(contract.network) > -1;
             var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
 
             if (window['dataLayer']) {
@@ -574,6 +636,36 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
 
     /* (Click) Launch contract */
     $scope.payContract = function(contract) {
+        if ($rootScope.currentUser.is_ghost) {
+            $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
+            $rootScope.commonOpenedPopupParams = {
+                newPopupContent: true
+            };
+            return;
+        }
+        var openConditionsPopUp = function() {
+            $rootScope.commonOpenedPopupParams = {
+                contract: contract,
+                class: 'conditions',
+                newPopupContent: true,
+                actions: {
+                    showPriceLaunchContract: showPriceLaunchContract
+                }
+            };
+            $rootScope.commonOpenedPopup = 'disclaimers/conditions';
+        };
+
+        var promoIsEntered = $scope.getDiscount(contract);
+        if (promoIsEntered) {
+            promoIsEntered.then(openConditionsPopUp, openConditionsPopUp);
+        } else {
+            openConditionsPopUp();
+        }
+    };
+
+    $scope.payContractNear = function(contract) {
+        console.log(666, 'payContractNear', contract);
+        console.log(777, $rootScope.contract.network);
         if ($rootScope.currentUser.is_ghost) {
             $rootScope.commonOpenedPopup = 'alerts/ghost-user-alarm';
             $rootScope.commonOpenedPopupParams = {

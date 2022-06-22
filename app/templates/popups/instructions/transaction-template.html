@@ -3,7 +3,7 @@
           translate-values="{blockchain: '{{instructionData.contract.blockchain ||
            (instructionData.contract.network === 37 ? 'MOVR' :
            (instructionData.contract.network === 36 || instructionData.contract.network === 28) ? 'HT' :
-           ''
+           (instructionData.contract.network === 40) ? 'NEAR' : ''
            )}}',
             amount: '{{instructionData.amount}}'}"
     ></span>

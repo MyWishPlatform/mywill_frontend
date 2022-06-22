@@ -201,6 +201,16 @@ angular.module('Services').service('contractService', function(requestService, A
             };
             return requestService.post(params);
         },
+        deployContractNear: function(id, promo) {
+            var params = {
+                path: API.DEPLOY_NEAR,
+                data: {
+                    id: id,
+                    promo: promo,
+                }
+            };
+            return requestService.post(params);
+        },
         getTokenContracts: function(network) {
             var params = {
                 path: API.TOKEN_PARAMS,

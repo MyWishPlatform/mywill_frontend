@@ -119,6 +119,14 @@
     }
   }
 
+  &_40 {
+    color: black;
+    &:before {
+      background: black;
+      transform: rotate(45deg);
+    }
+  }
+
   &_14, &_15 {
     &:before {
       background: none;

@@ -71,7 +71,8 @@
     "NETWORK_36": "Hecochain TestNet",
     "NETWORK_37": "Moonriver MainNet",
     "NETWORK_38": "Solana DevNet",
-    "NETWORK_39": "Solana MainNet"
+    "NETWORK_39": "Solana MainNet",
+    "NETWORK_40": "Near TestNet"
   },
   "BUTTONS": {
     "ENABLE": "有効にする",
@@ -170,7 +171,8 @@
     "XINFIN": "Xinfin",
     "HECOCHAIN": "HECO",
     "MOONRIVER": "Moonriver",
-    "SOLANA": "Solana"
+    "SOLANA": "Solana",
+    "NEAR": "Near"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -1209,7 +1211,8 @@
             "DESCRIPTION_SOLANA": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_MOONRIVER": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
             "DESCRIPTION_TRON": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。",
-            "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）"
+            "DESCRIPTION_NEO": "この記号は短い（3〜8文字が推奨されます）、空白文字や改行はなく、大文字のラテンアルファベットに限定する必要があります (すなわち、英語で使用される26文字）",
+            "DESCRIPTION_NEAR": "通常はETH、BTC、NEO3、WISHなどのような3〜4文字のレターです。"
           },
           "DECIMALS": {
             "LABEL": "小数：",

@@ -419,6 +419,9 @@ module.config(function($stateProvider, $locationProvider, $urlRouterProvider) {
                 if ($scope.blockChainNetwork.type === 'MOONRIVER' || $scope.blockChainNetwork.type === 'XINFIN') {
                     $scope.blockChainNetwork.isTest = false;
                 }
+                if ($scope.blockChainNetwork.type === 'NEAR') {
+                    $scope.blockChainNetwork.isTest = true;
+                }
             };
 
             for (var key in allCosts.data) {

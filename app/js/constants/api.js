@@ -30,6 +30,7 @@ angular.module('Constants').constant('API', {
     "CONTRACTS": "contracts/",
     "CONTRACT_BY_LINK": "get_contract_for_link/",
     "DEPLOY": "deploy/",
+    "DEPLOY_NEAR": "deploy_near_token/",
     "GET_CODE": "get_code/",
     "SENTENCES": "sentences/",
     "ETH2RUB": "eth2rub/",

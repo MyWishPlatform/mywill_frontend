@@ -42,7 +42,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     "MOONRIVER_TOKEN": 38,
 
-    "SOLANA_TOKEN": 39
+    "SOLANA_TOKEN": 39,
+
+    "NEAR_TOKEN": 40,
 
 }).constant('CONTRACT_TYPES_NAMES_CONSTANTS', {
     0: 'lastWill',
@@ -91,7 +93,9 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
 
     38: 'moonriverToken',
 
-    39: 'solanaToken'
+    39: 'solanaToken',
+
+    40: 'nearToken'
 
 
 }).service('CONTRACT_TYPES_FOR_CREATE', function(CONTRACT_TYPES_NAMES_CONSTANTS, ENV_VARS) {
@@ -488,6 +492,18 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
         }]
     };
 
+    var near = {
+        'networks': [40,40],
+        'list':[{
+            'iconImg': '/static/images/blockchain/near-blue.svg',
+            'title': 'PAGES.CREATE_CONTRACT.TOKEN.TITLE',
+            'description': 'PAGES.CREATE_CONTRACT.TOKEN.DESCRIPTION',
+            'typeNumber': 40,
+            'type': CONTRACT_TYPES_NAMES_CONSTANTS[40],
+            'price': true
+        }]
+    }
+
     switch (ENV_VARS.mode) {
         case 'eos':
             return {
@@ -510,7 +526,8 @@ module.constant('CONTRACT_TYPES_CONSTANTS', {
                 XINFIN: xinfin,
                 HECOCHAIN: hecochain,
                 MOONRIVER: moonriver,
-                SOLANA: solana
+                SOLANA: solana,
+                NEAR: near
             };
     }
 });

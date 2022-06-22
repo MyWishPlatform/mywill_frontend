@@ -11,6 +11,7 @@
          && contract.contract_type !== 6
          && contract.contract_type !== 38
          && contract.contract_type !== 39
+         && contract.contract_type !== 40
 "
 >
     <i ng-class="contractTypesIcons[contract.contract_type]" class="shadow-block__content__blue-title__icon"></i>
@@ -75,6 +76,12 @@
     </div>
 </div>
 
+<div class="shadow-block__content__blue-title" style="display: flex; flex-direction: row; height: 56px" ng-if="contract.contract_type === 40" >
+    <img style="margin: 4px 18px 0 0 ; height: 30px; margin-left: -2px" src="/static/images/blockchain/near-white.svg">
+    <div class="shadow-block__content__blue-title__name" ng-attr-title="{{contract.name}}">
+        <span class="big-size">{{contract.name}}</span>
+    </div>
+</div>
 
 
 <div class="contract-status-block">

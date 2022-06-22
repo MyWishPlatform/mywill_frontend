@@ -134,6 +134,17 @@
                 </a>
             </div>
 
+            <div class="grid-cell grid-cell grid-cell-ps-1-2 cell-min-padding mb-1">
+                <a ui-sref="main.createcontract.types({blockchain: 'NEAR'})"
+                   ng-click="blockChainNetwork.type = 'NEAR'"
+                   class="btn btn-gray with-icon width-100" ng-class="{'active': blockChainNetwork.type === 'NEAR'}">
+                    <img src="/static/images/blockchain/near.svg" width="16"
+                         style="vertical-align: middle">
+                    &nbsp;&nbsp;
+                    <span translate="BLOCKCHAIN_NETWORKS.NEAR"></span>
+                </a>
+            </div>
+
             <!-- div class="grid-cell grid-cell-1-5 grid-cell-ps-1-2 cell-min-padding mb-1">
                 <a ui-sref="main.createcontract.types({blockchain: 'RSK'})"
                    ng-click="blockChainNetwork.type = 'RSK'"
@@ -180,8 +191,8 @@
                 <label class="checkbox-decoration">
                     <input type="checkbox" ng-model="blockChainNetwork.isTest"
                            ng-change="$state.go('main.createcontract.types', {isTestNet: blockChainNetwork.isTest || undefined})"
-                           ng-checked="(blockChainNetwork.isTest || blockChainNetwork.type === 'NEO') && blockChainNetwork.type !== 'MOONRIVER'"
-                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'XINFIN' || blockChainNetwork.type === 'MOONRIVER')">
+                           ng-checked="(blockChainNetwork.isTest || blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'NEAR') && blockChainNetwork.type !== 'MOONRIVER'"
+                           ng-disabled="(blockChainNetwork.type === 'NEO' || blockChainNetwork.type === 'NEAR' || blockChainNetwork.type === 'XINFIN' || blockChainNetwork.type === 'MOONRIVER')">
                     <span class="checkbox-decoration-displaying for-buttons-height">
                         <span class="checkbox-decoration-val checkbox-decoration-val_on"
                               translate="YES"></span>

@@ -71,7 +71,8 @@
     "NETWORK_36": "Hecochain TestNet",
     "NETWORK_37": "Moonriver MainNet",
     "NETWORK_38": "Solana DevNet",
-    "NETWORK_39": "Solana MainNet"
+    "NETWORK_39": "Solana MainNet",
+    "NETWORK_40": "Near TestNet"
   },
   "BUTTONS": {
     "ENABLE": "Enable",
@@ -171,7 +172,8 @@
     "XINFIN": "Xinfin",
     "HECOCHAIN": "HECO",
     "MOONRIVER": "Moonriver",
-    "SOLANA": "Solana"
+    "SOLANA": "Solana",
+    "NEAR": "Near"
   },
   "ALERTS": {
     "SCATTER_INSTALL": {
@@ -1191,6 +1193,14 @@
           }
         }
       },
+      "NEAR_TOKEN": {
+        "FIELDS": {
+          "MAXIMUM_SUPPLY": {
+            "LABEL": "Initial supply:",
+            "DESCRIPTION": "Total supply of the Token."
+          }
+        }
+      },
       "GAME_ASSETS": {
         "FIELDS": {
           "URI": {
@@ -1220,7 +1230,8 @@
             "DESCRIPTION_MOONRIVER": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_TRON": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
             "DESCRIPTION_NEO": "This symbol SHOULD be short (3-8 characters is recommended), with no whitespace characters or new-lines and SHOULD be limited to the uppercase latin alphabet (i.e. the 26 letters used in English)",
-            "DESCRIPTION_XINFIN": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc.."
+            "DESCRIPTION_XINFIN": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc..",
+            "DESCRIPTION_NEAR": "Usually 3-4 Letters like ETH, BTC, NEO3, WISH etc.."
           },
           "DECIMALS": {
             "LABEL": "Decimals:",

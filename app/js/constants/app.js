@@ -112,7 +112,7 @@ module.constant('APP_CONSTANTS', {
 
     "XINFIN_MAINNET_ADDRESS": "https://explorer.xinfin.network",
 
-    "NEAR_TESTNET_ADDRESS": "https://explorer.testnet.near.org/",
+    "NEAR_TESTNET_ADDRESS": "https://testnet.nearblocks.io/",
 
     "NEAR_TESTNET_PROVIDER": "https://rpc.testnet.near.org",
 

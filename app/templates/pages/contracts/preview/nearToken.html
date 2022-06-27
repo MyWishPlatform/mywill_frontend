@@ -138,7 +138,7 @@
                         <button class="instruction-for-copy-button relative"
                                 clipboard supported="supported"
                                 ng-class="{copied: contract.copied['admin_address']}"
-                                text="$root.successCodeCopy(contract, 'admin_address')"
+                                text="(contract.network|etherscanUrl:'address') + '/' + details.admin_address"
                                 on-copied="$root.successCodeCopy(contract, 'admin_address')">
                             <i class="icon-content_copy"></i>
                         </button>

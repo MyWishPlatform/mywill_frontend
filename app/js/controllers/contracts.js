@@ -531,9 +531,11 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
         $rootScope.closeCommonPopup();
 
         if($rootScope.contract.network === 40) {
-            contractService.deployContractNear(contract.id, contract.promo).then(function() {
+            console.log('contractService.deployContractNear');
+            contractService.deployContractNearInit(contract.id).then(function(res) {
+                console.log('contractService.deployContractNearINIT res', res);
                 contract.launchProgress = false;
-
+                contractService.deployContractNear(contract.id, contract.promo).then(function(){})
                 // add event to GTM
                 var testNetwork = [2, 4, 6, 11, 15, 23, 25, 36, 38, 40].indexOf(contract.network) > -1;
                 var contractType = contractsTypesForLayer[contract.contract_type] || 'unknown';
@@ -541,7 +543,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 if (window['dataLayer']) {
                     window['dataLayer'].push({'event': contractType + '_contract_launch_success' + (testNetwork ? '_test' : '')});
                 }
-
+                console.log('deployContractNear $state $state.current.name', $state, $state.current.name);
                 if ($state.current.name === 'main.contracts.list') {
                     $scope.refreshContract(contract);
                 } else {
@@ -580,10 +582,9 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                         break;
                 }
             });
-            return;
-        }
-
-        contractService.deployContract(contract.id, contract.promo, ($rootScope.sitemode === 'eos') ? true : undefined).then(function() {
+        } else {
+        contractService.deployContract(contract.id, contract.promo, ($rootScope.sitemode === 'eos') ? true : undefined).then(function(res) {
+            console.log('deployContract res', res);
             contract.launchProgress = false;
 
             // add event to GTM
@@ -594,6 +595,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                 window['dataLayer'].push({'event': contractType + '_contract_launch_success' + (testNetwork ? '_test' : '')});
             }
 
+            console.log('deployContract $state $state.current.name', $state, $state.current.name);
             if ($state.current.name === 'main.contracts.list') {
                 $scope.refreshContract(contract);
             } else {
@@ -632,7 +634,7 @@ angular.module('app').controller('contractsController', function(CONTRACT_STATUS
                     break;
             }
         });
-    };
+    }};
 
     /* (Click) Launch contract */
     $scope.payContract = function(contract) {

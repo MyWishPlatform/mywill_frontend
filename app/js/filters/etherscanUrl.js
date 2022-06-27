@@ -136,10 +136,10 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
                 break;
             case 40:
                 networkUrl = APP_CONSTANTS.NEAR_TESTNET_ADDRESS;
-                addressPaths.address = '/address';
-                addressPaths.token = '/address';
-                addressPaths.tx = '/tx';
-                addressPaths.token20 = '/address';
+                addressPaths.address = 'address';
+                addressPaths.token = 'address';
+                addressPaths.tx = 'tx';
+                addressPaths.token20 = 'address';
                 break;
         }
         return networkUrl + (addressPaths[path] || '');

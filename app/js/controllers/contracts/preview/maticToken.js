@@ -4,8 +4,8 @@ angular.module('app').controller('maticTokenPreviewController', function($timeou
 
     $scope.contract = openedContract.data;
     var tokenTypes = {
-        ERC20: 'MRC20',
-        ERC223: 'MRC223',
+        ERC20: 'ERC20',
+        ERC223: 'ERC223',
 
     };
     $scope.contract.contract_details.token_type = tokenTypes[$scope.contract.contract_details.token_type];

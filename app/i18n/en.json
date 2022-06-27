@@ -327,7 +327,7 @@
       },
       "MATIC_AIRDROP": {
         "TITLE": "Airdrop",
-        "DESCRIPTION": "Distribute any MRC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
+        "DESCRIPTION": "Distribute any ERC-20 tokens among many addresses (for example, after Bounty program or Crowdsale)"
       },
       "BNB_AIRDROP": {
         "TITLE": "Airdrop",

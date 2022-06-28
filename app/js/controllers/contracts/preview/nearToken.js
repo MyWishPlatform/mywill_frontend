@@ -1,5 +1,5 @@
 angular.module('app').controller('nearTokenPreviewController', function($timeout, $rootScope, contractService, $location,
-                                                                          openedContract, $scope) {
+                                                                          openedContract, $scope, $http) {
 
 
     $scope.contract = openedContract.data;

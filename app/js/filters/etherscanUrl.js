@@ -137,7 +137,7 @@ angular.module('Filters').filter('etherscanUrl', function(APP_CONSTANTS) {
             case 40:
                 networkUrl = APP_CONSTANTS.NEAR_TESTNET_ADDRESS;
                 addressPaths.address = 'address';
-                addressPaths.token = 'address';
+                addressPaths.token = 'token';
                 addressPaths.tx = 'tx';
                 addressPaths.token20 = 'address';
                 break;

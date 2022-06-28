@@ -25,7 +25,7 @@ module.constant('APP_CONSTANTS', {
         "BNB": "bnb108w2492d60yurmw6dvrvx8wlecnvuedsuysskq",
         "XINFIN": "xdcD0593B233Be4411A236F22b42087345E1137170b",
         "SOLANA": "HtHf9rJbEeWwpmAbNwZAg5H6sBkRRgwfpLE9ZpysiuQ9",
-        "NEAR": "mywish.testnet"
+        "NEAR": "test.testnet"
     },
     'EOS_ADDRESSES': {
         'DEVELOPMENT': {

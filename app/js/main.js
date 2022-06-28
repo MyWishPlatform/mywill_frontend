@@ -102,7 +102,7 @@ module.controller('mainMenuController', function($scope, MENU_CONSTANTS) {
         "TRON": "TRBeBGSyKrVMts1ZQz45JRu9mxCwEhgPSg",
         "NEO": "NXf4VLBrjUXKtk8NNkeY1zymmbUeQ9RkUu",
         "RSK": "0xa441b5438885c9b5879e7dfa885b5d1b97216d69",
-        "NEAR": "mywish.testnet",
+        "NEAR": "test.testnet",
     };
 
 

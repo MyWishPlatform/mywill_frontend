@@ -46,22 +46,22 @@
         </div>
 
         <!-- Token contract address -->
-        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details[contractInfo].address">
+        <div class="shadow-block__content shadow-block__content_min-tb-padding" ng-if="details.deploy_address">
             <div class="form-control-label" translate="CONTRACTS.PREVIEW.TOKEN.TOKEN_ADDRESS"></div>
             <br class="show-ls"/>
             <span class="identicon-container">
-                <img class="identicon-image" ng-src="{{details[contractInfo].address|blockies}}"/>
+                <img class="identicon-image" ng-src="{{details.deploy_address|blockies}}"/>
             </span>
             <div class="contract-wallet-information-wallet">
-                <a ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details[contractInfo].address|toCheckSum}}"
+                <a ng-attr-href="{{(contract.network|etherscanUrl:'token')}}/{{details.deploy_address}}"
                    target="_blank"
-                   ng-bind="details[contractInfo].address|toCheckSum"></a>
+                   ng-bind="details.deploy_address"></a>
 
                 <button class="instruction-for-copy-button relative"
                         clipboard supported="supported"
-                        ng-class="{copied: contract.copied['token_address']}"
-                        text="details[contractInfo].address|toCheckSum"
-                        on-copied="$root.successCodeCopy(contract, 'token_address')">
+                        ng-class="{copied: details.copied['deploy_address']}"
+                        text="details.deploy_address"
+                        on-copied="$root.successCodeCopy(contract, 'deploy_address')">
                     <i class="icon-content_copy"></i>
                 </button>
             </div>
@@ -138,7 +138,7 @@
                         <button class="instruction-for-copy-button relative"
                                 clipboard supported="supported"
                                 ng-class="{copied: contract.copied['admin_address']}"
-                                text="(contract.network|etherscanUrl:'address') + '/' + details.admin_address"
+                                text="details.admin_address"
                                 on-copied="$root.successCodeCopy(contract, 'admin_address')">
                             <i class="icon-content_copy"></i>
                         </button>

@@ -639,6 +639,9 @@
       },
       "WAVES_MAINTANANCE": {
         "TEXT": "Unfortunately, contracts on WAVES are under maintenance.\nWe are apologizing for the inconvenience."
+      },
+      "SOLANA_MAINTANANCE": {
+        "TEXT": "Unfortunately, contracts on SOLANA are under maintenance.\nWe are apologizing for the inconvenience."
       }
     }
   },

@@ -21,7 +21,7 @@
     "envify": "^4.1.0",
     "eosjs-ecc": "^4.0.7",
     "fs": "0.0.1-security",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-angular-templatecache": "^2.2.1",
     "gulp-browserify": "^0.5.1",
     "gulp-concat": "^2.6.0",
